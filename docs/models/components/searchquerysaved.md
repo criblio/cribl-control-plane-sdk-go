@@ -1,0 +1,11 @@
+# SearchQuerySaved
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `Query`                                                                         | **string*                                                                       | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `QueryID`                                                                       | *string*                                                                        | :heavy_check_mark:                                                              | N/A                                                                             |
+| `RunMode`                                                                       | [*components.SavesSearchRunMode](../../models/components/savessearchrunmode.md) | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `Type`                                                                          | [components.TypeSaved](../../models/components/typesaved.md)                    | :heavy_check_mark:                                                              | N/A                                                                             |

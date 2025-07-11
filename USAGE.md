@@ -6,6 +6,7 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
+	"os"
 )
 
 func main() {
@@ -13,13 +14,14 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Projects.GetSystemProjectsSubscriptionsByGroupIDByAndProjectID(ctx, "<id>", "<id>")
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }

@@ -1,0 +1,14 @@
+# Metadata
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `Aws`                                                                 | [*components.AwsMetadata](../../models/components/awsmetadata.md)     | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Cribl`                                                               | [*components.CriblMetadata](../../models/components/criblmetadata.md) | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Env`                                                                 | [*components.EnvMetadata](../../models/components/envmetadata.md)     | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `HostOs`                                                              | [*components.OsMetadata](../../models/components/osmetadata.md)       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Kube`                                                                | [*components.KubeMetadata](../../models/components/kubemetadata.md)   | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Os`                                                                  | [*components.OsMetadata](../../models/components/osmetadata.md)       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Timestamp`                                                           | *float64*                                                             | :heavy_check_mark:                                                    | N/A                                                                   |

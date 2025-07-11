@@ -1,0 +1,13 @@
+# Expression
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `Create`                                                                   | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Delete`                                                                   | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `List`                                                                     | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Read`                                                                     | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Replace`                                                                  | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Update`                                                                   | [][components.AuthPolicyEntry](../../models/components/authpolicyentry.md) | :heavy_check_mark:                                                         | N/A                                                                        |

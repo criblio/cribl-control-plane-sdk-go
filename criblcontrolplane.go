@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.12.2-4b17c8d4 and generator version 2.647.2
+// Generated from OpenAPI doc version 4.14.0-alpha.1752222551623-425711fa and generator version 2.647.2
 
 import (
 	"context"
@@ -44,10 +44,190 @@ func Pointer[T any](v T) *T { return &v }
 // CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
 type CriblControlPlane struct {
 	SDKVersion string
+	// Actions related to Projects
+	Projects *Projects
+	// Actions related to Subscriptions
+	Subscriptions *Subscriptions
+	// Actions related to Versioning
+	Versioning *Versioning
+	// Actions related to Git
+	Git *Git
+	// Actions related to data preview
+	Preview *Preview
+	// Actions related to samples
+	Samples *Samples
+	// Actions related to Pipelines
+	Pipelines *Pipelines
+	// Actions related to Banners
+	Banners *Banners
+	// Actions related to Certificates
+	Certificates *Certificates
+	// Actions related to Features
+	Features *Features
+	// Actions related to Saved Jobs
+	SavedJobs *SavedJobs
+	// Actions related to encryption keys
+	Keys *Keys
+	// Actions related to messages
+	Messages *Messages
+	// Actions related to Notification Targets
+	NotificationTargets *NotificationTargets
+	// Actions related to Notifications
+	Notifications *Notifications
+	// Actions related to Policies
+	Policies *Policies
+	// Actions related to Roles
+	Roles *Roles
+	// Actions related to scripts
+	Scripts *Scripts
+	// Actions related to Teams
+	Teams *Teams
+	// Actions related to users. The <code>/system/users</code> endpoints do not apply to Cribl.Cloud deployments. Instead use <code>/products/{product}/users</code>
+	Users *Users
+	// Actions only available for onprem deployments and do not apply to Cribl.Cloud deployments
+	OnlyOnPrem *OnlyOnPrem
+	// Actions related to Lake
+	Lake *Lake
+	// Actions related to DashboardCategories
+	DashboardCategories *DashboardCategories
+	// Actions related to Usage Groups
+	UsageGroups *UsageGroups
+	// Actions related to Datasets
+	Datasets *Datasets
+	// Actions related to Users ACL
+	UsersACL *UsersACL
+	// Actions related to Teams ACL
+	TeamsACL *TeamsACL
+	// Actions related to Appscope Configs
+	AppscopeConfigs *AppscopeConfigs
+	// Actions related to Grok files
+	Grokfiles *Grokfiles
+	// Actions related to lookups
+	Lookups *Lookups
+	// Actions related to parsers
+	Parsers *Parsers
+	// Actions related to Protobuf libraries
+	Protobuflibraries *Protobuflibraries
+	// Actions related to regular expressions
+	Regexes *Regexes
+	// Actions related to Sds Rules
+	SdsRules *SdsRules
+	// Actions related to Dashboards
+	Dashboards *Dashboards
+	// Actions related to Macros
+	Macros *Macros
+	// Actions related to saved queries
+	SavedQueries *SavedQueries
+	// Actions related to Search
+	Search *Search
+	// Actions related to Database Connections
+	DatabaseConnections *DatabaseConnections
+	// Actions related to Event Breaker rules
+	EventBreakerRules *EventBreakerRules
+	// Actions related to Global Variables
+	GlobalVariables *GlobalVariables
+	// Actions related to HMAC functions
+	HmacFunctions *HmacFunctions
+	// Actions related to inputs
+	Inputs *Inputs
+	// Actions related to source/destination metrics
+	Iometrics *Iometrics
+	// Actions related to outputs
+	Outputs *Outputs
+	// Actions related to Parquet schemas
+	Parquetschemas *Parquetschemas
+	// Actions related to Profiler
+	Profiler *Profiler
+	// Actions related to Routes
+	Routes *Routes
+	// Actions related to Schemas
+	Schemas *Schemas
+	// Actions related to Secrets
+	Secrets *Secrets
+	// Actions related to Edge AppScope processes
+	EdgeAppScopeProcesses *EdgeAppScopeProcesses
+	// Actions enabled in Edge
+	Edge *Edge
+	// Actions related to EdgeEvents
+	EdgeEvents *EdgeEvents
+	// Actions related to Events
+	Events *Events
+	// Actions related to Edge Files
+	EdgeFiles *EdgeFiles
+	// Actions related to Edge listing
+	EdgeLs *EdgeLs
+	// Actions related to File
+	File *File
+	// Actions related to Ingest
+	Ingest *Ingest
+	// Actions related to FileSampler
+	FileSampler *FileSampler
+	// Actions related to Kube Logs
+	KubeLogs *KubeLogs
+	// Actions related to Kube Proxy
+	KubeProxy *KubeProxy
+	// Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud deployments. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to authenticate for Cribl.Cloud.
+	Auth *Auth
+	// Actions related to Authorize
+	Authorize *Authorize
+	// Actions related to Changelog
+	Changelog *Changelog
+	// Actions related to system settings
+	System *System
+	// Actions related to ClickHouse
+	ClickHouse *ClickHouse
+	// Actions related to CLUI
+	Clui *Clui
+	// Actions related to Distributed
+	Distributed *Distributed
+	// Actions related to Workers
+	Workers *Workers
+	// Actions related to expressions
+	Expressions *Expressions
+	// Actions related to Conditions
+	Conditions *Conditions
 	// Actions related to diagnostics
 	Diag *Diag
 	// Actions related to REST server health
 	Health *Health
+	// Actions related to Jobs
+	Jobs *Jobs
+	// Actions related to Security
+	Security *Security
+	// Actions related to licenses. The <code>/licenses</code> endpoints do not apply to Cribl.Cloud deployments.
+	Licenses *Licenses
+	// Actions related to Logger
+	Logger *Logger
+	// Actions related to logging
+	Logging *Logging
+	// Actions related to Packs
+	Packs *Packs
+	// Actions related to Processes
+	Processes *Processes
+	// Actions related to metrics
+	Metrics *Metrics
+	// Actions related to UiState
+	UIState *UIState
+	// Actions related to Ai Settings
+	AiSettings *AiSettings
+	// Actions related to Consent
+	Consent *Consent
+	// Actions related to Query
+	Query *Query
+	// Actions related to Trust Policies
+	TrustPolicies *TrustPolicies
+	// Actions related to Edge containers
+	EdgeContainers *EdgeContainers
+	// Actions related to Edge processes
+	EdgeProcesses *EdgeProcesses
+	// Actions related to functions
+	Functions *Functions
+	// Actions related to Collectors
+	Collectors *Collectors
+	// Actions related to Executors
+	Executors *Executors
+	// Actions related to Groups
+	Groups *Groups
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -95,9 +275,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.1",
+		SDKVersion: "0.1.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.1 2.647.2 4.12.2-4b17c8d4 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.1.0 2.647.2 4.14.0-alpha.1752222551623-425711fa github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -121,8 +301,98 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
+	sdk.Projects = newProjects(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Subscriptions = newSubscriptions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Versioning = newVersioning(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Git = newGit(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Preview = newPreview(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Samples = newSamples(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Banners = newBanners(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Certificates = newCertificates(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Features = newFeatures(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SavedJobs = newSavedJobs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Keys = newKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Messages = newMessages(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.NotificationTargets = newNotificationTargets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Notifications = newNotifications(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Policies = newPolicies(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Roles = newRoles(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Scripts = newScripts(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Teams = newTeams(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Users = newUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.OnlyOnPrem = newOnlyOnPrem(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Lake = newLake(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.DashboardCategories = newDashboardCategories(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.UsageGroups = newUsageGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Datasets = newDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.UsersACL = newUsersACL(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.TeamsACL = newTeamsACL(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.AppscopeConfigs = newAppscopeConfigs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Grokfiles = newGrokfiles(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Lookups = newLookups(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Parsers = newParsers(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Protobuflibraries = newProtobuflibraries(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Regexes = newRegexes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SdsRules = newSdsRules(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Dashboards = newDashboards(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Macros = newMacros(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SavedQueries = newSavedQueries(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Search = newSearch(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.DatabaseConnections = newDatabaseConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EventBreakerRules = newEventBreakerRules(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.GlobalVariables = newGlobalVariables(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.HmacFunctions = newHmacFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Inputs = newInputs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Iometrics = newIometrics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Outputs = newOutputs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Parquetschemas = newParquetschemas(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Profiler = newProfiler(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Schemas = newSchemas(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Secrets = newSecrets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeAppScopeProcesses = newEdgeAppScopeProcesses(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Edge = newEdge(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeEvents = newEdgeEvents(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Events = newEvents(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeFiles = newEdgeFiles(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeLs = newEdgeLs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.File = newFile(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Ingest = newIngest(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.FileSampler = newFileSampler(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.KubeLogs = newKubeLogs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.KubeProxy = newKubeProxy(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Authorize = newAuthorize(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Changelog = newChangelog(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.ClickHouse = newClickHouse(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Clui = newClui(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Distributed = newDistributed(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Workers = newWorkers(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Expressions = newExpressions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Conditions = newConditions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Diag = newDiag(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Jobs = newJobs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Security = newSecurity(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Licenses = newLicenses(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Logger = newLogger(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Logging = newLogging(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Processes = newProcesses(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Metrics = newMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.UIState = newUIState(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.AiSettings = newAiSettings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Consent = newConsent(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Query = newQuery(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.TrustPolicies = newTrustPolicies(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeContainers = newEdgeContainers(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EdgeProcesses = newEdgeProcesses(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Executors = newExecutors(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

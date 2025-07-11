@@ -1,0 +1,9 @@
+# CreateBulletinMessageResponse
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                    | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                            | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
+| `Object`                                                                                                      | [*operations.CreateBulletinMessageResponseBody](../../models/operations/createbulletinmessageresponsebody.md) | :heavy_minus_sign:                                                                                            | a list of BulletinMessage objects                                                                             |

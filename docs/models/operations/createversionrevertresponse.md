@@ -1,0 +1,9 @@
+# CreateVersionRevertResponse
+
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                        | :heavy_check_mark:                                                                                        | N/A                                                                                                       |
+| `Object`                                                                                                  | [*operations.CreateVersionRevertResponseBody](../../models/operations/createversionrevertresponsebody.md) | :heavy_minus_sign:                                                                                        | a list of GitRevertResult objects                                                                         |

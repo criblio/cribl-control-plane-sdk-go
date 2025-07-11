@@ -1,0 +1,9 @@
+# DeleteUsageGroupByIDResponse
+
+
+## Fields
+
+| Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                  | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                          | :heavy_check_mark:                                                                                          | N/A                                                                                                         |
+| `Object`                                                                                                    | [*operations.DeleteUsageGroupByIDResponseBody](../../models/operations/deleteusagegroupbyidresponsebody.md) | :heavy_minus_sign:                                                                                          | a list of UsageGroup objects                                                                                |

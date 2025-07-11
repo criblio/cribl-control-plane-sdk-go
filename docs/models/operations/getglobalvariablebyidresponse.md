@@ -1,0 +1,9 @@
+# GetGlobalVariableByIDResponse
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                    | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                            | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
+| `Object`                                                                                                      | [*operations.GetGlobalVariableByIDResponseBody](../../models/operations/getglobalvariablebyidresponsebody.md) | :heavy_minus_sign:                                                                                            | a list of Global Variable objects                                                                             |

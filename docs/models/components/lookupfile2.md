@@ -1,0 +1,15 @@
+# LookupFile2
+
+
+## Fields
+
+| Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `Content`                                                                 | **string*                                                                 | :heavy_minus_sign:                                                        | File content.                                                             |
+| `ID`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | N/A                                                                       |
+| `Description`                                                             | **string*                                                                 | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Tags`                                                                    | **string*                                                                 | :heavy_minus_sign:                                                        | One or more tags related to this lookup. Optional.                        |
+| `Size`                                                                    | **float64*                                                                | :heavy_minus_sign:                                                        | File size. Optional.                                                      |
+| `Version`                                                                 | **string*                                                                 | :heavy_minus_sign:                                                        | Unique string generated for each modification of this lookup              |
+| `Mode`                                                                    | [*components.LookupFileMode2](../../models/components/lookupfilemode2.md) | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `PendingTask`                                                             | [*components.PendingTask2](../../models/components/pendingtask2.md)       | :heavy_minus_sign:                                                        | N/A                                                                       |

@@ -1,0 +1,12 @@
+# ContainerdInfo
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `Container`                                                                      | [components.ContainerdContainer](../../models/components/containerdcontainer.md) | :heavy_check_mark:                                                               | N/A                                                                              |
+| `Image`                                                                          | map[string]*any*                                                                 | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `Metrics`                                                                        | map[string]*any*                                                                 | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `Namespace`                                                                      | map[string]*any*                                                                 | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `Task`                                                                           | [*components.ContainerdTask](../../models/components/containerdtask.md)          | :heavy_minus_sign:                                                               | N/A                                                                              |

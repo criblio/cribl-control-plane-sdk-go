@@ -1,0 +1,14 @@
+# EdgeFile
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `FilePath`                                                                 | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `ID`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `ModTime`                                                                  | *float64*                                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Mode`                                                                     | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `Owner`                                                                    | *float64*                                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
+| `ProcessInfo`                                                              | [][components.FileProcessInfo](../../models/components/fileprocessinfo.md) | :heavy_minus_sign:                                                         | N/A                                                                        |
+| `Size`                                                                     | *float64*                                                                  | :heavy_check_mark:                                                         | N/A                                                                        |

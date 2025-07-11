@@ -1,0 +1,9 @@
+# GetEdgeFileSampleResponse
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                            | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                    | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
+| `Object`                                                                                              | [*operations.GetEdgeFileSampleResponseBody](../../models/operations/getedgefilesampleresponsebody.md) | :heavy_minus_sign:                                                                                    | a list of SampleFile objects                                                                          |

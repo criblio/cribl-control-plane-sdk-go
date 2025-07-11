@@ -1,10 +1,17 @@
 # Status
 
 
-## Values
+## Supported Types
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `StatusHealthy`      | healthy              |
-| `StatusShuttingDown` | shutting down        |
-| `StatusStandby`      | standby              |
+### CriblLakeStorageLocationStatusEnum
+
+```go
+status := components.CreateStatusCriblLakeStorageLocationStatusEnum(components.CriblLakeStorageLocationStatusEnum{/* values here */})
+```
+
+### StatusBlocked
+
+```go
+status := components.CreateStatusStatusBlocked(components.StatusBlocked{/* values here */})
+```
+

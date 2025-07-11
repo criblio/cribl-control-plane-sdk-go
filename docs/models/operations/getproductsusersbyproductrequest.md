@@ -1,0 +1,9 @@
+# GetProductsUsersByProductRequest
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `Product`                                                                                                  | [operations.GetProductsUsersByProductProduct](../../models/operations/getproductsusersbyproductproduct.md) | :heavy_check_mark:                                                                                         | product by which to filter members                                                                         |
+| `GroupID`                                                                                                  | **string*                                                                                                  | :heavy_minus_sign:                                                                                         | filter to specific group by groupId                                                                        |

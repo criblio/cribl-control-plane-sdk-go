@@ -1,0 +1,9 @@
+# GetSystemSettingsCriblResponse
+
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                      | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                              | :heavy_check_mark:                                                                                              | N/A                                                                                                             |
+| `Object`                                                                                                        | [*operations.GetSystemSettingsCriblResponseBody](../../models/operations/getsystemsettingscriblresponsebody.md) | :heavy_minus_sign:                                                                                              | a list of PublicSettings objects                                                                                |

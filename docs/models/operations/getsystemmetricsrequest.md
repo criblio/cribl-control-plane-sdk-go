@@ -1,0 +1,13 @@
+# GetSystemMetricsRequest
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `Wp`                                                                          | **string*                                                                     | :heavy_minus_sign:                                                            | worker process to query, this would work only on a worker node                |
+| `NumBuckets`                                                                  | **float64*                                                                    | :heavy_minus_sign:                                                            | buckets in the past to include in the query results                           |
+| `Earliest`                                                                    | **string*                                                                     | :heavy_minus_sign:                                                            | earliest time to query against                                                |
+| `Latest`                                                                      | **string*                                                                     | :heavy_minus_sign:                                                            | latest time to query against                                                  |
+| `MetricNameFilter`                                                            | **string*                                                                     | :heavy_minus_sign:                                                            | can be a regex or an array of metric names                                    |
+| `FilterExpr`                                                                  | **string*                                                                     | :heavy_minus_sign:                                                            | a js expression to apply against the metrics returned (can filter dimensions) |

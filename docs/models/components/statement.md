@@ -1,0 +1,11 @@
+# Statement
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Action`                                                                                | [components.Action](../../models/components/action.md)                                  | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `Condition`                                                                             | [*components.AMTrustPolicyCondition](../../models/components/amtrustpolicycondition.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `Effect`                                                                                | *string*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `Principal`                                                                             | [components.Principal](../../models/components/principal.md)                            | :heavy_check_mark:                                                                      | N/A                                                                                     |

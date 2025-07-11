@@ -1,0 +1,22 @@
+# ParserKvp
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `AllowedKeyChars`                                              | **bool*                                                        | :heavy_minus_sign:                                             | N/A                                                            |
+| `AllowedValueChars`                                            | []*string*                                                     | :heavy_minus_sign:                                             | N/A                                                            |
+| `CleanFields`                                                  | []*string*                                                     | :heavy_minus_sign:                                             | N/A                                                            |
+| `DelimChar`                                                    | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `DstField`                                                     | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `EscapeChar`                                                   | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `FieldFilterExpr`                                              | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `Fields`                                                       | []*string*                                                     | :heavy_minus_sign:                                             | N/A                                                            |
+| `Keep`                                                         | []*string*                                                     | :heavy_minus_sign:                                             | N/A                                                            |
+| `Mode`                                                         | [components.ParserMode](../../models/components/parsermode.md) | :heavy_check_mark:                                             | N/A                                                            |
+| `NullValue`                                                    | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `QuoteChar`                                                    | **string*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `Remove`                                                       | []*string*                                                     | :heavy_minus_sign:                                             | N/A                                                            |
+| `SrcField`                                                     | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `Type`                                                         | [components.TypeKvp](../../models/components/typekvp.md)       | :heavy_check_mark:                                             | N/A                                                            |

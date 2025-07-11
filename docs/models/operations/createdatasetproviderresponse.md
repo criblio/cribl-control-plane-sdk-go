@@ -1,0 +1,9 @@
+# CreateDatasetProviderResponse
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                    | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                            | :heavy_check_mark:                                                                                            | N/A                                                                                                           |
+| `Object`                                                                                                      | [*operations.CreateDatasetProviderResponseBody](../../models/operations/createdatasetproviderresponsebody.md) | :heavy_minus_sign:                                                                                            | a list of DatasetProvider objects                                                                             |

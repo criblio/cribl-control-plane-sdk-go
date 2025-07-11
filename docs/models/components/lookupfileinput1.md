@@ -1,0 +1,13 @@
+# LookupFileInput1
+
+
+## Fields
+
+| Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `FileInfo`                                                                | [*components.FileInfo](../../models/components/fileinfo.md)               | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `ID`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | N/A                                                                       |
+| `Description`                                                             | **string*                                                                 | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Tags`                                                                    | **string*                                                                 | :heavy_minus_sign:                                                        | One or more tags related to this lookup. Optional.                        |
+| `Size`                                                                    | **float64*                                                                | :heavy_minus_sign:                                                        | File size. Optional.                                                      |
+| `Mode`                                                                    | [*components.LookupFileMode1](../../models/components/lookupfilemode1.md) | :heavy_minus_sign:                                                        | N/A                                                                       |

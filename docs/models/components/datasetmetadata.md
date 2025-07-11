@@ -1,0 +1,12 @@
+# DatasetMetadata
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Earliest`                                                                              | *string*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `EnableAcceleration`                                                                    | *bool*                                                                                  | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `FieldList`                                                                             | []*string*                                                                              | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `LatestRunInfo`                                                                         | [*components.DatasetMetadataRunInfo](../../models/components/datasetmetadataruninfo.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `ScanMode`                                                                              | [components.ScanMode](../../models/components/scanmode.md)                              | :heavy_check_mark:                                                                      | N/A                                                                                     |

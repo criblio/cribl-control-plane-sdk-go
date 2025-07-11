@@ -1,0 +1,9 @@
+# GetBulletinMessageByIDResponse
+
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                      | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                              | :heavy_check_mark:                                                                                              | N/A                                                                                                             |
+| `Object`                                                                                                        | [*operations.GetBulletinMessageByIDResponseBody](../../models/operations/getbulletinmessagebyidresponsebody.md) | :heavy_minus_sign:                                                                                              | a list of BulletinMessage objects                                                                               |

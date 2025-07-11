@@ -1,0 +1,13 @@
+# SystemMetricsEnum
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `DimKeyFilter`                                                              | [*components.DimKeyFilter](../../models/components/dimkeyfilter.md)         | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `DimValueFilter`                                                            | [*components.DimValueFilter](../../models/components/dimvaluefilter.md)     | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `Earliest`                                                                  | **float64*                                                                  | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `FilterExpr`                                                                | **string*                                                                   | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `MaxValues`                                                                 | **float64*                                                                  | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `MetricNameFilter`                                                          | [*components.MetricNameFilter](../../models/components/metricnamefilter.md) | :heavy_minus_sign:                                                          | N/A                                                                         |

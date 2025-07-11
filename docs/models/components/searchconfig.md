@@ -1,0 +1,15 @@
+# SearchConfig
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `CanComputeMetadataDistributively`                                 | **bool*                                                            | :heavy_minus_sign:                                                 | N/A                                                                |
+| `Datasets`                                                         | []*string*                                                         | :heavy_check_mark:                                                 | N/A                                                                |
+| `HasSendOperator`                                                  | *bool*                                                             | :heavy_check_mark:                                                 | N/A                                                                |
+| `OrderedFieldNames`                                                | []*string*                                                         | :heavy_check_mark:                                                 | N/A                                                                |
+| `ReferencedFieldNames`                                             | []*string*                                                         | :heavy_minus_sign:                                                 | N/A                                                                |
+| `SearchTerms`                                                      | [][components.SearchTerm](../../models/components/searchterm.md)   | :heavy_check_mark:                                                 | N/A                                                                |
+| `SortFields`                                                       | [][components.SortByField](../../models/components/sortbyfield.md) | :heavy_minus_sign:                                                 | N/A                                                                |
+| `UseFormattedVisualization`                                        | *bool*                                                             | :heavy_check_mark:                                                 | N/A                                                                |

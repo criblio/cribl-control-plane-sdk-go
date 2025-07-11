@@ -1,0 +1,14 @@
+# SavedQuerySchedule
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `CronSchedule`                                                       | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
+| `Enabled`                                                            | *bool*                                                               | :heavy_check_mark:                                                   | N/A                                                                  |
+| `KeepLastN`                                                          | *float64*                                                            | :heavy_check_mark:                                                   | N/A                                                                  |
+| `Notifications`                                                      | [components.Notifications](../../models/components/notifications.md) | :heavy_check_mark:                                                   | N/A                                                                  |
+| `ResumeMissed`                                                       | **bool*                                                              | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `ResumeOnBoot`                                                       | **bool*                                                              | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `Tz`                                                                 | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |

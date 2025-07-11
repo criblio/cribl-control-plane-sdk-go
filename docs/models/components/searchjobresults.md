@@ -1,0 +1,13 @@
+# SearchJobResults
+
+
+## Fields
+
+| Field                 | Type                  | Required              | Description           |
+| --------------------- | --------------------- | --------------------- | --------------------- |
+| `IsFinished`          | *bool*                | :heavy_check_mark:    | N/A                   |
+| `Job`                 | *any*                 | :heavy_check_mark:    | N/A                   |
+| `Limit`               | **float64*            | :heavy_minus_sign:    | N/A                   |
+| `Offset`              | *float64*             | :heavy_check_mark:    | N/A                   |
+| `PersistedEventCount` | *float64*             | :heavy_check_mark:    | N/A                   |
+| `TotalEventCount`     | *float64*             | :heavy_check_mark:    | N/A                   |

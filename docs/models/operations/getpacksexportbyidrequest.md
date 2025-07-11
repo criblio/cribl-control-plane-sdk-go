@@ -1,0 +1,10 @@
+# GetPacksExportByIDRequest
+
+
+## Fields
+
+| Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `ID`                                                                                              | *string*                                                                                          | :heavy_check_mark:                                                                                | Pack name                                                                                         |
+| `Mode`                                                                                            | [operations.GetPacksExportByIDMode](../../models/operations/getpacksexportbyidmode.md)            | :heavy_check_mark:                                                                                | Export mode. Note: "merge_safe" is deprecated and will be removed in v5.0.0. Use "merge" instead. |
+| `Filename`                                                                                        | **string*                                                                                         | :heavy_minus_sign:                                                                                | Filename of the exported Pack                                                                     |

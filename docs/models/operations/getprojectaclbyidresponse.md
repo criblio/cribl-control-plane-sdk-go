@@ -1,0 +1,9 @@
+# GetProjectACLByIDResponse
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                            | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                    | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
+| `Object`                                                                                              | [*operations.GetProjectACLByIDResponseBody](../../models/operations/getprojectaclbyidresponsebody.md) | :heavy_minus_sign:                                                                                    | a list of UserAccessControlList objects                                                               |

@@ -1,0 +1,9 @@
+# GetCollectorByIDResponse
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                          | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                  | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `Object`                                                                                            | [*operations.GetCollectorByIDResponseBody](../../models/operations/getcollectorbyidresponsebody.md) | :heavy_minus_sign:                                                                                  | a list of Collector objects                                                                         |

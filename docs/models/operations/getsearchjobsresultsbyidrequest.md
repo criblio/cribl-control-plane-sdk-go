@@ -1,0 +1,12 @@
+# GetSearchJobsResultsByIDRequest
+
+
+## Fields
+
+| Field                                    | Type                                     | Required                                 | Description                              |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| `ID`                                     | *string*                                 | :heavy_check_mark:                       | search job id                            |
+| `Limit`                                  | **float64*                               | :heavy_minus_sign:                       | maximum number of events returned        |
+| `Offset`                                 | **float64*                               | :heavy_minus_sign:                       | starting offset of the events            |
+| `LowerBound`                             | **float64*                               | :heavy_minus_sign:                       | lower bound of the time range, inclusive |
+| `UpperBound`                             | **float64*                               | :heavy_minus_sign:                       | upper bound of the time range, exclusive |

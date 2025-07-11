@@ -1,0 +1,9 @@
+# DeleteSavedQueryByIDResponse
+
+
+## Fields
+
+| Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                  | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                          | :heavy_check_mark:                                                                                          | N/A                                                                                                         |
+| `Object`                                                                                                    | [*operations.DeleteSavedQueryByIDResponseBody](../../models/operations/deletesavedquerybyidresponsebody.md) | :heavy_minus_sign:                                                                                          | a list of SavedQuery objects                                                                                |

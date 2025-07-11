@@ -1,0 +1,13 @@
+# ParserLibEntry
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `ID`                                                                            | *string*                                                                        | :heavy_check_mark:                                                              | N/A                                                                             |
+| `Lib`                                                                           | **string*                                                                       | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `Description`                                                                   | **string*                                                                       | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `Tags`                                                                          | **string*                                                                       | :heavy_minus_sign:                                                              | Optionally, add tags that you can use for filtering                             |
+| `Type`                                                                          | [*components.ParserLibEntryType](../../models/components/parserlibentrytype.md) | :heavy_minus_sign:                                                              | Parser or formatter type to use                                                 |
+| `AdditionalProperties`                                                          | map[string]*any*                                                                | :heavy_minus_sign:                                                              | N/A                                                                             |

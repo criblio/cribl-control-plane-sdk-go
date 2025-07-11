@@ -1,0 +1,14 @@
+# AwsMetadata
+
+
+## Fields
+
+| Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `Hostname`                                                                | **string*                                                                 | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Identity`                                                                | map[string]*any*                                                          | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `PublicIpv4`                                                              | **string*                                                                 | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Roles`                                                                   | []*string*                                                                | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `SecurityGroups`                                                          | []*string*                                                                | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Tags`                                                                    | [*components.AwsMetadataTags](../../models/components/awsmetadatatags.md) | :heavy_minus_sign:                                                        | N/A                                                                       |
+| `Version`                                                                 | *float64*                                                                 | :heavy_check_mark:                                                        | N/A                                                                       |

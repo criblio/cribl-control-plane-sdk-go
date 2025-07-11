@@ -7,6 +7,7 @@ import (
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -27,8 +28,103 @@ func TestDiag_GetHealthInfo(t *testing.T) {
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.HealthStatus)
 	assert.Equal(t, &components.HealthStatus{
-		Status:    components.StatusStandby,
+		Status:    components.HealthStatusStatusStandby,
 		StartTime: 8399.98,
 	}, res.HealthStatus)
+
+}
+
+func TestDiag_GetDiagBundle(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("getDiagBundle")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+	)
+
+	res, err := s.Diag.GetDiagBundle(ctx)
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.ResponseStream)
+	assert.Equal(t, readFileToBytes("../.speakeasy/testfiles/example.file"), readBytes(res.ResponseStream))
+
+}
+
+func TestDiag_GetSystemInfo(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("getSystemInfo")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+	)
+
+	res, err := s.Diag.GetSystemInfo(ctx)
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.GetSystemInfoResponseBody{}, res.Object)
+
+}
+
+func TestDiag_GetSystemDiag(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("getSystemDiag")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+	)
+
+	res, err := s.Diag.GetSystemDiag(ctx)
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.GetSystemDiagResponseBody{}, res.Object)
+
+}
+
+func TestDiag_DeleteSystemDiag(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("deleteSystemDiag")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+	)
+
+	res, err := s.Diag.DeleteSystemDiag(ctx, "/opt/lib")
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.DeleteSystemDiagResponseBody{}, res.Object)
+
+}
+
+func TestDiag_CreateSystemDiagSend(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("createSystemDiagSend")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+	)
+
+	res, err := s.Diag.CreateSystemDiagSend(ctx, components.SendDiagBundle{})
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.CreateSystemDiagSendResponseBody{}, res.Object)
 
 }

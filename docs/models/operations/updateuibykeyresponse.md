@@ -1,0 +1,9 @@
+# UpdateUIByKeyResponse
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                    | [components.HTTPMetadata](../../models/components/httpmetadata.md)                            | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `Object`                                                                                      | [*operations.UpdateUIByKeyResponseBody](../../models/operations/updateuibykeyresponsebody.md) | :heavy_minus_sign:                                                                            | a list of any objects                                                                         |

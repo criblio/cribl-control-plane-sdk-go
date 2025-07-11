@@ -1,0 +1,13 @@
+# Credentials
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `APIKey`                                                                     | **string*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `Method`                                                                     | [components.CredentialsMethod](../../models/components/credentialsmethod.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `RoleToAssume`                                                               | **string*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `RoleToAssumeExternalID`                                                     | **string*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `RoleToAssumeHybrid`                                                         | **string*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `SecretKey`                                                                  | **string*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |

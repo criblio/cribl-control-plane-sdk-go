@@ -1,0 +1,9 @@
+# DeleteRoleByIDResponse
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                      | [components.HTTPMetadata](../../models/components/httpmetadata.md)                              | :heavy_check_mark:                                                                              | N/A                                                                                             |
+| `Object`                                                                                        | [*operations.DeleteRoleByIDResponseBody](../../models/operations/deleterolebyidresponsebody.md) | :heavy_minus_sign:                                                                              | a list of Role objects                                                                          |

@@ -1,0 +1,9 @@
+# ListEventBreakerRulesetResponse
+
+
+## Fields
+
+| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                        | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                                | :heavy_check_mark:                                                                                                | N/A                                                                                                               |
+| `Object`                                                                                                          | [*operations.ListEventBreakerRulesetResponseBody](../../models/operations/listeventbreakerrulesetresponsebody.md) | :heavy_minus_sign:                                                                                                | a list of Event Breaker Ruleset objects                                                                           |
