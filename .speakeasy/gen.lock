@@ -3,8 +3,8 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: a553a9a8d1809f95d5324f3fc5fb5705
   docVersion: 4.12.2-4b17c8d4
-  speakeasyVersion: 1.575.0
-  generationVersion: 2.647.2
+  speakeasyVersion: 1.581.0
+  generationVersion: 2.656.5
   releaseVersion: 0.0.1
   configChecksum: 2c980bcbd0118db238663f1e7d144381
 features:
@@ -23,7 +23,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.83.3
     sdkHooks: 0.2.0
-    tests: 0.16.0
+    tests: 0.16.1
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
