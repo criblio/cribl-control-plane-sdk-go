@@ -63,10 +63,9 @@ func WithClient(client HTTPClient) SDKOption {
 }
 
 // WithSecurity configures the SDK to use the provided security details
-func WithSecurity(bearerAuth string) SDKOption {
+func WithSecurity(security components.Security) SDKOption {
 	return func(sdk *CriblControlPlane) {
-		security := components.Security{BearerAuth: &bearerAuth}
-		sdk.sdkConfiguration.Security = utils.AsSecuritySource(&security)
+		sdk.sdkConfiguration.Security = utils.AsSecuritySource(security)
 	}
 }
 
@@ -95,9 +94,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.1",
+		SDKVersion: "0.0.2",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.1 2.656.5 4.12.2-4b17c8d4 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.0.2 2.656.5 4.12.2-4b17c8d4 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}

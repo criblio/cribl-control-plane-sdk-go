@@ -1,12 +1,14 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a553a9a8d1809f95d5324f3fc5fb5705
+  docChecksum: ddaac6d4a48c1e0c6072e59714db9098
   docVersion: 4.12.2-4b17c8d4
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.1
-  configChecksum: 2c980bcbd0118db238663f1e7d144381
+  releaseVersion: 0.0.2
+  configChecksum: 839d10e2d1748649cad7a832e9fadfd4
+  repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
+  installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
   go:
     additionalDependencies: 0.1.0
@@ -16,10 +18,10 @@ features:
     envVarSecurityUsage: 0.3.2
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
-    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.3
     intellisenseMarkdownSupport: 0.1.0
     mockServer: 0.1.1
+    oauth2ClientCredentials: 0.3.1
     responseFormat: 0.1.2
     retries: 2.83.3
     sdkHooks: 0.2.0
@@ -32,6 +34,7 @@ generatedFiles:
   - /models/apierrors/healthstatuserror.go
   - /models/components/healthstatus.go
   - /models/components/httpmetadata.go
+  - /models/components/schemeclientoauth.go
   - /models/components/security.go
   - /models/operations/gethealthinfo.go
   - USAGE.md
@@ -41,6 +44,7 @@ generatedFiles:
   - docs/models/components/healthstatus.md
   - docs/models/components/httpmetadata.md
   - docs/models/components/role.md
+  - docs/models/components/schemeclientoauth.md
   - docs/models/components/security.md
   - docs/models/components/status.md
   - docs/models/operations/gethealthinforesponse.md
@@ -51,12 +55,15 @@ generatedFiles:
   - go.mod
   - health.go
   - internal/config/sdkconfiguration.go
+  - internal/hooks/clientcredentials.go
   - internal/hooks/hooks.go
   - internal/utils/contenttype.go
   - internal/utils/env.go
   - internal/utils/form.go
   - internal/utils/headers.go
   - internal/utils/json.go
+  - internal/utils/oauth2_credentials.go
+  - internal/utils/oauth2_sessions.go
   - internal/utils/pathparams.go
   - internal/utils/queryparams.go
   - internal/utils/requestbody.go
@@ -94,6 +101,7 @@ generatedFiles:
   - tests/mockserver/internal/logging/oas_operation_call.go
   - tests/mockserver/internal/sdk/models/components/healthstatus.go
   - tests/mockserver/internal/sdk/models/components/httpmetadata.go
+  - tests/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - tests/mockserver/internal/sdk/models/components/security.go
   - tests/mockserver/internal/sdk/models/operations/gethealthinfo.go
   - tests/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
