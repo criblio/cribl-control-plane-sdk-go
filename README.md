@@ -66,19 +66,21 @@ func main() {
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name         | Type | Scheme      | Environment Variable            |
-| ------------ | ---- | ----------- | ------------------------------- |
-| `BearerAuth` | http | HTTP Bearer | `CRIBLCONTROLPLANE_BEARER_AUTH` |
+| Name          | Type   | Scheme       | Environment Variable             |
+| ------------- | ------ | ------------ | -------------------------------- |
+| `BearerAuth`  | http   | HTTP Bearer  | `CRIBLCONTROLPLANE_BEARER_AUTH`  |
+| `ClientOauth` | oauth2 | OAuth2 token | `CRIBLCONTROLPLANE_CLIENT_OAUTH` |
 
-You can configure it using the `WithSecurity` option when initializing the SDK client instance. For example:
+You can set the security parameters through the `WithSecurity` option when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```go
 package main
 
 import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -88,7 +90,9 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
-		criblcontrolplanesdkgo.WithSecurity(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
 	res, err := s.Diag.GetHealthInfo(ctx)
