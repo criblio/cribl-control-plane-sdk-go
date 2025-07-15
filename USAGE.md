@@ -5,6 +5,7 @@ package main
 import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
 )
 
@@ -15,11 +16,14 @@ func main() {
 		"https://api.example.com",
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "Nikko.Connelly",
+		Password: "Ljp4BunfMR9hNyM",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
