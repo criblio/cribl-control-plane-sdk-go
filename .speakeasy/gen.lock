@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 71444ed2f6fde336b5d6bf302ba8c06a
-  docVersion: 4.12.2-4b17c8d4
+  docChecksum: f5639556bbb478114b7e90796904fe73
+  docVersion: 4.14.0-alpha.1752602215751-e622ff04
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.3
-  configChecksum: 201914eb88126ca3ebaa03b3d39db42e
+  releaseVersion: 0.0.4
+  configChecksum: be8ee6c4a509014fa5005d6c34ff6694
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -33,23 +33,31 @@ generatedFiles:
   - .devcontainer/setup.sh
   - .gitattributes
   - /models/apierrors/healthstatuserror.go
+  - /models/components/authtoken.go
   - /models/components/healthstatus.go
   - /models/components/httpmetadata.go
+  - /models/components/logininfo.go
   - /models/components/schemeclientoauth.go
   - /models/components/security.go
   - /models/operations/gethealthinfo.go
+  - /models/operations/login.go
   - USAGE.md
+  - auth.go
   - criblcontrolplane.go
   - diag.go
   - docs/models/apierrors/healthstatuserror.md
+  - docs/models/components/authtoken.md
   - docs/models/components/healthstatus.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/logininfo.md
   - docs/models/components/role.md
   - docs/models/components/schemeclientoauth.md
   - docs/models/components/security.md
   - docs/models/components/status.md
   - docs/models/operations/gethealthinforesponse.md
+  - docs/models/operations/loginresponse.md
   - docs/models/operations/option.md
+  - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/diag/README.md
   - docs/sdks/health/README.md
@@ -74,6 +82,7 @@ generatedFiles:
   - models/apierrors/apierror.go
   - models/operations/options.go
   - retry/config.go
+  - tests/auth_test.go
   - tests/diag_test.go
   - tests/files.go
   - tests/mockserver/.gitignore
@@ -91,6 +100,7 @@ generatedFiles:
   - tests/mockserver/internal/handler/generated_handler.go
   - tests/mockserver/internal/handler/generated_handlers.go
   - tests/mockserver/internal/handler/pathgethealth.go
+  - tests/mockserver/internal/handler/pathpostauthlogin.go
   - tests/mockserver/internal/handler/values/files.go
   - tests/mockserver/internal/logging/doc.go
   - tests/mockserver/internal/logging/formats.go
@@ -100,11 +110,14 @@ generatedFiles:
   - tests/mockserver/internal/logging/logger.go
   - tests/mockserver/internal/logging/oas_operation.go
   - tests/mockserver/internal/logging/oas_operation_call.go
+  - tests/mockserver/internal/sdk/models/components/authtoken.go
   - tests/mockserver/internal/sdk/models/components/healthstatus.go
   - tests/mockserver/internal/sdk/models/components/httpmetadata.go
+  - tests/mockserver/internal/sdk/models/components/logininfo.go
   - tests/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - tests/mockserver/internal/sdk/models/components/security.go
   - tests/mockserver/internal/sdk/models/operations/gethealthinfo.go
+  - tests/mockserver/internal/sdk/models/operations/login.go
   - tests/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - tests/mockserver/internal/sdk/types/bigint.go
   - tests/mockserver/internal/sdk/types/date.go
@@ -139,6 +152,14 @@ examples:
           application/json: {"status": "standby", "startTime": 8399.98}
         "420":
           application/json: {"status": "healthy", "startTime": 893.91}
+  login:
+    speakeasy-default-login:
+      requestBody:
+        application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
+      responses:
+        "200":
+          application/json: {"token": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
+  login: "2025-07-15T20:32:44+02:00"

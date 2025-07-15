@@ -39,6 +39,7 @@ package main
 import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
 )
 
@@ -49,11 +50,14 @@ func main() {
 		"https://api.example.com",
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "Nikko.Connelly",
+		Password: "Ljp4BunfMR9hNyM",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
@@ -95,11 +99,14 @@ func main() {
 		}),
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "Nikko.Connelly",
+		Password: "Ljp4BunfMR9hNyM",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
@@ -112,6 +119,10 @@ func main() {
 
 <details open>
 <summary>Available methods</summary>
+
+### [Auth](docs/sdks/auth/README.md)
+
+* [Login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
 ### [Diag](docs/sdks/diag/README.md)
@@ -137,6 +148,7 @@ package main
 import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"log"
 	"models/operations"
@@ -149,7 +161,10 @@ func main() {
 		"https://api.example.com",
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx, operations.WithRetries(
+	res, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "Nikko.Connelly",
+		Password: "Ljp4BunfMR9hNyM",
+	}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -163,7 +178,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
@@ -177,6 +192,7 @@ package main
 import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"log"
 )
@@ -199,11 +215,14 @@ func main() {
 			}),
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "Nikko.Connelly",
+		Password: "Ljp4BunfMR9hNyM",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.HealthStatus != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
