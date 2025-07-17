@@ -1,0 +1,10 @@
+# UpdateInputHecTokenByIDAndTokenRequest
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ID`                                                                                 | *string*                                                                             | :heavy_check_mark:                                                                   | hec input id                                                                         |
+| `Token`                                                                              | *string*                                                                             | :heavy_check_mark:                                                                   | token to update                                                                      |
+| `UpdateHecTokenRequest`                                                              | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md) | :heavy_check_mark:                                                                   | UpdateHecTokenRequest object                                                         |

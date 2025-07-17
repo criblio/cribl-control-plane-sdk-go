@@ -1,21 +1,23 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 96740b769869904db982a1d613d925d4
-  docVersion: 4.14.0-alpha.1752697438479-c2e9a1bc
+  docChecksum: 6f9679780d7e2a9b193a2a2dbe5e59a8
+  docVersion: 4.14.0-alpha.1752737130572-995a4772
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.6
-  configChecksum: 9492de1ab3cd40927fa4d0fd2706aa22
+  releaseVersion: 0.0.7
+  configChecksum: 0458d8a9d2cb4b3420e2fa724388a1d1
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
   go:
     additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.12
     core: 3.8.1
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     envVarSecurityUsage: 0.3.2
+    flattening: 2.81.1
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.3
@@ -27,40 +29,872 @@ features:
     retries: 2.83.3
     sdkHooks: 0.2.0
     tests: 0.16.1
+    unions: 2.85.12
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
   - .devcontainer/setup.sh
   - .gitattributes
+  - /models/apierrors/error.go
   - /models/apierrors/healthstatuserror.go
+  - /models/components/addhectokenrequest.go
   - /models/components/authtoken.go
   - /models/components/healthstatus.go
   - /models/components/httpmetadata.go
+  - /models/components/input.go
+  - /models/components/inputappscope.go
+  - /models/components/inputazureblob.go
+  - /models/components/inputcollection.go
+  - /models/components/inputconfluentcloud.go
+  - /models/components/inputcribl.go
+  - /models/components/inputcriblhttp.go
+  - /models/components/inputcribllakehttp.go
+  - /models/components/inputcriblmetrics.go
+  - /models/components/inputcribltcp.go
+  - /models/components/inputcrowdstrike.go
+  - /models/components/inputdatadogagent.go
+  - /models/components/inputdatagen.go
+  - /models/components/inputedgeprometheus.go
+  - /models/components/inputelastic.go
+  - /models/components/inputeventhub.go
+  - /models/components/inputexec.go
+  - /models/components/inputfile.go
+  - /models/components/inputfirehose.go
+  - /models/components/inputgooglepubsub.go
+  - /models/components/inputgrafanaunion.go
+  - /models/components/inputhttp.go
+  - /models/components/inputhttpraw.go
+  - /models/components/inputjournalfiles.go
+  - /models/components/inputkafka.go
+  - /models/components/inputkinesis.go
+  - /models/components/inputkubeevents.go
+  - /models/components/inputkubelogs.go
+  - /models/components/inputkubemetrics.go
+  - /models/components/inputloki.go
+  - /models/components/inputmetrics.go
+  - /models/components/inputmodeldriventelemetry.go
+  - /models/components/inputmsk.go
+  - /models/components/inputnetflow.go
+  - /models/components/inputoffice365mgmt.go
+  - /models/components/inputoffice365msgtrace.go
+  - /models/components/inputoffice365service.go
+  - /models/components/inputopentelemetry.go
+  - /models/components/inputprometheus.go
+  - /models/components/inputprometheusrw.go
+  - /models/components/inputrawudp.go
+  - /models/components/inputs3.go
+  - /models/components/inputs3inventory.go
+  - /models/components/inputsecuritylake.go
+  - /models/components/inputsnmp.go
+  - /models/components/inputsplunk.go
+  - /models/components/inputsplunkhec.go
+  - /models/components/inputsplunksearch.go
+  - /models/components/inputsqs.go
+  - /models/components/inputsyslogunion.go
+  - /models/components/inputsystemmetrics.go
+  - /models/components/inputsystemstate.go
+  - /models/components/inputtcp.go
+  - /models/components/inputtcpjson.go
+  - /models/components/inputwef.go
+  - /models/components/inputwindowsmetrics.go
+  - /models/components/inputwineventlogs.go
+  - /models/components/inputwiz.go
+  - /models/components/inputzscalerhec.go
   - /models/components/logininfo.go
   - /models/components/schemeclientoauth.go
   - /models/components/security.go
+  - /models/components/updatehectokenrequest.go
+  - /models/operations/createinput.go
+  - /models/operations/createinputhectokenbyid.go
+  - /models/operations/deleteinputbyid.go
   - /models/operations/gethealthinfo.go
+  - /models/operations/getinputbyid.go
+  - /models/operations/listinput.go
   - /models/operations/login.go
+  - /models/operations/updateinputbyid.go
+  - /models/operations/updateinputhectokenbyidandtoken.go
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
+  - docs/models/apierrors/error.md
   - docs/models/apierrors/healthstatuserror.md
+  - docs/models/components/addhectokenrequest.md
+  - docs/models/components/addhectokenrequestmetadatum.md
+  - docs/models/components/allow.md
+  - docs/models/components/apiversion.md
+  - docs/models/components/authenticationprotocol.md
   - docs/models/components/authtoken.md
+  - docs/models/components/certificate.md
+  - docs/models/components/certoptions.md
+  - docs/models/components/collectors.md
+  - docs/models/components/container.md
+  - docs/models/components/containermode.md
+  - docs/models/components/disksandfilesystems.md
+  - docs/models/components/dns.md
+  - docs/models/components/endpointheader.md
+  - docs/models/components/endpointparam.md
+  - docs/models/components/eventformat.md
+  - docs/models/components/extrahttpheader.md
+  - docs/models/components/firewall.md
+  - docs/models/components/format.md
+  - docs/models/components/googleauthenticationmethod.md
   - docs/models/components/healthstatus.md
+  - docs/models/components/hostinfo.md
+  - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/input.md
+  - docs/models/components/inputappscope.md
+  - docs/models/components/inputappscopeauthenticationmethod.md
+  - docs/models/components/inputappscopecompression.md
+  - docs/models/components/inputappscopeconnection.md
+  - docs/models/components/inputappscopedatacompressionformat.md
+  - docs/models/components/inputappscopefilter.md
+  - docs/models/components/inputappscopemaximumtlsversion.md
+  - docs/models/components/inputappscopemetadatum.md
+  - docs/models/components/inputappscopeminimumtlsversion.md
+  - docs/models/components/inputappscopemode.md
+  - docs/models/components/inputappscopepersistence.md
+  - docs/models/components/inputappscopepq.md
+  - docs/models/components/inputappscopetlssettingsserverside.md
+  - docs/models/components/inputappscopetype.md
+  - docs/models/components/inputazureblob.md
+  - docs/models/components/inputazureblobauthenticationmethod.md
+  - docs/models/components/inputazureblobcompression.md
+  - docs/models/components/inputazureblobconnection.md
+  - docs/models/components/inputazureblobmetadatum.md
+  - docs/models/components/inputazureblobmode.md
+  - docs/models/components/inputazureblobpq.md
+  - docs/models/components/inputazureblobtype.md
+  - docs/models/components/inputcollection.md
+  - docs/models/components/inputcollectioncompression.md
+  - docs/models/components/inputcollectionconnection.md
+  - docs/models/components/inputcollectionmetadatum.md
+  - docs/models/components/inputcollectionmode.md
+  - docs/models/components/inputcollectionpq.md
+  - docs/models/components/inputcollectionpreprocess.md
+  - docs/models/components/inputcollectiontype.md
+  - docs/models/components/inputconfluentcloud.md
+  - docs/models/components/inputconfluentcloudauth.md
+  - docs/models/components/inputconfluentcloudauthentication.md
+  - docs/models/components/inputconfluentcloudcompression.md
+  - docs/models/components/inputconfluentcloudconnection.md
+  - docs/models/components/inputconfluentcloudkafkaschemaregistryauthentication.md
+  - docs/models/components/inputconfluentcloudkafkaschemaregistrymaximumtlsversion.md
+  - docs/models/components/inputconfluentcloudkafkaschemaregistryminimumtlsversion.md
+  - docs/models/components/inputconfluentcloudkafkaschemaregistrytlssettingsclientside.md
+  - docs/models/components/inputconfluentcloudmaximumtlsversion.md
+  - docs/models/components/inputconfluentcloudmetadatum.md
+  - docs/models/components/inputconfluentcloudminimumtlsversion.md
+  - docs/models/components/inputconfluentcloudmode.md
+  - docs/models/components/inputconfluentcloudpq.md
+  - docs/models/components/inputconfluentcloudsaslmechanism.md
+  - docs/models/components/inputconfluentcloudtlssettingsclientside.md
+  - docs/models/components/inputconfluentcloudtype.md
+  - docs/models/components/inputcribl.md
+  - docs/models/components/inputcriblcompression.md
+  - docs/models/components/inputcriblconnection.md
+  - docs/models/components/inputcriblhttp.md
+  - docs/models/components/inputcriblhttpcompression.md
+  - docs/models/components/inputcriblhttpconnection.md
+  - docs/models/components/inputcriblhttpmaximumtlsversion.md
+  - docs/models/components/inputcriblhttpmetadatum.md
+  - docs/models/components/inputcriblhttpminimumtlsversion.md
+  - docs/models/components/inputcriblhttpmode.md
+  - docs/models/components/inputcriblhttppq.md
+  - docs/models/components/inputcriblhttptlssettingsserverside.md
+  - docs/models/components/inputcriblhttptype.md
+  - docs/models/components/inputcribllakehttp.md
+  - docs/models/components/inputcribllakehttpcompression.md
+  - docs/models/components/inputcribllakehttpconnection.md
+  - docs/models/components/inputcribllakehttpmaximumtlsversion.md
+  - docs/models/components/inputcribllakehttpmetadatum.md
+  - docs/models/components/inputcribllakehttpminimumtlsversion.md
+  - docs/models/components/inputcribllakehttpmode.md
+  - docs/models/components/inputcribllakehttppq.md
+  - docs/models/components/inputcribllakehttptlssettingsserverside.md
+  - docs/models/components/inputcribllakehttptype.md
+  - docs/models/components/inputcriblmetadatum.md
+  - docs/models/components/inputcriblmetrics.md
+  - docs/models/components/inputcriblmetricscompression.md
+  - docs/models/components/inputcriblmetricsconnection.md
+  - docs/models/components/inputcriblmetricsmetadatum.md
+  - docs/models/components/inputcriblmetricsmode.md
+  - docs/models/components/inputcriblmetricspq.md
+  - docs/models/components/inputcriblmetricstype.md
+  - docs/models/components/inputcriblmode.md
+  - docs/models/components/inputcriblpq.md
+  - docs/models/components/inputcribltcp.md
+  - docs/models/components/inputcribltcpcompression.md
+  - docs/models/components/inputcribltcpconnection.md
+  - docs/models/components/inputcribltcpmaximumtlsversion.md
+  - docs/models/components/inputcribltcpmetadatum.md
+  - docs/models/components/inputcribltcpminimumtlsversion.md
+  - docs/models/components/inputcribltcpmode.md
+  - docs/models/components/inputcribltcppq.md
+  - docs/models/components/inputcribltcptlssettingsserverside.md
+  - docs/models/components/inputcribltcptype.md
+  - docs/models/components/inputcribltype.md
+  - docs/models/components/inputcrowdstrike.md
+  - docs/models/components/inputcrowdstrikeauthenticationmethod.md
+  - docs/models/components/inputcrowdstrikecheckpointing.md
+  - docs/models/components/inputcrowdstrikecompression.md
+  - docs/models/components/inputcrowdstrikeconnection.md
+  - docs/models/components/inputcrowdstrikemetadatum.md
+  - docs/models/components/inputcrowdstrikemode.md
+  - docs/models/components/inputcrowdstrikepq.md
+  - docs/models/components/inputcrowdstrikepreprocess.md
+  - docs/models/components/inputcrowdstrikesignatureversion.md
+  - docs/models/components/inputcrowdstriketagafterprocessing.md
+  - docs/models/components/inputcrowdstriketype.md
+  - docs/models/components/inputdatadogagent.md
+  - docs/models/components/inputdatadogagentcompression.md
+  - docs/models/components/inputdatadogagentconnection.md
+  - docs/models/components/inputdatadogagentmaximumtlsversion.md
+  - docs/models/components/inputdatadogagentmetadatum.md
+  - docs/models/components/inputdatadogagentminimumtlsversion.md
+  - docs/models/components/inputdatadogagentmode.md
+  - docs/models/components/inputdatadogagentpq.md
+  - docs/models/components/inputdatadogagentproxymode.md
+  - docs/models/components/inputdatadogagenttlssettingsserverside.md
+  - docs/models/components/inputdatadogagenttype.md
+  - docs/models/components/inputdatagen.md
+  - docs/models/components/inputdatagencompression.md
+  - docs/models/components/inputdatagenconnection.md
+  - docs/models/components/inputdatagenmetadatum.md
+  - docs/models/components/inputdatagenmode.md
+  - docs/models/components/inputdatagenpq.md
+  - docs/models/components/inputdatagentype.md
+  - docs/models/components/inputedgeprometheus.md
+  - docs/models/components/inputedgeprometheusauthtypeauthenticationmethod.md
+  - docs/models/components/inputedgeprometheusawsauthenticationmethodauthenticationmethod.md
+  - docs/models/components/inputedgeprometheusconnection.md
+  - docs/models/components/inputedgeprometheusdiscoverytype.md
+  - docs/models/components/inputedgeprometheusdiskspooling.md
+  - docs/models/components/inputedgeprometheusmetadatum.md
+  - docs/models/components/inputedgeprometheusmode.md
+  - docs/models/components/inputedgeprometheuspersistencecompression.md
+  - docs/models/components/inputedgeprometheuspq.md
+  - docs/models/components/inputedgeprometheuspqcompression.md
+  - docs/models/components/inputedgeprometheusrecordtype.md
+  - docs/models/components/inputedgeprometheussearchfilter.md
+  - docs/models/components/inputedgeprometheussignatureversion.md
+  - docs/models/components/inputedgeprometheustype.md
+  - docs/models/components/inputelastic.md
+  - docs/models/components/inputelasticauthenticationmethod.md
+  - docs/models/components/inputelasticauthenticationtype.md
+  - docs/models/components/inputelasticcompression.md
+  - docs/models/components/inputelasticconnection.md
+  - docs/models/components/inputelasticmaximumtlsversion.md
+  - docs/models/components/inputelasticmetadatum.md
+  - docs/models/components/inputelasticminimumtlsversion.md
+  - docs/models/components/inputelasticmode.md
+  - docs/models/components/inputelasticpq.md
+  - docs/models/components/inputelasticproxymode.md
+  - docs/models/components/inputelastictlssettingsserverside.md
+  - docs/models/components/inputelastictype.md
+  - docs/models/components/inputeventhub.md
+  - docs/models/components/inputeventhubauthentication.md
+  - docs/models/components/inputeventhubcompression.md
+  - docs/models/components/inputeventhubconnection.md
+  - docs/models/components/inputeventhubmetadatum.md
+  - docs/models/components/inputeventhubmode.md
+  - docs/models/components/inputeventhubpq.md
+  - docs/models/components/inputeventhubsaslmechanism.md
+  - docs/models/components/inputeventhubtlssettingsclientside.md
+  - docs/models/components/inputeventhubtype.md
+  - docs/models/components/inputexec.md
+  - docs/models/components/inputexeccompression.md
+  - docs/models/components/inputexecconnection.md
+  - docs/models/components/inputexecmetadatum.md
+  - docs/models/components/inputexecmode.md
+  - docs/models/components/inputexecpq.md
+  - docs/models/components/inputexectype.md
+  - docs/models/components/inputfile.md
+  - docs/models/components/inputfilecompression.md
+  - docs/models/components/inputfileconnection.md
+  - docs/models/components/inputfilemetadatum.md
+  - docs/models/components/inputfilemode.md
+  - docs/models/components/inputfilepq.md
+  - docs/models/components/inputfilepqmode.md
+  - docs/models/components/inputfiletype.md
+  - docs/models/components/inputfirehose.md
+  - docs/models/components/inputfirehosecompression.md
+  - docs/models/components/inputfirehoseconnection.md
+  - docs/models/components/inputfirehosemaximumtlsversion.md
+  - docs/models/components/inputfirehosemetadatum.md
+  - docs/models/components/inputfirehoseminimumtlsversion.md
+  - docs/models/components/inputfirehosemode.md
+  - docs/models/components/inputfirehosepq.md
+  - docs/models/components/inputfirehosetlssettingsserverside.md
+  - docs/models/components/inputfirehosetype.md
+  - docs/models/components/inputgooglepubsub.md
+  - docs/models/components/inputgooglepubsubcompression.md
+  - docs/models/components/inputgooglepubsubconnection.md
+  - docs/models/components/inputgooglepubsubmetadatum.md
+  - docs/models/components/inputgooglepubsubmode.md
+  - docs/models/components/inputgooglepubsubpq.md
+  - docs/models/components/inputgooglepubsubtype.md
+  - docs/models/components/inputgrafana1.md
+  - docs/models/components/inputgrafana2.md
+  - docs/models/components/inputgrafanacompression1.md
+  - docs/models/components/inputgrafanacompression2.md
+  - docs/models/components/inputgrafanaconnection1.md
+  - docs/models/components/inputgrafanaconnection2.md
+  - docs/models/components/inputgrafanamaximumtlsversion1.md
+  - docs/models/components/inputgrafanamaximumtlsversion2.md
+  - docs/models/components/inputgrafanametadatum1.md
+  - docs/models/components/inputgrafanametadatum2.md
+  - docs/models/components/inputgrafanaminimumtlsversion1.md
+  - docs/models/components/inputgrafanaminimumtlsversion2.md
+  - docs/models/components/inputgrafanamode1.md
+  - docs/models/components/inputgrafanamode2.md
+  - docs/models/components/inputgrafanapq1.md
+  - docs/models/components/inputgrafanapq2.md
+  - docs/models/components/inputgrafanatlssettingsserverside1.md
+  - docs/models/components/inputgrafanatlssettingsserverside2.md
+  - docs/models/components/inputgrafanatype1.md
+  - docs/models/components/inputgrafanatype2.md
+  - docs/models/components/inputgrafanaunion.md
+  - docs/models/components/inputhttp.md
+  - docs/models/components/inputhttpauthtokensext.md
+  - docs/models/components/inputhttpauthtokensextmetadatum.md
+  - docs/models/components/inputhttpcompression.md
+  - docs/models/components/inputhttpconnection.md
+  - docs/models/components/inputhttpmaximumtlsversion.md
+  - docs/models/components/inputhttpmetadatum.md
+  - docs/models/components/inputhttpminimumtlsversion.md
+  - docs/models/components/inputhttpmode.md
+  - docs/models/components/inputhttppq.md
+  - docs/models/components/inputhttpraw.md
+  - docs/models/components/inputhttprawauthtokensext.md
+  - docs/models/components/inputhttprawauthtokensextmetadatum.md
+  - docs/models/components/inputhttprawcompression.md
+  - docs/models/components/inputhttprawconnection.md
+  - docs/models/components/inputhttprawmaximumtlsversion.md
+  - docs/models/components/inputhttprawmetadatum.md
+  - docs/models/components/inputhttprawminimumtlsversion.md
+  - docs/models/components/inputhttprawmode.md
+  - docs/models/components/inputhttprawpq.md
+  - docs/models/components/inputhttprawtlssettingsserverside.md
+  - docs/models/components/inputhttprawtype.md
+  - docs/models/components/inputhttptlssettingsserverside.md
+  - docs/models/components/inputhttptype.md
+  - docs/models/components/inputjournalfiles.md
+  - docs/models/components/inputjournalfilescompression.md
+  - docs/models/components/inputjournalfilesconnection.md
+  - docs/models/components/inputjournalfilesmetadatum.md
+  - docs/models/components/inputjournalfilesmode.md
+  - docs/models/components/inputjournalfilespq.md
+  - docs/models/components/inputjournalfilesrule.md
+  - docs/models/components/inputjournalfilestype.md
+  - docs/models/components/inputkafka.md
+  - docs/models/components/inputkafkaauth.md
+  - docs/models/components/inputkafkaauthentication.md
+  - docs/models/components/inputkafkacompression.md
+  - docs/models/components/inputkafkaconnection.md
+  - docs/models/components/inputkafkakafkaschemaregistryauthentication.md
+  - docs/models/components/inputkafkakafkaschemaregistrymaximumtlsversion.md
+  - docs/models/components/inputkafkakafkaschemaregistryminimumtlsversion.md
+  - docs/models/components/inputkafkakafkaschemaregistrytlssettingsclientside.md
+  - docs/models/components/inputkafkamaximumtlsversion.md
+  - docs/models/components/inputkafkametadatum.md
+  - docs/models/components/inputkafkaminimumtlsversion.md
+  - docs/models/components/inputkafkamode.md
+  - docs/models/components/inputkafkapq.md
+  - docs/models/components/inputkafkasaslmechanism.md
+  - docs/models/components/inputkafkatlssettingsclientside.md
+  - docs/models/components/inputkafkatype.md
+  - docs/models/components/inputkinesis.md
+  - docs/models/components/inputkinesisauthenticationmethod.md
+  - docs/models/components/inputkinesiscompression.md
+  - docs/models/components/inputkinesisconnection.md
+  - docs/models/components/inputkinesismetadatum.md
+  - docs/models/components/inputkinesismode.md
+  - docs/models/components/inputkinesispq.md
+  - docs/models/components/inputkinesissignatureversion.md
+  - docs/models/components/inputkinesistype.md
+  - docs/models/components/inputkubeevents.md
+  - docs/models/components/inputkubeeventscompression.md
+  - docs/models/components/inputkubeeventsconnection.md
+  - docs/models/components/inputkubeeventsmetadatum.md
+  - docs/models/components/inputkubeeventsmode.md
+  - docs/models/components/inputkubeeventspq.md
+  - docs/models/components/inputkubeeventsrule.md
+  - docs/models/components/inputkubeeventstype.md
+  - docs/models/components/inputkubelogs.md
+  - docs/models/components/inputkubelogsconnection.md
+  - docs/models/components/inputkubelogsdiskspooling.md
+  - docs/models/components/inputkubelogsmetadatum.md
+  - docs/models/components/inputkubelogsmode.md
+  - docs/models/components/inputkubelogspersistencecompression.md
+  - docs/models/components/inputkubelogspq.md
+  - docs/models/components/inputkubelogspqcompression.md
+  - docs/models/components/inputkubelogsrule.md
+  - docs/models/components/inputkubelogstype.md
+  - docs/models/components/inputkubemetrics.md
+  - docs/models/components/inputkubemetricscompression.md
+  - docs/models/components/inputkubemetricsconnection.md
+  - docs/models/components/inputkubemetricsdatacompressionformat.md
+  - docs/models/components/inputkubemetricsmetadatum.md
+  - docs/models/components/inputkubemetricsmode.md
+  - docs/models/components/inputkubemetricspersistence.md
+  - docs/models/components/inputkubemetricspq.md
+  - docs/models/components/inputkubemetricsrule.md
+  - docs/models/components/inputkubemetricstype.md
+  - docs/models/components/inputloki.md
+  - docs/models/components/inputlokiauthenticationtype.md
+  - docs/models/components/inputlokicompression.md
+  - docs/models/components/inputlokiconnection.md
+  - docs/models/components/inputlokimaximumtlsversion.md
+  - docs/models/components/inputlokimetadatum.md
+  - docs/models/components/inputlokiminimumtlsversion.md
+  - docs/models/components/inputlokimode.md
+  - docs/models/components/inputlokioauthheader.md
+  - docs/models/components/inputlokioauthparam.md
+  - docs/models/components/inputlokipq.md
+  - docs/models/components/inputlokitlssettingsserverside.md
+  - docs/models/components/inputlokitype.md
+  - docs/models/components/inputmetrics.md
+  - docs/models/components/inputmetricscompression.md
+  - docs/models/components/inputmetricsconnection.md
+  - docs/models/components/inputmetricsmaximumtlsversion.md
+  - docs/models/components/inputmetricsmetadatum.md
+  - docs/models/components/inputmetricsminimumtlsversion.md
+  - docs/models/components/inputmetricsmode.md
+  - docs/models/components/inputmetricspq.md
+  - docs/models/components/inputmetricstlssettingsserverside.md
+  - docs/models/components/inputmetricstype.md
+  - docs/models/components/inputmodeldriventelemetry.md
+  - docs/models/components/inputmodeldriventelemetrycompression.md
+  - docs/models/components/inputmodeldriventelemetryconnection.md
+  - docs/models/components/inputmodeldriventelemetrymaximumtlsversion.md
+  - docs/models/components/inputmodeldriventelemetrymetadatum.md
+  - docs/models/components/inputmodeldriventelemetryminimumtlsversion.md
+  - docs/models/components/inputmodeldriventelemetrymode.md
+  - docs/models/components/inputmodeldriventelemetrypq.md
+  - docs/models/components/inputmodeldriventelemetrytlssettingsserverside.md
+  - docs/models/components/inputmodeldriventelemetrytype.md
+  - docs/models/components/inputmsk.md
+  - docs/models/components/inputmskauth.md
+  - docs/models/components/inputmskauthenticationmethod.md
+  - docs/models/components/inputmskcompression.md
+  - docs/models/components/inputmskconnection.md
+  - docs/models/components/inputmskkafkaschemaregistryauthentication.md
+  - docs/models/components/inputmskkafkaschemaregistrymaximumtlsversion.md
+  - docs/models/components/inputmskkafkaschemaregistryminimumtlsversion.md
+  - docs/models/components/inputmskkafkaschemaregistrytlssettingsclientside.md
+  - docs/models/components/inputmskmaximumtlsversion.md
+  - docs/models/components/inputmskmetadatum.md
+  - docs/models/components/inputmskminimumtlsversion.md
+  - docs/models/components/inputmskmode.md
+  - docs/models/components/inputmskpq.md
+  - docs/models/components/inputmsksignatureversion.md
+  - docs/models/components/inputmsktlssettingsclientside.md
+  - docs/models/components/inputmsktype.md
+  - docs/models/components/inputnetflow.md
+  - docs/models/components/inputnetflowcompression.md
+  - docs/models/components/inputnetflowconnection.md
+  - docs/models/components/inputnetflowmetadatum.md
+  - docs/models/components/inputnetflowmode.md
+  - docs/models/components/inputnetflowpq.md
+  - docs/models/components/inputnetflowtype.md
+  - docs/models/components/inputoffice365mgmt.md
+  - docs/models/components/inputoffice365mgmtauthenticationmethod.md
+  - docs/models/components/inputoffice365mgmtcompression.md
+  - docs/models/components/inputoffice365mgmtconnection.md
+  - docs/models/components/inputoffice365mgmtcontentconfig.md
+  - docs/models/components/inputoffice365mgmtloglevel.md
+  - docs/models/components/inputoffice365mgmtmetadatum.md
+  - docs/models/components/inputoffice365mgmtmode.md
+  - docs/models/components/inputoffice365mgmtpq.md
+  - docs/models/components/inputoffice365mgmtretryrules.md
+  - docs/models/components/inputoffice365mgmtretrytype.md
+  - docs/models/components/inputoffice365mgmtsubscriptionplan.md
+  - docs/models/components/inputoffice365mgmttype.md
+  - docs/models/components/inputoffice365msgtrace.md
+  - docs/models/components/inputoffice365msgtraceauthenticationmethod.md
+  - docs/models/components/inputoffice365msgtracecompression.md
+  - docs/models/components/inputoffice365msgtraceconnection.md
+  - docs/models/components/inputoffice365msgtraceloglevel.md
+  - docs/models/components/inputoffice365msgtracemetadatum.md
+  - docs/models/components/inputoffice365msgtracemode.md
+  - docs/models/components/inputoffice365msgtracepq.md
+  - docs/models/components/inputoffice365msgtraceretryrules.md
+  - docs/models/components/inputoffice365msgtraceretrytype.md
+  - docs/models/components/inputoffice365msgtracesubscriptionplan.md
+  - docs/models/components/inputoffice365msgtracetype.md
+  - docs/models/components/inputoffice365service.md
+  - docs/models/components/inputoffice365serviceauthenticationmethod.md
+  - docs/models/components/inputoffice365servicecompression.md
+  - docs/models/components/inputoffice365serviceconnection.md
+  - docs/models/components/inputoffice365servicecontentconfig.md
+  - docs/models/components/inputoffice365serviceloglevel.md
+  - docs/models/components/inputoffice365servicemetadatum.md
+  - docs/models/components/inputoffice365servicemode.md
+  - docs/models/components/inputoffice365servicepq.md
+  - docs/models/components/inputoffice365serviceretryrules.md
+  - docs/models/components/inputoffice365serviceretrytype.md
+  - docs/models/components/inputoffice365servicesubscriptionplan.md
+  - docs/models/components/inputoffice365servicetype.md
+  - docs/models/components/inputopentelemetry.md
+  - docs/models/components/inputopentelemetryauthenticationtype.md
+  - docs/models/components/inputopentelemetrycompression.md
+  - docs/models/components/inputopentelemetryconnection.md
+  - docs/models/components/inputopentelemetrymaximumtlsversion.md
+  - docs/models/components/inputopentelemetrymetadatum.md
+  - docs/models/components/inputopentelemetryminimumtlsversion.md
+  - docs/models/components/inputopentelemetrymode.md
+  - docs/models/components/inputopentelemetryoauthheader.md
+  - docs/models/components/inputopentelemetryoauthparam.md
+  - docs/models/components/inputopentelemetrypq.md
+  - docs/models/components/inputopentelemetryprotocol.md
+  - docs/models/components/inputopentelemetrytlssettingsserverside.md
+  - docs/models/components/inputopentelemetrytype.md
+  - docs/models/components/inputprometheus.md
+  - docs/models/components/inputprometheusauthtypeauthenticationmethod.md
+  - docs/models/components/inputprometheusawsauthenticationmethodauthenticationmethod.md
+  - docs/models/components/inputprometheuscompression.md
+  - docs/models/components/inputprometheusconnection.md
+  - docs/models/components/inputprometheusdiscoverytype.md
+  - docs/models/components/inputprometheusloglevel.md
+  - docs/models/components/inputprometheusmetadatum.md
+  - docs/models/components/inputprometheusmode.md
+  - docs/models/components/inputprometheuspq.md
+  - docs/models/components/inputprometheusrecordtype.md
+  - docs/models/components/inputprometheusrw.md
+  - docs/models/components/inputprometheusrwauthenticationtype.md
+  - docs/models/components/inputprometheusrwcompression.md
+  - docs/models/components/inputprometheusrwconnection.md
+  - docs/models/components/inputprometheusrwmaximumtlsversion.md
+  - docs/models/components/inputprometheusrwmetadatum.md
+  - docs/models/components/inputprometheusrwminimumtlsversion.md
+  - docs/models/components/inputprometheusrwmode.md
+  - docs/models/components/inputprometheusrwoauthheader.md
+  - docs/models/components/inputprometheusrwoauthparam.md
+  - docs/models/components/inputprometheusrwpq.md
+  - docs/models/components/inputprometheusrwtlssettingsserverside.md
+  - docs/models/components/inputprometheusrwtype.md
+  - docs/models/components/inputprometheussearchfilter.md
+  - docs/models/components/inputprometheussignatureversion.md
+  - docs/models/components/inputprometheustype.md
+  - docs/models/components/inputrawudp.md
+  - docs/models/components/inputrawudpcompression.md
+  - docs/models/components/inputrawudpconnection.md
+  - docs/models/components/inputrawudpmetadatum.md
+  - docs/models/components/inputrawudpmode.md
+  - docs/models/components/inputrawudppq.md
+  - docs/models/components/inputrawudptype.md
+  - docs/models/components/inputs3.md
+  - docs/models/components/inputs3authenticationmethod.md
+  - docs/models/components/inputs3checkpointing.md
+  - docs/models/components/inputs3compression.md
+  - docs/models/components/inputs3connection.md
+  - docs/models/components/inputs3inventory.md
+  - docs/models/components/inputs3inventoryauthenticationmethod.md
+  - docs/models/components/inputs3inventorycheckpointing.md
+  - docs/models/components/inputs3inventorycompression.md
+  - docs/models/components/inputs3inventoryconnection.md
+  - docs/models/components/inputs3inventorymetadatum.md
+  - docs/models/components/inputs3inventorymode.md
+  - docs/models/components/inputs3inventorypq.md
+  - docs/models/components/inputs3inventorypreprocess.md
+  - docs/models/components/inputs3inventorysignatureversion.md
+  - docs/models/components/inputs3inventorytagafterprocessing.md
+  - docs/models/components/inputs3inventorytype.md
+  - docs/models/components/inputs3metadatum.md
+  - docs/models/components/inputs3mode.md
+  - docs/models/components/inputs3pq.md
+  - docs/models/components/inputs3preprocess.md
+  - docs/models/components/inputs3signatureversion.md
+  - docs/models/components/inputs3type.md
+  - docs/models/components/inputsecuritylake.md
+  - docs/models/components/inputsecuritylakeauthenticationmethod.md
+  - docs/models/components/inputsecuritylakecheckpointing.md
+  - docs/models/components/inputsecuritylakecompression.md
+  - docs/models/components/inputsecuritylakeconnection.md
+  - docs/models/components/inputsecuritylakemetadatum.md
+  - docs/models/components/inputsecuritylakemode.md
+  - docs/models/components/inputsecuritylakepq.md
+  - docs/models/components/inputsecuritylakepreprocess.md
+  - docs/models/components/inputsecuritylakesignatureversion.md
+  - docs/models/components/inputsecuritylaketagafterprocessing.md
+  - docs/models/components/inputsecuritylaketype.md
+  - docs/models/components/inputsnmp.md
+  - docs/models/components/inputsnmpcompression.md
+  - docs/models/components/inputsnmpconnection.md
+  - docs/models/components/inputsnmpmetadatum.md
+  - docs/models/components/inputsnmpmode.md
+  - docs/models/components/inputsnmppq.md
+  - docs/models/components/inputsnmptype.md
+  - docs/models/components/inputsplunk.md
+  - docs/models/components/inputsplunkauthtoken.md
+  - docs/models/components/inputsplunkcompression.md
+  - docs/models/components/inputsplunkconnection.md
+  - docs/models/components/inputsplunkhec.md
+  - docs/models/components/inputsplunkhecauthenticationmethod.md
+  - docs/models/components/inputsplunkhecauthtoken.md
+  - docs/models/components/inputsplunkhecauthtokenmetadatum.md
+  - docs/models/components/inputsplunkheccompression.md
+  - docs/models/components/inputsplunkhecconnection.md
+  - docs/models/components/inputsplunkhecmaximumtlsversion.md
+  - docs/models/components/inputsplunkhecmetadatum.md
+  - docs/models/components/inputsplunkhecminimumtlsversion.md
+  - docs/models/components/inputsplunkhecmode.md
+  - docs/models/components/inputsplunkhecpq.md
+  - docs/models/components/inputsplunkhectlssettingsserverside.md
+  - docs/models/components/inputsplunkhectype.md
+  - docs/models/components/inputsplunkmaximumtlsversion.md
+  - docs/models/components/inputsplunkmetadatum.md
+  - docs/models/components/inputsplunkminimumtlsversion.md
+  - docs/models/components/inputsplunkmode.md
+  - docs/models/components/inputsplunkpq.md
+  - docs/models/components/inputsplunkpqcompression.md
+  - docs/models/components/inputsplunksearch.md
+  - docs/models/components/inputsplunksearchauthenticationtype.md
+  - docs/models/components/inputsplunksearchcompression.md
+  - docs/models/components/inputsplunksearchconnection.md
+  - docs/models/components/inputsplunksearchloglevel.md
+  - docs/models/components/inputsplunksearchmetadatum.md
+  - docs/models/components/inputsplunksearchmode.md
+  - docs/models/components/inputsplunksearchoauthheader.md
+  - docs/models/components/inputsplunksearchoauthparam.md
+  - docs/models/components/inputsplunksearchpq.md
+  - docs/models/components/inputsplunksearchretryrules.md
+  - docs/models/components/inputsplunksearchretrytype.md
+  - docs/models/components/inputsplunksearchtype.md
+  - docs/models/components/inputsplunktlssettingsserverside.md
+  - docs/models/components/inputsplunktype.md
+  - docs/models/components/inputsqs.md
+  - docs/models/components/inputsqsauthenticationmethod.md
+  - docs/models/components/inputsqscompression.md
+  - docs/models/components/inputsqsconnection.md
+  - docs/models/components/inputsqsmetadatum.md
+  - docs/models/components/inputsqsmode.md
+  - docs/models/components/inputsqspq.md
+  - docs/models/components/inputsqssignatureversion.md
+  - docs/models/components/inputsqstype.md
+  - docs/models/components/inputsyslog1.md
+  - docs/models/components/inputsyslog2.md
+  - docs/models/components/inputsyslogcompression1.md
+  - docs/models/components/inputsyslogcompression2.md
+  - docs/models/components/inputsyslogconnection1.md
+  - docs/models/components/inputsyslogconnection2.md
+  - docs/models/components/inputsyslogmaximumtlsversion1.md
+  - docs/models/components/inputsyslogmaximumtlsversion2.md
+  - docs/models/components/inputsyslogmetadatum1.md
+  - docs/models/components/inputsyslogmetadatum2.md
+  - docs/models/components/inputsyslogminimumtlsversion1.md
+  - docs/models/components/inputsyslogminimumtlsversion2.md
+  - docs/models/components/inputsyslogmode1.md
+  - docs/models/components/inputsyslogmode2.md
+  - docs/models/components/inputsyslogpq1.md
+  - docs/models/components/inputsyslogpq2.md
+  - docs/models/components/inputsyslogtlssettingsserverside1.md
+  - docs/models/components/inputsyslogtlssettingsserverside2.md
+  - docs/models/components/inputsyslogtype1.md
+  - docs/models/components/inputsyslogtype2.md
+  - docs/models/components/inputsyslogunion.md
+  - docs/models/components/inputsystemmetrics.md
+  - docs/models/components/inputsystemmetricscompression.md
+  - docs/models/components/inputsystemmetricsconnection.md
+  - docs/models/components/inputsystemmetricscpu.md
+  - docs/models/components/inputsystemmetricscpumode.md
+  - docs/models/components/inputsystemmetricscustom.md
+  - docs/models/components/inputsystemmetricsdatacompressionformat.md
+  - docs/models/components/inputsystemmetricsdisk.md
+  - docs/models/components/inputsystemmetricsdiskmode.md
+  - docs/models/components/inputsystemmetricsfilter.md
+  - docs/models/components/inputsystemmetricshost.md
+  - docs/models/components/inputsystemmetricshostmode.md
+  - docs/models/components/inputsystemmetricsmemory.md
+  - docs/models/components/inputsystemmetricsmemorymode.md
+  - docs/models/components/inputsystemmetricsmetadatum.md
+  - docs/models/components/inputsystemmetricsnetwork.md
+  - docs/models/components/inputsystemmetricsnetworkmode.md
+  - docs/models/components/inputsystemmetricspersistence.md
+  - docs/models/components/inputsystemmetricspq.md
+  - docs/models/components/inputsystemmetricspqmode.md
+  - docs/models/components/inputsystemmetricsprocess.md
+  - docs/models/components/inputsystemmetricsset.md
+  - docs/models/components/inputsystemmetricssystem.md
+  - docs/models/components/inputsystemmetricssystemmode.md
+  - docs/models/components/inputsystemmetricstype.md
+  - docs/models/components/inputsystemstate.md
+  - docs/models/components/inputsystemstatecompression.md
+  - docs/models/components/inputsystemstateconnection.md
+  - docs/models/components/inputsystemstatedatacompressionformat.md
+  - docs/models/components/inputsystemstatemetadatum.md
+  - docs/models/components/inputsystemstatemode.md
+  - docs/models/components/inputsystemstatepersistence.md
+  - docs/models/components/inputsystemstatepq.md
+  - docs/models/components/inputsystemstatetype.md
+  - docs/models/components/inputtcp.md
+  - docs/models/components/inputtcpauthenticationmethod.md
+  - docs/models/components/inputtcpcompression.md
+  - docs/models/components/inputtcpconnection.md
+  - docs/models/components/inputtcpjson.md
+  - docs/models/components/inputtcpjsonauthenticationmethod.md
+  - docs/models/components/inputtcpjsoncompression.md
+  - docs/models/components/inputtcpjsonconnection.md
+  - docs/models/components/inputtcpjsonmaximumtlsversion.md
+  - docs/models/components/inputtcpjsonmetadatum.md
+  - docs/models/components/inputtcpjsonminimumtlsversion.md
+  - docs/models/components/inputtcpjsonmode.md
+  - docs/models/components/inputtcpjsonpq.md
+  - docs/models/components/inputtcpjsontlssettingsserverside.md
+  - docs/models/components/inputtcpjsontype.md
+  - docs/models/components/inputtcpmaximumtlsversion.md
+  - docs/models/components/inputtcpmetadatum.md
+  - docs/models/components/inputtcpminimumtlsversion.md
+  - docs/models/components/inputtcpmode.md
+  - docs/models/components/inputtcppq.md
+  - docs/models/components/inputtcppreprocess.md
+  - docs/models/components/inputtcptlssettingsserverside.md
+  - docs/models/components/inputtcptype.md
+  - docs/models/components/inputwef.md
+  - docs/models/components/inputwefauthenticationmethod.md
+  - docs/models/components/inputwefcompression.md
+  - docs/models/components/inputwefconnection.md
+  - docs/models/components/inputwefmaximumtlsversion.md
+  - docs/models/components/inputwefmetadatum.md
+  - docs/models/components/inputwefminimumtlsversion.md
+  - docs/models/components/inputwefmode.md
+  - docs/models/components/inputwefpq.md
+  - docs/models/components/inputweftype.md
+  - docs/models/components/inputwindowsmetrics.md
+  - docs/models/components/inputwindowsmetricscompression.md
+  - docs/models/components/inputwindowsmetricsconnection.md
+  - docs/models/components/inputwindowsmetricscpu.md
+  - docs/models/components/inputwindowsmetricscpumode.md
+  - docs/models/components/inputwindowsmetricscustom.md
+  - docs/models/components/inputwindowsmetricsdatacompressionformat.md
+  - docs/models/components/inputwindowsmetricsdisk.md
+  - docs/models/components/inputwindowsmetricsdiskmode.md
+  - docs/models/components/inputwindowsmetricshost.md
+  - docs/models/components/inputwindowsmetricshostmode.md
+  - docs/models/components/inputwindowsmetricsmemory.md
+  - docs/models/components/inputwindowsmetricsmemorymode.md
+  - docs/models/components/inputwindowsmetricsmetadatum.md
+  - docs/models/components/inputwindowsmetricsnetwork.md
+  - docs/models/components/inputwindowsmetricsnetworkmode.md
+  - docs/models/components/inputwindowsmetricspersistence.md
+  - docs/models/components/inputwindowsmetricspq.md
+  - docs/models/components/inputwindowsmetricspqmode.md
+  - docs/models/components/inputwindowsmetricsprocess.md
+  - docs/models/components/inputwindowsmetricsset.md
+  - docs/models/components/inputwindowsmetricssystem.md
+  - docs/models/components/inputwindowsmetricssystemmode.md
+  - docs/models/components/inputwindowsmetricstype.md
+  - docs/models/components/inputwineventlogs.md
+  - docs/models/components/inputwineventlogscompression.md
+  - docs/models/components/inputwineventlogsconnection.md
+  - docs/models/components/inputwineventlogsmetadatum.md
+  - docs/models/components/inputwineventlogsmode.md
+  - docs/models/components/inputwineventlogspq.md
+  - docs/models/components/inputwineventlogstype.md
+  - docs/models/components/inputwiz.md
+  - docs/models/components/inputwizauthenticationmethod.md
+  - docs/models/components/inputwizcompression.md
+  - docs/models/components/inputwizconnection.md
+  - docs/models/components/inputwizcontentconfig.md
+  - docs/models/components/inputwizmetadatum.md
+  - docs/models/components/inputwizmode.md
+  - docs/models/components/inputwizpq.md
+  - docs/models/components/inputwizretryrules.md
+  - docs/models/components/inputwizretrytype.md
+  - docs/models/components/inputwiztype.md
+  - docs/models/components/inputzscalerhec.md
+  - docs/models/components/inputzscalerhecauthenticationmethod.md
+  - docs/models/components/inputzscalerhecauthtoken.md
+  - docs/models/components/inputzscalerhecauthtokenmetadatum.md
+  - docs/models/components/inputzscalerheccompression.md
+  - docs/models/components/inputzscalerhecconnection.md
+  - docs/models/components/inputzscalerhecmaximumtlsversion.md
+  - docs/models/components/inputzscalerhecmetadatum.md
+  - docs/models/components/inputzscalerhecminimumtlsversion.md
+  - docs/models/components/inputzscalerhecmode.md
+  - docs/models/components/inputzscalerhecpq.md
+  - docs/models/components/inputzscalerhectlssettingsserverside.md
+  - docs/models/components/inputzscalerhectype.md
+  - docs/models/components/interfaces.md
+  - docs/models/components/listeningports.md
+  - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
+  - docs/models/components/lokiauth1.md
+  - docs/models/components/lokiauth2.md
+  - docs/models/components/lokiauthauthenticationtype1.md
+  - docs/models/components/lokiauthauthenticationtype2.md
+  - docs/models/components/lokiauthoauthheader1.md
+  - docs/models/components/lokiauthoauthheader2.md
+  - docs/models/components/lokiauthoauthparam1.md
+  - docs/models/components/lokiauthoauthparam2.md
+  - docs/models/components/maxs2sversion.md
+  - docs/models/components/metricsprotocol.md
+  - docs/models/components/mtlssettings.md
+  - docs/models/components/otlpversion.md
+  - docs/models/components/outputmode.md
+  - docs/models/components/podfilter.md
+  - docs/models/components/prometheusauth1.md
+  - docs/models/components/prometheusauth2.md
+  - docs/models/components/prometheusauthauthenticationtype1.md
+  - docs/models/components/prometheusauthauthenticationtype2.md
+  - docs/models/components/prometheusauthoauthheader1.md
+  - docs/models/components/prometheusauthoauthheader2.md
+  - docs/models/components/prometheusauthoauthparam1.md
+  - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/querybuildermode.md
+  - docs/models/components/queuetype.md
+  - docs/models/components/readmode.md
+  - docs/models/components/recorddataformat.md
   - docs/models/components/role.md
+  - docs/models/components/routes.md
+  - docs/models/components/sample.md
+  - docs/models/components/scheduletype.md
   - docs/models/components/schemeclientoauth.md
+  - docs/models/components/scrapeprotocolprotocol.md
   - docs/models/components/security.md
+  - docs/models/components/services.md
+  - docs/models/components/sharditeratorstart.md
+  - docs/models/components/shardloadbalancing.md
+  - docs/models/components/snmpv3authentication.md
   - docs/models/components/status.md
+  - docs/models/components/subscription.md
+  - docs/models/components/subscriptionmetadatum.md
+  - docs/models/components/target.md
+  - docs/models/components/targetprotocol.md
+  - docs/models/components/updatehectokenrequest.md
+  - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/usersandgroups.md
+  - docs/models/components/v3user.md
+  - docs/models/operations/createinputhectokenbyidrequest.md
+  - docs/models/operations/createinputhectokenbyidresponse.md
+  - docs/models/operations/createinputhectokenbyidresponsebody.md
+  - docs/models/operations/createinputresponse.md
+  - docs/models/operations/createinputresponsebody.md
+  - docs/models/operations/deleteinputbyidrequest.md
+  - docs/models/operations/deleteinputbyidresponse.md
+  - docs/models/operations/deleteinputbyidresponsebody.md
   - docs/models/operations/gethealthinforesponse.md
+  - docs/models/operations/getinputbyidrequest.md
+  - docs/models/operations/getinputbyidresponse.md
+  - docs/models/operations/getinputbyidresponsebody.md
+  - docs/models/operations/listinputresponse.md
+  - docs/models/operations/listinputresponsebody.md
   - docs/models/operations/loginresponse.md
   - docs/models/operations/option.md
+  - docs/models/operations/updateinputbyidrequest.md
+  - docs/models/operations/updateinputbyidresponse.md
+  - docs/models/operations/updateinputbyidresponsebody.md
+  - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
+  - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
+  - docs/models/operations/updateinputhectokenbyidandtokenresponsebody.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/health/README.md
+  - docs/sdks/inputs/README.md
   - go.mod
   - health.go
+  - inputs.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/clientcredentials.go
   - internal/hooks/hooks.go
@@ -83,6 +917,7 @@ generatedFiles:
   - tests/auth_test.go
   - tests/files.go
   - tests/health_test.go
+  - tests/inputs_test.go
   - tests/mockserver/.gitignore
   - tests/mockserver/Dockerfile
   - tests/mockserver/Makefile
@@ -97,8 +932,15 @@ generatedFiles:
   - tests/mockserver/internal/handler/doc.go
   - tests/mockserver/internal/handler/generated_handler.go
   - tests/mockserver/internal/handler/generated_handlers.go
+  - tests/mockserver/internal/handler/pathdeletesysteminputsid.go
   - tests/mockserver/internal/handler/pathgethealth.go
+  - tests/mockserver/internal/handler/pathgetsysteminputs.go
+  - tests/mockserver/internal/handler/pathgetsysteminputsid.go
+  - tests/mockserver/internal/handler/pathpatchsysteminputsid.go
+  - tests/mockserver/internal/handler/pathpatchsysteminputsidhectokentoken.go
   - tests/mockserver/internal/handler/pathpostauthlogin.go
+  - tests/mockserver/internal/handler/pathpostsysteminputs.go
+  - tests/mockserver/internal/handler/pathpostsysteminputsidhectoken.go
   - tests/mockserver/internal/handler/values/files.go
   - tests/mockserver/internal/logging/doc.go
   - tests/mockserver/internal/logging/formats.go
@@ -108,14 +950,83 @@ generatedFiles:
   - tests/mockserver/internal/logging/logger.go
   - tests/mockserver/internal/logging/oas_operation.go
   - tests/mockserver/internal/logging/oas_operation_call.go
+  - tests/mockserver/internal/sdk/models/components/addhectokenrequest.go
   - tests/mockserver/internal/sdk/models/components/authtoken.go
   - tests/mockserver/internal/sdk/models/components/healthstatus.go
   - tests/mockserver/internal/sdk/models/components/httpmetadata.go
+  - tests/mockserver/internal/sdk/models/components/input.go
+  - tests/mockserver/internal/sdk/models/components/inputappscope.go
+  - tests/mockserver/internal/sdk/models/components/inputazureblob.go
+  - tests/mockserver/internal/sdk/models/components/inputcollection.go
+  - tests/mockserver/internal/sdk/models/components/inputconfluentcloud.go
+  - tests/mockserver/internal/sdk/models/components/inputcribl.go
+  - tests/mockserver/internal/sdk/models/components/inputcriblhttp.go
+  - tests/mockserver/internal/sdk/models/components/inputcribllakehttp.go
+  - tests/mockserver/internal/sdk/models/components/inputcriblmetrics.go
+  - tests/mockserver/internal/sdk/models/components/inputcribltcp.go
+  - tests/mockserver/internal/sdk/models/components/inputcrowdstrike.go
+  - tests/mockserver/internal/sdk/models/components/inputdatadogagent.go
+  - tests/mockserver/internal/sdk/models/components/inputdatagen.go
+  - tests/mockserver/internal/sdk/models/components/inputedgeprometheus.go
+  - tests/mockserver/internal/sdk/models/components/inputelastic.go
+  - tests/mockserver/internal/sdk/models/components/inputeventhub.go
+  - tests/mockserver/internal/sdk/models/components/inputexec.go
+  - tests/mockserver/internal/sdk/models/components/inputfile.go
+  - tests/mockserver/internal/sdk/models/components/inputfirehose.go
+  - tests/mockserver/internal/sdk/models/components/inputgooglepubsub.go
+  - tests/mockserver/internal/sdk/models/components/inputgrafanaunion.go
+  - tests/mockserver/internal/sdk/models/components/inputhttp.go
+  - tests/mockserver/internal/sdk/models/components/inputhttpraw.go
+  - tests/mockserver/internal/sdk/models/components/inputjournalfiles.go
+  - tests/mockserver/internal/sdk/models/components/inputkafka.go
+  - tests/mockserver/internal/sdk/models/components/inputkinesis.go
+  - tests/mockserver/internal/sdk/models/components/inputkubeevents.go
+  - tests/mockserver/internal/sdk/models/components/inputkubelogs.go
+  - tests/mockserver/internal/sdk/models/components/inputkubemetrics.go
+  - tests/mockserver/internal/sdk/models/components/inputloki.go
+  - tests/mockserver/internal/sdk/models/components/inputmetrics.go
+  - tests/mockserver/internal/sdk/models/components/inputmodeldriventelemetry.go
+  - tests/mockserver/internal/sdk/models/components/inputmsk.go
+  - tests/mockserver/internal/sdk/models/components/inputnetflow.go
+  - tests/mockserver/internal/sdk/models/components/inputoffice365mgmt.go
+  - tests/mockserver/internal/sdk/models/components/inputoffice365msgtrace.go
+  - tests/mockserver/internal/sdk/models/components/inputoffice365service.go
+  - tests/mockserver/internal/sdk/models/components/inputopentelemetry.go
+  - tests/mockserver/internal/sdk/models/components/inputprometheus.go
+  - tests/mockserver/internal/sdk/models/components/inputprometheusrw.go
+  - tests/mockserver/internal/sdk/models/components/inputrawudp.go
+  - tests/mockserver/internal/sdk/models/components/inputs3.go
+  - tests/mockserver/internal/sdk/models/components/inputs3inventory.go
+  - tests/mockserver/internal/sdk/models/components/inputsecuritylake.go
+  - tests/mockserver/internal/sdk/models/components/inputsnmp.go
+  - tests/mockserver/internal/sdk/models/components/inputsplunk.go
+  - tests/mockserver/internal/sdk/models/components/inputsplunkhec.go
+  - tests/mockserver/internal/sdk/models/components/inputsplunksearch.go
+  - tests/mockserver/internal/sdk/models/components/inputsqs.go
+  - tests/mockserver/internal/sdk/models/components/inputsyslogunion.go
+  - tests/mockserver/internal/sdk/models/components/inputsystemmetrics.go
+  - tests/mockserver/internal/sdk/models/components/inputsystemstate.go
+  - tests/mockserver/internal/sdk/models/components/inputtcp.go
+  - tests/mockserver/internal/sdk/models/components/inputtcpjson.go
+  - tests/mockserver/internal/sdk/models/components/inputwef.go
+  - tests/mockserver/internal/sdk/models/components/inputwindowsmetrics.go
+  - tests/mockserver/internal/sdk/models/components/inputwineventlogs.go
+  - tests/mockserver/internal/sdk/models/components/inputwiz.go
+  - tests/mockserver/internal/sdk/models/components/inputzscalerhec.go
   - tests/mockserver/internal/sdk/models/components/logininfo.go
   - tests/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - tests/mockserver/internal/sdk/models/components/security.go
+  - tests/mockserver/internal/sdk/models/components/updatehectokenrequest.go
+  - tests/mockserver/internal/sdk/models/operations/createinput.go
+  - tests/mockserver/internal/sdk/models/operations/createinputhectokenbyid.go
+  - tests/mockserver/internal/sdk/models/operations/deleteinputbyid.go
   - tests/mockserver/internal/sdk/models/operations/gethealthinfo.go
+  - tests/mockserver/internal/sdk/models/operations/getinputbyid.go
+  - tests/mockserver/internal/sdk/models/operations/listinput.go
   - tests/mockserver/internal/sdk/models/operations/login.go
+  - tests/mockserver/internal/sdk/models/operations/updateinputbyid.go
+  - tests/mockserver/internal/sdk/models/operations/updateinputhectokenbyidandtoken.go
+  - tests/mockserver/internal/sdk/models/sdkerrors/error.go
   - tests/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - tests/mockserver/internal/sdk/types/bigint.go
   - tests/mockserver/internal/sdk/types/date.go
@@ -157,7 +1068,87 @@ examples:
       responses:
         "200":
           application/json: {"token": "<value>"}
+  listInput:
+    speakeasy-default-list-input:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createInput:
+    speakeasy-default-create-input:
+      requestBody:
+        application/json: {"disabled": false, "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 301.76, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "staleChannelFlushMs": 10000, "enableHeader": false, "authType": "manual"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getInputById:
+    speakeasy-default-get-input-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateInputById:
+    speakeasy-default-update-input-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "sendToRoutes": true, "pqEnabled": false}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  deleteInputById:
+    speakeasy-default-delete-input-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createInputHecTokenById:
+    speakeasy-default-create-input-hec-token-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"token": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateInputHecTokenByIdAndToken:
+    speakeasy-default-update-input-hec-token-by-id-and-token:
+      parameters:
+        path:
+          id: "<id>"
+          token: "<value>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
   login: "2025-07-15T20:32:44+02:00"
+  listInput: "2025-07-17T18:37:25Z"
+  createInput: "2025-07-17T18:37:25Z"
+  getInputById: "2025-07-17T18:37:25Z"
+  updateInputById: "2025-07-17T18:37:25Z"
+  deleteInputById: "2025-07-17T18:37:25Z"
+  createInputHecTokenById: "2025-07-17T18:37:25Z"
+  updateInputHecTokenByIdAndToken: "2025-07-17T18:37:25Z"

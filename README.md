@@ -41,6 +41,7 @@ import (
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
+	"os"
 )
 
 func main() {
@@ -48,16 +49,16 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
-	})
+	res, err := s.Inputs.ListInput(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AuthToken != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
@@ -99,14 +100,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
-	})
+	res, err := s.Inputs.ListInput(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AuthToken != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
@@ -129,6 +127,16 @@ func main() {
 
 * [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
+### [Inputs](docs/sdks/inputs/README.md)
+
+* [ListInput](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
+* [CreateInput](docs/sdks/inputs/README.md#createinput) - Create Input
+* [GetInputByID](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
+* [UpdateInputByID](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
+* [DeleteInputByID](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
+* [CreateInputHecTokenByID](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
+* [UpdateInputHecTokenByIDAndToken](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -148,6 +156,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"log"
 	"models/operations"
+	"os"
 )
 
 func main() {
@@ -155,12 +164,12 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
-	}, operations.WithRetries(
+	res, err := s.Inputs.ListInput(ctx, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -174,7 +183,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AuthToken != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
@@ -191,6 +200,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"log"
+	"os"
 )
 
 func main() {
@@ -209,16 +219,16 @@ func main() {
 				},
 				RetryConnectionErrors: false,
 			}),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
-	})
+	res, err := s.Inputs.ListInput(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AuthToken != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
@@ -233,12 +243,12 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `apierrors.APIError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `GetHealthInfo` function may return the following errors:
+For example, the `ListInput` function may return the following errors:
 
-| Error Type                  | Status Code | Content Type     |
-| --------------------------- | ----------- | ---------------- |
-| apierrors.HealthStatusError | 420         | application/json |
-| apierrors.APIError          | 4XX, 5XX    | \*/\*            |
+| Error Type         | Status Code | Content Type     |
+| ------------------ | ----------- | ---------------- |
+| apierrors.Error    | 500         | application/json |
+| apierrors.APIError | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -250,7 +260,9 @@ import (
 	"errors"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/apierrors"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
+	"os"
 )
 
 func main() {
@@ -258,12 +270,15 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
-	res, err := s.Health.GetHealthInfo(ctx)
+	res, err := s.Inputs.ListInput(ctx)
 	if err != nil {
 
-		var e *apierrors.HealthStatusError
+		var e *apierrors.Error
 		if errors.As(err, &e) {
 			// handle error
 			log.Fatal(e.Error())

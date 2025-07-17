@@ -7,6 +7,7 @@ import (
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
+	"os"
 )
 
 func main() {
@@ -14,16 +15,16 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
-	})
+	res, err := s.Inputs.ListInput(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AuthToken != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
