@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestDiag_GetHealthInfo(t *testing.T) {
+func TestHealth_GetHealthInfo(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("getHealthInfo")
@@ -22,7 +22,7 @@ func TestDiag_GetHealthInfo(t *testing.T) {
 		criblcontrolplanesdkgo.WithClient(testHTTPClient),
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Health.GetHealthInfo(ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.HealthStatus)

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f5639556bbb478114b7e90796904fe73
-  docVersion: 4.14.0-alpha.1752602215751-e622ff04
+  docChecksum: 96740b769869904db982a1d613d925d4
+  docVersion: 4.14.0-alpha.1752697438479-c2e9a1bc
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.5
-  configChecksum: 664ae17e0a4e27298a7a80007dc30918
+  releaseVersion: 0.0.6
+  configChecksum: 9492de1ab3cd40927fa4d0fd2706aa22
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -44,7 +44,6 @@ generatedFiles:
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
-  - diag.go
   - docs/models/apierrors/healthstatuserror.md
   - docs/models/components/authtoken.md
   - docs/models/components/healthstatus.md
@@ -59,7 +58,6 @@ generatedFiles:
   - docs/models/operations/option.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
-  - docs/sdks/diag/README.md
   - docs/sdks/health/README.md
   - go.mod
   - health.go
@@ -83,8 +81,8 @@ generatedFiles:
   - models/operations/options.go
   - retry/config.go
   - tests/auth_test.go
-  - tests/diag_test.go
   - tests/files.go
+  - tests/health_test.go
   - tests/mockserver/.gitignore
   - tests/mockserver/Dockerfile
   - tests/mockserver/Makefile

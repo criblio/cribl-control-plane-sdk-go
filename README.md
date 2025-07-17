@@ -125,10 +125,6 @@ func main() {
 * [Login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
-### [Diag](docs/sdks/diag/README.md)
-
-* [GetHealthInfo](docs/sdks/diag/README.md#gethealthinfo) - Provides health info for REST server
-
 ### [Health](docs/sdks/health/README.md)
 
 * [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
@@ -264,7 +260,7 @@ func main() {
 		"https://api.example.com",
 	)
 
-	res, err := s.Diag.GetHealthInfo(ctx)
+	res, err := s.Health.GetHealthInfo(ctx)
 	if err != nil {
 
 		var e *apierrors.HealthStatusError

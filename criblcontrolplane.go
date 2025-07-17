@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.14.0-alpha.1752602215751-e622ff04 and generator version 2.656.5
+// Generated from OpenAPI doc version 4.14.0-alpha.1752697438479-c2e9a1bc and generator version 2.656.5
 
 import (
 	"context"
@@ -46,8 +46,6 @@ type CriblControlPlane struct {
 	SDKVersion string
 	// Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud deployments. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to authenticate for Cribl.Cloud.
 	Auth *Auth
-	// Actions related to diagnostics
-	Diag *Diag
 	// Actions related to REST server health
 	Health *Health
 
@@ -96,9 +94,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.5",
+		SDKVersion: "0.0.6",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.5 2.656.5 4.14.0-alpha.1752602215751-e622ff04 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.0.6 2.656.5 4.14.0-alpha.1752697438479-c2e9a1bc github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -123,7 +121,6 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Diag = newDiag(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
