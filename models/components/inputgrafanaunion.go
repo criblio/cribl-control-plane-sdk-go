@@ -745,7 +745,7 @@ func (i InputGrafana2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafana2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
@@ -1698,7 +1698,7 @@ func (i InputGrafana1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputGrafana1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
@@ -1949,14 +1949,14 @@ func CreateInputGrafanaUnionInputGrafana2(inputGrafana2 InputGrafana2) InputGraf
 func (u *InputGrafanaUnion) UnmarshalJSON(data []byte) error {
 
 	var inputGrafana1 InputGrafana1 = InputGrafana1{}
-	if err := utils.UnmarshalJSON(data, &inputGrafana1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputGrafana1, "", true, false); err == nil {
 		u.InputGrafana1 = &inputGrafana1
 		u.Type = InputGrafanaUnionTypeInputGrafana1
 		return nil
 	}
 
 	var inputGrafana2 InputGrafana2 = InputGrafana2{}
-	if err := utils.UnmarshalJSON(data, &inputGrafana2, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputGrafana2, "", true, false); err == nil {
 		u.InputGrafana2 = &inputGrafana2
 		u.Type = InputGrafanaUnionTypeInputGrafana2
 		return nil

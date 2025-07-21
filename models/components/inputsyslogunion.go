@@ -361,7 +361,7 @@ func (i InputSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
@@ -951,7 +951,7 @@ func (i InputSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
@@ -1223,14 +1223,14 @@ func CreateInputSyslogUnionInputSyslog2(inputSyslog2 InputSyslog2) InputSyslogUn
 func (u *InputSyslogUnion) UnmarshalJSON(data []byte) error {
 
 	var inputSyslog1 InputSyslog1 = InputSyslog1{}
-	if err := utils.UnmarshalJSON(data, &inputSyslog1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputSyslog1, "", true, false); err == nil {
 		u.InputSyslog1 = &inputSyslog1
 		u.Type = InputSyslogUnionTypeInputSyslog1
 		return nil
 	}
 
 	var inputSyslog2 InputSyslog2 = InputSyslog2{}
-	if err := utils.UnmarshalJSON(data, &inputSyslog2, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputSyslog2, "", true, false); err == nil {
 		u.InputSyslog2 = &inputSyslog2
 		u.Type = InputSyslogUnionTypeInputSyslog2
 		return nil

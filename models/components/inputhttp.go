@@ -405,7 +405,7 @@ func (i InputHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
