@@ -27,7 +27,7 @@ generation:
 go:
   version: 0.0.8
   additionalDependencies: {}
-  allowUnknownFieldsInWeakUnions: false
+  allowUnknownFieldsInWeakUnions: true
   baseErrorName: CriblControlPlaneError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
