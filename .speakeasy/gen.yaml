@@ -25,9 +25,9 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 go:
-  version: 0.0.8
+  version: 0.0.9
   additionalDependencies: {}
-  allowUnknownFieldsInWeakUnions: false
+  allowUnknownFieldsInWeakUnions: true
   baseErrorName: CriblControlPlaneError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError

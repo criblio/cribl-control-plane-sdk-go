@@ -347,7 +347,7 @@ func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, true); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
 		return err
 	}
 	return nil
