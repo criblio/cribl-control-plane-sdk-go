@@ -1,0 +1,9 @@
+# DeleteOutputByIDResponse
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                          | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                  | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `Object`                                                                                            | [*operations.DeleteOutputByIDResponseBody](../../models/operations/deleteoutputbyidresponsebody.md) | :heavy_minus_sign:                                                                                  | a list of Output objects                                                                            |

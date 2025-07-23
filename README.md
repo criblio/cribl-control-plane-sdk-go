@@ -137,6 +137,18 @@ func main() {
 * [CreateInputHecTokenByID](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
 * [UpdateInputHecTokenByIDAndToken](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
 
+### [Outputs](docs/sdks/outputs/README.md)
+
+* [ListOutput](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
+* [CreateOutput](docs/sdks/outputs/README.md#createoutput) - Create Output
+* [GetOutputByID](docs/sdks/outputs/README.md#getoutputbyid) - Get Output by ID
+* [UpdateOutputByID](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
+* [DeleteOutputByID](docs/sdks/outputs/README.md#deleteoutputbyid) - Delete Output
+* [DeleteOutputPqByID](docs/sdks/outputs/README.md#deleteoutputpqbyid) - Clears destination persistent queue
+* [GetOutputPqByID](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
+* [GetOutputSamplesByID](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
+* [CreateOutputTestByID](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
