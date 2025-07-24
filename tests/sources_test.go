@@ -13,50 +13,34 @@ import (
 	"testing"
 )
 
-func TestSources_ListInput(t *testing.T) {
+func TestSources_TestInputs(t *testing.T) {
 	ctx := context.Background()
 
-	testHTTPClient := createTestHTTPClient("listInput")
+	testHTTPClient := createTestHTTPClient("testInputs")
 
 	s := criblcontrolplanesdkgo.New(
 		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
-		criblcontrolplanesdkgo.WithClient(testHTTPClient),
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("TEST_BEARER_TOKEN", "value")),
 		}),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	listRes, err := s.Sources.ListSource(ctx)
 	require.NoError(t, err)
-	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
-	assert.NotNil(t, res.Object)
-	assert.Equal(t, &operations.ListInputResponseBody{}, res.Object)
+	assert.Equal(t, 200, listRes.HTTPMeta.Response.StatusCode)
 
-}
-
-func TestSources_CreateInput(t *testing.T) {
-	ctx := context.Background()
-
-	testHTTPClient := createTestHTTPClient("createInput")
-
-	s := criblcontrolplanesdkgo.New(
-		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
-		criblcontrolplanesdkgo.WithClient(testHTTPClient),
-		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
-		}),
-	)
-
-	res, err := s.Sources.CreateSource(ctx, components.CreateInputInputTCP(
-		components.InputTCP{
-			Type: components.InputTCPTypeTCP,
-			Port: 301.76,
+	createRes, err := s.Sources.CreateSource(ctx, components.CreateInputInputExec(
+		components.InputExec{
+			ID:      criblcontrolplanesdkgo.String("inputOne"),
+			Type:    components.InputExecTypeExec,
+			Command: "echo hello",
 		},
 	))
 	require.NoError(t, err)
-	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
-	assert.NotNil(t, res.Object)
-	assert.Equal(t, &operations.CreateInputResponseBody{}, res.Object)
+	assert.Equal(t, 200, createRes.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, createRes.Object.Count)
+	assert.Equal(t, criblcontrolplanesdkgo.Int64(1), createRes.Object.Count)
 
 }
 
