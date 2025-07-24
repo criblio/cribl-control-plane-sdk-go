@@ -20,7 +20,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

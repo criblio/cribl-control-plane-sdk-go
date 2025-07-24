@@ -17,24 +17,24 @@ import (
 	"net/url"
 )
 
-// Inputs - Actions related to inputs
-type Inputs struct {
+// Sources - Actions related to Sources
+type Sources struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newInputs(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Inputs {
-	return &Inputs{
+func newSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Sources {
+	return &Sources{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// ListInput - Get a list of Input objects
-// Get a list of Input objects
-func (s *Inputs) ListInput(ctx context.Context, opts ...operations.Option) (*operations.ListInputResponse, error) {
+// ListSource - Get a list of Source objects
+// Get a list of Source objects
+func (s *Sources) ListSource(ctx context.Context, opts ...operations.Option) (*operations.ListInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -265,9 +265,9 @@ func (s *Inputs) ListInput(ctx context.Context, opts ...operations.Option) (*ope
 
 }
 
-// CreateInput - Create Input
-// Create Input
-func (s *Inputs) CreateInput(ctx context.Context, request components.Input, opts ...operations.Option) (*operations.CreateInputResponse, error) {
+// CreateSource - Create Source
+// Create Source
+func (s *Sources) CreateSource(ctx context.Context, request components.Input, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -505,9 +505,9 @@ func (s *Inputs) CreateInput(ctx context.Context, request components.Input, opts
 
 }
 
-// GetInputByID - Get Input by ID
-// Get Input by ID
-func (s *Inputs) GetInputByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetInputByIDResponse, error) {
+// GetSourceByID - Get Source by ID
+// Get Source by ID
+func (s *Sources) GetSourceByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetInputByIDResponse, error) {
 	request := operations.GetInputByIDRequest{
 		ID: id,
 	}
@@ -742,9 +742,9 @@ func (s *Inputs) GetInputByID(ctx context.Context, id string, opts ...operations
 
 }
 
-// UpdateInputByID - Update Input
-// Update Input
-func (s *Inputs) UpdateInputByID(ctx context.Context, id string, input components.Input, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
+// UpdateSourceByID - Update Source
+// Update Source
+func (s *Sources) UpdateSourceByID(ctx context.Context, id string, input components.Input, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
 	request := operations.UpdateInputByIDRequest{
 		ID:    id,
 		Input: input,
@@ -987,9 +987,9 @@ func (s *Inputs) UpdateInputByID(ctx context.Context, id string, input component
 
 }
 
-// DeleteInputByID - Delete Input
-// Delete Input
-func (s *Inputs) DeleteInputByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteInputByIDResponse, error) {
+// DeleteSourceByID - Delete Source
+// Delete Source
+func (s *Sources) DeleteSourceByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteInputByIDResponse, error) {
 	request := operations.DeleteInputByIDRequest{
 		ID: id,
 	}
@@ -1224,9 +1224,9 @@ func (s *Inputs) DeleteInputByID(ctx context.Context, id string, opts ...operati
 
 }
 
-// CreateInputHecTokenByID - Add token and optional metadata to an existing hec input
-// Add token and optional metadata to an existing hec input
-func (s *Inputs) CreateInputHecTokenByID(ctx context.Context, id string, addHecTokenRequest components.AddHecTokenRequest, opts ...operations.Option) (*operations.CreateInputHecTokenByIDResponse, error) {
+// CreateSourceHecTokenByID - Add token and optional metadata to an existing HEC Source
+// Add token and optional metadata to an existing HEC Source
+func (s *Sources) CreateSourceHecTokenByID(ctx context.Context, id string, addHecTokenRequest components.AddHecTokenRequest, opts ...operations.Option) (*operations.CreateInputHecTokenByIDResponse, error) {
 	request := operations.CreateInputHecTokenByIDRequest{
 		ID:                 id,
 		AddHecTokenRequest: addHecTokenRequest,
@@ -1469,9 +1469,9 @@ func (s *Inputs) CreateInputHecTokenByID(ctx context.Context, id string, addHecT
 
 }
 
-// UpdateInputHecTokenByIDAndToken - Update token metadata on existing hec input
-// Update token metadata on existing hec input
-func (s *Inputs) UpdateInputHecTokenByIDAndToken(ctx context.Context, id string, token string, updateHecTokenRequest components.UpdateHecTokenRequest, opts ...operations.Option) (*operations.UpdateInputHecTokenByIDAndTokenResponse, error) {
+// UpdateSourceHecTokenByIDAndToken - Update token metadata on existing HEC Source
+// Update token metadata on existing HEC Source
+func (s *Sources) UpdateSourceHecTokenByIDAndToken(ctx context.Context, id string, token string, updateHecTokenRequest components.UpdateHecTokenRequest, opts ...operations.Option) (*operations.UpdateInputHecTokenByIDAndTokenResponse, error) {
 	request := operations.UpdateInputHecTokenByIDAndTokenRequest{
 		ID:                    id,
 		Token:                 token,

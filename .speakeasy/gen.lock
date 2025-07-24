@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 53da85af9d541ea346e039f9ba1b510f
-  docVersion: 4.14.0-alpha.1753212696681-3b9b0ede
+  docChecksum: fc240462f4ebcf2f1ee8afe0889e2cb0
+  docVersion: 4.14.0-alpha.1753295778758-ebd92ad1
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.12
-  configChecksum: 01a925b4626b67610cce2707bbef2399
+  releaseVersion: 0.0.13
+  configChecksum: 47d4f83d5dcaa7666bb7cc32d25d3430
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -21,8 +21,10 @@ features:
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.3
+    groups: 2.81.2
     intellisenseMarkdownSupport: 0.1.0
     mockServer: 0.1.1
+    nameOverrides: 2.81.2
     oauth2ClientCredentials: 0.3.1
     openEnums: 0.1.0
     responseFormat: 0.1.2
@@ -1836,11 +1838,10 @@ generatedFiles:
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/health/README.md
-  - docs/sdks/inputs/README.md
   - docs/sdks/outputs/README.md
+  - docs/sdks/sources/README.md
   - go.mod
   - health.go
-  - inputs.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/hooks.go
   - internal/utils/contenttype.go
@@ -1860,10 +1861,10 @@ generatedFiles:
   - models/operations/options.go
   - outputs.go
   - retry/config.go
+  - sources.go
   - tests/auth_test.go
   - tests/files.go
   - tests/health_test.go
-  - tests/inputs_test.go
   - tests/mockserver/.gitignore
   - tests/mockserver/Dockerfile
   - tests/mockserver/Makefile
@@ -2081,6 +2082,7 @@ generatedFiles:
   - tests/mockserver/internal/tracking/requesttracker.go
   - tests/mockserver/main.go
   - tests/outputs_test.go
+  - tests/sources_test.go
   - tests/testclient.go
   - types/bigint.go
   - types/date.go
@@ -2112,7 +2114,7 @@ examples:
   createInput:
     speakeasy-default-create-input:
       requestBody:
-        application/json: {"disabled": false, "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 301.76, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "staleChannelFlushMs": 10000, "enableHeader": false, "authType": "manual"}
+        application/json: {"type": "tcp", "disabled": false, "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 301.76, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "staleChannelFlushMs": 10000, "enableHeader": false, "authType": "manual"}
       responses:
         "200":
           application/json: {}
