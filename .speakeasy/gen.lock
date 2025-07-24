@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.0-alpha.1753295778758-ebd92ad1
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.13
-  configChecksum: 47d4f83d5dcaa7666bb7cc32d25d3430
+  releaseVersion: 0.0.14
+  configChecksum: afcb10b8f95a13d5dd89ed1bd2bce8b6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -1862,9 +1862,9 @@ generatedFiles:
   - outputs.go
   - retry/config.go
   - sources.go
-  - tests/auth_test.go
   - tests/files.go
   - tests/health_test.go
+  - tests/login_test.go
   - tests/mockserver/.gitignore
   - tests/mockserver/Dockerfile
   - tests/mockserver/Makefile

@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestAuth_Login(t *testing.T) {
+func TestLogin_Login(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("login")
@@ -22,15 +22,11 @@ func TestAuth_Login(t *testing.T) {
 		criblcontrolplanesdkgo.WithClient(testHTTPClient),
 	)
 
-	res, err := s.Auth.Login(ctx, components.LoginInfo{
-		Username: "Nikko.Connelly",
-		Password: "Ljp4BunfMR9hNyM",
+	authenticateRes, err := s.Auth.Login(ctx, components.LoginInfo{
+		Username: "admin",
+		Password: "admin",
 	})
 	require.NoError(t, err)
-	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
-	assert.NotNil(t, res.AuthToken)
-	assert.Equal(t, &components.AuthToken{
-		Token: "<value>",
-	}, res.AuthToken)
+	assert.Equal(t, 200, authenticateRes.HTTPMeta.Response.StatusCode)
 
 }
