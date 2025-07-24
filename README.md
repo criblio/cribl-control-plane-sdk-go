@@ -139,6 +139,14 @@ func main() {
 * [GetOutputSamplesByID](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [CreateOutputTestByID](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
+### [Pipelines](docs/sdks/pipelines/README.md)
+
+* [ListPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+* [CreatePipeline](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+* [GetPipelineByID](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
+* [UpdatePipelineByID](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
+* [DeletePipelineByID](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+
 ### [Routes](docs/sdks/routes/README.md)
 
 * [ListRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
