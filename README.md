@@ -139,6 +139,13 @@ func main() {
 * [GetOutputSamplesByID](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [CreateOutputTestByID](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
+### [Routes](docs/sdks/routes/README.md)
+
+* [ListRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
+* [GetRoutesByID](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
+* [UpdateRoutesByID](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
+* [CreateRoutesAppendByID](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+
 ### [Sources](docs/sdks/sources/README.md)
 
 * [ListSource](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
