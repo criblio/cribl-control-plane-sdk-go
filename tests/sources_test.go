@@ -13,7 +13,7 @@ import (
 	"testing"
 )
 
-func TestInputs_ListInput(t *testing.T) {
+func TestSources_ListInput(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("listInput")
@@ -26,7 +26,7 @@ func TestInputs_ListInput(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Object)
@@ -34,7 +34,7 @@ func TestInputs_ListInput(t *testing.T) {
 
 }
 
-func TestInputs_CreateInput(t *testing.T) {
+func TestSources_CreateInput(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("createInput")
@@ -47,8 +47,9 @@ func TestInputs_CreateInput(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.CreateInput(ctx, components.CreateInputInputTCP(
+	res, err := s.Sources.CreateSource(ctx, components.CreateInputInputTCP(
 		components.InputTCP{
+			Type: components.InputTCPTypeTCP,
 			Port: 301.76,
 		},
 	))
@@ -59,7 +60,7 @@ func TestInputs_CreateInput(t *testing.T) {
 
 }
 
-func TestInputs_GetInputByID(t *testing.T) {
+func TestSources_GetInputByID(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("getInputById")
@@ -72,7 +73,7 @@ func TestInputs_GetInputByID(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.GetInputByID(ctx, "<id>")
+	res, err := s.Sources.GetSourceByID(ctx, "<id>")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Object)
@@ -80,7 +81,7 @@ func TestInputs_GetInputByID(t *testing.T) {
 
 }
 
-func TestInputs_UpdateInputByID(t *testing.T) {
+func TestSources_UpdateInputByID(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("updateInputById")
@@ -93,7 +94,7 @@ func TestInputs_UpdateInputByID(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.UpdateInputByID(ctx, "<id>", components.CreateInputInputKubeEvents(
+	res, err := s.Sources.UpdateSourceByID(ctx, "<id>", components.CreateInputInputKubeEvents(
 		components.InputKubeEvents{
 			ID:   "<id>",
 			Type: components.InputKubeEventsTypeKubeEvents,
@@ -106,7 +107,7 @@ func TestInputs_UpdateInputByID(t *testing.T) {
 
 }
 
-func TestInputs_DeleteInputByID(t *testing.T) {
+func TestSources_DeleteInputByID(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("deleteInputById")
@@ -119,7 +120,7 @@ func TestInputs_DeleteInputByID(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.DeleteInputByID(ctx, "<id>")
+	res, err := s.Sources.DeleteSourceByID(ctx, "<id>")
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Object)
@@ -127,7 +128,7 @@ func TestInputs_DeleteInputByID(t *testing.T) {
 
 }
 
-func TestInputs_CreateInputHecTokenByID(t *testing.T) {
+func TestSources_CreateInputHecTokenByID(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("createInputHecTokenById")
@@ -140,7 +141,7 @@ func TestInputs_CreateInputHecTokenByID(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.CreateInputHecTokenByID(ctx, "<id>", components.AddHecTokenRequest{
+	res, err := s.Sources.CreateSourceHecTokenByID(ctx, "<id>", components.AddHecTokenRequest{
 		Token: "<value>",
 	})
 	require.NoError(t, err)
@@ -150,7 +151,7 @@ func TestInputs_CreateInputHecTokenByID(t *testing.T) {
 
 }
 
-func TestInputs_UpdateInputHecTokenByIDAndToken(t *testing.T) {
+func TestSources_UpdateInputHecTokenByIDAndToken(t *testing.T) {
 	ctx := context.Background()
 
 	testHTTPClient := createTestHTTPClient("updateInputHecTokenByIdAndToken")
@@ -163,7 +164,7 @@ func TestInputs_UpdateInputHecTokenByIDAndToken(t *testing.T) {
 		}),
 	)
 
-	res, err := s.Inputs.UpdateInputHecTokenByIDAndToken(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{})
+	res, err := s.Sources.UpdateSourceHecTokenByIDAndToken(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{})
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
 	assert.NotNil(t, res.Object)

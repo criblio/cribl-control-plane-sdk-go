@@ -54,7 +54,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -100,7 +100,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -127,16 +127,6 @@ func main() {
 
 * [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
-### [Inputs](docs/sdks/inputs/README.md)
-
-* [ListInput](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
-* [CreateInput](docs/sdks/inputs/README.md#createinput) - Create Input
-* [GetInputByID](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
-* [UpdateInputByID](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
-* [DeleteInputByID](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
-* [CreateInputHecTokenByID](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
-* [UpdateInputHecTokenByIDAndToken](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
-
 ### [Outputs](docs/sdks/outputs/README.md)
 
 * [ListOutput](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
@@ -148,6 +138,16 @@ func main() {
 * [GetOutputPqByID](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
 * [GetOutputSamplesByID](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [CreateOutputTestByID](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
+
+### [Sources](docs/sdks/sources/README.md)
+
+* [ListSource](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
+* [CreateSource](docs/sdks/sources/README.md#createsource) - Create Source
+* [GetSourceByID](docs/sdks/sources/README.md#getsourcebyid) - Get Source by ID
+* [UpdateSourceByID](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
+* [DeleteSourceByID](docs/sdks/sources/README.md#deletesourcebyid) - Delete Source
+* [CreateSourceHecTokenByID](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
+* [UpdateSourceHecTokenByIDAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -181,7 +181,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx, operations.WithRetries(
+	res, err := s.Sources.ListSource(ctx, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -236,7 +236,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -255,7 +255,7 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `apierrors.APIError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `ListInput` function may return the following errors:
+For example, the `ListSource` function may return the following errors:
 
 | Error Type         | Status Code | Content Type     |
 | ------------------ | ----------- | ---------------- |
@@ -287,7 +287,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Inputs.ListInput(ctx)
+	res, err := s.Sources.ListSource(ctx)
 	if err != nil {
 
 		var e *apierrors.Error
