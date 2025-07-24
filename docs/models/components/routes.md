@@ -1,10 +1,11 @@
 # Routes
 
-Creates events based on entries collected from the host’s network routes
-
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Enable`           | **bool*            | :heavy_minus_sign: | N/A                |
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `ID`                                                               | **string*                                                          | :heavy_minus_sign:                                                 | Routes ID                                                          |
+| `Routes`                                                           | [][components.RoutesRoute](../../models/components/routesroute.md) | :heavy_check_mark:                                                 | Pipeline routing rules                                             |
+| `Groups`                                                           | map[string][components.Groups](../../models/components/groups.md)  | :heavy_minus_sign:                                                 | N/A                                                                |
+| `Comments`                                                         | [][components.Comment](../../models/components/comment.md)         | :heavy_minus_sign:                                                 | Comments                                                           |
