@@ -1,0 +1,12 @@
+# SNMPv3Authentication
+
+Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+
+
+## Fields
+
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `V3AuthEnabled`                                                                                                      | **bool*                                                                                                              | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
+| `AllowUnmatchedTrap`                                                                                                 | **bool*                                                                                                              | :heavy_minus_sign:                                                                                                   | Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps. |
+| `V3Users`                                                                                                            | [][operations.V3User](../../models/operations/v3user.md)                                                             | :heavy_minus_sign:                                                                                                   | User credentials for receiving v3 traps                                                                              |

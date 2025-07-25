@@ -123,21 +123,21 @@ func main() {
 * [Login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
+### [Destinations](docs/sdks/destinations/README.md)
+
+* [ListDestination](docs/sdks/destinations/README.md#listdestination) - Get a list of Destination objects
+* [CreateDestination](docs/sdks/destinations/README.md#createdestination) - Create Destination
+* [GetDestinationByID](docs/sdks/destinations/README.md#getdestinationbyid) - Get Destination by ID
+* [UpdateDestinationByID](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
+* [DeleteDestinationByID](docs/sdks/destinations/README.md#deletedestinationbyid) - Delete Destination
+* [DeleteDestinationPqByID](docs/sdks/destinations/README.md#deletedestinationpqbyid) - Clears destination persistent queue
+* [GetDestinationPqByID](docs/sdks/destinations/README.md#getdestinationpqbyid) - Retrieves status of latest clear PQ job for a destination
+* [GetDestinationSamplesByID](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
+* [CreateDestinationTestByID](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
+
 ### [Health](docs/sdks/health/README.md)
 
 * [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
-
-### [Outputs](docs/sdks/outputs/README.md)
-
-* [ListOutput](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
-* [CreateOutput](docs/sdks/outputs/README.md#createoutput) - Create Output
-* [GetOutputByID](docs/sdks/outputs/README.md#getoutputbyid) - Get Output by ID
-* [UpdateOutputByID](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
-* [DeleteOutputByID](docs/sdks/outputs/README.md#deleteoutputbyid) - Delete Output
-* [DeleteOutputPqByID](docs/sdks/outputs/README.md#deleteoutputpqbyid) - Clears destination persistent queue
-* [GetOutputPqByID](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
-* [GetOutputSamplesByID](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
-* [CreateOutputTestByID](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
