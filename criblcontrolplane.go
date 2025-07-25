@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.14.0-alpha.1753373454403-2652afc6 and generator version 2.660.0
+// Generated from OpenAPI doc version 4.14.0-alpha.1753455755620-93e72132 and generator version 2.660.0
 
 import (
 	"context"
@@ -43,11 +43,9 @@ func Pointer[T any](v T) *T { return &v }
 
 // CriblControlPlane - Cribl API Reference: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
 type CriblControlPlane struct {
-	SDKVersion string
-	// Actions related to Sources
-	Sources *Sources
-	// Actions related to outputs
-	Outputs *Outputs
+	SDKVersion   string
+	Sources      *Sources
+	Destinations *Destinations
 	// Actions related to Pipelines
 	Pipelines *Pipelines
 	// Actions related to Routes
@@ -102,9 +100,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.16",
+		SDKVersion: "0.0.17",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.16 2.660.0 4.14.0-alpha.1753373454403-2652afc6 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.0.17 2.660.0 4.14.0-alpha.1753455755620-93e72132 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -129,7 +127,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Outputs = newOutputs(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)

@@ -17,7 +17,6 @@ import (
 	"net/url"
 )
 
-// Sources - Actions related to Sources
 type Sources struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -267,7 +266,7 @@ func (s *Sources) ListSource(ctx context.Context, opts ...operations.Option) (*o
 
 // CreateSource - Create Source
 // Create Source
-func (s *Sources) CreateSource(ctx context.Context, request components.Input, opts ...operations.Option) (*operations.CreateInputResponse, error) {
+func (s *Sources) CreateSource(ctx context.Context, request operations.CreateInputRequest, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

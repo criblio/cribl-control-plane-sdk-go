@@ -30,10 +30,10 @@ func TestSources_TestInputs(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, 200, listRes.HTTPMeta.Response.StatusCode)
 
-	createRes, err := s.Sources.CreateSource(ctx, components.CreateInputInputExec(
-		components.InputExec{
-			ID:      criblcontrolplanesdkgo.String("inputOne"),
-			Type:    components.InputExecTypeExec,
+	createRes, err := s.Sources.CreateSource(ctx, operations.CreateCreateInputRequestInputExec(
+		operations.InputExec{
+			ID:      "inputOne",
+			Type:    operations.InputExecTypeExec,
 			Command: "echo hello",
 		},
 	))
