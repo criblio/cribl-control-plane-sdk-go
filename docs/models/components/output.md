@@ -261,10 +261,10 @@ output := components.CreateOutputOutputSumoLogic(components.OutputSumoLogic{/* v
 output := components.CreateOutputOutputDatadog(components.OutputDatadog{/* values here */})
 ```
 
-### OutputGrafanaCloudUnion
+### OutputGrafanaCloud
 
 ```go
-output := components.CreateOutputOutputGrafanaCloudUnion(components.OutputGrafanaCloudUnion{/* values here */})
+output := components.CreateOutputOutputGrafanaCloud(components.OutputGrafanaCloud{/* values here */})
 ```
 
 ### OutputLoki
