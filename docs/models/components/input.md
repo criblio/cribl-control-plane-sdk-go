@@ -63,10 +63,10 @@ input := components.CreateInputInputElastic(components.InputElastic{/* values he
 input := components.CreateInputInputConfluentCloud(components.InputConfluentCloud{/* values here */})
 ```
 
-### InputGrafanaUnion
+### InputGrafana
 
 ```go
-input := components.CreateInputInputGrafanaUnion(components.InputGrafanaUnion{/* values here */})
+input := components.CreateInputInputGrafana(components.InputGrafana{/* values here */})
 ```
 
 ### InputLoki
@@ -279,10 +279,10 @@ input := components.CreateInputInputModelDrivenTelemetry(components.InputModelDr
 input := components.CreateInputInputSqs(components.InputSqs{/* values here */})
 ```
 
-### InputSyslogUnion
+### InputSyslog
 
 ```go
-input := components.CreateInputInputSyslogUnion(components.InputSyslogUnion{/* values here */})
+input := components.CreateInputInputSyslog(components.InputSyslog{/* values here */})
 ```
 
 ### InputFile

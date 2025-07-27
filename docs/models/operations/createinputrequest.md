@@ -65,10 +65,10 @@ createInputRequest := operations.CreateCreateInputRequestInputElastic(operations
 createInputRequest := operations.CreateCreateInputRequestInputConfluentCloud(operations.InputConfluentCloud{/* values here */})
 ```
 
-### InputGrafanaUnion
+### InputGrafana
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestInputGrafanaUnion(operations.InputGrafanaUnion{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestInputGrafana(operations.InputGrafana{/* values here */})
 ```
 
 ### InputLoki
@@ -281,10 +281,10 @@ createInputRequest := operations.CreateCreateInputRequestInputModelDrivenTelemet
 createInputRequest := operations.CreateCreateInputRequestInputSqs(operations.InputSqs{/* values here */})
 ```
 
-### InputSyslogUnion
+### InputSyslog
 
 ```go
-createInputRequest := operations.CreateCreateInputRequestInputSyslogUnion(operations.InputSyslogUnion{/* values here */})
+createInputRequest := operations.CreateCreateInputRequestInputSyslog(operations.InputSyslog{/* values here */})
 ```
 
 ### InputFile
