@@ -263,10 +263,10 @@ createOutputRequest := operations.CreateCreateOutputRequestOutputSumoLogic(opera
 createOutputRequest := operations.CreateCreateOutputRequestOutputDatadog(components.OutputDatadog{/* values here */})
 ```
 
-### OutputGrafanaCloudUnion
+### OutputGrafanaCloud
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestOutputGrafanaCloudUnion(components.OutputGrafanaCloudUnion{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestOutputGrafanaCloud(components.OutputGrafanaCloud{/* values here */})
 ```
 
 ### OutputLoki

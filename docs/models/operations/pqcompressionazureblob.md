@@ -1,0 +1,11 @@
+# PqCompressionAzureBlob
+
+Codec to use to compress the persisted data
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `PqCompressionAzureBlobNone` | none                         |
+| `PqCompressionAzureBlobGzip` | gzip                         |
