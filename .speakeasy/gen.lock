@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 10287265072d5e27edc6dfb848ef7731
-  docVersion: 4.14.0-alpha.1753474119310-0fc52c1b
+  docChecksum: 9ac8e735983aa95b771a1dae9b965405
+  docVersion: 4.14.0-alpha.1753735749224-0a5d0b46
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.18
-  configChecksum: 6dffa17f593e7a4db3a040653e5b0bf3
+  releaseVersion: 0.0.19
+  configChecksum: cba313ee30eee157925c42899ef0be6a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -43,6 +43,14 @@ generatedFiles:
   - /models/components/addhectokenrequest.go
   - /models/components/authtoken.go
   - /models/components/criblevent.go
+  - /models/components/gitcommitparams.go
+  - /models/components/gitcommitsummary.go
+  - /models/components/gitfile.go
+  - /models/components/gitfilesresponse.go
+  - /models/components/gitinfo.go
+  - /models/components/gitrevertparams.go
+  - /models/components/gitrevertresult.go
+  - /models/components/gitstatusresult.go
   - /models/components/healthstatus.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
@@ -189,6 +197,11 @@ generatedFiles:
   - /models/operations/createoutputtestbyid.go
   - /models/operations/createpipeline.go
   - /models/operations/createroutesappendbyid.go
+  - /models/operations/createversioncommit.go
+  - /models/operations/createversionpush.go
+  - /models/operations/createversionrevert.go
+  - /models/operations/createversionsync.go
+  - /models/operations/createversionundo.go
   - /models/operations/deleteinputbyid.go
   - /models/operations/deleteoutputbyid.go
   - /models/operations/deleteoutputpqbyid.go
@@ -200,6 +213,14 @@ generatedFiles:
   - /models/operations/getoutputsamplesbyid.go
   - /models/operations/getpipelinebyid.go
   - /models/operations/getroutesbyid.go
+  - /models/operations/getversionbranch.go
+  - /models/operations/getversioncount.go
+  - /models/operations/getversioncurrentbranch.go
+  - /models/operations/getversiondiff.go
+  - /models/operations/getversionfiles.go
+  - /models/operations/getversioninfo.go
+  - /models/operations/getversionshow.go
+  - /models/operations/getversionstatus.go
   - /models/operations/listinput.go
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
@@ -221,7 +242,9 @@ generatedFiles:
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
+  - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
+  - docs/models/components/author.md
   - docs/models/components/authtoken.md
   - docs/models/components/authtype.md
   - docs/models/components/awsauthenticationmethod.md
@@ -250,10 +273,21 @@ generatedFiles:
   - docs/models/components/extralogtype.md
   - docs/models/components/facility.md
   - docs/models/components/fieldname.md
+  - docs/models/components/file.md
   - docs/models/components/firewall.md
   - docs/models/components/flushperiodsec.md
   - docs/models/components/flushperiodsectype.md
   - docs/models/components/functionspecificconfigs.md
+  - docs/models/components/gitcommitparams.md
+  - docs/models/components/gitcommitsummary.md
+  - docs/models/components/gitcommitsummaryfiles.md
+  - docs/models/components/gitfile.md
+  - docs/models/components/gitfilesresponse.md
+  - docs/models/components/gitinfo.md
+  - docs/models/components/gitrevertparams.md
+  - docs/models/components/gitrevertresult.md
+  - docs/models/components/gitrevertresultfiles.md
+  - docs/models/components/gitstatusresult.md
   - docs/models/components/healthstatus.md
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
@@ -1783,6 +1817,8 @@ generatedFiles:
   - docs/models/components/prometheusauthoauthparam2.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/readmode.md
+  - docs/models/components/remote.md
+  - docs/models/components/renamed.md
   - docs/models/components/reportlevel.md
   - docs/models/components/reportmethod.md
   - docs/models/components/resourcetypelabel.md
@@ -1809,6 +1845,7 @@ generatedFiles:
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
+  - docs/models/components/summary.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/telemetrytype.md
@@ -2241,6 +2278,18 @@ generatedFiles:
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createroutesappendbyidresponsebody.md
+  - docs/models/operations/createversioncommitresponse.md
+  - docs/models/operations/createversioncommitresponsebody.md
+  - docs/models/operations/createversionpushresponse.md
+  - docs/models/operations/createversionpushresponsebody.md
+  - docs/models/operations/createversionrevertrequest.md
+  - docs/models/operations/createversionrevertresponse.md
+  - docs/models/operations/createversionrevertresponsebody.md
+  - docs/models/operations/createversionsyncresponse.md
+  - docs/models/operations/createversionsyncresponsebody.md
+  - docs/models/operations/createversionundorequest.md
+  - docs/models/operations/createversionundoresponse.md
+  - docs/models/operations/createversionundoresponsebody.md
   - docs/models/operations/customlabel.md
   - docs/models/operations/dataformatazureblob.md
   - docs/models/operations/dataformatazuredataexplorer.md
@@ -2357,6 +2406,27 @@ generatedFiles:
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getroutesbyidresponsebody.md
+  - docs/models/operations/getversionbranchresponse.md
+  - docs/models/operations/getversionbranchresponsebody.md
+  - docs/models/operations/getversioncountrequest.md
+  - docs/models/operations/getversioncountresponse.md
+  - docs/models/operations/getversioncountresponsebody.md
+  - docs/models/operations/getversioncurrentbranchresponse.md
+  - docs/models/operations/getversioncurrentbranchresponsebody.md
+  - docs/models/operations/getversiondiffrequest.md
+  - docs/models/operations/getversiondiffresponse.md
+  - docs/models/operations/getversiondiffresponsebody.md
+  - docs/models/operations/getversionfilesrequest.md
+  - docs/models/operations/getversionfilesresponse.md
+  - docs/models/operations/getversionfilesresponsebody.md
+  - docs/models/operations/getversioninforesponse.md
+  - docs/models/operations/getversioninforesponsebody.md
+  - docs/models/operations/getversionshowrequest.md
+  - docs/models/operations/getversionshowresponse.md
+  - docs/models/operations/getversionshowresponsebody.md
+  - docs/models/operations/getversionstatusrequest.md
+  - docs/models/operations/getversionstatusresponse.md
+  - docs/models/operations/getversionstatusresponsebody.md
   - docs/models/operations/googleauthenticationmethodgooglecloudlogging.md
   - docs/models/operations/hostnetflow.md
   - docs/models/operations/hostsnmp.md
@@ -3123,6 +3193,7 @@ generatedFiles:
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
+  - docs/sdks/versioning/README.md
   - go.mod
   - health.go
   - internal/config/sdkconfiguration.go
@@ -3179,6 +3250,14 @@ generatedFiles:
   - tests/mockserver/internal/handler/pathgetsystemoutputsid.go
   - tests/mockserver/internal/handler/pathgetsystemoutputsidpq.go
   - tests/mockserver/internal/handler/pathgetsystemoutputsidsamples.go
+  - tests/mockserver/internal/handler/pathgetversionbranch.go
+  - tests/mockserver/internal/handler/pathgetversioncount.go
+  - tests/mockserver/internal/handler/pathgetversioncurrentbranch.go
+  - tests/mockserver/internal/handler/pathgetversiondiff.go
+  - tests/mockserver/internal/handler/pathgetversionfiles.go
+  - tests/mockserver/internal/handler/pathgetversioninfo.go
+  - tests/mockserver/internal/handler/pathgetversionshow.go
+  - tests/mockserver/internal/handler/pathgetversionstatus.go
   - tests/mockserver/internal/handler/pathpatchpipelinesid.go
   - tests/mockserver/internal/handler/pathpatchroutesid.go
   - tests/mockserver/internal/handler/pathpatchsysteminputsid.go
@@ -3191,6 +3270,11 @@ generatedFiles:
   - tests/mockserver/internal/handler/pathpostsysteminputsidhectoken.go
   - tests/mockserver/internal/handler/pathpostsystemoutputs.go
   - tests/mockserver/internal/handler/pathpostsystemoutputsidtest.go
+  - tests/mockserver/internal/handler/pathpostversioncommit.go
+  - tests/mockserver/internal/handler/pathpostversionpush.go
+  - tests/mockserver/internal/handler/pathpostversionrevert.go
+  - tests/mockserver/internal/handler/pathpostversionsync.go
+  - tests/mockserver/internal/handler/pathpostversionundo.go
   - tests/mockserver/internal/handler/values/files.go
   - tests/mockserver/internal/logging/doc.go
   - tests/mockserver/internal/logging/formats.go
@@ -3203,6 +3287,14 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/addhectokenrequest.go
   - tests/mockserver/internal/sdk/models/components/authtoken.go
   - tests/mockserver/internal/sdk/models/components/criblevent.go
+  - tests/mockserver/internal/sdk/models/components/gitcommitparams.go
+  - tests/mockserver/internal/sdk/models/components/gitcommitsummary.go
+  - tests/mockserver/internal/sdk/models/components/gitfile.go
+  - tests/mockserver/internal/sdk/models/components/gitfilesresponse.go
+  - tests/mockserver/internal/sdk/models/components/gitinfo.go
+  - tests/mockserver/internal/sdk/models/components/gitrevertparams.go
+  - tests/mockserver/internal/sdk/models/components/gitrevertresult.go
+  - tests/mockserver/internal/sdk/models/components/gitstatusresult.go
   - tests/mockserver/internal/sdk/models/components/healthstatus.go
   - tests/mockserver/internal/sdk/models/components/httpmetadata.go
   - tests/mockserver/internal/sdk/models/components/input.go
@@ -3349,6 +3441,11 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/operations/createoutputtestbyid.go
   - tests/mockserver/internal/sdk/models/operations/createpipeline.go
   - tests/mockserver/internal/sdk/models/operations/createroutesappendbyid.go
+  - tests/mockserver/internal/sdk/models/operations/createversioncommit.go
+  - tests/mockserver/internal/sdk/models/operations/createversionpush.go
+  - tests/mockserver/internal/sdk/models/operations/createversionrevert.go
+  - tests/mockserver/internal/sdk/models/operations/createversionsync.go
+  - tests/mockserver/internal/sdk/models/operations/createversionundo.go
   - tests/mockserver/internal/sdk/models/operations/deleteinputbyid.go
   - tests/mockserver/internal/sdk/models/operations/deleteoutputbyid.go
   - tests/mockserver/internal/sdk/models/operations/deleteoutputpqbyid.go
@@ -3360,6 +3457,14 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/operations/getoutputsamplesbyid.go
   - tests/mockserver/internal/sdk/models/operations/getpipelinebyid.go
   - tests/mockserver/internal/sdk/models/operations/getroutesbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getversionbranch.go
+  - tests/mockserver/internal/sdk/models/operations/getversioncount.go
+  - tests/mockserver/internal/sdk/models/operations/getversioncurrentbranch.go
+  - tests/mockserver/internal/sdk/models/operations/getversiondiff.go
+  - tests/mockserver/internal/sdk/models/operations/getversionfiles.go
+  - tests/mockserver/internal/sdk/models/operations/getversioninfo.go
+  - tests/mockserver/internal/sdk/models/operations/getversionshow.go
+  - tests/mockserver/internal/sdk/models/operations/getversionstatus.go
   - tests/mockserver/internal/sdk/models/operations/listinput.go
   - tests/mockserver/internal/sdk/models/operations/listoutput.go
   - tests/mockserver/internal/sdk/models/operations/listpipeline.go
@@ -3395,11 +3500,13 @@ generatedFiles:
   - tests/routes_test.go
   - tests/sources_test.go
   - tests/testclient.go
+  - tests/versioning_test.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
   - types/decimal.go
   - types/pointers.go
+  - versioning.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:
@@ -3667,6 +3774,101 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+  getVersionBranch:
+    speakeasy-default-get-version-branch:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createVersionCommit:
+    speakeasy-default-create-version-commit:
+      requestBody:
+        application/json: {"message": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionCount:
+    speakeasy-default-get-version-count:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionCurrentBranch:
+    speakeasy-default-get-version-current-branch:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionDiff:
+    speakeasy-default-get-version-diff:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionFiles:
+    speakeasy-default-get-version-files:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionInfo:
+    speakeasy-default-get-version-info:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createVersionPush:
+    speakeasy-default-create-version-push:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createVersionRevert:
+    speakeasy-default-create-version-revert:
+      requestBody:
+        application/json: {"commit": "<value>", "message": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionShow:
+    speakeasy-default-get-version-show:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getVersionStatus:
+    speakeasy-default-get-version-status:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createVersionSync:
+    speakeasy-default-create-version-sync:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createVersionUndo:
+    speakeasy-default-create-version-undo:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3696,3 +3898,16 @@ generatedTests:
   getPipelineById: "2025-07-24T16:32:39Z"
   updatePipelineById: "2025-07-24T16:32:39Z"
   deletePipelineById: "2025-07-24T16:32:39Z"
+  getVersionBranch: "2025-07-29T01:29:28Z"
+  createVersionCommit: "2025-07-29T01:29:28Z"
+  getVersionCount: "2025-07-29T01:29:28Z"
+  getVersionCurrentBranch: "2025-07-29T01:29:28Z"
+  getVersionDiff: "2025-07-29T01:29:28Z"
+  getVersionFiles: "2025-07-29T01:29:28Z"
+  getVersionInfo: "2025-07-29T01:29:28Z"
+  createVersionPush: "2025-07-29T01:29:28Z"
+  createVersionRevert: "2025-07-29T01:29:28Z"
+  getVersionShow: "2025-07-29T01:29:28Z"
+  getVersionStatus: "2025-07-29T01:29:28Z"
+  createVersionSync: "2025-07-29T01:29:28Z"
+  createVersionUndo: "2025-07-29T01:29:28Z"

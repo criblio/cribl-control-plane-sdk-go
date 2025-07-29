@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.14.0-alpha.1753474119310-0fc52c1b and generator version 2.660.0
+// Generated from OpenAPI doc version 4.14.0-alpha.1753735749224-0a5d0b46 and generator version 2.660.0
 
 import (
 	"context"
@@ -54,6 +54,8 @@ type CriblControlPlane struct {
 	Auth *Auth
 	// Actions related to REST server health
 	Health *Health
+	// Actions related to Versioning
+	Versioning *Versioning
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -100,9 +102,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.18",
+		SDKVersion: "0.0.19",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.18 2.660.0 4.14.0-alpha.1753474119310-0fc52c1b github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.0.19 2.660.0 4.14.0-alpha.1753735749224-0a5d0b46 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -132,6 +134,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Versioning = newVersioning(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }
