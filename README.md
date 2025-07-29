@@ -164,6 +164,22 @@ func main() {
 * [CreateSourceHecTokenByID](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
 * [UpdateSourceHecTokenByIDAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
+### [Versioning](docs/sdks/versioning/README.md)
+
+* [GetVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
+* [CreateVersionCommit](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
+* [GetVersionCount](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
+* [GetVersionCurrentBranch](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
+* [GetVersionDiff](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
+* [GetVersionFiles](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
+* [GetVersionInfo](docs/sdks/versioning/README.md#getversioninfo) - Get info about versioning availability
+* [CreateVersionPush](docs/sdks/versioning/README.md#createversionpush) - push the current configs to the remote repository.
+* [CreateVersionRevert](docs/sdks/versioning/README.md#createversionrevert) - revert a commit
+* [GetVersionShow](docs/sdks/versioning/README.md#getversionshow) - get the log message and textual diff for given commit
+* [GetVersionStatus](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
+* [CreateVersionSync](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
+* [CreateVersionUndo](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
