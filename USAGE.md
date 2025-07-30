@@ -20,7 +20,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

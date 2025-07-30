@@ -1,0 +1,11 @@
+# HeartbeatMetadata
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `Aws`                                                                                     | [*components.HeartbeatMetadataAws](../../models/components/heartbeatmetadataaws.md)       | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| `HostOs`                                                                                  | [*components.HeartbeatMetadataHostOs](../../models/components/heartbeatmetadatahostos.md) | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| `Kube`                                                                                    | [*components.HeartbeatMetadataKube](../../models/components/heartbeatmetadatakube.md)     | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| `Os`                                                                                      | [*components.HeartbeatMetadataOs](../../models/components/heartbeatmetadataos.md)         | :heavy_minus_sign:                                                                        | N/A                                                                                       |

@@ -54,7 +54,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -100,7 +102,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -135,9 +139,33 @@ func main() {
 * [GetDestinationSamplesByID](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
 * [CreateDestinationTestByID](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
 
+### [Distributed](docs/sdks/distributed/README.md)
+
+* [GetSummary](docs/sdks/distributed/README.md#getsummary) - Get summary of Distributed deployment
+
+### [Groups](docs/sdks/groups/README.md)
+
+* [GetGroupsConfigVersionByID](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
+* [CreateProductsGroupsByProduct](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
+* [GetProductsGroupsByProduct](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
+* [UpdateGroupsDeployByID](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
+* [GetGroupsByID](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+* [GetGroupsACLByID](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
+
 ### [Health](docs/sdks/health/README.md)
 
 * [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+
+### [Lake](docs/sdks/lake/README.md)
+
+* [CreateCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
+* [GetCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+
+### [Packs](docs/sdks/packs/README.md)
+
+* [CreatePacks](docs/sdks/packs/README.md#createpacks) - Install Pack
+* [GetPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
+* [UpdatePacks](docs/sdks/packs/README.md#updatepacks) - Upload Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -164,6 +192,10 @@ func main() {
 * [CreateSourceHecTokenByID](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
 * [UpdateSourceHecTokenByIDAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
+### [Teams](docs/sdks/teams/README.md)
+
+* [GetProductsGroupsACLTeamsByProductAndID](docs/sdks/teams/README.md#getproductsgroupsaclteamsbyproductandid) - ACL of team with permissions for resources in this Group
+
 ### [Versioning](docs/sdks/versioning/README.md)
 
 * [GetVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
@@ -179,6 +211,12 @@ func main() {
 * [GetVersionStatus](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
 * [CreateVersionSync](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
 * [CreateVersionUndo](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
+
+### [Workers](docs/sdks/workers/README.md)
+
+* [GetSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - get worker and edge nodes count
+* [GetWorkers](docs/sdks/workers/README.md#getworkers) - get worker and edge nodes
+* [UpdateWorkersRestart](docs/sdks/workers/README.md#updateworkersrestart) - restarts worker nodes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -212,7 +250,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx, operations.WithRetries(
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -267,7 +307,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -286,7 +328,7 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `apierrors.APIError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `ListSource` function may return the following errors:
+For example, the `CreateCriblLakeDatasetByLakeID` function may return the following errors:
 
 | Error Type         | Status Code | Content Type     |
 | ------------------ | ----------- | ---------------- |
@@ -318,7 +360,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.ListSource(ctx)
+	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
 	if err != nil {
 
 		var e *apierrors.Error
