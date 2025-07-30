@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 9ac8e735983aa95b771a1dae9b965405
-  docVersion: 4.14.0-alpha.1753735749224-0a5d0b46
+  docChecksum: 87a23a1f4a28e80108f276c7d8843532
+  docVersion: 4.14.0-alpha.1753854543129-e0f06d67
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.19
-  configChecksum: cba313ee30eee157925c42899ef0be6a
+  releaseVersion: 0.0.20
+  configChecksum: caeffc6945f9b75a28e77b8007ff2c62
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -27,6 +27,7 @@ features:
     intellisenseMarkdownSupport: 0.1.0
     mockServer: 0.1.1
     nameOverrides: 2.81.2
+    nullables: 0.1.1
     oauth2ClientCredentials: 0.3.1
     responseFormat: 0.1.2
     retries: 2.83.3
@@ -41,8 +42,22 @@ generatedFiles:
   - /models/apierrors/error.go
   - /models/apierrors/healthstatuserror.go
   - /models/components/addhectokenrequest.go
+  - /models/components/appmode.go
   - /models/components/authtoken.go
+  - /models/components/cacheconnection.go
+  - /models/components/cacheconnectionbackfillstatus.go
+  - /models/components/cloudprovider.go
+  - /models/components/commit.go
+  - /models/components/configgroup.go
+  - /models/components/configgroupcloud.go
+  - /models/components/configgrouplookups.go
   - /models/components/criblevent.go
+  - /models/components/cribllakedataset.go
+  - /models/components/datasetmetadata.go
+  - /models/components/datasetmetadataruninfo.go
+  - /models/components/deployrequest.go
+  - /models/components/deployrequestlookups.go
+  - /models/components/distributedsummary.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitfile.go
@@ -51,7 +66,10 @@ generatedFiles:
   - /models/components/gitrevertparams.go
   - /models/components/gitrevertresult.go
   - /models/components/gitstatusresult.go
+  - /models/components/hbcriblinfo.go
+  - /models/components/hbleaderinfo.go
   - /models/components/healthstatus.go
+  - /models/components/heartbeatmetadata.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
   - /models/components/inputappscope.go
@@ -112,7 +130,17 @@ generatedFiles:
   - /models/components/inputwineventlogs.go
   - /models/components/inputwiz.go
   - /models/components/inputzscalerhec.go
+  - /models/components/lakedatasetsearchconfig.go
+  - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
+  - /models/components/lookupversions.go
+  - /models/components/masterworkerentry.go
+  - /models/components/nodeactiveupgradestatus.go
+  - /models/components/nodefailedupgradestatus.go
+  - /models/components/nodeprovidedinfo.go
+  - /models/components/nodeskippedupgradestatus.go
+  - /models/components/nodeupgradestate.go
+  - /models/components/nodeupgradestatus.go
   - /models/components/output.go
   - /models/components/outputazureblob.go
   - /models/components/outputazuredataexplorer.go
@@ -181,8 +209,14 @@ generatedFiles:
   - /models/components/outputwavefront.go
   - /models/components/outputwebhook.go
   - /models/components/outputxsiam.go
+  - /models/components/packinfo.go
+  - /models/components/packinstallinfo.go
+  - /models/components/packrequestbody.go
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
+  - /models/components/rbacresource.go
+  - /models/components/resourcepolicy.go
+  - /models/components/restartresponse.go
   - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
@@ -190,12 +224,17 @@ generatedFiles:
   - /models/components/routesrouteinput.go
   - /models/components/schemeclientoauth.go
   - /models/components/security.go
+  - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
+  - /models/components/useraccesscontrollist.go
+  - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
   - /models/operations/createinputhectokenbyid.go
   - /models/operations/createoutput.go
   - /models/operations/createoutputtestbyid.go
+  - /models/operations/createpacks.go
   - /models/operations/createpipeline.go
+  - /models/operations/createproductsgroupsbyproduct.go
   - /models/operations/createroutesappendbyid.go
   - /models/operations/createversioncommit.go
   - /models/operations/createversionpush.go
@@ -206,13 +245,22 @@ generatedFiles:
   - /models/operations/deleteoutputbyid.go
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepipelinebyid.go
+  - /models/operations/getcribllakedatasetbylakeid.go
+  - /models/operations/getgroupsaclbyid.go
+  - /models/operations/getgroupsbyid.go
+  - /models/operations/getgroupsconfigversionbyid.go
   - /models/operations/gethealthinfo.go
   - /models/operations/getinputbyid.go
   - /models/operations/getoutputbyid.go
   - /models/operations/getoutputpqbyid.go
   - /models/operations/getoutputsamplesbyid.go
+  - /models/operations/getpacks.go
   - /models/operations/getpipelinebyid.go
+  - /models/operations/getproductsgroupsaclteamsbyproductandid.go
+  - /models/operations/getproductsgroupsbyproduct.go
   - /models/operations/getroutesbyid.go
+  - /models/operations/getsummary.go
+  - /models/operations/getsummaryworkers.go
   - /models/operations/getversionbranch.go
   - /models/operations/getversioncount.go
   - /models/operations/getversioncurrentbranch.go
@@ -221,20 +269,25 @@ generatedFiles:
   - /models/operations/getversioninfo.go
   - /models/operations/getversionshow.go
   - /models/operations/getversionstatus.go
+  - /models/operations/getworkers.go
   - /models/operations/listinput.go
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
   - /models/operations/login.go
+  - /models/operations/updategroupsdeploybyid.go
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
   - /models/operations/updateoutputbyid.go
+  - /models/operations/updatepacks.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
+  - /models/operations/updateworkersrestart.go
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
   - destinations.go
+  - distributed.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthstatuserror.md
   - docs/models/components/addhectokenrequest.md
@@ -242,6 +295,7 @@ generatedFiles:
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
+  - docs/models/components/appmode.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
@@ -249,18 +303,38 @@ generatedFiles:
   - docs/models/components/authtype.md
   - docs/models/components/awsauthenticationmethod.md
   - docs/models/components/blobaccesstier.md
+  - docs/models/components/cacheconnection.md
+  - docs/models/components/cacheconnectionbackfillstatus.md
   - docs/models/components/certoptions.md
+  - docs/models/components/cloudprovider.md
   - docs/models/components/collectors.md
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
+  - docs/models/components/commit.md
   - docs/models/components/conf.md
+  - docs/models/components/config.md
+  - docs/models/components/configgroup.md
+  - docs/models/components/configgroupcloud.md
+  - docs/models/components/configgrouplookups.md
+  - docs/models/components/configgrouplookupslookup.md
+  - docs/models/components/configgrouptype.md
   - docs/models/components/container.md
   - docs/models/components/containermode.md
   - docs/models/components/criblevent.md
+  - docs/models/components/cribllakedataset.md
+  - docs/models/components/cribllakedatasetformat.md
   - docs/models/components/customlabel.md
   - docs/models/components/datadogsite.md
+  - docs/models/components/datasetmetadata.md
+  - docs/models/components/datasetmetadataruninfo.md
   - docs/models/components/datasetsite.md
+  - docs/models/components/deployrequest.md
+  - docs/models/components/deployrequestlookups.md
+  - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/disksandfilesystems.md
+  - docs/models/components/distributedsummary.md
+  - docs/models/components/distributedsummarygroups.md
+  - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
   - docs/models/components/elasticversion.md
   - docs/models/components/endpoint.md
@@ -278,6 +352,7 @@ generatedFiles:
   - docs/models/components/flushperiodsec.md
   - docs/models/components/flushperiodsectype.md
   - docs/models/components/functionspecificconfigs.md
+  - docs/models/components/git.md
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
   - docs/models/components/gitcommitsummaryfiles.md
@@ -288,7 +363,17 @@ generatedFiles:
   - docs/models/components/gitrevertresult.md
   - docs/models/components/gitrevertresultfiles.md
   - docs/models/components/gitstatusresult.md
+  - docs/models/components/hbcriblinfo.md
+  - docs/models/components/hbleaderinfo.md
   - docs/models/components/healthstatus.md
+  - docs/models/components/healthstatusstatus.md
+  - docs/models/components/heartbeatmetadata.md
+  - docs/models/components/heartbeatmetadataaws.md
+  - docs/models/components/heartbeatmetadatahostos.md
+  - docs/models/components/heartbeatmetadatakube.md
+  - docs/models/components/heartbeatmetadataos.md
+  - docs/models/components/heartbeatmetadataowner.md
+  - docs/models/components/heartbeatmetadatatags.md
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
@@ -990,6 +1075,9 @@ generatedFiles:
   - docs/models/components/inputzscalerhectlssettingsserverside.md
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
+  - docs/models/components/lakedatasetsearchconfig.md
+  - docs/models/components/lakehouseconnectiontype.md
+  - docs/models/components/lastmetrics.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
@@ -999,10 +1087,28 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
+  - docs/models/components/lookupversions.md
   - docs/models/components/mappingtype.md
+  - docs/models/components/masterworkerentry.md
+  - docs/models/components/masterworkerentrytype.md
+  - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
   - docs/models/components/microsoftentraidauthenticationendpoint.md
   - docs/models/components/mtlssettings.md
+  - docs/models/components/nodeactiveupgradestatus.md
+  - docs/models/components/nodefailedupgradestatus.md
+  - docs/models/components/nodeprovidedinfo.md
+  - docs/models/components/nodeprovidedinfoaws.md
+  - docs/models/components/nodeprovidedinfohostos.md
+  - docs/models/components/nodeprovidedinfokube.md
+  - docs/models/components/nodeprovidedinfoos1.md
+  - docs/models/components/nodeprovidedinfoos2.md
+  - docs/models/components/nodeprovidedinfoowner.md
+  - docs/models/components/nodeprovidedinfotags.md
+  - docs/models/components/nodeskippedupgradestatus.md
+  - docs/models/components/nodeupgradestate.md
+  - docs/models/components/nodeupgradestatus.md
+  - docs/models/components/os.md
   - docs/models/components/output.md
   - docs/models/components/outputazureblob.md
   - docs/models/components/outputazureblobauthenticationmethod.md
@@ -1805,6 +1911,12 @@ generatedFiles:
   - docs/models/components/outputxsiamtimeoutretrysettings.md
   - docs/models/components/outputxsiamtype.md
   - docs/models/components/outputxsiamurl.md
+  - docs/models/components/packinfo.md
+  - docs/models/components/packinfotags.md
+  - docs/models/components/packinstallinfo.md
+  - docs/models/components/packinstallinfotags.md
+  - docs/models/components/packrequestbody.md
+  - docs/models/components/packrequestbodytags.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
   - docs/models/components/pipelinefunctionconf.md
@@ -1816,12 +1928,16 @@ generatedFiles:
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
   - docs/models/components/querybuildermode.md
+  - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
   - docs/models/components/remote.md
   - docs/models/components/renamed.md
   - docs/models/components/reportlevel.md
   - docs/models/components/reportmethod.md
+  - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
+  - docs/models/components/restartresponse.md
+  - docs/models/components/restartresponsestatus.md
   - docs/models/components/role.md
   - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
@@ -1831,6 +1947,7 @@ generatedFiles:
   - docs/models/components/routesroute.md
   - docs/models/components/routesrouteinput.md
   - docs/models/components/sample.md
+  - docs/models/components/scanmode.md
   - docs/models/components/scheduletype.md
   - docs/models/components/schemeclientoauth.md
   - docs/models/components/scrapeprotocolprotocol.md
@@ -1842,17 +1959,18 @@ generatedFiles:
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
-  - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
   - docs/models/components/summary.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
+  - docs/models/components/teamaccesscontrollist.md
   - docs/models/components/telemetrytype.md
   - docs/models/components/timestampformat.md
   - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
   - docs/models/components/writeaction.md
@@ -2075,6 +2193,9 @@ generatedFiles:
   - docs/models/operations/contentconfigoffice365mgmt.md
   - docs/models/operations/contentconfigoffice365service.md
   - docs/models/operations/contentconfigwiz.md
+  - docs/models/operations/createcribllakedatasetbylakeidrequest.md
+  - docs/models/operations/createcribllakedatasetbylakeidresponse.md
+  - docs/models/operations/createcribllakedatasetbylakeidresponsebody.md
   - docs/models/operations/createinputapiversion.md
   - docs/models/operations/createinputauthconfluentcloud.md
   - docs/models/operations/createinputauthenticationconfluentcloud.md
@@ -2273,8 +2394,14 @@ generatedFiles:
   - docs/models/operations/createoutputtypesnmp.md
   - docs/models/operations/createoutputtypesplunk.md
   - docs/models/operations/createoutputtypesqs.md
+  - docs/models/operations/createpacksresponse.md
+  - docs/models/operations/createpacksresponsebody.md
   - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createpipelineresponsebody.md
+  - docs/models/operations/createproductsgroupsbyproductproduct.md
+  - docs/models/operations/createproductsgroupsbyproductrequest.md
+  - docs/models/operations/createproductsgroupsbyproductresponse.md
+  - docs/models/operations/createproductsgroupsbyproductresponsebody.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createroutesappendbyidresponsebody.md
@@ -2387,6 +2514,19 @@ generatedFiles:
   - docs/models/operations/formatclickhouse.md
   - docs/models/operations/formatdynatracehttp.md
   - docs/models/operations/formatsentinel.md
+  - docs/models/operations/getcribllakedatasetbylakeidrequest.md
+  - docs/models/operations/getcribllakedatasetbylakeidresponse.md
+  - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
+  - docs/models/operations/getgroupsaclbyidrequest.md
+  - docs/models/operations/getgroupsaclbyidresponse.md
+  - docs/models/operations/getgroupsaclbyidresponsebody.md
+  - docs/models/operations/getgroupsaclbyidtype.md
+  - docs/models/operations/getgroupsbyidrequest.md
+  - docs/models/operations/getgroupsbyidresponse.md
+  - docs/models/operations/getgroupsbyidresponsebody.md
+  - docs/models/operations/getgroupsconfigversionbyidrequest.md
+  - docs/models/operations/getgroupsconfigversionbyidresponse.md
+  - docs/models/operations/getgroupsconfigversionbyidresponsebody.md
   - docs/models/operations/gethealthinforesponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
@@ -2400,12 +2540,31 @@ generatedFiles:
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidresponsebody.md
+  - docs/models/operations/getpacksrequest.md
+  - docs/models/operations/getpacksresponse.md
+  - docs/models/operations/getpacksresponsebody.md
   - docs/models/operations/getpipelinebyidrequest.md
   - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getpipelinebyidresponsebody.md
+  - docs/models/operations/getproductsgroupsaclteamsbyproductandidproduct.md
+  - docs/models/operations/getproductsgroupsaclteamsbyproductandidrequest.md
+  - docs/models/operations/getproductsgroupsaclteamsbyproductandidresponse.md
+  - docs/models/operations/getproductsgroupsaclteamsbyproductandidresponsebody.md
+  - docs/models/operations/getproductsgroupsaclteamsbyproductandidtype.md
+  - docs/models/operations/getproductsgroupsbyproductproduct.md
+  - docs/models/operations/getproductsgroupsbyproductrequest.md
+  - docs/models/operations/getproductsgroupsbyproductresponse.md
+  - docs/models/operations/getproductsgroupsbyproductresponsebody.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getroutesbyidresponsebody.md
+  - docs/models/operations/getsummarymode.md
+  - docs/models/operations/getsummaryrequest.md
+  - docs/models/operations/getsummaryresponse.md
+  - docs/models/operations/getsummaryresponsebody.md
+  - docs/models/operations/getsummaryworkersrequest.md
+  - docs/models/operations/getsummaryworkersresponse.md
+  - docs/models/operations/getsummaryworkersresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
@@ -2427,6 +2586,9 @@ generatedFiles:
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/getversionstatusresponsebody.md
+  - docs/models/operations/getworkersrequest.md
+  - docs/models/operations/getworkersresponse.md
+  - docs/models/operations/getworkersresponsebody.md
   - docs/models/operations/googleauthenticationmethodgooglecloudlogging.md
   - docs/models/operations/hostnetflow.md
   - docs/models/operations/hostsnmp.md
@@ -3168,6 +3330,9 @@ generatedFiles:
   - docs/models/operations/typewineventlogs.md
   - docs/models/operations/typewiz.md
   - docs/models/operations/typezscalerhec.md
+  - docs/models/operations/updategroupsdeploybyidrequest.md
+  - docs/models/operations/updategroupsdeploybyidresponse.md
+  - docs/models/operations/updategroupsdeploybyidresponsebody.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputbyidresponsebody.md
@@ -3177,24 +3342,36 @@ generatedFiles:
   - docs/models/operations/updateoutputbyidrequest.md
   - docs/models/operations/updateoutputbyidresponse.md
   - docs/models/operations/updateoutputbyidresponsebody.md
+  - docs/models/operations/updatepacksrequest.md
+  - docs/models/operations/updatepacksresponse.md
+  - docs/models/operations/updatepacksresponsebody.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updatepipelinebyidresponsebody.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
+  - docs/models/operations/updateworkersrestartresponse.md
+  - docs/models/operations/updateworkersrestartresponsebody.md
   - docs/models/operations/urlobj.md
   - docs/models/operations/v3user.md
   - docs/models/operations/writeaction.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
+  - docs/sdks/distributed/README.md
+  - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
+  - docs/sdks/lake/README.md
+  - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
+  - docs/sdks/teams/README.md
   - docs/sdks/versioning/README.md
+  - docs/sdks/workers/README.md
   - go.mod
+  - groups.go
   - health.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/hooks.go
@@ -3211,15 +3388,21 @@ generatedFiles:
   - internal/utils/retries.go
   - internal/utils/security.go
   - internal/utils/utils.go
+  - lake.go
   - models/apierrors/apierror.go
   - models/operations/options.go
+  - packs.go
   - pipelines.go
   - retry/config.go
   - routes.go
   - sources.go
+  - teams.go
   - tests/destinations_test.go
+  - tests/distributed_test.go
   - tests/files.go
+  - tests/groups_test.go
   - tests/health_test.go
+  - tests/lake_test.go
   - tests/login_test.go
   - tests/mockserver/.gitignore
   - tests/mockserver/Dockerfile
@@ -3240,8 +3423,18 @@ generatedFiles:
   - tests/mockserver/internal/handler/pathdeletesystemoutputsid.go
   - tests/mockserver/internal/handler/pathdeletesystemoutputsidpq.go
   - tests/mockserver/internal/handler/pathgethealth.go
+  - tests/mockserver/internal/handler/pathgetmastergroupsid.go
+  - tests/mockserver/internal/handler/pathgetmastergroupsidacl.go
+  - tests/mockserver/internal/handler/pathgetmastergroupsidconfigversion.go
+  - tests/mockserver/internal/handler/pathgetmastersummary.go
+  - tests/mockserver/internal/handler/pathgetmastersummaryworkers.go
+  - tests/mockserver/internal/handler/pathgetmasterworkers.go
+  - tests/mockserver/internal/handler/pathgetpacks.go
   - tests/mockserver/internal/handler/pathgetpipelines.go
   - tests/mockserver/internal/handler/pathgetpipelinesid.go
+  - tests/mockserver/internal/handler/pathgetproductslakelakeslakeiddatasets.go
+  - tests/mockserver/internal/handler/pathgetproductsproductgroups.go
+  - tests/mockserver/internal/handler/pathgetproductsproductgroupsidaclteams.go
   - tests/mockserver/internal/handler/pathgetroutes.go
   - tests/mockserver/internal/handler/pathgetroutesid.go
   - tests/mockserver/internal/handler/pathgetsysteminputs.go
@@ -3258,13 +3451,18 @@ generatedFiles:
   - tests/mockserver/internal/handler/pathgetversioninfo.go
   - tests/mockserver/internal/handler/pathgetversionshow.go
   - tests/mockserver/internal/handler/pathgetversionstatus.go
+  - tests/mockserver/internal/handler/pathpatchmastergroupsiddeploy.go
+  - tests/mockserver/internal/handler/pathpatchmasterworkersrestart.go
   - tests/mockserver/internal/handler/pathpatchpipelinesid.go
   - tests/mockserver/internal/handler/pathpatchroutesid.go
   - tests/mockserver/internal/handler/pathpatchsysteminputsid.go
   - tests/mockserver/internal/handler/pathpatchsysteminputsidhectokentoken.go
   - tests/mockserver/internal/handler/pathpatchsystemoutputsid.go
   - tests/mockserver/internal/handler/pathpostauthlogin.go
+  - tests/mockserver/internal/handler/pathpostpacks.go
   - tests/mockserver/internal/handler/pathpostpipelines.go
+  - tests/mockserver/internal/handler/pathpostproductslakelakeslakeiddatasets.go
+  - tests/mockserver/internal/handler/pathpostproductsproductgroups.go
   - tests/mockserver/internal/handler/pathpostroutesidappend.go
   - tests/mockserver/internal/handler/pathpostsysteminputs.go
   - tests/mockserver/internal/handler/pathpostsysteminputsidhectoken.go
@@ -3275,6 +3473,7 @@ generatedFiles:
   - tests/mockserver/internal/handler/pathpostversionrevert.go
   - tests/mockserver/internal/handler/pathpostversionsync.go
   - tests/mockserver/internal/handler/pathpostversionundo.go
+  - tests/mockserver/internal/handler/pathputpacks.go
   - tests/mockserver/internal/handler/values/files.go
   - tests/mockserver/internal/logging/doc.go
   - tests/mockserver/internal/logging/formats.go
@@ -3285,8 +3484,22 @@ generatedFiles:
   - tests/mockserver/internal/logging/oas_operation.go
   - tests/mockserver/internal/logging/oas_operation_call.go
   - tests/mockserver/internal/sdk/models/components/addhectokenrequest.go
+  - tests/mockserver/internal/sdk/models/components/appmode.go
   - tests/mockserver/internal/sdk/models/components/authtoken.go
+  - tests/mockserver/internal/sdk/models/components/cacheconnection.go
+  - tests/mockserver/internal/sdk/models/components/cacheconnectionbackfillstatus.go
+  - tests/mockserver/internal/sdk/models/components/cloudprovider.go
+  - tests/mockserver/internal/sdk/models/components/commit.go
+  - tests/mockserver/internal/sdk/models/components/configgroup.go
+  - tests/mockserver/internal/sdk/models/components/configgroupcloud.go
+  - tests/mockserver/internal/sdk/models/components/configgrouplookups.go
   - tests/mockserver/internal/sdk/models/components/criblevent.go
+  - tests/mockserver/internal/sdk/models/components/cribllakedataset.go
+  - tests/mockserver/internal/sdk/models/components/datasetmetadata.go
+  - tests/mockserver/internal/sdk/models/components/datasetmetadataruninfo.go
+  - tests/mockserver/internal/sdk/models/components/deployrequest.go
+  - tests/mockserver/internal/sdk/models/components/deployrequestlookups.go
+  - tests/mockserver/internal/sdk/models/components/distributedsummary.go
   - tests/mockserver/internal/sdk/models/components/gitcommitparams.go
   - tests/mockserver/internal/sdk/models/components/gitcommitsummary.go
   - tests/mockserver/internal/sdk/models/components/gitfile.go
@@ -3295,7 +3508,10 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/gitrevertparams.go
   - tests/mockserver/internal/sdk/models/components/gitrevertresult.go
   - tests/mockserver/internal/sdk/models/components/gitstatusresult.go
+  - tests/mockserver/internal/sdk/models/components/hbcriblinfo.go
+  - tests/mockserver/internal/sdk/models/components/hbleaderinfo.go
   - tests/mockserver/internal/sdk/models/components/healthstatus.go
+  - tests/mockserver/internal/sdk/models/components/heartbeatmetadata.go
   - tests/mockserver/internal/sdk/models/components/httpmetadata.go
   - tests/mockserver/internal/sdk/models/components/input.go
   - tests/mockserver/internal/sdk/models/components/inputappscope.go
@@ -3356,7 +3572,17 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/inputwineventlogs.go
   - tests/mockserver/internal/sdk/models/components/inputwiz.go
   - tests/mockserver/internal/sdk/models/components/inputzscalerhec.go
+  - tests/mockserver/internal/sdk/models/components/lakedatasetsearchconfig.go
+  - tests/mockserver/internal/sdk/models/components/lakehouseconnectiontype.go
   - tests/mockserver/internal/sdk/models/components/logininfo.go
+  - tests/mockserver/internal/sdk/models/components/lookupversions.go
+  - tests/mockserver/internal/sdk/models/components/masterworkerentry.go
+  - tests/mockserver/internal/sdk/models/components/nodeactiveupgradestatus.go
+  - tests/mockserver/internal/sdk/models/components/nodefailedupgradestatus.go
+  - tests/mockserver/internal/sdk/models/components/nodeprovidedinfo.go
+  - tests/mockserver/internal/sdk/models/components/nodeskippedupgradestatus.go
+  - tests/mockserver/internal/sdk/models/components/nodeupgradestate.go
+  - tests/mockserver/internal/sdk/models/components/nodeupgradestatus.go
   - tests/mockserver/internal/sdk/models/components/output.go
   - tests/mockserver/internal/sdk/models/components/outputazureblob.go
   - tests/mockserver/internal/sdk/models/components/outputazuredataexplorer.go
@@ -3425,8 +3651,14 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/outputwavefront.go
   - tests/mockserver/internal/sdk/models/components/outputwebhook.go
   - tests/mockserver/internal/sdk/models/components/outputxsiam.go
+  - tests/mockserver/internal/sdk/models/components/packinfo.go
+  - tests/mockserver/internal/sdk/models/components/packinstallinfo.go
+  - tests/mockserver/internal/sdk/models/components/packrequestbody.go
   - tests/mockserver/internal/sdk/models/components/pipeline.go
   - tests/mockserver/internal/sdk/models/components/pipelinefunctionconf.go
+  - tests/mockserver/internal/sdk/models/components/rbacresource.go
+  - tests/mockserver/internal/sdk/models/components/resourcepolicy.go
+  - tests/mockserver/internal/sdk/models/components/restartresponse.go
   - tests/mockserver/internal/sdk/models/components/routecloneconf.go
   - tests/mockserver/internal/sdk/models/components/routeconf.go
   - tests/mockserver/internal/sdk/models/components/routes.go
@@ -3434,12 +3666,17 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/routesrouteinput.go
   - tests/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - tests/mockserver/internal/sdk/models/components/security.go
+  - tests/mockserver/internal/sdk/models/components/teamaccesscontrollist.go
   - tests/mockserver/internal/sdk/models/components/updatehectokenrequest.go
+  - tests/mockserver/internal/sdk/models/components/useraccesscontrollist.go
+  - tests/mockserver/internal/sdk/models/operations/createcribllakedatasetbylakeid.go
   - tests/mockserver/internal/sdk/models/operations/createinput.go
   - tests/mockserver/internal/sdk/models/operations/createinputhectokenbyid.go
   - tests/mockserver/internal/sdk/models/operations/createoutput.go
   - tests/mockserver/internal/sdk/models/operations/createoutputtestbyid.go
+  - tests/mockserver/internal/sdk/models/operations/createpacks.go
   - tests/mockserver/internal/sdk/models/operations/createpipeline.go
+  - tests/mockserver/internal/sdk/models/operations/createproductsgroupsbyproduct.go
   - tests/mockserver/internal/sdk/models/operations/createroutesappendbyid.go
   - tests/mockserver/internal/sdk/models/operations/createversioncommit.go
   - tests/mockserver/internal/sdk/models/operations/createversionpush.go
@@ -3450,13 +3687,22 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/operations/deleteoutputbyid.go
   - tests/mockserver/internal/sdk/models/operations/deleteoutputpqbyid.go
   - tests/mockserver/internal/sdk/models/operations/deletepipelinebyid.go
+  - tests/mockserver/internal/sdk/models/operations/getcribllakedatasetbylakeid.go
+  - tests/mockserver/internal/sdk/models/operations/getgroupsaclbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getgroupsbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getgroupsconfigversionbyid.go
   - tests/mockserver/internal/sdk/models/operations/gethealthinfo.go
   - tests/mockserver/internal/sdk/models/operations/getinputbyid.go
   - tests/mockserver/internal/sdk/models/operations/getoutputbyid.go
   - tests/mockserver/internal/sdk/models/operations/getoutputpqbyid.go
   - tests/mockserver/internal/sdk/models/operations/getoutputsamplesbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getpacks.go
   - tests/mockserver/internal/sdk/models/operations/getpipelinebyid.go
+  - tests/mockserver/internal/sdk/models/operations/getproductsgroupsaclteamsbyproductandid.go
+  - tests/mockserver/internal/sdk/models/operations/getproductsgroupsbyproduct.go
   - tests/mockserver/internal/sdk/models/operations/getroutesbyid.go
+  - tests/mockserver/internal/sdk/models/operations/getsummary.go
+  - tests/mockserver/internal/sdk/models/operations/getsummaryworkers.go
   - tests/mockserver/internal/sdk/models/operations/getversionbranch.go
   - tests/mockserver/internal/sdk/models/operations/getversioncount.go
   - tests/mockserver/internal/sdk/models/operations/getversioncurrentbranch.go
@@ -3465,16 +3711,20 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/operations/getversioninfo.go
   - tests/mockserver/internal/sdk/models/operations/getversionshow.go
   - tests/mockserver/internal/sdk/models/operations/getversionstatus.go
+  - tests/mockserver/internal/sdk/models/operations/getworkers.go
   - tests/mockserver/internal/sdk/models/operations/listinput.go
   - tests/mockserver/internal/sdk/models/operations/listoutput.go
   - tests/mockserver/internal/sdk/models/operations/listpipeline.go
   - tests/mockserver/internal/sdk/models/operations/listroutes.go
   - tests/mockserver/internal/sdk/models/operations/login.go
+  - tests/mockserver/internal/sdk/models/operations/updategroupsdeploybyid.go
   - tests/mockserver/internal/sdk/models/operations/updateinputbyid.go
   - tests/mockserver/internal/sdk/models/operations/updateinputhectokenbyidandtoken.go
   - tests/mockserver/internal/sdk/models/operations/updateoutputbyid.go
+  - tests/mockserver/internal/sdk/models/operations/updatepacks.go
   - tests/mockserver/internal/sdk/models/operations/updatepipelinebyid.go
   - tests/mockserver/internal/sdk/models/operations/updateroutesbyid.go
+  - tests/mockserver/internal/sdk/models/operations/updateworkersrestart.go
   - tests/mockserver/internal/sdk/models/sdkerrors/error.go
   - tests/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - tests/mockserver/internal/sdk/types/bigint.go
@@ -3496,17 +3746,21 @@ generatedFiles:
   - tests/mockserver/internal/server/templates/log/style.css.tmpl
   - tests/mockserver/internal/tracking/requesttracker.go
   - tests/mockserver/main.go
+  - tests/packs_test.go
   - tests/pipelines_test.go
   - tests/routes_test.go
   - tests/sources_test.go
+  - tests/teams_test.go
   - tests/testclient.go
   - tests/versioning_test.go
+  - tests/workers_test.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
   - types/decimal.go
   - types/pointers.go
   - versioning.go
+  - workers.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:
@@ -3869,6 +4123,154 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+  createCriblLakeDatasetByLakeId:
+    speakeasy-default-create-cribl-lake-dataset-by-lake-id:
+      parameters:
+        path:
+          lakeId: "<id>"
+      requestBody:
+        application/json: {"id": "<id>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getCriblLakeDatasetByLakeId:
+    speakeasy-default-get-cribl-lake-dataset-by-lake-id:
+      parameters:
+        path:
+          lakeId: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getSummaryWorkers:
+    speakeasy-default-get-summary-workers:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getWorkers:
+    speakeasy-default-get-workers:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateWorkersRestart:
+    speakeasy-default-update-workers-restart:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getSummary:
+    speakeasy-default-get-summary:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createPacks:
+    speakeasy-default-create-packs:
+      requestBody:
+        application/json: {"id": "<id>", "source": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getPacks:
+    speakeasy-default-get-packs:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updatePacks:
+    speakeasy-default-update-packs:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getGroupsConfigVersionById:
+    speakeasy-default-get-groups-config-version-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createProductsGroupsByProduct:
+    speakeasy-default-create-products-groups-by-product:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"configVersion": "<value>", "id": "<id>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getProductsGroupsByProduct:
+    speakeasy-default-get-products-groups-by-product:
+      parameters:
+        path:
+          product: "stream"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateGroupsDeployById:
+    speakeasy-default-update-groups-deploy-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"version": "<value>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getGroupsById:
+    speakeasy-default-get-groups-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getGroupsAclById:
+    speakeasy-default-get-groups-acl-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getProductsGroupsAclTeamsByProductAndId:
+    speakeasy-default-get-products-groups-acl-teams-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3911,3 +4313,19 @@ generatedTests:
   getVersionStatus: "2025-07-29T01:29:28Z"
   createVersionSync: "2025-07-29T01:29:28Z"
   createVersionUndo: "2025-07-29T01:29:28Z"
+  createCriblLakeDatasetByLakeId: "2025-07-30T06:53:14Z"
+  getCriblLakeDatasetByLakeId: "2025-07-30T06:53:14Z"
+  getSummaryWorkers: "2025-07-30T06:53:14Z"
+  getWorkers: "2025-07-30T06:53:14Z"
+  updateWorkersRestart: "2025-07-30T06:53:14Z"
+  getSummary: "2025-07-30T06:53:14Z"
+  createPacks: "2025-07-30T06:53:14Z"
+  getPacks: "2025-07-30T06:53:14Z"
+  updatePacks: "2025-07-30T06:53:14Z"
+  getGroupsConfigVersionById: "2025-07-30T06:53:14Z"
+  createProductsGroupsByProduct: "2025-07-30T06:53:14Z"
+  getProductsGroupsByProduct: "2025-07-30T06:53:14Z"
+  updateGroupsDeployById: "2025-07-30T06:53:14Z"
+  getGroupsById: "2025-07-30T06:53:14Z"
+  getGroupsAclById: "2025-07-30T06:53:14Z"
+  getProductsGroupsAclTeamsByProductAndId: "2025-07-30T06:53:14Z"

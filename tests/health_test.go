@@ -25,6 +25,6 @@ func TestHealth_GetHealthInfo(t *testing.T) {
 	res, err := s.Health.GetHealthInfo(ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
-	assert.Equal(t, components.StatusHealthy, res.HealthStatus.Status)
+	assert.Equal(t, components.HealthStatusStatusHealthy, res.HealthStatus.Status)
 
 }
