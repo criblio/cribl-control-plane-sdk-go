@@ -160,12 +160,17 @@ func main() {
 
 * [CreateCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
 * [GetCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+* [DeleteCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#deletecribllakedatasetbylakeidandid) - Delete a Dataset in the specified Lake
+* [GetCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#getcribllakedatasetbylakeidandid) - Get a Dataset in the specified Lake
+* [UpdateCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#updatecribllakedatasetbylakeidandid) - Update a Dataset in the specified Lake
 
 ### [Packs](docs/sdks/packs/README.md)
 
 * [CreatePacks](docs/sdks/packs/README.md#createpacks) - Install Pack
 * [GetPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
 * [UpdatePacks](docs/sdks/packs/README.md#updatepacks) - Upload Pack
+* [DeletePacksByID](docs/sdks/packs/README.md#deletepacksbyid) - Uninstall Pack from the system
+* [UpdatePacksByID](docs/sdks/packs/README.md#updatepacksbyid) - Upgrade Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
