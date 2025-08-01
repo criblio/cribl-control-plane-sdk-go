@@ -148,8 +148,10 @@ func main() {
 * [GetGroupsConfigVersionByID](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
 * [CreateProductsGroupsByProduct](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
 * [GetProductsGroupsByProduct](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
-* [UpdateGroupsDeployByID](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
+* [DeleteGroupsByID](docs/sdks/groups/README.md#deletegroupsbyid) - Delete a Fleet or Worker Group
 * [GetGroupsByID](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+* [UpdateGroupsByID](docs/sdks/groups/README.md#updategroupsbyid) - Update a Fleet or Worker Group
+* [UpdateGroupsDeployByID](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 * [GetGroupsACLByID](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
 
 ### [Health](docs/sdks/health/README.md)
