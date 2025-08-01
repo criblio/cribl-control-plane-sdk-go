@@ -15,6 +15,7 @@ Get summary of Distributed deployment
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getSummary" method="get" path="/master/summary" -->
 ```go
 package main
 

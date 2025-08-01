@@ -19,6 +19,7 @@ Get a list of Source objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" -->
 ```go
 package main
 
@@ -74,6 +75,7 @@ Create Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" -->
 ```go
 package main
 
@@ -136,6 +138,7 @@ Get Source by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" -->
 ```go
 package main
 
@@ -192,6 +195,7 @@ Update Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" -->
 ```go
 package main
 
@@ -254,6 +258,7 @@ Delete Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" -->
 ```go
 package main
 
@@ -310,6 +315,7 @@ Add token and optional metadata to an existing HEC Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" -->
 ```go
 package main
 
@@ -369,6 +375,7 @@ Update token metadata on existing HEC Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" -->
 ```go
 package main
 

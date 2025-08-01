@@ -15,6 +15,7 @@ ACL of team with permissions for resources in this Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
 ```go
 package main
 

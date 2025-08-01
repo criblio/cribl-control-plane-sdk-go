@@ -20,6 +20,7 @@ Get effective bundle version for given Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getGroupsConfigVersionById" method="get" path="/master/groups/{id}/configVersion" -->
 ```go
 package main
 
@@ -76,6 +77,7 @@ Create a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" -->
 ```go
 package main
 
@@ -137,6 +139,7 @@ Get a list of ConfigGroup objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
 ```go
 package main
 
@@ -195,6 +198,7 @@ Deploy commits for a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateGroupsDeployById" method="patch" path="/master/groups/{id}/deploy" -->
 ```go
 package main
 
@@ -254,6 +258,7 @@ Get a specific ConfigGroup object
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getGroupsById" method="get" path="/master/groups/{id}" -->
 ```go
 package main
 
@@ -311,6 +316,7 @@ ACL of members with permissions for resources in this Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getGroupsAclById" method="get" path="/master/groups/{id}/acl" -->
 ```go
 package main
 

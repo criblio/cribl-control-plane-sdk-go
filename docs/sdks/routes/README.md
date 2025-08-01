@@ -18,6 +18,7 @@ Get a list of Routes objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="listRoutes" method="get" path="/routes" -->
 ```go
 package main
 
@@ -73,6 +74,7 @@ Get Routes by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getRoutesById" method="get" path="/routes/{id}" -->
 ```go
 package main
 
@@ -129,6 +131,7 @@ Update Routes
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" -->
 ```go
 package main
 
@@ -188,6 +191,7 @@ Appends routes to the end of the routing table
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" -->
 ```go
 package main
 

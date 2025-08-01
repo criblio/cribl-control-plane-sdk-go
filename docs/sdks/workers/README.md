@@ -17,6 +17,7 @@ get worker and edge nodes count
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getSummaryWorkers" method="get" path="/master/summary/workers" -->
 ```go
 package main
 
@@ -73,6 +74,7 @@ get worker and edge nodes
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getWorkers" method="get" path="/master/workers" -->
 ```go
 package main
 
@@ -130,6 +132,7 @@ restarts worker nodes
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateWorkersRestart" method="patch" path="/master/workers/restart" -->
 ```go
 package main
 

@@ -19,6 +19,7 @@ Create a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" -->
 ```go
 package main
 
@@ -78,6 +79,7 @@ Get the list of Dataset contained in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getCriblLakeDatasetByLakeId" method="get" path="/products/lake/lakes/{lakeId}/datasets" -->
 ```go
 package main
 
@@ -134,6 +136,7 @@ Delete a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteCriblLakeDatasetByLakeIdAndId" method="delete" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```go
 package main
 
@@ -191,6 +194,7 @@ Get a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getCriblLakeDatasetByLakeIdAndId" method="get" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```go
 package main
 
@@ -248,6 +252,7 @@ Update a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```go
 package main
 
