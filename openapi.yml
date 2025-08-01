@@ -19,6 +19,10 @@ components:
       flows:
         clientCredentials:
           tokenUrl: https://login.cribl.cloud/oauth/token
+          x-speakeasy-token-endpoint-additional-properties:
+            audience:
+              type: string
+              example: "https://api.cribl.cloud"
           scopes: {}
   schemas:
     Error:
