@@ -56,3 +56,68 @@ func TestLake_GetCriblLakeDatasetByLakeID(t *testing.T) {
 	assert.Equal(t, &operations.GetCriblLakeDatasetByLakeIDResponseBody{}, res.Object)
 
 }
+
+func TestLake_DeleteCriblLakeDatasetByLakeIDAndID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("deleteCriblLakeDatasetByLakeIdAndId")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Lake.DeleteCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>")
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.DeleteCriblLakeDatasetByLakeIDAndIDResponseBody{}, res.Object)
+
+}
+
+func TestLake_GetCriblLakeDatasetByLakeIDAndID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("getCriblLakeDatasetByLakeIdAndId")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Lake.GetCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>")
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.GetCriblLakeDatasetByLakeIDAndIDResponseBody{}, res.Object)
+
+}
+
+func TestLake_UpdateCriblLakeDatasetByLakeIDAndID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("updateCriblLakeDatasetByLakeIdAndId")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Lake.UpdateCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>", components.CriblLakeDataset{
+		ID: "<id>",
+	})
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.UpdateCriblLakeDatasetByLakeIDAndIDResponseBody{}, res.Object)
+
+}

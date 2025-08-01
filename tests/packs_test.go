@@ -78,3 +78,45 @@ func TestPacks_UpdatePacks(t *testing.T) {
 	assert.Equal(t, &operations.UpdatePacksResponseBody{}, res.Object)
 
 }
+
+func TestPacks_DeletePacksByID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("deletePacksById")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Packs.DeletePacksByID(ctx, "<id>")
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.DeletePacksByIDResponseBody{}, res.Object)
+
+}
+
+func TestPacks_UpdatePacksByID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("updatePacksById")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Packs.UpdatePacksByID(ctx, "<id>", nil, nil, nil)
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.UpdatePacksByIDResponseBody{}, res.Object)
+
+}
