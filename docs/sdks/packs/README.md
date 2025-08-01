@@ -19,6 +19,7 @@ Install Pack
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" -->
 ```go
 package main
 
@@ -78,6 +79,7 @@ Get info on packs
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getPacks" method="get" path="/packs" -->
 ```go
 package main
 
@@ -134,6 +136,7 @@ Upload Pack
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" -->
 ```go
 package main
 
@@ -190,6 +193,7 @@ Uninstall Pack from the system
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deletePacksById" method="delete" path="/packs/{id}" -->
 ```go
 package main
 
@@ -246,6 +250,7 @@ Upgrade Pack
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" -->
 ```go
 package main
 

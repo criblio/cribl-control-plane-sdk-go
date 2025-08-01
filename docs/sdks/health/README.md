@@ -15,6 +15,7 @@ Provides health info for REST server
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getHealthInfo" method="get" path="/health" -->
 ```go
 package main
 

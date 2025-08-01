@@ -19,6 +19,7 @@ Get a list of Pipeline objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="listPipeline" method="get" path="/pipelines" -->
 ```go
 package main
 
@@ -74,6 +75,7 @@ Create Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createPipeline" method="post" path="/pipelines" -->
 ```go
 package main
 
@@ -133,6 +135,7 @@ Get Pipeline by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getPipelineById" method="get" path="/pipelines/{id}" -->
 ```go
 package main
 
@@ -189,6 +192,7 @@ Update Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" -->
 ```go
 package main
 
@@ -249,6 +253,7 @@ Delete Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deletePipelineById" method="delete" path="/pipelines/{id}" -->
 ```go
 package main
 

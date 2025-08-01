@@ -21,6 +21,7 @@ Get a list of Destination objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" -->
 ```go
 package main
 
@@ -76,6 +77,7 @@ Create Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" -->
 ```go
 package main
 
@@ -139,6 +141,7 @@ Get Destination by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" -->
 ```go
 package main
 
@@ -195,6 +198,7 @@ Update Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" -->
 ```go
 package main
 
@@ -256,6 +260,7 @@ Delete Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" -->
 ```go
 package main
 
@@ -312,6 +317,7 @@ Clears destination persistent queue
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" -->
 ```go
 package main
 
@@ -368,6 +374,7 @@ Retrieves status of latest clear PQ job for a destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getOutputPqById" method="get" path="/system/outputs/{id}/pq" -->
 ```go
 package main
 
@@ -424,6 +431,7 @@ Retrieve samples data for the specified destination. Used to get sample data for
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" -->
 ```go
 package main
 
@@ -480,6 +488,7 @@ Send sample data to a destination to validate configuration or test connectivity
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
 ```go
 package main
 
