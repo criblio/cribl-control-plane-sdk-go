@@ -27,6 +27,7 @@ get the list of branches
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionBranch" method="get" path="/version/branch" -->
 ```go
 package main
 
@@ -82,6 +83,7 @@ create a new commit containing the current configs the given log message describ
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createVersionCommit" method="post" path="/version/commit" -->
 ```go
 package main
 
@@ -140,6 +142,7 @@ get the count of files of changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionCount" method="get" path="/version/count" -->
 ```go
 package main
 
@@ -197,6 +200,7 @@ returns git branch that the config is checked out to, if any
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" -->
 ```go
 package main
 
@@ -252,6 +256,7 @@ get the textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionDiff" method="get" path="/version/diff" -->
 ```go
 package main
 
@@ -311,6 +316,7 @@ get the files changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionFiles" method="get" path="/version/files" -->
 ```go
 package main
 
@@ -368,6 +374,7 @@ Get info about versioning availability
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionInfo" method="get" path="/version/info" -->
 ```go
 package main
 
@@ -423,6 +430,7 @@ push the current configs to the remote repository.
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createVersionPush" method="post" path="/version/push" -->
 ```go
 package main
 
@@ -478,6 +486,7 @@ revert a commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createVersionRevert" method="post" path="/version/revert" -->
 ```go
 package main
 
@@ -538,6 +547,7 @@ get the log message and textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionShow" method="get" path="/version/show" -->
 ```go
 package main
 
@@ -597,6 +607,7 @@ get the the working tree status
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="getVersionStatus" method="get" path="/version/status" -->
 ```go
 package main
 
@@ -653,6 +664,7 @@ syncs with remote repo via POST requests
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createVersionSync" method="post" path="/version/sync" -->
 ```go
 package main
 
@@ -708,6 +720,7 @@ undo the last commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="createVersionUndo" method="post" path="/version/undo" -->
 ```go
 package main
 

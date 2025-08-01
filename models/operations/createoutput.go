@@ -481,7 +481,7 @@ type OutputSentinelOneAiSiem struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionSentinelOneAiSiem `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -1362,7 +1362,7 @@ type OutputDynatraceOtlp struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionHTTP `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -2163,7 +2163,7 @@ type OutputDynatraceHTTP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionDynatraceHTTP `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -3337,7 +3337,7 @@ type OutputClickHouse struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionClickHouse `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -4120,7 +4120,7 @@ type OutputSecurityLake struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Object ACL to assign to uploaded objects
@@ -4192,7 +4192,7 @@ type OutputSecurityLake struct {
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -5065,7 +5065,7 @@ type OutputDlS3 struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -5143,7 +5143,7 @@ type OutputDlS3 struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -5980,7 +5980,7 @@ type OutputCrowdstrikeNextGenSiem struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionCrowdstrikeNextGenSiem `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -6640,7 +6640,7 @@ type OutputHumioHec struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionHumioHec `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -7555,7 +7555,7 @@ type OutputServiceNow struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompression131 `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -8633,7 +8633,7 @@ type OutputOpenTelemetry struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionOpenTelemetry `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -9458,7 +9458,7 @@ type OutputPrometheus struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionPrometheus `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -10275,7 +10275,7 @@ type OutputLoki struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionLoki `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -10950,7 +10950,7 @@ type OutputSumoLogic struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionSumoLogic `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -11643,7 +11643,7 @@ type OutputSqs struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionSqs `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -12170,7 +12170,7 @@ type OutputSns struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionSns `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -12759,7 +12759,7 @@ type OutputGraphite struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionGraphite `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -13153,7 +13153,7 @@ type OutputStatsdExt struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionStatsdExt `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -13547,7 +13547,7 @@ type OutputStatsd struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionStatsd `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -14160,7 +14160,7 @@ type OutputMinio struct {
 	// Region where the MinIO service/cluster is located
 	Region *string `json:"region,omitempty"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
@@ -14241,7 +14241,7 @@ type OutputMinio struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -14857,7 +14857,7 @@ type OutputCloudwatch struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionCloudwatch `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -15577,7 +15577,7 @@ type OutputInfluxdb struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionInfluxdb `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -16382,7 +16382,7 @@ type OutputNewrelicEvents struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionNewrelicEvents `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -17088,7 +17088,7 @@ type OutputElasticCloud struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionElasticCloud `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -17883,7 +17883,7 @@ type OutputElastic struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionElastic `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -19039,7 +19039,7 @@ type OutputMsk struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionMsk `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -20200,7 +20200,7 @@ type OutputConfluentCloud struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionConfluentCloud `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -21277,7 +21277,7 @@ type OutputKafka struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionKafka `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -21736,7 +21736,7 @@ type OutputExabeam struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Google Cloud Storage service endpoint
 	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
@@ -21785,7 +21785,7 @@ type OutputExabeam struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -22305,7 +22305,7 @@ type OutputGooglePubsub struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionGooglePubsub `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -22910,7 +22910,7 @@ type OutputGoogleCloudLogging struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionGoogleCloudLogging `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -23780,7 +23780,7 @@ type OutputGoogleCloudStorage struct {
 	SignatureVersion        *SignatureVersionGoogleCloudStorage     `default:"v4" json:"signatureVersion"`
 	AwsAuthenticationMethod *AuthenticationMethodGoogleCloudStorage `default:"manual" json:"awsAuthenticationMethod"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
 	DestPath *string `default:"" json:"destPath"`
 	// Disable if you can access files within the bucket but not the bucket itself
@@ -23851,7 +23851,7 @@ type OutputGoogleCloudStorage struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
@@ -24723,7 +24723,7 @@ type OutputGoogleChronicle struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionGoogleChronicle `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -25390,7 +25390,7 @@ type OutputAzureEventhub struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionAzureEventhub `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -26003,7 +26003,7 @@ type OutputHoneycomb struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionHoneycomb `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -26541,7 +26541,7 @@ type OutputKinesis struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionKinesis `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -27178,7 +27178,7 @@ type OutputAzureLogs struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionAzureLogs `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -28059,7 +28059,7 @@ type OutputAzureDataExplorer struct {
 	// Format of the output data
 	Format *DataFormatAzureDataExplorer `default:"json" json:"format"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
 	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
@@ -28126,7 +28126,7 @@ type OutputAzureDataExplorer struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionAzureDataExplorer `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -28930,7 +28930,7 @@ type OutputAzureBlob struct {
 	// Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
 	DestPath *string `json:"destPath,omitempty"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Maximum number of parts to upload in parallel per file
@@ -28993,7 +28993,7 @@ type OutputAzureBlob struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -29855,7 +29855,7 @@ type OutputS3 struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"\\$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -29933,7 +29933,7 @@ type OutputS3 struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -30694,7 +30694,7 @@ type OutputFilesystem struct {
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"\\$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
@@ -31355,7 +31355,7 @@ type OutputSignalfx struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionSignalfx `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -31979,7 +31979,7 @@ type OutputWavefront struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionWavefront `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -32957,7 +32957,7 @@ type OutputSplunkLb struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionSplunkLb `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -33705,7 +33705,7 @@ type OutputSplunk struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *PqCompressCompressionSplunk `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -34398,7 +34398,7 @@ type OutputSentinel struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"\\$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionSentinel `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.

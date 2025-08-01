@@ -118,7 +118,7 @@ type PqZscalerHec struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionZscalerHec `default:"none" json:"compress"`
 }
@@ -908,7 +908,7 @@ type PqSecurityLake struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionSecurityLake `default:"none" json:"compress"`
 }
@@ -1666,7 +1666,7 @@ type PqNetflow struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionNetflow `default:"none" json:"compress"`
 }
@@ -2067,7 +2067,7 @@ type PqWiz struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionWiz `default:"none" json:"compress"`
 }
@@ -2684,7 +2684,7 @@ type InputJournalFilesPq struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputJournalFilesCompression `default:"none" json:"compress"`
 }
@@ -3070,7 +3070,7 @@ type PqRawUDP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionRawUDP `default:"none" json:"compress"`
 }
@@ -3444,7 +3444,7 @@ type PqWinEventLogs struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionWinEventLogs `default:"none" json:"compress"`
 }
@@ -3872,7 +3872,7 @@ type PqWef struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionWef `default:"none" json:"compress"`
 }
@@ -4782,7 +4782,7 @@ type PqTCP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionTCP `default:"none" json:"compress"`
 }
@@ -5456,7 +5456,7 @@ type InputSyslogPq2 struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputSyslogCompression2 `default:"none" json:"compress"`
 }
@@ -6127,7 +6127,7 @@ type InputSyslogPq1 struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputSyslogCompression1 `default:"none" json:"compress"`
 }
@@ -6861,7 +6861,7 @@ type PqSqs struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionSqs `default:"none" json:"compress"`
 }
@@ -7443,7 +7443,7 @@ type PqModelDrivenTelemetry struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionModelDrivenTelemetry `default:"none" json:"compress"`
 }
@@ -7961,7 +7961,7 @@ type PqOpenTelemetry struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionOpenTelemetry `default:"none" json:"compress"`
 }
@@ -8879,7 +8879,7 @@ type PqSnmp struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionSnmp `default:"none" json:"compress"`
 }
@@ -9390,7 +9390,7 @@ type PqS3Inventory struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionS3Inventory `default:"none" json:"compress"`
 }
@@ -10166,7 +10166,7 @@ type PqS3 struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionS3 `default:"none" json:"compress"`
 }
@@ -10899,7 +10899,7 @@ type PqMetrics struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionMetrics `default:"none" json:"compress"`
 }
@@ -11453,7 +11453,7 @@ type PqKinesis struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionKinesis `default:"none" json:"compress"`
 }
@@ -12113,7 +12113,7 @@ type PqHTTPRaw struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionHTTPRaw `default:"none" json:"compress"`
 }
@@ -12824,7 +12824,7 @@ type PqDatagen struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionDatagen `default:"none" json:"compress"`
 }
@@ -13174,7 +13174,7 @@ type PqDatadogAgent struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionDatadogAgent `default:"none" json:"compress"`
 }
@@ -13831,7 +13831,7 @@ type PqCrowdstrike struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionCrowdstrike `default:"none" json:"compress"`
 }
@@ -14571,7 +14571,7 @@ type PqTcpjson struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionTcpjson `default:"none" json:"compress"`
 }
@@ -15197,7 +15197,7 @@ type PqCriblLakeHTTP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionCriblLakeHTTP `default:"none" json:"compress"`
 }
@@ -15814,7 +15814,7 @@ type PqCriblHTTP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionCriblHTTP `default:"none" json:"compress"`
 }
@@ -16431,7 +16431,7 @@ type PqCriblTCP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionCriblTCP `default:"none" json:"compress"`
 }
@@ -16994,7 +16994,7 @@ type PqGooglePubsub struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionGooglePubsub `default:"none" json:"compress"`
 }
@@ -17443,7 +17443,7 @@ type PqFirehose struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionFirehose `default:"none" json:"compress"`
 }
@@ -18060,7 +18060,7 @@ type InputExecPq struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputExecCompression `default:"none" json:"compress"`
 }
@@ -18461,7 +18461,7 @@ type PqEventhub struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionEventhub `default:"none" json:"compress"`
 }
@@ -19073,7 +19073,7 @@ type PqOffice365MsgTrace struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionOffice365MsgTrace `default:"none" json:"compress"`
 }
@@ -19876,7 +19876,7 @@ type PqOffice365Service struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionOffice365Service `default:"none" json:"compress"`
 }
@@ -20567,7 +20567,7 @@ type PqOffice365Mgmt struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionOffice365Mgmt `default:"none" json:"compress"`
 }
@@ -21276,7 +21276,7 @@ type PqEdgePrometheus struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionEdgePrometheus `default:"none" json:"compress"`
 }
@@ -22260,7 +22260,7 @@ type PqPrometheus struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionPrometheus `default:"none" json:"compress"`
 }
@@ -23083,7 +23083,7 @@ type PqPrometheusRw struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionPrometheusRw `default:"none" json:"compress"`
 }
@@ -23905,7 +23905,7 @@ type PqLoki struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionLoki `default:"none" json:"compress"`
 }
@@ -24727,7 +24727,7 @@ type InputGrafanaPq2 struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputGrafanaCompression2 `default:"none" json:"compress"`
 }
@@ -25807,7 +25807,7 @@ type InputGrafanaPq1 struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *InputGrafanaCompression1 `default:"none" json:"compress"`
 }
@@ -26950,7 +26950,7 @@ type PqConfluentCloud struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionConfluentCloud `default:"none" json:"compress"`
 }
@@ -27976,7 +27976,7 @@ type PqElastic struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionElastic `default:"none" json:"compress"`
 }
@@ -28849,7 +28849,7 @@ type PqAzureBlob struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionAzureBlob `default:"none" json:"compress"`
 }
@@ -29391,7 +29391,7 @@ type PqSplunkHec struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionSplunkHec `default:"none" json:"compress"`
 }
@@ -30227,7 +30227,7 @@ type PqSplunkSearch struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *CompressionSplunkSearch `default:"none" json:"compress"`
 }
@@ -31156,7 +31156,7 @@ type PqSplunk struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionSplunk `default:"none" json:"compress"`
 }
@@ -31868,7 +31868,7 @@ type PqHTTP struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionHTTP `default:"none" json:"compress"`
 }
@@ -32578,7 +32578,7 @@ type PqMsk struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionMsk `default:"none" json:"compress"`
 }
@@ -33704,7 +33704,7 @@ type PqKafka struct {
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
 	MaxSize *string `default:"5GB" json:"maxSize"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"\\$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
 	Compress *PqCompressionKafka `default:"none" json:"compress"`
 }

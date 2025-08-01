@@ -15,6 +15,7 @@ This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at
 
 ### Example Usage
 
+<!-- UsageSnippet language="go" operationID="login" method="post" path="/auth/login" -->
 ```go
 package main
 
