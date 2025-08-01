@@ -143,3 +143,48 @@ func TestGroups_GetGroupsACLByID(t *testing.T) {
 	assert.Equal(t, &operations.GetGroupsACLByIDResponseBody{}, res.Object)
 
 }
+
+func TestGroups_DeleteGroupsByID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("deleteGroupsById")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Groups.DeleteGroupsByID(ctx, "<id>")
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.DeleteGroupsByIDResponseBody{}, res.Object)
+
+}
+
+func TestGroups_UpdateGroupsByID(t *testing.T) {
+	ctx := context.Background()
+
+	testHTTPClient := createTestHTTPClient("updateGroupsById")
+
+	s := criblcontrolplanesdkgo.New(
+		utils.GetEnv("TEST_SERVER_URL", "http://localhost:18080"),
+		criblcontrolplanesdkgo.WithClient(testHTTPClient),
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.String(utils.GetEnv("CRIBLCONTROLPLANE_BEARER_AUTH", "value")),
+		}),
+	)
+
+	res, err := s.Groups.UpdateGroupsByID(ctx, "<id>", components.ConfigGroup{
+		ConfigVersion: "<value>",
+		ID:            "<id>",
+	})
+	require.NoError(t, err)
+	assert.Equal(t, 200, res.HTTPMeta.Response.StatusCode)
+	assert.NotNil(t, res.Object)
+	assert.Equal(t, &operations.UpdateGroupsByIDResponseBody{}, res.Object)
+
+}
