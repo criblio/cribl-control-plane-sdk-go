@@ -10,6 +10,7 @@ type SchemeClientOauth struct {
 	ClientID     string `security:"name=clientID"`
 	ClientSecret string `security:"name=clientSecret"`
 	TokenURL     string `default:"https://login.cribl.cloud/oauth/token"`
+	Audience     string `security:"name=audience"`
 }
 
 func (s SchemeClientOauth) MarshalJSON() ([]byte, error) {
@@ -42,4 +43,11 @@ func (o *SchemeClientOauth) GetTokenURL() string {
 		return ""
 	}
 	return o.TokenURL
+}
+
+func (o *SchemeClientOauth) GetAudience() string {
+	if o == nil {
+		return ""
+	}
+	return o.Audience
 }
