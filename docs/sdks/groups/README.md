@@ -103,8 +103,59 @@ func main() {
     )
 
     res, err := s.Groups.CreateProductsGroupsByProduct(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
+        Cloud: &components.ConfigGroupCloud{
+            Provider: components.CloudProviderAws.ToPointer(),
+            Region: "<value>",
+        },
         ConfigVersion: "<value>",
+        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(1848.32),
+        Description: criblcontrolplanesdkgo.String("director um why forgery apud once er though off"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(6663.53),
+        Git: &components.Git{
+            Commit: criblcontrolplanesdkgo.String("<value>"),
+            LocalChanges: criblcontrolplanesdkgo.Float64(2079.21),
+            Log: []components.Commit{
+                components.Commit{
+                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
+                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
+                    Date: "2024-08-24",
+                    Hash: "<value>",
+                    Message: "<value>",
+                    Short: "<value>",
+                },
+            },
+        },
         ID: "<id>",
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(5487.26),
+        Inherits: criblcontrolplanesdkgo.String("<value>"),
+        IsFleet: criblcontrolplanesdkgo.Bool(false),
+        IsSearch: criblcontrolplanesdkgo.Bool(false),
+        LookupDeployments: []components.ConfigGroupLookups{
+            components.ConfigGroupLookups{
+                Context: "<value>",
+                Lookups: []components.ConfigGroupLookupsLookup{
+                    components.ConfigGroupLookupsLookup{
+                        DeployedVersion: criblcontrolplanesdkgo.String("<value>"),
+                        File: "<value>",
+                        Version: criblcontrolplanesdkgo.String("<value>"),
+                    },
+                },
+            },
+        },
+        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
+        Name: criblcontrolplanesdkgo.String("<value>"),
+        OnPrem: criblcontrolplanesdkgo.Bool(true),
+        Provisioned: criblcontrolplanesdkgo.Bool(true),
+        Streamtags: []string{
+            "<value 1>",
+            "<value 2>",
+            "<value 3>",
+        },
+        Tags: criblcontrolplanesdkgo.String("<value>"),
+        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
+        WorkerCount: criblcontrolplanesdkgo.Float64(851.73),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(false),
     })
     if err != nil {
         log.Fatal(err)
@@ -164,7 +215,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetProductsGroupsByProduct(ctx, operations.GetProductsGroupsByProductProductStream, nil)
+    res, err := s.Groups.GetProductsGroupsByProduct(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -279,7 +330,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetGroupsByID(ctx, "<id>", nil)
+    res, err := s.Groups.GetGroupsByID(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -338,8 +389,57 @@ func main() {
     )
 
     res, err := s.Groups.UpdateGroupsByID(ctx, "<id>", components.ConfigGroup{
+        Cloud: &components.ConfigGroupCloud{
+            Provider: components.CloudProviderAws.ToPointer(),
+            Region: "<value>",
+        },
         ConfigVersion: "<value>",
+        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(19.89),
+        Description: criblcontrolplanesdkgo.String("jaywalk wrathful truly indeed definitive reflecting almost massive"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(7133.74),
+        Git: &components.Git{
+            Commit: criblcontrolplanesdkgo.String("<value>"),
+            LocalChanges: criblcontrolplanesdkgo.Float64(370.43),
+            Log: []components.Commit{
+                components.Commit{
+                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
+                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
+                    Date: "2024-08-29",
+                    Hash: "<value>",
+                    Message: "<value>",
+                    Short: "<value>",
+                },
+            },
+        },
         ID: "<id>",
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(7081.95),
+        Inherits: criblcontrolplanesdkgo.String("<value>"),
+        IsFleet: criblcontrolplanesdkgo.Bool(true),
+        IsSearch: criblcontrolplanesdkgo.Bool(true),
+        LookupDeployments: []components.ConfigGroupLookups{
+            components.ConfigGroupLookups{
+                Context: "<value>",
+                Lookups: []components.ConfigGroupLookupsLookup{
+                    components.ConfigGroupLookupsLookup{
+                        DeployedVersion: criblcontrolplanesdkgo.String("<value>"),
+                        File: "<value>",
+                        Version: criblcontrolplanesdkgo.String("<value>"),
+                    },
+                },
+            },
+        },
+        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
+        Name: criblcontrolplanesdkgo.String("<value>"),
+        OnPrem: criblcontrolplanesdkgo.Bool(true),
+        Provisioned: criblcontrolplanesdkgo.Bool(true),
+        Streamtags: []string{
+            "<value 1>",
+        },
+        Tags: criblcontrolplanesdkgo.String("<value>"),
+        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
+        WorkerCount: criblcontrolplanesdkgo.Float64(9020.63),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
     })
     if err != nil {
         log.Fatal(err)
@@ -399,6 +499,17 @@ func main() {
     )
 
     res, err := s.Groups.UpdateGroupsDeployByID(ctx, "<id>", components.DeployRequest{
+        Lookups: []components.DeployRequestLookups{
+            components.DeployRequestLookups{
+                Context: "<value>",
+                Lookups: []components.DeployRequestLookupsLookup{
+                    components.DeployRequestLookupsLookup{
+                        File: "<value>",
+                        Version: "<value>",
+                    },
+                },
+            },
+        },
         Version: "<value>",
     })
     if err != nil {
@@ -445,6 +556,7 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -458,7 +570,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetGroupsACLByID(ctx, "<id>", nil)
+    res, err := s.Groups.GetGroupsACLByID(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
     if err != nil {
         log.Fatal(err)
     }

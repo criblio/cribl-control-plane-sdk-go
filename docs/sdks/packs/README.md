@@ -42,8 +42,32 @@ func main() {
     )
 
     res, err := s.Packs.CreatePacks(ctx, components.PackRequestBody{
+        AllowCustomFunctions: criblcontrolplanesdkgo.Bool(false),
+        Author: criblcontrolplanesdkgo.String("<value>"),
+        Description: criblcontrolplanesdkgo.String("premeditation coincide although"),
+        DisplayName: criblcontrolplanesdkgo.String("Myah14"),
+        Exports: []string{
+            "<value 1>",
+        },
+        Force: criblcontrolplanesdkgo.Bool(false),
         ID: "<id>",
+        Inputs: criblcontrolplanesdkgo.Float64(4076.64),
+        MinLogStreamVersion: criblcontrolplanesdkgo.String("<value>"),
+        Outputs: criblcontrolplanesdkgo.Float64(2759.4),
         Source: "<value>",
+        Spec: criblcontrolplanesdkgo.String("<value>"),
+        Tags: &components.PackRequestBodyTags{
+            DataType: []string{},
+            Domain: []string{},
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Technology: []string{
+                "<value 1>",
+            },
+        },
+        Version: criblcontrolplanesdkgo.String("<value>"),
     })
     if err != nil {
         log.Fatal(err)
@@ -101,7 +125,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.GetPacks(ctx, nil)
+    res, err := s.Packs.GetPacks(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -158,7 +182,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.UpdatePacks(ctx, nil)
+    res, err := s.Packs.UpdatePacks(ctx, criblcontrolplanesdkgo.String("example.file"))
     if err != nil {
         log.Fatal(err)
     }
@@ -272,7 +296,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.UpdatePacksByID(ctx, "<id>", nil, nil, nil)
+    res, err := s.Packs.UpdatePacksByID(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }

@@ -99,7 +99,30 @@ func main() {
 
     res, err := s.Pipelines.CreatePipeline(ctx, components.Pipeline{
         ID: "<id>",
-        Conf: components.Conf{},
+        Conf: components.Conf{
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(905091),
+            Description: criblcontrolplanesdkgo.String("next tightly positively"),
+            Streamtags: []string{
+                "<value 1>",
+            },
+            Functions: []components.PipelineFunctionConf{
+                components.PipelineFunctionConf{
+                    ID: "<id>",
+                    Description: criblcontrolplanesdkgo.String("academics woot finally woot queasy bah"),
+                    Disabled: criblcontrolplanesdkgo.Bool(false),
+                    Final: criblcontrolplanesdkgo.Bool(false),
+                    Conf: components.FunctionSpecificConfigs{},
+                    GroupID: criblcontrolplanesdkgo.String("<id>"),
+                },
+            },
+            Groups: map[string]components.PipelineGroups{
+                "key": components.PipelineGroups{
+                    Name: "<value>",
+                    Description: criblcontrolplanesdkgo.String("yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet"),
+                    Disabled: criblcontrolplanesdkgo.Bool(true),
+                },
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -216,7 +239,30 @@ func main() {
 
     res, err := s.Pipelines.UpdatePipelineByID(ctx, "<id>", components.Pipeline{
         ID: "<id>",
-        Conf: components.Conf{},
+        Conf: components.Conf{
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(430119),
+            Description: criblcontrolplanesdkgo.String("reflecting for productive extroverted instead upwardly"),
+            Streamtags: []string{
+                "<value 1>",
+            },
+            Functions: []components.PipelineFunctionConf{
+                components.PipelineFunctionConf{
+                    ID: "<id>",
+                    Description: criblcontrolplanesdkgo.String("mozzarella boohoo possession as grok"),
+                    Disabled: criblcontrolplanesdkgo.Bool(false),
+                    Final: criblcontrolplanesdkgo.Bool(false),
+                    Conf: components.FunctionSpecificConfigs{},
+                    GroupID: criblcontrolplanesdkgo.String("<id>"),
+                },
+            },
+            Groups: map[string]components.PipelineGroups{
+                "key": components.PipelineGroups{
+                    Name: "<value>",
+                    Description: criblcontrolplanesdkgo.String("definitive ew but busily freely scaly indeed"),
+                    Disabled: criblcontrolplanesdkgo.Bool(true),
+                },
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)

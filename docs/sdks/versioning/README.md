@@ -106,6 +106,11 @@ func main() {
     )
 
     res, err := s.Versioning.CreateVersionCommit(ctx, components.GitCommitParams{
+        Effective: criblcontrolplanesdkgo.Bool(false),
+        Files: []string{
+            "<value 1>",
+        },
+        Group: criblcontrolplanesdkgo.String("<value>"),
         Message: "<value>",
     })
     if err != nil {
@@ -164,7 +169,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionCount(ctx, nil, nil)
+    res, err := s.Versioning.GetVersionCount(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -278,7 +283,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionDiff(ctx, nil, nil, nil, nil)
+    res, err := s.Versioning.GetVersionDiff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
     if err != nil {
         log.Fatal(err)
     }
@@ -338,7 +343,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionFiles(ctx, nil, nil)
+    res, err := s.Versioning.GetVersionFiles(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -510,8 +515,9 @@ func main() {
 
     res, err := s.Versioning.CreateVersionRevert(ctx, components.GitRevertParams{
         Commit: "<value>",
+        Force: criblcontrolplanesdkgo.Bool(false),
         Message: "<value>",
-    }, nil)
+    }, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -569,7 +575,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionShow(ctx, nil, nil, nil, nil)
+    res, err := s.Versioning.GetVersionShow(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -629,7 +635,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionStatus(ctx, nil)
+    res, err := s.Versioning.GetVersionStatus(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -742,7 +748,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionUndo(ctx, nil)
+    res, err := s.Versioning.CreateVersionUndo(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }

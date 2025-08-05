@@ -38,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.Teams.GetProductsGroupsACLTeamsByProductAndID(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", nil)
+    res, err := s.Teams.GetProductsGroupsACLTeamsByProductAndID(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
     if err != nil {
         log.Fatal(err)
     }

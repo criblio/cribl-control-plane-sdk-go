@@ -154,7 +154,20 @@ func main() {
     )
 
     res, err := s.Routes.UpdateRoutesByID(ctx, "<id>", components.RoutesInput{
+        ID: criblcontrolplanesdkgo.String("<id>"),
         Routes: []components.RoutesRouteInput{},
+        Groups: map[string]components.RoutesGroups{
+            "key": components.RoutesGroups{
+                Name: "<value>",
+                Description: criblcontrolplanesdkgo.String("where internationalize yesterday woefully tank underneath"),
+                Disabled: criblcontrolplanesdkgo.Bool(true),
+            },
+        },
+        Comments: []components.Comment{
+            components.Comment{
+                Comment: criblcontrolplanesdkgo.String("New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"),
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)

@@ -101,7 +101,51 @@ func main() {
     res, err := s.Sources.CreateSource(ctx, operations.CreateCreateInputRequestInputTCP(
         operations.InputTCP{
             ID: "<id>",
+            Type: operations.TypeTCPTCP.ToPointer(),
+            Pipeline: criblcontrolplanesdkgo.String("<value>"),
+            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+                "<value 3>",
+            },
+            Connections: []operations.ConnectionTCP{
+                operations.ConnectionTCP{
+                    Pipeline: criblcontrolplanesdkgo.String("<value>"),
+                    Output: "<value>",
+                },
+            },
+            Pq: &operations.PqTCP{},
             Port: 301.76,
+            TLS: &operations.TLSSettingsServerSideTCP{
+                CertificateName: criblcontrolplanesdkgo.String("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.String("<value>"),
+                Passphrase: criblcontrolplanesdkgo.String("<value>"),
+                CertPath: criblcontrolplanesdkgo.String("<value>"),
+                CaPath: criblcontrolplanesdkgo.String("<value>"),
+                RejectUnauthorized: "<value>",
+                CommonNameRegex: "<value>",
+                MinVersion: operations.MinimumTLSVersionTCPTlSv1.ToPointer(),
+                MaxVersion: operations.MaximumTLSVersionTCPTlSv11.ToPointer(),
+            },
+            Metadata: []operations.MetadatumTCP{
+                operations.MetadatumTCP{
+                    Name: "<value>",
+                    Value: "<value>",
+                },
+            },
+            BreakerRulesets: []string{
+                "<value 1>",
+            },
+            Preprocess: &operations.PreprocessTCP{
+                Command: criblcontrolplanesdkgo.String("<value>"),
+                Args: []string{
+                    "<value 1>",
+                    "<value 2>",
+                    "<value 3>",
+                },
+            },
+            Description: criblcontrolplanesdkgo.String("classic pish supposing misguided carefully fen"),
         },
     ))
     if err != nil {
@@ -221,6 +265,32 @@ func main() {
         components.InputKubeEvents{
             ID: "<id>",
             Type: components.InputKubeEventsTypeKubeEvents,
+            Pipeline: criblcontrolplanesdkgo.String("<value>"),
+            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Streamtags: []string{
+                "<value 1>",
+                "<value 2>",
+            },
+            Connections: []components.InputKubeEventsConnection{
+                components.InputKubeEventsConnection{
+                    Pipeline: criblcontrolplanesdkgo.String("<value>"),
+                    Output: "<value>",
+                },
+            },
+            Pq: &components.InputKubeEventsPq{},
+            Rules: []components.InputKubeEventsRule{
+                components.InputKubeEventsRule{
+                    Filter: "<value>",
+                    Description: criblcontrolplanesdkgo.String("invite meh corny incidentally down"),
+                },
+            },
+            Metadata: []components.InputKubeEventsMetadatum{
+                components.InputKubeEventsMetadatum{
+                    Name: "<value>",
+                    Value: "<value>",
+                },
+            },
+            Description: criblcontrolplanesdkgo.String("gown deployment portray gah mindless carp stabilise"),
         },
     ))
     if err != nil {
@@ -338,6 +408,14 @@ func main() {
     )
 
     res, err := s.Sources.CreateSourceHecTokenByID(ctx, "<id>", components.AddHecTokenRequest{
+        Description: criblcontrolplanesdkgo.String("bah ick stingy"),
+        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Metadata: []components.AddHecTokenRequestMetadatum{
+            components.AddHecTokenRequestMetadatum{
+                Name: "<value>",
+                Value: "<value>",
+            },
+        },
         Token: "<value>",
     })
     if err != nil {
@@ -397,7 +475,16 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.UpdateSourceHecTokenByIDAndToken(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{})
+    res, err := s.Sources.UpdateSourceHecTokenByIDAndToken(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
+        Description: criblcontrolplanesdkgo.String("by bleakly fortunately phew barring"),
+        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Metadata: []components.UpdateHecTokenRequestMetadatum{
+            components.UpdateHecTokenRequestMetadatum{
+                Name: "<value>",
+                Value: "<value>",
+            },
+        },
+    })
     if err != nil {
         log.Fatal(err)
     }
