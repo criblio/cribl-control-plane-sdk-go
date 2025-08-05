@@ -55,7 +55,51 @@ func main() {
 	)
 
 	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+		AcceleratedFields: []string{
+			"<value 1>",
+			"<value 2>",
+		},
+		BucketName: criblcontrolplanesdkgo.String("<value>"),
+		CacheConnection: &components.CacheConnection{
+			AcceleratedFields: []string{
+				"<value 1>",
+				"<value 2>",
+			},
+			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
+			CacheRef:                "<value>",
+			CreatedAt:               7795.06,
+			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
+			MigrationQueryID:        criblcontrolplanesdkgo.String("<id>"),
+			RetentionInDays:         1466.58,
+		},
+		DeletionStartedAt:     criblcontrolplanesdkgo.Float64(8310.58),
+		Description:           criblcontrolplanesdkgo.String("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:            criblcontrolplanesdkgo.Bool(true),
+		ID:                    "<id>",
+		RetentionPeriodInDays: criblcontrolplanesdkgo.Float64(456.37),
+		SearchConfig: &components.LakeDatasetSearchConfig{
+			Datatypes: []string{
+				"<value 1>",
+			},
+			Metadata: &components.DatasetMetadata{
+				Earliest:           "<value>",
+				EnableAcceleration: true,
+				FieldList: []string{
+					"<value 1>",
+					"<value 2>",
+				},
+				LatestRunInfo: &components.DatasetMetadataRunInfo{
+					EarliestScannedTime: criblcontrolplanesdkgo.Float64(4334.7),
+					FinishedAt:          criblcontrolplanesdkgo.Float64(6811.22),
+					LatestScannedTime:   criblcontrolplanesdkgo.Float64(5303.3),
+					ObjectCount:         criblcontrolplanesdkgo.Float64(9489.04),
+				},
+				ScanMode: components.ScanModeDetailed,
+			},
+		},
+		StorageLocationID: criblcontrolplanesdkgo.String("<id>"),
+		ViewName:          criblcontrolplanesdkgo.String("<value>"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -103,7 +147,51 @@ func main() {
 	)
 
 	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+		AcceleratedFields: []string{
+			"<value 1>",
+			"<value 2>",
+		},
+		BucketName: criblcontrolplanesdkgo.String("<value>"),
+		CacheConnection: &components.CacheConnection{
+			AcceleratedFields: []string{
+				"<value 1>",
+				"<value 2>",
+			},
+			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
+			CacheRef:                "<value>",
+			CreatedAt:               7795.06,
+			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
+			MigrationQueryID:        criblcontrolplanesdkgo.String("<id>"),
+			RetentionInDays:         1466.58,
+		},
+		DeletionStartedAt:     criblcontrolplanesdkgo.Float64(8310.58),
+		Description:           criblcontrolplanesdkgo.String("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:            criblcontrolplanesdkgo.Bool(true),
+		ID:                    "<id>",
+		RetentionPeriodInDays: criblcontrolplanesdkgo.Float64(456.37),
+		SearchConfig: &components.LakeDatasetSearchConfig{
+			Datatypes: []string{
+				"<value 1>",
+			},
+			Metadata: &components.DatasetMetadata{
+				Earliest:           "<value>",
+				EnableAcceleration: true,
+				FieldList: []string{
+					"<value 1>",
+					"<value 2>",
+				},
+				LatestRunInfo: &components.DatasetMetadataRunInfo{
+					EarliestScannedTime: criblcontrolplanesdkgo.Float64(4334.7),
+					FinishedAt:          criblcontrolplanesdkgo.Float64(6811.22),
+					LatestScannedTime:   criblcontrolplanesdkgo.Float64(5303.3),
+					ObjectCount:         criblcontrolplanesdkgo.Float64(9489.04),
+				},
+				ScanMode: components.ScanModeDetailed,
+			},
+		},
+		StorageLocationID: criblcontrolplanesdkgo.String("<id>"),
+		ViewName:          criblcontrolplanesdkgo.String("<value>"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -258,7 +346,51 @@ func main() {
 	)
 
 	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+		AcceleratedFields: []string{
+			"<value 1>",
+			"<value 2>",
+		},
+		BucketName: criblcontrolplanesdkgo.String("<value>"),
+		CacheConnection: &components.CacheConnection{
+			AcceleratedFields: []string{
+				"<value 1>",
+				"<value 2>",
+			},
+			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
+			CacheRef:                "<value>",
+			CreatedAt:               7795.06,
+			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
+			MigrationQueryID:        criblcontrolplanesdkgo.String("<id>"),
+			RetentionInDays:         1466.58,
+		},
+		DeletionStartedAt:     criblcontrolplanesdkgo.Float64(8310.58),
+		Description:           criblcontrolplanesdkgo.String("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:            criblcontrolplanesdkgo.Bool(true),
+		ID:                    "<id>",
+		RetentionPeriodInDays: criblcontrolplanesdkgo.Float64(456.37),
+		SearchConfig: &components.LakeDatasetSearchConfig{
+			Datatypes: []string{
+				"<value 1>",
+			},
+			Metadata: &components.DatasetMetadata{
+				Earliest:           "<value>",
+				EnableAcceleration: true,
+				FieldList: []string{
+					"<value 1>",
+					"<value 2>",
+				},
+				LatestRunInfo: &components.DatasetMetadataRunInfo{
+					EarliestScannedTime: criblcontrolplanesdkgo.Float64(4334.7),
+					FinishedAt:          criblcontrolplanesdkgo.Float64(6811.22),
+					LatestScannedTime:   criblcontrolplanesdkgo.Float64(5303.3),
+					ObjectCount:         criblcontrolplanesdkgo.Float64(9489.04),
+				},
+				ScanMode: components.ScanModeDetailed,
+			},
+		},
+		StorageLocationID: criblcontrolplanesdkgo.String("<id>"),
+		ViewName:          criblcontrolplanesdkgo.String("<value>"),
 	}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
@@ -315,7 +447,51 @@ func main() {
 	)
 
 	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+		AcceleratedFields: []string{
+			"<value 1>",
+			"<value 2>",
+		},
+		BucketName: criblcontrolplanesdkgo.String("<value>"),
+		CacheConnection: &components.CacheConnection{
+			AcceleratedFields: []string{
+				"<value 1>",
+				"<value 2>",
+			},
+			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
+			CacheRef:                "<value>",
+			CreatedAt:               7795.06,
+			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
+			MigrationQueryID:        criblcontrolplanesdkgo.String("<id>"),
+			RetentionInDays:         1466.58,
+		},
+		DeletionStartedAt:     criblcontrolplanesdkgo.Float64(8310.58),
+		Description:           criblcontrolplanesdkgo.String("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:            criblcontrolplanesdkgo.Bool(true),
+		ID:                    "<id>",
+		RetentionPeriodInDays: criblcontrolplanesdkgo.Float64(456.37),
+		SearchConfig: &components.LakeDatasetSearchConfig{
+			Datatypes: []string{
+				"<value 1>",
+			},
+			Metadata: &components.DatasetMetadata{
+				Earliest:           "<value>",
+				EnableAcceleration: true,
+				FieldList: []string{
+					"<value 1>",
+					"<value 2>",
+				},
+				LatestRunInfo: &components.DatasetMetadataRunInfo{
+					EarliestScannedTime: criblcontrolplanesdkgo.Float64(4334.7),
+					FinishedAt:          criblcontrolplanesdkgo.Float64(6811.22),
+					LatestScannedTime:   criblcontrolplanesdkgo.Float64(5303.3),
+					ObjectCount:         criblcontrolplanesdkgo.Float64(9489.04),
+				},
+				ScanMode: components.ScanModeDetailed,
+			},
+		},
+		StorageLocationID: criblcontrolplanesdkgo.String("<id>"),
+		ViewName:          criblcontrolplanesdkgo.String("<value>"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -368,7 +544,51 @@ func main() {
 	)
 
 	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
-		ID: "<id>",
+		AcceleratedFields: []string{
+			"<value 1>",
+			"<value 2>",
+		},
+		BucketName: criblcontrolplanesdkgo.String("<value>"),
+		CacheConnection: &components.CacheConnection{
+			AcceleratedFields: []string{
+				"<value 1>",
+				"<value 2>",
+			},
+			BackfillStatus:          components.CacheConnectionBackfillStatusPending.ToPointer(),
+			CacheRef:                "<value>",
+			CreatedAt:               7795.06,
+			LakehouseConnectionType: components.LakehouseConnectionTypeCache.ToPointer(),
+			MigrationQueryID:        criblcontrolplanesdkgo.String("<id>"),
+			RetentionInDays:         1466.58,
+		},
+		DeletionStartedAt:     criblcontrolplanesdkgo.Float64(8310.58),
+		Description:           criblcontrolplanesdkgo.String("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:            criblcontrolplanesdkgo.Bool(true),
+		ID:                    "<id>",
+		RetentionPeriodInDays: criblcontrolplanesdkgo.Float64(456.37),
+		SearchConfig: &components.LakeDatasetSearchConfig{
+			Datatypes: []string{
+				"<value 1>",
+			},
+			Metadata: &components.DatasetMetadata{
+				Earliest:           "<value>",
+				EnableAcceleration: true,
+				FieldList: []string{
+					"<value 1>",
+					"<value 2>",
+				},
+				LatestRunInfo: &components.DatasetMetadataRunInfo{
+					EarliestScannedTime: criblcontrolplanesdkgo.Float64(4334.7),
+					FinishedAt:          criblcontrolplanesdkgo.Float64(6811.22),
+					LatestScannedTime:   criblcontrolplanesdkgo.Float64(5303.3),
+					ObjectCount:         criblcontrolplanesdkgo.Float64(9489.04),
+				},
+				ScanMode: components.ScanModeDetailed,
+			},
+		},
+		StorageLocationID: criblcontrolplanesdkgo.String("<id>"),
+		ViewName:          criblcontrolplanesdkgo.String("<value>"),
 	})
 	if err != nil {
 

@@ -39,7 +39,7 @@ func main() {
         }),
     )
 
-    res, err := s.Workers.GetSummaryWorkers(ctx, nil)
+    res, err := s.Workers.GetSummaryWorkers(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -97,7 +97,14 @@ func main() {
         }),
     )
 
-    res, err := s.Workers.GetWorkers(ctx, operations.GetWorkersRequest{})
+    res, err := s.Workers.GetWorkers(ctx, operations.GetWorkersRequest{
+        FilterExp: criblcontrolplanesdkgo.String("<value>"),
+        Sort: criblcontrolplanesdkgo.String("<value>"),
+        SortExp: criblcontrolplanesdkgo.String("<value>"),
+        Limit: criblcontrolplanesdkgo.Int64(402753),
+        Offset: criblcontrolplanesdkgo.Int64(848752),
+        Filter: criblcontrolplanesdkgo.String("<value>"),
+    })
     if err != nil {
         log.Fatal(err)
     }

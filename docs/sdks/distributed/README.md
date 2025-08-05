@@ -24,6 +24,7 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -37,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.Distributed.GetSummary(ctx, nil)
+    res, err := s.Distributed.GetSummary(ctx, operations.GetSummaryModeWorker.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
