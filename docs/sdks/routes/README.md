@@ -153,9 +153,9 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.UpdateRoutesByID(ctx, "<id>", components.RoutesInput{
+    res, err := s.Routes.UpdateRoutesByID(ctx, "<id>", components.Routes{
         ID: criblcontrolplanesdkgo.String("<id>"),
-        Routes: []components.RoutesRouteInput{},
+        Routes: []components.RoutesRoute{},
         Groups: map[string]components.RoutesGroups{
             "key": components.RoutesGroups{
                 Name: "<value>",
@@ -180,12 +180,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
-| `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | Unique ID to PATCH                                               |
-| `routes`                                                         | [components.RoutesInput](../../models/components/routesinput.md) | :heavy_check_mark:                                               | Routes object to be updated                                      |
-| `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to PATCH                                       |
+| `routes`                                                 | [components.Routes](../../models/components/routes.md)   | :heavy_check_mark:                                       | Routes object to be updated                              |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 

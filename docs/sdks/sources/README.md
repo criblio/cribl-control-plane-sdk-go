@@ -84,7 +84,6 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -98,10 +97,10 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.CreateSource(ctx, operations.CreateCreateInputRequestInputTCP(
-        operations.InputTCP{
-            ID: "<id>",
-            Type: operations.TypeTCPTCP.ToPointer(),
+    res, err := s.Sources.CreateSource(ctx, components.CreateInputInputTCP(
+        components.InputTCP{
+            ID: criblcontrolplanesdkgo.String("<id>"),
+            Type: components.InputTCPTypeTCP.ToPointer(),
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             Environment: criblcontrolplanesdkgo.String("<value>"),
             Streamtags: []string{
@@ -109,15 +108,15 @@ func main() {
                 "<value 2>",
                 "<value 3>",
             },
-            Connections: []operations.ConnectionTCP{
-                operations.ConnectionTCP{
+            Connections: []components.InputTCPConnection{
+                components.InputTCPConnection{
                     Pipeline: criblcontrolplanesdkgo.String("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &operations.PqTCP{},
+            Pq: &components.InputTCPPq{},
             Port: 301.76,
-            TLS: &operations.TLSSettingsServerSideTCP{
+            TLS: &components.InputTCPTLSSettingsServerSide{
                 CertificateName: criblcontrolplanesdkgo.String("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.String("<value>"),
                 Passphrase: criblcontrolplanesdkgo.String("<value>"),
@@ -125,11 +124,11 @@ func main() {
                 CaPath: criblcontrolplanesdkgo.String("<value>"),
                 RejectUnauthorized: "<value>",
                 CommonNameRegex: "<value>",
-                MinVersion: operations.MinimumTLSVersionTCPTlSv1.ToPointer(),
-                MaxVersion: operations.MaximumTLSVersionTCPTlSv11.ToPointer(),
+                MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
+                MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
             },
-            Metadata: []operations.MetadatumTCP{
-                operations.MetadatumTCP{
+            Metadata: []components.InputTCPMetadatum{
+                components.InputTCPMetadatum{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -137,7 +136,7 @@ func main() {
             BreakerRulesets: []string{
                 "<value 1>",
             },
-            Preprocess: &operations.PreprocessTCP{
+            Preprocess: &components.InputTCPPreprocess{
                 Command: criblcontrolplanesdkgo.String("<value>"),
                 Args: []string{
                     "<value 1>",
@@ -159,11 +158,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `request`                                                                      | [operations.CreateInputRequest](../../models/operations/createinputrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
-| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -308,7 +307,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to PATCH                                       |
-| `input`                                                  | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | Source object to be updated                              |
+| `input`                                                  | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | Input object                                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

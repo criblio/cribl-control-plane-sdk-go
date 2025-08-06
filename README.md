@@ -258,7 +258,6 @@ func main() {
 
 * [CreatePacks](docs/sdks/packs/README.md#createpacks) - Install Pack
 * [GetPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
-* [UpdatePacks](docs/sdks/packs/README.md#updatepacks) - Upload Pack
 * [DeletePacksByID](docs/sdks/packs/README.md#deletepacksbyid) - Uninstall Pack from the system
 * [UpdatePacksByID](docs/sdks/packs/README.md#updatepacksbyid) - Upgrade Pack
 

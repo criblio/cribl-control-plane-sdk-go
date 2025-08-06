@@ -8,18 +8,18 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// GetSummaryMode - product filter
-type GetSummaryMode string
+// Mode - product filter
+type Mode string
 
 const (
-	GetSummaryModeWorker      GetSummaryMode = "worker"
-	GetSummaryModeManagedEdge GetSummaryMode = "managed-edge"
+	ModeWorker      Mode = "worker"
+	ModeManagedEdge Mode = "managed-edge"
 )
 
-func (e GetSummaryMode) ToPointer() *GetSummaryMode {
+func (e Mode) ToPointer() *Mode {
 	return &e
 }
-func (e *GetSummaryMode) UnmarshalJSON(data []byte) error {
+func (e *Mode) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -28,19 +28,19 @@ func (e *GetSummaryMode) UnmarshalJSON(data []byte) error {
 	case "worker":
 		fallthrough
 	case "managed-edge":
-		*e = GetSummaryMode(v)
+		*e = Mode(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetSummaryMode: %v", v)
+		return fmt.Errorf("invalid value for Mode: %v", v)
 	}
 }
 
 type GetSummaryRequest struct {
 	// product filter
-	Mode *GetSummaryMode `queryParam:"style=form,explode=true,name=mode"`
+	Mode *Mode `queryParam:"style=form,explode=true,name=mode"`
 }
 
-func (o *GetSummaryRequest) GetMode() *GetSummaryMode {
+func (o *GetSummaryRequest) GetMode() *Mode {
 	if o == nil {
 		return nil
 	}
