@@ -34,7 +34,7 @@ func newDistributed(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguratio
 
 // GetSummary - Get summary of Distributed deployment
 // Get summary of Distributed deployment
-func (s *Distributed) GetSummary(ctx context.Context, mode *operations.GetSummaryMode, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
+func (s *Distributed) GetSummary(ctx context.Context, mode *operations.Mode, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
 	request := operations.GetSummaryRequest{
 		Mode: mode,
 	}

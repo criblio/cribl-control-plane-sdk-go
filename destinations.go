@@ -266,7 +266,7 @@ func (s *Destinations) ListDestination(ctx context.Context, opts ...operations.O
 
 // CreateDestination - Create Destination
 // Create Destination
-func (s *Destinations) CreateDestination(ctx context.Context, request operations.CreateOutputRequest, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
+func (s *Destinations) CreateDestination(ctx context.Context, request components.Output, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

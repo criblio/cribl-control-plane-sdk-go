@@ -86,7 +86,6 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -100,10 +99,10 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.CreateDestination(ctx, operations.CreateCreateOutputRequestOutputElasticCloud(
-        operations.OutputElasticCloud{
-            ID: "<id>",
-            Type: operations.TypeElasticCloudElasticCloud.ToPointer(),
+    res, err := s.Destinations.CreateDestination(ctx, components.CreateOutputOutputElasticCloud(
+        components.OutputElasticCloud{
+            ID: criblcontrolplanesdkgo.String("<id>"),
+            Type: components.OutputElasticCloudTypeElasticCloud.ToPointer(),
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -115,8 +114,8 @@ func main() {
             },
             URL: "https://probable-rationale.com/",
             Index: "<value>",
-            ExtraHTTPHeaders: []operations.ExtraHTTPHeaderElasticCloud{
-                operations.ExtraHTTPHeaderElasticCloud{
+            ExtraHTTPHeaders: []components.OutputElasticCloudExtraHTTPHeader{
+                components.OutputElasticCloudExtraHTTPHeader{
                     Name: criblcontrolplanesdkgo.String("<value>"),
                     Value: "<value>",
                 },
@@ -125,22 +124,22 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            ExtraParams: []operations.ExtraParamElasticCloud{
-                operations.ExtraParamElasticCloud{
+            ExtraParams: []components.OutputElasticCloudExtraParam{
+                components.OutputElasticCloudExtraParam{
                     Name: "<value>",
                     Value: "<value>",
                 },
             },
-            Auth: &operations.AuthElasticCloud{},
+            Auth: &components.OutputElasticCloudAuth{},
             ElasticPipeline: criblcontrolplanesdkgo.String("<value>"),
-            ResponseRetrySettings: []operations.ResponseRetrySettingElasticCloud{
-                operations.ResponseRetrySettingElasticCloud{
+            ResponseRetrySettings: []components.OutputElasticCloudResponseRetrySetting{
+                components.OutputElasticCloudResponseRetrySetting{
                     HTTPStatus: 7295.73,
                 },
             },
-            TimeoutRetrySettings: &operations.TimeoutRetrySettingsElasticCloud{},
+            TimeoutRetrySettings: &components.OutputElasticCloudTimeoutRetrySettings{},
             Description: criblcontrolplanesdkgo.String("hourly about into"),
-            PqControls: &operations.PqControlsElasticCloud{},
+            PqControls: &components.OutputElasticCloudPqControls{},
         },
     ))
     if err != nil {
@@ -154,11 +153,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
-| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |
-| `request`                                                                        | [operations.CreateOutputRequest](../../models/operations/createoutputrequest.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
-| `opts`                                                                           | [][operations.Option](../../models/operations/option.md)                         | :heavy_minus_sign:                                                               | The options for this request.                                                    |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `request`                                                | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | The request object to use for the request.               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
@@ -305,7 +304,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to PATCH                                       |
-| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Destination object to be updated                         |
+| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object                                            |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

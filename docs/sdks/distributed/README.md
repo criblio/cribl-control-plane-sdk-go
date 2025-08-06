@@ -38,7 +38,7 @@ func main() {
         }),
     )
 
-    res, err := s.Distributed.GetSummary(ctx, operations.GetSummaryModeWorker.ToPointer())
+    res, err := s.Distributed.GetSummary(ctx, operations.ModeWorker.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -50,11 +50,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `ctx`                                                                   | [context.Context](https://pkg.go.dev/context#Context)                   | :heavy_check_mark:                                                      | The context to use for the request.                                     |
-| `mode`                                                                  | [*operations.GetSummaryMode](../../models/operations/getsummarymode.md) | :heavy_minus_sign:                                                      | product filter                                                          |
-| `opts`                                                                  | [][operations.Option](../../models/operations/option.md)                | :heavy_minus_sign:                                                      | The options for this request.                                           |
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `mode`                                                   | [*operations.Mode](../../models/operations/mode.md)      | :heavy_minus_sign:                                       | product filter                                           |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 

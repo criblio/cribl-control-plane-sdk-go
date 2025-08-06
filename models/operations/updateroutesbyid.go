@@ -10,7 +10,7 @@ type UpdateRoutesByIDRequest struct {
 	// Unique ID to PATCH
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Routes object to be updated
-	Routes components.RoutesInput `request:"mediaType=application/json"`
+	Routes components.Routes `request:"mediaType=application/json"`
 }
 
 func (o *UpdateRoutesByIDRequest) GetID() string {
@@ -20,9 +20,9 @@ func (o *UpdateRoutesByIDRequest) GetID() string {
 	return o.ID
 }
 
-func (o *UpdateRoutesByIDRequest) GetRoutes() components.RoutesInput {
+func (o *UpdateRoutesByIDRequest) GetRoutes() components.Routes {
 	if o == nil {
-		return components.RoutesInput{}
+		return components.Routes{}
 	}
 	return o.Routes
 }

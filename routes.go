@@ -504,7 +504,7 @@ func (s *Routes) GetRoutesByID(ctx context.Context, id string, opts ...operation
 
 // UpdateRoutesByID - Update Routes
 // Update Routes
-func (s *Routes) UpdateRoutesByID(ctx context.Context, id string, routes components.RoutesInput, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
+func (s *Routes) UpdateRoutesByID(ctx context.Context, id string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
 	request := operations.UpdateRoutesByIDRequest{
 		ID:     id,
 		Routes: routes,
