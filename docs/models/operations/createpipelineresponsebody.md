@@ -1,6 +1,6 @@
 # CreatePipelineResponseBody
 
-a list of Pipeline objects
+a list of Pipelines objects
 
 
 ## Fields

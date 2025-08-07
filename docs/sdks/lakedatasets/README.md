@@ -1,19 +1,17 @@
-# Lake
-(*Lake*)
+# LakeDatasets
+(*LakeDatasets*)
 
 ## Overview
 
-Actions related to Lake
-
 ### Available Operations
 
-* [CreateCriblLakeDatasetByLakeID](#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
-* [GetCriblLakeDatasetByLakeID](#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
-* [DeleteCriblLakeDatasetByLakeIDAndID](#deletecribllakedatasetbylakeidandid) - Delete a Dataset in the specified Lake
-* [GetCriblLakeDatasetByLakeIDAndID](#getcribllakedatasetbylakeidandid) - Get a Dataset in the specified Lake
-* [UpdateCriblLakeDatasetByLakeIDAndID](#updatecribllakedatasetbylakeidandid) - Update a Dataset in the specified Lake
+* [Create](#create) - Create a Lake Dataset in the specified Lake
+* [List](#list) - List all Lake Datasets in the specified Lake
+* [Delete](#delete) - Delete a Lake Dataset in the specified Lake
+* [Get](#get) - Retrieve a Lake Dataset in the specified Lake
+* [Update](#update) - Update a Lake Dataset in the specified Lake
 
-## CreateCriblLakeDatasetByLakeID
+## Create
 
 Create a Dataset in the specified Lake
 
@@ -41,7 +39,7 @@ func main() {
         }),
     )
 
-    res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+    res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
         AcceleratedFields: []string{
             "<value 1>",
             "<value 2>",
@@ -117,7 +115,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetCriblLakeDatasetByLakeID
+## List
 
 Get the list of Dataset contained in the specified Lake
 
@@ -145,7 +143,7 @@ func main() {
         }),
     )
 
-    res, err := s.Lake.GetCriblLakeDatasetByLakeID(ctx, "<id>")
+    res, err := s.LakeDatasets.List(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -174,7 +172,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeleteCriblLakeDatasetByLakeIDAndID
+## Delete
 
 Delete a Dataset in the specified Lake
 
@@ -202,7 +200,7 @@ func main() {
         }),
     )
 
-    res, err := s.Lake.DeleteCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>")
+    res, err := s.LakeDatasets.Delete(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -232,7 +230,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetCriblLakeDatasetByLakeIDAndID
+## Get
 
 Get a Dataset in the specified Lake
 
@@ -260,7 +258,7 @@ func main() {
         }),
     )
 
-    res, err := s.Lake.GetCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>")
+    res, err := s.LakeDatasets.Get(ctx, "<id>", "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -290,7 +288,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateCriblLakeDatasetByLakeIDAndID
+## Update
 
 Update a Dataset in the specified Lake
 
@@ -318,7 +316,7 @@ func main() {
         }),
     )
 
-    res, err := s.Lake.UpdateCriblLakeDatasetByLakeIDAndID(ctx, "<id>", "<id>", components.CriblLakeDataset{
+    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDataset{
         AcceleratedFields: []string{
             "<value 1>",
             "<value 2>",

@@ -1,17 +1,15 @@
-# Workers
-(*Workers*)
+# Nodes
+(*Nodes*)
 
 ## Overview
 
-Actions related to Workers
-
 ### Available Operations
 
-* [GetSummaryWorkers](#getsummaryworkers) - get worker and edge nodes count
-* [GetWorkers](#getworkers) - get worker and edge nodes
-* [UpdateWorkersRestart](#updateworkersrestart) - restarts worker nodes
+* [GetCount](#getcount) - Retrieve a count of Worker and Edge Nodes
+* [List](#list) - Retrieve detailed metadata for Worker and Edge Nodes
+* [Restart](#restart) - Restart Worker and Edge Nodes
 
-## GetSummaryWorkers
+## GetCount
 
 get worker and edge nodes count
 
@@ -39,7 +37,7 @@ func main() {
         }),
     )
 
-    res, err := s.Workers.GetSummaryWorkers(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Nodes.GetCount(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -68,7 +66,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetWorkers
+## List
 
 get worker and edge nodes
 
@@ -97,7 +95,7 @@ func main() {
         }),
     )
 
-    res, err := s.Workers.GetWorkers(ctx, operations.GetWorkersRequest{
+    res, err := s.Nodes.List(ctx, operations.GetWorkersRequest{
         FilterExp: criblcontrolplanesdkgo.String("<value>"),
         Sort: criblcontrolplanesdkgo.String("<value>"),
         SortExp: criblcontrolplanesdkgo.String("<value>"),
@@ -133,7 +131,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateWorkersRestart
+## Restart
 
 restarts worker nodes
 
@@ -161,7 +159,7 @@ func main() {
         }),
     )
 
-    res, err := s.Workers.UpdateWorkersRestart(ctx)
+    res, err := s.Nodes.Restart(ctx)
     if err != nil {
         log.Fatal(err)
     }

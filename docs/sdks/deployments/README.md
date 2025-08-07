@@ -1,13 +1,11 @@
-# Distributed
-(*Distributed*)
+# Deployments
+(*Deployments*)
 
 ## Overview
 
-Actions related to Distributed
-
 ### Available Operations
 
-* [GetSummary](#getsummary) - Get summary of Distributed deployment
+* [GetSummary](#getsummary) - Retrieve a summary of the Distributed deployment
 
 ## GetSummary
 
@@ -38,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Distributed.GetSummary(ctx, operations.ModeWorker.ToPointer())
+    res, err := s.Deployments.GetSummary(ctx, operations.ModeWorker.ToPointer())
     if err != nil {
         log.Fatal(err)
     }

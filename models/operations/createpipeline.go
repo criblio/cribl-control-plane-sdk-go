@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// CreatePipelineResponseBody - a list of Pipeline objects
+// CreatePipelineResponseBody - a list of Pipelines objects
 type CreatePipelineResponseBody struct {
 	// number of items present in the items array
 	Count *int64                `json:"count,omitempty"`
@@ -29,7 +29,7 @@ func (o *CreatePipelineResponseBody) GetItems() []components.Pipeline {
 
 type CreatePipelineResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
+	// a list of Pipelines objects
 	Object *CreatePipelineResponseBody
 }
 

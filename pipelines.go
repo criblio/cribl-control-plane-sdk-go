@@ -265,9 +265,9 @@ func (s *Pipelines) ListPipeline(ctx context.Context, opts ...operations.Option)
 
 }
 
-// CreatePipeline - Create Pipeline
-// Create Pipeline
-func (s *Pipelines) CreatePipeline(ctx context.Context, request components.Pipeline, opts ...operations.Option) (*operations.CreatePipelineResponse, error) {
+// Create a Pipeline
+// Create a Pipeline
+func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opts ...operations.Option) (*operations.CreatePipelineResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -742,8 +742,8 @@ func (s *Pipelines) GetPipelineByID(ctx context.Context, id string, opts ...oper
 
 }
 
-// UpdatePipelineByID - Update Pipeline
-// Update Pipeline
+// UpdatePipelineByID - Update a Pipeline
+// Update a Pipeline
 func (s *Pipelines) UpdatePipelineByID(ctx context.Context, id string, pipeline components.Pipeline, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
 	request := operations.UpdatePipelineByIDRequest{
 		ID:       id,

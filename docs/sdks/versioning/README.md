@@ -7,21 +7,21 @@ Actions related to Versioning
 
 ### Available Operations
 
-* [GetVersionBranch](#getversionbranch) - get the list of branches
-* [CreateVersionCommit](#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
-* [GetVersionCount](#getversioncount) - get the count of files of changed
-* [GetVersionCurrentBranch](#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
-* [GetVersionDiff](#getversiondiff) - get the textual diff for given commit
-* [GetVersionFiles](#getversionfiles) - get the files changed
-* [GetVersionInfo](#getversioninfo) - Get info about versioning availability
-* [CreateVersionPush](#createversionpush) - push the current configs to the remote repository.
-* [CreateVersionRevert](#createversionrevert) - revert a commit
-* [GetVersionShow](#getversionshow) - get the log message and textual diff for given commit
-* [GetVersionStatus](#getversionstatus) - get the the working tree status
-* [CreateVersionSync](#createversionsync) - syncs with remote repo via POST requests
-* [CreateVersionUndo](#createversionundo) - undo the last commit
+* [GetBranch](#getbranch) - List all branches in the Git repository used for Cribl configuration
+* [CreateCommit](#createcommit) - Create a new commit for pending changes to the Cribl configuration
+* [GetFileCount](#getfilecount) - Retrieve a count of files that changed since a commit
+* [GetBranchName](#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [GetDiff](#getdiff) - Retrieve the diff for a commit
+* [GetFileInfo](#getfileinfo) - Retrieve the names and statuses of files that changed since a commit
+* [GetConfigStatus](#getconfigstatus) - Retrieve the configuration and status for the Git integration
+* [PushCommit](#pushcommit) - Push a commit from the local repository to the remote repository
+* [RevertCommit](#revertcommit) - Revert a commit in the local repository
+* [ShowCommit](#showcommit) - Retrieve the diff and log message for a commit
+* [GetCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
+* [SyncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
+* [CleanWorkingDir](#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
 
-## GetVersionBranch
+## GetBranch
 
 get the list of branches
 
@@ -49,7 +49,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionBranch(ctx)
+    res, err := s.Versioning.GetBranch(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -77,7 +77,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateVersionCommit
+## CreateCommit
 
 create a new commit containing the current configs the given log message describing the changes.
 
@@ -105,7 +105,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionCommit(ctx, components.GitCommitParams{
+    res, err := s.Versioning.CreateCommit(ctx, components.GitCommitParams{
         Effective: criblcontrolplanesdkgo.Bool(false),
         Files: []string{
             "<value 1>",
@@ -141,7 +141,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionCount
+## GetFileCount
 
 get the count of files of changed
 
@@ -169,7 +169,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionCount(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versioning.GetFileCount(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -199,7 +199,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionCurrentBranch
+## GetBranchName
 
 returns git branch that the config is checked out to, if any
 
@@ -227,7 +227,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionCurrentBranch(ctx)
+    res, err := s.Versioning.GetBranchName(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -255,7 +255,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionDiff
+## GetDiff
 
 get the textual diff for given commit
 
@@ -283,7 +283,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionDiff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
+    res, err := s.Versioning.GetDiff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
     if err != nil {
         log.Fatal(err)
     }
@@ -315,7 +315,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionFiles
+## GetFileInfo
 
 get the files changed
 
@@ -343,7 +343,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionFiles(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versioning.GetFileInfo(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -373,7 +373,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionInfo
+## GetConfigStatus
 
 Get info about versioning availability
 
@@ -401,7 +401,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionInfo(ctx)
+    res, err := s.Versioning.GetConfigStatus(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -429,7 +429,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateVersionPush
+## PushCommit
 
 push the current configs to the remote repository.
 
@@ -457,7 +457,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionPush(ctx)
+    res, err := s.Versioning.PushCommit(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -485,7 +485,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateVersionRevert
+## RevertCommit
 
 revert a commit
 
@@ -513,7 +513,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionRevert(ctx, components.GitRevertParams{
+    res, err := s.Versioning.RevertCommit(ctx, components.GitRevertParams{
         Commit: "<value>",
         Force: criblcontrolplanesdkgo.Bool(false),
         Message: "<value>",
@@ -547,7 +547,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionShow
+## ShowCommit
 
 get the log message and textual diff for given commit
 
@@ -575,7 +575,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionShow(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
+    res, err := s.Versioning.ShowCommit(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -607,7 +607,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetVersionStatus
+## GetCurrentStatus
 
 get the the working tree status
 
@@ -635,7 +635,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetVersionStatus(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Versioning.GetCurrentStatus(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -664,7 +664,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateVersionSync
+## SyncLocalRemote
 
 syncs with remote repo via POST requests
 
@@ -692,7 +692,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionSync(ctx)
+    res, err := s.Versioning.SyncLocalRemote(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -720,7 +720,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateVersionUndo
+## CleanWorkingDir
 
 undo the last commit
 
@@ -748,7 +748,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CreateVersionUndo(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Versioning.CleanWorkingDir(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }

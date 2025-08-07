@@ -32,9 +32,9 @@ func newVersioning(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 	}
 }
 
-// GetVersionBranch - get the list of branches
+// GetBranch - List all branches in the Git repository used for Cribl configuration
 // get the list of branches
-func (s *Versioning) GetVersionBranch(ctx context.Context, opts ...operations.Option) (*operations.GetVersionBranchResponse, error) {
+func (s *Versioning) GetBranch(ctx context.Context, opts ...operations.Option) (*operations.GetVersionBranchResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -265,9 +265,9 @@ func (s *Versioning) GetVersionBranch(ctx context.Context, opts ...operations.Op
 
 }
 
-// CreateVersionCommit - create a new commit containing the current configs the given log message describing the changes.
+// CreateCommit - Create a new commit for pending changes to the Cribl configuration
 // create a new commit containing the current configs the given log message describing the changes.
-func (s *Versioning) CreateVersionCommit(ctx context.Context, request components.GitCommitParams, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
+func (s *Versioning) CreateCommit(ctx context.Context, request components.GitCommitParams, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -505,9 +505,9 @@ func (s *Versioning) CreateVersionCommit(ctx context.Context, request components
 
 }
 
-// GetVersionCount - get the count of files of changed
+// GetFileCount - Retrieve a count of files that changed since a commit
 // get the count of files of changed
-func (s *Versioning) GetVersionCount(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
+func (s *Versioning) GetFileCount(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
 	request := operations.GetVersionCountRequest{
 		Group: group,
 		ID:    id,
@@ -747,9 +747,9 @@ func (s *Versioning) GetVersionCount(ctx context.Context, group *string, id *str
 
 }
 
-// GetVersionCurrentBranch - returns git branch that the config is checked out to, if any
+// GetBranchName - Retrieve the name of the Git branch that the Cribl configuration is checked out to
 // returns git branch that the config is checked out to, if any
-func (s *Versioning) GetVersionCurrentBranch(ctx context.Context, opts ...operations.Option) (*operations.GetVersionCurrentBranchResponse, error) {
+func (s *Versioning) GetBranchName(ctx context.Context, opts ...operations.Option) (*operations.GetVersionCurrentBranchResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -980,9 +980,9 @@ func (s *Versioning) GetVersionCurrentBranch(ctx context.Context, opts ...operat
 
 }
 
-// GetVersionDiff - get the textual diff for given commit
+// GetDiff - Retrieve the diff for a commit
 // get the textual diff for given commit
-func (s *Versioning) GetVersionDiff(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
+func (s *Versioning) GetDiff(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
 	request := operations.GetVersionDiffRequest{
 		Commit:        commit,
 		Group:         group,
@@ -1224,9 +1224,9 @@ func (s *Versioning) GetVersionDiff(ctx context.Context, commit *string, group *
 
 }
 
-// GetVersionFiles - get the files changed
+// GetFileInfo - Retrieve the names and statuses of files that changed since a commit
 // get the files changed
-func (s *Versioning) GetVersionFiles(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
+func (s *Versioning) GetFileInfo(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
 	request := operations.GetVersionFilesRequest{
 		Group: group,
 		ID:    id,
@@ -1466,9 +1466,9 @@ func (s *Versioning) GetVersionFiles(ctx context.Context, group *string, id *str
 
 }
 
-// GetVersionInfo - Get info about versioning availability
+// GetConfigStatus - Retrieve the configuration and status for the Git integration
 // Get info about versioning availability
-func (s *Versioning) GetVersionInfo(ctx context.Context, opts ...operations.Option) (*operations.GetVersionInfoResponse, error) {
+func (s *Versioning) GetConfigStatus(ctx context.Context, opts ...operations.Option) (*operations.GetVersionInfoResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1699,9 +1699,9 @@ func (s *Versioning) GetVersionInfo(ctx context.Context, opts ...operations.Opti
 
 }
 
-// CreateVersionPush - push the current configs to the remote repository.
+// PushCommit - Push a commit from the local repository to the remote repository
 // push the current configs to the remote repository.
-func (s *Versioning) CreateVersionPush(ctx context.Context, opts ...operations.Option) (*operations.CreateVersionPushResponse, error) {
+func (s *Versioning) PushCommit(ctx context.Context, opts ...operations.Option) (*operations.CreateVersionPushResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1932,9 +1932,9 @@ func (s *Versioning) CreateVersionPush(ctx context.Context, opts ...operations.O
 
 }
 
-// CreateVersionRevert - revert a commit
+// RevertCommit - Revert a commit in the local repository
 // revert a commit
-func (s *Versioning) CreateVersionRevert(ctx context.Context, gitRevertParams components.GitRevertParams, group *string, opts ...operations.Option) (*operations.CreateVersionRevertResponse, error) {
+func (s *Versioning) RevertCommit(ctx context.Context, gitRevertParams components.GitRevertParams, group *string, opts ...operations.Option) (*operations.CreateVersionRevertResponse, error) {
 	request := operations.CreateVersionRevertRequest{
 		Group:           group,
 		GitRevertParams: gitRevertParams,
@@ -2181,9 +2181,9 @@ func (s *Versioning) CreateVersionRevert(ctx context.Context, gitRevertParams co
 
 }
 
-// GetVersionShow - get the log message and textual diff for given commit
+// ShowCommit - Retrieve the diff and log message for a commit
 // get the log message and textual diff for given commit
-func (s *Versioning) GetVersionShow(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
+func (s *Versioning) ShowCommit(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
 	request := operations.GetVersionShowRequest{
 		Commit:        commit,
 		Group:         group,
@@ -2425,9 +2425,9 @@ func (s *Versioning) GetVersionShow(ctx context.Context, commit *string, group *
 
 }
 
-// GetVersionStatus - get the the working tree status
+// GetCurrentStatus - Retrieve the status of the current working tree
 // get the the working tree status
-func (s *Versioning) GetVersionStatus(ctx context.Context, group *string, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
+func (s *Versioning) GetCurrentStatus(ctx context.Context, group *string, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
 	request := operations.GetVersionStatusRequest{
 		Group: group,
 	}
@@ -2666,9 +2666,9 @@ func (s *Versioning) GetVersionStatus(ctx context.Context, group *string, opts .
 
 }
 
-// CreateVersionSync - syncs with remote repo via POST requests
+// SyncLocalRemote - Synchronize the local branch with the remote repository
 // syncs with remote repo via POST requests
-func (s *Versioning) CreateVersionSync(ctx context.Context, opts ...operations.Option) (*operations.CreateVersionSyncResponse, error) {
+func (s *Versioning) SyncLocalRemote(ctx context.Context, opts ...operations.Option) (*operations.CreateVersionSyncResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -2899,9 +2899,9 @@ func (s *Versioning) CreateVersionSync(ctx context.Context, opts ...operations.O
 
 }
 
-// CreateVersionUndo - undo the last commit
+// CleanWorkingDir - Undo the most recent commit and restore the local repository to the previous commit
 // undo the last commit
-func (s *Versioning) CreateVersionUndo(ctx context.Context, group *string, opts ...operations.Option) (*operations.CreateVersionUndoResponse, error) {
+func (s *Versioning) CleanWorkingDir(ctx context.Context, group *string, opts ...operations.Option) (*operations.CreateVersionUndoResponse, error) {
 	request := operations.CreateVersionUndoRequest{
 		Group: group,
 	}

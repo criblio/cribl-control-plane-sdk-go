@@ -54,7 +54,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
@@ -146,7 +146,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
@@ -212,105 +212,102 @@ func main() {
 
 ### [Auth](docs/sdks/auth/README.md)
 
-* [Login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
+* [FetchToken](docs/sdks/auth/README.md#fetchtoken) - Log in and fetch an authentication token
 
+
+### [Deployments](docs/sdks/deployments/README.md)
+
+* [GetSummary](docs/sdks/deployments/README.md#getsummary) - Retrieve a summary of the Distributed deployment
 
 ### [Destinations](docs/sdks/destinations/README.md)
 
-* [ListDestination](docs/sdks/destinations/README.md#listdestination) - Get a list of Destination objects
-* [CreateDestination](docs/sdks/destinations/README.md#createdestination) - Create Destination
-* [GetDestinationByID](docs/sdks/destinations/README.md#getdestinationbyid) - Get Destination by ID
-* [UpdateDestinationByID](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
-* [DeleteDestinationByID](docs/sdks/destinations/README.md#deletedestinationbyid) - Delete Destination
-* [DeleteDestinationPqByID](docs/sdks/destinations/README.md#deletedestinationpqbyid) - Clears destination persistent queue
-* [GetDestinationPqByID](docs/sdks/destinations/README.md#getdestinationpqbyid) - Retrieves status of latest clear PQ job for a destination
-* [GetDestinationSamplesByID](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
-* [CreateDestinationTestByID](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
-
-### [Distributed](docs/sdks/distributed/README.md)
-
-* [GetSummary](docs/sdks/distributed/README.md#getsummary) - Get summary of Distributed deployment
+* [List](docs/sdks/destinations/README.md#list) - List all Destinations
+* [Create](docs/sdks/destinations/README.md#create) - Create a Destination
+* [Get](docs/sdks/destinations/README.md#get) - Retrieve a Destination
+* [Update](docs/sdks/destinations/README.md#update) - Update a Destination
+* [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
+* [ClearPersistentQueue](docs/sdks/destinations/README.md#clearpersistentqueue) - Clear the persistent queue for a Destination
+* [GetPersistentQueueStatus](docs/sdks/destinations/README.md#getpersistentqueuestatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [GetSampleData](docs/sdks/destinations/README.md#getsampledata) - Retrieve sample event data for a Destination
+* [CreateSampleData](docs/sdks/destinations/README.md#createsampledata) - Send sample event data to a Destination
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [GetGroupsConfigVersionByID](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
-* [CreateProductsGroupsByProduct](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
-* [GetProductsGroupsByProduct](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
-* [DeleteGroupsByID](docs/sdks/groups/README.md#deletegroupsbyid) - Delete a Fleet or Worker Group
-* [GetGroupsByID](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
-* [UpdateGroupsByID](docs/sdks/groups/README.md#updategroupsbyid) - Update a Fleet or Worker Group
-* [UpdateGroupsDeployByID](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
-* [GetGroupsACLByID](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
+* [GetConfigVersion](docs/sdks/groups/README.md#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
+* [CreateByProduct](docs/sdks/groups/README.md#createbyproduct) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [GetByProduct](docs/sdks/groups/README.md#getbyproduct) - List all Worker Groups or Edge Fleets for the specified Cribl product
+* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
+* [Get](docs/sdks/groups/README.md#get) - Retrieve a Worker Group or Edge Fleet
+* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
+* [DeployCommits](docs/sdks/groups/README.md#deploycommits) - Deploy commits to a Worker Group or Edge Fleet
+* [GetTeamAccessControlListByProduct](docs/sdks/groups/README.md#getteamaccesscontrollistbyproduct) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [GetAccessControlList](docs/sdks/groups/README.md#getaccesscontrollist) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 
-### [Health](docs/sdks/health/README.md)
+### [HealthInfo](docs/sdks/healthinfo/README.md)
 
-* [GetHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+* [Get](docs/sdks/healthinfo/README.md#get) - Retrieve health status of the server
 
-### [Lake](docs/sdks/lake/README.md)
+### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
-* [CreateCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
-* [GetCriblLakeDatasetByLakeID](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
-* [DeleteCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#deletecribllakedatasetbylakeidandid) - Delete a Dataset in the specified Lake
-* [GetCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#getcribllakedatasetbylakeidandid) - Get a Dataset in the specified Lake
-* [UpdateCriblLakeDatasetByLakeIDAndID](docs/sdks/lake/README.md#updatecribllakedatasetbylakeidandid) - Update a Dataset in the specified Lake
+* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset in the specified Lake
+* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets in the specified Lake
+* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset in the specified Lake
+* [Get](docs/sdks/lakedatasets/README.md#get) - Retrieve a Lake Dataset in the specified Lake
+* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset in the specified Lake
+
+### [Nodes](docs/sdks/nodes/README.md)
+
+* [GetCount](docs/sdks/nodes/README.md#getcount) - Retrieve a count of Worker and Edge Nodes
+* [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
+* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
 
 ### [Packs](docs/sdks/packs/README.md)
 
-* [CreatePacks](docs/sdks/packs/README.md#createpacks) - Install Pack
-* [GetPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
-* [DeletePacksByID](docs/sdks/packs/README.md#deletepacksbyid) - Uninstall Pack from the system
-* [UpdatePacksByID](docs/sdks/packs/README.md#updatepacksbyid) - Upgrade Pack
+* [Install](docs/sdks/packs/README.md#install) - Install a Pack
+* [List](docs/sdks/packs/README.md#list) - List all Packs
+* [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+* [Update](docs/sdks/packs/README.md#update) - Update a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
 * [ListPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
-* [CreatePipeline](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+* [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 * [GetPipelineByID](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
-* [UpdatePipelineByID](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
+* [UpdatePipelineByID](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update a Pipeline
 * [DeletePipelineByID](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
-* [ListRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
-* [GetRoutesByID](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
-* [UpdateRoutesByID](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
-* [CreateRoutesAppendByID](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+* [List](docs/sdks/routes/README.md#list) - Get a list of Routes objects
+* [Get](docs/sdks/routes/README.md#get) - Get Routes by ID
+* [Update](docs/sdks/routes/README.md#update) - Update Routes
+* [Append](docs/sdks/routes/README.md#append) - Append Routes to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
 
-* [ListSource](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
-* [CreateSource](docs/sdks/sources/README.md#createsource) - Create Source
-* [GetSourceByID](docs/sdks/sources/README.md#getsourcebyid) - Get Source by ID
-* [UpdateSourceByID](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
-* [DeleteSourceByID](docs/sdks/sources/README.md#deletesourcebyid) - Delete Source
-* [CreateSourceHecTokenByID](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
-* [UpdateSourceHecTokenByIDAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
-
-### [Teams](docs/sdks/teams/README.md)
-
-* [GetProductsGroupsACLTeamsByProductAndID](docs/sdks/teams/README.md#getproductsgroupsaclteamsbyproductandid) - ACL of team with permissions for resources in this Group
+* [List](docs/sdks/sources/README.md#list) - List all Sources
+* [Create](docs/sdks/sources/README.md#create) - Create a Source
+* [Get](docs/sdks/sources/README.md#get) - Retrieve a Source
+* [Update](docs/sdks/sources/README.md#update) - Update a Source
+* [Delete](docs/sdks/sources/README.md#delete) - Delete a Source
+* [CreateHecToken](docs/sdks/sources/README.md#createhectoken) - Add an HEC token and optional metadata to a Splunk HEC Source
+* [UpdateHecTokenMetadata](docs/sdks/sources/README.md#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
 
 ### [Versioning](docs/sdks/versioning/README.md)
 
-* [GetVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
-* [CreateVersionCommit](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
-* [GetVersionCount](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
-* [GetVersionCurrentBranch](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
-* [GetVersionDiff](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
-* [GetVersionFiles](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
-* [GetVersionInfo](docs/sdks/versioning/README.md#getversioninfo) - Get info about versioning availability
-* [CreateVersionPush](docs/sdks/versioning/README.md#createversionpush) - push the current configs to the remote repository.
-* [CreateVersionRevert](docs/sdks/versioning/README.md#createversionrevert) - revert a commit
-* [GetVersionShow](docs/sdks/versioning/README.md#getversionshow) - get the log message and textual diff for given commit
-* [GetVersionStatus](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
-* [CreateVersionSync](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
-* [CreateVersionUndo](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
-
-### [Workers](docs/sdks/workers/README.md)
-
-* [GetSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - get worker and edge nodes count
-* [GetWorkers](docs/sdks/workers/README.md#getworkers) - get worker and edge nodes
-* [UpdateWorkersRestart](docs/sdks/workers/README.md#updateworkersrestart) - restarts worker nodes
+* [GetBranch](docs/sdks/versioning/README.md#getbranch) - List all branches in the Git repository used for Cribl configuration
+* [CreateCommit](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
+* [GetFileCount](docs/sdks/versioning/README.md#getfilecount) - Retrieve a count of files that changed since a commit
+* [GetBranchName](docs/sdks/versioning/README.md#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [GetDiff](docs/sdks/versioning/README.md#getdiff) - Retrieve the diff for a commit
+* [GetFileInfo](docs/sdks/versioning/README.md#getfileinfo) - Retrieve the names and statuses of files that changed since a commit
+* [GetConfigStatus](docs/sdks/versioning/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
+* [PushCommit](docs/sdks/versioning/README.md#pushcommit) - Push a commit from the local repository to the remote repository
+* [RevertCommit](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
+* [ShowCommit](docs/sdks/versioning/README.md#showcommit) - Retrieve the diff and log message for a commit
+* [GetCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
+* [SyncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
+* [CleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -344,7 +341,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
@@ -445,7 +442,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",
@@ -510,7 +507,7 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `apierrors.APIError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `CreateCriblLakeDatasetByLakeID` function may return the following errors:
+For example, the `Create` function may return the following errors:
 
 | Error Type         | Status Code | Content Type     |
 | ------------------ | ----------- | ---------------- |
@@ -542,7 +539,7 @@ func main() {
 		}),
 	)
 
-	res, err := s.Lake.CreateCriblLakeDatasetByLakeID(ctx, "<id>", components.CriblLakeDataset{
+	res, err := s.LakeDatasets.Create(ctx, "<id>", components.CriblLakeDataset{
 		AcceleratedFields: []string{
 			"<value 1>",
 			"<value 2>",

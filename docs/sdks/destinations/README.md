@@ -5,17 +5,17 @@
 
 ### Available Operations
 
-* [ListDestination](#listdestination) - Get a list of Destination objects
-* [CreateDestination](#createdestination) - Create Destination
-* [GetDestinationByID](#getdestinationbyid) - Get Destination by ID
-* [UpdateDestinationByID](#updatedestinationbyid) - Update Destination
-* [DeleteDestinationByID](#deletedestinationbyid) - Delete Destination
-* [DeleteDestinationPqByID](#deletedestinationpqbyid) - Clears destination persistent queue
-* [GetDestinationPqByID](#getdestinationpqbyid) - Retrieves status of latest clear PQ job for a destination
-* [GetDestinationSamplesByID](#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
-* [CreateDestinationTestByID](#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
+* [List](#list) - List all Destinations
+* [Create](#create) - Create a Destination
+* [Get](#get) - Retrieve a Destination
+* [Update](#update) - Update a Destination
+* [Delete](#delete) - Delete a Destination
+* [ClearPersistentQueue](#clearpersistentqueue) - Clear the persistent queue for a Destination
+* [GetPersistentQueueStatus](#getpersistentqueuestatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [GetSampleData](#getsampledata) - Retrieve sample event data for a Destination
+* [CreateSampleData](#createsampledata) - Send sample event data to a Destination
 
-## ListDestination
+## List
 
 Get a list of Destination objects
 
@@ -43,7 +43,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.ListDestination(ctx)
+    res, err := s.Destinations.List(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -71,7 +71,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateDestination
+## Create
 
 Create Destination
 
@@ -99,7 +99,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.CreateDestination(ctx, components.CreateOutputOutputElasticCloud(
+    res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
         components.OutputElasticCloud{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.OutputElasticCloudTypeElasticCloud.ToPointer(),
@@ -170,7 +170,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetDestinationByID
+## Get
 
 Get Destination by ID
 
@@ -198,7 +198,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.GetDestinationByID(ctx, "<id>")
+    res, err := s.Destinations.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -227,7 +227,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateDestinationByID
+## Update
 
 Update Destination
 
@@ -255,7 +255,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.UpdateDestinationByID(ctx, "<id>", components.CreateOutputOutputSignalfx(
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputOutputSignalfx(
         components.OutputSignalfx{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.OutputSignalfxTypeSignalfx,
@@ -318,7 +318,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeleteDestinationByID
+## Delete
 
 Delete Destination
 
@@ -346,7 +346,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.DeleteDestinationByID(ctx, "<id>")
+    res, err := s.Destinations.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -375,7 +375,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeleteDestinationPqByID
+## ClearPersistentQueue
 
 Clears destination persistent queue
 
@@ -403,7 +403,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.DeleteDestinationPqByID(ctx, "<id>")
+    res, err := s.Destinations.ClearPersistentQueue(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -432,7 +432,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetDestinationPqByID
+## GetPersistentQueueStatus
 
 Retrieves status of latest clear PQ job for a destination
 
@@ -460,7 +460,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.GetDestinationPqByID(ctx, "<id>")
+    res, err := s.Destinations.GetPersistentQueueStatus(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -489,7 +489,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetDestinationSamplesByID
+## GetSampleData
 
 Retrieve samples data for the specified destination. Used to get sample data for the test action.
 
@@ -517,7 +517,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.GetDestinationSamplesByID(ctx, "<id>")
+    res, err := s.Destinations.GetSampleData(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -546,7 +546,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateDestinationTestByID
+## CreateSampleData
 
 Send sample data to a destination to validate configuration or test connectivity
 
@@ -574,7 +574,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.CreateDestinationTestByID(ctx, "<id>", components.OutputTestRequest{
+    res, err := s.Destinations.CreateSampleData(ctx, "<id>", components.OutputTestRequest{
         Events: []components.CriblEvent{
             components.CriblEvent{
                 Raw: "<value>",
