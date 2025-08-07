@@ -7,16 +7,17 @@ Actions related to Groups
 
 ### Available Operations
 
-* [GetGroupsConfigVersionByID](#getgroupsconfigversionbyid) - Get effective bundle version for given Group
-* [CreateProductsGroupsByProduct](#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
-* [GetProductsGroupsByProduct](#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
-* [DeleteGroupsByID](#deletegroupsbyid) - Delete a Fleet or Worker Group
-* [GetGroupsByID](#getgroupsbyid) - Get a specific ConfigGroup object
-* [UpdateGroupsByID](#updategroupsbyid) - Update a Fleet or Worker Group
-* [UpdateGroupsDeployByID](#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
-* [GetGroupsACLByID](#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
+* [GetConfigVersion](#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
+* [CreateByProduct](#createbyproduct) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [GetByProduct](#getbyproduct) - List all Worker Groups or Edge Fleets for the specified Cribl product
+* [Delete](#delete) - Delete a Worker Group or Edge Fleet
+* [Get](#get) - Retrieve a Worker Group or Edge Fleet
+* [Update](#update) - Update a Worker Group or Edge Fleet
+* [DeployCommits](#deploycommits) - Deploy commits to a Worker Group or Edge Fleet
+* [GetTeamAccessControlListByProduct](#getteamaccesscontrollistbyproduct) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [GetAccessControlList](#getaccesscontrollist) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 
-## GetGroupsConfigVersionByID
+## GetConfigVersion
 
 Get effective bundle version for given Group
 
@@ -44,7 +45,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetGroupsConfigVersionByID(ctx, "<id>")
+    res, err := s.Groups.GetConfigVersion(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -73,7 +74,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateProductsGroupsByProduct
+## CreateByProduct
 
 Create a Fleet or Worker Group
 
@@ -102,7 +103,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.CreateProductsGroupsByProduct(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
+    res, err := s.Groups.CreateByProduct(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
@@ -186,7 +187,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetProductsGroupsByProduct
+## GetByProduct
 
 Get a list of ConfigGroup objects
 
@@ -215,7 +216,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetProductsGroupsByProduct(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.GetByProduct(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -245,7 +246,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeleteGroupsByID
+## Delete
 
 Delete a Fleet or Worker Group
 
@@ -273,7 +274,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.DeleteGroupsByID(ctx, "<id>")
+    res, err := s.Groups.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -302,7 +303,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetGroupsByID
+## Get
 
 Get a specific ConfigGroup object
 
@@ -330,7 +331,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetGroupsByID(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.Get(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -360,7 +361,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateGroupsByID
+## Update
 
 Update a Fleet or Worker Group
 
@@ -388,7 +389,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.UpdateGroupsByID(ctx, "<id>", components.ConfigGroup{
+    res, err := s.Groups.Update(ctx, "<id>", components.ConfigGroup{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
@@ -470,7 +471,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateGroupsDeployByID
+## DeployCommits
 
 Deploy commits for a Fleet or Worker Group
 
@@ -498,7 +499,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.UpdateGroupsDeployByID(ctx, "<id>", components.DeployRequest{
+    res, err := s.Groups.DeployCommits(ctx, "<id>", components.DeployRequest{
         Lookups: []components.DeployRequestLookups{
             components.DeployRequestLookups{
                 Context: "<value>",
@@ -541,7 +542,67 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetGroupsACLByID
+## GetTeamAccessControlListByProduct
+
+ACL of team with permissions for resources in this Group
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Groups.GetTeamAccessControlListByProduct(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                              | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                                  | :heavy_check_mark:                                                                                                                     | The context to use for the request.                                                                                                    |
+| `product`                                                                                                                              | [operations.GetProductsGroupsACLTeamsByProductAndIDProduct](../../models/operations/getproductsgroupsaclteamsbyproductandidproduct.md) | :heavy_check_mark:                                                                                                                     | Cribl Product                                                                                                                          |
+| `id`                                                                                                                                   | *string*                                                                                                                               | :heavy_check_mark:                                                                                                                     | Group ID                                                                                                                               |
+| `type_`                                                                                                                                | [*operations.GetProductsGroupsACLTeamsByProductAndIDType](../../models/operations/getproductsgroupsaclteamsbyproductandidtype.md)      | :heavy_minus_sign:                                                                                                                     | resource type by which to filter access levels                                                                                         |
+| `opts`                                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                                               | :heavy_minus_sign:                                                                                                                     | The options for this request.                                                                                                          |
+
+### Response
+
+**[*operations.GetProductsGroupsACLTeamsByProductAndIDResponse](../../models/operations/getproductsgroupsaclteamsbyproductandidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## GetAccessControlList
 
 ACL of members with permissions for resources in this Group
 
@@ -570,7 +631,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetGroupsACLByID(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
+    res, err := s.Groups.GetAccessControlList(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
     if err != nil {
         log.Fatal(err)
     }

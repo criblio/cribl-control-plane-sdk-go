@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [ListSource](#listsource) - Get a list of Source objects
-* [CreateSource](#createsource) - Create Source
-* [GetSourceByID](#getsourcebyid) - Get Source by ID
-* [UpdateSourceByID](#updatesourcebyid) - Update Source
-* [DeleteSourceByID](#deletesourcebyid) - Delete Source
-* [CreateSourceHecTokenByID](#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
-* [UpdateSourceHecTokenByIDAndToken](#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
+* [List](#list) - List all Sources
+* [Create](#create) - Create a Source
+* [Get](#get) - Retrieve a Source
+* [Update](#update) - Update a Source
+* [Delete](#delete) - Delete a Source
+* [CreateHecToken](#createhectoken) - Add an HEC token and optional metadata to a Splunk HEC Source
+* [UpdateHecTokenMetadata](#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
 
-## ListSource
+## List
 
 Get a list of Source objects
 
@@ -41,7 +41,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.ListSource(ctx)
+    res, err := s.Sources.List(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -69,7 +69,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateSource
+## Create
 
 Create Source
 
@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.CreateSource(ctx, components.CreateInputInputTCP(
+    res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.InputTCPTypeTCP.ToPointer(),
@@ -175,7 +175,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetSourceByID
+## Get
 
 Get Source by ID
 
@@ -203,7 +203,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.GetSourceByID(ctx, "<id>")
+    res, err := s.Sources.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -232,7 +232,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateSourceByID
+## Update
 
 Update Source
 
@@ -260,7 +260,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.UpdateSourceByID(ctx, "<id>", components.CreateInputInputKubeEvents(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
         components.InputKubeEvents{
             ID: "<id>",
             Type: components.InputKubeEventsTypeKubeEvents,
@@ -321,7 +321,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeleteSourceByID
+## Delete
 
 Delete Source
 
@@ -349,7 +349,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.DeleteSourceByID(ctx, "<id>")
+    res, err := s.Sources.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -378,7 +378,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateSourceHecTokenByID
+## CreateHecToken
 
 Add token and optional metadata to an existing HEC Source
 
@@ -406,7 +406,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.CreateSourceHecTokenByID(ctx, "<id>", components.AddHecTokenRequest{
+    res, err := s.Sources.CreateHecToken(ctx, "<id>", components.AddHecTokenRequest{
         Description: criblcontrolplanesdkgo.String("bah ick stingy"),
         Enabled: criblcontrolplanesdkgo.Bool(false),
         Metadata: []components.AddHecTokenRequestMetadatum{
@@ -446,7 +446,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateSourceHecTokenByIDAndToken
+## UpdateHecTokenMetadata
 
 Update token metadata on existing HEC Source
 
@@ -474,7 +474,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.UpdateSourceHecTokenByIDAndToken(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
+    res, err := s.Sources.UpdateHecTokenMetadata(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
         Description: criblcontrolplanesdkgo.String("by bleakly fortunately phew barring"),
         Enabled: criblcontrolplanesdkgo.Bool(false),
         Metadata: []components.UpdateHecTokenRequestMetadatum{

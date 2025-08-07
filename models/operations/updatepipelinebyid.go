@@ -27,7 +27,7 @@ func (o *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
 	return o.Pipeline
 }
 
-// UpdatePipelineByIDResponseBody - a list of Pipeline objects
+// UpdatePipelineByIDResponseBody - a list of any objects
 type UpdatePipelineByIDResponseBody struct {
 	// number of items present in the items array
 	Count *int64                `json:"count,omitempty"`
@@ -50,7 +50,7 @@ func (o *UpdatePipelineByIDResponseBody) GetItems() []components.Pipeline {
 
 type UpdatePipelineByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
+	// a list of any objects
 	Object *UpdatePipelineByIDResponseBody
 }
 

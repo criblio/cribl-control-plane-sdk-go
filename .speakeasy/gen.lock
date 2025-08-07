@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 8c1b980920cb179a1460873d8c229f89
-  docVersion: 4.14.0-alpha.1754409810030-3ae86276
+  docChecksum: 003ffb570b46c120ea1b3dfb734f1a3b
+  docVersion: 4.14.0-alpha.1754581489015-f79f2920
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.25
-  configChecksum: f6ada728413acfcec5cecbc645f0f1de
+  releaseVersion: 0.0.26
+  configChecksum: c2b2a19295dfd57ed1b993b9a8c9adae
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -288,8 +288,8 @@ generatedFiles:
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
+  - deployments.go
   - destinations.go
-  - distributed.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthstatuserror.md
   - docs/models/components/addhectokenrequest.md
@@ -2150,21 +2150,20 @@ generatedFiles:
   - docs/models/operations/updateworkersrestartresponsebody.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
+  - docs/sdks/deployments/README.md
   - docs/sdks/destinations/README.md
-  - docs/sdks/distributed/README.md
   - docs/sdks/groups/README.md
-  - docs/sdks/health/README.md
-  - docs/sdks/lake/README.md
+  - docs/sdks/healthinfo/README.md
+  - docs/sdks/lakedatasets/README.md
+  - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
-  - docs/sdks/teams/README.md
   - docs/sdks/versioning/README.md
-  - docs/sdks/workers/README.md
   - go.mod
   - groups.go
-  - health.go
+  - healthinfo.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/clientcredentials.go
   - internal/hooks/hooks.go
@@ -2181,22 +2180,21 @@ generatedFiles:
   - internal/utils/retries.go
   - internal/utils/security.go
   - internal/utils/utils.go
-  - lake.go
+  - lakedatasets.go
   - models/apierrors/apierror.go
   - models/operations/options.go
+  - nodes.go
   - packs.go
   - pipelines.go
   - retry/config.go
   - routes.go
   - sources.go
-  - teams.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
   - types/decimal.go
   - types/pointers.go
   - versioning.go
-  - workers.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:

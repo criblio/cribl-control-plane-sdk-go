@@ -9,7 +9,7 @@ import (
 type UpdateRoutesByIDRequest struct {
 	// Unique ID to PATCH
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Routes object to be updated
+	// Routes object
 	Routes components.Routes `request:"mediaType=application/json"`
 }
 
