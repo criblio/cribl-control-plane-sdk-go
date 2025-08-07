@@ -17,24 +17,23 @@ import (
 	"net/url"
 )
 
-// Workers - Actions related to Workers
-type Workers struct {
+type Nodes struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newWorkers(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Workers {
-	return &Workers{
+func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
+	return &Nodes{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// GetSummaryWorkers - get worker and edge nodes count
+// GetCount - Retrieve a count of Worker and Edge Nodes
 // get worker and edge nodes count
-func (s *Workers) GetSummaryWorkers(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
+func (s *Nodes) GetCount(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
 	request := operations.GetSummaryWorkersRequest{
 		FilterExp: filterExp,
 	}
@@ -273,9 +272,9 @@ func (s *Workers) GetSummaryWorkers(ctx context.Context, filterExp *string, opts
 
 }
 
-// GetWorkers - get worker and edge nodes
+// List - Retrieve detailed metadata for Worker and Edge Nodes
 // get worker and edge nodes
-func (s *Workers) GetWorkers(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -510,9 +509,9 @@ func (s *Workers) GetWorkers(ctx context.Context, request operations.GetWorkersR
 
 }
 
-// UpdateWorkersRestart - restarts worker nodes
+// Restart Worker and Edge Nodes
 // restarts worker nodes
-func (s *Workers) UpdateWorkersRestart(ctx context.Context, opts ...operations.Option) (*operations.UpdateWorkersRestartResponse, error) {
+func (s *Nodes) Restart(ctx context.Context, opts ...operations.Option) (*operations.UpdateWorkersRestartResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

@@ -17,24 +17,23 @@ import (
 	"net/url"
 )
 
-// Distributed - Actions related to Distributed
-type Distributed struct {
+type Deployments struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newDistributed(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Distributed {
-	return &Distributed{
+func newDeployments(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Deployments {
+	return &Deployments{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// GetSummary - Get summary of Distributed deployment
+// GetSummary - Retrieve a summary of the Distributed deployment
 // Get summary of Distributed deployment
-func (s *Distributed) GetSummary(ctx context.Context, mode *operations.Mode, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
+func (s *Deployments) GetSummary(ctx context.Context, mode *operations.Mode, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
 	request := operations.GetSummaryRequest{
 		Mode: mode,
 	}

@@ -7,12 +7,12 @@ Actions related to Routes
 
 ### Available Operations
 
-* [ListRoutes](#listroutes) - Get a list of Routes objects
-* [GetRoutesByID](#getroutesbyid) - Get Routes by ID
-* [UpdateRoutesByID](#updateroutesbyid) - Update Routes
-* [CreateRoutesAppendByID](#createroutesappendbyid) - Appends routes to the end of the routing table
+* [List](#list) - Get a list of Routes objects
+* [Get](#get) - Get Routes by ID
+* [Update](#update) - Update Routes
+* [Append](#append) - Append Routes to the end of the Routing table
 
-## ListRoutes
+## List
 
 Get a list of Routes objects
 
@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.ListRoutes(ctx)
+    res, err := s.Routes.List(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -68,7 +68,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetRoutesByID
+## Get
 
 Get Routes by ID
 
@@ -96,7 +96,7 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.GetRoutesByID(ctx, "<id>")
+    res, err := s.Routes.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -125,7 +125,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdateRoutesByID
+## Update
 
 Update Routes
 
@@ -153,7 +153,7 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.UpdateRoutesByID(ctx, "<id>", components.Routes{
+    res, err := s.Routes.Update(ctx, "<id>", components.Routes{
         ID: criblcontrolplanesdkgo.String("<id>"),
         Routes: []components.RoutesRoute{},
         Groups: map[string]components.RoutesGroups{
@@ -184,7 +184,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to PATCH                                       |
-| `routes`                                                 | [components.Routes](../../models/components/routes.md)   | :heavy_check_mark:                                       | Routes object to be updated                              |
+| `routes`                                                 | [components.Routes](../../models/components/routes.md)   | :heavy_check_mark:                                       | Routes object                                            |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -198,7 +198,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateRoutesAppendByID
+## Append
 
 Appends routes to the end of the routing table
 
@@ -226,7 +226,7 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.CreateRoutesAppendByID(ctx, "<id>", []components.RouteConf{})
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{})
     if err != nil {
         log.Fatal(err)
     }

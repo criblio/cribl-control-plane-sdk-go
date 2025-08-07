@@ -32,9 +32,9 @@ func newRoutes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// ListRoutes - Get a list of Routes objects
+// List - Get a list of Routes objects
 // Get a list of Routes objects
-func (s *Routes) ListRoutes(ctx context.Context, opts ...operations.Option) (*operations.ListRoutesResponse, error) {
+func (s *Routes) List(ctx context.Context, opts ...operations.Option) (*operations.ListRoutesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -265,9 +265,9 @@ func (s *Routes) ListRoutes(ctx context.Context, opts ...operations.Option) (*op
 
 }
 
-// GetRoutesByID - Get Routes by ID
 // Get Routes by ID
-func (s *Routes) GetRoutesByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetRoutesByIDResponse, error) {
+// Get Routes by ID
+func (s *Routes) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetRoutesByIDResponse, error) {
 	request := operations.GetRoutesByIDRequest{
 		ID: id,
 	}
@@ -502,9 +502,9 @@ func (s *Routes) GetRoutesByID(ctx context.Context, id string, opts ...operation
 
 }
 
-// UpdateRoutesByID - Update Routes
 // Update Routes
-func (s *Routes) UpdateRoutesByID(ctx context.Context, id string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
+// Update Routes
+func (s *Routes) Update(ctx context.Context, id string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
 	request := operations.UpdateRoutesByIDRequest{
 		ID:     id,
 		Routes: routes,
@@ -747,9 +747,9 @@ func (s *Routes) UpdateRoutesByID(ctx context.Context, id string, routes compone
 
 }
 
-// CreateRoutesAppendByID - Appends routes to the end of the routing table
+// Append Routes to the end of the Routing table
 // Appends routes to the end of the routing table
-func (s *Routes) CreateRoutesAppendByID(ctx context.Context, id string, requestBody []components.RouteConf, opts ...operations.Option) (*operations.CreateRoutesAppendByIDResponse, error) {
+func (s *Routes) Append(ctx context.Context, id string, requestBody []components.RouteConf, opts ...operations.Option) (*operations.CreateRoutesAppendByIDResponse, error) {
 	request := operations.CreateRoutesAppendByIDRequest{
 		ID:          id,
 		RequestBody: requestBody,

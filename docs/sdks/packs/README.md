@@ -7,12 +7,12 @@ Actions related to Packs
 
 ### Available Operations
 
-* [CreatePacks](#createpacks) - Install Pack
-* [GetPacks](#getpacks) - Get info on packs
-* [DeletePacksByID](#deletepacksbyid) - Uninstall Pack from the system
-* [UpdatePacksByID](#updatepacksbyid) - Upgrade Pack
+* [Install](#install) - Install a Pack
+* [List](#list) - List all Packs
+* [Delete](#delete) - Uninstall a Pack
+* [Update](#update) - Update a Pack
 
-## CreatePacks
+## Install
 
 Install Pack
 
@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.CreatePacks(ctx, components.PackRequestBody{
+    res, err := s.Packs.Install(ctx, components.PackRequestBody{
         AllowCustomFunctions: criblcontrolplanesdkgo.Bool(false),
         Author: criblcontrolplanesdkgo.String("<value>"),
         Description: criblcontrolplanesdkgo.String("premeditation coincide although"),
@@ -96,7 +96,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetPacks
+## List
 
 Get info on packs
 
@@ -124,7 +124,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.GetPacks(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Packs.List(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -153,7 +153,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeletePacksByID
+## Delete
 
 Uninstall Pack from the system
 
@@ -181,7 +181,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.DeletePacksByID(ctx, "<id>")
+    res, err := s.Packs.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -210,7 +210,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdatePacksByID
+## Update
 
 Upgrade Pack
 
@@ -238,7 +238,7 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.UpdatePacksByID(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Packs.Update(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }

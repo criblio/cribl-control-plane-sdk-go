@@ -17,23 +17,22 @@ import (
 	"net/url"
 )
 
-// Health - Actions related to REST server health
-type Health struct {
+type HealthInfo struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newHealth(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Health {
-	return &Health{
+func newHealthInfo(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *HealthInfo {
+	return &HealthInfo{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// GetHealthInfo - Provides health info for REST server
-func (s *Health) GetHealthInfo(ctx context.Context, opts ...operations.Option) (*operations.GetHealthInfoResponse, error) {
+// Get - Retrieve health status of the server
+func (s *HealthInfo) Get(ctx context.Context, opts ...operations.Option) (*operations.GetHealthInfoResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

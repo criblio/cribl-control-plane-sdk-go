@@ -32,9 +32,9 @@ func newPacks(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// CreatePacks - Install Pack
+// Install a Pack
 // Install Pack
-func (s *Packs) CreatePacks(ctx context.Context, request components.PackRequestBody, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
+func (s *Packs) Install(ctx context.Context, request components.PackRequestBody, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -272,9 +272,9 @@ func (s *Packs) CreatePacks(ctx context.Context, request components.PackRequestB
 
 }
 
-// GetPacks - Get info on packs
+// List all Packs
 // Get info on packs
-func (s *Packs) GetPacks(ctx context.Context, with *string, opts ...operations.Option) (*operations.GetPacksResponse, error) {
+func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Option) (*operations.GetPacksResponse, error) {
 	request := operations.GetPacksRequest{
 		With: with,
 	}
@@ -513,9 +513,9 @@ func (s *Packs) GetPacks(ctx context.Context, with *string, opts ...operations.O
 
 }
 
-// DeletePacksByID - Uninstall Pack from the system
+// Delete - Uninstall a Pack
 // Uninstall Pack from the system
-func (s *Packs) DeletePacksByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePacksByIDResponse, error) {
+func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePacksByIDResponse, error) {
 	request := operations.DeletePacksByIDRequest{
 		ID: id,
 	}
@@ -750,9 +750,9 @@ func (s *Packs) DeletePacksByID(ctx context.Context, id string, opts ...operatio
 
 }
 
-// UpdatePacksByID - Upgrade Pack
+// Update a Pack
 // Upgrade Pack
-func (s *Packs) UpdatePacksByID(ctx context.Context, id string, source *string, minor *string, spec *string, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
+func (s *Packs) Update(ctx context.Context, id string, source *string, minor *string, spec *string, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
 	request := operations.UpdatePacksByIDRequest{
 		ID:     id,
 		Source: source,

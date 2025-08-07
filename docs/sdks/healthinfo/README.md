@@ -1,17 +1,15 @@
-# Health
-(*Health*)
+# HealthInfo
+(*HealthInfo*)
 
 ## Overview
 
-Actions related to REST server health
-
 ### Available Operations
 
-* [GetHealthInfo](#gethealthinfo) - Provides health info for REST server
+* [Get](#get) - Retrieve health status of the server
 
-## GetHealthInfo
+## Get
 
-Provides health info for REST server
+Retrieve health status of the server
 
 ### Example Usage
 
@@ -32,7 +30,7 @@ func main() {
         "https://api.example.com",
     )
 
-    res, err := s.Health.GetHealthInfo(ctx)
+    res, err := s.HealthInfo.Get(ctx)
     if err != nil {
         log.Fatal(err)
     }
