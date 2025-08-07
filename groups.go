@@ -31,9 +31,9 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// GetGroupsConfigVersionByID - Get effective bundle version for given Group
+// GetConfigVersion - Retrieve the configuration version for a Worker Group or Edge Fleet
 // Get effective bundle version for given Group
-func (s *Groups) GetGroupsConfigVersionByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetGroupsConfigVersionByIDResponse, error) {
+func (s *Groups) GetConfigVersion(ctx context.Context, id string, opts ...operations.Option) (*operations.GetGroupsConfigVersionByIDResponse, error) {
 	request := operations.GetGroupsConfigVersionByIDRequest{
 		ID: id,
 	}
@@ -268,9 +268,9 @@ func (s *Groups) GetGroupsConfigVersionByID(ctx context.Context, id string, opts
 
 }
 
-// CreateProductsGroupsByProduct - Create a Fleet or Worker Group
+// CreateByProduct - Create a Worker Group or Edge Fleet for the specified Cribl product
 // Create a Fleet or Worker Group
-func (s *Groups) CreateProductsGroupsByProduct(ctx context.Context, product operations.CreateProductsGroupsByProductProduct, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateProductsGroupsByProductResponse, error) {
+func (s *Groups) CreateByProduct(ctx context.Context, product operations.CreateProductsGroupsByProductProduct, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateProductsGroupsByProductResponse, error) {
 	request := operations.CreateProductsGroupsByProductRequest{
 		Product:     product,
 		ConfigGroup: configGroup,
@@ -513,9 +513,9 @@ func (s *Groups) CreateProductsGroupsByProduct(ctx context.Context, product oper
 
 }
 
-// GetProductsGroupsByProduct - Get a list of ConfigGroup objects
+// GetByProduct - List all Worker Groups or Edge Fleets for the specified Cribl product
 // Get a list of ConfigGroup objects
-func (s *Groups) GetProductsGroupsByProduct(ctx context.Context, product operations.GetProductsGroupsByProductProduct, fields *string, opts ...operations.Option) (*operations.GetProductsGroupsByProductResponse, error) {
+func (s *Groups) GetByProduct(ctx context.Context, product operations.GetProductsGroupsByProductProduct, fields *string, opts ...operations.Option) (*operations.GetProductsGroupsByProductResponse, error) {
 	request := operations.GetProductsGroupsByProductRequest{
 		Fields:  fields,
 		Product: product,
@@ -755,9 +755,9 @@ func (s *Groups) GetProductsGroupsByProduct(ctx context.Context, product operati
 
 }
 
-// DeleteGroupsByID - Delete a Fleet or Worker Group
+// Delete a Worker Group or Edge Fleet
 // Delete a Fleet or Worker Group
-func (s *Groups) DeleteGroupsByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteGroupsByIDResponse, error) {
+func (s *Groups) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteGroupsByIDResponse, error) {
 	request := operations.DeleteGroupsByIDRequest{
 		ID: id,
 	}
@@ -992,9 +992,9 @@ func (s *Groups) DeleteGroupsByID(ctx context.Context, id string, opts ...operat
 
 }
 
-// GetGroupsByID - Get a specific ConfigGroup object
+// Get - Retrieve a Worker Group or Edge Fleet
 // Get a specific ConfigGroup object
-func (s *Groups) GetGroupsByID(ctx context.Context, id string, fields *string, opts ...operations.Option) (*operations.GetGroupsByIDResponse, error) {
+func (s *Groups) Get(ctx context.Context, id string, fields *string, opts ...operations.Option) (*operations.GetGroupsByIDResponse, error) {
 	request := operations.GetGroupsByIDRequest{
 		ID:     id,
 		Fields: fields,
@@ -1234,9 +1234,9 @@ func (s *Groups) GetGroupsByID(ctx context.Context, id string, fields *string, o
 
 }
 
-// UpdateGroupsByID - Update a Fleet or Worker Group
+// Update a Worker Group or Edge Fleet
 // Update a Fleet or Worker Group
-func (s *Groups) UpdateGroupsByID(ctx context.Context, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateGroupsByIDResponse, error) {
+func (s *Groups) Update(ctx context.Context, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateGroupsByIDResponse, error) {
 	request := operations.UpdateGroupsByIDRequest{
 		ID:          id,
 		ConfigGroup: configGroup,
@@ -1479,9 +1479,9 @@ func (s *Groups) UpdateGroupsByID(ctx context.Context, id string, configGroup co
 
 }
 
-// UpdateGroupsDeployByID - Deploy commits for a Fleet or Worker Group
+// DeployCommits - Deploy commits to a Worker Group or Edge Fleet
 // Deploy commits for a Fleet or Worker Group
-func (s *Groups) UpdateGroupsDeployByID(ctx context.Context, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateGroupsDeployByIDResponse, error) {
+func (s *Groups) DeployCommits(ctx context.Context, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateGroupsDeployByIDResponse, error) {
 	request := operations.UpdateGroupsDeployByIDRequest{
 		ID:            id,
 		DeployRequest: deployRequest,
@@ -1724,9 +1724,252 @@ func (s *Groups) UpdateGroupsDeployByID(ctx context.Context, id string, deployRe
 
 }
 
-// GetGroupsACLByID - ACL of members with permissions for resources in this Group
+// GetTeamAccessControlListByProduct - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+// ACL of team with permissions for resources in this Group
+func (s *Groups) GetTeamAccessControlListByProduct(ctx context.Context, product operations.GetProductsGroupsACLTeamsByProductAndIDProduct, id string, type_ *operations.GetProductsGroupsACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetProductsGroupsACLTeamsByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsACLTeamsByProductAndIDRequest{
+		Product: product,
+		ID:      id,
+		Type:    type_,
+	}
+
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+		operations.SupportedOptionTimeout,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/products/{product}/groups/{id}/acl/teams", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "getProductsGroupsAclTeamsByProductAndId",
+		OAuth2Scopes:     []string{},
+		SecuritySource:   s.sdkConfiguration.Security,
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
+
+	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	globalRetryConfig := s.sdkConfiguration.RetryConfig
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		if globalRetryConfig != nil {
+			retryConfig = globalRetryConfig
+		}
+	}
+
+	var httpRes *http.Response
+	if retryConfig != nil {
+		httpRes, err = utils.Retry(ctx, utils.Retries{
+			Config: retryConfig,
+			StatusCodes: []string{
+				"429",
+				"500",
+				"502",
+				"503",
+				"504",
+			},
+		}, func() (*http.Response, error) {
+			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
+				copyBody, err := req.GetBody()
+
+				if err != nil {
+					return nil, err
+				}
+
+				req.Body = copyBody
+			}
+
+			req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+			if err != nil {
+				if retry.IsPermanentError(err) || retry.IsTemporaryError(err) {
+					return nil, err
+				}
+
+				return nil, retry.Permanent(err)
+			}
+
+			httpRes, err := s.sdkConfiguration.Client.Do(req)
+			if err != nil || httpRes == nil {
+				if err != nil {
+					err = fmt.Errorf("error sending request: %w", err)
+				} else {
+					err = fmt.Errorf("error sending request: no response")
+				}
+
+				_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+			}
+			return httpRes, err
+		})
+
+		if err != nil {
+			return nil, err
+		} else {
+			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+			if err != nil {
+				return nil, err
+			}
+		}
+	} else {
+		req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+		if err != nil {
+			return nil, err
+		}
+
+		httpRes, err = s.sdkConfiguration.Client.Do(req)
+		if err != nil || httpRes == nil {
+			if err != nil {
+				err = fmt.Errorf("error sending request: %w", err)
+			} else {
+				err = fmt.Errorf("error sending request: no response")
+			}
+
+			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+			return nil, err
+		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+			if err != nil {
+				return nil, err
+			} else if _httpRes != nil {
+				httpRes = _httpRes
+			}
+		} else {
+			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	res := &operations.GetProductsGroupsACLTeamsByProductAndIDResponse{
+		HTTPMeta: components.HTTPMetadata{
+			Request:  req,
+			Response: httpRes,
+		},
+	}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out operations.GetProductsGroupsACLTeamsByProductAndIDResponseBody
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Object = &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 500:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		fallthrough
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, apierrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
+
+}
+
+// GetAccessControlList - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 // ACL of members with permissions for resources in this Group
-func (s *Groups) GetGroupsACLByID(ctx context.Context, id string, type_ *operations.GetGroupsACLByIDType, opts ...operations.Option) (*operations.GetGroupsACLByIDResponse, error) {
+func (s *Groups) GetAccessControlList(ctx context.Context, id string, type_ *operations.GetGroupsACLByIDType, opts ...operations.Option) (*operations.GetGroupsACLByIDResponse, error) {
 	request := operations.GetGroupsACLByIDRequest{
 		ID:   id,
 		Type: type_,

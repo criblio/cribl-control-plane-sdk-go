@@ -8,9 +8,9 @@ Actions related to Pipelines
 ### Available Operations
 
 * [ListPipeline](#listpipeline) - Get a list of Pipeline objects
-* [CreatePipeline](#createpipeline) - Create Pipeline
+* [Create](#create) - Create a Pipeline
 * [GetPipelineByID](#getpipelinebyid) - Get Pipeline by ID
-* [UpdatePipelineByID](#updatepipelinebyid) - Update Pipeline
+* [UpdatePipelineByID](#updatepipelinebyid) - Update a Pipeline
 * [DeletePipelineByID](#deletepipelinebyid) - Delete Pipeline
 
 ## ListPipeline
@@ -69,9 +69,9 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreatePipeline
+## Create
 
-Create Pipeline
+Create a Pipeline
 
 ### Example Usage
 
@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.CreatePipeline(ctx, components.Pipeline{
+    res, err := s.Pipelines.Create(ctx, components.Pipeline{
         ID: "<id>",
         Conf: components.Conf{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(905091),
@@ -211,7 +211,7 @@ func main() {
 
 ## UpdatePipelineByID
 
-Update Pipeline
+Update a Pipeline
 
 ### Example Usage
 

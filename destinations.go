@@ -31,9 +31,9 @@ func newDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 	}
 }
 
-// ListDestination - Get a list of Destination objects
+// List all Destinations
 // Get a list of Destination objects
-func (s *Destinations) ListDestination(ctx context.Context, opts ...operations.Option) (*operations.ListOutputResponse, error) {
+func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*operations.ListOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -264,9 +264,9 @@ func (s *Destinations) ListDestination(ctx context.Context, opts ...operations.O
 
 }
 
-// CreateDestination - Create Destination
+// Create a Destination
 // Create Destination
-func (s *Destinations) CreateDestination(ctx context.Context, request components.Output, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
+func (s *Destinations) Create(ctx context.Context, request components.Output, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -504,9 +504,9 @@ func (s *Destinations) CreateDestination(ctx context.Context, request components
 
 }
 
-// GetDestinationByID - Get Destination by ID
+// Get - Retrieve a Destination
 // Get Destination by ID
-func (s *Destinations) GetDestinationByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputByIDResponse, error) {
+func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputByIDResponse, error) {
 	request := operations.GetOutputByIDRequest{
 		ID: id,
 	}
@@ -741,9 +741,9 @@ func (s *Destinations) GetDestinationByID(ctx context.Context, id string, opts .
 
 }
 
-// UpdateDestinationByID - Update Destination
+// Update a Destination
 // Update Destination
-func (s *Destinations) UpdateDestinationByID(ctx context.Context, id string, output components.Output, opts ...operations.Option) (*operations.UpdateOutputByIDResponse, error) {
+func (s *Destinations) Update(ctx context.Context, id string, output components.Output, opts ...operations.Option) (*operations.UpdateOutputByIDResponse, error) {
 	request := operations.UpdateOutputByIDRequest{
 		ID:     id,
 		Output: output,
@@ -986,9 +986,9 @@ func (s *Destinations) UpdateDestinationByID(ctx context.Context, id string, out
 
 }
 
-// DeleteDestinationByID - Delete Destination
+// Delete a Destination
 // Delete Destination
-func (s *Destinations) DeleteDestinationByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputByIDResponse, error) {
+func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputByIDResponse, error) {
 	request := operations.DeleteOutputByIDRequest{
 		ID: id,
 	}
@@ -1223,9 +1223,9 @@ func (s *Destinations) DeleteDestinationByID(ctx context.Context, id string, opt
 
 }
 
-// DeleteDestinationPqByID - Clears destination persistent queue
+// ClearPersistentQueue - Clear the persistent queue for a Destination
 // Clears destination persistent queue
-func (s *Destinations) DeleteDestinationPqByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
+func (s *Destinations) ClearPersistentQueue(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
 	request := operations.DeleteOutputPqByIDRequest{
 		ID: id,
 	}
@@ -1460,9 +1460,9 @@ func (s *Destinations) DeleteDestinationPqByID(ctx context.Context, id string, o
 
 }
 
-// GetDestinationPqByID - Retrieves status of latest clear PQ job for a destination
+// GetPersistentQueueStatus - Retrieve information about the latest job to clear the persistent queue for a Destination
 // Retrieves status of latest clear PQ job for a destination
-func (s *Destinations) GetDestinationPqByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
+func (s *Destinations) GetPersistentQueueStatus(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
 	request := operations.GetOutputPqByIDRequest{
 		ID: id,
 	}
@@ -1697,9 +1697,9 @@ func (s *Destinations) GetDestinationPqByID(ctx context.Context, id string, opts
 
 }
 
-// GetDestinationSamplesByID - Retrieve samples data for the specified destination. Used to get sample data for the test action.
+// GetSampleData - Retrieve sample event data for a Destination
 // Retrieve samples data for the specified destination. Used to get sample data for the test action.
-func (s *Destinations) GetDestinationSamplesByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
+func (s *Destinations) GetSampleData(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
 	request := operations.GetOutputSamplesByIDRequest{
 		ID: id,
 	}
@@ -1934,9 +1934,9 @@ func (s *Destinations) GetDestinationSamplesByID(ctx context.Context, id string,
 
 }
 
-// CreateDestinationTestByID - Send sample data to a destination to validate configuration or test connectivity
+// CreateSampleData - Send sample event data to a Destination
 // Send sample data to a destination to validate configuration or test connectivity
-func (s *Destinations) CreateDestinationTestByID(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
+func (s *Destinations) CreateSampleData(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
 	request := operations.CreateOutputTestByIDRequest{
 		ID:                id,
 		OutputTestRequest: outputTestRequest,

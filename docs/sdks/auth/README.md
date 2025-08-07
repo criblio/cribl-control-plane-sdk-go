@@ -7,9 +7,9 @@ Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud
 
 ### Available Operations
 
-* [Login](#login) - Log in and obtain Auth token
+* [FetchToken](#fetchtoken) - Log in and fetch an authentication token
 
-## Login
+## FetchToken
 
 This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
 
@@ -33,7 +33,7 @@ func main() {
         "https://api.example.com",
     )
 
-    res, err := s.Auth.Login(ctx, components.LoginInfo{
+    res, err := s.Auth.FetchToken(ctx, components.LoginInfo{
         Username: "Nikko.Connelly",
         Password: "Ljp4BunfMR9hNyM",
     })
