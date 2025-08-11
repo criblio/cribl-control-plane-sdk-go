@@ -347,6 +347,33 @@ func (o *InputConfluentCloudTLSSettingsClientSide) GetMaxVersion() *InputConflue
 	return o.MaxVersion
 }
 
+// InputConfluentCloudSchemaType - The schema format used to encode and decode event data
+type InputConfluentCloudSchemaType string
+
+const (
+	InputConfluentCloudSchemaTypeAvro InputConfluentCloudSchemaType = "avro"
+	InputConfluentCloudSchemaTypeJSON InputConfluentCloudSchemaType = "json"
+)
+
+func (e InputConfluentCloudSchemaType) ToPointer() *InputConfluentCloudSchemaType {
+	return &e
+}
+func (e *InputConfluentCloudSchemaType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "avro":
+		fallthrough
+	case "json":
+		*e = InputConfluentCloudSchemaType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputConfluentCloudSchemaType: %v", v)
+	}
+}
+
 // InputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type InputConfluentCloudAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -549,6 +576,8 @@ type InputConfluentCloudKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
+	// The schema format used to encode and decode event data
+	SchemaType *InputConfluentCloudSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -583,6 +612,13 @@ func (o *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaRegistry
 		return nil
 	}
 	return o.SchemaRegistryURL
+}
+
+func (o *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaType() *InputConfluentCloudSchemaType {
+	if o == nil {
+		return nil
+	}
+	return o.SchemaType
 }
 
 func (o *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -705,9 +741,9 @@ func (o *InputConfluentCloudMetadatum) GetValue() string {
 
 type InputConfluentCloud struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitempty"`
-	Type     *InputConfluentCloudType `json:"type,omitempty"`
-	Disabled *bool                    `default:"false" json:"disabled"`
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputConfluentCloudType `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -796,9 +832,9 @@ func (o *InputConfluentCloud) GetID() *string {
 	return o.ID
 }
 
-func (o *InputConfluentCloud) GetType() *InputConfluentCloudType {
+func (o *InputConfluentCloud) GetType() InputConfluentCloudType {
 	if o == nil {
-		return nil
+		return InputConfluentCloudType("")
 	}
 	return o.Type
 }

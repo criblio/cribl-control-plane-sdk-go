@@ -380,8 +380,8 @@ type OutputSentinelPqControls struct {
 
 type OutputSentinel struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
-	Type *OutputSentinelType `json:"type,omitempty"`
+	ID   *string            `json:"id,omitempty"`
+	Type OutputSentinelType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -495,9 +495,9 @@ func (o *OutputSentinel) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSentinel) GetType() *OutputSentinelType {
+func (o *OutputSentinel) GetType() OutputSentinelType {
 	if o == nil {
-		return nil
+		return OutputSentinelType("")
 	}
 	return o.Type
 }

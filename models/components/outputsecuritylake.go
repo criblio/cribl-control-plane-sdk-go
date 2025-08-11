@@ -344,8 +344,8 @@ func (o *OutputSecurityLakeKeyValueMetadatum) GetValue() string {
 
 type OutputSecurityLake struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitempty"`
-	Type *OutputSecurityLakeType `json:"type,omitempty"`
+	ID   *string                `json:"id,omitempty"`
+	Type OutputSecurityLakeType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -473,9 +473,9 @@ func (o *OutputSecurityLake) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSecurityLake) GetType() *OutputSecurityLakeType {
+func (o *OutputSecurityLake) GetType() OutputSecurityLakeType {
 	if o == nil {
-		return nil
+		return OutputSecurityLakeType("")
 	}
 	return o.Type
 }

@@ -394,8 +394,8 @@ type OutputSentinelOneAiSiemPqControls struct {
 
 type OutputSentinelOneAiSiem struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitempty"`
-	Type *OutputSentinelOneAiSiemType `json:"type,omitempty"`
+	ID   *string                     `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -507,9 +507,9 @@ func (o *OutputSentinelOneAiSiem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSentinelOneAiSiem) GetType() *OutputSentinelOneAiSiemType {
+func (o *OutputSentinelOneAiSiem) GetType() OutputSentinelOneAiSiemType {
 	if o == nil {
-		return nil
+		return OutputSentinelOneAiSiemType("")
 	}
 	return o.Type
 }

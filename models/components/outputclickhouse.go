@@ -621,8 +621,8 @@ type OutputClickHousePqControls struct {
 
 type OutputClickHouse struct {
 	// Unique ID for this output
-	ID   *string               `json:"id,omitempty"`
-	Type *OutputClickHouseType `json:"type,omitempty"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputClickHouseType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -744,9 +744,9 @@ func (o *OutputClickHouse) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputClickHouse) GetType() *OutputClickHouseType {
+func (o *OutputClickHouse) GetType() OutputClickHouseType {
 	if o == nil {
-		return nil
+		return OutputClickHouseType("")
 	}
 	return o.Type
 }

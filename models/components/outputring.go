@@ -113,7 +113,7 @@ func (e *OutputRingBackpressureBehavior) UnmarshalJSON(data []byte) error {
 
 type OutputRing struct {
 	// Unique ID for this output
-	ID   string         `json:"id"`
+	ID   *string        `json:"id,omitempty"`
 	Type OutputRingType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -150,9 +150,9 @@ func (o *OutputRing) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputRing) GetID() string {
+func (o *OutputRing) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

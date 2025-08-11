@@ -45,7 +45,7 @@ func (o *DistributedSummaryGroups) GetSources() float64 {
 	return o.Sources
 }
 
-type DistributedSummaryWorkers struct {
+type Workers struct {
 	Alive             float64 `json:"alive"`
 	ConfVersions      float64 `json:"confVersions"`
 	Count             float64 `json:"count"`
@@ -55,49 +55,49 @@ type DistributedSummaryWorkers struct {
 	Unhealthy         float64 `json:"unhealthy"`
 }
 
-func (o *DistributedSummaryWorkers) GetAlive() float64 {
+func (o *Workers) GetAlive() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.Alive
 }
 
-func (o *DistributedSummaryWorkers) GetConfVersions() float64 {
+func (o *Workers) GetConfVersions() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.ConfVersions
 }
 
-func (o *DistributedSummaryWorkers) GetCount() float64 {
+func (o *Workers) GetCount() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.Count
 }
 
-func (o *DistributedSummaryWorkers) GetDisconnectedCount() float64 {
+func (o *Workers) GetDisconnectedCount() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.DisconnectedCount
 }
 
-func (o *DistributedSummaryWorkers) GetGroups() float64 {
+func (o *Workers) GetGroups() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.Groups
 }
 
-func (o *DistributedSummaryWorkers) GetSoftwareVersions() float64 {
+func (o *Workers) GetSoftwareVersions() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.SoftwareVersions
 }
 
-func (o *DistributedSummaryWorkers) GetUnhealthy() float64 {
+func (o *Workers) GetUnhealthy() float64 {
 	if o == nil {
 		return 0.0
 	}
@@ -105,8 +105,8 @@ func (o *DistributedSummaryWorkers) GetUnhealthy() float64 {
 }
 
 type DistributedSummary struct {
-	Groups  DistributedSummaryGroups  `json:"groups"`
-	Workers DistributedSummaryWorkers `json:"workers"`
+	Groups  DistributedSummaryGroups `json:"groups"`
+	Workers Workers                  `json:"workers"`
 }
 
 func (o *DistributedSummary) GetGroups() DistributedSummaryGroups {
@@ -116,9 +116,9 @@ func (o *DistributedSummary) GetGroups() DistributedSummaryGroups {
 	return o.Groups
 }
 
-func (o *DistributedSummary) GetWorkers() DistributedSummaryWorkers {
+func (o *DistributedSummary) GetWorkers() Workers {
 	if o == nil {
-		return DistributedSummaryWorkers{}
+		return Workers{}
 	}
 	return o.Workers
 }

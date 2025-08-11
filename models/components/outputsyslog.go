@@ -529,7 +529,7 @@ type OutputSyslogPqControls struct {
 
 type OutputSyslog struct {
 	// Unique ID for this output
-	ID   string           `json:"id"`
+	ID   *string          `json:"id,omitempty"`
 	Type OutputSyslogType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -601,9 +601,9 @@ func (o *OutputSyslog) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputSyslog) GetID() string {
+func (o *OutputSyslog) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

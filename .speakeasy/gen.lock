@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 003ffb570b46c120ea1b3dfb734f1a3b
-  docVersion: 4.14.0-alpha.1754581489015-f79f2920
+  docChecksum: 74af7ce504c4fea1fcc9739e90176dca
+  docVersion: 4.14.0-alpha.1754909045640-3ff7d0f1
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.26
-  configChecksum: c2b2a19295dfd57ed1b993b9a8c9adae
+  releaseVersion: 0.0.27
+  configChecksum: b775d66c45614b092c49b31d7af97f9c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -39,7 +39,6 @@ generatedFiles:
   - /models/apierrors/error.go
   - /models/apierrors/healthstatuserror.go
   - /models/components/addhectokenrequest.go
-  - /models/components/appmode.go
   - /models/components/authtoken.go
   - /models/components/cacheconnection.go
   - /models/components/cacheconnectionbackfillstatus.go
@@ -63,10 +62,7 @@ generatedFiles:
   - /models/components/gitrevertparams.go
   - /models/components/gitrevertresult.go
   - /models/components/gitstatusresult.go
-  - /models/components/hbcriblinfo.go
-  - /models/components/hbleaderinfo.go
   - /models/components/healthstatus.go
-  - /models/components/heartbeatmetadata.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
   - /models/components/inputappscope.go
@@ -130,14 +126,6 @@ generatedFiles:
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
-  - /models/components/lookupversions.go
-  - /models/components/masterworkerentry.go
-  - /models/components/nodeactiveupgradestatus.go
-  - /models/components/nodefailedupgradestatus.go
-  - /models/components/nodeprovidedinfo.go
-  - /models/components/nodeskippedupgradestatus.go
-  - /models/components/nodeupgradestate.go
-  - /models/components/nodeupgradestatus.go
   - /models/components/output.go
   - /models/components/outputazureblob.go
   - /models/components/outputazuredataexplorer.go
@@ -213,7 +201,6 @@ generatedFiles:
   - /models/components/pipelinefunctionconf.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
-  - /models/components/restartresponse.go
   - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
@@ -260,7 +247,6 @@ generatedFiles:
   - /models/operations/getproductsgroupsbyproduct.go
   - /models/operations/getroutesbyid.go
   - /models/operations/getsummary.go
-  - /models/operations/getsummaryworkers.go
   - /models/operations/getversionbranch.go
   - /models/operations/getversioncount.go
   - /models/operations/getversioncurrentbranch.go
@@ -269,7 +255,6 @@ generatedFiles:
   - /models/operations/getversioninfo.go
   - /models/operations/getversionshow.go
   - /models/operations/getversionstatus.go
-  - /models/operations/getworkers.go
   - /models/operations/listinput.go
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
@@ -284,7 +269,6 @@ generatedFiles:
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
-  - /models/operations/updateworkersrestart.go
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
@@ -297,7 +281,6 @@ generatedFiles:
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
-  - docs/models/components/appmode.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
@@ -314,7 +297,6 @@ generatedFiles:
   - docs/models/components/comment.md
   - docs/models/components/commit.md
   - docs/models/components/conf.md
-  - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
   - docs/models/components/configgrouplookups.md
@@ -336,7 +318,6 @@ generatedFiles:
   - docs/models/components/disksandfilesystems.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
-  - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
   - docs/models/components/elasticversion.md
   - docs/models/components/endpoint.md
@@ -365,17 +346,7 @@ generatedFiles:
   - docs/models/components/gitrevertresult.md
   - docs/models/components/gitrevertresultfiles.md
   - docs/models/components/gitstatusresult.md
-  - docs/models/components/hbcriblinfo.md
-  - docs/models/components/hbleaderinfo.md
   - docs/models/components/healthstatus.md
-  - docs/models/components/healthstatusstatus.md
-  - docs/models/components/heartbeatmetadata.md
-  - docs/models/components/heartbeatmetadataaws.md
-  - docs/models/components/heartbeatmetadatahostos.md
-  - docs/models/components/heartbeatmetadatakube.md
-  - docs/models/components/heartbeatmetadataos.md
-  - docs/models/components/heartbeatmetadataowner.md
-  - docs/models/components/heartbeatmetadatatags.md
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
@@ -431,6 +402,7 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudmode.md
   - docs/models/components/inputconfluentcloudpq.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
+  - docs/models/components/inputconfluentcloudschematype.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
   - docs/models/components/inputconfluentcloudtype.md
   - docs/models/components/inputcribl.md
@@ -656,6 +628,7 @@ generatedFiles:
   - docs/models/components/inputkafkamode.md
   - docs/models/components/inputkafkapq.md
   - docs/models/components/inputkafkasaslmechanism.md
+  - docs/models/components/inputkafkaschematype.md
   - docs/models/components/inputkafkatlssettingsclientside.md
   - docs/models/components/inputkafkatype.md
   - docs/models/components/inputkinesis.md
@@ -743,6 +716,7 @@ generatedFiles:
   - docs/models/components/inputmskminimumtlsversion.md
   - docs/models/components/inputmskmode.md
   - docs/models/components/inputmskpq.md
+  - docs/models/components/inputmskschematype.md
   - docs/models/components/inputmsksignatureversion.md
   - docs/models/components/inputmsktlssettingsclientside.md
   - docs/models/components/inputmsktype.md
@@ -1079,7 +1053,6 @@ generatedFiles:
   - docs/models/components/interfaces.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
-  - docs/models/components/lastmetrics.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
@@ -1089,28 +1062,10 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
-  - docs/models/components/lookupversions.md
   - docs/models/components/mappingtype.md
-  - docs/models/components/masterworkerentry.md
-  - docs/models/components/masterworkerentrytype.md
-  - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
   - docs/models/components/microsoftentraidauthenticationendpoint.md
   - docs/models/components/mtlssettings.md
-  - docs/models/components/nodeactiveupgradestatus.md
-  - docs/models/components/nodefailedupgradestatus.md
-  - docs/models/components/nodeprovidedinfo.md
-  - docs/models/components/nodeprovidedinfoaws.md
-  - docs/models/components/nodeprovidedinfohostos.md
-  - docs/models/components/nodeprovidedinfokube.md
-  - docs/models/components/nodeprovidedinfoos1.md
-  - docs/models/components/nodeprovidedinfoos2.md
-  - docs/models/components/nodeprovidedinfoowner.md
-  - docs/models/components/nodeprovidedinfotags.md
-  - docs/models/components/nodeskippedupgradestatus.md
-  - docs/models/components/nodeupgradestate.md
-  - docs/models/components/nodeupgradestatus.md
-  - docs/models/components/os.md
   - docs/models/components/output.md
   - docs/models/components/outputazureblob.md
   - docs/models/components/outputazureblobauthenticationmethod.md
@@ -1206,6 +1161,7 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudqueuefullbehavior.md
   - docs/models/components/outputconfluentcloudrecorddataformat.md
   - docs/models/components/outputconfluentcloudsaslmechanism.md
+  - docs/models/components/outputconfluentcloudschematype.md
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
@@ -1526,6 +1482,7 @@ generatedFiles:
   - docs/models/components/outputkafkaqueuefullbehavior.md
   - docs/models/components/outputkafkarecorddataformat.md
   - docs/models/components/outputkafkasaslmechanism.md
+  - docs/models/components/outputkafkaschematype.md
   - docs/models/components/outputkafkatlssettingsclientside.md
   - docs/models/components/outputkafkatype.md
   - docs/models/components/outputkinesis.md
@@ -1584,6 +1541,7 @@ generatedFiles:
   - docs/models/components/outputmskpqcontrols.md
   - docs/models/components/outputmskqueuefullbehavior.md
   - docs/models/components/outputmskrecorddataformat.md
+  - docs/models/components/outputmskschematype.md
   - docs/models/components/outputmsksignatureversion.md
   - docs/models/components/outputmsktlssettingsclientside.md
   - docs/models/components/outputmsktype.md
@@ -1938,8 +1896,6 @@ generatedFiles:
   - docs/models/components/reportmethod.md
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
-  - docs/models/components/restartresponse.md
-  - docs/models/components/restartresponsestatus.md
   - docs/models/components/role.md
   - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
@@ -1959,6 +1915,7 @@ generatedFiles:
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
+  - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
   - docs/models/components/summary.md
@@ -1973,6 +1930,7 @@ generatedFiles:
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
+  - docs/models/components/workers.md
   - docs/models/components/writeaction.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
   - docs/models/operations/createcribllakedatasetbylakeidresponse.md
@@ -2081,9 +2039,6 @@ generatedFiles:
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getsummaryresponsebody.md
-  - docs/models/operations/getsummaryworkersrequest.md
-  - docs/models/operations/getsummaryworkersresponse.md
-  - docs/models/operations/getsummaryworkersresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
@@ -2105,9 +2060,6 @@ generatedFiles:
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/getversionstatusresponsebody.md
-  - docs/models/operations/getworkersrequest.md
-  - docs/models/operations/getworkersresponse.md
-  - docs/models/operations/getworkersresponsebody.md
   - docs/models/operations/listinputresponse.md
   - docs/models/operations/listinputresponsebody.md
   - docs/models/operations/listoutputresponse.md
@@ -2146,8 +2098,6 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
-  - docs/models/operations/updateworkersrestartresponse.md
-  - docs/models/operations/updateworkersrestartresponsebody.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/deployments/README.md
@@ -2155,7 +2105,6 @@ generatedFiles:
   - docs/sdks/groups/README.md
   - docs/sdks/healthinfo/README.md
   - docs/sdks/lakedatasets/README.md
-  - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
@@ -2183,7 +2132,6 @@ generatedFiles:
   - lakedatasets.go
   - models/apierrors/apierror.go
   - models/operations/options.go
-  - nodes.go
   - packs.go
   - pipelines.go
   - retry/config.go
@@ -2318,7 +2266,7 @@ examples:
         application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "sendStructuredMetadata": false, "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:

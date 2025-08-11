@@ -234,8 +234,8 @@ type OutputKinesisPqControls struct {
 
 type OutputKinesis struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitempty"`
-	Type *OutputKinesisType `json:"type,omitempty"`
+	ID   *string           `json:"id,omitempty"`
+	Type OutputKinesisType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -318,9 +318,9 @@ func (o *OutputKinesis) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputKinesis) GetType() *OutputKinesisType {
+func (o *OutputKinesis) GetType() OutputKinesisType {
 	if o == nil {
-		return nil
+		return OutputKinesisType("")
 	}
 	return o.Type
 }

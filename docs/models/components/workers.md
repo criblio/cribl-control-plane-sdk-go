@@ -1,4 +1,4 @@
-# DistributedSummaryWorkers
+# Workers
 
 
 ## Fields

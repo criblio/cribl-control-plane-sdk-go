@@ -431,8 +431,8 @@ func (o *OutputS3KeyValueMetadatum) GetValue() string {
 
 type OutputS3 struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitempty"`
-	Type *OutputS3Type `json:"type,omitempty"`
+	ID   *string      `json:"id,omitempty"`
+	Type OutputS3Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -469,7 +469,7 @@ type OutputS3 struct {
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
-	// Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
 	DestPath *string `default:"" json:"destPath"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *OutputS3ObjectACL `default:"private" json:"objectACL"`
@@ -567,9 +567,9 @@ func (o *OutputS3) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputS3) GetType() *OutputS3Type {
+func (o *OutputS3) GetType() OutputS3Type {
 	if o == nil {
-		return nil
+		return OutputS3Type("")
 	}
 	return o.Type
 }

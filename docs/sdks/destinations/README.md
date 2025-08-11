@@ -102,7 +102,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
         components.OutputElasticCloud{
             ID: criblcontrolplanesdkgo.String("<id>"),
-            Type: components.OutputElasticCloudTypeElasticCloud.ToPointer(),
+            Type: components.OutputElasticCloudTypeElasticCloud,
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             SystemFields: []string{
                 "<value 1>",

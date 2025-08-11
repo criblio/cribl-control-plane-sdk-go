@@ -255,12 +255,6 @@ func main() {
 * [Get](docs/sdks/lakedatasets/README.md#get) - Retrieve a Lake Dataset in the specified Lake
 * [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset in the specified Lake
 
-### [Nodes](docs/sdks/nodes/README.md)
-
-* [GetCount](docs/sdks/nodes/README.md#getcount) - Retrieve a count of Worker and Edge Nodes
-* [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
-* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
-
 ### [Packs](docs/sdks/packs/README.md)
 
 * [Install](docs/sdks/packs/README.md#install) - Install a Pack

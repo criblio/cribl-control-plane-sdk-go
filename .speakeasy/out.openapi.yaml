@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.14.0-alpha.1754581489015-f79f2920
+  version: 4.14.0-alpha.1754909045640-3ff7d0f1
   contact:
     name: Support
     email: support@cribl.io
@@ -185,9 +185,7 @@ components:
     object:
       type: string
     InputCollection:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -208,9 +206,9 @@ components:
           description: Pipeline to process results
         sendToRoutes:
           type: boolean
-          default: true
           title: Send to Routes
           description: Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+          default: true
         environment:
           type: string
           title: Environment
@@ -349,9 +347,12 @@ components:
           type: string
           title: Destination
           description: Destination to send results to
-      type: object
-    InputKafka:
       required:
+        - type
+    InputKafka:
+      type: object
+      required:
+        - type
         - brokers
         - topics
       properties:
@@ -496,6 +497,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -802,9 +811,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputMsk:
+      type: object
       required:
+        - type
         - brokers
         - topics
         - region
@@ -1000,6 +1010,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -1304,9 +1322,10 @@ components:
           type: string
           title: Secret key pair
           description: Select or create a stored secret that references your access key and secret key
-      type: object
     InputHttp:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -1613,9 +1632,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputSplunk:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -1894,9 +1914,10 @@ components:
             - disabled
             - auto
             - always
-      type: object
     InputSplunkSearch:
+      type: object
       required:
+        - type
         - searchHead
         - search
         - cronSchedule
@@ -2323,9 +2344,10 @@ components:
                 type: string
                 title: Value
                 description: OAuth header value
-      type: object
     InputSplunkHec:
+      type: object
       required:
+        - type
         - host
         - port
         - splunkHecAPI
@@ -2684,11 +2706,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputAzureBlob:
+      type: object
       required:
-        - queueName
         - type
+        - queueName
       properties:
         id:
           type: string
@@ -2928,9 +2950,10 @@ components:
               type: string
               title: Certificate
               description: The certificate you registered as credentials for your app in the Azure portal
-      type: object
     InputElastic:
+      type: object
       required:
+        - type
         - host
         - port
         - elasticAPI
@@ -3298,9 +3321,10 @@ components:
                 },
                 "tagline": "You Know, for Search"
             }
-      type: object
     InputConfluentCloud:
+      type: object
       required:
+        - type
         - brokers
         - topics
       properties:
@@ -3500,6 +3524,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -3751,9 +3783,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputGrafana:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -3991,6 +4024,11 @@ components:
           description: "Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured."
           default: /loki/api/v1/push
           pattern: ^/
+        extractStructuredMetadata:
+          type: boolean
+          title: Enable structured metadata
+          description: Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+          default: false
         prometheusAuth:
           type: object
           properties:
@@ -4207,14 +4245,15 @@ components:
         description:
           type: string
           title: Description
-      type: object
       anyOf:
         - required:
             - prometheusAPI
         - required:
             - lokiAPI
     InputLoki:
+      type: object
       required:
+        - type
         - host
         - port
         - lokiAPI
@@ -4447,6 +4486,11 @@ components:
           description: "Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'."
           default: /loki/api/v1/push
           pattern: ^/
+        extractStructuredMetadata:
+          type: boolean
+          title: Enable structured metadata
+          description: Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+          default: false
         authType:
           type: string
           title: Authentication type
@@ -4562,9 +4606,10 @@ components:
                 type: string
                 title: Value
                 description: OAuth header value
-      type: object
     InputPrometheusRw:
+      type: object
       required:
+        - type
         - host
         - port
         - prometheusAPI
@@ -4912,9 +4957,10 @@ components:
                 type: string
                 title: Value
                 description: OAuth header value
-      type: object
     InputPrometheus:
+      type: object
       required:
+        - type
         - interval
         - logLevel
       properties:
@@ -5257,9 +5303,10 @@ components:
           type: string
           title: Credentials secret
           description: Select or create a secret that references your credentials
-      type: object
     InputEdgePrometheus:
+      type: object
       required:
+        - type
         - interval
         - discoveryType
       properties:
@@ -5670,9 +5717,10 @@ components:
           type: string
           title: Credentials secret
           description: Select or create a secret that references your credentials
-      type: object
     InputOffice365Mgmt:
+      type: object
       required:
+        - type
         - tenantId
         - appId
         - planType
@@ -5997,9 +6045,10 @@ components:
           type: string
           title: Client secret (text secret)
           description: Select or create a stored text secret
-      type: object
     InputOffice365Service:
+      type: object
       required:
+        - type
         - tenantId
         - appId
       properties:
@@ -6297,9 +6346,10 @@ components:
           type: string
           title: Client secret (text secret)
           description: Select or create a stored text secret
-      type: object
     InputOffice365MsgTrace:
+      type: object
       required:
+        - type
         - url
         - interval
       properties:
@@ -6643,9 +6693,10 @@ components:
               type: string
               title: Certificate path
               description: Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
-      type: object
     InputEventhub:
+      type: object
       required:
+        - type
         - brokers
         - topics
       properties:
@@ -6953,11 +7004,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputExec:
+      type: object
       required:
-        - command
         - type
+        - command
       properties:
         id:
           type: string
@@ -7119,9 +7170,10 @@ components:
           title: Schedule
           description: Cron schedule to execute the command on.
           default: "* * * * *"
-      type: object
     InputFirehose:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -7373,11 +7425,12 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputGooglePubsub:
+      type: object
       required:
-        - topicName
+        - type
         - subscriptionName
+        - topicName
       properties:
         id:
           type: string
@@ -7481,11 +7534,17 @@ components:
         topicName:
           type: string
           title: Topic ID
-          description: ID of the topic to receive events from
+          description: ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+          default: cribl
         subscriptionName:
           type: string
           title: Subscription ID
-          description: ID of the subscription to use when receiving events
+          description: "ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription"
+        monitorSubscription:
+          type: boolean
+          title: Monitor subscription for new messages
+          description: Use when the subscription is not created by this Source and topic is not known
+          default: false
         createTopic:
           type: boolean
           title: Create topic
@@ -7561,11 +7620,8 @@ components:
           title: Ordered delivery
           description: Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
           default: false
-      type: object
     InputCribl:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -7688,9 +7744,12 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputCriblTcp:
       required:
+        - type
+    InputCriblTcp:
+      type: object
+      required:
+        - type
         - host
         - port
       properties:
@@ -7908,9 +7967,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputCriblHttp:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -8162,9 +8222,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputCriblLakeHttp:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -8416,9 +8477,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputTcpjson:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -8658,11 +8720,8 @@ components:
           type: string
           title: Auth token (text secret)
           description: Select or create a stored text secret
-      type: object
     InputSystemMetrics:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -9056,11 +9115,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputSystemState:
       required:
-        - id
         - type
+    InputSystemState:
+      type: object
       properties:
         id:
           type: string
@@ -9331,11 +9389,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputKubeMetrics:
       required:
-        - id
         - type
+    InputKubeMetrics:
+      type: object
       properties:
         id:
           type: string
@@ -9520,11 +9577,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputKubeLogs:
       required:
-        - id
         - type
+    InputKubeLogs:
+      type: object
       properties:
         id:
           type: string
@@ -9728,11 +9784,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputKubeEvents:
       required:
-        - id
         - type
+    InputKubeEvents:
+      type: object
       properties:
         id:
           type: string
@@ -9871,11 +9926,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputWindowsMetrics:
       required:
-        - id
         - type
+    InputWindowsMetrics:
+      type: object
       properties:
         id:
           type: string
@@ -10205,11 +10259,13 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputCrowdstrike:
       required:
-        - queueName
         - type
+    InputCrowdstrike:
+      type: object
+      required:
+        - type
+        - queueName
       properties:
         id:
           type: string
@@ -10520,9 +10576,10 @@ components:
           type: string
           title: Tag value
           description: The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-      type: object
     InputDatadogAgent:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -10788,11 +10845,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputDatagen:
+      type: object
       required:
-        - samples
         - type
+        - samples
       properties:
         id:
           type: string
@@ -10932,9 +10989,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputHttpRaw:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -11250,9 +11308,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputKinesis:
+      type: object
       required:
+        - type
         - streamName
         - region
       properties:
@@ -11507,11 +11566,8 @@ components:
           type: string
           title: Secret key pair
           description: Select or create a stored secret that references your access key and secret key
-      type: object
     InputCriblmetrics:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -11642,11 +11698,13 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    InputMetrics:
       required:
-        - host
         - type
+    InputMetrics:
+      type: object
+      required:
+        - type
+        - host
       properties:
         id:
           type: string
@@ -11855,11 +11913,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputS3:
+      type: object
       required:
-        - queueName
         - type
+        - queueName
       properties:
         id:
           type: string
@@ -12185,11 +12243,11 @@ components:
           type: string
           title: Tag value
           description: The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-      type: object
     InputS3Inventory:
+      type: object
       required:
-        - queueName
         - type
+        - queueName
       properties:
         id:
           type: string
@@ -12526,9 +12584,10 @@ components:
           type: string
           title: Tag value
           description: The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-      type: object
     InputSnmp:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -12735,9 +12794,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputOpenTelemetry:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -13103,9 +13163,10 @@ components:
           title: Extract logs
           description: Enable to extract each incoming log record to a separate event
           default: false
-      type: object
     InputModelDrivenTelemetry:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -13298,9 +13359,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputSqs:
+      type: object
       required:
+        - type
         - queueName
         - queueType
       properties:
@@ -13539,11 +13601,11 @@ components:
           default: 3
           minimum: 1
           maximum: 100
-      type: object
     InputSyslog:
+      type: object
       required:
-        - host
         - type
+        - host
       properties:
         id:
           type: string
@@ -13822,7 +13884,6 @@ components:
           type: boolean
           title: Enable enhanced TLS handshake for proxy protocol
           description: When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
-      type: object
       anyOf:
         - required:
             - host
@@ -13831,9 +13892,7 @@ components:
             - host
             - tcpPort
     InputFile:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -14042,9 +14101,12 @@ components:
           default: false
           title: Enable binary files
           description: Stream binary files as Base64-encoded chunks.
-      type: object
-    InputTcp:
       required:
+        - type
+    InputTcp:
+      type: object
+      required:
+        - type
         - host
         - port
       properties:
@@ -14307,10 +14369,9 @@ components:
             - secret
           default: manual
           description: Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-      type: object
     InputAppscope:
+      type: object
       required:
-        - id
         - type
       properties:
         id:
@@ -14637,9 +14698,10 @@ components:
           type: string
           title: Auth token (text secret)
           description: Select or create a stored text secret
-      type: object
     InputWef:
+      type: object
       required:
+        - type
         - host
         - port
         - subscriptions
@@ -15024,11 +15086,11 @@ components:
           title: Log CA fingerprint mismatch warning
           description: Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
           default: false
-      type: object
     InputWinEventLogs:
+      type: object
       required:
-        - logNames
         - type
+        - logNames
       properties:
         id:
           type: string
@@ -15200,9 +15262,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputRawUdp:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -15362,9 +15425,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputJournalFiles:
+      type: object
       required:
+        - type
         - path
         - journals
       properties:
@@ -15533,9 +15597,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputWiz:
+      type: object
       required:
+        - type
         - endpoint
         - authUrl
         - clientId
@@ -16248,9 +16313,10 @@ components:
           type: string
           title: Client Secret (text secret)
           description: Select or create a stored text secret
-      type: object
     InputNetflow:
+      type: object
       required:
+        - type
         - host
         - port
       properties:
@@ -16427,11 +16493,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     InputSecurityLake:
+      type: object
       required:
-        - queueName
         - type
+        - queueName
       properties:
         id:
           type: string
@@ -16756,9 +16822,10 @@ components:
           type: string
           title: Tag value
           description: The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-      type: object
     InputZscalerHec:
+      type: object
       required:
+        - type
         - host
         - port
         - hecAPI
@@ -17088,7 +17155,6 @@ components:
         description:
           type: string
           title: Description
-      type: object
     Input:
       oneOf:
         - $ref: "#/components/schemas/InputCollection"
@@ -17192,9 +17258,10 @@ components:
               - name
               - value
     OutputDefault:
+      type: object
       required:
-        - defaultId
         - type
+        - defaultId
       properties:
         id:
           type: string
@@ -17231,10 +17298,9 @@ components:
           type: string
           title: Default Output ID
           description: ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
-      type: object
     OutputWebhook:
+      type: object
       required:
-        - id
         - type
       properties:
         id:
@@ -17735,9 +17801,10 @@ components:
           minimum: 10
           title: Load balance stats period (seconds)
           description: How far back in time to keep traffic stats for load balancing purposes
-      type: object
     OutputSentinel:
+      type: object
       required:
+        - type
         - endpointURLConfiguration
         - loginUrl
         - secret
@@ -18084,11 +18151,8 @@ components:
           type: string
           title: Stream name
           description: The name of the stream (Sentinel table) in which to store the events
-      type: object
     OutputDevnull:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -18121,11 +18185,10 @@ components:
           default: []
           items:
             type: string
-      type: object
-    OutputSyslog:
       required:
-        - id
         - type
+    OutputSyslog:
+      type: object
       properties:
         id:
           type: string
@@ -18393,9 +18456,12 @@ components:
             - always
         pqControls:
           type: object
-      type: object
-    OutputSplunk:
       required:
+        - type
+    OutputSplunk:
+      type: object
+      required:
+        - type
         - host
         - port
       properties:
@@ -18630,11 +18696,11 @@ components:
           type: string
           title: Auth token (text secret)
           description: Select or create a stored text secret
-      type: object
     OutputSplunkLb:
+      type: object
       required:
-        - hosts
         - type
+        - hosts
       properties:
         id:
           type: string
@@ -18995,11 +19061,8 @@ components:
           type: string
           title: Auth token (text secret)
           description: Select or create a stored text secret
-      type: object
     OutputSplunkHec:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -19322,11 +19385,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
-    OutputTcpjson:
       required:
-        - id
         - type
+    OutputTcpjson:
+      type: object
       properties:
         id:
           type: string
@@ -19604,11 +19666,13 @@ components:
           type: string
           title: Auth token (text secret)
           description: Select or create a stored text secret
-      type: object
-    OutputWavefront:
       required:
-        - domain
         - type
+    OutputWavefront:
+      type: object
+      required:
+        - type
+        - domain
       properties:
         id:
           type: string
@@ -19871,11 +19935,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputSignalfx:
+      type: object
       required:
-        - realm
         - type
+        - realm
       properties:
         id:
           type: string
@@ -20138,11 +20202,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputFilesystem:
+      type: object
       required:
-        - destPath
         - type
+        - destPath
       properties:
         id:
           type: string
@@ -20387,9 +20451,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputS3:
+      type: object
       required:
+        - type
         - bucket
         - stagePath
       properties:
@@ -20502,7 +20567,7 @@ components:
         destPath:
           type: string
           title: Key prefix
-          description: "Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
+          description: "Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
           default: ""
         objectACL:
           type: string
@@ -20766,9 +20831,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputAzureBlob:
+      type: object
       required:
+        - type
         - containerName
         - stagePath
       properties:
@@ -21092,9 +21158,10 @@ components:
               type: string
               title: Certificate
               description: The certificate you registered as credentials for your app in the Azure portal
-      type: object
     OutputAzureDataExplorer:
+      type: object
       required:
+        - type
         - clusterUrl
         - database
         - table
@@ -21567,11 +21634,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputAzureLogs:
+      type: object
       required:
-        - logType
         - type
+        - logType
       properties:
         id:
           type: string
@@ -21846,9 +21913,10 @@ components:
           type: string
           title: Secret key pair
           description: Select or create a stored secret that references your access key and secret key
-      type: object
     OutputKinesis:
+      type: object
       required:
+        - type
         - streamName
         - region
       properties:
@@ -22047,11 +22115,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputHoneycomb:
+      type: object
       required:
-        - dataset
         - type
+        - dataset
       properties:
         id:
           type: string
@@ -22313,9 +22381,10 @@ components:
           type: string
           title: API key (text secret)
           description: Select or create a stored text secret
-      type: object
     OutputAzureEventhub:
+      type: object
       required:
+        - type
         - brokers
         - topic
       properties:
@@ -22542,11 +22611,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputGoogleChronicle:
+      type: object
       required:
-        - logFormatType
         - type
+        - logFormatType
       properties:
         id:
           type: string
@@ -22892,9 +22961,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputGoogleCloudStorage:
+      type: object
       required:
+        - type
         - bucket
         - endpoint
         - region
@@ -22968,7 +23038,7 @@ components:
         destPath:
           type: string
           title: Key prefix
-          description: "Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
+          description: "Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
           default: ""
         verifyPermissions:
           type: boolean
@@ -23222,9 +23292,10 @@ components:
           type: string
           title: Secret key pair
           description: Select or create a stored secret that references your access key and secret key
-      type: object
     OutputGoogleCloudLogging:
+      type: object
       required:
+        - type
         - logLocationType
         - logLocationExpression
         - logNameExpression
@@ -23568,11 +23639,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputGooglePubsub:
+      type: object
       required:
-        - topicName
         - type
+        - topicName
       properties:
         id:
           type: string
@@ -23741,9 +23812,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputExabeam:
+      type: object
       required:
+        - type
         - bucket
         - region
         - endpoint
@@ -23946,9 +24018,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputKafka:
+      type: object
       required:
+        - type
         - brokers
         - topic
       properties:
@@ -24056,6 +24129,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -24345,9 +24426,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputConfluentCloud:
+      type: object
       required:
+        - type
         - brokers
         - topic
       properties:
@@ -24510,6 +24592,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -24744,9 +24834,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputMsk:
+      type: object
       required:
+        - type
         - brokers
         - topic
         - region
@@ -24856,6 +24947,14 @@ components:
               title: Schema Registry URL
               description: "URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http."
               default: http://localhost:8081
+            schemaType:
+              type: string
+              default: avro
+              enum:
+                - avro
+                - json
+              title: Schema type
+              description: The schema format used to encode and decode event data
             connectionTimeout:
               type: number
               title: Connection timeout (ms)
@@ -25192,11 +25291,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputElastic:
+      type: object
       required:
-        - index
         - type
+        - index
       properties:
         id:
           type: string
@@ -25560,9 +25659,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputElasticCloud:
+      type: object
       required:
+        - type
         - url
         - index
       properties:
@@ -25856,11 +25956,8 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputNewrelic:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -26168,11 +26265,10 @@ components:
           type: string
           title: API key (text secret)
           description: Select or create a stored text secret
-      type: object
-    OutputNewrelicEvents:
       required:
-        - accountId
-        - eventType
+        - type
+    OutputNewrelicEvents:
+      type: object
       properties:
         id:
           type: string
@@ -26450,11 +26546,15 @@ components:
           type: string
           title: API key (text secret)
           description: Select or create a stored text secret
-      type: object
-    OutputInfluxdb:
       required:
-        - url
         - type
+        - accountId
+        - eventType
+    OutputInfluxdb:
+      type: object
+      required:
+        - type
+        - url
       properties:
         id:
           type: string
@@ -26835,9 +26935,10 @@ components:
                 type: string
                 title: Value
                 description: OAuth header value
-      type: object
     OutputCloudwatch:
+      type: object
       required:
+        - type
         - logGroupName
         - logStreamName
         - region
@@ -27015,9 +27116,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputMinio:
+      type: object
       required:
+        - type
         - bucket
         - stagePath
         - endpoint
@@ -27356,9 +27458,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputStatsd:
+      type: object
       required:
+        - type
         - protocol
         - host
         - port
@@ -27504,9 +27607,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputStatsdExt:
+      type: object
       required:
+        - type
         - protocol
         - host
         - port
@@ -27652,9 +27756,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputGraphite:
+      type: object
       required:
+        - type
         - protocol
         - host
         - port
@@ -27800,11 +27905,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputRouter:
+      type: object
       required:
-        - rules
         - type
+        - rules
       properties:
         id:
           type: string
@@ -27868,9 +27973,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     OutputSns:
+      type: object
       required:
+        - type
         - topicArn
         - messageGroupId
       properties:
@@ -28040,9 +28146,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputSqs:
+      type: object
       required:
+        - type
         - queueName
         - queueType
       properties:
@@ -28251,11 +28358,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputSnmp:
+      type: object
       required:
-        - hosts
         - type
+        - hosts
       properties:
         id:
           type: string
@@ -28319,11 +28426,11 @@ components:
         description:
           type: string
           title: Description
-      type: object
     OutputSumoLogic:
+      type: object
       required:
-        - url
         - type
+        - url
       properties:
         id:
           type: string
@@ -28591,11 +28698,8 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputDatadog:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -28932,11 +29036,10 @@ components:
           type: string
           title: API key (text secret)
           description: Select or create a stored text secret
-      type: object
-    OutputGrafanaCloud:
       required:
-        - id
         - type
+    OutputGrafanaCloud:
+      type: object
       properties:
         id:
           type: string
@@ -29156,6 +29259,11 @@ components:
           default: []
           items:
             type: string
+        sendStructuredMetadata:
+          type: boolean
+          title: Send structured metadata
+          description: Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
+          default: false
         responseRetrySettings:
           type: array
           title: Settings for failed HTTP requests
@@ -29289,16 +29397,18 @@ components:
             - always
         pqControls:
           type: object
-      type: object
       anyOf:
         - required:
             - lokiUrl
         - required:
             - prometheusUrl
-    OutputLoki:
       required:
-        - url
         - type
+    OutputLoki:
+      type: object
+      required:
+        - type
+        - url
       properties:
         id:
           type: string
@@ -29524,6 +29634,16 @@ components:
           title: Honor Retry-After header
           description: Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
           default: false
+        enableDynamicHeaders:
+          type: boolean
+          title: Enable dynamic headers
+          description: Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+          default: false
+        sendStructuredMetadata:
+          type: boolean
+          title: Send structured metadata
+          description: Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
+          default: false
         onBackpressure:
           type: string
           title: Backpressure behavior
@@ -29610,11 +29730,11 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputPrometheus:
+      type: object
       required:
-        - url
         - type
+        - url
       properties:
         id:
           type: string
@@ -29967,11 +30087,8 @@ components:
                 type: string
                 title: Value
                 description: OAuth header value
-      type: object
     OutputRing:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -30050,11 +30167,13 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    OutputOpenTelemetry:
       required:
-        - endpoint
         - type
+    OutputOpenTelemetry:
+      type: object
+      required:
+        - type
+        - endpoint
       properties:
         id:
           type: string
@@ -30513,9 +30632,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputServiceNow:
+      type: object
       required:
+        - type
         - endpoint
         - protocol
         - otlpVersion
@@ -30891,11 +31011,8 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputDataset:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -31210,11 +31327,10 @@ components:
           type: string
           title: API key (text secret)
           description: Select or create a stored text secret
-      type: object
-    OutputCriblTcp:
       required:
-        - id
         - type
+    OutputCriblTcp:
+      type: object
       properties:
         id:
           type: string
@@ -31482,11 +31598,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
-    OutputCriblHttp:
       required:
-        - id
         - type
+    OutputCriblHttp:
+      type: object
       properties:
         id:
           type: string
@@ -31851,9 +31966,12 @@ components:
             - always
         pqControls:
           type: object
-      type: object
-    OutputHumioHec:
       required:
+        - type
+    OutputHumioHec:
+      type: object
+      required:
+        - type
         - format
         - url
       properties:
@@ -32127,9 +32245,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputCrowdstrikeNextGenSiem:
+      type: object
       required:
+        - type
         - format
         - url
       properties:
@@ -32403,9 +32522,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputDlS3:
+      type: object
       required:
+        - type
         - bucket
         - stagePath
       properties:
@@ -32518,7 +32638,7 @@ components:
         destPath:
           type: string
           title: Key prefix
-          description: "Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
+          description: "Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
           default: ""
         objectACL:
           type: string
@@ -32784,9 +32904,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputSecurityLake:
+      type: object
       required:
+        - type
         - bucket
         - stagePath
         - region
@@ -32810,8 +32931,7 @@ components:
           type: array
           title: System fields
           description: Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
-          default:
-            - cribl_pipe
+          default: []
           items:
             type: string
         environment:
@@ -33138,11 +33258,8 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
     OutputCriblLake:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -33410,11 +33527,10 @@ components:
           description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
           default: 20
           minimum: 1
-      type: object
-    OutputDiskSpool:
       required:
-        - id
         - type
+    OutputDiskSpool:
+      type: object
       properties:
         id:
           type: string
@@ -33479,9 +33595,12 @@ components:
         description:
           type: string
           title: Description
-      type: object
-    OutputClickHouse:
       required:
+        - type
+    OutputClickHouse:
+      type: object
+      required:
+        - type
         - database
         - tableName
         - url
@@ -33948,11 +34067,8 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputXsiam:
-      required:
-        - id
-        - type
+      type: object
       properties:
         id:
           type: string
@@ -34261,11 +34377,13 @@ components:
             - always
         pqControls:
           type: object
-      type: object
-    OutputNetflow:
       required:
-        - hosts
         - type
+    OutputNetflow:
+      type: object
+      required:
+        - type
+        - hosts
       properties:
         id:
           type: string
@@ -34329,9 +34447,10 @@ components:
         description:
           type: string
           title: Description
-      type: object
     OutputDynatraceHttp:
+      type: object
       required:
+        - type
         - format
         - endpoint
         - telemetryType
@@ -34647,9 +34766,10 @@ components:
           type: string
           description: URL to send events to. Can be overwritten by an event's __url field.
           pattern: ^https?://.*
-      type: object
     OutputDynatraceOtlp:
+      type: object
       required:
+        - type
         - endpoint
         - endpointType
         - protocol
@@ -34982,9 +35102,10 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     OutputSentinelOneAiSiem:
+      type: object
       required:
+        - type
         - region
         - endpoint
       properties:
@@ -35336,7 +35457,6 @@ components:
             - always
         pqControls:
           type: object
-      type: object
     Output:
       oneOf:
         - $ref: "#/components/schemas/OutputDefault"
@@ -35686,403 +35806,6 @@ components:
       properties:
         token:
           type: string
-    AppMode:
-      type: string
-      enum:
-        - single
-        - master
-        - worker
-        - edge
-        - managed-edge
-        - outpost
-    LookupVersions:
-      type: object
-    HBLeaderInfo:
-      type: object
-      properties:
-        host:
-          type: string
-        port:
-          type: number
-        servername:
-          type: string
-        tls:
-          type: boolean
-      required:
-        - host
-        - port
-    HBCriblInfo:
-      type: object
-      properties:
-        config:
-          type: object
-          properties:
-            featuresRev:
-              type: string
-            hbPeriodSeconds:
-              type: number
-            logStreamEnv:
-              type: string
-            policyRev:
-              type: string
-            version:
-              type: string
-        deploymentId:
-          type: string
-        distMode:
-          $ref: "#/components/schemas/AppMode"
-        edgeNodes:
-          type: number
-        group:
-          type: string
-        guid:
-          type: string
-        installType:
-          type: string
-        lookupVersions:
-          $ref: "#/components/schemas/LookupVersions"
-        master:
-          $ref: "#/components/schemas/HBLeaderInfo"
-        pid:
-          type: number
-        startTime:
-          type: number
-        tags:
-          type: array
-          items:
-            type: string
-        version:
-          type: string
-      required:
-        - config
-        - distMode
-        - group
-        - guid
-        - startTime
-        - tags
-    HeartbeatMetadata:
-      type: object
-      properties:
-        aws:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            region:
-              type: string
-            tags:
-              type: object
-            type:
-              type: string
-            zone:
-              type: string
-          required:
-            - enabled
-            - region
-            - type
-            - zone
-        hostOs:
-          type: object
-          properties:
-            addresses:
-              type: array
-              items:
-                type: string
-            enabled:
-              type: boolean
-            id:
-              type: string
-            version:
-              type: string
-          required:
-            - addresses
-            - enabled
-            - id
-            - version
-        kube:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            namespace:
-              type: string
-            node:
-              type: string
-            owner:
-              type: object
-              properties:
-                kind:
-                  type: string
-                name:
-                  type: string
-              required:
-                - kind
-                - name
-            pod:
-              type: string
-            source:
-              type: string
-          required:
-            - enabled
-            - namespace
-            - node
-            - pod
-            - source
-        os:
-          type: object
-          properties:
-            addresses:
-              type: array
-              items:
-                type: string
-            enabled:
-              type: boolean
-            id:
-              type: string
-            version:
-              type: string
-          required:
-            - addresses
-            - enabled
-            - id
-            - version
-    NodeProvidedInfo:
-      type: object
-      properties:
-        architecture:
-          type: string
-        aws:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            region:
-              type: string
-            tags:
-              type: object
-            type:
-              type: string
-            zone:
-              type: string
-          required:
-            - enabled
-            - region
-            - type
-            - zone
-        conn_ip:
-          type: string
-        cpus:
-          type: number
-        cribl:
-          $ref: "#/components/schemas/HBCriblInfo"
-        freeDiskSpace:
-          type: number
-        hostOs:
-          type: object
-          properties:
-            addresses:
-              type: array
-              items:
-                type: string
-            enabled:
-              type: boolean
-            id:
-              type: string
-            version:
-              type: string
-          required:
-            - addresses
-            - enabled
-            - id
-            - version
-        hostname:
-          type: string
-        isSaasWorker:
-          type: boolean
-        kube:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            namespace:
-              type: string
-            node:
-              type: string
-            owner:
-              type: object
-              properties:
-                kind:
-                  type: string
-                name:
-                  type: string
-              required:
-                - kind
-                - name
-            pod:
-              type: string
-            source:
-              type: string
-          required:
-            - enabled
-            - namespace
-            - node
-            - pod
-            - source
-        localTime:
-          type: number
-        metadata:
-          $ref: "#/components/schemas/HeartbeatMetadata"
-        node:
-          type: string
-        os:
-          oneOf:
-            - type: object
-              properties:
-                addresses:
-                  type: array
-                  items:
-                    type: string
-                enabled:
-                  type: boolean
-                id:
-                  type: string
-                version:
-                  type: string
-              required:
-                - addresses
-                - enabled
-                - id
-                - version
-            - type: object
-              properties:
-                addresses:
-                  type: array
-                  items:
-                    type: string
-              required:
-                - addresses
-        platform:
-          type: string
-        release:
-          type: string
-        totalDiskSpace:
-          type: number
-        totalmem:
-          type: number
-      required:
-        - architecture
-        - cpus
-        - cribl
-        - freeDiskSpace
-        - hostname
-        - node
-        - platform
-        - release
-        - totalDiskSpace
-        - totalmem
-    NodeActiveUpgradeStatus:
-      type: integer
-      enum:
-        - 0
-        - 1
-        - 2
-    NodeFailedUpgradeStatus:
-      type: integer
-      enum:
-        - 0
-        - 1
-    NodeSkippedUpgradeStatus:
-      type: integer
-      enum:
-        - 0
-        - 1
-        - 2
-        - 3
-    NodeUpgradeState:
-      type: integer
-      enum:
-        - 0
-        - 1
-        - 2
-        - 3
-    NodeUpgradeStatus:
-      type: object
-      properties:
-        active:
-          $ref: "#/components/schemas/NodeActiveUpgradeStatus"
-        failed:
-          $ref: "#/components/schemas/NodeFailedUpgradeStatus"
-        skipped:
-          $ref: "#/components/schemas/NodeSkippedUpgradeStatus"
-        state:
-          $ref: "#/components/schemas/NodeUpgradeState"
-        timestamp:
-          type: number
-      required:
-        - state
-        - timestamp
-    MasterWorkerEntry:
-      type: object
-      properties:
-        deployable:
-          type: boolean
-        disconnected:
-          type: boolean
-        firstMsgTime:
-          type: number
-        group:
-          type: string
-        id:
-          type: string
-        info:
-          $ref: "#/components/schemas/NodeProvidedInfo"
-        lastMetrics:
-          type: object
-        lastMsgTime:
-          type: number
-        metadata:
-          $ref: "#/components/schemas/HeartbeatMetadata"
-        nodeUpgradeStatus:
-          $ref: "#/components/schemas/NodeUpgradeStatus"
-        status:
-          type: string
-        type:
-          type: string
-          enum:
-            - info
-            - req
-            - resp
-        workerProcesses:
-          type: number
-        workers:
-          type: object
-          properties:
-            count:
-              type: number
-          required:
-            - count
-      required:
-        - firstMsgTime
-        - group
-        - id
-        - info
-        - lastMsgTime
-        - workerProcesses
-    RestartResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-        status:
-          type: string
-          enum:
-            - Error
-            - Restarting
-      required:
-        - id
-        - status
     DistributedSummary:
       type: object
       properties:
@@ -36845,6 +36568,8 @@ tags:
     description: Actions related to Notifications
   - name: onlyOnPrem
     description: Actions only available for onprem deployments and do not apply to Cribl.Cloud deployments
+  - name: outpost
+    description: Actions related to Outpost
   - name: packs
     description: Actions related to Packs
   - name: parquetschemas
@@ -38178,146 +37903,6 @@ paths:
           description: Access denied
         "429":
           description: Rate limit exceeded
-  /master/summary/workers:
-    get:
-      operationId: getSummaryWorkers
-      tags:
-        - workers
-      x-speakeasy-group: nodes
-      x-speakeasy-name-override: getCount
-      summary: Retrieve a count of Worker and Edge Nodes
-      description: get worker and edge nodes count
-      responses:
-        "200":
-          description: a list of number objects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: number of items present in the items array
-                  items:
-                    type: array
-                    items:
-                      type: number
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-      parameters:
-        - name: filterExp
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter expression evaluated against nodes
-  /master/workers:
-    get:
-      operationId: getWorkers
-      tags:
-        - workers
-      x-speakeasy-group: nodes
-      x-speakeasy-name-override: list
-      summary: Retrieve detailed metadata for Worker and Edge Nodes
-      description: get worker and edge nodes
-      responses:
-        "200":
-          description: a list of MasterWorkerEntry objects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: number of items present in the items array
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/MasterWorkerEntry"
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-      parameters:
-        - name: filterExp
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter expression evaluated against nodes
-        - name: sort
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Sorting object (JSON stringified) expression evaluated against nodes
-        - name: sortExp
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Sorting expression evaluated against nodes
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-          description: Maximum number of nodes to return
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-          description: Pagination offset
-        - name: filter
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Filter object (JSON stringified) to select nodes
-  /master/workers/restart:
-    patch:
-      operationId: updateWorkersRestart
-      tags:
-        - workers
-      x-speakeasy-group: nodes
-      x-speakeasy-name-override: restart
-      summary: Restart Worker and Edge Nodes
-      description: restarts worker nodes
-      responses:
-        "200":
-          description: a list of RestartResponse objects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: number of items present in the items array
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/RestartResponse"
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
   /master/summary:
     get:
       operationId: getSummary

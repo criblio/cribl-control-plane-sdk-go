@@ -651,7 +651,7 @@ func (o *InputSystemStatePersistence) GetDestPath() *string {
 
 type InputSystemState struct {
 	// Unique ID for this input
-	ID       string               `json:"id"`
+	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
 	Disabled *bool                `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -689,9 +689,9 @@ func (i *InputSystemState) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputSystemState) GetID() string {
+func (o *InputSystemState) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }
