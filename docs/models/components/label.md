@@ -1,4 +1,4 @@
-# OutputGrafanaCloudExtraHTTPHeader2
+# Label
 
 
 ## Fields

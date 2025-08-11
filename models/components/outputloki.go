@@ -58,30 +58,30 @@ func (e *OutputLokiMessageFormat) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputLokiLabel struct {
+type Label struct {
 	Name  *string `default:"" json:"name"`
 	Value string  `json:"value"`
 }
 
-func (o OutputLokiLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (l Label) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
 }
 
-func (o *OutputLokiLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+func (l *Label) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, false); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputLokiLabel) GetName() *string {
+func (o *Label) GetName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Name
 }
 
-func (o *OutputLokiLabel) GetValue() string {
+func (o *Label) GetValue() string {
 	if o == nil {
 		return ""
 	}
@@ -407,7 +407,7 @@ type OutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *OutputLokiMessageFormat `default:"protobuf" json:"messageFormat"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []OutputLokiLabel             `json:"labels,omitempty"`
+	Labels   []Label                       `json:"labels,omitempty"`
 	AuthType *OutputLokiAuthenticationType `default:"none" json:"authType"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `default:"1" json:"concurrency"`
@@ -546,7 +546,7 @@ func (o *OutputLoki) GetMessageFormat() *OutputLokiMessageFormat {
 	return o.MessageFormat
 }
 
-func (o *OutputLoki) GetLabels() []OutputLokiLabel {
+func (o *OutputLoki) GetLabels() []Label {
 	if o == nil {
 		return nil
 	}

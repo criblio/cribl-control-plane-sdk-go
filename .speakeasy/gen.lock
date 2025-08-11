@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 74af7ce504c4fea1fcc9739e90176dca
-  docVersion: 4.14.0-alpha.1754909045640-3ff7d0f1
+  docChecksum: 505ef8a2b9033f92ab99e0d7783b4752
+  docVersion: 4.14.0-alpha.1754912543436-3ff7d0f1
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.27
-  configChecksum: b775d66c45614b092c49b31d7af97f9c
+  releaseVersion: 0.0.28
+  configChecksum: 13dc482e5bebf2f747de78936460ce30
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -84,7 +84,6 @@ generatedFiles:
   - /models/components/inputfile.go
   - /models/components/inputfirehose.go
   - /models/components/inputgooglepubsub.go
-  - /models/components/inputgrafana.go
   - /models/components/inputhttp.go
   - /models/components/inputhttpraw.go
   - /models/components/inputjournalfiles.go
@@ -113,7 +112,6 @@ generatedFiles:
   - /models/components/inputsplunkhec.go
   - /models/components/inputsplunksearch.go
   - /models/components/inputsqs.go
-  - /models/components/inputsyslog.go
   - /models/components/inputsystemmetrics.go
   - /models/components/inputsystemstate.go
   - /models/components/inputtcp.go
@@ -154,7 +152,6 @@ generatedFiles:
   - /models/components/outputgooglecloudlogging.go
   - /models/components/outputgooglecloudstorage.go
   - /models/components/outputgooglepubsub.go
-  - /models/components/outputgrafanacloud.go
   - /models/components/outputgraphite.go
   - /models/components/outputhoneycomb.go
   - /models/components/outputhumiohec.go
@@ -552,35 +549,6 @@ generatedFiles:
   - docs/models/components/inputgooglepubsubmode.md
   - docs/models/components/inputgooglepubsubpq.md
   - docs/models/components/inputgooglepubsubtype.md
-  - docs/models/components/inputgrafana.md
-  - docs/models/components/inputgrafanacompression1.md
-  - docs/models/components/inputgrafanacompression2.md
-  - docs/models/components/inputgrafanaconnection1.md
-  - docs/models/components/inputgrafanaconnection2.md
-  - docs/models/components/inputgrafanagrafana1.md
-  - docs/models/components/inputgrafanagrafana2.md
-  - docs/models/components/inputgrafanalokiauth1.md
-  - docs/models/components/inputgrafanalokiauth2.md
-  - docs/models/components/inputgrafanalokiauthauthenticationtype1.md
-  - docs/models/components/inputgrafanalokiauthauthenticationtype2.md
-  - docs/models/components/inputgrafanamaximumtlsversion1.md
-  - docs/models/components/inputgrafanamaximumtlsversion2.md
-  - docs/models/components/inputgrafanametadatum1.md
-  - docs/models/components/inputgrafanametadatum2.md
-  - docs/models/components/inputgrafanaminimumtlsversion1.md
-  - docs/models/components/inputgrafanaminimumtlsversion2.md
-  - docs/models/components/inputgrafanamode1.md
-  - docs/models/components/inputgrafanamode2.md
-  - docs/models/components/inputgrafanapq1.md
-  - docs/models/components/inputgrafanapq2.md
-  - docs/models/components/inputgrafanaprometheusauth1.md
-  - docs/models/components/inputgrafanaprometheusauth2.md
-  - docs/models/components/inputgrafanaprometheusauthauthenticationtype1.md
-  - docs/models/components/inputgrafanaprometheusauthauthenticationtype2.md
-  - docs/models/components/inputgrafanatlssettingsserverside1.md
-  - docs/models/components/inputgrafanatlssettingsserverside2.md
-  - docs/models/components/inputgrafanatype1.md
-  - docs/models/components/inputgrafanatype2.md
   - docs/models/components/inputhttp.md
   - docs/models/components/inputhttpauthtokensext.md
   - docs/models/components/inputhttpauthtokensextmetadatum.md
@@ -905,27 +873,6 @@ generatedFiles:
   - docs/models/components/inputsqsqueuetype.md
   - docs/models/components/inputsqssignatureversion.md
   - docs/models/components/inputsqstype.md
-  - docs/models/components/inputsyslog.md
-  - docs/models/components/inputsyslogcompression1.md
-  - docs/models/components/inputsyslogcompression2.md
-  - docs/models/components/inputsyslogconnection1.md
-  - docs/models/components/inputsyslogconnection2.md
-  - docs/models/components/inputsyslogmaximumtlsversion1.md
-  - docs/models/components/inputsyslogmaximumtlsversion2.md
-  - docs/models/components/inputsyslogmetadatum1.md
-  - docs/models/components/inputsyslogmetadatum2.md
-  - docs/models/components/inputsyslogminimumtlsversion1.md
-  - docs/models/components/inputsyslogminimumtlsversion2.md
-  - docs/models/components/inputsyslogmode1.md
-  - docs/models/components/inputsyslogmode2.md
-  - docs/models/components/inputsyslogpq1.md
-  - docs/models/components/inputsyslogpq2.md
-  - docs/models/components/inputsyslogsyslog1.md
-  - docs/models/components/inputsyslogsyslog2.md
-  - docs/models/components/inputsyslogtlssettingsserverside1.md
-  - docs/models/components/inputsyslogtlssettingsserverside2.md
-  - docs/models/components/inputsyslogtype1.md
-  - docs/models/components/inputsyslogtype2.md
   - docs/models/components/inputsystemmetrics.md
   - docs/models/components/inputsystemmetricscompression.md
   - docs/models/components/inputsystemmetricsconnection.md
@@ -1051,6 +998,7 @@ generatedFiles:
   - docs/models/components/inputzscalerhectlssettingsserverside.md
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
+  - docs/models/components/label.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
   - docs/models/components/listeningports.md
@@ -1058,10 +1006,6 @@ generatedFiles:
   - docs/models/components/logininfo.md
   - docs/models/components/loglabel.md
   - docs/models/components/loglocationtype.md
-  - docs/models/components/lokiauthoauthheader1.md
-  - docs/models/components/lokiauthoauthheader2.md
-  - docs/models/components/lokiauthoauthparam1.md
-  - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/mappingtype.md
   - docs/models/components/metricsprotocol.md
   - docs/models/components/microsoftentraidauthenticationendpoint.md
@@ -1382,41 +1326,6 @@ generatedFiles:
   - docs/models/components/outputgooglepubsubpqcontrols.md
   - docs/models/components/outputgooglepubsubqueuefullbehavior.md
   - docs/models/components/outputgooglepubsubtypegooglepubsub.md
-  - docs/models/components/outputgrafanacloud.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
-  - docs/models/components/outputgrafanacloudcompression1.md
-  - docs/models/components/outputgrafanacloudcompression2.md
-  - docs/models/components/outputgrafanacloudextrahttpheader1.md
-  - docs/models/components/outputgrafanacloudextrahttpheader2.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode1.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode2.md
-  - docs/models/components/outputgrafanacloudgrafanacloud1.md
-  - docs/models/components/outputgrafanacloudgrafanacloud2.md
-  - docs/models/components/outputgrafanacloudlabel1.md
-  - docs/models/components/outputgrafanacloudlabel2.md
-  - docs/models/components/outputgrafanacloudlokiauth1.md
-  - docs/models/components/outputgrafanacloudlokiauth2.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudmessageformat1.md
-  - docs/models/components/outputgrafanacloudmessageformat2.md
-  - docs/models/components/outputgrafanacloudmode1.md
-  - docs/models/components/outputgrafanacloudmode2.md
-  - docs/models/components/outputgrafanacloudpqcontrols1.md
-  - docs/models/components/outputgrafanacloudpqcontrols2.md
-  - docs/models/components/outputgrafanacloudprometheusauth1.md
-  - docs/models/components/outputgrafanacloudprometheusauth2.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior1.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior2.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting1.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting2.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings1.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings2.md
-  - docs/models/components/outputgrafanacloudtype1.md
-  - docs/models/components/outputgrafanacloudtype2.md
   - docs/models/components/outputgraphite.md
   - docs/models/components/outputgraphitebackpressurebehavior.md
   - docs/models/components/outputgraphitecompression.md
@@ -1501,7 +1410,6 @@ generatedFiles:
   - docs/models/components/outputlokicompression.md
   - docs/models/components/outputlokiextrahttpheader.md
   - docs/models/components/outputlokifailedrequestloggingmode.md
-  - docs/models/components/outputlokilabel.md
   - docs/models/components/outputlokimessageformat.md
   - docs/models/components/outputlokimode.md
   - docs/models/components/outputlokipqcontrols.md
@@ -1883,10 +1791,6 @@ generatedFiles:
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
-  - docs/models/components/prometheusauthoauthheader1.md
-  - docs/models/components/prometheusauthoauthheader2.md
-  - docs/models/components/prometheusauthoauthparam1.md
-  - docs/models/components/prometheusauthoauthparam2.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
@@ -2193,7 +2097,7 @@ examples:
         application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "rules": [{"filter": "<value>", "description": "invite meh corny incidentally down"}], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "gown deployment portray gah mindless carp stabilise"}
       responses:
         "200":
-          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "host": "0.0.0.0", "udpPort": 4567.57, "tcpPort": 671.14, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 5485.92, "enableLoadBalancing": false, "description": "once curly finally mentor stormy usually understated", "enableEnhancedProxyHeaderParsing": false}]}
+          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "kube_logs", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "interval": 15, "rules": [{"filter": "<value>", "description": "yahoo debit couch packaging provided gown"}], "timestamps": false, "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip"}, "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "enableLoadBalancing": false, "description": "via swill tenant aha carp"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteInputById:
@@ -2266,7 +2170,7 @@ examples:
         application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "sendStructuredMetadata": false, "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:
