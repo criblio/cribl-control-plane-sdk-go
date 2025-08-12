@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 003ffb570b46c120ea1b3dfb734f1a3b
-  docVersion: 4.14.0-alpha.1754581489015-f79f2920
+  docChecksum: 4a717d8691b3667b3a195dc9ca370eff
+  docVersion: 4.14.0-alpha.1754945439857-0a86c294
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.26
-  configChecksum: c2b2a19295dfd57ed1b993b9a8c9adae
+  releaseVersion: 0.0.27
+  configChecksum: b775d66c45614b092c49b31d7af97f9c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -431,6 +431,7 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudmode.md
   - docs/models/components/inputconfluentcloudpq.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
+  - docs/models/components/inputconfluentcloudschematype.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
   - docs/models/components/inputconfluentcloudtype.md
   - docs/models/components/inputcribl.md
@@ -656,6 +657,7 @@ generatedFiles:
   - docs/models/components/inputkafkamode.md
   - docs/models/components/inputkafkapq.md
   - docs/models/components/inputkafkasaslmechanism.md
+  - docs/models/components/inputkafkaschematype.md
   - docs/models/components/inputkafkatlssettingsclientside.md
   - docs/models/components/inputkafkatype.md
   - docs/models/components/inputkinesis.md
@@ -743,6 +745,7 @@ generatedFiles:
   - docs/models/components/inputmskminimumtlsversion.md
   - docs/models/components/inputmskmode.md
   - docs/models/components/inputmskpq.md
+  - docs/models/components/inputmskschematype.md
   - docs/models/components/inputmsksignatureversion.md
   - docs/models/components/inputmsktlssettingsclientside.md
   - docs/models/components/inputmsktype.md
@@ -1206,6 +1209,7 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudqueuefullbehavior.md
   - docs/models/components/outputconfluentcloudrecorddataformat.md
   - docs/models/components/outputconfluentcloudsaslmechanism.md
+  - docs/models/components/outputconfluentcloudschematype.md
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
@@ -1526,6 +1530,7 @@ generatedFiles:
   - docs/models/components/outputkafkaqueuefullbehavior.md
   - docs/models/components/outputkafkarecorddataformat.md
   - docs/models/components/outputkafkasaslmechanism.md
+  - docs/models/components/outputkafkaschematype.md
   - docs/models/components/outputkafkatlssettingsclientside.md
   - docs/models/components/outputkafkatype.md
   - docs/models/components/outputkinesis.md
@@ -1584,6 +1589,7 @@ generatedFiles:
   - docs/models/components/outputmskpqcontrols.md
   - docs/models/components/outputmskqueuefullbehavior.md
   - docs/models/components/outputmskrecorddataformat.md
+  - docs/models/components/outputmskschematype.md
   - docs/models/components/outputmsksignatureversion.md
   - docs/models/components/outputmsktlssettingsclientside.md
   - docs/models/components/outputmsktype.md
@@ -2161,6 +2167,7 @@ generatedFiles:
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/versioning/README.md
+  - docs/sdks/workers/README.md
   - go.mod
   - groups.go
   - healthinfo.go
@@ -2195,6 +2202,7 @@ generatedFiles:
   - types/decimal.go
   - types/pointers.go
   - versioning.go
+  - workers.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:
@@ -2318,7 +2326,7 @@ examples:
         application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "sendStructuredMetadata": false, "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:

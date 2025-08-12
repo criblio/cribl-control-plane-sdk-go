@@ -19,7 +19,7 @@ Actions related to Versioning
 * [ShowCommit](#showcommit) - Retrieve the diff and log message for a commit
 * [GetCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
 * [SyncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
-* [CleanWorkingDir](#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
+* [CleanWorkingDir](#cleanworkingdir) - Discard uncommitted (staged) changes
 
 ## GetBranch
 
@@ -722,7 +722,7 @@ func main() {
 
 ## CleanWorkingDir
 
-undo the last commit
+Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
 
 ### Example Usage
 

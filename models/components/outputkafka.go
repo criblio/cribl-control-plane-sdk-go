@@ -124,6 +124,33 @@ func (e *OutputKafkaCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputKafkaSchemaType - The schema format used to encode and decode event data
+type OutputKafkaSchemaType string
+
+const (
+	OutputKafkaSchemaTypeAvro OutputKafkaSchemaType = "avro"
+	OutputKafkaSchemaTypeJSON OutputKafkaSchemaType = "json"
+)
+
+func (e OutputKafkaSchemaType) ToPointer() *OutputKafkaSchemaType {
+	return &e
+}
+func (e *OutputKafkaSchemaType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "avro":
+		fallthrough
+	case "json":
+		*e = OutputKafkaSchemaType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputKafkaSchemaType: %v", v)
+	}
+}
+
 // OutputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type OutputKafkaAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -326,6 +353,8 @@ type OutputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
+	// The schema format used to encode and decode event data
+	SchemaType *OutputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -364,6 +393,13 @@ func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *s
 		return nil
 	}
 	return o.SchemaRegistryURL
+}
+
+func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputKafkaSchemaType {
+	if o == nil {
+		return nil
+	}
+	return o.SchemaType
 }
 
 func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
