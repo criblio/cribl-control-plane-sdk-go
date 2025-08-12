@@ -791,17 +791,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputGooglePubsub InputGooglePubsub = InputGooglePubsub{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, false); err == nil {
-		u.InputGooglePubsub = &inputGooglePubsub
-		u.Type = InputTypeInputGooglePubsub
-		return nil
-	}
-
 	var inputTcpjson InputTcpjson = InputTcpjson{}
 	if err := utils.UnmarshalJSON(data, &inputTcpjson, "", true, false); err == nil {
 		u.InputTcpjson = &inputTcpjson
 		u.Type = InputTypeInputTcpjson
+		return nil
+	}
+
+	var inputGooglePubsub InputGooglePubsub = InputGooglePubsub{}
+	if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, false); err == nil {
+		u.InputGooglePubsub = &inputGooglePubsub
+		u.Type = InputTypeInputGooglePubsub
 		return nil
 	}
 
@@ -973,17 +973,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputLoki InputLoki = InputLoki{}
-	if err := utils.UnmarshalJSON(data, &inputLoki, "", true, false); err == nil {
-		u.InputLoki = &inputLoki
-		u.Type = InputTypeInputLoki
-		return nil
-	}
-
 	var inputPrometheusRw InputPrometheusRw = InputPrometheusRw{}
 	if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, false); err == nil {
 		u.InputPrometheusRw = &inputPrometheusRw
 		u.Type = InputTypeInputPrometheusRw
+		return nil
+	}
+
+	var inputLoki InputLoki = InputLoki{}
+	if err := utils.UnmarshalJSON(data, &inputLoki, "", true, false); err == nil {
+		u.InputLoki = &inputLoki
+		u.Type = InputTypeInputLoki
 		return nil
 	}
 

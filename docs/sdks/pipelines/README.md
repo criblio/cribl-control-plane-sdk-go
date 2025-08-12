@@ -7,15 +7,15 @@ Actions related to Pipelines
 
 ### Available Operations
 
-* [ListPipeline](#listpipeline) - Get a list of Pipeline objects
+* [List](#list) - List all Pipelines
 * [Create](#create) - Create a Pipeline
-* [GetPipelineByID](#getpipelinebyid) - Get Pipeline by ID
-* [UpdatePipelineByID](#updatepipelinebyid) - Update a Pipeline
-* [DeletePipelineByID](#deletepipelinebyid) - Delete Pipeline
+* [Get](#get) - Retrieve a Pipeline
+* [Update](#update) - Update a Pipeline
+* [Delete](#delete) - Delete a Pipeline
 
-## ListPipeline
+## List
 
-Get a list of Pipeline objects
+List all Pipelines
 
 ### Example Usage
 
@@ -41,7 +41,7 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.ListPipeline(ctx)
+    res, err := s.Pipelines.List(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -152,9 +152,9 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetPipelineByID
+## Get
 
-Get Pipeline by ID
+Retrieve a Pipeline
 
 ### Example Usage
 
@@ -180,7 +180,7 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.GetPipelineByID(ctx, "<id>")
+    res, err := s.Pipelines.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -209,7 +209,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## UpdatePipelineByID
+## Update
 
 Update a Pipeline
 
@@ -237,7 +237,7 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.UpdatePipelineByID(ctx, "<id>", components.Pipeline{
+    res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
         ID: "<id>",
         Conf: components.Conf{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(430119),
@@ -293,9 +293,9 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeletePipelineByID
+## Delete
 
-Delete Pipeline
+Delete a Pipeline
 
 ### Example Usage
 
@@ -321,7 +321,7 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.DeletePipelineByID(ctx, "<id>")
+    res, err := s.Pipelines.Delete(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
