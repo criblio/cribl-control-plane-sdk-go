@@ -501,6 +501,8 @@ type InputLoki struct {
 	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
 	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
+	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+	ExtractStructuredMetadata *bool `default:"false" json:"extractStructuredMetadata"`
 	// Loki logs authentication type
 	AuthType *InputLokiAuthenticationType `default:"none" json:"authType"`
 	// Fields to add to events from this input
@@ -716,6 +718,13 @@ func (o *InputLoki) GetLokiAPI() *string {
 		return nil
 	}
 	return o.LokiAPI
+}
+
+func (o *InputLoki) GetExtractStructuredMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExtractStructuredMetadata
 }
 
 func (o *InputLoki) GetAuthType() *InputLokiAuthenticationType {

@@ -860,9 +860,11 @@ type InputGrafanaGrafana2 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        *string                      `default:"/loki/api/v1/push" json:"lokiAPI"`
-	PrometheusAuth *InputGrafanaPrometheusAuth2 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *InputGrafanaLokiAuth2       `json:"lokiAuth,omitempty"`
+	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
+	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+	ExtractStructuredMetadata *bool                        `default:"false" json:"extractStructuredMetadata"`
+	PrometheusAuth            *InputGrafanaPrometheusAuth2 `json:"prometheusAuth,omitempty"`
+	LokiAuth                  *InputGrafanaLokiAuth2       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []InputGrafanaMetadatum2 `json:"metadata,omitempty"`
 	Description *string                  `json:"description,omitempty"`
@@ -1059,6 +1061,13 @@ func (o *InputGrafanaGrafana2) GetLokiAPI() *string {
 		return nil
 	}
 	return o.LokiAPI
+}
+
+func (o *InputGrafanaGrafana2) GetExtractStructuredMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExtractStructuredMetadata
 }
 
 func (o *InputGrafanaGrafana2) GetPrometheusAuth() *InputGrafanaPrometheusAuth2 {
@@ -1940,9 +1949,11 @@ type InputGrafanaGrafana1 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI        *string                      `default:"/loki/api/v1/push" json:"lokiAPI"`
-	PrometheusAuth *InputGrafanaPrometheusAuth1 `json:"prometheusAuth,omitempty"`
-	LokiAuth       *InputGrafanaLokiAuth1       `json:"lokiAuth,omitempty"`
+	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
+	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+	ExtractStructuredMetadata *bool                        `default:"false" json:"extractStructuredMetadata"`
+	PrometheusAuth            *InputGrafanaPrometheusAuth1 `json:"prometheusAuth,omitempty"`
+	LokiAuth                  *InputGrafanaLokiAuth1       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []InputGrafanaMetadatum1 `json:"metadata,omitempty"`
 	Description *string                  `json:"description,omitempty"`
@@ -2139,6 +2150,13 @@ func (o *InputGrafanaGrafana1) GetLokiAPI() *string {
 		return nil
 	}
 	return o.LokiAPI
+}
+
+func (o *InputGrafanaGrafana1) GetExtractStructuredMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExtractStructuredMetadata
 }
 
 func (o *InputGrafanaGrafana1) GetPrometheusAuth() *InputGrafanaPrometheusAuth1 {

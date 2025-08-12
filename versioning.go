@@ -2899,8 +2899,8 @@ func (s *Versioning) SyncLocalRemote(ctx context.Context, opts ...operations.Opt
 
 }
 
-// CleanWorkingDir - Undo the most recent commit and restore the local repository to the previous commit
-// undo the last commit
+// CleanWorkingDir - Discard uncommitted (staged) changes
+// Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
 func (s *Versioning) CleanWorkingDir(ctx context.Context, group *string, opts ...operations.Option) (*operations.CreateVersionUndoResponse, error) {
 	request := operations.CreateVersionUndoRequest{
 		Group: group,

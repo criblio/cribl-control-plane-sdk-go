@@ -32,9 +32,9 @@ func newPipelines(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// ListPipeline - Get a list of Pipeline objects
-// Get a list of Pipeline objects
-func (s *Pipelines) ListPipeline(ctx context.Context, opts ...operations.Option) (*operations.ListPipelineResponse, error) {
+// List all Pipelines
+// List all Pipelines
+func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*operations.ListPipelineResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -505,9 +505,9 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 
 }
 
-// GetPipelineByID - Get Pipeline by ID
-// Get Pipeline by ID
-func (s *Pipelines) GetPipelineByID(ctx context.Context, id string, opts ...operations.Option) (*operations.GetPipelineByIDResponse, error) {
+// Get - Retrieve a Pipeline
+// Retrieve a Pipeline
+func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetPipelineByIDResponse, error) {
 	request := operations.GetPipelineByIDRequest{
 		ID: id,
 	}
@@ -742,9 +742,9 @@ func (s *Pipelines) GetPipelineByID(ctx context.Context, id string, opts ...oper
 
 }
 
-// UpdatePipelineByID - Update a Pipeline
 // Update a Pipeline
-func (s *Pipelines) UpdatePipelineByID(ctx context.Context, id string, pipeline components.Pipeline, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
+// Update a Pipeline
+func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.Pipeline, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
 	request := operations.UpdatePipelineByIDRequest{
 		ID:       id,
 		Pipeline: pipeline,
@@ -987,9 +987,9 @@ func (s *Pipelines) UpdatePipelineByID(ctx context.Context, id string, pipeline 
 
 }
 
-// DeletePipelineByID - Delete Pipeline
-// Delete Pipeline
-func (s *Pipelines) DeletePipelineByID(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePipelineByIDResponse, error) {
+// Delete a Pipeline
+// Delete a Pipeline
+func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePipelineByIDResponse, error) {
 	request := operations.DeletePipelineByIDRequest{
 		ID: id,
 	}

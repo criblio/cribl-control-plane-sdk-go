@@ -410,7 +410,7 @@ type OutputGoogleCloudStorage struct {
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `default:"manual" json:"awsAuthenticationMethod"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
-	// Prefix to append to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
 	DestPath *string `default:"" json:"destPath"`
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`

@@ -249,10 +249,12 @@ type InputGooglePubsub struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []InputGooglePubsubConnection `json:"connections,omitempty"`
 	Pq          *InputGooglePubsubPq          `json:"pq,omitempty"`
-	// ID of the topic to receive events from
-	TopicName string `json:"topicName"`
-	// ID of the subscription to use when receiving events
+	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+	TopicName *string `default:"cribl" json:"topicName"`
+	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
+	// Use when the subscription is not created by this Source and topic is not known
+	MonitorSubscription *bool `default:"false" json:"monitorSubscription"`
 	// Create topic if it does not exist
 	CreateTopic *bool `default:"false" json:"createTopic"`
 	// Create subscription if it does not exist
@@ -359,9 +361,9 @@ func (o *InputGooglePubsub) GetPq() *InputGooglePubsubPq {
 	return o.Pq
 }
 
-func (o *InputGooglePubsub) GetTopicName() string {
+func (o *InputGooglePubsub) GetTopicName() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.TopicName
 }
@@ -371,6 +373,13 @@ func (o *InputGooglePubsub) GetSubscriptionName() string {
 		return ""
 	}
 	return o.SubscriptionName
+}
+
+func (o *InputGooglePubsub) GetMonitorSubscription() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.MonitorSubscription
 }
 
 func (o *InputGooglePubsub) GetCreateTopic() *bool {

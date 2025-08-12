@@ -257,7 +257,6 @@ func main() {
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [GetCount](docs/sdks/nodes/README.md#getcount) - Retrieve a count of Worker and Edge Nodes
 * [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
 * [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
 
@@ -270,11 +269,11 @@ func main() {
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
-* [ListPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+* [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
-* [GetPipelineByID](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
-* [UpdatePipelineByID](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update a Pipeline
-* [DeletePipelineByID](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+* [Get](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+* [Update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
+* [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
@@ -307,7 +306,11 @@ func main() {
 * [ShowCommit](docs/sdks/versioning/README.md#showcommit) - Retrieve the diff and log message for a commit
 * [GetCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
 * [SyncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-* [CleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
+* [CleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Discard uncommitted (staged) changes
+
+### [Workers](docs/sdks/workers/README.md)
+
+* [GetSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - Retrieve a count of Worker and Edge Nodes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
