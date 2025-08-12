@@ -606,6 +606,8 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	FailedRequestLoggingMode *OutputGrafanaCloudFailedRequestLoggingMode2 `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
+	SendStructuredMetadata *bool `default:"false" json:"sendStructuredMetadata"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting2 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings2  `json:"timeoutRetrySettings,omitempty"`
@@ -808,6 +810,13 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetSafeHeaders() []string {
 		return nil
 	}
 	return o.SafeHeaders
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetSendStructuredMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendStructuredMetadata
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud2) GetResponseRetrySettings() []OutputGrafanaCloudResponseRetrySetting2 {
@@ -1498,6 +1507,8 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	FailedRequestLoggingMode *OutputGrafanaCloudFailedRequestLoggingMode1 `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
+	SendStructuredMetadata *bool `default:"false" json:"sendStructuredMetadata"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting1 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings1  `json:"timeoutRetrySettings,omitempty"`
@@ -1700,6 +1711,13 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetSafeHeaders() []string {
 		return nil
 	}
 	return o.SafeHeaders
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetSendStructuredMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendStructuredMetadata
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud1) GetResponseRetrySettings() []OutputGrafanaCloudResponseRetrySetting1 {
