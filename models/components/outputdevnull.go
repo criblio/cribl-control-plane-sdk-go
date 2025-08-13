@@ -32,7 +32,7 @@ func (e *OutputDevnullType) UnmarshalJSON(data []byte) error {
 
 type OutputDevnull struct {
 	// Unique ID for this output
-	ID   string            `json:"id"`
+	ID   *string           `json:"id,omitempty"`
 	Type OutputDevnullType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -44,9 +44,9 @@ type OutputDevnull struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 }
 
-func (o *OutputDevnull) GetID() string {
+func (o *OutputDevnull) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

@@ -442,9 +442,9 @@ func (e *InputTCPAuthenticationMethod) UnmarshalJSON(data []byte) error {
 
 type InputTCP struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitempty"`
-	Type     *InputTCPType `json:"type,omitempty"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	ID       *string      `json:"id,omitempty"`
+	Type     InputTCPType `json:"type"`
+	Disabled *bool        `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -507,9 +507,9 @@ func (o *InputTCP) GetID() *string {
 	return o.ID
 }
 
-func (o *InputTCP) GetType() *InputTCPType {
+func (o *InputTCP) GetType() InputTCPType {
 	if o == nil {
-		return nil
+		return InputTCPType("")
 	}
 	return o.Type
 }

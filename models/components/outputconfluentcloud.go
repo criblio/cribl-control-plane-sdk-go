@@ -799,8 +799,8 @@ type OutputConfluentCloudPqControls struct {
 
 type OutputConfluentCloud struct {
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitempty"`
-	Type *OutputConfluentCloudType `json:"type,omitempty"`
+	ID   *string                  `json:"id,omitempty"`
+	Type OutputConfluentCloudType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -883,9 +883,9 @@ func (o *OutputConfluentCloud) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputConfluentCloud) GetType() *OutputConfluentCloudType {
+func (o *OutputConfluentCloud) GetType() OutputConfluentCloudType {
 	if o == nil {
-		return nil
+		return OutputConfluentCloudType("")
 	}
 	return o.Type
 }

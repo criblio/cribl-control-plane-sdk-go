@@ -593,8 +593,8 @@ type OutputServiceNowPqControls struct {
 
 type OutputServiceNow struct {
 	// Unique ID for this output
-	ID   *string               `json:"id,omitempty"`
-	Type *OutputServiceNowType `json:"type,omitempty"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputServiceNowType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -692,9 +692,9 @@ func (o *OutputServiceNow) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputServiceNow) GetType() *OutputServiceNowType {
+func (o *OutputServiceNow) GetType() OutputServiceNowType {
 	if o == nil {
-		return nil
+		return OutputServiceNowType("")
 	}
 	return o.Type
 }

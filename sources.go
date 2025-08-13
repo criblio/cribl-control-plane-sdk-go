@@ -17,6 +17,7 @@ import (
 	"net/url"
 )
 
+// Sources - Actions related to Sources
 type Sources struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration

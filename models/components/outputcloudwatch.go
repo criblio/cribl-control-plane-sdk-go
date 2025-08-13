@@ -180,8 +180,8 @@ type OutputCloudwatchPqControls struct {
 
 type OutputCloudwatch struct {
 	// Unique ID for this output
-	ID   *string               `json:"id,omitempty"`
-	Type *OutputCloudwatchType `json:"type,omitempty"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCloudwatchType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -258,9 +258,9 @@ func (o *OutputCloudwatch) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputCloudwatch) GetType() *OutputCloudwatchType {
+func (o *OutputCloudwatch) GetType() OutputCloudwatchType {
 	if o == nil {
-		return nil
+		return OutputCloudwatchType("")
 	}
 	return o.Type
 }

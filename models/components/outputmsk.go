@@ -793,8 +793,8 @@ type OutputMskPqControls struct {
 
 type OutputMsk struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitempty"`
-	Type *OutputMskType `json:"type,omitempty"`
+	ID   *string       `json:"id,omitempty"`
+	Type OutputMskType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -899,9 +899,9 @@ func (o *OutputMsk) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputMsk) GetType() *OutputMskType {
+func (o *OutputMsk) GetType() OutputMskType {
 	if o == nil {
-		return nil
+		return OutputMskType("")
 	}
 	return o.Type
 }

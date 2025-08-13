@@ -411,8 +411,8 @@ func (o *OutputMinioKeyValueMetadatum) GetValue() string {
 
 type OutputMinio struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitempty"`
-	Type *OutputMinioType `json:"type,omitempty"`
+	ID   *string         `json:"id,omitempty"`
+	Type OutputMinioType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -536,9 +536,9 @@ func (o *OutputMinio) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputMinio) GetType() *OutputMinioType {
+func (o *OutputMinio) GetType() OutputMinioType {
 	if o == nil {
-		return nil
+		return OutputMinioType("")
 	}
 	return o.Type
 }

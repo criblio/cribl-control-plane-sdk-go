@@ -230,7 +230,7 @@ func (o *InputFileMetadatum) GetValue() string {
 
 type InputFile struct {
 	// Unique ID for this input
-	ID       string        `json:"id"`
+	ID       *string       `json:"id,omitempty"`
 	Type     InputFileType `json:"type"`
 	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -293,9 +293,9 @@ func (i *InputFile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputFile) GetID() string {
+func (o *InputFile) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

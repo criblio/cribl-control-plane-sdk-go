@@ -352,8 +352,8 @@ type OutputHumioHecPqControls struct {
 
 type OutputHumioHec struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
-	Type *OutputHumioHecType `json:"type,omitempty"`
+	ID   *string            `json:"id,omitempty"`
+	Type OutputHumioHecType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -437,9 +437,9 @@ func (o *OutputHumioHec) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputHumioHec) GetType() *OutputHumioHecType {
+func (o *OutputHumioHec) GetType() OutputHumioHecType {
 	if o == nil {
-		return nil
+		return OutputHumioHecType("")
 	}
 	return o.Type
 }

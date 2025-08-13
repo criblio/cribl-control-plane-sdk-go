@@ -224,7 +224,7 @@ func (o *InputKubeEventsMetadatum) GetValue() string {
 
 type InputKubeEvents struct {
 	// Unique ID for this input
-	ID       string              `json:"id"`
+	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
 	Disabled *bool               `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -258,9 +258,9 @@ func (i *InputKubeEvents) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputKubeEvents) GetID() string {
+func (o *InputKubeEvents) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }
