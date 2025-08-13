@@ -177,8 +177,8 @@ type OutputStatsdPqControls struct {
 
 type OutputStatsd struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
-	Type *OutputStatsdType `json:"type,omitempty"`
+	ID   *string          `json:"id,omitempty"`
+	Type OutputStatsdType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -241,9 +241,9 @@ func (o *OutputStatsd) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputStatsd) GetType() *OutputStatsdType {
+func (o *OutputStatsd) GetType() OutputStatsdType {
 	if o == nil {
-		return nil
+		return OutputStatsdType("")
 	}
 	return o.Type
 }

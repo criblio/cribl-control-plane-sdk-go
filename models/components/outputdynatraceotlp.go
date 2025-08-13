@@ -460,8 +460,8 @@ type OutputDynatraceOtlpPqControls struct {
 
 type OutputDynatraceOtlp struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitempty"`
-	Type *OutputDynatraceOtlpType `json:"type,omitempty"`
+	ID   *string                 `json:"id,omitempty"`
+	Type OutputDynatraceOtlpType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -560,9 +560,9 @@ func (o *OutputDynatraceOtlp) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputDynatraceOtlp) GetType() *OutputDynatraceOtlpType {
+func (o *OutputDynatraceOtlp) GetType() OutputDynatraceOtlpType {
 	if o == nil {
-		return nil
+		return OutputDynatraceOtlpType("")
 	}
 	return o.Type
 }

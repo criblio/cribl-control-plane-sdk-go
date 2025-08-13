@@ -340,8 +340,8 @@ func (o *OutputAzureBlobCertificate) GetCertificateName() string {
 
 type OutputAzureBlob struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
-	Type *OutputAzureBlobType `json:"type,omitempty"`
+	ID   *string             `json:"id,omitempty"`
+	Type OutputAzureBlobType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -460,9 +460,9 @@ func (o *OutputAzureBlob) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputAzureBlob) GetType() *OutputAzureBlobType {
+func (o *OutputAzureBlob) GetType() OutputAzureBlobType {
 	if o == nil {
-		return nil
+		return OutputAzureBlobType("")
 	}
 	return o.Type
 }

@@ -177,8 +177,8 @@ type OutputGraphitePqControls struct {
 
 type OutputGraphite struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
-	Type *OutputGraphiteType `json:"type,omitempty"`
+	ID   *string            `json:"id,omitempty"`
+	Type OutputGraphiteType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -241,9 +241,9 @@ func (o *OutputGraphite) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputGraphite) GetType() *OutputGraphiteType {
+func (o *OutputGraphite) GetType() OutputGraphiteType {
 	if o == nil {
-		return nil
+		return OutputGraphiteType("")
 	}
 	return o.Type
 }

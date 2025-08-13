@@ -17,6 +17,7 @@ import (
 	"net/url"
 )
 
+// Destinations - Actions related to Destinations
 type Destinations struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -1223,9 +1224,9 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 
 }
 
-// ClearPersistentQueue - Clear the persistent queue for a Destination
+// ClearPQ - Clear the persistent queue for a Destination
 // Clears destination persistent queue
-func (s *Destinations) ClearPersistentQueue(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
+func (s *Destinations) ClearPQ(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
 	request := operations.DeleteOutputPqByIDRequest{
 		ID: id,
 	}
@@ -1460,9 +1461,9 @@ func (s *Destinations) ClearPersistentQueue(ctx context.Context, id string, opts
 
 }
 
-// GetPersistentQueueStatus - Retrieve information about the latest job to clear the persistent queue for a Destination
+// GetPQStatus - Retrieve information about the latest job to clear the persistent queue for a Destination
 // Retrieves status of latest clear PQ job for a destination
-func (s *Destinations) GetPersistentQueueStatus(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
+func (s *Destinations) GetPQStatus(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
 	request := operations.GetOutputPqByIDRequest{
 		ID: id,
 	}
@@ -1697,9 +1698,9 @@ func (s *Destinations) GetPersistentQueueStatus(ctx context.Context, id string, 
 
 }
 
-// GetSampleData - Retrieve sample event data for a Destination
+// GetSample - Retrieve sample event data for a Destination
 // Retrieve samples data for the specified destination. Used to get sample data for the test action.
-func (s *Destinations) GetSampleData(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
+func (s *Destinations) GetSample(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
 	request := operations.GetOutputSamplesByIDRequest{
 		ID: id,
 	}
@@ -1934,9 +1935,9 @@ func (s *Destinations) GetSampleData(ctx context.Context, id string, opts ...ope
 
 }
 
-// CreateSampleData - Send sample event data to a Destination
+// CreateSample - Send sample event data to a Destination
 // Send sample data to a destination to validate configuration or test connectivity
-func (s *Destinations) CreateSampleData(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
+func (s *Destinations) CreateSample(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
 	request := operations.CreateOutputTestByIDRequest{
 		ID:                id,
 		OutputTestRequest: outputTestRequest,

@@ -814,9 +814,9 @@ func (o *InputGrafanaMetadatum2) GetValue() string {
 
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitempty"`
-	Type     *InputGrafanaType2 `json:"type,omitempty"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	ID       *string           `json:"id,omitempty"`
+	Type     InputGrafanaType2 `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -888,9 +888,9 @@ func (o *InputGrafanaGrafana2) GetID() *string {
 	return o.ID
 }
 
-func (o *InputGrafanaGrafana2) GetType() *InputGrafanaType2 {
+func (o *InputGrafanaGrafana2) GetType() InputGrafanaType2 {
 	if o == nil {
-		return nil
+		return InputGrafanaType2("")
 	}
 	return o.Type
 }
@@ -1903,9 +1903,9 @@ func (o *InputGrafanaMetadatum1) GetValue() string {
 
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitempty"`
-	Type     *InputGrafanaType1 `json:"type,omitempty"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	ID       *string           `json:"id,omitempty"`
+	Type     InputGrafanaType1 `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1977,9 +1977,9 @@ func (o *InputGrafanaGrafana1) GetID() *string {
 	return o.ID
 }
 
-func (o *InputGrafanaGrafana1) GetType() *InputGrafanaType1 {
+func (o *InputGrafanaGrafana1) GetType() InputGrafanaType1 {
 	if o == nil {
-		return nil
+		return InputGrafanaType1("")
 	}
 	return o.Type
 }
