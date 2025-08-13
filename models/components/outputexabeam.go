@@ -186,8 +186,8 @@ func (e *OutputExabeamDiskSpaceProtection) UnmarshalJSON(data []byte) error {
 
 type OutputExabeam struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitempty"`
-	Type *OutputExabeamType `json:"type,omitempty"`
+	ID   *string           `json:"id,omitempty"`
+	Type OutputExabeamType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -273,9 +273,9 @@ func (o *OutputExabeam) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputExabeam) GetType() *OutputExabeamType {
+func (o *OutputExabeam) GetType() OutputExabeamType {
 	if o == nil {
-		return nil
+		return OutputExabeamType("")
 	}
 	return o.Type
 }

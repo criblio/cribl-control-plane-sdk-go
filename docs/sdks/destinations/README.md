@@ -3,6 +3,8 @@
 
 ## Overview
 
+Actions related to Destinations
+
 ### Available Operations
 
 * [List](#list) - List all Destinations
@@ -10,10 +12,10 @@
 * [Get](#get) - Retrieve a Destination
 * [Update](#update) - Update a Destination
 * [Delete](#delete) - Delete a Destination
-* [ClearPersistentQueue](#clearpersistentqueue) - Clear the persistent queue for a Destination
-* [GetPersistentQueueStatus](#getpersistentqueuestatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
-* [GetSampleData](#getsampledata) - Retrieve sample event data for a Destination
-* [CreateSampleData](#createsampledata) - Send sample event data to a Destination
+* [ClearPQ](#clearpq) - Clear the persistent queue for a Destination
+* [GetPQStatus](#getpqstatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [GetSample](#getsample) - Retrieve sample event data for a Destination
+* [CreateSample](#createsample) - Send sample event data to a Destination
 
 ## List
 
@@ -102,7 +104,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
         components.OutputElasticCloud{
             ID: criblcontrolplanesdkgo.String("<id>"),
-            Type: components.OutputElasticCloudTypeElasticCloud.ToPointer(),
+            Type: components.OutputElasticCloudTypeElasticCloud,
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -375,7 +377,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## ClearPersistentQueue
+## ClearPQ
 
 Clears destination persistent queue
 
@@ -403,7 +405,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.ClearPersistentQueue(ctx, "<id>")
+    res, err := s.Destinations.ClearPQ(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -432,7 +434,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetPersistentQueueStatus
+## GetPQStatus
 
 Retrieves status of latest clear PQ job for a destination
 
@@ -460,7 +462,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.GetPersistentQueueStatus(ctx, "<id>")
+    res, err := s.Destinations.GetPQStatus(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -489,7 +491,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetSampleData
+## GetSample
 
 Retrieve samples data for the specified destination. Used to get sample data for the test action.
 
@@ -517,7 +519,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.GetSampleData(ctx, "<id>")
+    res, err := s.Destinations.GetSample(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -546,7 +548,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateSampleData
+## CreateSample
 
 Send sample data to a destination to validate configuration or test connectivity
 
@@ -574,7 +576,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.CreateSampleData(ctx, "<id>", components.OutputTestRequest{
+    res, err := s.Destinations.CreateSample(ctx, "<id>", components.OutputTestRequest{
         Events: []components.CriblEvent{
             components.CriblEvent{
                 Raw: "<value>",

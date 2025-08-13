@@ -823,7 +823,7 @@ func (o *InputWindowsMetricsPersistence) GetDestPath() *string {
 
 type InputWindowsMetrics struct {
 	// Unique ID for this input
-	ID       string                  `json:"id"`
+	ID       *string                 `json:"id,omitempty"`
 	Type     InputWindowsMetricsType `json:"type"`
 	Disabled *bool                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -862,9 +862,9 @@ func (i *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWindowsMetrics) GetID() string {
+func (o *InputWindowsMetrics) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

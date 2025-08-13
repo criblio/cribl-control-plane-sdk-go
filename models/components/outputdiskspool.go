@@ -60,7 +60,7 @@ func (e *OutputDiskSpoolCompression) UnmarshalJSON(data []byte) error {
 
 type OutputDiskSpool struct {
 	// Unique ID for this output
-	ID   string              `json:"id"`
+	ID   *string             `json:"id,omitempty"`
 	Type OutputDiskSpoolType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -94,9 +94,9 @@ func (o *OutputDiskSpool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputDiskSpool) GetID() string {
+func (o *OutputDiskSpool) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

@@ -566,8 +566,8 @@ type OutputAzureDataExplorerPqControls struct {
 
 type OutputAzureDataExplorer struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitempty"`
-	Type *OutputAzureDataExplorerType `json:"type,omitempty"`
+	ID   *string                     `json:"id,omitempty"`
+	Type OutputAzureDataExplorerType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -705,9 +705,9 @@ func (o *OutputAzureDataExplorer) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputAzureDataExplorer) GetType() *OutputAzureDataExplorerType {
+func (o *OutputAzureDataExplorer) GetType() OutputAzureDataExplorerType {
 	if o == nil {
-		return nil
+		return OutputAzureDataExplorerType("")
 	}
 	return o.Type
 }

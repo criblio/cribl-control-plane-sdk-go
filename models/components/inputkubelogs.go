@@ -310,7 +310,7 @@ func (o *InputKubeLogsDiskSpooling) GetCompress() *InputKubeLogsPersistenceCompr
 
 type InputKubeLogs struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
+	ID       *string           `json:"id,omitempty"`
 	Type     InputKubeLogsType `json:"type"`
 	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -355,9 +355,9 @@ func (i *InputKubeLogs) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputKubeLogs) GetID() string {
+func (o *InputKubeLogs) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

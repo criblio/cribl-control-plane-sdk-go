@@ -295,8 +295,8 @@ type OutputAzureEventhubPqControls struct {
 
 type OutputAzureEventhub struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitempty"`
-	Type *OutputAzureEventhubType `json:"type,omitempty"`
+	ID   *string                 `json:"id,omitempty"`
+	Type OutputAzureEventhubType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -374,9 +374,9 @@ func (o *OutputAzureEventhub) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputAzureEventhub) GetType() *OutputAzureEventhubType {
+func (o *OutputAzureEventhub) GetType() OutputAzureEventhubType {
 	if o == nil {
-		return nil
+		return OutputAzureEventhubType("")
 	}
 	return o.Type
 }

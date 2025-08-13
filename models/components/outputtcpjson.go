@@ -456,7 +456,7 @@ type OutputTcpjsonPqControls struct {
 
 type OutputTcpjson struct {
 	// Unique ID for this output
-	ID   string            `json:"id"`
+	ID   *string           `json:"id,omitempty"`
 	Type OutputTcpjsonType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -532,9 +532,9 @@ func (o *OutputTcpjson) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputTcpjson) GetID() string {
+func (o *OutputTcpjson) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

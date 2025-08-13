@@ -215,10 +215,6 @@ func main() {
 * [FetchToken](docs/sdks/auth/README.md#fetchtoken) - Log in and fetch an authentication token
 
 
-### [Deployments](docs/sdks/deployments/README.md)
-
-* [GetSummary](docs/sdks/deployments/README.md#getsummary) - Retrieve a summary of the Distributed deployment
-
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -226,26 +222,26 @@ func main() {
 * [Get](docs/sdks/destinations/README.md#get) - Retrieve a Destination
 * [Update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
-* [ClearPersistentQueue](docs/sdks/destinations/README.md#clearpersistentqueue) - Clear the persistent queue for a Destination
-* [GetPersistentQueueStatus](docs/sdks/destinations/README.md#getpersistentqueuestatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
-* [GetSampleData](docs/sdks/destinations/README.md#getsampledata) - Retrieve sample event data for a Destination
-* [CreateSampleData](docs/sdks/destinations/README.md#createsampledata) - Send sample event data to a Destination
+* [ClearPQ](docs/sdks/destinations/README.md#clearpq) - Clear the persistent queue for a Destination
+* [GetPQStatus](docs/sdks/destinations/README.md#getpqstatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [GetSample](docs/sdks/destinations/README.md#getsample) - Retrieve sample event data for a Destination
+* [CreateSample](docs/sdks/destinations/README.md#createsample) - Send sample event data to a Destination
 
 ### [Groups](docs/sdks/groups/README.md)
 
 * [GetConfigVersion](docs/sdks/groups/README.md#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
-* [CreateByProduct](docs/sdks/groups/README.md#createbyproduct) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [GetByProduct](docs/sdks/groups/README.md#getbyproduct) - List all Worker Groups or Edge Fleets for the specified Cribl product
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
 * [Get](docs/sdks/groups/README.md#get) - Retrieve a Worker Group or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
-* [DeployCommits](docs/sdks/groups/README.md#deploycommits) - Deploy commits to a Worker Group or Edge Fleet
-* [GetTeamAccessControlListByProduct](docs/sdks/groups/README.md#getteamaccesscontrollistbyproduct) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-* [GetAccessControlList](docs/sdks/groups/README.md#getaccesscontrollist) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [GetTeamACL](docs/sdks/groups/README.md#getteamacl) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [GetACL](docs/sdks/groups/README.md#getacl) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 
-### [HealthInfo](docs/sdks/healthinfo/README.md)
+### [Health](docs/sdks/health/README.md)
 
-* [Get](docs/sdks/healthinfo/README.md#get) - Retrieve health status of the server
+* [Get](docs/sdks/health/README.md#get) - Retrieve health status of the server
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
@@ -257,8 +253,9 @@ func main() {
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
+* [GetSummary](docs/sdks/nodes/README.md#getsummary) - Retrieve a summary of the Distributed deployment
+* [Count](docs/sdks/nodes/README.md#count) - Retrieve a count of Worker and Edge Nodes
 * [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
-* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -294,23 +291,19 @@ func main() {
 
 ### [Versioning](docs/sdks/versioning/README.md)
 
-* [GetBranch](docs/sdks/versioning/README.md#getbranch) - List all branches in the Git repository used for Cribl configuration
+* [ListBranches](docs/sdks/versioning/README.md#listbranches) - List all branches in the Git repository used for Cribl configuration
 * [CreateCommit](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
 * [GetFileCount](docs/sdks/versioning/README.md#getfilecount) - Retrieve a count of files that changed since a commit
-* [GetBranchName](docs/sdks/versioning/README.md#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [GetBranch](docs/sdks/versioning/README.md#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
 * [GetDiff](docs/sdks/versioning/README.md#getdiff) - Retrieve the diff for a commit
-* [GetFileInfo](docs/sdks/versioning/README.md#getfileinfo) - Retrieve the names and statuses of files that changed since a commit
+* [ListFiles](docs/sdks/versioning/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
 * [GetConfigStatus](docs/sdks/versioning/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
 * [PushCommit](docs/sdks/versioning/README.md#pushcommit) - Push a commit from the local repository to the remote repository
 * [RevertCommit](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
-* [ShowCommit](docs/sdks/versioning/README.md#showcommit) - Retrieve the diff and log message for a commit
+* [GetCommit](docs/sdks/versioning/README.md#getcommit) - Retrieve the diff and log message for a commit
 * [GetCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
 * [SyncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-* [CleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Discard uncommitted (staged) changes
-
-### [Workers](docs/sdks/workers/README.md)
-
-* [GetSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - Retrieve a count of Worker and Edge Nodes
+* [Undo](docs/sdks/versioning/README.md#undo) - Discard uncommitted (staged) changes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
