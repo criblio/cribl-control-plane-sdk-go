@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 4a717d8691b3667b3a195dc9ca370eff
-  docVersion: 4.14.0-alpha.1754945439857-0a86c294
+  docChecksum: a3648302114f4f5a98e6e988376a1911
+  docVersion: 4.14.0-alpha.1755082027273-8cf9b57a
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.28-alpha
-  configChecksum: 11d5a68e0caace15a9d95bf48febcad1
+  releaseVersion: 0.0.28
+  configChecksum: 13dc482e5bebf2f747de78936460ce30
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -213,7 +213,6 @@ generatedFiles:
   - /models/components/pipelinefunctionconf.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
-  - /models/components/restartresponse.go
   - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
@@ -284,11 +283,9 @@ generatedFiles:
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
-  - /models/operations/updateworkersrestart.go
   - USAGE.md
   - auth.go
   - criblcontrolplane.go
-  - deployments.go
   - destinations.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthstatuserror.md
@@ -368,7 +365,6 @@ generatedFiles:
   - docs/models/components/hbcriblinfo.md
   - docs/models/components/hbleaderinfo.md
   - docs/models/components/healthstatus.md
-  - docs/models/components/healthstatusstatus.md
   - docs/models/components/heartbeatmetadata.md
   - docs/models/components/heartbeatmetadataaws.md
   - docs/models/components/heartbeatmetadatahostos.md
@@ -1944,8 +1940,6 @@ generatedFiles:
   - docs/models/components/reportmethod.md
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
-  - docs/models/components/restartresponse.md
-  - docs/models/components/restartresponsestatus.md
   - docs/models/components/role.md
   - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
@@ -1965,6 +1959,7 @@ generatedFiles:
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
+  - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
   - docs/models/components/summary.md
@@ -2152,14 +2147,11 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
-  - docs/models/operations/updateworkersrestartresponse.md
-  - docs/models/operations/updateworkersrestartresponsebody.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
-  - docs/sdks/deployments/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/groups/README.md
-  - docs/sdks/healthinfo/README.md
+  - docs/sdks/health/README.md
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
@@ -2167,10 +2159,9 @@ generatedFiles:
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/versioning/README.md
-  - docs/sdks/workers/README.md
   - go.mod
   - groups.go
-  - healthinfo.go
+  - health.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/clientcredentials.go
   - internal/hooks/hooks.go
@@ -2202,7 +2193,6 @@ generatedFiles:
   - types/decimal.go
   - types/pointers.go
   - versioning.go
-  - workers.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:

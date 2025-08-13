@@ -1,28 +1,27 @@
-# Deployments
-(*Deployments*)
+# Health
+(*Health*)
 
 ## Overview
 
+Actions related to REST server health
+
 ### Available Operations
 
-* [GetSummary](#getsummary) - Retrieve a summary of the Distributed deployment
+* [Get](#get) - Retrieve health status of the server
 
-## GetSummary
+## Get
 
-Get summary of Distributed deployment
+Retrieve health status of the server
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getSummary" method="get" path="/master/summary" -->
+<!-- UsageSnippet language="go" operationID="getHealthInfo" method="get" path="/health" -->
 ```go
 package main
 
 import(
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -31,16 +30,13 @@ func main() {
 
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
     )
 
-    res, err := s.Deployments.GetSummary(ctx, operations.ModeWorker.ToPointer())
+    res, err := s.Health.Get(ctx)
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.HealthStatus != nil {
         // handle response
     }
 }
@@ -51,16 +47,15 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `mode`                                                   | [*operations.Mode](../../models/operations/mode.md)      | :heavy_minus_sign:                                       | product filter                                           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
-**[*operations.GetSummaryResponse](../../models/operations/getsummaryresponse.md), error**
+**[*operations.GetHealthInfoResponse](../../models/operations/gethealthinforesponse.md), error**
 
 ### Errors
 
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| apierrors.HealthStatusError | 420                         | application/json            |
+| apierrors.APIError          | 4XX, 5XX                    | \*/\*                       |

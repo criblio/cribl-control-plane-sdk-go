@@ -560,7 +560,7 @@ type OutputGrafanaCloudPqControls2 struct {
 
 type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
+	ID   *string                 `json:"id,omitempty"`
 	Type OutputGrafanaCloudType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -644,9 +644,9 @@ func (o *OutputGrafanaCloudGrafanaCloud2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetID() string {
+func (o *OutputGrafanaCloudGrafanaCloud2) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }
@@ -1461,7 +1461,7 @@ type OutputGrafanaCloudPqControls1 struct {
 
 type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
+	ID   *string                 `json:"id,omitempty"`
 	Type OutputGrafanaCloudType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
@@ -1545,9 +1545,9 @@ func (o *OutputGrafanaCloudGrafanaCloud1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetID() string {
+func (o *OutputGrafanaCloudGrafanaCloud1) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

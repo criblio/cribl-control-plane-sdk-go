@@ -546,7 +546,7 @@ func (o *InputAppscopeTLSSettingsServerSide) GetMaxVersion() *InputAppscopeMaxim
 
 type InputAppscope struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
+	ID       *string           `json:"id,omitempty"`
 	Type     InputAppscopeType `json:"type"`
 	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -613,9 +613,9 @@ func (i *InputAppscope) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputAppscope) GetID() string {
+func (o *InputAppscope) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

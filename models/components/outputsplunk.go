@@ -427,8 +427,8 @@ type OutputSplunkPqControls struct {
 
 type OutputSplunk struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
-	Type *OutputSplunkType `json:"type,omitempty"`
+	ID   *string          `json:"id,omitempty"`
+	Type OutputSplunkType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -504,9 +504,9 @@ func (o *OutputSplunk) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSplunk) GetType() *OutputSplunkType {
+func (o *OutputSplunk) GetType() OutputSplunkType {
 	if o == nil {
-		return nil
+		return OutputSplunkType("")
 	}
 	return o.Type
 }

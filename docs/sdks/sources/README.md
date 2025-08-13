@@ -3,6 +3,8 @@
 
 ## Overview
 
+Actions related to Sources
+
 ### Available Operations
 
 * [List](#list) - List all Sources
@@ -100,7 +102,7 @@ func main() {
     res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.String("<id>"),
-            Type: components.InputTCPTypeTCP.ToPointer(),
+            Type: components.InputTCPTypeTCP,
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             Environment: criblcontrolplanesdkgo.String("<value>"),
             Streamtags: []string{
@@ -262,7 +264,7 @@ func main() {
 
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
         components.InputKubeEvents{
-            ID: "<id>",
+            ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.InputKubeEventsTypeKubeEvents,
             Pipeline: criblcontrolplanesdkgo.String("<value>"),
             Environment: criblcontrolplanesdkgo.String("<value>"),

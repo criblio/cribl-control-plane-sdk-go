@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.14.0-alpha.1754945439857-0a86c294 and generator version 2.672.0
+// Generated from OpenAPI doc version 4.14.0-alpha.1755082027273-8cf9b57a and generator version 2.672.0
 
 import (
 	"context"
@@ -45,23 +45,23 @@ func Pointer[T any](v T) *T { return &v }
 type CriblControlPlane struct {
 	SDKVersion   string
 	LakeDatasets *LakeDatasets
-	Sources      *Sources
+	// Actions related to Sources
+	Sources *Sources
+	// Actions related to Destinations
 	Destinations *Destinations
 	// Actions related to Pipelines
 	Pipelines *Pipelines
 	// Actions related to Routes
 	Routes *Routes
 	// Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud deployments. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to authenticate for Cribl.Cloud.
-	Auth        *Auth
-	Deployments *Deployments
-	HealthInfo  *HealthInfo
+	Auth  *Auth
+	Nodes *Nodes
+	// Actions related to REST server health
+	Health *Health
 	// Actions related to Packs
 	Packs *Packs
 	// Actions related to Versioning
 	Versioning *Versioning
-	// Actions related to Workers
-	Workers *Workers
-	Nodes   *Nodes
 	// Actions related to Groups
 	Groups *Groups
 
@@ -110,9 +110,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.0.28-alpha",
+		SDKVersion: "0.0.28",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.0.28-alpha 2.672.0 4.14.0-alpha.1754945439857-0a86c294 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.0.28 2.672.0 4.14.0-alpha.1755082027273-8cf9b57a github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -142,12 +142,10 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Routes = newRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Deployments = newDeployments(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.HealthInfo = newHealthInfo(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Versioning = newVersioning(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Workers = newWorkers(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk

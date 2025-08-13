@@ -268,9 +268,9 @@ func (s *Groups) GetConfigVersion(ctx context.Context, id string, opts ...operat
 
 }
 
-// CreateByProduct - Create a Worker Group or Edge Fleet for the specified Cribl product
+// Create a Worker Group or Edge Fleet for the specified Cribl product
 // Create a Fleet or Worker Group
-func (s *Groups) CreateByProduct(ctx context.Context, product operations.CreateProductsGroupsByProductProduct, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateProductsGroupsByProductResponse, error) {
+func (s *Groups) Create(ctx context.Context, product operations.CreateProductsGroupsByProductProduct, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateProductsGroupsByProductResponse, error) {
 	request := operations.CreateProductsGroupsByProductRequest{
 		Product:     product,
 		ConfigGroup: configGroup,
@@ -513,9 +513,9 @@ func (s *Groups) CreateByProduct(ctx context.Context, product operations.CreateP
 
 }
 
-// GetByProduct - List all Worker Groups or Edge Fleets for the specified Cribl product
+// List all Worker Groups or Edge Fleets for the specified Cribl product
 // Get a list of ConfigGroup objects
-func (s *Groups) GetByProduct(ctx context.Context, product operations.GetProductsGroupsByProductProduct, fields *string, opts ...operations.Option) (*operations.GetProductsGroupsByProductResponse, error) {
+func (s *Groups) List(ctx context.Context, product operations.GetProductsGroupsByProductProduct, fields *string, opts ...operations.Option) (*operations.GetProductsGroupsByProductResponse, error) {
 	request := operations.GetProductsGroupsByProductRequest{
 		Fields:  fields,
 		Product: product,
@@ -1479,9 +1479,9 @@ func (s *Groups) Update(ctx context.Context, id string, configGroup components.C
 
 }
 
-// DeployCommits - Deploy commits to a Worker Group or Edge Fleet
+// Deploy commits to a Worker Group or Edge Fleet
 // Deploy commits for a Fleet or Worker Group
-func (s *Groups) DeployCommits(ctx context.Context, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateGroupsDeployByIDResponse, error) {
+func (s *Groups) Deploy(ctx context.Context, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateGroupsDeployByIDResponse, error) {
 	request := operations.UpdateGroupsDeployByIDRequest{
 		ID:            id,
 		DeployRequest: deployRequest,
@@ -1724,9 +1724,9 @@ func (s *Groups) DeployCommits(ctx context.Context, id string, deployRequest com
 
 }
 
-// GetTeamAccessControlListByProduct - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+// GetTeamACL - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 // ACL of team with permissions for resources in this Group
-func (s *Groups) GetTeamAccessControlListByProduct(ctx context.Context, product operations.GetProductsGroupsACLTeamsByProductAndIDProduct, id string, type_ *operations.GetProductsGroupsACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetProductsGroupsACLTeamsByProductAndIDResponse, error) {
+func (s *Groups) GetTeamACL(ctx context.Context, product operations.GetProductsGroupsACLTeamsByProductAndIDProduct, id string, type_ *operations.GetProductsGroupsACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetProductsGroupsACLTeamsByProductAndIDResponse, error) {
 	request := operations.GetProductsGroupsACLTeamsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
@@ -1967,9 +1967,9 @@ func (s *Groups) GetTeamAccessControlListByProduct(ctx context.Context, product 
 
 }
 
-// GetAccessControlList - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+// GetACL - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 // ACL of members with permissions for resources in this Group
-func (s *Groups) GetAccessControlList(ctx context.Context, id string, type_ *operations.GetGroupsACLByIDType, opts ...operations.Option) (*operations.GetGroupsACLByIDResponse, error) {
+func (s *Groups) GetACL(ctx context.Context, id string, type_ *operations.GetGroupsACLByIDType, opts ...operations.Option) (*operations.GetGroupsACLByIDResponse, error) {
 	request := operations.GetGroupsACLByIDRequest{
 		ID:   id,
 		Type: type_,

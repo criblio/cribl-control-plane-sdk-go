@@ -431,8 +431,8 @@ func (o *OutputS3KeyValueMetadatum) GetValue() string {
 
 type OutputS3 struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitempty"`
-	Type *OutputS3Type `json:"type,omitempty"`
+	ID   *string      `json:"id,omitempty"`
+	Type OutputS3Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -567,9 +567,9 @@ func (o *OutputS3) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputS3) GetType() *OutputS3Type {
+func (o *OutputS3) GetType() OutputS3Type {
 	if o == nil {
-		return nil
+		return OutputS3Type("")
 	}
 	return o.Type
 }

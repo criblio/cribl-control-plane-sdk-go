@@ -243,7 +243,7 @@ func (o *InputCollectionMetadatum) GetValue() string {
 
 type InputCollection struct {
 	// Unique ID for this input
-	ID       string               `json:"id"`
+	ID       *string              `json:"id,omitempty"`
 	Type     *InputCollectionType `default:"collection" json:"type"`
 	Disabled *bool                `default:"false" json:"disabled"`
 	// Pipeline to process results
@@ -283,9 +283,9 @@ func (i *InputCollection) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputCollection) GetID() string {
+func (o *InputCollection) GetID() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.ID
 }

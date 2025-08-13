@@ -7,21 +7,21 @@ Actions related to Versioning
 
 ### Available Operations
 
-* [GetBranch](#getbranch) - List all branches in the Git repository used for Cribl configuration
+* [ListBranches](#listbranches) - List all branches in the Git repository used for Cribl configuration
 * [CreateCommit](#createcommit) - Create a new commit for pending changes to the Cribl configuration
 * [GetFileCount](#getfilecount) - Retrieve a count of files that changed since a commit
-* [GetBranchName](#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [GetBranch](#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
 * [GetDiff](#getdiff) - Retrieve the diff for a commit
-* [GetFileInfo](#getfileinfo) - Retrieve the names and statuses of files that changed since a commit
+* [ListFiles](#listfiles) - Retrieve the names and statuses of files that changed since a commit
 * [GetConfigStatus](#getconfigstatus) - Retrieve the configuration and status for the Git integration
 * [PushCommit](#pushcommit) - Push a commit from the local repository to the remote repository
 * [RevertCommit](#revertcommit) - Revert a commit in the local repository
-* [ShowCommit](#showcommit) - Retrieve the diff and log message for a commit
+* [GetCommit](#getcommit) - Retrieve the diff and log message for a commit
 * [GetCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
 * [SyncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
-* [CleanWorkingDir](#cleanworkingdir) - Discard uncommitted (staged) changes
+* [Undo](#undo) - Discard uncommitted (staged) changes
 
-## GetBranch
+## ListBranches
 
 get the list of branches
 
@@ -49,7 +49,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetBranch(ctx)
+    res, err := s.Versioning.ListBranches(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -199,7 +199,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetBranchName
+## GetBranch
 
 returns git branch that the config is checked out to, if any
 
@@ -227,7 +227,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetBranchName(ctx)
+    res, err := s.Versioning.GetBranch(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -315,7 +315,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetFileInfo
+## ListFiles
 
 get the files changed
 
@@ -343,7 +343,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.GetFileInfo(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versioning.ListFiles(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -547,7 +547,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## ShowCommit
+## GetCommit
 
 get the log message and textual diff for given commit
 
@@ -575,7 +575,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.ShowCommit(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
+    res, err := s.Versioning.GetCommit(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -720,7 +720,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CleanWorkingDir
+## Undo
 
 Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
 
@@ -748,7 +748,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versioning.CleanWorkingDir(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Versioning.Undo(ctx, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }

@@ -8,14 +8,14 @@ Actions related to Groups
 ### Available Operations
 
 * [GetConfigVersion](#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
-* [CreateByProduct](#createbyproduct) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [GetByProduct](#getbyproduct) - List all Worker Groups or Edge Fleets for the specified Cribl product
+* [Create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [List](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
 * [Delete](#delete) - Delete a Worker Group or Edge Fleet
 * [Get](#get) - Retrieve a Worker Group or Edge Fleet
 * [Update](#update) - Update a Worker Group or Edge Fleet
-* [DeployCommits](#deploycommits) - Deploy commits to a Worker Group or Edge Fleet
-* [GetTeamAccessControlListByProduct](#getteamaccesscontrollistbyproduct) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-* [GetAccessControlList](#getaccesscontrollist) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [Deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [GetTeamACL](#getteamacl) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [GetACL](#getacl) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 
 ## GetConfigVersion
 
@@ -74,7 +74,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## CreateByProduct
+## Create
 
 Create a Fleet or Worker Group
 
@@ -103,7 +103,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.CreateByProduct(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
+    res, err := s.Groups.Create(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
@@ -187,7 +187,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetByProduct
+## List
 
 Get a list of ConfigGroup objects
 
@@ -216,7 +216,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetByProduct(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.List(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -471,7 +471,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## DeployCommits
+## Deploy
 
 Deploy commits for a Fleet or Worker Group
 
@@ -499,7 +499,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.DeployCommits(ctx, "<id>", components.DeployRequest{
+    res, err := s.Groups.Deploy(ctx, "<id>", components.DeployRequest{
         Lookups: []components.DeployRequestLookups{
             components.DeployRequestLookups{
                 Context: "<value>",
@@ -542,7 +542,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetTeamAccessControlListByProduct
+## GetTeamACL
 
 ACL of team with permissions for resources in this Group
 
@@ -571,7 +571,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetTeamAccessControlListByProduct(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
+    res, err := s.Groups.GetTeamACL(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -602,7 +602,7 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## GetAccessControlList
+## GetACL
 
 ACL of members with permissions for resources in this Group
 
@@ -631,7 +631,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.GetAccessControlList(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
+    res, err := s.Groups.GetACL(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
     if err != nil {
         log.Fatal(err)
     }

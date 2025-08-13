@@ -436,8 +436,8 @@ type OutputDynatraceHTTPPqControls struct {
 
 type OutputDynatraceHTTP struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitempty"`
-	Type *OutputDynatraceHTTPType `json:"type,omitempty"`
+	ID   *string                 `json:"id,omitempty"`
+	Type OutputDynatraceHTTPType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -532,9 +532,9 @@ func (o *OutputDynatraceHTTP) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputDynatraceHTTP) GetType() *OutputDynatraceHTTPType {
+func (o *OutputDynatraceHTTP) GetType() OutputDynatraceHTTPType {
 	if o == nil {
-		return nil
+		return OutputDynatraceHTTPType("")
 	}
 	return o.Type
 }
