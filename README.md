@@ -212,7 +212,10 @@ func main() {
 
 ### [Auth](docs/sdks/auth/README.md)
 
-* [FetchToken](docs/sdks/auth/README.md#fetchtoken) - Log in and fetch an authentication token
+
+#### [Auth.Tokens](docs/sdks/tokens/README.md)
+
+* [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
 
 
 ### [Destinations](docs/sdks/destinations/README.md)
@@ -222,22 +225,37 @@ func main() {
 * [Get](docs/sdks/destinations/README.md#get) - Retrieve a Destination
 * [Update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
-* [ClearPQ](docs/sdks/destinations/README.md#clearpq) - Clear the persistent queue for a Destination
-* [GetPQStatus](docs/sdks/destinations/README.md#getpqstatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
-* [GetSample](docs/sdks/destinations/README.md#getsample) - Retrieve sample event data for a Destination
-* [CreateSample](docs/sdks/destinations/README.md#createsample) - Send sample event data to a Destination
+
+#### [Destinations.Pq](docs/sdks/pq/README.md)
+
+* [Clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
+* [Get](docs/sdks/pq/README.md#get) - Retrieve information about the latest job to clear the persistent queue for a Destination
+
+#### [Destinations.Samples](docs/sdks/samples/README.md)
+
+* [Get](docs/sdks/samples/README.md#get) - Retrieve sample event data for a Destination
+* [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [GetConfigVersion](docs/sdks/groups/README.md#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
 * [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
 * [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
 * [Get](docs/sdks/groups/README.md#get) - Retrieve a Worker Group or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
-* [GetTeamACL](docs/sdks/groups/README.md#getteamacl) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-* [GetACL](docs/sdks/groups/README.md#getacl) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+
+#### [Groups.ACL](docs/sdks/acl/README.md)
+
+* [Get](docs/sdks/acl/README.md#get) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+
+#### [Groups.ACL.Teams](docs/sdks/teams/README.md)
+
+* [Get](docs/sdks/teams/README.md#get) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+
+#### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
+
+* [Get](docs/sdks/configsversions/README.md#get) - Retrieve the configuration version for a Worker Group or Edge Fleet
 
 ### [Health](docs/sdks/health/README.md)
 
@@ -253,9 +271,12 @@ func main() {
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [GetSummary](docs/sdks/nodes/README.md#getsummary) - Retrieve a summary of the Distributed deployment
 * [Count](docs/sdks/nodes/README.md#count) - Retrieve a count of Worker and Edge Nodes
 * [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
+
+#### [Nodes.Summaries](docs/sdks/summaries/README.md)
+
+* [Get](docs/sdks/summaries/README.md#get) - Retrieve a summary of the Distributed deployment
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -286,24 +307,41 @@ func main() {
 * [Get](docs/sdks/sources/README.md#get) - Retrieve a Source
 * [Update](docs/sdks/sources/README.md#update) - Update a Source
 * [Delete](docs/sdks/sources/README.md#delete) - Delete a Source
-* [CreateHecToken](docs/sdks/sources/README.md#createhectoken) - Add an HEC token and optional metadata to a Splunk HEC Source
-* [UpdateHecTokenMetadata](docs/sdks/sources/README.md#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
 
-### [Versioning](docs/sdks/versioning/README.md)
+#### [Sources.HecTokens](docs/sdks/hectokens/README.md)
 
-* [ListBranches](docs/sdks/versioning/README.md#listbranches) - List all branches in the Git repository used for Cribl configuration
-* [CreateCommit](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
-* [GetFileCount](docs/sdks/versioning/README.md#getfilecount) - Retrieve a count of files that changed since a commit
-* [GetBranch](docs/sdks/versioning/README.md#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
-* [GetDiff](docs/sdks/versioning/README.md#getdiff) - Retrieve the diff for a commit
-* [ListFiles](docs/sdks/versioning/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
-* [GetConfigStatus](docs/sdks/versioning/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
-* [PushCommit](docs/sdks/versioning/README.md#pushcommit) - Push a commit from the local repository to the remote repository
-* [RevertCommit](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
-* [GetCommit](docs/sdks/versioning/README.md#getcommit) - Retrieve the diff and log message for a commit
-* [GetCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
-* [SyncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-* [Undo](docs/sdks/versioning/README.md#undo) - Discard uncommitted (staged) changes
+* [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
+* [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+### [Versions](docs/sdks/versions/README.md)
+
+
+#### [Versions.Branches](docs/sdks/branches/README.md)
+
+* [List](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
+* [Get](docs/sdks/branches/README.md#get) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+
+#### [Versions.Commits](docs/sdks/commits/README.md)
+
+* [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
+* [Diff](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+* [Push](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
+* [Revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
+* [Get](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
+* [Undo](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
+
+#### [Versions.Commits.Files](docs/sdks/files/README.md)
+
+* [Count](docs/sdks/files/README.md#count) - Retrieve a count of files that changed since a commit
+* [List](docs/sdks/files/README.md#list) - Retrieve the names and statuses of files that changed since a commit
+
+#### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
+
+* [Get](docs/sdks/versionsconfigs/README.md#get) - Retrieve the configuration and status for the Git integration
+
+#### [Versions.Statuses](docs/sdks/statuses/README.md)
+
+* [Get](docs/sdks/statuses/README.md#get) - Retrieve the status of the current working tree
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

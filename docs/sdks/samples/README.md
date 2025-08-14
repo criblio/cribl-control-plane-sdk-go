@@ -1,20 +1,20 @@
-# Nodes
-(*Nodes*)
+# Samples
+(*Destinations.Samples*)
 
 ## Overview
 
 ### Available Operations
 
-* [Count](#count) - Retrieve a count of Worker and Edge Nodes
-* [List](#list) - Retrieve detailed metadata for Worker and Edge Nodes
+* [Get](#get) - Retrieve sample event data for a Destination
+* [Create](#create) - Send sample event data to a Destination
 
-## Count
+## Get
 
-get worker and edge nodes count
+Retrieve samples data for the specified destination. Used to get sample data for the test action.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getSummaryWorkers" method="get" path="/master/summary/workers" -->
+<!-- UsageSnippet language="go" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" -->
 ```go
 package main
 
@@ -36,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Nodes.Count(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Destinations.Samples.Get(ctx, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -51,12 +51,12 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `filterExp`                                              | **string*                                                | :heavy_minus_sign:                                       | Filter expression evaluated against nodes                |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Destination Id                                           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
-**[*operations.GetSummaryWorkersResponse](../../models/operations/getsummaryworkersresponse.md), error**
+**[*operations.GetOutputSamplesByIDResponse](../../models/operations/getoutputsamplesbyidresponse.md), error**
 
 ### Errors
 
@@ -65,13 +65,13 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## List
+## Create
 
-get worker and edge nodes
+Send sample data to a destination to validate configuration or test connectivity
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getWorkers" method="get" path="/master/workers" -->
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
 ```go
 package main
 
@@ -80,7 +80,6 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -94,13 +93,12 @@ func main() {
         }),
     )
 
-    res, err := s.Nodes.List(ctx, operations.GetWorkersRequest{
-        FilterExp: criblcontrolplanesdkgo.String("<value>"),
-        Sort: criblcontrolplanesdkgo.String("<value>"),
-        SortExp: criblcontrolplanesdkgo.String("<value>"),
-        Limit: criblcontrolplanesdkgo.Int64(402753),
-        Offset: criblcontrolplanesdkgo.Int64(848752),
-        Filter: criblcontrolplanesdkgo.String("<value>"),
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []components.CriblEvent{
+            components.CriblEvent{
+                Raw: "<value>",
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -116,12 +114,13 @@ func main() {
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
-| `request`                                                                    | [operations.GetWorkersRequest](../../models/operations/getworkersrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `id`                                                                         | *string*                                                                     | :heavy_check_mark:                                                           | Destination Id                                                               |
+| `outputTestRequest`                                                          | [components.OutputTestRequest](../../models/components/outputtestrequest.md) | :heavy_check_mark:                                                           | OutputTestRequest object                                                     |
 | `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
 ### Response
 
-**[*operations.GetWorkersResponse](../../models/operations/getworkersresponse.md), error**
+**[*operations.CreateOutputTestByIDResponse](../../models/operations/createoutputtestbyidresponse.md), error**
 
 ### Errors
 

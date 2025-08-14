@@ -17,28 +17,26 @@ import (
 	"net/url"
 )
 
-type Nodes struct {
-	Summaries *Summaries
-
+type Files struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
-	return &Nodes{
+func newFiles(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Files {
+	return &Files{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Summaries:        newSummaries(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
-	request := operations.GetSummaryWorkersRequest{
-		FilterExp: filterExp,
+// Count - Retrieve a count of files that changed since a commit
+// get the count of files of changed
+func (s *Files) Count(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionCountResponse, error) {
+	request := operations.GetVersionCountRequest{
+		Group: group,
+		ID:    id,
 	}
 
 	o := operations.Options{}
@@ -59,7 +57,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := url.JoinPath(baseURL, "/version/count")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +67,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummaryWorkers",
+		OperationID:      "getVersionCount",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -195,7 +193,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetSummaryWorkersResponse{
+	res := &operations.GetVersionCountResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +209,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetSummaryWorkersResponseBody
+			var out operations.GetVersionCountResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -275,9 +273,14 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
-func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+// List - Retrieve the names and statuses of files that changed since a commit
+// get the files changed
+func (s *Files) List(ctx context.Context, group *string, id *string, opts ...operations.Option) (*operations.GetVersionFilesResponse, error) {
+	request := operations.GetVersionFilesRequest{
+		Group: group,
+		ID:    id,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +299,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := url.JoinPath(baseURL, "/version/files")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,7 +309,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getWorkers",
+		OperationID:      "getVersionFiles",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -432,7 +435,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		}
 	}
 
-	res := &operations.GetWorkersResponse{
+	res := &operations.GetVersionFilesResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -448,7 +451,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 				return nil, err
 			}
 
-			var out operations.GetWorkersResponseBody
+			var out operations.GetVersionFilesResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

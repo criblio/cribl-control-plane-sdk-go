@@ -7,19 +7,19 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/hooks"
 )
 
-type Auth struct {
-	Tokens *Tokens
+type GroupsConfigs struct {
+	Versions *ConfigsVersions
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newAuth(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Auth {
-	return &Auth{
+func newGroupsConfigs(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *GroupsConfigs {
+	return &GroupsConfigs{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Tokens:           newTokens(rootSDK, sdkConfig, hooks),
+		Versions:         newConfigsVersions(rootSDK, sdkConfig, hooks),
 	}
 }

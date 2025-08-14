@@ -14,31 +14,28 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
-type Nodes struct {
-	Summaries *Summaries
-
+type HecTokens struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
-	return &Nodes{
+func newHecTokens(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *HecTokens {
+	return &HecTokens{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Summaries:        newSummaries(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
-	request := operations.GetSummaryWorkersRequest{
-		FilterExp: filterExp,
+// Create - Add an HEC token and optional metadata to a Splunk HEC Source
+// Add token and optional metadata to an existing HEC Source
+func (s *HecTokens) Create(ctx context.Context, id string, addHecTokenRequest components.AddHecTokenRequest, opts ...operations.Option) (*operations.CreateInputHecTokenByIDResponse, error) {
+	request := operations.CreateInputHecTokenByIDRequest{
+		ID:                 id,
+		AddHecTokenRequest: addHecTokenRequest,
 	}
 
 	o := operations.Options{}
@@ -59,7 +56,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/inputs/{id}/hectoken", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,9 +66,13 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummaryWorkers",
+		OperationID:      "createInputHecTokenById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "AddHecTokenRequest", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
 	}
 
 	timeout := o.Timeout
@@ -85,15 +86,14 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -195,7 +195,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetSummaryWorkersResponse{
+	res := &operations.CreateInputHecTokenByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +211,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetSummaryWorkersResponseBody
+			var out operations.CreateInputHecTokenByIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -275,9 +275,15 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
-func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+// Update metadata for an HEC token for a Splunk HEC Source
+// Update token metadata on existing HEC Source
+func (s *HecTokens) Update(ctx context.Context, id string, token string, updateHecTokenRequest components.UpdateHecTokenRequest, opts ...operations.Option) (*operations.UpdateInputHecTokenByIDAndTokenResponse, error) {
+	request := operations.UpdateInputHecTokenByIDAndTokenRequest{
+		ID:                    id,
+		Token:                 token,
+		UpdateHecTokenRequest: updateHecTokenRequest,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +302,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/inputs/{id}/hectoken/{token}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,9 +312,13 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getWorkers",
+		OperationID:      "updateInputHecTokenByIdAndToken",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateHecTokenRequest", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
 	}
 
 	timeout := o.Timeout
@@ -322,15 +332,14 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "PATCH", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -432,7 +441,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		}
 	}
 
-	res := &operations.GetWorkersResponse{
+	res := &operations.UpdateInputHecTokenByIDAndTokenResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -448,7 +457,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 				return nil, err
 			}
 
-			var out operations.GetWorkersResponseBody
+			var out operations.UpdateInputHecTokenByIDAndTokenResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

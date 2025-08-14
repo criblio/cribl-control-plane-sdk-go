@@ -14,31 +14,27 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
-type Nodes struct {
-	Summaries *Summaries
-
+type Samples struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
-	return &Nodes{
+func newSamples(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Samples {
+	return &Samples{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Summaries:        newSummaries(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
-	request := operations.GetSummaryWorkersRequest{
-		FilterExp: filterExp,
+// Get - Retrieve sample event data for a Destination
+// Retrieve samples data for the specified destination. Used to get sample data for the test action.
+func (s *Samples) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
+	request := operations.GetOutputSamplesByIDRequest{
+		ID: id,
 	}
 
 	o := operations.Options{}
@@ -59,7 +55,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}/samples", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +65,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummaryWorkers",
+		OperationID:      "getOutputSamplesById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -91,10 +87,6 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -195,7 +187,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetSummaryWorkersResponse{
+	res := &operations.GetOutputSamplesByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +203,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetSummaryWorkersResponseBody
+			var out operations.GetOutputSamplesByIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -275,9 +267,14 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
-func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+// Create - Send sample event data to a Destination
+// Send sample data to a destination to validate configuration or test connectivity
+func (s *Samples) Create(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
+	request := operations.CreateOutputTestByIDRequest{
+		ID:                id,
+		OutputTestRequest: outputTestRequest,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +293,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}/test", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,9 +303,13 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getWorkers",
+		OperationID:      "createOutputTestById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
+	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "OutputTestRequest", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
 	}
 
 	timeout := o.Timeout
@@ -322,15 +323,14 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -432,7 +432,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		}
 	}
 
-	res := &operations.GetWorkersResponse{
+	res := &operations.CreateOutputTestByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -448,7 +448,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 				return nil, err
 			}
 
-			var out operations.GetWorkersResponseBody
+			var out operations.CreateOutputTestByIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
