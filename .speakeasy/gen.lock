@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a3648302114f4f5a98e6e988376a1911
-  docVersion: 4.14.0-alpha.1755082027273-8cf9b57a
+  docChecksum: 776d906845341fa77614583a04735310
+  docVersion: 4.14.0-alpha.1755179421376-c4612cd3
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.28
-  configChecksum: 13dc482e5bebf2f747de78936460ce30
+  releaseVersion: 0.0.29
+  configChecksum: 4d72310ba2f6adf96251a02e1400022a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -234,7 +234,6 @@ generatedFiles:
   - /models/operations/createversioncommit.go
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
-  - /models/operations/createversionsync.go
   - /models/operations/createversionundo.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deletegroupsbyid.go
@@ -284,7 +283,11 @@ generatedFiles:
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
   - USAGE.md
+  - acl.go
   - auth.go
+  - branches.go
+  - commits.go
+  - configsversions.go
   - criblcontrolplane.go
   - destinations.go
   - docs/models/apierrors/error.md
@@ -2006,8 +2009,6 @@ generatedFiles:
   - docs/models/operations/createversionrevertrequest.md
   - docs/models/operations/createversionrevertresponse.md
   - docs/models/operations/createversionrevertresponsebody.md
-  - docs/models/operations/createversionsyncresponse.md
-  - docs/models/operations/createversionsyncresponsebody.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
@@ -2147,21 +2148,37 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
+  - docs/sdks/acl/README.md
   - docs/sdks/auth/README.md
+  - docs/sdks/branches/README.md
+  - docs/sdks/commits/README.md
+  - docs/sdks/configsversions/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
+  - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
+  - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
+  - docs/sdks/pq/README.md
   - docs/sdks/routes/README.md
+  - docs/sdks/samples/README.md
   - docs/sdks/sources/README.md
-  - docs/sdks/versioning/README.md
+  - docs/sdks/statuses/README.md
+  - docs/sdks/summaries/README.md
+  - docs/sdks/teams/README.md
+  - docs/sdks/tokens/README.md
+  - docs/sdks/versions/README.md
+  - docs/sdks/versionsconfigs/README.md
+  - files.go
   - go.mod
   - groups.go
+  - groupsconfigs.go
   - health.go
+  - hectokens.go
   - internal/config/sdkconfiguration.go
   - internal/hooks/clientcredentials.go
   - internal/hooks/hooks.go
@@ -2184,15 +2201,22 @@ generatedFiles:
   - nodes.go
   - packs.go
   - pipelines.go
+  - pq.go
   - retry/config.go
   - routes.go
+  - samples.go
   - sources.go
+  - statuses.go
+  - summaries.go
+  - teams.go
+  - tokens.go
   - types/bigint.go
   - types/date.go
   - types/datetime.go
   - types/decimal.go
   - types/pointers.go
-  - versioning.go
+  - versions.go
+  - versionsconfigs.go
 examples:
   getHealthInfo:
     speakeasy-default-get-health-info:

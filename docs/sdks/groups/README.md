@@ -7,72 +7,12 @@ Actions related to Groups
 
 ### Available Operations
 
-* [GetConfigVersion](#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
 * [Create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
 * [List](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
 * [Delete](#delete) - Delete a Worker Group or Edge Fleet
 * [Get](#get) - Retrieve a Worker Group or Edge Fleet
 * [Update](#update) - Update a Worker Group or Edge Fleet
 * [Deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
-* [GetTeamACL](#getteamacl) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-* [GetACL](#getacl) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
-
-## GetConfigVersion
-
-Get effective bundle version for given Group
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getGroupsConfigVersionById" method="get" path="/master/groups/{id}/configVersion" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.GetConfigVersion(ctx, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Group ID                                                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.GetGroupsConfigVersionByIDResponse](../../models/operations/getgroupsconfigversionbyidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -534,125 +474,6 @@ func main() {
 ### Response
 
 **[*operations.UpdateGroupsDeployByIDResponse](../../models/operations/updategroupsdeploybyidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## GetTeamACL
-
-ACL of team with permissions for resources in this Group
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.GetTeamACL(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                              | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                                  | :heavy_check_mark:                                                                                                                     | The context to use for the request.                                                                                                    |
-| `product`                                                                                                                              | [operations.GetProductsGroupsACLTeamsByProductAndIDProduct](../../models/operations/getproductsgroupsaclteamsbyproductandidproduct.md) | :heavy_check_mark:                                                                                                                     | Cribl Product                                                                                                                          |
-| `id`                                                                                                                                   | *string*                                                                                                                               | :heavy_check_mark:                                                                                                                     | Group ID                                                                                                                               |
-| `type_`                                                                                                                                | [*operations.GetProductsGroupsACLTeamsByProductAndIDType](../../models/operations/getproductsgroupsaclteamsbyproductandidtype.md)      | :heavy_minus_sign:                                                                                                                     | resource type by which to filter access levels                                                                                         |
-| `opts`                                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                                               | :heavy_minus_sign:                                                                                                                     | The options for this request.                                                                                                          |
-
-### Response
-
-**[*operations.GetProductsGroupsACLTeamsByProductAndIDResponse](../../models/operations/getproductsgroupsaclteamsbyproductandidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## GetACL
-
-ACL of members with permissions for resources in this Group
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getGroupsAclById" method="get" path="/master/groups/{id}/acl" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.GetACL(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ctx`                                                                               | [context.Context](https://pkg.go.dev/context#Context)                               | :heavy_check_mark:                                                                  | The context to use for the request.                                                 |
-| `id`                                                                                | *string*                                                                            | :heavy_check_mark:                                                                  | Group id                                                                            |
-| `type_`                                                                             | [*operations.GetGroupsACLByIDType](../../models/operations/getgroupsaclbyidtype.md) | :heavy_minus_sign:                                                                  | resource type by which to filter access levels                                      |
-| `opts`                                                                              | [][operations.Option](../../models/operations/option.md)                            | :heavy_minus_sign:                                                                  | The options for this request.                                                       |
-
-### Response
-
-**[*operations.GetGroupsACLByIDResponse](../../models/operations/getgroupsaclbyidresponse.md), error**
 
 ### Errors
 

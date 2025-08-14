@@ -17,30 +17,23 @@ import (
 	"net/url"
 )
 
-type Nodes struct {
-	Summaries *Summaries
-
+type Branches struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
-	return &Nodes{
+func newBranches(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Branches {
+	return &Branches{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Summaries:        newSummaries(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
-	request := operations.GetSummaryWorkersRequest{
-		FilterExp: filterExp,
-	}
-
+// List all branches in the Git repository used for Cribl configuration
+// get the list of branches
+func (s *Branches) List(ctx context.Context, opts ...operations.Option) (*operations.GetVersionBranchResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -59,7 +52,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := url.JoinPath(baseURL, "/version/branch")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +62,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummaryWorkers",
+		OperationID:      "getVersionBranch",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -91,10 +84,6 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -195,7 +184,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetSummaryWorkersResponse{
+	res := &operations.GetVersionBranchResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +200,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetSummaryWorkersResponseBody
+			var out operations.GetVersionBranchResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -275,9 +264,9 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
-func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+// Get - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+// returns git branch that the config is checked out to, if any
+func (s *Branches) Get(ctx context.Context, opts ...operations.Option) (*operations.GetVersionCurrentBranchResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +285,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := url.JoinPath(baseURL, "/version/current-branch")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,7 +295,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getWorkers",
+		OperationID:      "getVersionCurrentBranch",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -328,10 +317,6 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -432,7 +417,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		}
 	}
 
-	res := &operations.GetWorkersResponse{
+	res := &operations.GetVersionCurrentBranchResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -448,7 +433,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 				return nil, err
 			}
 
-			var out operations.GetWorkersResponseBody
+			var out operations.GetVersionCurrentBranchResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
