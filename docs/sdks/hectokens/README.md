@@ -1,0 +1,145 @@
+# HecTokens
+(*Sources.HecTokens*)
+
+## Overview
+
+### Available Operations
+
+* [Create](#create) - Add an HEC token and optional metadata to a Splunk HEC Source
+* [Update](#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+## Create
+
+Add token and optional metadata to an existing HEC Source
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
+        Description: criblcontrolplanesdkgo.String("bah ick stingy"),
+        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Metadata: []components.AddHecTokenRequestMetadatum{
+            components.AddHecTokenRequestMetadatum{
+                Name: "<value>",
+                Value: "<value>",
+            },
+        },
+        Token: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
+| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | HEC Source id                                                                  |
+| `addHecTokenRequest`                                                           | [components.AddHecTokenRequest](../../models/components/addhectokenrequest.md) | :heavy_check_mark:                                                             | AddHecTokenRequest object                                                      |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+
+### Response
+
+**[*operations.CreateInputHecTokenByIDResponse](../../models/operations/createinputhectokenbyidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Update
+
+Update token metadata on existing HEC Source
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
+        Description: criblcontrolplanesdkgo.String("by bleakly fortunately phew barring"),
+        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Metadata: []components.UpdateHecTokenRequestMetadatum{
+            components.UpdateHecTokenRequestMetadatum{
+                Name: "<value>",
+                Value: "<value>",
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
+| `id`                                                                                 | *string*                                                                             | :heavy_check_mark:                                                                   | HEC Source id                                                                        |
+| `token`                                                                              | *string*                                                                             | :heavy_check_mark:                                                                   | token to update                                                                      |
+| `updateHecTokenRequest`                                                              | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md) | :heavy_check_mark:                                                                   | UpdateHecTokenRequest object                                                         |
+| `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
+
+### Response
+
+**[*operations.UpdateInputHecTokenByIDAndTokenResponse](../../models/operations/updateinputhectokenbyidandtokenresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
