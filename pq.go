@@ -14,31 +14,27 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
 	"net/http"
-	"net/url"
 )
 
-type Nodes struct {
-	Summaries *Summaries
-
+type Pq struct {
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Nodes {
-	return &Nodes{
+func newPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Pq {
+	return &Pq{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Summaries:        newSummaries(rootSDK, sdkConfig, hooks),
 	}
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
-func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetSummaryWorkersResponse, error) {
-	request := operations.GetSummaryWorkersRequest{
-		FilterExp: filterExp,
+// Clear the persistent queue for a Destination
+// Clears destination persistent queue
+func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
+	request := operations.DeleteOutputPqByIDRequest{
+		ID: id,
 	}
 
 	o := operations.Options{}
@@ -59,7 +55,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/summary/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}/pq", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +65,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getSummaryWorkers",
+		OperationID:      "deleteOutputPqById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -85,16 +81,12 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -195,7 +187,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 		}
 	}
 
-	res := &operations.GetSummaryWorkersResponse{
+	res := &operations.DeleteOutputPqByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +203,7 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetSummaryWorkersResponseBody
+			var out operations.DeleteOutputPqByIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -275,9 +267,13 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
-func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, opts ...operations.Option) (*operations.GetWorkersResponse, error) {
+// Get - Retrieve information about the latest job to clear the persistent queue for a Destination
+// Retrieves status of latest clear PQ job for a destination
+func (s *Pq) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
+	request := operations.GetOutputPqByIDRequest{
+		ID: id,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +292,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/master/workers")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/system/outputs/{id}/pq", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,7 +302,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getWorkers",
+		OperationID:      "getOutputPqById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -328,10 +324,6 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -432,7 +424,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 		}
 	}
 
-	res := &operations.GetWorkersResponse{
+	res := &operations.GetOutputPqByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -448,7 +440,7 @@ func (s *Nodes) List(ctx context.Context, request operations.GetWorkersRequest, 
 				return nil, err
 			}
 
-			var out operations.GetWorkersResponseBody
+			var out operations.GetOutputPqByIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
