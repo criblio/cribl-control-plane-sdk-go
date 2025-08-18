@@ -60,7 +60,6 @@ type GitStatusResult struct {
 	NotAdded   []string  `json:"not_added"`
 	Renamed    []Renamed `json:"renamed"`
 	Staged     []string  `json:"staged"`
-	Tracking   string    `json:"tracking"`
 }
 
 func (o *GitStatusResult) GetAhead() float64 {
@@ -138,11 +137,4 @@ func (o *GitStatusResult) GetStaged() []string {
 		return []string{}
 	}
 	return o.Staged
-}
-
-func (o *GitStatusResult) GetTracking() string {
-	if o == nil {
-		return ""
-	}
-	return o.Tracking
 }
