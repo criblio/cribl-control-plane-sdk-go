@@ -1,0 +1,9 @@
+# GetMasterWorkerEntryResponse
+
+
+## Fields
+
+| Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                                  | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                          | :heavy_check_mark:                                                                                          | N/A                                                                                                         |
+| `Object`                                                                                                    | [*operations.GetMasterWorkerEntryResponseBody](../../models/operations/getmasterworkerentryresponsebody.md) | :heavy_minus_sign:                                                                                          | a list of number objects                                                                                    |

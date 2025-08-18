@@ -33,12 +33,13 @@ func newACL(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks
 	}
 }
 
-// Get - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
-// ACL of members with permissions for resources in this Group
-func (s *ACL) Get(ctx context.Context, id string, type_ *operations.GetGroupsACLByIDType, opts ...operations.Option) (*operations.GetGroupsACLByIDResponse, error) {
-	request := operations.GetGroupsACLByIDRequest{
-		ID:   id,
-		Type: type_,
+// Get the Access Control List for a Worker Group or Edge Fleet
+// Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+func (s *ACL) Get(ctx context.Context, product operations.GetConfigGroupACLByProductAndIDProduct, id string, type_ *operations.GetConfigGroupACLByProductAndIDType, opts ...operations.Option) (*operations.GetConfigGroupACLByProductAndIDResponse, error) {
+	request := operations.GetConfigGroupACLByProductAndIDRequest{
+		Product: product,
+		ID:      id,
+		Type:    type_,
 	}
 
 	o := operations.Options{}
@@ -59,7 +60,7 @@ func (s *ACL) Get(ctx context.Context, id string, type_ *operations.GetGroupsACL
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/master/groups/{id}/acl", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/products/{product}/groups/{id}/acl", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -69,7 +70,7 @@ func (s *ACL) Get(ctx context.Context, id string, type_ *operations.GetGroupsACL
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getGroupsAclById",
+		OperationID:      "getConfigGroupAclByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -195,7 +196,7 @@ func (s *ACL) Get(ctx context.Context, id string, type_ *operations.GetGroupsACL
 		}
 	}
 
-	res := &operations.GetGroupsACLByIDResponse{
+	res := &operations.GetConfigGroupACLByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -211,7 +212,7 @@ func (s *ACL) Get(ctx context.Context, id string, type_ *operations.GetGroupsACL
 				return nil, err
 			}
 
-			var out operations.GetGroupsACLByIDResponseBody
+			var out operations.GetConfigGroupACLByProductAndIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
