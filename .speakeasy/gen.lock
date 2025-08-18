@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 776d906845341fa77614583a04735310
-  docVersion: 4.14.0-alpha.1755179421376-c4612cd3
+  docChecksum: e7ba4e14655bcc4921625880b3348e93
+  docVersion: 4.14.0-alpha.1755516762461-7e2ae3eb
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.29
-  configChecksum: 4d72310ba2f6adf96251a02e1400022a
+  releaseVersion: 0.0.30
+  configChecksum: 04370d99426598dadebde3d7fa93344d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -50,6 +50,7 @@ generatedFiles:
   - /models/components/configgrouplookups.go
   - /models/components/criblevent.go
   - /models/components/cribllakedataset.go
+  - /models/components/currentbranchresult.go
   - /models/components/datasetmetadata.go
   - /models/components/datasetmetadataruninfo.go
   - /models/components/deployrequest.go
@@ -325,6 +326,7 @@ generatedFiles:
   - docs/models/components/criblevent.md
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
+  - docs/models/components/currentbranchresult.md
   - docs/models/components/customlabel.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
@@ -447,6 +449,8 @@ generatedFiles:
   - docs/models/components/inputcriblhttptlssettingsserverside.md
   - docs/models/components/inputcriblhttptype.md
   - docs/models/components/inputcribllakehttp.md
+  - docs/models/components/inputcribllakehttpauthtokensext.md
+  - docs/models/components/inputcribllakehttpauthtokensextmetadatum.md
   - docs/models/components/inputcribllakehttpcompression.md
   - docs/models/components/inputcribllakehttpconnection.md
   - docs/models/components/inputcribllakehttpmaximumtlsversion.md
@@ -2092,7 +2096,6 @@ generatedFiles:
   - docs/models/operations/getversioncountresponse.md
   - docs/models/operations/getversioncountresponsebody.md
   - docs/models/operations/getversioncurrentbranchresponse.md
-  - docs/models/operations/getversioncurrentbranchresponsebody.md
   - docs/models/operations/getversiondiffrequest.md
   - docs/models/operations/getversiondiffresponse.md
   - docs/models/operations/getversiondiffresponsebody.md
@@ -2515,7 +2518,7 @@ examples:
     speakeasy-default-get-version-current-branch:
       responses:
         "200":
-          application/json: {"count": 561043, "items": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}]}
+          application/json: {"branch": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   getVersionDiff:
@@ -2588,7 +2591,7 @@ examples:
           group: "<value>"
       responses:
         "200":
-          application/json: {"count": 616511, "items": [{"ahead": 3019.14, "behind": 4465.56, "conflicted": ["<value 1>", "<value 2>"], "created": ["<value 1>", "<value 2>"], "current": "<value>", "deleted": ["<value 1>"], "files": [], "modified": ["<value 1>", "<value 2>", "<value 3>"], "not_added": [], "renamed": [{"from": "<value>", "to": "<value>"}], "staged": ["<value 1>", "<value 2>", "<value 3>"], "tracking": "<value>"}]}
+          application/json: {"count": 616511, "items": [{"ahead": 3019.14, "behind": 4465.56, "conflicted": ["<value 1>", "<value 2>"], "created": ["<value 1>", "<value 2>"], "current": "<value>", "deleted": ["<value 1>"], "files": [], "modified": ["<value 1>", "<value 2>", "<value 3>"], "not_added": [], "renamed": [{"from": "<value>", "to": "<value>"}], "staged": ["<value 1>", "<value 2>", "<value 3>"]}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionSync:

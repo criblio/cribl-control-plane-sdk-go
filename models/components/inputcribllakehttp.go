@@ -373,6 +373,55 @@ func (o *InputCriblLakeHTTPMetadatum) GetValue() string {
 	return o.Value
 }
 
+type InputCriblLakeHTTPAuthTokensExtMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExtMetadatum) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExtMetadatum) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type InputCriblLakeHTTPAuthTokensExt struct {
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       string  `json:"token"`
+	Description *string `json:"description,omitempty"`
+	// Fields to add to events referencing this token
+	Metadata []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExt) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExt) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []InputCriblLakeHTTPAuthTokensExtMetadatum {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
 type InputCriblLakeHTTP struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
@@ -420,9 +469,18 @@ type InputCriblLakeHTTP struct {
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `default:"/cribl" json:"criblAPI"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `default:"/elastic" json:"elasticAPI"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
 	// Fields to add to events from this input
-	Metadata    []InputCriblLakeHTTPMetadatum `json:"metadata,omitempty"`
-	Description *string                       `json:"description,omitempty"`
+	Metadata []InputCriblLakeHTTPMetadatum `json:"metadata,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []InputCriblLakeHTTPAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                           `json:"description,omitempty"`
 }
 
 func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
@@ -611,11 +669,46 @@ func (o *InputCriblLakeHTTP) GetIPDenylistRegex() *string {
 	return o.IPDenylistRegex
 }
 
+func (o *InputCriblLakeHTTP) GetCriblAPI() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CriblAPI
+}
+
+func (o *InputCriblLakeHTTP) GetElasticAPI() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticAPI
+}
+
+func (o *InputCriblLakeHTTP) GetSplunkHecAPI() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SplunkHecAPI
+}
+
+func (o *InputCriblLakeHTTP) GetSplunkHecAcks() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SplunkHecAcks
+}
+
 func (o *InputCriblLakeHTTP) GetMetadata() []InputCriblLakeHTTPMetadatum {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *InputCriblLakeHTTP) GetAuthTokensExt() []InputCriblLakeHTTPAuthTokensExt {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokensExt
 }
 
 func (o *InputCriblLakeHTTP) GetDescription() *string {

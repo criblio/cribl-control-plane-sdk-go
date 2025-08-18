@@ -407,6 +407,8 @@ type InputCrowdstrike struct {
 	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Include metadata from SQS notifications on outgoing events
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
 	// Use Assume Role credentials to access Amazon S3
 	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -634,6 +636,13 @@ func (o *InputCrowdstrike) GetSkipOnError() *bool {
 		return nil
 	}
 	return o.SkipOnError
+}
+
+func (o *InputCrowdstrike) GetIncludeSqsMetadata() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IncludeSqsMetadata
 }
 
 func (o *InputCrowdstrike) GetEnableAssumeRole() *bool {
