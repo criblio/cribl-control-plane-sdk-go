@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: e7ba4e14655bcc4921625880b3348e93
-  docVersion: 4.14.0-alpha.1755516762461-7e2ae3eb
+  docChecksum: fa2aec240b6e1c35e6bb718a089a1389
+  docVersion: 4.14.0-alpha.1755543348575-fc1d9ba2
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.30
-  configChecksum: 04370d99426598dadebde3d7fa93344d
+  releaseVersion: 0.0.31
+  configChecksum: daa05ba56c798d09498ce1697b5e4a8f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -223,6 +223,7 @@ generatedFiles:
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
   - /models/components/useraccesscontrollist.go
+  - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
   - /models/operations/createinputhectokenbyid.go
@@ -230,36 +231,34 @@ generatedFiles:
   - /models/operations/createoutputtestbyid.go
   - /models/operations/createpacks.go
   - /models/operations/createpipeline.go
-  - /models/operations/createproductsgroupsbyproduct.go
   - /models/operations/createroutesappendbyid.go
   - /models/operations/createversioncommit.go
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
   - /models/operations/createversionundo.go
+  - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
-  - /models/operations/deletegroupsbyid.go
   - /models/operations/deleteinputbyid.go
   - /models/operations/deleteoutputbyid.go
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
+  - /models/operations/getconfiggroupaclbyproductandid.go
+  - /models/operations/getconfiggroupaclteamsbyproductandid.go
+  - /models/operations/getconfiggroupbyproductandid.go
+  - /models/operations/getconfiggroupconfigversionbyproductandid.go
   - /models/operations/getcribllakedatasetbylakeid.go
   - /models/operations/getcribllakedatasetbylakeidandid.go
-  - /models/operations/getgroupsaclbyid.go
-  - /models/operations/getgroupsbyid.go
-  - /models/operations/getgroupsconfigversionbyid.go
   - /models/operations/gethealthinfo.go
   - /models/operations/getinputbyid.go
+  - /models/operations/getmasterworkerentry.go
   - /models/operations/getoutputbyid.go
   - /models/operations/getoutputpqbyid.go
   - /models/operations/getoutputsamplesbyid.go
   - /models/operations/getpacks.go
   - /models/operations/getpipelinebyid.go
-  - /models/operations/getproductsgroupsaclteamsbyproductandid.go
-  - /models/operations/getproductsgroupsbyproduct.go
   - /models/operations/getroutesbyid.go
   - /models/operations/getsummary.go
-  - /models/operations/getsummaryworkers.go
   - /models/operations/getversionbranch.go
   - /models/operations/getversioncount.go
   - /models/operations/getversioncurrentbranch.go
@@ -268,15 +267,16 @@ generatedFiles:
   - /models/operations/getversioninfo.go
   - /models/operations/getversionshow.go
   - /models/operations/getversionstatus.go
-  - /models/operations/getworkers.go
+  - /models/operations/listconfiggroupbyproduct.go
   - /models/operations/listinput.go
+  - /models/operations/listmasterworkerentry.go
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
   - /models/operations/login.go
+  - /models/operations/updateconfiggroupbyproductandid.go
+  - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
-  - /models/operations/updategroupsbyid.go
-  - /models/operations/updategroupsdeploybyid.go
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
   - /models/operations/updateoutputbyid.go
@@ -1982,6 +1982,10 @@ generatedFiles:
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createconfiggroupbyproductproduct.md
+  - docs/models/operations/createconfiggroupbyproductrequest.md
+  - docs/models/operations/createconfiggroupbyproductresponse.md
+  - docs/models/operations/createconfiggroupbyproductresponsebody.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
   - docs/models/operations/createcribllakedatasetbylakeidresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidresponsebody.md
@@ -1999,10 +2003,6 @@ generatedFiles:
   - docs/models/operations/createpacksresponsebody.md
   - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createpipelineresponsebody.md
-  - docs/models/operations/createproductsgroupsbyproductproduct.md
-  - docs/models/operations/createproductsgroupsbyproductrequest.md
-  - docs/models/operations/createproductsgroupsbyproductresponse.md
-  - docs/models/operations/createproductsgroupsbyproductresponsebody.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createroutesappendbyidresponsebody.md
@@ -2016,12 +2016,13 @@ generatedFiles:
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
+  - docs/models/operations/deleteconfiggroupbyproductandidproduct.md
+  - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
+  - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
+  - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidresponsebody.md
-  - docs/models/operations/deletegroupsbyidrequest.md
-  - docs/models/operations/deletegroupsbyidresponse.md
-  - docs/models/operations/deletegroupsbyidresponsebody.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteinputbyidresponsebody.md
@@ -2037,26 +2038,37 @@ generatedFiles:
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/deletepipelinebyidresponsebody.md
+  - docs/models/operations/getconfiggroupaclbyproductandidproduct.md
+  - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
+  - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
+  - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
+  - docs/models/operations/getconfiggroupaclbyproductandidtype.md
+  - docs/models/operations/getconfiggroupaclteamsbyproductandidproduct.md
+  - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
+  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
+  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponsebody.md
+  - docs/models/operations/getconfiggroupaclteamsbyproductandidtype.md
+  - docs/models/operations/getconfiggroupbyproductandidproduct.md
+  - docs/models/operations/getconfiggroupbyproductandidrequest.md
+  - docs/models/operations/getconfiggroupbyproductandidresponse.md
+  - docs/models/operations/getconfiggroupbyproductandidresponsebody.md
+  - docs/models/operations/getconfiggroupconfigversionbyproductandidproduct.md
+  - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
+  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
+  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
-  - docs/models/operations/getgroupsaclbyidrequest.md
-  - docs/models/operations/getgroupsaclbyidresponse.md
-  - docs/models/operations/getgroupsaclbyidresponsebody.md
-  - docs/models/operations/getgroupsaclbyidtype.md
-  - docs/models/operations/getgroupsbyidrequest.md
-  - docs/models/operations/getgroupsbyidresponse.md
-  - docs/models/operations/getgroupsbyidresponsebody.md
-  - docs/models/operations/getgroupsconfigversionbyidrequest.md
-  - docs/models/operations/getgroupsconfigversionbyidresponse.md
-  - docs/models/operations/getgroupsconfigversionbyidresponsebody.md
   - docs/models/operations/gethealthinforesponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getinputbyidresponsebody.md
+  - docs/models/operations/getmasterworkerentryrequest.md
+  - docs/models/operations/getmasterworkerentryresponse.md
+  - docs/models/operations/getmasterworkerentryresponsebody.md
   - docs/models/operations/getoutputbyidrequest.md
   - docs/models/operations/getoutputbyidresponse.md
   - docs/models/operations/getoutputbyidresponsebody.md
@@ -2072,24 +2084,12 @@ generatedFiles:
   - docs/models/operations/getpipelinebyidrequest.md
   - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getpipelinebyidresponsebody.md
-  - docs/models/operations/getproductsgroupsaclteamsbyproductandidproduct.md
-  - docs/models/operations/getproductsgroupsaclteamsbyproductandidrequest.md
-  - docs/models/operations/getproductsgroupsaclteamsbyproductandidresponse.md
-  - docs/models/operations/getproductsgroupsaclteamsbyproductandidresponsebody.md
-  - docs/models/operations/getproductsgroupsaclteamsbyproductandidtype.md
-  - docs/models/operations/getproductsgroupsbyproductproduct.md
-  - docs/models/operations/getproductsgroupsbyproductrequest.md
-  - docs/models/operations/getproductsgroupsbyproductresponse.md
-  - docs/models/operations/getproductsgroupsbyproductresponsebody.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getroutesbyidresponsebody.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getsummaryresponsebody.md
-  - docs/models/operations/getsummaryworkersrequest.md
-  - docs/models/operations/getsummaryworkersresponse.md
-  - docs/models/operations/getsummaryworkersresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
@@ -2110,11 +2110,15 @@ generatedFiles:
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/getversionstatusresponsebody.md
-  - docs/models/operations/getworkersrequest.md
-  - docs/models/operations/getworkersresponse.md
-  - docs/models/operations/getworkersresponsebody.md
+  - docs/models/operations/listconfiggroupbyproductproduct.md
+  - docs/models/operations/listconfiggroupbyproductrequest.md
+  - docs/models/operations/listconfiggroupbyproductresponse.md
+  - docs/models/operations/listconfiggroupbyproductresponsebody.md
   - docs/models/operations/listinputresponse.md
   - docs/models/operations/listinputresponsebody.md
+  - docs/models/operations/listmasterworkerentryrequest.md
+  - docs/models/operations/listmasterworkerentryresponse.md
+  - docs/models/operations/listmasterworkerentryresponsebody.md
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listoutputresponsebody.md
   - docs/models/operations/listpipelineresponse.md
@@ -2124,15 +2128,17 @@ generatedFiles:
   - docs/models/operations/loginresponse.md
   - docs/models/operations/mode.md
   - docs/models/operations/option.md
+  - docs/models/operations/updateconfiggroupbyproductandidproduct.md
+  - docs/models/operations/updateconfiggroupbyproductandidrequest.md
+  - docs/models/operations/updateconfiggroupbyproductandidresponse.md
+  - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
+  - docs/models/operations/updateconfiggroupdeploybyproductandidproduct.md
+  - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
+  - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
+  - docs/models/operations/updateconfiggroupdeploybyproductandidresponsebody.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidresponsebody.md
-  - docs/models/operations/updategroupsbyidrequest.md
-  - docs/models/operations/updategroupsbyidresponse.md
-  - docs/models/operations/updategroupsbyidresponsebody.md
-  - docs/models/operations/updategroupsdeploybyidrequest.md
-  - docs/models/operations/updategroupsdeploybyidresponse.md
-  - docs/models/operations/updategroupsdeploybyidresponsebody.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputbyidresponsebody.md
@@ -2866,6 +2872,142 @@ examples:
       responses:
         "200":
           application/json: {"count": 899492, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5369.68, "description": "zowie hastily guzzle grimy mask engage", "estimatedIngestRate": 5316.34, "git": {"commit": "<value>", "localChanges": 370.43, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-08-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4056.89, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5413.87, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  listMasterWorkerEntry:
+    speakeasy-default-list-master-worker-entry:
+      parameters:
+        query:
+          filterExp: "<value>"
+          sort: "<value>"
+          sortExp: "<value>"
+          limit: 554169
+          offset: 426660
+          filter: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getMasterWorkerEntry:
+    speakeasy-default-get-master-worker-entry:
+      parameters:
+        query:
+          filterExp: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 732189, "items": [3187.39]}
+        "500":
+          application/json: {"message": "<value>"}
+  listConfigGroupByProduct:
+    speakeasy-default-list-config-group-by-product:
+      parameters:
+        path:
+          product: "edge"
+        query:
+          fields: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 5993.3, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createConfigGroupByProduct:
+    speakeasy-default-create-config-group-by-product:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 346.37, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
+      responses:
+        "200":
+          application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 7643.22, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getConfigGroupByProductAndId:
+    speakeasy-default-get-config-group-by-product-and-id:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+        query:
+          fields: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 3832.46, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateConfigGroupByProductAndId:
+    speakeasy-default-update-config-group-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 6748.35, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
+      responses:
+        "200":
+          application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 3702.49, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteConfigGroupByProductAndId:
+    speakeasy-default-delete-config-group-by-product-and-id:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 9667.42, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateConfigGroupDeployByProductAndId:
+    speakeasy-default-update-config-group-deploy-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"lookups": [{"context": "<value>", "lookups": []}], "version": "<value>"}
+      responses:
+        "200":
+          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 6207.5, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getConfigGroupConfigVersionByProductAndId:
+    speakeasy-default-get-config-group-config-version-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 723393, "items": ["<value 1>", "<value 2>"]}
+        "500":
+          application/json: {"message": "<value>"}
+  getConfigGroupAclByProductAndId:
+    speakeasy-default-get-config-group-acl-by-product-and-id:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+        query:
+          type: "macros"
+      responses:
+        "200":
+          application/json: {"count": 566226, "items": [{"perms": [{"gid": "<id>", "id": "<id>", "policy": "<value>", "type": "groups"}], "user": "Violet_Satterfield99"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getConfigGroupAclTeamsByProductAndId:
+    speakeasy-default-get-config-group-acl-teams-by-product-and-id:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+        query:
+          type: "macros"
+      responses:
+        "200":
+          application/json: {"count": 729189, "items": [{"perms": [{"gid": "<id>", "id": "<id>", "policy": "<value>", "type": "notebooks"}], "team": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2

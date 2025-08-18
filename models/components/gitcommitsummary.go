@@ -84,16 +84,16 @@ func (o *Summary) GetInsertions() float64 {
 }
 
 type GitCommitSummary struct {
-	Author  Author                `json:"author"`
+	Author  *Author               `json:"author,omitempty"`
 	Branch  string                `json:"branch"`
 	Commit  string                `json:"commit"`
 	Files   GitCommitSummaryFiles `json:"files"`
 	Summary Summary               `json:"summary"`
 }
 
-func (o *GitCommitSummary) GetAuthor() Author {
+func (o *GitCommitSummary) GetAuthor() *Author {
 	if o == nil {
-		return Author{}
+		return nil
 	}
 	return o.Author
 }

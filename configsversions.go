@@ -30,11 +30,12 @@ func newConfigsVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 	}
 }
 
-// Get - Retrieve the configuration version for a Worker Group or Edge Fleet
-// Get effective bundle version for given Group
-func (s *ConfigsVersions) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetGroupsConfigVersionByIDResponse, error) {
-	request := operations.GetGroupsConfigVersionByIDRequest{
-		ID: id,
+// Get the configuration version for a Worker Group or Edge Fleet
+// Get the configuration version for the specified Worker Group or Edge Fleet.
+func (s *ConfigsVersions) Get(ctx context.Context, product operations.GetConfigGroupConfigVersionByProductAndIDProduct, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
+	request := operations.GetConfigGroupConfigVersionByProductAndIDRequest{
+		Product: product,
+		ID:      id,
 	}
 
 	o := operations.Options{}
@@ -55,7 +56,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, id string, opts ...operations
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/master/groups/{id}/configVersion", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/products/{product}/groups/{id}/configVersion", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -65,7 +66,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, id string, opts ...operations
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getGroupsConfigVersionById",
+		OperationID:      "getConfigGroupConfigVersionByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -187,7 +188,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, id string, opts ...operations
 		}
 	}
 
-	res := &operations.GetGroupsConfigVersionByIDResponse{
+	res := &operations.GetConfigGroupConfigVersionByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -203,7 +204,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, id string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetGroupsConfigVersionByIDResponseBody
+			var out operations.GetConfigGroupConfigVersionByProductAndIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

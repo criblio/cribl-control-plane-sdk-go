@@ -238,24 +238,24 @@ func main() {
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
 * [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
-* [Get](docs/sdks/groups/README.md#get) - Retrieve a Worker Group or Edge Fleet
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
+* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 #### [Groups.ACL](docs/sdks/acl/README.md)
 
-* [Get](docs/sdks/acl/README.md#get) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 
 #### [Groups.ACL.Teams](docs/sdks/teams/README.md)
 
-* [Get](docs/sdks/teams/README.md#get) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 
 #### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
 
-* [Get](docs/sdks/configsversions/README.md#get) - Retrieve the configuration version for a Worker Group or Edge Fleet
+* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
 
 ### [Health](docs/sdks/health/README.md)
 
@@ -271,8 +271,8 @@ func main() {
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [Count](docs/sdks/nodes/README.md#count) - Retrieve a count of Worker and Edge Nodes
 * [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
+* [Count](docs/sdks/nodes/README.md#count) - Retrieve a count of Worker and Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 

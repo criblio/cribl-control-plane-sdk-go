@@ -30,10 +30,10 @@ func newTeams(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// Get - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-// ACL of team with permissions for resources in this Group
-func (s *Teams) Get(ctx context.Context, product operations.GetProductsGroupsACLTeamsByProductAndIDProduct, id string, type_ *operations.GetProductsGroupsACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetProductsGroupsACLTeamsByProductAndIDResponse, error) {
-	request := operations.GetProductsGroupsACLTeamsByProductAndIDRequest{
+// Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+// Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
+func (s *Teams) Get(ctx context.Context, product operations.GetConfigGroupACLTeamsByProductAndIDProduct, id string, type_ *operations.GetConfigGroupACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetConfigGroupACLTeamsByProductAndIDResponse, error) {
+	request := operations.GetConfigGroupACLTeamsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 		Type:    type_,
@@ -67,7 +67,7 @@ func (s *Teams) Get(ctx context.Context, product operations.GetProductsGroupsACL
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getProductsGroupsAclTeamsByProductAndId",
+		OperationID:      "getConfigGroupAclTeamsByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -193,7 +193,7 @@ func (s *Teams) Get(ctx context.Context, product operations.GetProductsGroupsACL
 		}
 	}
 
-	res := &operations.GetProductsGroupsACLTeamsByProductAndIDResponse{
+	res := &operations.GetConfigGroupACLTeamsByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -209,7 +209,7 @@ func (s *Teams) Get(ctx context.Context, product operations.GetProductsGroupsACL
 				return nil, err
 			}
 
-			var out operations.GetProductsGroupsACLTeamsByProductAndIDResponseBody
+			var out operations.GetConfigGroupACLTeamsByProductAndIDResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
