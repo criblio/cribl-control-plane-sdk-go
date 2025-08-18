@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [Get](#get) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [Get](#get) - Get the Access Control List for a Worker Group or Edge Fleet
 
 ## Get
 
-ACL of members with permissions for resources in this Group
+Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getGroupsAclById" method="get" path="/master/groups/{id}/acl" -->
+<!-- UsageSnippet language="go" operationID="getConfigGroupAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
 ```go
 package main
 
@@ -36,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.ACL.Get(ctx, "<id>", operations.GetGroupsACLByIDTypeInsights.ToPointer())
+    res, err := s.Groups.ACL.Get(ctx, operations.GetConfigGroupACLByProductAndIDProductEdge, "<id>", operations.GetConfigGroupACLByProductAndIDTypeMacros.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -48,16 +48,17 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ctx`                                                                               | [context.Context](https://pkg.go.dev/context#Context)                               | :heavy_check_mark:                                                                  | The context to use for the request.                                                 |
-| `id`                                                                                | *string*                                                                            | :heavy_check_mark:                                                                  | Group id                                                                            |
-| `type_`                                                                             | [*operations.GetGroupsACLByIDType](../../models/operations/getgroupsaclbyidtype.md) | :heavy_minus_sign:                                                                  | resource type by which to filter access levels                                      |
-| `opts`                                                                              | [][operations.Option](../../models/operations/option.md)                            | :heavy_minus_sign:                                                                  | The options for this request.                                                       |
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | :heavy_check_mark:                                                                                                     | The context to use for the request.                                                                                    |
+| `product`                                                                                                              | [operations.GetConfigGroupACLByProductAndIDProduct](../../models/operations/getconfiggroupaclbyproductandidproduct.md) | :heavy_check_mark:                                                                                                     | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                 |
+| `id`                                                                                                                   | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | The <code>id</code> of the Worker Group or Edge Fleet to get the ACL for.                                              |
+| `type_`                                                                                                                | [*operations.GetConfigGroupACLByProductAndIDType](../../models/operations/getconfiggroupaclbyproductandidtype.md)      | :heavy_minus_sign:                                                                                                     | Filter for limiting the response to ACL entries for the specified RBAC resource type.                                  |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                               | :heavy_minus_sign:                                                                                                     | The options for this request.                                                                                          |
 
 ### Response
 
-**[*operations.GetGroupsACLByIDResponse](../../models/operations/getgroupsaclbyidresponse.md), error**
+**[*operations.GetConfigGroupACLByProductAndIDResponse](../../models/operations/getconfiggroupaclbyproductandidresponse.md), error**
 
 ### Errors
 

@@ -7,20 +7,20 @@ Actions related to Groups
 
 ### Available Operations
 
-* [Create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
 * [List](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [Delete](#delete) - Delete a Worker Group or Edge Fleet
-* [Get](#get) - Retrieve a Worker Group or Edge Fleet
+* [Create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](#get) - Get a Worker Group or Edge Fleet
 * [Update](#update) - Update a Worker Group or Edge Fleet
+* [Delete](#delete) - Delete a Worker Group or Edge Fleet
 * [Deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
-## Create
+## List
 
-Create a Fleet or Worker Group
+Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="go" operationID="listConfigGroupByProduct" method="get" path="/products/{product}/groups" -->
 ```go
 package main
 
@@ -43,23 +43,82 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Create(ctx, operations.CreateProductsGroupsByProductProductStream, components.ConfigGroup{
+    res, err := s.Groups.List(ctx, operations.ListConfigGroupByProductProductEdge, criblcontrolplanesdkgo.String("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                        | Type                                                                                                                                                                             | Required                                                                                                                                                                         | Description                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                            | :heavy_check_mark:                                                                                                                                                               | The context to use for the request.                                                                                                                                              |
+| `product`                                                                                                                                                                        | [operations.ListConfigGroupByProductProduct](../../models/operations/listconfiggroupbyproductproduct.md)                                                                         | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                                                                           |
+| `fields`                                                                                                                                                                         | **string*                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                               | Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>. |
+| `opts`                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | The options for this request.                                                                                                                                                    |
+
+### Response
+
+**[*operations.ListConfigGroupByProductResponse](../../models/operations/listconfiggroupbyproductresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Create
+
+Create a new Worker Group or Edge Fleet for the specified Cribl product.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Groups.Create(ctx, operations.CreateConfigGroupByProductProductEdge, components.ConfigGroup{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
         },
         ConfigVersion: "<value>",
-        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(1848.32),
-        Description: criblcontrolplanesdkgo.String("director um why forgery apud once er though off"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(6663.53),
+        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(393.49),
+        Description: criblcontrolplanesdkgo.String("ack before fondly scent because gee without where exactly"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(346.37),
         Git: &components.Git{
             Commit: criblcontrolplanesdkgo.String("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Float64(2079.21),
+            LocalChanges: criblcontrolplanesdkgo.Float64(5255.51),
             Log: []components.Commit{
                 components.Commit{
                     AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
                     AuthorName: criblcontrolplanesdkgo.String("<value>"),
-                    Date: "2024-08-24",
+                    Date: "2024-06-13",
                     Hash: "<value>",
                     Message: "<value>",
                     Short: "<value>",
@@ -67,7 +126,174 @@ func main() {
             },
         },
         ID: "<id>",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(5487.26),
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(5613.31),
+        Inherits: criblcontrolplanesdkgo.String("<value>"),
+        IsFleet: criblcontrolplanesdkgo.Bool(true),
+        IsSearch: criblcontrolplanesdkgo.Bool(false),
+        LookupDeployments: []components.ConfigGroupLookups{
+            components.ConfigGroupLookups{
+                Context: "<value>",
+                Lookups: []components.ConfigGroupLookupsLookup{},
+            },
+        },
+        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
+        Name: criblcontrolplanesdkgo.String("<value>"),
+        OnPrem: criblcontrolplanesdkgo.Bool(false),
+        Provisioned: criblcontrolplanesdkgo.Bool(true),
+        Streamtags: []string{
+            "<value 1>",
+            "<value 2>",
+            "<value 3>",
+        },
+        Tags: criblcontrolplanesdkgo.String("<value>"),
+        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
+        WorkerCount: criblcontrolplanesdkgo.Float64(3050.1),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(false),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |
+| `product`                                                                                                    | [operations.CreateConfigGroupByProductProduct](../../models/operations/createconfiggroupbyproductproduct.md) | :heavy_check_mark:                                                                                           | Name of the Cribl product to add the Worker Group or Edge Fleet to.                                          |
+| `configGroup`                                                                                                | [components.ConfigGroup](../../models/components/configgroup.md)                                             | :heavy_check_mark:                                                                                           | ConfigGroup object                                                                                           |
+| `opts`                                                                                                       | [][operations.Option](../../models/operations/option.md)                                                     | :heavy_minus_sign:                                                                                           | The options for this request.                                                                                |
+
+### Response
+
+**[*operations.CreateConfigGroupByProductResponse](../../models/operations/createconfiggroupbyproductresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Get
+
+Get the specified Worker Group or Edge Fleet.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getConfigGroupByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Groups.Get(ctx, operations.GetConfigGroupByProductAndIDProductEdge, "<id>", criblcontrolplanesdkgo.String("<value>"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                        | Type                                                                                                                                                                             | Required                                                                                                                                                                         | Description                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                            | :heavy_check_mark:                                                                                                                                                               | The context to use for the request.                                                                                                                                              |
+| `product`                                                                                                                                                                        | [operations.GetConfigGroupByProductAndIDProduct](../../models/operations/getconfiggroupbyproductandidproduct.md)                                                                 | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                                                                           |
+| `id`                                                                                                                                                                             | *string*                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                               | The <code>id</code> of the Worker Group or Edge Fleet to get.                                                                                                                    |
+| `fields`                                                                                                                                                                         | **string*                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                               | Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>. |
+| `opts`                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | The options for this request.                                                                                                                                                    |
+
+### Response
+
+**[*operations.GetConfigGroupByProductAndIDResponse](../../models/operations/getconfiggroupbyproductandidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Update
+
+Update the specified Worker Group or Edge Fleet.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Groups.Update(ctx, operations.UpdateConfigGroupByProductAndIDProductStream, "<id>", components.ConfigGroup{
+        Cloud: &components.ConfigGroupCloud{
+            Provider: components.CloudProviderAws.ToPointer(),
+            Region: "<value>",
+        },
+        ConfigVersion: "<value>",
+        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(7451.49),
+        Description: criblcontrolplanesdkgo.String("verbally feminize harmful prance really"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(6748.35),
+        Git: &components.Git{
+            Commit: criblcontrolplanesdkgo.String("<value>"),
+            LocalChanges: criblcontrolplanesdkgo.Float64(4475.22),
+            Log: []components.Commit{
+                components.Commit{
+                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
+                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
+                    Date: "2024-01-27",
+                    Hash: "<value>",
+                    Message: "<value>",
+                    Short: "<value>",
+                },
+            },
+        },
+        ID: "<id>",
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(2043.29),
         Inherits: criblcontrolplanesdkgo.String("<value>"),
         IsFleet: criblcontrolplanesdkgo.Bool(false),
         IsSearch: criblcontrolplanesdkgo.Bool(false),
@@ -85,17 +311,16 @@ func main() {
         },
         MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
         Name: criblcontrolplanesdkgo.String("<value>"),
-        OnPrem: criblcontrolplanesdkgo.Bool(true),
+        OnPrem: criblcontrolplanesdkgo.Bool(false),
         Provisioned: criblcontrolplanesdkgo.Bool(true),
         Streamtags: []string{
             "<value 1>",
             "<value 2>",
-            "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.String("<value>"),
         Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Float64(851.73),
+        WorkerCount: criblcontrolplanesdkgo.Float64(1557.82),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(false),
     })
     if err != nil {
@@ -109,16 +334,17 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                                              | :heavy_check_mark:                                                                                                 | The context to use for the request.                                                                                |
-| `product`                                                                                                          | [operations.CreateProductsGroupsByProductProduct](../../models/operations/createproductsgroupsbyproductproduct.md) | :heavy_check_mark:                                                                                                 | Cribl Product                                                                                                      |
-| `configGroup`                                                                                                      | [components.ConfigGroup](../../models/components/configgroup.md)                                                   | :heavy_check_mark:                                                                                                 | ConfigGroup object                                                                                                 |
-| `opts`                                                                                                             | [][operations.Option](../../models/operations/option.md)                                                           | :heavy_minus_sign:                                                                                                 | The options for this request.                                                                                      |
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | :heavy_check_mark:                                                                                                     | The context to use for the request.                                                                                    |
+| `product`                                                                                                              | [operations.UpdateConfigGroupByProductAndIDProduct](../../models/operations/updateconfiggroupbyproductandidproduct.md) | :heavy_check_mark:                                                                                                     | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                 |
+| `id`                                                                                                                   | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | The <code>id</code> of the Worker Group or Edge Fleet to update.                                                       |
+| `configGroup`                                                                                                          | [components.ConfigGroup](../../models/components/configgroup.md)                                                       | :heavy_check_mark:                                                                                                     | ConfigGroup object                                                                                                     |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                               | :heavy_minus_sign:                                                                                                     | The options for this request.                                                                                          |
 
 ### Response
 
-**[*operations.CreateProductsGroupsByProductResponse](../../models/operations/createproductsgroupsbyproductresponse.md), error**
+**[*operations.UpdateConfigGroupByProductAndIDResponse](../../models/operations/updateconfiggroupbyproductandidresponse.md), error**
 
 ### Errors
 
@@ -127,13 +353,13 @@ func main() {
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
-## List
+## Delete
 
-Get a list of ConfigGroup objects
+Delete the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="go" operationID="deleteConfigGroupByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
 ```go
 package main
 
@@ -156,7 +382,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.List(ctx, operations.GetProductsGroupsByProductProductStream, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.Delete(ctx, operations.DeleteConfigGroupByProductAndIDProductEdge, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -168,241 +394,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |
-| `product`                                                                                                    | [operations.GetProductsGroupsByProductProduct](../../models/operations/getproductsgroupsbyproductproduct.md) | :heavy_check_mark:                                                                                           | Cribl Product                                                                                                |
-| `fields`                                                                                                     | **string*                                                                                                    | :heavy_minus_sign:                                                                                           | fields to add to results: git.commit, git.localChanges, git.log                                              |
-| `opts`                                                                                                       | [][operations.Option](../../models/operations/option.md)                                                     | :heavy_minus_sign:                                                                                           | The options for this request.                                                                                |
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | :heavy_check_mark:                                                                                                     | The context to use for the request.                                                                                    |
+| `product`                                                                                                              | [operations.DeleteConfigGroupByProductAndIDProduct](../../models/operations/deleteconfiggroupbyproductandidproduct.md) | :heavy_check_mark:                                                                                                     | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                 |
+| `id`                                                                                                                   | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | The <code>id</code> of the Worker Group or Edge Fleet to delete.                                                       |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                               | :heavy_minus_sign:                                                                                                     | The options for this request.                                                                                          |
 
 ### Response
 
-**[*operations.GetProductsGroupsByProductResponse](../../models/operations/getproductsgroupsbyproductresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Delete
-
-Delete a Fleet or Worker Group
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deleteGroupsById" method="delete" path="/master/groups/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.Delete(ctx, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Group ID                                                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.DeleteGroupsByIDResponse](../../models/operations/deletegroupsbyidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Get
-
-Get a specific ConfigGroup object
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getGroupsById" method="get" path="/master/groups/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.Get(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"))
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| `ctx`                                                           | [context.Context](https://pkg.go.dev/context#Context)           | :heavy_check_mark:                                              | The context to use for the request.                             |
-| `id`                                                            | *string*                                                        | :heavy_check_mark:                                              | Group id                                                        |
-| `fields`                                                        | **string*                                                       | :heavy_minus_sign:                                              | fields to add to results: git.commit, git.localChanges, git.log |
-| `opts`                                                          | [][operations.Option](../../models/operations/option.md)        | :heavy_minus_sign:                                              | The options for this request.                                   |
-
-### Response
-
-**[*operations.GetGroupsByIDResponse](../../models/operations/getgroupsbyidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Update
-
-Update a Fleet or Worker Group
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="updateGroupsById" method="patch" path="/master/groups/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Groups.Update(ctx, "<id>", components.ConfigGroup{
-        Cloud: &components.ConfigGroupCloud{
-            Provider: components.CloudProviderAws.ToPointer(),
-            Region: "<value>",
-        },
-        ConfigVersion: "<value>",
-        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(19.89),
-        Description: criblcontrolplanesdkgo.String("jaywalk wrathful truly indeed definitive reflecting almost massive"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(7133.74),
-        Git: &components.Git{
-            Commit: criblcontrolplanesdkgo.String("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Float64(370.43),
-            Log: []components.Commit{
-                components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
-                    Date: "2024-08-29",
-                    Hash: "<value>",
-                    Message: "<value>",
-                    Short: "<value>",
-                },
-            },
-        },
-        ID: "<id>",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(7081.95),
-        Inherits: criblcontrolplanesdkgo.String("<value>"),
-        IsFleet: criblcontrolplanesdkgo.Bool(true),
-        IsSearch: criblcontrolplanesdkgo.Bool(true),
-        LookupDeployments: []components.ConfigGroupLookups{
-            components.ConfigGroupLookups{
-                Context: "<value>",
-                Lookups: []components.ConfigGroupLookupsLookup{
-                    components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.String("<value>"),
-                        File: "<value>",
-                        Version: criblcontrolplanesdkgo.String("<value>"),
-                    },
-                },
-            },
-        },
-        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
-        Name: criblcontrolplanesdkgo.String("<value>"),
-        OnPrem: criblcontrolplanesdkgo.Bool(true),
-        Provisioned: criblcontrolplanesdkgo.Bool(true),
-        Streamtags: []string{
-            "<value 1>",
-        },
-        Tags: criblcontrolplanesdkgo.String("<value>"),
-        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Float64(9020.63),
-        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.Object != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
-| `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | Group ID                                                         |
-| `configGroup`                                                    | [components.ConfigGroup](../../models/components/configgroup.md) | :heavy_check_mark:                                               | ConfigGroup object                                               |
-| `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
-
-### Response
-
-**[*operations.UpdateGroupsByIDResponse](../../models/operations/updategroupsbyidresponse.md), error**
+**[*operations.DeleteConfigGroupByProductAndIDResponse](../../models/operations/deleteconfiggroupbyproductandidresponse.md), error**
 
 ### Errors
 
@@ -413,11 +414,11 @@ func main() {
 
 ## Deploy
 
-Deploy commits for a Fleet or Worker Group
+Deploy commits to the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updateGroupsDeployById" method="patch" path="/master/groups/{id}/deploy" -->
+<!-- UsageSnippet language="go" operationID="updateConfigGroupDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
 ```go
 package main
 
@@ -426,6 +427,7 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -439,16 +441,11 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Deploy(ctx, "<id>", components.DeployRequest{
+    res, err := s.Groups.Deploy(ctx, operations.UpdateConfigGroupDeployByProductAndIDProductStream, "<id>", components.DeployRequest{
         Lookups: []components.DeployRequestLookups{
             components.DeployRequestLookups{
                 Context: "<value>",
-                Lookups: []components.DeployRequestLookupsLookup{
-                    components.DeployRequestLookupsLookup{
-                        File: "<value>",
-                        Version: "<value>",
-                    },
-                },
+                Lookups: []components.DeployRequestLookupsLookup{},
             },
         },
         Version: "<value>",
@@ -464,16 +461,17 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
-| `id`                                                                 | *string*                                                             | :heavy_check_mark:                                                   | Group ID                                                             |
-| `deployRequest`                                                      | [components.DeployRequest](../../models/components/deployrequest.md) | :heavy_check_mark:                                                   | DeployRequest object                                                 |
-| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
+| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                                                              | :heavy_check_mark:                                                                                                                 | The context to use for the request.                                                                                                |
+| `product`                                                                                                                          | [operations.UpdateConfigGroupDeployByProductAndIDProduct](../../models/operations/updateconfiggroupdeploybyproductandidproduct.md) | :heavy_check_mark:                                                                                                                 | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                             |
+| `id`                                                                                                                               | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.                                                |
+| `deployRequest`                                                                                                                    | [components.DeployRequest](../../models/components/deployrequest.md)                                                               | :heavy_check_mark:                                                                                                                 | DeployRequest object                                                                                                               |
+| `opts`                                                                                                                             | [][operations.Option](../../models/operations/option.md)                                                                           | :heavy_minus_sign:                                                                                                                 | The options for this request.                                                                                                      |
 
 ### Response
 
-**[*operations.UpdateGroupsDeployByIDResponse](../../models/operations/updategroupsdeploybyidresponse.md), error**
+**[*operations.UpdateConfigGroupDeployByProductAndIDResponse](../../models/operations/updateconfiggroupdeploybyproductandidresponse.md), error**
 
 ### Errors
 

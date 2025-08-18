@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [Get](#get) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 
 ## Get
 
-ACL of team with permissions for resources in this Group
+Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
+<!-- UsageSnippet language="go" operationID="getConfigGroupAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
 ```go
 package main
 
@@ -36,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.ACL.Teams.Get(ctx, operations.GetProductsGroupsACLTeamsByProductAndIDProductStream, "<id>", operations.GetProductsGroupsACLTeamsByProductAndIDTypeDatasets.ToPointer())
+    res, err := s.Groups.ACL.Teams.Get(ctx, operations.GetConfigGroupACLTeamsByProductAndIDProductEdge, "<id>", operations.GetConfigGroupACLTeamsByProductAndIDTypeMacros.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -48,17 +48,17 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                              | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                                  | :heavy_check_mark:                                                                                                                     | The context to use for the request.                                                                                                    |
-| `product`                                                                                                                              | [operations.GetProductsGroupsACLTeamsByProductAndIDProduct](../../models/operations/getproductsgroupsaclteamsbyproductandidproduct.md) | :heavy_check_mark:                                                                                                                     | Cribl Product                                                                                                                          |
-| `id`                                                                                                                                   | *string*                                                                                                                               | :heavy_check_mark:                                                                                                                     | Group ID                                                                                                                               |
-| `type_`                                                                                                                                | [*operations.GetProductsGroupsACLTeamsByProductAndIDType](../../models/operations/getproductsgroupsaclteamsbyproductandidtype.md)      | :heavy_minus_sign:                                                                                                                     | resource type by which to filter access levels                                                                                         |
-| `opts`                                                                                                                                 | [][operations.Option](../../models/operations/option.md)                                                                               | :heavy_minus_sign:                                                                                                                     | The options for this request.                                                                                                          |
+| Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                            | :heavy_check_mark:                                                                                                               | The context to use for the request.                                                                                              |
+| `product`                                                                                                                        | [operations.GetConfigGroupACLTeamsByProductAndIDProduct](../../models/operations/getconfiggroupaclteamsbyproductandidproduct.md) | :heavy_check_mark:                                                                                                               | Name of the Cribl product that contains the Worker Group or Edge Fleet.                                                          |
+| `id`                                                                                                                             | *string*                                                                                                                         | :heavy_check_mark:                                                                                                               | The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.                                                   |
+| `type_`                                                                                                                          | [*operations.GetConfigGroupACLTeamsByProductAndIDType](../../models/operations/getconfiggroupaclteamsbyproductandidtype.md)      | :heavy_minus_sign:                                                                                                               | resource type by which to filter access levels                                                                                   |
+| `opts`                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                         | :heavy_minus_sign:                                                                                                               | The options for this request.                                                                                                    |
 
 ### Response
 
-**[*operations.GetProductsGroupsACLTeamsByProductAndIDResponse](../../models/operations/getproductsgroupsaclteamsbyproductandidresponse.md), error**
+**[*operations.GetConfigGroupACLTeamsByProductAndIDResponse](../../models/operations/getconfiggroupaclteamsbyproductandidresponse.md), error**
 
 ### Errors
 

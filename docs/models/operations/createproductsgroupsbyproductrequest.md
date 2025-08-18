@@ -1,9 +1,0 @@
-# CreateProductsGroupsByProductRequest
-
-
-## Fields
-
-| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `Product`                                                                                                          | [operations.CreateProductsGroupsByProductProduct](../../models/operations/createproductsgroupsbyproductproduct.md) | :heavy_check_mark:                                                                                                 | Cribl Product                                                                                                      |
-| `ConfigGroup`                                                                                                      | [components.ConfigGroup](../../models/components/configgroup.md)                                                   | :heavy_check_mark:                                                                                                 | ConfigGroup object                                                                                                 |
