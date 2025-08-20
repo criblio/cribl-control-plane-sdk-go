@@ -1,4 +1,4 @@
-name: Publish dev-remote SDK
+name: Publish alpha SDK based on dev-remote branch
 permissions:
   checks: write
   contents: write

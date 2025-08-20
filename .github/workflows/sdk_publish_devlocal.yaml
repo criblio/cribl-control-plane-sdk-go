@@ -1,4 +1,4 @@
-name: Publish dev-local SDK
+name: Publish alpha SDK (local build)
 permissions:
   checks: write
   contents: write
