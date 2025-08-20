@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [Count](#count) - Retrieve a count of files that changed since a commit
-* [List](#list) - Retrieve the names and statuses of files that changed since a commit
+* [Count](#count) - Get a count of files that changed since a commit
+* [List](#list) - Get the names and statuses of files that changed since a commit
 
 ## Count
 
-get the count of files of changed
+Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -48,12 +48,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `id`                                                     | **string*                                                | :heavy_minus_sign:                                       | Commit ID                                                |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `ctx`                                                                       | [context.Context](https://pkg.go.dev/context#Context)                       | :heavy_check_mark:                                                          | The context to use for the request.                                         |
+| `group`                                                                     | **string*                                                                   | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
+| `id`                                                                        | **string*                                                                   | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |
+| `opts`                                                                      | [][operations.Option](../../models/operations/option.md)                    | :heavy_minus_sign:                                                          | The options for this request.                                               |
 
 ### Response
 
@@ -68,7 +68,7 @@ func main() {
 
 ## List
 
-get the files changed
+Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -106,12 +106,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `id`                                                     | **string*                                                | :heavy_minus_sign:                                       | Commit ID                                                |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
+| `group`                                                                                 | **string*                                                                               | :heavy_minus_sign:                                                                      | The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for. |
+| `id`                                                                                    | **string*                                                                               | :heavy_minus_sign:                                                                      | The Git commit hash to use as the starting point for the request.                       |
+| `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 
 ### Response
 

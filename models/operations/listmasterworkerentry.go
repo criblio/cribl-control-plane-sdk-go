@@ -7,18 +7,18 @@ import (
 )
 
 type ListMasterWorkerEntryRequest struct {
-	// Filter expression evaluated against nodes
+	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
-	// Sorting object (JSON stringified) expression evaluated against nodes
-	Sort *string `queryParam:"style=form,explode=true,name=sort"`
-	// Sorting expression evaluated against nodes
+	// Sorting expression to evaluate against Nodes to specify the sort order for the response.
 	SortExp *string `queryParam:"style=form,explode=true,name=sortExp"`
-	// Maximum number of nodes to return
-	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
-	// Pagination offset
-	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
-	// Filter object (JSON stringified) to select nodes
+	// JSON-stringified filter object to evaluate against Nodes for inclusion in the response.
 	Filter *string `queryParam:"style=form,explode=true,name=filter"`
+	// JSON-stringified sorting object to evaluate against Nodes to specify the sort order for the response.
+	Sort *string `queryParam:"style=form,explode=true,name=sort"`
+	// Maximum number of Nodes to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+	// Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
 func (o *ListMasterWorkerEntryRequest) GetFilterExp() *string {
@@ -28,18 +28,25 @@ func (o *ListMasterWorkerEntryRequest) GetFilterExp() *string {
 	return o.FilterExp
 }
 
-func (o *ListMasterWorkerEntryRequest) GetSort() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Sort
-}
-
 func (o *ListMasterWorkerEntryRequest) GetSortExp() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SortExp
+}
+
+func (o *ListMasterWorkerEntryRequest) GetFilter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Filter
+}
+
+func (o *ListMasterWorkerEntryRequest) GetSort() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Sort
 }
 
 func (o *ListMasterWorkerEntryRequest) GetLimit() *int64 {
@@ -54,13 +61,6 @@ func (o *ListMasterWorkerEntryRequest) GetOffset() *int64 {
 		return nil
 	}
 	return o.Offset
-}
-
-func (o *ListMasterWorkerEntryRequest) GetFilter() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Filter
 }
 
 // ListMasterWorkerEntryResponseBody - a list of MasterWorkerEntry objects

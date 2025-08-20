@@ -7,7 +7,7 @@ import (
 )
 
 type GetOutputByIDRequest struct {
-	// Unique ID to GET
+	// The <code>id</code> of the Destination to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

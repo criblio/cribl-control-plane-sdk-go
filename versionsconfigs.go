@@ -31,8 +31,8 @@ func newVersionsConfigs(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 	}
 }
 
-// Get - Retrieve the configuration and status for the Git integration
-// Get info about versioning availability
+// Get the configuration and status for the Git integration
+// Get the configuration and versioning status for the Git integration for the Cribl configuration.
 func (s *VersionsConfigs) Get(ctx context.Context, opts ...operations.Option) (*operations.GetVersionInfoResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

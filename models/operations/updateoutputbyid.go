@@ -7,7 +7,7 @@ import (
 )
 
 type UpdateOutputByIDRequest struct {
-	// Unique ID to PATCH
+	// The <code>id</code> of the Destination to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Output object
 	Output components.Output `request:"mediaType=application/json"`

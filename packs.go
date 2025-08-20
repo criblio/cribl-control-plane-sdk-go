@@ -33,7 +33,7 @@ func newPacks(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 }
 
 // Install a Pack
-// Install Pack
+// Install a Pack.
 func (s *Packs) Install(ctx context.Context, request components.PackRequestBody, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -273,7 +273,7 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBody,
 }
 
 // List all Packs
-// Get info on packs
+// Get a list of all Packs.
 func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Option) (*operations.GetPacksResponse, error) {
 	request := operations.GetPacksRequest{
 		With: with,
@@ -514,7 +514,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 }
 
 // Delete - Uninstall a Pack
-// Uninstall Pack from the system
+// Uninstall the specified Pack.
 func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePacksByIDResponse, error) {
 	request := operations.DeletePacksByIDRequest{
 		ID: id,
@@ -750,8 +750,8 @@ func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option
 
 }
 
-// Update a Pack
-// Upgrade Pack
+// Update - Upgrade a Pack
+// Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
 func (s *Packs) Update(ctx context.Context, id string, source *string, minor *string, spec *string, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
 	request := operations.UpdatePacksByIDRequest{
 		ID:     id,

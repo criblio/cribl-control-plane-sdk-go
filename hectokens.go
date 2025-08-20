@@ -31,7 +31,7 @@ func newHecTokens(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 }
 
 // Create - Add an HEC token and optional metadata to a Splunk HEC Source
-// Add token and optional metadata to an existing HEC Source
+// Add an HEC token and optional metadata to the specified Splunk HEC Source.
 func (s *HecTokens) Create(ctx context.Context, id string, addHecTokenRequest components.AddHecTokenRequest, opts ...operations.Option) (*operations.CreateInputHecTokenByIDResponse, error) {
 	request := operations.CreateInputHecTokenByIDRequest{
 		ID:                 id,
@@ -276,7 +276,7 @@ func (s *HecTokens) Create(ctx context.Context, id string, addHecTokenRequest co
 }
 
 // Update metadata for an HEC token for a Splunk HEC Source
-// Update token metadata on existing HEC Source
+// Update the metadata for the specified HEC token for the specified Splunk HEC Source.
 func (s *HecTokens) Update(ctx context.Context, id string, token string, updateHecTokenRequest components.UpdateHecTokenRequest, opts ...operations.Option) (*operations.UpdateInputHecTokenByIDAndTokenResponse, error) {
 	request := operations.UpdateInputHecTokenByIDAndTokenRequest{
 		ID:                    id,

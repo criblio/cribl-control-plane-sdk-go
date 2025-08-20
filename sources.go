@@ -36,7 +36,7 @@ func newSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 }
 
 // List all Sources
-// Get a list of Source objects
+// Get a list of all Sources.
 func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operations.ListInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -269,7 +269,7 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 }
 
 // Create a Source
-// Create Source
+// Create a new Source.
 func (s *Sources) Create(ctx context.Context, request components.Input, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -508,8 +508,8 @@ func (s *Sources) Create(ctx context.Context, request components.Input, opts ...
 
 }
 
-// Get - Retrieve a Source
-// Get Source by ID
+// Get a Source
+// Get the specified Source.
 func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetInputByIDResponse, error) {
 	request := operations.GetInputByIDRequest{
 		ID: id,
@@ -746,7 +746,7 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 }
 
 // Update a Source
-// Update Source
+// Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 func (s *Sources) Update(ctx context.Context, id string, input components.Input, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
 	request := operations.UpdateInputByIDRequest{
 		ID:    id,
@@ -991,7 +991,7 @@ func (s *Sources) Update(ctx context.Context, id string, input components.Input,
 }
 
 // Delete a Source
-// Delete Source
+// Delete the specified Source.
 func (s *Sources) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteInputByIDResponse, error) {
 	request := operations.DeleteInputByIDRequest{
 		ID: id,
