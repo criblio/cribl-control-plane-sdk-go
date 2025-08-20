@@ -7,9 +7,9 @@ import (
 )
 
 type GetVersionFilesRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
-	// Commit ID
+	// The Git commit hash to use as the starting point for the request.
 	ID *string `queryParam:"style=form,explode=true,name=ID"`
 }
 

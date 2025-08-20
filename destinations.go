@@ -38,7 +38,7 @@ func newDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 }
 
 // List all Destinations
-// Get a list of Destination objects
+// Get a list of all Destinations.
 func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*operations.ListOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -271,7 +271,7 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 }
 
 // Create a Destination
-// Create Destination
+// Create a new Destination.
 func (s *Destinations) Create(ctx context.Context, request components.Output, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -510,8 +510,8 @@ func (s *Destinations) Create(ctx context.Context, request components.Output, op
 
 }
 
-// Get - Retrieve a Destination
-// Get Destination by ID
+// Get a Destination
+// Get the specified Destination.
 func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputByIDResponse, error) {
 	request := operations.GetOutputByIDRequest{
 		ID: id,
@@ -748,7 +748,7 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 }
 
 // Update a Destination
-// Update Destination
+// Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 func (s *Destinations) Update(ctx context.Context, id string, output components.Output, opts ...operations.Option) (*operations.UpdateOutputByIDResponse, error) {
 	request := operations.UpdateOutputByIDRequest{
 		ID:     id,
@@ -993,7 +993,7 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 }
 
 // Delete a Destination
-// Delete Destination
+// Delete the specified Destination.
 func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputByIDResponse, error) {
 	request := operations.DeleteOutputByIDRequest{
 		ID: id,

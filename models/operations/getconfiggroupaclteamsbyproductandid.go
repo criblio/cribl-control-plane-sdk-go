@@ -35,7 +35,7 @@ func (e *GetConfigGroupACLTeamsByProductAndIDProduct) UnmarshalJSON(data []byte)
 	}
 }
 
-// GetConfigGroupACLTeamsByProductAndIDType - resource type by which to filter access levels
+// GetConfigGroupACLTeamsByProductAndIDType - Filter for limiting the response to ACL entries for the specified RBAC resource type.
 type GetConfigGroupACLTeamsByProductAndIDType string
 
 const (
@@ -85,7 +85,7 @@ type GetConfigGroupACLTeamsByProductAndIDRequest struct {
 	Product GetConfigGroupACLTeamsByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// resource type by which to filter access levels
+	// Filter for limiting the response to ACL entries for the specified RBAC resource type.
 	Type *GetConfigGroupACLTeamsByProductAndIDType `queryParam:"style=form,explode=true,name=type"`
 }
 

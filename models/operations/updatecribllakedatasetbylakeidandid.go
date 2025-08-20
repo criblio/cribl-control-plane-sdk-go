@@ -7,9 +7,9 @@ import (
 )
 
 type UpdateCriblLakeDatasetByLakeIDAndIDRequest struct {
-	// lake id that contains the Datasets
+	// The <code>id</code> of the Lake that contains the Lake Dataset to update.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
-	// dataset id to update
+	// The <code>id</code> of the Lake Dataset to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// CriblLakeDataset object
 	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`

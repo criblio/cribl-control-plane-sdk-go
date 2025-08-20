@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [Create](#create) - Create a Lake Dataset in the specified Lake
-* [List](#list) - List all Lake Datasets in the specified Lake
-* [Delete](#delete) - Delete a Lake Dataset in the specified Lake
-* [Get](#get) - Retrieve a Lake Dataset in the specified Lake
-* [Update](#update) - Update a Lake Dataset in the specified Lake
+* [Create](#create) - Create a Lake Dataset
+* [List](#list) - List all Lake Datasets
+* [Delete](#delete) - Delete a Lake Dataset
+* [Get](#get) - Get a Lake Dataset
+* [Update](#update) - Update a Lake Dataset
 
 ## Create
 
-Create a Dataset in the specified Lake
+Create a new Lake Dataset in the specified Lake.
 
 ### Example Usage
 
@@ -100,7 +100,7 @@ func main() {
 | Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
-| `lakeID`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | lake id that contains the Datasets                                         |
+| `lakeID`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake to create the Lake Dataset in.             |
 | `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object                                                    |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
@@ -117,7 +117,7 @@ func main() {
 
 ## List
 
-Get the list of Dataset contained in the specified Lake
+Get a list of all Lake Datasets in the specified Lake.
 
 ### Example Usage
 
@@ -155,11 +155,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `lakeID`                                                 | *string*                                                 | :heavy_check_mark:                                       | lake id that contains the Datasets                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
+| `lakeID`                                                                 | *string*                                                                 | :heavy_check_mark:                                                       | The <code>id</code> of the Lake that contains the Lake Datasets to list. |
+| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
 ### Response
 
@@ -174,7 +174,7 @@ func main() {
 
 ## Delete
 
-Delete a Dataset in the specified Lake
+Delete the specified Lake Dataset in the specified Lake
 
 ### Example Usage
 
@@ -212,12 +212,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `lakeID`                                                 | *string*                                                 | :heavy_check_mark:                                       | lake id that contains the Datasets                       |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | dataset id to delete                                     |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `ctx`                                                                     | [context.Context](https://pkg.go.dev/context#Context)                     | :heavy_check_mark:                                                        | The context to use for the request.                                       |
+| `lakeID`                                                                  | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to delete. |
+| `id`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to delete.                        |
+| `opts`                                                                    | [][operations.Option](../../models/operations/option.md)                  | :heavy_minus_sign:                                                        | The options for this request.                                             |
 
 ### Response
 
@@ -232,7 +232,7 @@ func main() {
 
 ## Get
 
-Get a Dataset in the specified Lake
+Get the specified Lake Dataset in the specified Lake.
 
 ### Example Usage
 
@@ -270,12 +270,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `lakeID`                                                 | *string*                                                 | :heavy_check_mark:                                       | lake id that contains the Datasets                       |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | dataset id to get                                        |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
+| `lakeID`                                                               | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Lake that contains the Lake Dataset to get. |
+| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Lake Dataset to get.                        |
+| `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
 
 ### Response
 
@@ -290,7 +290,7 @@ func main() {
 
 ## Update
 
-Update a Dataset in the specified Lake
+Update the specified Lake Dataset in the specified Lake.
 
 ### Example Usage
 
@@ -378,8 +378,8 @@ func main() {
 | Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
-| `lakeID`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | lake id that contains the Datasets                                         |
-| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | dataset id to update                                                       |
+| `lakeID`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake that contains the Lake Dataset to update.  |
+| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake Dataset to update.                         |
 | `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object                                                    |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 

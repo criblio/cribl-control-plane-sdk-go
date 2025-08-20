@@ -31,7 +31,7 @@ func newPq(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks 
 }
 
 // Clear the persistent queue for a Destination
-// Clears destination persistent queue
+// Clear the persistent queue (PQ) for the specified Destination.
 func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteOutputPqByIDResponse, error) {
 	request := operations.DeleteOutputPqByIDRequest{
 		ID: id,
@@ -267,8 +267,8 @@ func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*
 
 }
 
-// Get - Retrieve information about the latest job to clear the persistent queue for a Destination
-// Retrieves status of latest clear PQ job for a destination
+// Get information about the latest job to clear the persistent queue for a Destination
+// Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
 func (s *Pq) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputPqByIDResponse, error) {
 	request := operations.GetOutputPqByIDRequest{
 		ID: id,

@@ -7,7 +7,7 @@ import (
 )
 
 type GetVersionStatusRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
 }
 

@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// Mode - product filter
+// Mode - Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
 type Mode string
 
 const (
@@ -36,7 +36,7 @@ func (e *Mode) UnmarshalJSON(data []byte) error {
 }
 
 type GetSummaryRequest struct {
-	// product filter
+	// Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
 	Mode *Mode `queryParam:"style=form,explode=true,name=mode"`
 }
 
