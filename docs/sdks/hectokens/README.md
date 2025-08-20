@@ -10,7 +10,7 @@
 
 ## Create
 
-Add token and optional metadata to an existing HEC Source
+Add an HEC token and optional metadata to the specified Splunk HEC Source.
 
 ### Example Usage
 
@@ -61,7 +61,7 @@ func main() {
 | Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | HEC Source id                                                                  |
+| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Splunk HEC Source.                                  |
 | `addHecTokenRequest`                                                           | [components.AddHecTokenRequest](../../models/components/addhectokenrequest.md) | :heavy_check_mark:                                                             | AddHecTokenRequest object                                                      |
 | `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
@@ -78,7 +78,7 @@ func main() {
 
 ## Update
 
-Update token metadata on existing HEC Source
+Update the metadata for the specified HEC token for the specified Splunk HEC Source.
 
 ### Example Usage
 
@@ -128,8 +128,8 @@ func main() {
 | Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
-| `id`                                                                                 | *string*                                                                             | :heavy_check_mark:                                                                   | HEC Source id                                                                        |
-| `token`                                                                              | *string*                                                                             | :heavy_check_mark:                                                                   | token to update                                                                      |
+| `id`                                                                                 | *string*                                                                             | :heavy_check_mark:                                                                   | The <code>id</code> of the Splunk HEC Source.                                        |
+| `token`                                                                              | *string*                                                                             | :heavy_check_mark:                                                                   | The <code>id</code> of the HEC token to update.                                      |
 | `updateHecTokenRequest`                                                              | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md) | :heavy_check_mark:                                                                   | UpdateHecTokenRequest object                                                         |
 | `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
 

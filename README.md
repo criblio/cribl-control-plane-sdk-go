@@ -222,18 +222,18 @@ func main() {
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations
 * [Create](docs/sdks/destinations/README.md#create) - Create a Destination
-* [Get](docs/sdks/destinations/README.md#get) - Retrieve a Destination
+* [Get](docs/sdks/destinations/README.md#get) - Get a Destination
 * [Update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [Delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
 
 #### [Destinations.Pq](docs/sdks/pq/README.md)
 
 * [Clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-* [Get](docs/sdks/pq/README.md#get) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [Get](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 #### [Destinations.Samples](docs/sdks/samples/README.md)
 
-* [Get](docs/sdks/samples/README.md#get) - Retrieve sample event data for a Destination
+* [Get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
 ### [Groups](docs/sdks/groups/README.md)
@@ -263,27 +263,27 @@ func main() {
 
 ### [LakeDatasets](docs/sdks/lakedatasets/README.md)
 
-* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset in the specified Lake
-* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets in the specified Lake
-* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset in the specified Lake
-* [Get](docs/sdks/lakedatasets/README.md#get) - Retrieve a Lake Dataset in the specified Lake
-* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset in the specified Lake
+* [Create](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset
+* [List](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
+* [Delete](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset
+* [Get](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
+* [Update](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [List](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
-* [Count](docs/sdks/nodes/README.md#count) - Retrieve a count of Worker and Edge Nodes
+* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
+* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Retrieve a summary of the Distributed deployment
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 
 ### [Packs](docs/sdks/packs/README.md)
 
 * [Install](docs/sdks/packs/README.md#install) - Install a Pack
 * [List](docs/sdks/packs/README.md#list) - List all Packs
 * [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
-* [Update](docs/sdks/packs/README.md#update) - Update a Pack
+* [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -304,7 +304,7 @@ func main() {
 
 * [List](docs/sdks/sources/README.md#list) - List all Sources
 * [Create](docs/sdks/sources/README.md#create) - Create a Source
-* [Get](docs/sdks/sources/README.md#get) - Retrieve a Source
+* [Get](docs/sdks/sources/README.md#get) - Get a Source
 * [Update](docs/sdks/sources/README.md#update) - Update a Source
 * [Delete](docs/sdks/sources/README.md#delete) - Delete a Source
 
@@ -319,30 +319,30 @@ func main() {
 #### [Versions.Branches](docs/sdks/branches/README.md)
 
 * [List](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
-* [Get](docs/sdks/branches/README.md#get) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [Get](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 
 #### [Versions.Commits](docs/sdks/commits/README.md)
 
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
-* [Diff](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+* [Diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
 * [List](docs/sdks/commits/README.md#list) - Get the commit history
-* [Push](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
+* [Push](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 * [Revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
-* [Get](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
+* [Get](docs/sdks/commits/README.md#get) - Get the diff and log message for a commit
 * [Undo](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 
 #### [Versions.Commits.Files](docs/sdks/files/README.md)
 
-* [Count](docs/sdks/files/README.md#count) - Retrieve a count of files that changed since a commit
-* [List](docs/sdks/files/README.md#list) - Retrieve the names and statuses of files that changed since a commit
+* [Count](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
+* [List](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 
 #### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
 
-* [Get](docs/sdks/versionsconfigs/README.md#get) - Retrieve the configuration and status for the Git integration
+* [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
 #### [Versions.Statuses](docs/sdks/statuses/README.md)
 
-* [Get](docs/sdks/statuses/README.md#get) - Retrieve the status of the current working tree
+* [Get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

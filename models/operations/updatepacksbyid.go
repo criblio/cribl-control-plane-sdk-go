@@ -7,7 +7,7 @@ import (
 )
 
 type UpdatePacksByIDRequest struct {
-	// Pack name
+	// The <code>id</code> of the Pack to upgrade.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// body string required Pack source
 	Source *string `queryParam:"style=form,explode=true,name=source"`

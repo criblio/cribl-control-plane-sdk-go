@@ -7,9 +7,9 @@ import (
 )
 
 type GetCriblLakeDatasetByLakeIDAndIDRequest struct {
-	// lake id that contains the Datasets
+	// The <code>id</code> of the Lake that contains the Lake Dataset to get.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
-	// dataset id to get
+	// The <code>id</code> of the Lake Dataset to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

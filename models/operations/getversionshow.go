@@ -7,13 +7,13 @@ import (
 )
 
 type GetVersionShowRequest struct {
-	// Commit hash (default is HEAD)
+	// The Git commit hash to retrieve the diff and log message for.
 	Commit *string `queryParam:"style=form,explode=true,name=commit"`
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
-	// Filename
+	// The relative path of the file to get the diff and log message for.
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
-	// Limit maximum lines in the diff
+	// Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
 	DiffLineLimit *float64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
 }
 

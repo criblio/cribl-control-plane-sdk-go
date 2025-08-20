@@ -7,7 +7,7 @@ import (
 )
 
 type DeleteInputByIDRequest struct {
-	// Unique ID to DELETE
+	// The <code>id</code> of the Source to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

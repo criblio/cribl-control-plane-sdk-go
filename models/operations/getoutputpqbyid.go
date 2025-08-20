@@ -7,7 +7,7 @@ import (
 )
 
 type GetOutputPqByIDRequest struct {
-	// Destination Id
+	// The <code>id</code> of the Destination to get PQ job information for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

@@ -7,7 +7,7 @@ import (
 )
 
 type CreateVersionUndoRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
 }
 

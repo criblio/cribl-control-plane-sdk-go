@@ -6,16 +6,16 @@
 ### Available Operations
 
 * [Create](#create) - Create a new commit for pending changes to the Cribl configuration
-* [Diff](#diff) - Retrieve the diff for a commit
+* [Diff](#diff) - Get the diff for a commit
 * [List](#list) - Get the commit history
-* [Push](#push) - Push a commit from the local repository to the remote repository
+* [Push](#push) - Push local commits to the remote repository
 * [Revert](#revert) - Revert a commit in the local repository
-* [Get](#get) - Retrieve the diff and log message for a commit
+* [Get](#get) - Get the diff and log message for a commit
 * [Undo](#undo) - Discard uncommitted (staged) changes
 
 ## Create
 
-create a new commit containing the current configs the given log message describing the changes.
+Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
 ### Example Usage
 
@@ -79,7 +79,7 @@ func main() {
 
 ## Diff
 
-get the textual diff for given commit
+Get the diff for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -117,14 +117,14 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `commit`                                                 | **string*                                                | :heavy_minus_sign:                                       | Commit hash (default is HEAD)                            |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `filename`                                               | **string*                                                | :heavy_minus_sign:                                       | Filename                                                 |
-| `diffLineLimit`                                          | **float64*                                               | :heavy_minus_sign:                                       | Limit maximum lines in the diff                          |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                                     | :heavy_check_mark:                                                                                                                        | The context to use for the request.                                                                                                       |
+| `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to get the diff for.                                                                                                  |
+| `group`                                                                                                                                   | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.                                                                |
+| `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff for.                                                                                        |
+| `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
+| `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
 
 ### Response
 
@@ -197,7 +197,7 @@ func main() {
 
 ## Push
 
-push the current configs to the remote repository.
+Push all local commits from the local repository to the remote repository.
 
 ### Example Usage
 
@@ -253,7 +253,7 @@ func main() {
 
 ## Revert
 
-revert a commit
+Revert a commit in the local repository.
 
 ### Example Usage
 
@@ -315,7 +315,7 @@ func main() {
 
 ## Get
 
-get the log message and textual diff for given commit
+Get the diff and log message for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -353,14 +353,14 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `commit`                                                 | **string*                                                | :heavy_minus_sign:                                       | Commit hash (default is HEAD)                            |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `filename`                                               | **string*                                                | :heavy_minus_sign:                                       | Filename                                                 |
-| `diffLineLimit`                                          | **float64*                                               | :heavy_minus_sign:                                       | Limit maximum lines in the diff                          |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                                     | :heavy_check_mark:                                                                                                                        | The context to use for the request.                                                                                                       |
+| `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to retrieve the diff and log message for.                                                                             |
+| `group`                                                                                                                                   | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.                                                |
+| `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff and log message for.                                                                        |
+| `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
+| `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
 
 ### Response
 
@@ -375,7 +375,7 @@ func main() {
 
 ## Undo
 
-Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
+Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
 
 ### Example Usage
 
@@ -413,11 +413,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `ctx`                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                     | :heavy_check_mark:                                                                        | The context to use for the request.                                                       |
+| `group`                                                                                   | **string*                                                                                 | :heavy_minus_sign:                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for. |
+| `opts`                                                                                    | [][operations.Option](../../models/operations/option.md)                                  | :heavy_minus_sign:                                                                        | The options for this request.                                                             |
 
 ### Response
 

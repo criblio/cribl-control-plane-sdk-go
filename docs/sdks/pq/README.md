@@ -6,11 +6,11 @@
 ### Available Operations
 
 * [Clear](#clear) - Clear the persistent queue for a Destination
-* [Get](#get) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [Get](#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 ## Clear
 
-Clears destination persistent queue
+Clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 
@@ -48,11 +48,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Destination Id                                           |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |
+| `id`                                                        | *string*                                                    | :heavy_check_mark:                                          | The <code>id</code> of the Destination to clear the PQ for. |
+| `opts`                                                      | [][operations.Option](../../models/operations/option.md)    | :heavy_minus_sign:                                          | The options for this request.                               |
 
 ### Response
 
@@ -67,7 +67,7 @@ func main() {
 
 ## Get
 
-Retrieves status of latest clear PQ job for a destination
+Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 
@@ -105,11 +105,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Destination Id                                           |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
+| `id`                                                                  | *string*                                                              | :heavy_check_mark:                                                    | The <code>id</code> of the Destination to get PQ job information for. |
+| `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
 
 ### Response
 

@@ -6,11 +6,11 @@
 ### Available Operations
 
 * [List](#list) - List all branches in the Git repository used for Cribl configuration
-* [Get](#get) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [Get](#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 
 ## List
 
-get the list of branches
+Get a list of all branches in the Git repository used for Cribl configuration.
 
 ### Example Usage
 
@@ -66,7 +66,7 @@ func main() {
 
 ## Get
 
-returns git branch that the config is checked out to, if any
+Get the name of the Git branch that the Cribl configuration is checked out to. Useful for verifying the active configuration branch.
 
 ### Example Usage
 

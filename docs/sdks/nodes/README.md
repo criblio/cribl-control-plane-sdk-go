@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [List](#list) - Retrieve detailed metadata for Worker and Edge Nodes
-* [Count](#count) - Retrieve a count of Worker and Edge Nodes
+* [List](#list) - Get detailed metadata for Worker and Edge Nodes
+* [Count](#count) - Get a count of Worker and Edge Nodes
 
 ## List
 
-get worker and edge nodes
+Get detailed metadata for Worker and Edge Nodes.
 
 ### Example Usage
 
@@ -39,11 +39,11 @@ func main() {
 
     res, err := s.Nodes.List(ctx, operations.ListMasterWorkerEntryRequest{
         FilterExp: criblcontrolplanesdkgo.String("<value>"),
-        Sort: criblcontrolplanesdkgo.String("<value>"),
         SortExp: criblcontrolplanesdkgo.String("<value>"),
+        Filter: criblcontrolplanesdkgo.String("<value>"),
+        Sort: criblcontrolplanesdkgo.String("<value>"),
         Limit: criblcontrolplanesdkgo.Int64(554169),
         Offset: criblcontrolplanesdkgo.Int64(426660),
-        Filter: criblcontrolplanesdkgo.String("<value>"),
     })
     if err != nil {
         log.Fatal(err)
@@ -75,7 +75,7 @@ func main() {
 
 ## Count
 
-get worker and edge nodes count
+Get a count of all Worker and Edge Nodes.
 
 ### Example Usage
 
@@ -113,11 +113,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `filterExp`                                              | **string*                                                | :heavy_minus_sign:                                       | Filter expression evaluated against nodes                |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
+| `filterExp`                                                                | **string*                                                                  | :heavy_minus_sign:                                                         | Filter expression to evaluate against Nodes for inclusion in the response. |
+| `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
 ### Response
 
