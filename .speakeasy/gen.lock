@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: fa2aec240b6e1c35e6bb718a089a1389
-  docVersion: 4.14.0-alpha.1755543348575-fc1d9ba2
+  docChecksum: 451421a1743d65e2eb4fd25855354f2b
+  docVersion: 4.14.0-alpha.1755671365329-001b451c
   speakeasyVersion: 1.596.0
   generationVersion: 2.672.0
-  releaseVersion: 0.0.31
-  configChecksum: daa05ba56c798d09498ce1697b5e4a8f
+  releaseVersion: 0.0.32
+  configChecksum: 052aeddbb0c2cf6f8c72dc85b43d6988
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -61,6 +61,7 @@ generatedFiles:
   - /models/components/gitfile.go
   - /models/components/gitfilesresponse.go
   - /models/components/gitinfo.go
+  - /models/components/gitlogresult.go
   - /models/components/gitrevertparams.go
   - /models/components/gitrevertresult.go
   - /models/components/gitstatusresult.go
@@ -259,6 +260,7 @@ generatedFiles:
   - /models/operations/getpipelinebyid.go
   - /models/operations/getroutesbyid.go
   - /models/operations/getsummary.go
+  - /models/operations/getversion.go
   - /models/operations/getversionbranch.go
   - /models/operations/getversioncount.go
   - /models/operations/getversioncurrentbranch.go
@@ -363,6 +365,7 @@ generatedFiles:
   - docs/models/components/gitfile.md
   - docs/models/components/gitfilesresponse.md
   - docs/models/components/gitinfo.md
+  - docs/models/components/gitlogresult.md
   - docs/models/components/gitrevertparams.md
   - docs/models/components/gitrevertresult.md
   - docs/models/components/gitrevertresultfiles.md
@@ -2104,6 +2107,9 @@ generatedFiles:
   - docs/models/operations/getversionfilesresponsebody.md
   - docs/models/operations/getversioninforesponse.md
   - docs/models/operations/getversioninforesponsebody.md
+  - docs/models/operations/getversionrequest.md
+  - docs/models/operations/getversionresponse.md
+  - docs/models/operations/getversionresponsebody.md
   - docs/models/operations/getversionshowrequest.md
   - docs/models/operations/getversionshowresponse.md
   - docs/models/operations/getversionshowresponsebody.md
@@ -2442,7 +2448,7 @@ examples:
         application/json: []
       responses:
         "200":
-          application/json: {"count": 359371, "items": [{}]}
+          application/json: {"count": 359371, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "fooey across unless stealthily along", "disabled": true}}, "comments": [{"comment": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles"}]}]}
         "500":
           application/json: {"message": "<value>"}
   listPipeline:
@@ -3008,6 +3014,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 729189, "items": [{"perms": [{"gid": "<id>", "id": "<id>", "policy": "<value>", "type": "notebooks"}], "team": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getVersion:
+    speakeasy-default-get-version:
+      parameters:
+        query:
+          group: "<value>"
+          count: 893.58
+      responses:
+        "200":
+          application/json: {"count": 384008, "items": [{"author_email": "<value>", "author_name": "<value>", "body": "<value>", "date": "2024-03-31", "hash": "<value>", "message": "<value>", "refs": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
