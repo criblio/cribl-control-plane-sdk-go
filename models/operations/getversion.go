@@ -7,9 +7,9 @@ import (
 )
 
 type GetVersionRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
-	// Maximum number of commits to return
+	// Maximum number of commits to return in the response for this request.
 	Count *float64 `queryParam:"style=form,explode=true,name=count"`
 }
 
