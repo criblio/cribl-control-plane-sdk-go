@@ -313,22 +313,6 @@ func main() {
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-
-#### [System.Settings.Auth](docs/sdks/settingsauth/README.md)
-
-* [List](docs/sdks/settingsauth/README.md#list) - Get authentication settings
-* [Update](docs/sdks/settingsauth/README.md#update) - Update authentication settings
-
-#### [System.Settings.Cribl](docs/sdks/cribl/README.md)
-
-* [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
-
-#### [System.Settings.Git](docs/sdks/git/README.md)
-
-* [List](docs/sdks/git/README.md#list) - Get git settings
-* [Update](docs/sdks/git/README.md#update) - Update git settings
-
 ### [Versions](docs/sdks/versions/README.md)
 
 
@@ -341,7 +325,7 @@ func main() {
 
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
-* [List](docs/sdks/commits/README.md#list) - Get the commit history
+* [List](docs/sdks/commits/README.md#list) - List the commit history
 * [Push](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 * [Revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 * [Get](docs/sdks/commits/README.md#get) - Get the diff and log message for a commit
