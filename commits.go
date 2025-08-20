@@ -518,8 +518,8 @@ func (s *Commits) Diff(ctx context.Context, commit *string, group *string, filen
 
 }
 
-// List - Get the commit history
-// Get the commit history
+// List the commit history
+// List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 func (s *Commits) List(ctx context.Context, group *string, count *float64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
 	request := operations.GetVersionRequest{
 		Group: group,

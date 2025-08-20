@@ -7,7 +7,7 @@
 
 * [Create](#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](#diff) - Get the diff for a commit
-* [List](#list) - Get the commit history
+* [List](#list) - List the commit history
 * [Push](#push) - Push local commits to the remote repository
 * [Revert](#revert) - Revert a commit in the local repository
 * [Get](#get) - Get the diff and log message for a commit
@@ -139,7 +139,7 @@ func main() {
 
 ## List
 
-Get the commit history
+List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 
 ### Example Usage
 
@@ -177,12 +177,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `group`                                                  | **string*                                                | :heavy_minus_sign:                                       | Group ID                                                 |
-| `count`                                                  | **float64*                                               | :heavy_minus_sign:                                       | Maximum number of commits to return                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
+| `group`                                                                              | **string*                                                                            | :heavy_minus_sign:                                                                   | The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for. |
+| `count`                                                                              | **float64*                                                                           | :heavy_minus_sign:                                                                   | Maximum number of commits to return in the response for this request.                |
+| `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
 
 ### Response
 
