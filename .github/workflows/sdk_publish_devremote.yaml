@@ -46,6 +46,11 @@ jobs:
         run: |
           BASE=$(yq '.go.version' .speakeasy/gen.yaml)
           BASE="${BASE%%-*}"         # strip existing prerelease
+
+          IFS='.' read -r major minor patch <<< "$BASE"
+          patch=$((patch + 1))
+          BASE="${major}.${minor}.${patch}"
+          
           PREFIX="${BASE}-alpha."    # append '-alpha.'
 
           echo "Base version: ${BASE}"
