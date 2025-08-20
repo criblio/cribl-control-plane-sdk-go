@@ -325,6 +325,7 @@ func main() {
 
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+* [List](docs/sdks/commits/README.md#list) - Get the commit history
 * [Push](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
 * [Revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 * [Get](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
