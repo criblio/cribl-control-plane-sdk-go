@@ -1,4 +1,4 @@
-name: Publish dev-remote SDK
+name: Publish alpha SDK based on dev-remote branch
 permissions:
   checks: write
   contents: write
@@ -115,7 +115,7 @@ jobs:
 
   publish:
     needs: generate-and-push
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@ca0ffab4fec7166f0e60778154df8d7ec8ae3cc7
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@57452fc95969792de6734a91400a24aeb409964c
     with:
       target: cribl-control-plane
     secrets:
