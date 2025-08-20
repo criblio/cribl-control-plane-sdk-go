@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `LakeID`                           | *string*                           | :heavy_check_mark:                 | lake id that contains the Datasets |
-| `ID`                               | *string*                           | :heavy_check_mark:                 | dataset id to get                  |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `LakeID`                                                               | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Lake that contains the Lake Dataset to get. |
+| `ID`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Lake Dataset to get.                        |

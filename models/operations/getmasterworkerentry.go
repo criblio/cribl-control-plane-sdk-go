@@ -7,7 +7,7 @@ import (
 )
 
 type GetMasterWorkerEntryRequest struct {
-	// Filter expression evaluated against nodes
+	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 }
 

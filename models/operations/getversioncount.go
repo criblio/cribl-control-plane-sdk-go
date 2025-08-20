@@ -7,9 +7,9 @@ import (
 )
 
 type GetVersionCountRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
 	Group *string `queryParam:"style=form,explode=true,name=group"`
-	// Commit ID
+	// The Git commit hash to use as the starting point for the count.
 	ID *string `queryParam:"style=form,explode=true,name=ID"`
 }
 

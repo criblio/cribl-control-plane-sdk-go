@@ -7,9 +7,9 @@ import (
 )
 
 type DeleteCriblLakeDatasetByLakeIDAndIDRequest struct {
-	// lake id that contains the Datasets
+	// The <code>id</code> of the Lake that contains the Lake Dataset to delete.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
-	// dataset id to delete
+	// The <code>id</code> of the Lake Dataset to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

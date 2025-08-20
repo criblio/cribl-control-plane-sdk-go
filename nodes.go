@@ -34,8 +34,8 @@ func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// List - Retrieve detailed metadata for Worker and Edge Nodes
-// get worker and edge nodes
+// List - Get detailed metadata for Worker and Edge Nodes
+// Get detailed metadata for Worker and Edge Nodes.
 func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEntryRequest, opts ...operations.Option) (*operations.ListMasterWorkerEntryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -271,8 +271,8 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 
 }
 
-// Count - Retrieve a count of Worker and Edge Nodes
-// get worker and edge nodes count
+// Count - Get a count of Worker and Edge Nodes
+// Get a count of all Worker and Edge Nodes.
 func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations.Option) (*operations.GetMasterWorkerEntryResponse, error) {
 	request := operations.GetMasterWorkerEntryRequest{
 		FilterExp: filterExp,

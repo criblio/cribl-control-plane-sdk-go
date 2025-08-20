@@ -9,13 +9,13 @@ Actions related to Sources
 
 * [List](#list) - List all Sources
 * [Create](#create) - Create a Source
-* [Get](#get) - Retrieve a Source
+* [Get](#get) - Get a Source
 * [Update](#update) - Update a Source
 * [Delete](#delete) - Delete a Source
 
 ## List
 
-Get a list of Source objects
+Get a list of all Sources.
 
 ### Example Usage
 
@@ -71,7 +71,7 @@ func main() {
 
 ## Create
 
-Create Source
+Create a new Source.
 
 ### Example Usage
 
@@ -177,7 +177,7 @@ func main() {
 
 ## Get
 
-Get Source by ID
+Get the specified Source.
 
 ### Example Usage
 
@@ -218,7 +218,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to GET                                         |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to get.                |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -234,7 +234,7 @@ func main() {
 
 ## Update
 
-Update Source
+Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage
 
@@ -306,7 +306,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to PATCH                                       |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to update.             |
 | `input`                                                  | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | Input object                                             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
@@ -323,7 +323,7 @@ func main() {
 
 ## Delete
 
-Delete Source
+Delete the specified Source.
 
 ### Example Usage
 
@@ -364,7 +364,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to DELETE                                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to delete.             |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

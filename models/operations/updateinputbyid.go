@@ -7,7 +7,7 @@ import (
 )
 
 type UpdateInputByIDRequest struct {
-	// Unique ID to PATCH
+	// The <code>id</code> of the Source to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Input object
 	Input components.Input `request:"mediaType=application/json"`

@@ -7,9 +7,9 @@ import (
 )
 
 type UpdateInputHecTokenByIDAndTokenRequest struct {
-	// HEC Source id
+	// The <code>id</code> of the Splunk HEC Source.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// token to update
+	// The <code>id</code> of the HEC token to update.
 	Token string `pathParam:"style=simple,explode=false,name=token"`
 	// UpdateHecTokenRequest object
 	UpdateHecTokenRequest components.UpdateHecTokenRequest `request:"mediaType=application/json"`

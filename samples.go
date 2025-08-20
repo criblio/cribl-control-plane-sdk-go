@@ -30,8 +30,8 @@ func newSamples(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 	}
 }
 
-// Get - Retrieve sample event data for a Destination
-// Retrieve samples data for the specified destination. Used to get sample data for the test action.
+// Get sample event data for a Destination
+// Get sample event data for the specified Destination to validate the configuration or test connectivity.
 func (s *Samples) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetOutputSamplesByIDResponse, error) {
 	request := operations.GetOutputSamplesByIDRequest{
 		ID: id,
@@ -268,7 +268,7 @@ func (s *Samples) Get(ctx context.Context, id string, opts ...operations.Option)
 }
 
 // Create - Send sample event data to a Destination
-// Send sample data to a destination to validate configuration or test connectivity
+// Send sample event data to the specified Destination to validate the configuration or test connectivity.
 func (s *Samples) Create(ctx context.Context, id string, outputTestRequest components.OutputTestRequest, opts ...operations.Option) (*operations.CreateOutputTestByIDResponse, error) {
 	request := operations.CreateOutputTestByIDRequest{
 		ID:                id,

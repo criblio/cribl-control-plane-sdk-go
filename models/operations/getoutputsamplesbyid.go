@@ -7,7 +7,7 @@ import (
 )
 
 type GetOutputSamplesByIDRequest struct {
-	// Destination Id
+	// The <code>id</code> of the Destination to get sample event data for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

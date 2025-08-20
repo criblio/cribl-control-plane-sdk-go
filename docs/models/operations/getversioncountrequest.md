@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Group`            | **string*          | :heavy_minus_sign: | Group ID           |
-| `ID`               | **string*          | :heavy_minus_sign: | Commit ID          |
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `Group`                                                                     | **string*                                                                   | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
+| `ID`                                                                        | **string*                                                                   | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |

@@ -30,8 +30,8 @@ func newLakeDatasets(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigurati
 	}
 }
 
-// Create a Lake Dataset in the specified Lake
-// Create a Dataset in the specified Lake
+// Create a Lake Dataset
+// Create a new Lake Dataset in the specified Lake.
 func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDataset components.CriblLakeDataset, opts ...operations.Option) (*operations.CreateCriblLakeDatasetByLakeIDResponse, error) {
 	request := operations.CreateCriblLakeDatasetByLakeIDRequest{
 		LakeID:           lakeID,
@@ -275,8 +275,8 @@ func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDatas
 
 }
 
-// List all Lake Datasets in the specified Lake
-// Get the list of Dataset contained in the specified Lake
+// List all Lake Datasets
+// Get a list of all Lake Datasets in the specified Lake.
 func (s *LakeDatasets) List(ctx context.Context, lakeID string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDResponse, error) {
 	request := operations.GetCriblLakeDatasetByLakeIDRequest{
 		LakeID: lakeID,
@@ -512,8 +512,8 @@ func (s *LakeDatasets) List(ctx context.Context, lakeID string, opts ...operatio
 
 }
 
-// Delete a Lake Dataset in the specified Lake
-// Delete a Dataset in the specified Lake
+// Delete a Lake Dataset
+// Delete the specified Lake Dataset in the specified Lake
 func (s *LakeDatasets) Delete(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.DeleteCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.DeleteCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID: lakeID,
@@ -750,8 +750,8 @@ func (s *LakeDatasets) Delete(ctx context.Context, lakeID string, id string, opt
 
 }
 
-// Get - Retrieve a Lake Dataset in the specified Lake
-// Get a Dataset in the specified Lake
+// Get a Lake Dataset
+// Get the specified Lake Dataset in the specified Lake.
 func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.GetCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID: lakeID,
@@ -988,8 +988,8 @@ func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts .
 
 }
 
-// Update a Lake Dataset in the specified Lake
-// Update a Dataset in the specified Lake
+// Update a Lake Dataset
+// Update the specified Lake Dataset in the specified Lake.
 func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, criblLakeDataset components.CriblLakeDataset, opts ...operations.Option) (*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.UpdateCriblLakeDatasetByLakeIDAndIDRequest{
 		LakeID:           lakeID,

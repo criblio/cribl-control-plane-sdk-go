@@ -3,50 +3,21 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// UpdateConfigGroupByProductAndIDProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type UpdateConfigGroupByProductAndIDProduct string
-
-const (
-	UpdateConfigGroupByProductAndIDProductStream UpdateConfigGroupByProductAndIDProduct = "stream"
-	UpdateConfigGroupByProductAndIDProductEdge   UpdateConfigGroupByProductAndIDProduct = "edge"
-)
-
-func (e UpdateConfigGroupByProductAndIDProduct) ToPointer() *UpdateConfigGroupByProductAndIDProduct {
-	return &e
-}
-func (e *UpdateConfigGroupByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = UpdateConfigGroupByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateConfigGroupByProductAndIDProduct: %v", v)
-	}
-}
-
 type UpdateConfigGroupByProductAndIDRequest struct {
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product UpdateConfigGroupByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// ConfigGroup object
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
 }
 
-func (o *UpdateConfigGroupByProductAndIDRequest) GetProduct() UpdateConfigGroupByProductAndIDProduct {
+func (o *UpdateConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return UpdateConfigGroupByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

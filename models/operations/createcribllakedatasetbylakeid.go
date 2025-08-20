@@ -7,7 +7,7 @@ import (
 )
 
 type CreateCriblLakeDatasetByLakeIDRequest struct {
-	// lake id that contains the Datasets
+	// The <code>id</code> of the Lake to create the Lake Dataset in.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 	// CriblLakeDataset object
 	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`

@@ -7,7 +7,7 @@ import (
 )
 
 type DeletePacksByIDRequest struct {
-	// Pack name
+	// The <code>id</code> of the Pack to uninstall.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
