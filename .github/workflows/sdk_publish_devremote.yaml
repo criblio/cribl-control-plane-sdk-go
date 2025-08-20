@@ -36,6 +36,18 @@ jobs:
           sudo curl -L https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -o /usr/local/bin/yq
           sudo chmod +x /usr/local/bin/yq
 
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          check-latest: true
+
+      - name: Install staticcheck
+        run: |
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+
       - name: Install Speakeasy CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
@@ -50,7 +62,7 @@ jobs:
           IFS='.' read -r major minor patch <<< "$BASE"
           patch=$((patch + 1))
           BASE="${major}.${minor}.${patch}"
-          
+
           PREFIX="${BASE}-alpha."    # append '-alpha.'
 
           echo "Base version: ${BASE}"
