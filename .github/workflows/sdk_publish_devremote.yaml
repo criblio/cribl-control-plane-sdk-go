@@ -1,4 +1,4 @@
-name: Publish dev-remote
+name: Publish dev-remote SDK
 permissions:
   checks: write
   contents: write
@@ -26,7 +26,7 @@ jobs:
       version: ${{ steps.ver.outputs.version }}
     steps:
       - name: Checkout dev-remote
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: dev-remote
           fetch-depth: 0
@@ -35,7 +35,6 @@ jobs:
         run: |
           sudo curl -L https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -o /usr/local/bin/yq
           sudo chmod +x /usr/local/bin/yq
-
 
       - name: Setup Go
         uses: actions/setup-go@v5
