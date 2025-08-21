@@ -333,6 +333,12 @@ input := components.CreateInputInputJournalFiles(components.InputJournalFiles{/*
 input := components.CreateInputInputWiz(components.InputWiz{/* values here */})
 ```
 
+### InputWizWebhook
+
+```go
+input := components.CreateInputInputWizWebhook(components.InputWizWebhook{/* values here */})
+```
+
 ### InputNetflow
 
 ```go

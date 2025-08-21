@@ -66,6 +66,7 @@ const (
 	InputTypeInputRawUDP               InputType = "InputRawUdp"
 	InputTypeInputJournalFiles         InputType = "InputJournalFiles"
 	InputTypeInputWiz                  InputType = "InputWiz"
+	InputTypeInputWizWebhook           InputType = "InputWizWebhook"
 	InputTypeInputNetflow              InputType = "InputNetflow"
 	InputTypeInputSecurityLake         InputType = "InputSecurityLake"
 	InputTypeInputZscalerHec           InputType = "InputZscalerHec"
@@ -127,6 +128,7 @@ type Input struct {
 	InputRawUDP               *InputRawUDP               `queryParam:"inline"`
 	InputJournalFiles         *InputJournalFiles         `queryParam:"inline"`
 	InputWiz                  *InputWiz                  `queryParam:"inline"`
+	InputWizWebhook           *InputWizWebhook           `queryParam:"inline"`
 	InputNetflow              *InputNetflow              `queryParam:"inline"`
 	InputSecurityLake         *InputSecurityLake         `queryParam:"inline"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline"`
@@ -629,6 +631,15 @@ func CreateInputInputWiz(inputWiz InputWiz) Input {
 	}
 }
 
+func CreateInputInputWizWebhook(inputWizWebhook InputWizWebhook) Input {
+	typ := InputTypeInputWizWebhook
+
+	return Input{
+		InputWizWebhook: &inputWizWebhook,
+		Type:            typ,
+	}
+}
+
 func CreateInputInputNetflow(inputNetflow InputNetflow) Input {
 	typ := InputTypeInputNetflow
 
@@ -714,17 +725,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputWindowsMetrics InputWindowsMetrics = InputWindowsMetrics{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, false); err == nil {
-		u.InputWindowsMetrics = &inputWindowsMetrics
-		u.Type = InputTypeInputWindowsMetrics
-		return nil
-	}
-
 	var inputSystemMetrics InputSystemMetrics = InputSystemMetrics{}
 	if err := utils.UnmarshalJSON(data, &inputSystemMetrics, "", true, false); err == nil {
 		u.InputSystemMetrics = &inputSystemMetrics
 		u.Type = InputTypeInputSystemMetrics
+		return nil
+	}
+
+	var inputWindowsMetrics InputWindowsMetrics = InputWindowsMetrics{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, false); err == nil {
+		u.InputWindowsMetrics = &inputWindowsMetrics
+		u.Type = InputTypeInputWindowsMetrics
 		return nil
 	}
 
@@ -735,17 +746,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputRawUDP InputRawUDP = InputRawUDP{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, false); err == nil {
-		u.InputRawUDP = &inputRawUDP
-		u.Type = InputTypeInputRawUDP
-		return nil
-	}
-
 	var inputWinEventLogs InputWinEventLogs = InputWinEventLogs{}
 	if err := utils.UnmarshalJSON(data, &inputWinEventLogs, "", true, false); err == nil {
 		u.InputWinEventLogs = &inputWinEventLogs
 		u.Type = InputTypeInputWinEventLogs
+		return nil
+	}
+
+	var inputRawUDP InputRawUDP = InputRawUDP{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, false); err == nil {
+		u.InputRawUDP = &inputRawUDP
+		u.Type = InputTypeInputRawUDP
 		return nil
 	}
 
@@ -805,10 +816,10 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputTCP InputTCP = InputTCP{}
-	if err := utils.UnmarshalJSON(data, &inputTCP, "", true, false); err == nil {
-		u.InputTCP = &inputTCP
-		u.Type = InputTypeInputTCP
+	var inputOffice365Service InputOffice365Service = InputOffice365Service{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, false); err == nil {
+		u.InputOffice365Service = &inputOffice365Service
+		u.Type = InputTypeInputOffice365Service
 		return nil
 	}
 
@@ -819,10 +830,10 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputOffice365Service InputOffice365Service = InputOffice365Service{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, false); err == nil {
-		u.InputOffice365Service = &inputOffice365Service
-		u.Type = InputTypeInputOffice365Service
+	var inputTCP InputTCP = InputTCP{}
+	if err := utils.UnmarshalJSON(data, &inputTCP, "", true, false); err == nil {
+		u.InputTCP = &inputTCP
+		u.Type = InputTypeInputTCP
 		return nil
 	}
 
@@ -840,17 +851,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputOffice365Mgmt InputOffice365Mgmt = InputOffice365Mgmt{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, false); err == nil {
-		u.InputOffice365Mgmt = &inputOffice365Mgmt
-		u.Type = InputTypeInputOffice365Mgmt
-		return nil
-	}
-
 	var inputDatadogAgent InputDatadogAgent = InputDatadogAgent{}
 	if err := utils.UnmarshalJSON(data, &inputDatadogAgent, "", true, false); err == nil {
 		u.InputDatadogAgent = &inputDatadogAgent
 		u.Type = InputTypeInputDatadogAgent
+		return nil
+	}
+
+	var inputOffice365Mgmt InputOffice365Mgmt = InputOffice365Mgmt{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, false); err == nil {
+		u.InputOffice365Mgmt = &inputOffice365Mgmt
+		u.Type = InputTypeInputOffice365Mgmt
 		return nil
 	}
 
@@ -868,13 +879,6 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputAppscope InputAppscope = InputAppscope{}
-	if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, false); err == nil {
-		u.InputAppscope = &inputAppscope
-		u.Type = InputTypeInputAppscope
-		return nil
-	}
-
 	var inputWef InputWef = InputWef{}
 	if err := utils.UnmarshalJSON(data, &inputWef, "", true, false); err == nil {
 		u.InputWef = &inputWef
@@ -882,10 +886,24 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var inputAppscope InputAppscope = InputAppscope{}
+	if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, false); err == nil {
+		u.InputAppscope = &inputAppscope
+		u.Type = InputTypeInputAppscope
+		return nil
+	}
+
 	var inputHTTPRaw InputHTTPRaw = InputHTTPRaw{}
 	if err := utils.UnmarshalJSON(data, &inputHTTPRaw, "", true, false); err == nil {
 		u.InputHTTPRaw = &inputHTTPRaw
 		u.Type = InputTypeInputHTTPRaw
+		return nil
+	}
+
+	var inputWizWebhook InputWizWebhook = InputWizWebhook{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhook, "", true, false); err == nil {
+		u.InputWizWebhook = &inputWizWebhook
+		u.Type = InputTypeInputWizWebhook
 		return nil
 	}
 
@@ -924,13 +942,6 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputEventhub InputEventhub = InputEventhub{}
-	if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, false); err == nil {
-		u.InputEventhub = &inputEventhub
-		u.Type = InputTypeInputEventhub
-		return nil
-	}
-
 	var inputKinesis InputKinesis = InputKinesis{}
 	if err := utils.UnmarshalJSON(data, &inputKinesis, "", true, false); err == nil {
 		u.InputKinesis = &inputKinesis
@@ -938,17 +949,24 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputKafka InputKafka = InputKafka{}
-	if err := utils.UnmarshalJSON(data, &inputKafka, "", true, false); err == nil {
-		u.InputKafka = &inputKafka
-		u.Type = InputTypeInputKafka
-		return nil
-	}
-
 	var inputConfluentCloud InputConfluentCloud = InputConfluentCloud{}
 	if err := utils.UnmarshalJSON(data, &inputConfluentCloud, "", true, false); err == nil {
 		u.InputConfluentCloud = &inputConfluentCloud
 		u.Type = InputTypeInputConfluentCloud
+		return nil
+	}
+
+	var inputEventhub InputEventhub = InputEventhub{}
+	if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, false); err == nil {
+		u.InputEventhub = &inputEventhub
+		u.Type = InputTypeInputEventhub
+		return nil
+	}
+
+	var inputKafka InputKafka = InputKafka{}
+	if err := utils.UnmarshalJSON(data, &inputKafka, "", true, false); err == nil {
+		u.InputKafka = &inputKafka
+		u.Type = InputTypeInputKafka
 		return nil
 	}
 
@@ -1286,6 +1304,10 @@ func (u Input) MarshalJSON() ([]byte, error) {
 
 	if u.InputWiz != nil {
 		return utils.MarshalJSON(u.InputWiz, "", true)
+	}
+
+	if u.InputWizWebhook != nil {
+		return utils.MarshalJSON(u.InputWizWebhook, "", true)
 	}
 
 	if u.InputNetflow != nil {
