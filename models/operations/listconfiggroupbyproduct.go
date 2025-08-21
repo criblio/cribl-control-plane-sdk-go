@@ -3,43 +3,14 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
-
-// ListConfigGroupByProductProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type ListConfigGroupByProductProduct string
-
-const (
-	ListConfigGroupByProductProductStream ListConfigGroupByProductProduct = "stream"
-	ListConfigGroupByProductProductEdge   ListConfigGroupByProductProduct = "edge"
-)
-
-func (e ListConfigGroupByProductProduct) ToPointer() *ListConfigGroupByProductProduct {
-	return &e
-}
-func (e *ListConfigGroupByProductProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = ListConfigGroupByProductProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ListConfigGroupByProductProduct: %v", v)
-	}
-}
 
 type ListConfigGroupByProductRequest struct {
 	// Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
 	Fields *string `queryParam:"style=form,explode=true,name=fields"`
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product ListConfigGroupByProductProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 }
 
 func (o *ListConfigGroupByProductRequest) GetFields() *string {
@@ -49,9 +20,9 @@ func (o *ListConfigGroupByProductRequest) GetFields() *string {
 	return o.Fields
 }
 
-func (o *ListConfigGroupByProductRequest) GetProduct() ListConfigGroupByProductProduct {
+func (o *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return ListConfigGroupByProductProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

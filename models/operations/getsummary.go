@@ -3,44 +3,15 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// Mode - Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
-type Mode string
-
-const (
-	ModeWorker      Mode = "worker"
-	ModeManagedEdge Mode = "managed-edge"
-)
-
-func (e Mode) ToPointer() *Mode {
-	return &e
-}
-func (e *Mode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "worker":
-		fallthrough
-	case "managed-edge":
-		*e = Mode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Mode: %v", v)
-	}
-}
-
 type GetSummaryRequest struct {
 	// Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
-	Mode *Mode `queryParam:"style=form,explode=true,name=mode"`
+	Mode *components.WorkerTypes `queryParam:"style=form,explode=true,name=mode"`
 }
 
-func (o *GetSummaryRequest) GetMode() *Mode {
+func (o *GetSummaryRequest) GetMode() *components.WorkerTypes {
 	if o == nil {
 		return nil
 	}

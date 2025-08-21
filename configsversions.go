@@ -32,7 +32,7 @@ func newConfigsVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 
 // Get the configuration version for a Worker Group or Edge Fleet
 // Get the configuration version for the specified Worker Group or Edge Fleet.
-func (s *ConfigsVersions) Get(ctx context.Context, product operations.GetConfigGroupConfigVersionByProductAndIDProduct, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
+func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupConfigVersionByProductAndIDRequest{
 		Product: product,
 		ID:      id,

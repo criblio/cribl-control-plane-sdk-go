@@ -3,14 +3,14 @@
 package components
 
 type GitFilesResponse struct {
-	CommitMessage map[string]any `json:"commitMessage"`
+	CommitMessage map[string]any `json:"commitMessage,omitempty"`
 	Count         float64        `json:"count"`
 	Items         []GitFile      `json:"items"`
 }
 
 func (o *GitFilesResponse) GetCommitMessage() map[string]any {
 	if o == nil {
-		return map[string]any{}
+		return nil
 	}
 	return o.CommitMessage
 }

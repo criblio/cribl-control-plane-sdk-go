@@ -38,21 +38,21 @@ func (o *GitRevertResultFiles) GetRenamed() []string {
 }
 
 type Audit struct {
-	Files GitRevertResultFiles `json:"files"`
-	Group string               `json:"group"`
-	ID    string               `json:"id"`
+	Files *GitRevertResultFiles `json:"files,omitempty"`
+	Group *string               `json:"group,omitempty"`
+	ID    string                `json:"id"`
 }
 
-func (o *Audit) GetFiles() GitRevertResultFiles {
+func (o *Audit) GetFiles() *GitRevertResultFiles {
 	if o == nil {
-		return GitRevertResultFiles{}
+		return nil
 	}
 	return o.Files
 }
 
-func (o *Audit) GetGroup() string {
+func (o *Audit) GetGroup() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Group
 }

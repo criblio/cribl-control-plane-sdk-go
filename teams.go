@@ -32,7 +32,7 @@ func newTeams(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 
 // Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 // Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
-func (s *Teams) Get(ctx context.Context, product operations.GetConfigGroupACLTeamsByProductAndIDProduct, id string, type_ *operations.GetConfigGroupACLTeamsByProductAndIDType, opts ...operations.Option) (*operations.GetConfigGroupACLTeamsByProductAndIDResponse, error) {
+func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLTeamsByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupACLTeamsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
