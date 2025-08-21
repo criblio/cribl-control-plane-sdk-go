@@ -3,48 +3,19 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// DeleteConfigGroupByProductAndIDProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type DeleteConfigGroupByProductAndIDProduct string
-
-const (
-	DeleteConfigGroupByProductAndIDProductStream DeleteConfigGroupByProductAndIDProduct = "stream"
-	DeleteConfigGroupByProductAndIDProductEdge   DeleteConfigGroupByProductAndIDProduct = "edge"
-)
-
-func (e DeleteConfigGroupByProductAndIDProduct) ToPointer() *DeleteConfigGroupByProductAndIDProduct {
-	return &e
-}
-func (e *DeleteConfigGroupByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = DeleteConfigGroupByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for DeleteConfigGroupByProductAndIDProduct: %v", v)
-	}
-}
-
 type DeleteConfigGroupByProductAndIDRequest struct {
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product DeleteConfigGroupByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteConfigGroupByProductAndIDRequest) GetProduct() DeleteConfigGroupByProductAndIDProduct {
+func (o *DeleteConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return DeleteConfigGroupByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

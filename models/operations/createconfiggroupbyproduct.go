@@ -3,48 +3,19 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// CreateConfigGroupByProductProduct - Name of the Cribl product to add the Worker Group or Edge Fleet to.
-type CreateConfigGroupByProductProduct string
-
-const (
-	CreateConfigGroupByProductProductStream CreateConfigGroupByProductProduct = "stream"
-	CreateConfigGroupByProductProductEdge   CreateConfigGroupByProductProduct = "edge"
-)
-
-func (e CreateConfigGroupByProductProduct) ToPointer() *CreateConfigGroupByProductProduct {
-	return &e
-}
-func (e *CreateConfigGroupByProductProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = CreateConfigGroupByProductProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateConfigGroupByProductProduct: %v", v)
-	}
-}
-
 type CreateConfigGroupByProductRequest struct {
 	// Name of the Cribl product to add the Worker Group or Edge Fleet to.
-	Product CreateConfigGroupByProductProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// ConfigGroup object
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
 }
 
-func (o *CreateConfigGroupByProductRequest) GetProduct() CreateConfigGroupByProductProduct {
+func (o *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return CreateConfigGroupByProductProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

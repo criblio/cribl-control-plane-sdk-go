@@ -33,7 +33,7 @@ func newSummaries(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 
 // Get a summary of the Distributed deployment
 // Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
-func (s *Summaries) Get(ctx context.Context, mode *operations.Mode, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
+func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts ...operations.Option) (*operations.GetSummaryResponse, error) {
 	request := operations.GetSummaryRequest{
 		Mode: mode,
 	}
