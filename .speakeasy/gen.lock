@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: dfb5e34bdb9205f7f222f10c8554a537
-  docVersion: 4.14.0-alpha.1755764858399-d5c9979b
+  docChecksum: 7117f9e73ff6b132ec81ba4366ee8712
+  docVersion: 4.14.0-alpha.1755792230606-47c829c2
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.36
-  configChecksum: 7ce7aab09e67536463170efe85015af1
+  releaseVersion: 0.0.37
+  configChecksum: 8e2da80dfc59a9dc748affceba07539c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -128,6 +128,7 @@ generatedFiles:
   - /models/components/inputwindowsmetrics.go
   - /models/components/inputwineventlogs.go
   - /models/components/inputwiz.go
+  - /models/components/inputwizwebhook.go
   - /models/components/inputzscalerhec.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
@@ -259,6 +260,7 @@ generatedFiles:
   - /models/operations/getoutputpqbyid.go
   - /models/operations/getoutputsamplesbyid.go
   - /models/operations/getpacks.go
+  - /models/operations/getpacksbyid.go
   - /models/operations/getpipelinebyid.go
   - /models/operations/getroutesbyid.go
   - /models/operations/getsummary.go
@@ -1074,6 +1076,18 @@ generatedFiles:
   - docs/models/components/inputwizretryrules.md
   - docs/models/components/inputwizretrytype.md
   - docs/models/components/inputwiztype.md
+  - docs/models/components/inputwizwebhook.md
+  - docs/models/components/inputwizwebhookauthtokensext.md
+  - docs/models/components/inputwizwebhookauthtokensextmetadatum.md
+  - docs/models/components/inputwizwebhookcompression.md
+  - docs/models/components/inputwizwebhookconnection.md
+  - docs/models/components/inputwizwebhookmaximumtlsversion.md
+  - docs/models/components/inputwizwebhookmetadatum.md
+  - docs/models/components/inputwizwebhookminimumtlsversion.md
+  - docs/models/components/inputwizwebhookmode.md
+  - docs/models/components/inputwizwebhookpq.md
+  - docs/models/components/inputwizwebhooktlssettingsserverside.md
+  - docs/models/components/inputwizwebhooktype.md
   - docs/models/components/inputzscalerhec.md
   - docs/models/components/inputzscalerhecauthenticationmethod.md
   - docs/models/components/inputzscalerhecauthtoken.md
@@ -2077,6 +2091,9 @@ generatedFiles:
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidresponsebody.md
+  - docs/models/operations/getpacksbyidrequest.md
+  - docs/models/operations/getpacksbyidresponse.md
+  - docs/models/operations/getpacksbyidresponsebody.md
   - docs/models/operations/getpacksrequest.md
   - docs/models/operations/getpacksresponse.md
   - docs/models/operations/getpacksresponsebody.md
@@ -3063,6 +3080,16 @@ examples:
           application/json: {"count": 6619, "items": [{"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": false, "defaultCommitMessage": "<value>", "gitOps": "none", "password": "qUY4EQ7xkkuLNCo", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 7121.45, "user": "Wyman11"}]}
         "500":
           application/json: {"message": "<value>"}
+  getPacksById:
+    speakeasy-default-get-packs-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3128,17 +3155,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `CriblControlPlane.Nodes.Summaries.Get()`:  `request.Mode` **Changed**
-  * `CriblControlPlane.Versions.Commits.Revert()`:  `response.Items.[].Audit` **Changed**
-  * `CriblControlPlane.Versions.Commits.Files.List()`:  `response.Items.[].CommitMessage` **Changed**
-  * `CriblControlPlane.Groups.List()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Create()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Get()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Update()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Delete()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Deploy()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Configs.Versions.Get()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Acl.Get()`:  `request` **Changed**
-  * `CriblControlPlane.Groups.Acl.Teams.Get()`:  `request` **Changed**
+releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Packs.Get()`: **Added**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputWizWebhook]` **Added**\n  *  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputWizWebhook]` **Added**\n  *  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `request.GitRevertParams.Message` **Changed**\n"
