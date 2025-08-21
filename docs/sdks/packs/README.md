@@ -10,6 +10,7 @@ Actions related to Packs
 * [Install](#install) - Install a Pack
 * [List](#list) - List all Packs
 * [Delete](#delete) - Uninstall a Pack
+* [Get](#get) - Get a Pack
 * [Update](#update) - Upgrade a Pack
 
 ## Install
@@ -202,6 +203,63 @@ func main() {
 ### Response
 
 **[*operations.DeletePacksByIDResponse](../../models/operations/deletepacksbyidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Get
+
+Get the specified Pack.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.Object != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to get.                  |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.GetPacksByIDResponse](../../models/operations/getpacksbyidresponse.md), error**
 
 ### Errors
 
