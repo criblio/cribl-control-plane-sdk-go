@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: dfb5e34bdb9205f7f222f10c8554a537
+  docChecksum: 259c4a4fc361be7c16fd1e00c8ba54cd
   docVersion: 4.14.0-alpha.1755764858399-d5c9979b
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.36
-  configChecksum: 7ce7aab09e67536463170efe85015af1
+  releaseVersion: 0.0.37-alpha.1
+  configChecksum: f0aeee6d220cac2bc2e717da5ec8202a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -590,34 +590,19 @@ generatedFiles:
   - docs/models/components/inputgooglepubsubpq.md
   - docs/models/components/inputgooglepubsubtype.md
   - docs/models/components/inputgrafana.md
-  - docs/models/components/inputgrafanacompression1.md
-  - docs/models/components/inputgrafanacompression2.md
-  - docs/models/components/inputgrafanaconnection1.md
-  - docs/models/components/inputgrafanaconnection2.md
-  - docs/models/components/inputgrafanagrafana1.md
-  - docs/models/components/inputgrafanagrafana2.md
-  - docs/models/components/inputgrafanalokiauth1.md
-  - docs/models/components/inputgrafanalokiauth2.md
-  - docs/models/components/inputgrafanalokiauthauthenticationtype1.md
-  - docs/models/components/inputgrafanalokiauthauthenticationtype2.md
-  - docs/models/components/inputgrafanamaximumtlsversion1.md
-  - docs/models/components/inputgrafanamaximumtlsversion2.md
-  - docs/models/components/inputgrafanametadatum1.md
-  - docs/models/components/inputgrafanametadatum2.md
-  - docs/models/components/inputgrafanaminimumtlsversion1.md
-  - docs/models/components/inputgrafanaminimumtlsversion2.md
-  - docs/models/components/inputgrafanamode1.md
-  - docs/models/components/inputgrafanamode2.md
-  - docs/models/components/inputgrafanapq1.md
-  - docs/models/components/inputgrafanapq2.md
-  - docs/models/components/inputgrafanaprometheusauth1.md
-  - docs/models/components/inputgrafanaprometheusauth2.md
-  - docs/models/components/inputgrafanaprometheusauthauthenticationtype1.md
-  - docs/models/components/inputgrafanaprometheusauthauthenticationtype2.md
-  - docs/models/components/inputgrafanatlssettingsserverside1.md
-  - docs/models/components/inputgrafanatlssettingsserverside2.md
-  - docs/models/components/inputgrafanatype1.md
-  - docs/models/components/inputgrafanatype2.md
+  - docs/models/components/inputgrafanacompression.md
+  - docs/models/components/inputgrafanaconnection.md
+  - docs/models/components/inputgrafanalokiauth.md
+  - docs/models/components/inputgrafanalokiauthauthenticationtype.md
+  - docs/models/components/inputgrafanamaximumtlsversion.md
+  - docs/models/components/inputgrafanametadatum.md
+  - docs/models/components/inputgrafanaminimumtlsversion.md
+  - docs/models/components/inputgrafanamode.md
+  - docs/models/components/inputgrafanapq.md
+  - docs/models/components/inputgrafanaprometheusauth.md
+  - docs/models/components/inputgrafanaprometheusauthauthenticationtype.md
+  - docs/models/components/inputgrafanatlssettingsserverside.md
+  - docs/models/components/inputgrafanatype.md
   - docs/models/components/inputhttp.md
   - docs/models/components/inputhttpauthtokensext.md
   - docs/models/components/inputhttpauthtokensextmetadatum.md
@@ -943,26 +928,15 @@ generatedFiles:
   - docs/models/components/inputsqssignatureversion.md
   - docs/models/components/inputsqstype.md
   - docs/models/components/inputsyslog.md
-  - docs/models/components/inputsyslogcompression1.md
-  - docs/models/components/inputsyslogcompression2.md
-  - docs/models/components/inputsyslogconnection1.md
-  - docs/models/components/inputsyslogconnection2.md
-  - docs/models/components/inputsyslogmaximumtlsversion1.md
-  - docs/models/components/inputsyslogmaximumtlsversion2.md
-  - docs/models/components/inputsyslogmetadatum1.md
-  - docs/models/components/inputsyslogmetadatum2.md
-  - docs/models/components/inputsyslogminimumtlsversion1.md
-  - docs/models/components/inputsyslogminimumtlsversion2.md
-  - docs/models/components/inputsyslogmode1.md
-  - docs/models/components/inputsyslogmode2.md
-  - docs/models/components/inputsyslogpq1.md
-  - docs/models/components/inputsyslogpq2.md
-  - docs/models/components/inputsyslogsyslog1.md
-  - docs/models/components/inputsyslogsyslog2.md
-  - docs/models/components/inputsyslogtlssettingsserverside1.md
-  - docs/models/components/inputsyslogtlssettingsserverside2.md
-  - docs/models/components/inputsyslogtype1.md
-  - docs/models/components/inputsyslogtype2.md
+  - docs/models/components/inputsyslogcompression.md
+  - docs/models/components/inputsyslogconnection.md
+  - docs/models/components/inputsyslogmaximumtlsversion.md
+  - docs/models/components/inputsyslogmetadatum.md
+  - docs/models/components/inputsyslogminimumtlsversion.md
+  - docs/models/components/inputsyslogmode.md
+  - docs/models/components/inputsyslogpq.md
+  - docs/models/components/inputsyslogtlssettingsserverside.md
+  - docs/models/components/inputsyslogtype.md
   - docs/models/components/inputsystemmetrics.md
   - docs/models/components/inputsystemmetricscompression.md
   - docs/models/components/inputsystemmetricsconnection.md
@@ -1096,10 +1070,8 @@ generatedFiles:
   - docs/models/components/logininfo.md
   - docs/models/components/loglabel.md
   - docs/models/components/loglocationtype.md
-  - docs/models/components/lokiauthoauthheader1.md
-  - docs/models/components/lokiauthoauthheader2.md
-  - docs/models/components/lokiauthoauthparam1.md
-  - docs/models/components/lokiauthoauthparam2.md
+  - docs/models/components/lokiauthoauthheader.md
+  - docs/models/components/lokiauthoauthparam.md
   - docs/models/components/lookupversions.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
@@ -1439,40 +1411,22 @@ generatedFiles:
   - docs/models/components/outputgooglepubsubqueuefullbehavior.md
   - docs/models/components/outputgooglepubsubtypegooglepubsub.md
   - docs/models/components/outputgrafanacloud.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
-  - docs/models/components/outputgrafanacloudcompression1.md
-  - docs/models/components/outputgrafanacloudcompression2.md
-  - docs/models/components/outputgrafanacloudextrahttpheader1.md
-  - docs/models/components/outputgrafanacloudextrahttpheader2.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode1.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode2.md
-  - docs/models/components/outputgrafanacloudgrafanacloud1.md
-  - docs/models/components/outputgrafanacloudgrafanacloud2.md
-  - docs/models/components/outputgrafanacloudlabel1.md
-  - docs/models/components/outputgrafanacloudlabel2.md
-  - docs/models/components/outputgrafanacloudlokiauth1.md
-  - docs/models/components/outputgrafanacloudlokiauth2.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudmessageformat1.md
-  - docs/models/components/outputgrafanacloudmessageformat2.md
-  - docs/models/components/outputgrafanacloudmode1.md
-  - docs/models/components/outputgrafanacloudmode2.md
-  - docs/models/components/outputgrafanacloudpqcontrols1.md
-  - docs/models/components/outputgrafanacloudpqcontrols2.md
-  - docs/models/components/outputgrafanacloudprometheusauth1.md
-  - docs/models/components/outputgrafanacloudprometheusauth2.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior1.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior2.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting1.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting2.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings1.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings2.md
-  - docs/models/components/outputgrafanacloudtype1.md
-  - docs/models/components/outputgrafanacloudtype2.md
+  - docs/models/components/outputgrafanacloudbackpressurebehavior.md
+  - docs/models/components/outputgrafanacloudcompression.md
+  - docs/models/components/outputgrafanacloudextrahttpheader.md
+  - docs/models/components/outputgrafanacloudfailedrequestloggingmode.md
+  - docs/models/components/outputgrafanacloudlabel.md
+  - docs/models/components/outputgrafanacloudlokiauth.md
+  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype.md
+  - docs/models/components/outputgrafanacloudmessageformat.md
+  - docs/models/components/outputgrafanacloudmode.md
+  - docs/models/components/outputgrafanacloudpqcontrols.md
+  - docs/models/components/outputgrafanacloudprometheusauth.md
+  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype.md
+  - docs/models/components/outputgrafanacloudqueuefullbehavior.md
+  - docs/models/components/outputgrafanacloudresponseretrysetting.md
+  - docs/models/components/outputgrafanacloudtimeoutretrysettings.md
+  - docs/models/components/outputgrafanacloudtype.md
   - docs/models/components/outputgraphite.md
   - docs/models/components/outputgraphitebackpressurebehavior.md
   - docs/models/components/outputgraphitecompression.md
@@ -1940,10 +1894,8 @@ generatedFiles:
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
   - docs/models/components/productscore.md
-  - docs/models/components/prometheusauthoauthheader1.md
-  - docs/models/components/prometheusauthoauthheader2.md
-  - docs/models/components/prometheusauthoauthparam1.md
-  - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/prometheusauthoauthheader.md
+  - docs/models/components/prometheusauthoauthparam.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
@@ -3128,17 +3080,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `CriblControlPlane.Nodes.Summaries.Get()`:  `request.Mode` **Changed**
-  * `CriblControlPlane.Versions.Commits.Revert()`:  `response.Items.[].Audit` **Changed**
-  * `CriblControlPlane.Versions.Commits.Files.List()`:  `response.Items.[].CommitMessage` **Changed**
-  * `CriblControlPlane.Groups.List()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Create()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Get()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Update()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Delete()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Deploy()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Configs.Versions.Get()`:  `request.Product` **Changed**
-  * `CriblControlPlane.Groups.Acl.Get()`:  `request` **Changed**
-  * `CriblControlPlane.Groups.Acl.Teams.Get()`:  `request` **Changed**
