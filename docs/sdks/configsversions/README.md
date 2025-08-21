@@ -22,7 +22,6 @@ import(
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -36,7 +35,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Configs.Versions.Get(ctx, operations.GetConfigGroupConfigVersionByProductAndIDProductStream, "<id>")
+    res, err := s.Groups.Configs.Versions.Get(ctx, components.ProductsCoreStream, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -48,12 +47,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                                  | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                                                      | :heavy_check_mark:                                                                                                                         | The context to use for the request.                                                                                                        |
-| `product`                                                                                                                                  | [operations.GetConfigGroupConfigVersionByProductAndIDProduct](../../models/operations/getconfiggroupconfigversionbyproductandidproduct.md) | :heavy_check_mark:                                                                                                                         | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                                     |
-| `id`                                                                                                                                       | *string*                                                                                                                                   | :heavy_check_mark:                                                                                                                         | The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for.                                                |
-| `opts`                                                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                                                   | :heavy_minus_sign:                                                                                                                         | The options for this request.                                                                                                              |
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                       | :heavy_check_mark:                                                                          | The context to use for the request.                                                         |
+| `product`                                                                                   | [components.ProductsCore](../../models/components/productscore.md)                          | :heavy_check_mark:                                                                          | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                      |
+| `id`                                                                                        | *string*                                                                                    | :heavy_check_mark:                                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for. |
+| `opts`                                                                                      | [][operations.Option](../../models/operations/option.md)                                    | :heavy_minus_sign:                                                                          | The options for this request.                                                               |
 
 ### Response
 

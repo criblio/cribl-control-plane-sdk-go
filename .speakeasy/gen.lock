@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d4e60eaf202d77136dfcb246180859e0
-  docVersion: 4.14.0-alpha.1755708210976-a566b731
+  docChecksum: dfb5e34bdb9205f7f222f10c8554a537
+  docVersion: 4.14.0-alpha.1755764858399-d5c9979b
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.35
-  configChecksum: 1b30a1b6ec072c2d7998d143338acae9
+  releaseVersion: 0.0.36
+  configChecksum: 7ce7aab09e67536463170efe85015af1
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -213,6 +213,7 @@ generatedFiles:
   - /models/components/packrequestbody.go
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
+  - /models/components/productscore.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
   - /models/components/routecloneconf.go
@@ -224,6 +225,7 @@ generatedFiles:
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
   - /models/components/useraccesscontrollist.go
+  - /models/components/workertypes.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
@@ -1937,6 +1939,7 @@ generatedFiles:
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
+  - docs/models/components/productscore.md
   - docs/models/components/prometheusauthoauthheader1.md
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
@@ -1984,8 +1987,8 @@ generatedFiles:
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
+  - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
-  - docs/models/operations/createconfiggroupbyproductproduct.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductresponsebody.md
@@ -2019,7 +2022,6 @@ generatedFiles:
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
-  - docs/models/operations/deleteconfiggroupbyproductandidproduct.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
@@ -2041,21 +2043,15 @@ generatedFiles:
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/deletepipelinebyidresponsebody.md
-  - docs/models/operations/getconfiggroupaclbyproductandidproduct.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
-  - docs/models/operations/getconfiggroupaclbyproductandidtype.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidproduct.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidresponsebody.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidtype.md
-  - docs/models/operations/getconfiggroupbyproductandidproduct.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
   - docs/models/operations/getconfiggroupbyproductandidresponse.md
   - docs/models/operations/getconfiggroupbyproductandidresponsebody.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidproduct.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidresponsebody.md
@@ -2116,7 +2112,6 @@ generatedFiles:
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/getversionstatusresponsebody.md
-  - docs/models/operations/listconfiggroupbyproductproduct.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
   - docs/models/operations/listconfiggroupbyproductresponse.md
   - docs/models/operations/listconfiggroupbyproductresponsebody.md
@@ -2132,13 +2127,10 @@ generatedFiles:
   - docs/models/operations/listroutesresponse.md
   - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/loginresponse.md
-  - docs/models/operations/mode.md
   - docs/models/operations/option.md
-  - docs/models/operations/updateconfiggroupbyproductandidproduct.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidproduct.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidresponsebody.md
@@ -3138,9 +3130,15 @@ generatedTests:
   updateGroupsById: "2025-08-01T19:57:10Z"
 releaseNotes: |
   ## SDK Changes Detected:
-  * `CriblControlPlane.System.Settings.Auth.List()`: **Deleted** **Breaking** :warning:
-  * `CriblControlPlane.System.Settings.Auth.Update()`: **Deleted** **Breaking** :warning:
-  * `CriblControlPlane.System.Settings.Cribl.List()`: **Deleted** **Breaking** :warning:
-  * `CriblControlPlane.System.Settings.Cribl.Update()`: **Deleted** **Breaking** :warning:
-  * `CriblControlPlane.System.Settings.Git.List()`: **Deleted** **Breaking** :warning:
-  * `CriblControlPlane.System.Settings.Git.Update()`: **Deleted** **Breaking** :warning:
+  * `CriblControlPlane.Nodes.Summaries.Get()`:  `request.Mode` **Changed**
+  * `CriblControlPlane.Versions.Commits.Revert()`:  `response.Items.[].Audit` **Changed**
+  * `CriblControlPlane.Versions.Commits.Files.List()`:  `response.Items.[].CommitMessage` **Changed**
+  * `CriblControlPlane.Groups.List()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Create()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Get()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Update()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Delete()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Deploy()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Configs.Versions.Get()`:  `request.Product` **Changed**
+  * `CriblControlPlane.Groups.Acl.Get()`:  `request` **Changed**
+  * `CriblControlPlane.Groups.Acl.Teams.Get()`:  `request` **Changed**

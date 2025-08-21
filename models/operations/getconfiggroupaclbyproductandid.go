@@ -3,95 +3,21 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// GetConfigGroupACLByProductAndIDProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type GetConfigGroupACLByProductAndIDProduct string
-
-const (
-	GetConfigGroupACLByProductAndIDProductStream GetConfigGroupACLByProductAndIDProduct = "stream"
-	GetConfigGroupACLByProductAndIDProductEdge   GetConfigGroupACLByProductAndIDProduct = "edge"
-)
-
-func (e GetConfigGroupACLByProductAndIDProduct) ToPointer() *GetConfigGroupACLByProductAndIDProduct {
-	return &e
-}
-func (e *GetConfigGroupACLByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = GetConfigGroupACLByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetConfigGroupACLByProductAndIDProduct: %v", v)
-	}
-}
-
-// GetConfigGroupACLByProductAndIDType - Filter for limiting the response to ACL entries for the specified RBAC resource type.
-type GetConfigGroupACLByProductAndIDType string
-
-const (
-	GetConfigGroupACLByProductAndIDTypeGroups           GetConfigGroupACLByProductAndIDType = "groups"
-	GetConfigGroupACLByProductAndIDTypeDatasets         GetConfigGroupACLByProductAndIDType = "datasets"
-	GetConfigGroupACLByProductAndIDTypeDatasetProviders GetConfigGroupACLByProductAndIDType = "dataset-providers"
-	GetConfigGroupACLByProductAndIDTypeProjects         GetConfigGroupACLByProductAndIDType = "projects"
-	GetConfigGroupACLByProductAndIDTypeDashboards       GetConfigGroupACLByProductAndIDType = "dashboards"
-	GetConfigGroupACLByProductAndIDTypeMacros           GetConfigGroupACLByProductAndIDType = "macros"
-	GetConfigGroupACLByProductAndIDTypeNotebooks        GetConfigGroupACLByProductAndIDType = "notebooks"
-	GetConfigGroupACLByProductAndIDTypeInsights         GetConfigGroupACLByProductAndIDType = "insights"
-)
-
-func (e GetConfigGroupACLByProductAndIDType) ToPointer() *GetConfigGroupACLByProductAndIDType {
-	return &e
-}
-func (e *GetConfigGroupACLByProductAndIDType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "groups":
-		fallthrough
-	case "datasets":
-		fallthrough
-	case "dataset-providers":
-		fallthrough
-	case "projects":
-		fallthrough
-	case "dashboards":
-		fallthrough
-	case "macros":
-		fallthrough
-	case "notebooks":
-		fallthrough
-	case "insights":
-		*e = GetConfigGroupACLByProductAndIDType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetConfigGroupACLByProductAndIDType: %v", v)
-	}
-}
-
 type GetConfigGroupACLByProductAndIDRequest struct {
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product GetConfigGroupACLByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the ACL for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Filter for limiting the response to ACL entries for the specified RBAC resource type.
-	Type *GetConfigGroupACLByProductAndIDType `queryParam:"style=form,explode=true,name=type"`
+	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`
 }
 
-func (o *GetConfigGroupACLByProductAndIDRequest) GetProduct() GetConfigGroupACLByProductAndIDProduct {
+func (o *GetConfigGroupACLByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return GetConfigGroupACLByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }
@@ -103,7 +29,7 @@ func (o *GetConfigGroupACLByProductAndIDRequest) GetID() string {
 	return o.ID
 }
 
-func (o *GetConfigGroupACLByProductAndIDRequest) GetType() *GetConfigGroupACLByProductAndIDType {
+func (o *GetConfigGroupACLByProductAndIDRequest) GetType() *components.RbacResource {
 	if o == nil {
 		return nil
 	}

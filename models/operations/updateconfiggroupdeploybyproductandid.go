@@ -3,50 +3,21 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// UpdateConfigGroupDeployByProductAndIDProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type UpdateConfigGroupDeployByProductAndIDProduct string
-
-const (
-	UpdateConfigGroupDeployByProductAndIDProductStream UpdateConfigGroupDeployByProductAndIDProduct = "stream"
-	UpdateConfigGroupDeployByProductAndIDProductEdge   UpdateConfigGroupDeployByProductAndIDProduct = "edge"
-)
-
-func (e UpdateConfigGroupDeployByProductAndIDProduct) ToPointer() *UpdateConfigGroupDeployByProductAndIDProduct {
-	return &e
-}
-func (e *UpdateConfigGroupDeployByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = UpdateConfigGroupDeployByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdateConfigGroupDeployByProductAndIDProduct: %v", v)
-	}
-}
-
 type UpdateConfigGroupDeployByProductAndIDRequest struct {
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product UpdateConfigGroupDeployByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// DeployRequest object
 	DeployRequest components.DeployRequest `request:"mediaType=application/json"`
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDRequest) GetProduct() UpdateConfigGroupDeployByProductAndIDProduct {
+func (o *UpdateConfigGroupDeployByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return UpdateConfigGroupDeployByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

@@ -3,95 +3,21 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// GetConfigGroupACLTeamsByProductAndIDProduct - Name of the Cribl product that contains the Worker Group or Edge Fleet.
-type GetConfigGroupACLTeamsByProductAndIDProduct string
-
-const (
-	GetConfigGroupACLTeamsByProductAndIDProductStream GetConfigGroupACLTeamsByProductAndIDProduct = "stream"
-	GetConfigGroupACLTeamsByProductAndIDProductEdge   GetConfigGroupACLTeamsByProductAndIDProduct = "edge"
-)
-
-func (e GetConfigGroupACLTeamsByProductAndIDProduct) ToPointer() *GetConfigGroupACLTeamsByProductAndIDProduct {
-	return &e
-}
-func (e *GetConfigGroupACLTeamsByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = GetConfigGroupACLTeamsByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetConfigGroupACLTeamsByProductAndIDProduct: %v", v)
-	}
-}
-
-// GetConfigGroupACLTeamsByProductAndIDType - Filter for limiting the response to ACL entries for the specified RBAC resource type.
-type GetConfigGroupACLTeamsByProductAndIDType string
-
-const (
-	GetConfigGroupACLTeamsByProductAndIDTypeGroups           GetConfigGroupACLTeamsByProductAndIDType = "groups"
-	GetConfigGroupACLTeamsByProductAndIDTypeDatasets         GetConfigGroupACLTeamsByProductAndIDType = "datasets"
-	GetConfigGroupACLTeamsByProductAndIDTypeDatasetProviders GetConfigGroupACLTeamsByProductAndIDType = "dataset-providers"
-	GetConfigGroupACLTeamsByProductAndIDTypeProjects         GetConfigGroupACLTeamsByProductAndIDType = "projects"
-	GetConfigGroupACLTeamsByProductAndIDTypeDashboards       GetConfigGroupACLTeamsByProductAndIDType = "dashboards"
-	GetConfigGroupACLTeamsByProductAndIDTypeMacros           GetConfigGroupACLTeamsByProductAndIDType = "macros"
-	GetConfigGroupACLTeamsByProductAndIDTypeNotebooks        GetConfigGroupACLTeamsByProductAndIDType = "notebooks"
-	GetConfigGroupACLTeamsByProductAndIDTypeInsights         GetConfigGroupACLTeamsByProductAndIDType = "insights"
-)
-
-func (e GetConfigGroupACLTeamsByProductAndIDType) ToPointer() *GetConfigGroupACLTeamsByProductAndIDType {
-	return &e
-}
-func (e *GetConfigGroupACLTeamsByProductAndIDType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "groups":
-		fallthrough
-	case "datasets":
-		fallthrough
-	case "dataset-providers":
-		fallthrough
-	case "projects":
-		fallthrough
-	case "dashboards":
-		fallthrough
-	case "macros":
-		fallthrough
-	case "notebooks":
-		fallthrough
-	case "insights":
-		*e = GetConfigGroupACLTeamsByProductAndIDType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetConfigGroupACLTeamsByProductAndIDType: %v", v)
-	}
-}
-
 type GetConfigGroupACLTeamsByProductAndIDRequest struct {
 	// Name of the Cribl product that contains the Worker Group or Edge Fleet.
-	Product GetConfigGroupACLTeamsByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Filter for limiting the response to ACL entries for the specified RBAC resource type.
-	Type *GetConfigGroupACLTeamsByProductAndIDType `queryParam:"style=form,explode=true,name=type"`
+	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetProduct() GetConfigGroupACLTeamsByProductAndIDProduct {
+func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return GetConfigGroupACLTeamsByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }
@@ -103,7 +29,7 @@ func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetID() string {
 	return o.ID
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *GetConfigGroupACLTeamsByProductAndIDType {
+func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.RbacResource {
 	if o == nil {
 		return nil
 	}

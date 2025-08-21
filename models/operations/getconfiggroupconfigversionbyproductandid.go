@@ -3,48 +3,19 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// GetConfigGroupConfigVersionByProductAndIDProduct - Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-type GetConfigGroupConfigVersionByProductAndIDProduct string
-
-const (
-	GetConfigGroupConfigVersionByProductAndIDProductStream GetConfigGroupConfigVersionByProductAndIDProduct = "stream"
-	GetConfigGroupConfigVersionByProductAndIDProductEdge   GetConfigGroupConfigVersionByProductAndIDProduct = "edge"
-)
-
-func (e GetConfigGroupConfigVersionByProductAndIDProduct) ToPointer() *GetConfigGroupConfigVersionByProductAndIDProduct {
-	return &e
-}
-func (e *GetConfigGroupConfigVersionByProductAndIDProduct) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = GetConfigGroupConfigVersionByProductAndIDProduct(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetConfigGroupConfigVersionByProductAndIDProduct: %v", v)
-	}
-}
-
 type GetConfigGroupConfigVersionByProductAndIDRequest struct {
 	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-	Product GetConfigGroupConfigVersionByProductAndIDProduct `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDRequest) GetProduct() GetConfigGroupConfigVersionByProductAndIDProduct {
+func (o *GetConfigGroupConfigVersionByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if o == nil {
-		return GetConfigGroupConfigVersionByProductAndIDProduct("")
+		return components.ProductsCore("")
 	}
 	return o.Product
 }

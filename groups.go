@@ -38,7 +38,7 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 
 // List all Worker Groups or Edge Fleets for the specified Cribl product
 // Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
-func (s *Groups) List(ctx context.Context, product operations.ListConfigGroupByProductProduct, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
+func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
 	request := operations.ListConfigGroupByProductRequest{
 		Fields:  fields,
 		Product: product,
@@ -280,7 +280,7 @@ func (s *Groups) List(ctx context.Context, product operations.ListConfigGroupByP
 
 // Create a Worker Group or Edge Fleet for the specified Cribl product
 // Create a new Worker Group or Edge Fleet for the specified Cribl product.
-func (s *Groups) Create(ctx context.Context, product operations.CreateConfigGroupByProductProduct, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
+func (s *Groups) Create(ctx context.Context, product components.ProductsCore, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
 	request := operations.CreateConfigGroupByProductRequest{
 		Product:     product,
 		ConfigGroup: configGroup,
@@ -525,7 +525,7 @@ func (s *Groups) Create(ctx context.Context, product operations.CreateConfigGrou
 
 // Get a Worker Group or Edge Fleet
 // Get the specified Worker Group or Edge Fleet.
-func (s *Groups) Get(ctx context.Context, product operations.GetConfigGroupByProductAndIDProduct, id string, fields *string, opts ...operations.Option) (*operations.GetConfigGroupByProductAndIDResponse, error) {
+func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id string, fields *string, opts ...operations.Option) (*operations.GetConfigGroupByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupByProductAndIDRequest{
 		Product: product,
 		ID:      id,
@@ -768,7 +768,7 @@ func (s *Groups) Get(ctx context.Context, product operations.GetConfigGroupByPro
 
 // Update a Worker Group or Edge Fleet
 // Update the specified Worker Group or Edge Fleet.
-func (s *Groups) Update(ctx context.Context, product operations.UpdateConfigGroupByProductAndIDProduct, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateConfigGroupByProductAndIDResponse, error) {
+func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateConfigGroupByProductAndIDResponse, error) {
 	request := operations.UpdateConfigGroupByProductAndIDRequest{
 		Product:     product,
 		ID:          id,
@@ -1014,7 +1014,7 @@ func (s *Groups) Update(ctx context.Context, product operations.UpdateConfigGrou
 
 // Delete a Worker Group or Edge Fleet
 // Delete the specified Worker Group or Edge Fleet.
-func (s *Groups) Delete(ctx context.Context, product operations.DeleteConfigGroupByProductAndIDProduct, id string, opts ...operations.Option) (*operations.DeleteConfigGroupByProductAndIDResponse, error) {
+func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.DeleteConfigGroupByProductAndIDResponse, error) {
 	request := operations.DeleteConfigGroupByProductAndIDRequest{
 		Product: product,
 		ID:      id,
@@ -1252,7 +1252,7 @@ func (s *Groups) Delete(ctx context.Context, product operations.DeleteConfigGrou
 
 // Deploy commits to a Worker Group or Edge Fleet
 // Deploy commits to the specified Worker Group or Edge Fleet.
-func (s *Groups) Deploy(ctx context.Context, product operations.UpdateConfigGroupDeployByProductAndIDProduct, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateConfigGroupDeployByProductAndIDResponse, error) {
+func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateConfigGroupDeployByProductAndIDResponse, error) {
 	request := operations.UpdateConfigGroupDeployByProductAndIDRequest{
 		Product:       product,
 		ID:            id,
