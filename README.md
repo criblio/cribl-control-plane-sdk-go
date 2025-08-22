@@ -283,6 +283,7 @@ func main() {
 * [Install](docs/sdks/packs/README.md#install) - Install a Pack
 * [List](docs/sdks/packs/README.md#list) - List all Packs
 * [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+* [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
@@ -312,6 +313,22 @@ func main() {
 
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+
+#### [System.Settings.Auth](docs/sdks/settingsauth/README.md)
+
+* [List](docs/sdks/settingsauth/README.md#list) - Get authentication settings
+* [Update](docs/sdks/settingsauth/README.md#update) - Update authentication settings
+
+#### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+
+* [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+
+#### [System.Settings.Git](docs/sdks/git/README.md)
+
+* [List](docs/sdks/git/README.md#list) - Get git settings
+* [Update](docs/sdks/git/README.md#update) - Update git settings
 
 ### [Versions](docs/sdks/versions/README.md)
 

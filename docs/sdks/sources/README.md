@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, components.CreateInputTCP(
+    res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.InputTCPTypeTCP,
@@ -260,7 +260,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
         components.InputKubeEvents{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.InputKubeEventsTypeKubeEvents,
