@@ -1,0 +1,10 @@
+# ServicesLimits
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Connections`                                                                                | [components.CommonServiceLimitConfigs](../../models/components/commonservicelimitconfigs.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `Metrics`                                                                                    | [components.CommonServiceLimitConfigs](../../models/components/commonservicelimitconfigs.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `Notifications`                                                                              | [components.CommonServiceLimitConfigs](../../models/components/commonservicelimitconfigs.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |

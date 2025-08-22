@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 259c4a4fc361be7c16fd1e00c8ba54cd
-  docVersion: 4.14.0-alpha.1755764858399-d5c9979b
+  docChecksum: ec03f1395debd01eb92b36146de6b2d3
+  docVersion: 4.14.0-alpha.1755863151363-73823764
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.38-alpha.1
-  configChecksum: 20600e2b36f613cfe822a17e261c3c21
+  releaseVersion: 0.0.39-alpha.1
+  configChecksum: c0ac9f0c6faa1e7c64dea56fdd8dc277
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -40,11 +40,13 @@ generatedFiles:
   - /models/apierrors/healthstatuserror.go
   - /models/components/addhectokenrequest.go
   - /models/components/appmode.go
+  - /models/components/authconfig.go
   - /models/components/authtoken.go
   - /models/components/cacheconnection.go
   - /models/components/cacheconnectionbackfillstatus.go
   - /models/components/cloudprovider.go
   - /models/components/commit.go
+  - /models/components/commonservicelimitconfigs.go
   - /models/components/configgroup.go
   - /models/components/configgroupcloud.go
   - /models/components/configgrouplookups.go
@@ -56,14 +58,17 @@ generatedFiles:
   - /models/components/deployrequest.go
   - /models/components/deployrequestlookups.go
   - /models/components/distributedsummary.go
+  - /models/components/edgeheartbeatmetricsmode.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitfile.go
   - /models/components/gitfilesresponse.go
   - /models/components/gitinfo.go
   - /models/components/gitlogresult.go
+  - /models/components/gitopstype.go
   - /models/components/gitrevertparams.go
   - /models/components/gitrevertresult.go
+  - /models/components/gitsettings.go
   - /models/components/gitstatusresult.go
   - /models/components/hbcriblinfo.go
   - /models/components/hbleaderinfo.go
@@ -128,9 +133,12 @@ generatedFiles:
   - /models/components/inputwindowsmetrics.go
   - /models/components/inputwineventlogs.go
   - /models/components/inputwiz.go
+  - /models/components/inputwizwebhook.go
   - /models/components/inputzscalerhec.go
+  - /models/components/jobsettings.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
+  - /models/components/limits.go
   - /models/components/logininfo.go
   - /models/components/lookupversions.go
   - /models/components/masterworkerentry.go
@@ -215,15 +223,25 @@ generatedFiles:
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
   - /models/components/rbacresource.go
+  - /models/components/rediscachelimits.go
+  - /models/components/redisconnectionlimits.go
+  - /models/components/redislimits.go
   - /models/components/resourcepolicy.go
   - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
   - /models/components/schemeclientoauth.go
+  - /models/components/searchsettings.go
   - /models/components/security.go
+  - /models/components/serviceslimits.go
+  - /models/components/systemsettings.go
+  - /models/components/systemsettingsconf.go
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
+  - /models/components/upgradegroupsettings.go
+  - /models/components/upgradepackageurls.go
+  - /models/components/upgradesettings.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
   - /models/operations/createconfiggroupbyproduct.go
@@ -259,9 +277,13 @@ generatedFiles:
   - /models/operations/getoutputpqbyid.go
   - /models/operations/getoutputsamplesbyid.go
   - /models/operations/getpacks.go
+  - /models/operations/getpacksbyid.go
   - /models/operations/getpipelinebyid.go
   - /models/operations/getroutesbyid.go
   - /models/operations/getsummary.go
+  - /models/operations/getsystemsettingsauth.go
+  - /models/operations/getsystemsettingsconf.go
+  - /models/operations/getsystemsettingsgitsettings.go
   - /models/operations/getversion.go
   - /models/operations/getversionbranch.go
   - /models/operations/getversioncount.go
@@ -287,12 +309,16 @@ generatedFiles:
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
+  - /models/operations/updatesystemsettingsauth.go
+  - /models/operations/updatesystemsettingsconf.go
+  - /models/operations/updatesystemsettingsgitsettings.go
   - USAGE.md
   - acl.go
   - auth.go
   - branches.go
   - commits.go
   - configsversions.go
+  - cribl.go
   - criblcontrolplane.go
   - destinations.go
   - docs/models/apierrors/error.md
@@ -304,6 +330,8 @@ generatedFiles:
   - docs/models/components/allow.md
   - docs/models/components/appmode.md
   - docs/models/components/audit.md
+  - docs/models/components/authconfig.md
+  - docs/models/components/authconfigtype.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
   - docs/models/components/authtoken.md
@@ -318,6 +346,7 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
+  - docs/models/components/commonservicelimitconfigs.md
   - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
@@ -340,10 +369,12 @@ generatedFiles:
   - docs/models/components/deployrequestlookups.md
   - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/disksandfilesystems.md
+  - docs/models/components/distributed.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
+  - docs/models/components/edgeheartbeatmetricsmode.md
   - docs/models/components/elasticversion.md
   - docs/models/components/endpoint.md
   - docs/models/components/endpointconfiguration.md
@@ -368,9 +399,11 @@ generatedFiles:
   - docs/models/components/gitfilesresponse.md
   - docs/models/components/gitinfo.md
   - docs/models/components/gitlogresult.md
+  - docs/models/components/gitopstype.md
   - docs/models/components/gitrevertparams.md
   - docs/models/components/gitrevertresult.md
   - docs/models/components/gitrevertresultfiles.md
+  - docs/models/components/gitsettings.md
   - docs/models/components/gitstatusresult.md
   - docs/models/components/hbcriblinfo.md
   - docs/models/components/hbleaderinfo.md
@@ -590,19 +623,34 @@ generatedFiles:
   - docs/models/components/inputgooglepubsubpq.md
   - docs/models/components/inputgooglepubsubtype.md
   - docs/models/components/inputgrafana.md
-  - docs/models/components/inputgrafanacompression.md
-  - docs/models/components/inputgrafanaconnection.md
-  - docs/models/components/inputgrafanalokiauth.md
-  - docs/models/components/inputgrafanalokiauthauthenticationtype.md
-  - docs/models/components/inputgrafanamaximumtlsversion.md
-  - docs/models/components/inputgrafanametadatum.md
-  - docs/models/components/inputgrafanaminimumtlsversion.md
-  - docs/models/components/inputgrafanamode.md
-  - docs/models/components/inputgrafanapq.md
-  - docs/models/components/inputgrafanaprometheusauth.md
-  - docs/models/components/inputgrafanaprometheusauthauthenticationtype.md
-  - docs/models/components/inputgrafanatlssettingsserverside.md
-  - docs/models/components/inputgrafanatype.md
+  - docs/models/components/inputgrafanacompression1.md
+  - docs/models/components/inputgrafanacompression2.md
+  - docs/models/components/inputgrafanaconnection1.md
+  - docs/models/components/inputgrafanaconnection2.md
+  - docs/models/components/inputgrafanagrafana1.md
+  - docs/models/components/inputgrafanagrafana2.md
+  - docs/models/components/inputgrafanalokiauth1.md
+  - docs/models/components/inputgrafanalokiauth2.md
+  - docs/models/components/inputgrafanalokiauthauthenticationtype1.md
+  - docs/models/components/inputgrafanalokiauthauthenticationtype2.md
+  - docs/models/components/inputgrafanamaximumtlsversion1.md
+  - docs/models/components/inputgrafanamaximumtlsversion2.md
+  - docs/models/components/inputgrafanametadatum1.md
+  - docs/models/components/inputgrafanametadatum2.md
+  - docs/models/components/inputgrafanaminimumtlsversion1.md
+  - docs/models/components/inputgrafanaminimumtlsversion2.md
+  - docs/models/components/inputgrafanamode1.md
+  - docs/models/components/inputgrafanamode2.md
+  - docs/models/components/inputgrafanapq1.md
+  - docs/models/components/inputgrafanapq2.md
+  - docs/models/components/inputgrafanaprometheusauth1.md
+  - docs/models/components/inputgrafanaprometheusauth2.md
+  - docs/models/components/inputgrafanaprometheusauthauthenticationtype1.md
+  - docs/models/components/inputgrafanaprometheusauthauthenticationtype2.md
+  - docs/models/components/inputgrafanatlssettingsserverside1.md
+  - docs/models/components/inputgrafanatlssettingsserverside2.md
+  - docs/models/components/inputgrafanatype1.md
+  - docs/models/components/inputgrafanatype2.md
   - docs/models/components/inputhttp.md
   - docs/models/components/inputhttpauthtokensext.md
   - docs/models/components/inputhttpauthtokensextmetadatum.md
@@ -928,15 +976,26 @@ generatedFiles:
   - docs/models/components/inputsqssignatureversion.md
   - docs/models/components/inputsqstype.md
   - docs/models/components/inputsyslog.md
-  - docs/models/components/inputsyslogcompression.md
-  - docs/models/components/inputsyslogconnection.md
-  - docs/models/components/inputsyslogmaximumtlsversion.md
-  - docs/models/components/inputsyslogmetadatum.md
-  - docs/models/components/inputsyslogminimumtlsversion.md
-  - docs/models/components/inputsyslogmode.md
-  - docs/models/components/inputsyslogpq.md
-  - docs/models/components/inputsyslogtlssettingsserverside.md
-  - docs/models/components/inputsyslogtype.md
+  - docs/models/components/inputsyslogcompression1.md
+  - docs/models/components/inputsyslogcompression2.md
+  - docs/models/components/inputsyslogconnection1.md
+  - docs/models/components/inputsyslogconnection2.md
+  - docs/models/components/inputsyslogmaximumtlsversion1.md
+  - docs/models/components/inputsyslogmaximumtlsversion2.md
+  - docs/models/components/inputsyslogmetadatum1.md
+  - docs/models/components/inputsyslogmetadatum2.md
+  - docs/models/components/inputsyslogminimumtlsversion1.md
+  - docs/models/components/inputsyslogminimumtlsversion2.md
+  - docs/models/components/inputsyslogmode1.md
+  - docs/models/components/inputsyslogmode2.md
+  - docs/models/components/inputsyslogpq1.md
+  - docs/models/components/inputsyslogpq2.md
+  - docs/models/components/inputsyslogsyslog1.md
+  - docs/models/components/inputsyslogsyslog2.md
+  - docs/models/components/inputsyslogtlssettingsserverside1.md
+  - docs/models/components/inputsyslogtlssettingsserverside2.md
+  - docs/models/components/inputsyslogtype1.md
+  - docs/models/components/inputsyslogtype2.md
   - docs/models/components/inputsystemmetrics.md
   - docs/models/components/inputsystemmetricscompression.md
   - docs/models/components/inputsystemmetricsconnection.md
@@ -1048,6 +1107,18 @@ generatedFiles:
   - docs/models/components/inputwizretryrules.md
   - docs/models/components/inputwizretrytype.md
   - docs/models/components/inputwiztype.md
+  - docs/models/components/inputwizwebhook.md
+  - docs/models/components/inputwizwebhookauthtokensext.md
+  - docs/models/components/inputwizwebhookauthtokensextmetadatum.md
+  - docs/models/components/inputwizwebhookcompression.md
+  - docs/models/components/inputwizwebhookconnection.md
+  - docs/models/components/inputwizwebhookmaximumtlsversion.md
+  - docs/models/components/inputwizwebhookmetadatum.md
+  - docs/models/components/inputwizwebhookminimumtlsversion.md
+  - docs/models/components/inputwizwebhookmode.md
+  - docs/models/components/inputwizwebhookpq.md
+  - docs/models/components/inputwizwebhooktlssettingsserverside.md
+  - docs/models/components/inputwizwebhooktype.md
   - docs/models/components/inputzscalerhec.md
   - docs/models/components/inputzscalerhecauthenticationmethod.md
   - docs/models/components/inputzscalerhecauthtoken.md
@@ -1062,16 +1133,20 @@ generatedFiles:
   - docs/models/components/inputzscalerhectlssettingsserverside.md
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
+  - docs/models/components/jobsettings.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
   - docs/models/components/lastmetrics.md
+  - docs/models/components/limits.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
   - docs/models/components/loglabel.md
   - docs/models/components/loglocationtype.md
-  - docs/models/components/lokiauthoauthheader.md
-  - docs/models/components/lokiauthoauthparam.md
+  - docs/models/components/lokiauthoauthheader1.md
+  - docs/models/components/lokiauthoauthheader2.md
+  - docs/models/components/lokiauthoauthparam1.md
+  - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
@@ -1411,22 +1486,40 @@ generatedFiles:
   - docs/models/components/outputgooglepubsubqueuefullbehavior.md
   - docs/models/components/outputgooglepubsubtypegooglepubsub.md
   - docs/models/components/outputgrafanacloud.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior.md
-  - docs/models/components/outputgrafanacloudcompression.md
-  - docs/models/components/outputgrafanacloudextrahttpheader.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode.md
-  - docs/models/components/outputgrafanacloudlabel.md
-  - docs/models/components/outputgrafanacloudlokiauth.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype.md
-  - docs/models/components/outputgrafanacloudmessageformat.md
-  - docs/models/components/outputgrafanacloudmode.md
-  - docs/models/components/outputgrafanacloudpqcontrols.md
-  - docs/models/components/outputgrafanacloudprometheusauth.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings.md
-  - docs/models/components/outputgrafanacloudtype.md
+  - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
+  - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
+  - docs/models/components/outputgrafanacloudcompression1.md
+  - docs/models/components/outputgrafanacloudcompression2.md
+  - docs/models/components/outputgrafanacloudextrahttpheader1.md
+  - docs/models/components/outputgrafanacloudextrahttpheader2.md
+  - docs/models/components/outputgrafanacloudfailedrequestloggingmode1.md
+  - docs/models/components/outputgrafanacloudfailedrequestloggingmode2.md
+  - docs/models/components/outputgrafanacloudgrafanacloud1.md
+  - docs/models/components/outputgrafanacloudgrafanacloud2.md
+  - docs/models/components/outputgrafanacloudlabel1.md
+  - docs/models/components/outputgrafanacloudlabel2.md
+  - docs/models/components/outputgrafanacloudlokiauth1.md
+  - docs/models/components/outputgrafanacloudlokiauth2.md
+  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype1.md
+  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype2.md
+  - docs/models/components/outputgrafanacloudmessageformat1.md
+  - docs/models/components/outputgrafanacloudmessageformat2.md
+  - docs/models/components/outputgrafanacloudmode1.md
+  - docs/models/components/outputgrafanacloudmode2.md
+  - docs/models/components/outputgrafanacloudpqcontrols1.md
+  - docs/models/components/outputgrafanacloudpqcontrols2.md
+  - docs/models/components/outputgrafanacloudprometheusauth1.md
+  - docs/models/components/outputgrafanacloudprometheusauth2.md
+  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype1.md
+  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype2.md
+  - docs/models/components/outputgrafanacloudqueuefullbehavior1.md
+  - docs/models/components/outputgrafanacloudqueuefullbehavior2.md
+  - docs/models/components/outputgrafanacloudresponseretrysetting1.md
+  - docs/models/components/outputgrafanacloudresponseretrysetting2.md
+  - docs/models/components/outputgrafanacloudtimeoutretrysettings1.md
+  - docs/models/components/outputgrafanacloudtimeoutretrysettings2.md
+  - docs/models/components/outputgrafanacloudtype1.md
+  - docs/models/components/outputgrafanacloudtype2.md
   - docs/models/components/outputgraphite.md
   - docs/models/components/outputgraphitebackpressurebehavior.md
   - docs/models/components/outputgraphitecompression.md
@@ -1894,11 +1987,16 @@ generatedFiles:
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
   - docs/models/components/productscore.md
-  - docs/models/components/prometheusauthoauthheader.md
-  - docs/models/components/prometheusauthoauthparam.md
+  - docs/models/components/prometheusauthoauthheader1.md
+  - docs/models/components/prometheusauthoauthheader2.md
+  - docs/models/components/prometheusauthoauthparam1.md
+  - docs/models/components/prometheusauthoauthparam2.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
+  - docs/models/components/rediscachelimits.md
+  - docs/models/components/redisconnectionlimits.md
+  - docs/models/components/redislimits.md
   - docs/models/components/remote.md
   - docs/models/components/renamed.md
   - docs/models/components/reportlevel.md
@@ -1912,15 +2010,18 @@ generatedFiles:
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
   - docs/models/components/sample.md
+  - docs/models/components/samples.md
   - docs/models/components/scanmode.md
   - docs/models/components/scheduletype.md
   - docs/models/components/schemeclientoauth.md
   - docs/models/components/scrapeprotocolprotocol.md
+  - docs/models/components/searchsettings.md
   - docs/models/components/security.md
   - docs/models/components/sendeventsas.md
   - docs/models/components/sendlogsas.md
   - docs/models/components/serversideencryption.md
   - docs/models/components/services.md
+  - docs/models/components/serviceslimits.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
@@ -1928,6 +2029,38 @@ generatedFiles:
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
   - docs/models/components/summary.md
+  - docs/models/components/systemsettings.md
+  - docs/models/components/systemsettingsapi.md
+  - docs/models/components/systemsettingsbackups.md
+  - docs/models/components/systemsettingsconf.md
+  - docs/models/components/systemsettingsconfapi.md
+  - docs/models/components/systemsettingsconfbackups.md
+  - docs/models/components/systemsettingsconfcustomlogo.md
+  - docs/models/components/systemsettingsconfheaders.md
+  - docs/models/components/systemsettingsconfpii.md
+  - docs/models/components/systemsettingsconfproxy.md
+  - docs/models/components/systemsettingsconfrollback.md
+  - docs/models/components/systemsettingsconfshutdown.md
+  - docs/models/components/systemsettingsconfsni.md
+  - docs/models/components/systemsettingsconfsockets.md
+  - docs/models/components/systemsettingsconfssl.md
+  - docs/models/components/systemsettingsconfsystem.md
+  - docs/models/components/systemsettingsconftls.md
+  - docs/models/components/systemsettingsconfupgrade.md
+  - docs/models/components/systemsettingsconfworkers.md
+  - docs/models/components/systemsettingscustomlogo.md
+  - docs/models/components/systemsettingsheaders.md
+  - docs/models/components/systemsettingspii.md
+  - docs/models/components/systemsettingsproxy.md
+  - docs/models/components/systemsettingsrollback.md
+  - docs/models/components/systemsettingsshutdown.md
+  - docs/models/components/systemsettingssni.md
+  - docs/models/components/systemsettingssockets.md
+  - docs/models/components/systemsettingsssl.md
+  - docs/models/components/systemsettingssystem.md
+  - docs/models/components/systemsettingstls.md
+  - docs/models/components/systemsettingsupgrade.md
+  - docs/models/components/systemsettingsworkers.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
@@ -1936,9 +2069,14 @@ generatedFiles:
   - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/upgradegroupsettings.md
+  - docs/models/components/upgradepackageurls.md
+  - docs/models/components/upgradesettings.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
+  - docs/models/components/warmpoolsize.md
+  - docs/models/components/warmpoolsizeenum.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
@@ -2029,6 +2167,9 @@ generatedFiles:
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidresponsebody.md
+  - docs/models/operations/getpacksbyidrequest.md
+  - docs/models/operations/getpacksbyidresponse.md
+  - docs/models/operations/getpacksbyidresponsebody.md
   - docs/models/operations/getpacksrequest.md
   - docs/models/operations/getpacksresponse.md
   - docs/models/operations/getpacksresponsebody.md
@@ -2041,6 +2182,12 @@ generatedFiles:
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getsummaryresponsebody.md
+  - docs/models/operations/getsystemsettingsauthresponse.md
+  - docs/models/operations/getsystemsettingsauthresponsebody.md
+  - docs/models/operations/getsystemsettingsconfresponse.md
+  - docs/models/operations/getsystemsettingsconfresponsebody.md
+  - docs/models/operations/getsystemsettingsgitsettingsresponse.md
+  - docs/models/operations/getsystemsettingsgitsettingsresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
@@ -2107,14 +2254,22 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
+  - docs/models/operations/updatesystemsettingsauthresponse.md
+  - docs/models/operations/updatesystemsettingsauthresponsebody.md
+  - docs/models/operations/updatesystemsettingsconfresponse.md
+  - docs/models/operations/updatesystemsettingsconfresponsebody.md
+  - docs/models/operations/updatesystemsettingsgitsettingsresponse.md
+  - docs/models/operations/updatesystemsettingsgitsettingsresponsebody.md
   - docs/sdks/acl/README.md
   - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
+  - docs/sdks/cribl/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
+  - docs/sdks/git/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
@@ -2125,14 +2280,17 @@ generatedFiles:
   - docs/sdks/pq/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/samples/README.md
+  - docs/sdks/settingsauth/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/statuses/README.md
   - docs/sdks/summaries/README.md
+  - docs/sdks/system/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
   - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - files.go
+  - git.go
   - go.mod
   - groups.go
   - groupsconfigs.go
@@ -2164,9 +2322,12 @@ generatedFiles:
   - retry/config.go
   - routes.go
   - samples.go
+  - settings.go
+  - settingsauth.go
   - sources.go
   - statuses.go
   - summaries.go
+  - system.go
   - teams.go
   - tokens.go
   - types/bigint.go
@@ -3090,4 +3251,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `request.GitRevertParams.Message` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Get()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.Update()`: **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Git.Update()`: **Added**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Get()`: **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.List()`: **Added**\n* `CriblControlPlane.System.Settings.Git.List()`: **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Auth.Update()`: **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Auth.List()`: **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `request.GitRevertParams.Message` **Changed**\n"

@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Create(ctx, components.CreateOutputElasticCloud(
+    res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
         components.OutputElasticCloud{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.OutputElasticCloudTypeElasticCloud,
@@ -253,7 +253,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSignalfx(
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputOutputSignalfx(
         components.OutputSignalfx{
             ID: criblcontrolplanesdkgo.String("<id>"),
             Type: components.OutputSignalfxTypeSignalfx,

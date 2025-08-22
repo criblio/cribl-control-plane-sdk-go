@@ -3,7 +3,6 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -12,70 +11,70 @@ import (
 type OutputType string
 
 const (
-	OutputTypeDefault                OutputType = "default"
-	OutputTypeWebhook                OutputType = "webhook"
-	OutputTypeSentinel               OutputType = "sentinel"
-	OutputTypeDevnull                OutputType = "devnull"
-	OutputTypeSyslog                 OutputType = "syslog"
-	OutputTypeSplunk                 OutputType = "splunk"
-	OutputTypeSplunkLb               OutputType = "splunk_lb"
-	OutputTypeSplunkHec              OutputType = "splunk_hec"
-	OutputTypeTcpjson                OutputType = "tcpjson"
-	OutputTypeWavefront              OutputType = "wavefront"
-	OutputTypeSignalfx               OutputType = "signalfx"
-	OutputTypeFilesystem             OutputType = "filesystem"
-	OutputTypeS3                     OutputType = "s3"
-	OutputTypeAzureBlob              OutputType = "azure_blob"
-	OutputTypeAzureDataExplorer      OutputType = "azure_data_explorer"
-	OutputTypeAzureLogs              OutputType = "azure_logs"
-	OutputTypeKinesis                OutputType = "kinesis"
-	OutputTypeHoneycomb              OutputType = "honeycomb"
-	OutputTypeAzureEventhub          OutputType = "azure_eventhub"
-	OutputTypeGoogleChronicle        OutputType = "google_chronicle"
-	OutputTypeGoogleCloudStorage     OutputType = "google_cloud_storage"
-	OutputTypeGoogleCloudLogging     OutputType = "google_cloud_logging"
-	OutputTypeGooglePubsub           OutputType = "google_pubsub"
-	OutputTypeExabeam                OutputType = "exabeam"
-	OutputTypeKafka                  OutputType = "kafka"
-	OutputTypeConfluentCloud         OutputType = "confluent_cloud"
-	OutputTypeMsk                    OutputType = "msk"
-	OutputTypeElastic                OutputType = "elastic"
-	OutputTypeElasticCloud           OutputType = "elastic_cloud"
-	OutputTypeNewrelic               OutputType = "newrelic"
-	OutputTypeNewrelicEvents         OutputType = "newrelic_events"
-	OutputTypeInfluxdb               OutputType = "influxdb"
-	OutputTypeCloudwatch             OutputType = "cloudwatch"
-	OutputTypeMinio                  OutputType = "minio"
-	OutputTypeStatsd                 OutputType = "statsd"
-	OutputTypeStatsdExt              OutputType = "statsd_ext"
-	OutputTypeGraphite               OutputType = "graphite"
-	OutputTypeRouter                 OutputType = "router"
-	OutputTypeSns                    OutputType = "sns"
-	OutputTypeSqs                    OutputType = "sqs"
-	OutputTypeSnmp                   OutputType = "snmp"
-	OutputTypeSumoLogic              OutputType = "sumo_logic"
-	OutputTypeDatadog                OutputType = "datadog"
-	OutputTypeGrafanaCloud           OutputType = "grafana_cloud"
-	OutputTypeLoki                   OutputType = "loki"
-	OutputTypePrometheus             OutputType = "prometheus"
-	OutputTypeRing                   OutputType = "ring"
-	OutputTypeOpenTelemetry          OutputType = "open_telemetry"
-	OutputTypeServiceNow             OutputType = "service_now"
-	OutputTypeDataset                OutputType = "dataset"
-	OutputTypeCriblTCP               OutputType = "cribl_tcp"
-	OutputTypeCriblHTTP              OutputType = "cribl_http"
-	OutputTypeHumioHec               OutputType = "humio_hec"
-	OutputTypeCrowdstrikeNextGenSiem OutputType = "crowdstrike_next_gen_siem"
-	OutputTypeDlS3                   OutputType = "dl_s3"
-	OutputTypeSecurityLake           OutputType = "security_lake"
-	OutputTypeCriblLake              OutputType = "cribl_lake"
-	OutputTypeDiskSpool              OutputType = "disk_spool"
-	OutputTypeClickHouse             OutputType = "click_house"
-	OutputTypeXsiam                  OutputType = "xsiam"
-	OutputTypeNetflow                OutputType = "netflow"
-	OutputTypeDynatraceHTTP          OutputType = "dynatrace_http"
-	OutputTypeDynatraceOtlp          OutputType = "dynatrace_otlp"
-	OutputTypeSentinelOneAiSiem      OutputType = "sentinel_one_ai_siem"
+	OutputTypeOutputDefault                OutputType = "OutputDefault"
+	OutputTypeOutputWebhook                OutputType = "OutputWebhook"
+	OutputTypeOutputSentinel               OutputType = "OutputSentinel"
+	OutputTypeOutputDevnull                OutputType = "OutputDevnull"
+	OutputTypeOutputSyslog                 OutputType = "OutputSyslog"
+	OutputTypeOutputSplunk                 OutputType = "OutputSplunk"
+	OutputTypeOutputSplunkLb               OutputType = "OutputSplunkLb"
+	OutputTypeOutputSplunkHec              OutputType = "OutputSplunkHec"
+	OutputTypeOutputTcpjson                OutputType = "OutputTcpjson"
+	OutputTypeOutputWavefront              OutputType = "OutputWavefront"
+	OutputTypeOutputSignalfx               OutputType = "OutputSignalfx"
+	OutputTypeOutputFilesystem             OutputType = "OutputFilesystem"
+	OutputTypeOutputS3                     OutputType = "OutputS3"
+	OutputTypeOutputAzureBlob              OutputType = "OutputAzureBlob"
+	OutputTypeOutputAzureDataExplorer      OutputType = "OutputAzureDataExplorer"
+	OutputTypeOutputAzureLogs              OutputType = "OutputAzureLogs"
+	OutputTypeOutputKinesis                OutputType = "OutputKinesis"
+	OutputTypeOutputHoneycomb              OutputType = "OutputHoneycomb"
+	OutputTypeOutputAzureEventhub          OutputType = "OutputAzureEventhub"
+	OutputTypeOutputGoogleChronicle        OutputType = "OutputGoogleChronicle"
+	OutputTypeOutputGoogleCloudStorage     OutputType = "OutputGoogleCloudStorage"
+	OutputTypeOutputGoogleCloudLogging     OutputType = "OutputGoogleCloudLogging"
+	OutputTypeOutputGooglePubsub           OutputType = "OutputGooglePubsub"
+	OutputTypeOutputExabeam                OutputType = "OutputExabeam"
+	OutputTypeOutputKafka                  OutputType = "OutputKafka"
+	OutputTypeOutputConfluentCloud         OutputType = "OutputConfluentCloud"
+	OutputTypeOutputMsk                    OutputType = "OutputMsk"
+	OutputTypeOutputElastic                OutputType = "OutputElastic"
+	OutputTypeOutputElasticCloud           OutputType = "OutputElasticCloud"
+	OutputTypeOutputNewrelic               OutputType = "OutputNewrelic"
+	OutputTypeOutputNewrelicEvents         OutputType = "OutputNewrelicEvents"
+	OutputTypeOutputInfluxdb               OutputType = "OutputInfluxdb"
+	OutputTypeOutputCloudwatch             OutputType = "OutputCloudwatch"
+	OutputTypeOutputMinio                  OutputType = "OutputMinio"
+	OutputTypeOutputStatsd                 OutputType = "OutputStatsd"
+	OutputTypeOutputStatsdExt              OutputType = "OutputStatsdExt"
+	OutputTypeOutputGraphite               OutputType = "OutputGraphite"
+	OutputTypeOutputRouter                 OutputType = "OutputRouter"
+	OutputTypeOutputSns                    OutputType = "OutputSns"
+	OutputTypeOutputSqs                    OutputType = "OutputSqs"
+	OutputTypeOutputSnmp                   OutputType = "OutputSnmp"
+	OutputTypeOutputSumoLogic              OutputType = "OutputSumoLogic"
+	OutputTypeOutputDatadog                OutputType = "OutputDatadog"
+	OutputTypeOutputGrafanaCloud           OutputType = "OutputGrafanaCloud"
+	OutputTypeOutputLoki                   OutputType = "OutputLoki"
+	OutputTypeOutputPrometheus             OutputType = "OutputPrometheus"
+	OutputTypeOutputRing                   OutputType = "OutputRing"
+	OutputTypeOutputOpenTelemetry          OutputType = "OutputOpenTelemetry"
+	OutputTypeOutputServiceNow             OutputType = "OutputServiceNow"
+	OutputTypeOutputDataset                OutputType = "OutputDataset"
+	OutputTypeOutputCriblTCP               OutputType = "OutputCriblTcp"
+	OutputTypeOutputCriblHTTP              OutputType = "OutputCriblHttp"
+	OutputTypeOutputHumioHec               OutputType = "OutputHumioHec"
+	OutputTypeOutputCrowdstrikeNextGenSiem OutputType = "OutputCrowdstrikeNextGenSiem"
+	OutputTypeOutputDlS3                   OutputType = "OutputDlS3"
+	OutputTypeOutputSecurityLake           OutputType = "OutputSecurityLake"
+	OutputTypeOutputCriblLake              OutputType = "OutputCriblLake"
+	OutputTypeOutputDiskSpool              OutputType = "OutputDiskSpool"
+	OutputTypeOutputClickHouse             OutputType = "OutputClickHouse"
+	OutputTypeOutputXsiam                  OutputType = "OutputXsiam"
+	OutputTypeOutputNetflow                OutputType = "OutputNetflow"
+	OutputTypeOutputDynatraceHTTP          OutputType = "OutputDynatraceHttp"
+	OutputTypeOutputDynatraceOtlp          OutputType = "OutputDynatraceOtlp"
+	OutputTypeOutputSentinelOneAiSiem      OutputType = "OutputSentinelOneAiSiem"
 )
 
 type Output struct {
@@ -147,1361 +146,1029 @@ type Output struct {
 	Type OutputType
 }
 
-func CreateOutputDefault(defaultT OutputDefault) Output {
-	typ := OutputTypeDefault
-
-	typStr := OutputDefaultType(typ)
-	defaultT.Type = typStr
+func CreateOutputOutputDefault(outputDefault OutputDefault) Output {
+	typ := OutputTypeOutputDefault
 
 	return Output{
-		OutputDefault: &defaultT,
+		OutputDefault: &outputDefault,
 		Type:          typ,
 	}
 }
 
-func CreateOutputWebhook(webhook OutputWebhook) Output {
-	typ := OutputTypeWebhook
-
-	typStr := OutputWebhookType(typ)
-	webhook.Type = typStr
+func CreateOutputOutputWebhook(outputWebhook OutputWebhook) Output {
+	typ := OutputTypeOutputWebhook
 
 	return Output{
-		OutputWebhook: &webhook,
+		OutputWebhook: &outputWebhook,
 		Type:          typ,
 	}
 }
 
-func CreateOutputSentinel(sentinel OutputSentinel) Output {
-	typ := OutputTypeSentinel
-
-	typStr := OutputSentinelType(typ)
-	sentinel.Type = typStr
+func CreateOutputOutputSentinel(outputSentinel OutputSentinel) Output {
+	typ := OutputTypeOutputSentinel
 
 	return Output{
-		OutputSentinel: &sentinel,
+		OutputSentinel: &outputSentinel,
 		Type:           typ,
 	}
 }
 
-func CreateOutputDevnull(devnull OutputDevnull) Output {
-	typ := OutputTypeDevnull
-
-	typStr := OutputDevnullType(typ)
-	devnull.Type = typStr
+func CreateOutputOutputDevnull(outputDevnull OutputDevnull) Output {
+	typ := OutputTypeOutputDevnull
 
 	return Output{
-		OutputDevnull: &devnull,
+		OutputDevnull: &outputDevnull,
 		Type:          typ,
 	}
 }
 
-func CreateOutputSyslog(syslog OutputSyslog) Output {
-	typ := OutputTypeSyslog
-
-	typStr := OutputSyslogType(typ)
-	syslog.Type = typStr
+func CreateOutputOutputSyslog(outputSyslog OutputSyslog) Output {
+	typ := OutputTypeOutputSyslog
 
 	return Output{
-		OutputSyslog: &syslog,
+		OutputSyslog: &outputSyslog,
 		Type:         typ,
 	}
 }
 
-func CreateOutputSplunk(splunk OutputSplunk) Output {
-	typ := OutputTypeSplunk
-
-	typStr := OutputSplunkType(typ)
-	splunk.Type = typStr
+func CreateOutputOutputSplunk(outputSplunk OutputSplunk) Output {
+	typ := OutputTypeOutputSplunk
 
 	return Output{
-		OutputSplunk: &splunk,
+		OutputSplunk: &outputSplunk,
 		Type:         typ,
 	}
 }
 
-func CreateOutputSplunkLb(splunkLb OutputSplunkLb) Output {
-	typ := OutputTypeSplunkLb
-
-	typStr := OutputSplunkLbType(typ)
-	splunkLb.Type = typStr
+func CreateOutputOutputSplunkLb(outputSplunkLb OutputSplunkLb) Output {
+	typ := OutputTypeOutputSplunkLb
 
 	return Output{
-		OutputSplunkLb: &splunkLb,
+		OutputSplunkLb: &outputSplunkLb,
 		Type:           typ,
 	}
 }
 
-func CreateOutputSplunkHec(splunkHec OutputSplunkHec) Output {
-	typ := OutputTypeSplunkHec
-
-	typStr := OutputSplunkHecType(typ)
-	splunkHec.Type = typStr
+func CreateOutputOutputSplunkHec(outputSplunkHec OutputSplunkHec) Output {
+	typ := OutputTypeOutputSplunkHec
 
 	return Output{
-		OutputSplunkHec: &splunkHec,
+		OutputSplunkHec: &outputSplunkHec,
 		Type:            typ,
 	}
 }
 
-func CreateOutputTcpjson(tcpjson OutputTcpjson) Output {
-	typ := OutputTypeTcpjson
-
-	typStr := OutputTcpjsonType(typ)
-	tcpjson.Type = typStr
+func CreateOutputOutputTcpjson(outputTcpjson OutputTcpjson) Output {
+	typ := OutputTypeOutputTcpjson
 
 	return Output{
-		OutputTcpjson: &tcpjson,
+		OutputTcpjson: &outputTcpjson,
 		Type:          typ,
 	}
 }
 
-func CreateOutputWavefront(wavefront OutputWavefront) Output {
-	typ := OutputTypeWavefront
-
-	typStr := OutputWavefrontType(typ)
-	wavefront.Type = typStr
+func CreateOutputOutputWavefront(outputWavefront OutputWavefront) Output {
+	typ := OutputTypeOutputWavefront
 
 	return Output{
-		OutputWavefront: &wavefront,
+		OutputWavefront: &outputWavefront,
 		Type:            typ,
 	}
 }
 
-func CreateOutputSignalfx(signalfx OutputSignalfx) Output {
-	typ := OutputTypeSignalfx
-
-	typStr := OutputSignalfxType(typ)
-	signalfx.Type = typStr
+func CreateOutputOutputSignalfx(outputSignalfx OutputSignalfx) Output {
+	typ := OutputTypeOutputSignalfx
 
 	return Output{
-		OutputSignalfx: &signalfx,
+		OutputSignalfx: &outputSignalfx,
 		Type:           typ,
 	}
 }
 
-func CreateOutputFilesystem(filesystem OutputFilesystem) Output {
-	typ := OutputTypeFilesystem
-
-	typStr := OutputFilesystemType(typ)
-	filesystem.Type = typStr
+func CreateOutputOutputFilesystem(outputFilesystem OutputFilesystem) Output {
+	typ := OutputTypeOutputFilesystem
 
 	return Output{
-		OutputFilesystem: &filesystem,
+		OutputFilesystem: &outputFilesystem,
 		Type:             typ,
 	}
 }
 
-func CreateOutputS3(s3 OutputS3) Output {
-	typ := OutputTypeS3
-
-	typStr := OutputS3Type(typ)
-	s3.Type = typStr
+func CreateOutputOutputS3(outputS3 OutputS3) Output {
+	typ := OutputTypeOutputS3
 
 	return Output{
-		OutputS3: &s3,
+		OutputS3: &outputS3,
 		Type:     typ,
 	}
 }
 
-func CreateOutputAzureBlob(azureBlob OutputAzureBlob) Output {
-	typ := OutputTypeAzureBlob
-
-	typStr := OutputAzureBlobType(typ)
-	azureBlob.Type = typStr
+func CreateOutputOutputAzureBlob(outputAzureBlob OutputAzureBlob) Output {
+	typ := OutputTypeOutputAzureBlob
 
 	return Output{
-		OutputAzureBlob: &azureBlob,
+		OutputAzureBlob: &outputAzureBlob,
 		Type:            typ,
 	}
 }
 
-func CreateOutputAzureDataExplorer(azureDataExplorer OutputAzureDataExplorer) Output {
-	typ := OutputTypeAzureDataExplorer
-
-	typStr := OutputAzureDataExplorerType(typ)
-	azureDataExplorer.Type = typStr
+func CreateOutputOutputAzureDataExplorer(outputAzureDataExplorer OutputAzureDataExplorer) Output {
+	typ := OutputTypeOutputAzureDataExplorer
 
 	return Output{
-		OutputAzureDataExplorer: &azureDataExplorer,
+		OutputAzureDataExplorer: &outputAzureDataExplorer,
 		Type:                    typ,
 	}
 }
 
-func CreateOutputAzureLogs(azureLogs OutputAzureLogs) Output {
-	typ := OutputTypeAzureLogs
-
-	typStr := OutputAzureLogsType(typ)
-	azureLogs.Type = typStr
+func CreateOutputOutputAzureLogs(outputAzureLogs OutputAzureLogs) Output {
+	typ := OutputTypeOutputAzureLogs
 
 	return Output{
-		OutputAzureLogs: &azureLogs,
+		OutputAzureLogs: &outputAzureLogs,
 		Type:            typ,
 	}
 }
 
-func CreateOutputKinesis(kinesis OutputKinesis) Output {
-	typ := OutputTypeKinesis
-
-	typStr := OutputKinesisType(typ)
-	kinesis.Type = typStr
+func CreateOutputOutputKinesis(outputKinesis OutputKinesis) Output {
+	typ := OutputTypeOutputKinesis
 
 	return Output{
-		OutputKinesis: &kinesis,
+		OutputKinesis: &outputKinesis,
 		Type:          typ,
 	}
 }
 
-func CreateOutputHoneycomb(honeycomb OutputHoneycomb) Output {
-	typ := OutputTypeHoneycomb
-
-	typStr := OutputHoneycombType(typ)
-	honeycomb.Type = typStr
+func CreateOutputOutputHoneycomb(outputHoneycomb OutputHoneycomb) Output {
+	typ := OutputTypeOutputHoneycomb
 
 	return Output{
-		OutputHoneycomb: &honeycomb,
+		OutputHoneycomb: &outputHoneycomb,
 		Type:            typ,
 	}
 }
 
-func CreateOutputAzureEventhub(azureEventhub OutputAzureEventhub) Output {
-	typ := OutputTypeAzureEventhub
-
-	typStr := OutputAzureEventhubType(typ)
-	azureEventhub.Type = typStr
+func CreateOutputOutputAzureEventhub(outputAzureEventhub OutputAzureEventhub) Output {
+	typ := OutputTypeOutputAzureEventhub
 
 	return Output{
-		OutputAzureEventhub: &azureEventhub,
+		OutputAzureEventhub: &outputAzureEventhub,
 		Type:                typ,
 	}
 }
 
-func CreateOutputGoogleChronicle(googleChronicle OutputGoogleChronicle) Output {
-	typ := OutputTypeGoogleChronicle
-
-	typStr := OutputGoogleChronicleType(typ)
-	googleChronicle.Type = typStr
+func CreateOutputOutputGoogleChronicle(outputGoogleChronicle OutputGoogleChronicle) Output {
+	typ := OutputTypeOutputGoogleChronicle
 
 	return Output{
-		OutputGoogleChronicle: &googleChronicle,
+		OutputGoogleChronicle: &outputGoogleChronicle,
 		Type:                  typ,
 	}
 }
 
-func CreateOutputGoogleCloudStorage(googleCloudStorage OutputGoogleCloudStorage) Output {
-	typ := OutputTypeGoogleCloudStorage
-
-	typStr := OutputGoogleCloudStorageType(typ)
-	googleCloudStorage.Type = typStr
+func CreateOutputOutputGoogleCloudStorage(outputGoogleCloudStorage OutputGoogleCloudStorage) Output {
+	typ := OutputTypeOutputGoogleCloudStorage
 
 	return Output{
-		OutputGoogleCloudStorage: &googleCloudStorage,
+		OutputGoogleCloudStorage: &outputGoogleCloudStorage,
 		Type:                     typ,
 	}
 }
 
-func CreateOutputGoogleCloudLogging(googleCloudLogging OutputGoogleCloudLogging) Output {
-	typ := OutputTypeGoogleCloudLogging
-
-	typStr := OutputGoogleCloudLoggingType(typ)
-	googleCloudLogging.Type = typStr
+func CreateOutputOutputGoogleCloudLogging(outputGoogleCloudLogging OutputGoogleCloudLogging) Output {
+	typ := OutputTypeOutputGoogleCloudLogging
 
 	return Output{
-		OutputGoogleCloudLogging: &googleCloudLogging,
+		OutputGoogleCloudLogging: &outputGoogleCloudLogging,
 		Type:                     typ,
 	}
 }
 
-func CreateOutputGooglePubsub(googlePubsub OutputGooglePubsub) Output {
-	typ := OutputTypeGooglePubsub
-
-	typStr := OutputGooglePubsubTypeGooglePubsub(typ)
-	googlePubsub.Type = typStr
+func CreateOutputOutputGooglePubsub(outputGooglePubsub OutputGooglePubsub) Output {
+	typ := OutputTypeOutputGooglePubsub
 
 	return Output{
-		OutputGooglePubsub: &googlePubsub,
+		OutputGooglePubsub: &outputGooglePubsub,
 		Type:               typ,
 	}
 }
 
-func CreateOutputExabeam(exabeam OutputExabeam) Output {
-	typ := OutputTypeExabeam
-
-	typStr := OutputExabeamType(typ)
-	exabeam.Type = typStr
+func CreateOutputOutputExabeam(outputExabeam OutputExabeam) Output {
+	typ := OutputTypeOutputExabeam
 
 	return Output{
-		OutputExabeam: &exabeam,
+		OutputExabeam: &outputExabeam,
 		Type:          typ,
 	}
 }
 
-func CreateOutputKafka(kafka OutputKafka) Output {
-	typ := OutputTypeKafka
-
-	typStr := OutputKafkaType(typ)
-	kafka.Type = typStr
+func CreateOutputOutputKafka(outputKafka OutputKafka) Output {
+	typ := OutputTypeOutputKafka
 
 	return Output{
-		OutputKafka: &kafka,
+		OutputKafka: &outputKafka,
 		Type:        typ,
 	}
 }
 
-func CreateOutputConfluentCloud(confluentCloud OutputConfluentCloud) Output {
-	typ := OutputTypeConfluentCloud
-
-	typStr := OutputConfluentCloudType(typ)
-	confluentCloud.Type = typStr
+func CreateOutputOutputConfluentCloud(outputConfluentCloud OutputConfluentCloud) Output {
+	typ := OutputTypeOutputConfluentCloud
 
 	return Output{
-		OutputConfluentCloud: &confluentCloud,
+		OutputConfluentCloud: &outputConfluentCloud,
 		Type:                 typ,
 	}
 }
 
-func CreateOutputMsk(msk OutputMsk) Output {
-	typ := OutputTypeMsk
-
-	typStr := OutputMskType(typ)
-	msk.Type = typStr
+func CreateOutputOutputMsk(outputMsk OutputMsk) Output {
+	typ := OutputTypeOutputMsk
 
 	return Output{
-		OutputMsk: &msk,
+		OutputMsk: &outputMsk,
 		Type:      typ,
 	}
 }
 
-func CreateOutputElastic(elastic OutputElastic) Output {
-	typ := OutputTypeElastic
-
-	typStr := OutputElasticType(typ)
-	elastic.Type = typStr
+func CreateOutputOutputElastic(outputElastic OutputElastic) Output {
+	typ := OutputTypeOutputElastic
 
 	return Output{
-		OutputElastic: &elastic,
+		OutputElastic: &outputElastic,
 		Type:          typ,
 	}
 }
 
-func CreateOutputElasticCloud(elasticCloud OutputElasticCloud) Output {
-	typ := OutputTypeElasticCloud
-
-	typStr := OutputElasticCloudType(typ)
-	elasticCloud.Type = typStr
+func CreateOutputOutputElasticCloud(outputElasticCloud OutputElasticCloud) Output {
+	typ := OutputTypeOutputElasticCloud
 
 	return Output{
-		OutputElasticCloud: &elasticCloud,
+		OutputElasticCloud: &outputElasticCloud,
 		Type:               typ,
 	}
 }
 
-func CreateOutputNewrelic(newrelic OutputNewrelic) Output {
-	typ := OutputTypeNewrelic
-
-	typStr := OutputNewrelicType(typ)
-	newrelic.Type = typStr
+func CreateOutputOutputNewrelic(outputNewrelic OutputNewrelic) Output {
+	typ := OutputTypeOutputNewrelic
 
 	return Output{
-		OutputNewrelic: &newrelic,
+		OutputNewrelic: &outputNewrelic,
 		Type:           typ,
 	}
 }
 
-func CreateOutputNewrelicEvents(newrelicEvents OutputNewrelicEvents) Output {
-	typ := OutputTypeNewrelicEvents
-
-	typStr := OutputNewrelicEventsType(typ)
-	newrelicEvents.Type = typStr
+func CreateOutputOutputNewrelicEvents(outputNewrelicEvents OutputNewrelicEvents) Output {
+	typ := OutputTypeOutputNewrelicEvents
 
 	return Output{
-		OutputNewrelicEvents: &newrelicEvents,
+		OutputNewrelicEvents: &outputNewrelicEvents,
 		Type:                 typ,
 	}
 }
 
-func CreateOutputInfluxdb(influxdb OutputInfluxdb) Output {
-	typ := OutputTypeInfluxdb
-
-	typStr := OutputInfluxdbType(typ)
-	influxdb.Type = typStr
+func CreateOutputOutputInfluxdb(outputInfluxdb OutputInfluxdb) Output {
+	typ := OutputTypeOutputInfluxdb
 
 	return Output{
-		OutputInfluxdb: &influxdb,
+		OutputInfluxdb: &outputInfluxdb,
 		Type:           typ,
 	}
 }
 
-func CreateOutputCloudwatch(cloudwatch OutputCloudwatch) Output {
-	typ := OutputTypeCloudwatch
-
-	typStr := OutputCloudwatchType(typ)
-	cloudwatch.Type = typStr
+func CreateOutputOutputCloudwatch(outputCloudwatch OutputCloudwatch) Output {
+	typ := OutputTypeOutputCloudwatch
 
 	return Output{
-		OutputCloudwatch: &cloudwatch,
+		OutputCloudwatch: &outputCloudwatch,
 		Type:             typ,
 	}
 }
 
-func CreateOutputMinio(minio OutputMinio) Output {
-	typ := OutputTypeMinio
-
-	typStr := OutputMinioType(typ)
-	minio.Type = typStr
+func CreateOutputOutputMinio(outputMinio OutputMinio) Output {
+	typ := OutputTypeOutputMinio
 
 	return Output{
-		OutputMinio: &minio,
+		OutputMinio: &outputMinio,
 		Type:        typ,
 	}
 }
 
-func CreateOutputStatsd(statsd OutputStatsd) Output {
-	typ := OutputTypeStatsd
-
-	typStr := OutputStatsdType(typ)
-	statsd.Type = typStr
+func CreateOutputOutputStatsd(outputStatsd OutputStatsd) Output {
+	typ := OutputTypeOutputStatsd
 
 	return Output{
-		OutputStatsd: &statsd,
+		OutputStatsd: &outputStatsd,
 		Type:         typ,
 	}
 }
 
-func CreateOutputStatsdExt(statsdExt OutputStatsdExt) Output {
-	typ := OutputTypeStatsdExt
-
-	typStr := OutputStatsdExtType(typ)
-	statsdExt.Type = typStr
+func CreateOutputOutputStatsdExt(outputStatsdExt OutputStatsdExt) Output {
+	typ := OutputTypeOutputStatsdExt
 
 	return Output{
-		OutputStatsdExt: &statsdExt,
+		OutputStatsdExt: &outputStatsdExt,
 		Type:            typ,
 	}
 }
 
-func CreateOutputGraphite(graphite OutputGraphite) Output {
-	typ := OutputTypeGraphite
-
-	typStr := OutputGraphiteType(typ)
-	graphite.Type = typStr
+func CreateOutputOutputGraphite(outputGraphite OutputGraphite) Output {
+	typ := OutputTypeOutputGraphite
 
 	return Output{
-		OutputGraphite: &graphite,
+		OutputGraphite: &outputGraphite,
 		Type:           typ,
 	}
 }
 
-func CreateOutputRouter(router OutputRouter) Output {
-	typ := OutputTypeRouter
-
-	typStr := OutputRouterType(typ)
-	router.Type = typStr
+func CreateOutputOutputRouter(outputRouter OutputRouter) Output {
+	typ := OutputTypeOutputRouter
 
 	return Output{
-		OutputRouter: &router,
+		OutputRouter: &outputRouter,
 		Type:         typ,
 	}
 }
 
-func CreateOutputSns(sns OutputSns) Output {
-	typ := OutputTypeSns
-
-	typStr := OutputSnsType(typ)
-	sns.Type = typStr
+func CreateOutputOutputSns(outputSns OutputSns) Output {
+	typ := OutputTypeOutputSns
 
 	return Output{
-		OutputSns: &sns,
+		OutputSns: &outputSns,
 		Type:      typ,
 	}
 }
 
-func CreateOutputSqs(sqs OutputSqs) Output {
-	typ := OutputTypeSqs
-
-	typStr := OutputSqsType(typ)
-	sqs.Type = typStr
+func CreateOutputOutputSqs(outputSqs OutputSqs) Output {
+	typ := OutputTypeOutputSqs
 
 	return Output{
-		OutputSqs: &sqs,
+		OutputSqs: &outputSqs,
 		Type:      typ,
 	}
 }
 
-func CreateOutputSnmp(snmp OutputSnmp) Output {
-	typ := OutputTypeSnmp
-
-	typStr := OutputSnmpType(typ)
-	snmp.Type = typStr
+func CreateOutputOutputSnmp(outputSnmp OutputSnmp) Output {
+	typ := OutputTypeOutputSnmp
 
 	return Output{
-		OutputSnmp: &snmp,
+		OutputSnmp: &outputSnmp,
 		Type:       typ,
 	}
 }
 
-func CreateOutputSumoLogic(sumoLogic OutputSumoLogic) Output {
-	typ := OutputTypeSumoLogic
-
-	typStr := OutputSumoLogicType(typ)
-	sumoLogic.Type = typStr
+func CreateOutputOutputSumoLogic(outputSumoLogic OutputSumoLogic) Output {
+	typ := OutputTypeOutputSumoLogic
 
 	return Output{
-		OutputSumoLogic: &sumoLogic,
+		OutputSumoLogic: &outputSumoLogic,
 		Type:            typ,
 	}
 }
 
-func CreateOutputDatadog(datadog OutputDatadog) Output {
-	typ := OutputTypeDatadog
-
-	typStr := OutputDatadogType(typ)
-	datadog.Type = typStr
+func CreateOutputOutputDatadog(outputDatadog OutputDatadog) Output {
+	typ := OutputTypeOutputDatadog
 
 	return Output{
-		OutputDatadog: &datadog,
+		OutputDatadog: &outputDatadog,
 		Type:          typ,
 	}
 }
 
-func CreateOutputGrafanaCloud(grafanaCloud OutputGrafanaCloud) Output {
-	typ := OutputTypeGrafanaCloud
-
-	typStr := OutputGrafanaCloudType(typ)
-	grafanaCloud.Type = typStr
+func CreateOutputOutputGrafanaCloud(outputGrafanaCloud OutputGrafanaCloud) Output {
+	typ := OutputTypeOutputGrafanaCloud
 
 	return Output{
-		OutputGrafanaCloud: &grafanaCloud,
+		OutputGrafanaCloud: &outputGrafanaCloud,
 		Type:               typ,
 	}
 }
 
-func CreateOutputLoki(loki OutputLoki) Output {
-	typ := OutputTypeLoki
-
-	typStr := OutputLokiType(typ)
-	loki.Type = typStr
+func CreateOutputOutputLoki(outputLoki OutputLoki) Output {
+	typ := OutputTypeOutputLoki
 
 	return Output{
-		OutputLoki: &loki,
+		OutputLoki: &outputLoki,
 		Type:       typ,
 	}
 }
 
-func CreateOutputPrometheus(prometheus OutputPrometheus) Output {
-	typ := OutputTypePrometheus
-
-	typStr := OutputPrometheusType(typ)
-	prometheus.Type = typStr
+func CreateOutputOutputPrometheus(outputPrometheus OutputPrometheus) Output {
+	typ := OutputTypeOutputPrometheus
 
 	return Output{
-		OutputPrometheus: &prometheus,
+		OutputPrometheus: &outputPrometheus,
 		Type:             typ,
 	}
 }
 
-func CreateOutputRing(ring OutputRing) Output {
-	typ := OutputTypeRing
-
-	typStr := OutputRingType(typ)
-	ring.Type = typStr
+func CreateOutputOutputRing(outputRing OutputRing) Output {
+	typ := OutputTypeOutputRing
 
 	return Output{
-		OutputRing: &ring,
+		OutputRing: &outputRing,
 		Type:       typ,
 	}
 }
 
-func CreateOutputOpenTelemetry(openTelemetry OutputOpenTelemetry) Output {
-	typ := OutputTypeOpenTelemetry
-
-	typStr := OutputOpenTelemetryType(typ)
-	openTelemetry.Type = typStr
+func CreateOutputOutputOpenTelemetry(outputOpenTelemetry OutputOpenTelemetry) Output {
+	typ := OutputTypeOutputOpenTelemetry
 
 	return Output{
-		OutputOpenTelemetry: &openTelemetry,
+		OutputOpenTelemetry: &outputOpenTelemetry,
 		Type:                typ,
 	}
 }
 
-func CreateOutputServiceNow(serviceNow OutputServiceNow) Output {
-	typ := OutputTypeServiceNow
-
-	typStr := OutputServiceNowType(typ)
-	serviceNow.Type = typStr
+func CreateOutputOutputServiceNow(outputServiceNow OutputServiceNow) Output {
+	typ := OutputTypeOutputServiceNow
 
 	return Output{
-		OutputServiceNow: &serviceNow,
+		OutputServiceNow: &outputServiceNow,
 		Type:             typ,
 	}
 }
 
-func CreateOutputDataset(dataset OutputDataset) Output {
-	typ := OutputTypeDataset
-
-	typStr := OutputDatasetType(typ)
-	dataset.Type = typStr
+func CreateOutputOutputDataset(outputDataset OutputDataset) Output {
+	typ := OutputTypeOutputDataset
 
 	return Output{
-		OutputDataset: &dataset,
+		OutputDataset: &outputDataset,
 		Type:          typ,
 	}
 }
 
-func CreateOutputCriblTCP(criblTCP OutputCriblTCP) Output {
-	typ := OutputTypeCriblTCP
-
-	typStr := OutputCriblTCPType(typ)
-	criblTCP.Type = typStr
+func CreateOutputOutputCriblTCP(outputCriblTCP OutputCriblTCP) Output {
+	typ := OutputTypeOutputCriblTCP
 
 	return Output{
-		OutputCriblTCP: &criblTCP,
+		OutputCriblTCP: &outputCriblTCP,
 		Type:           typ,
 	}
 }
 
-func CreateOutputCriblHTTP(criblHTTP OutputCriblHTTP) Output {
-	typ := OutputTypeCriblHTTP
-
-	typStr := OutputCriblHTTPType(typ)
-	criblHTTP.Type = typStr
+func CreateOutputOutputCriblHTTP(outputCriblHTTP OutputCriblHTTP) Output {
+	typ := OutputTypeOutputCriblHTTP
 
 	return Output{
-		OutputCriblHTTP: &criblHTTP,
+		OutputCriblHTTP: &outputCriblHTTP,
 		Type:            typ,
 	}
 }
 
-func CreateOutputHumioHec(humioHec OutputHumioHec) Output {
-	typ := OutputTypeHumioHec
-
-	typStr := OutputHumioHecType(typ)
-	humioHec.Type = typStr
+func CreateOutputOutputHumioHec(outputHumioHec OutputHumioHec) Output {
+	typ := OutputTypeOutputHumioHec
 
 	return Output{
-		OutputHumioHec: &humioHec,
+		OutputHumioHec: &outputHumioHec,
 		Type:           typ,
 	}
 }
 
-func CreateOutputCrowdstrikeNextGenSiem(crowdstrikeNextGenSiem OutputCrowdstrikeNextGenSiem) Output {
-	typ := OutputTypeCrowdstrikeNextGenSiem
-
-	typStr := OutputCrowdstrikeNextGenSiemType(typ)
-	crowdstrikeNextGenSiem.Type = typStr
+func CreateOutputOutputCrowdstrikeNextGenSiem(outputCrowdstrikeNextGenSiem OutputCrowdstrikeNextGenSiem) Output {
+	typ := OutputTypeOutputCrowdstrikeNextGenSiem
 
 	return Output{
-		OutputCrowdstrikeNextGenSiem: &crowdstrikeNextGenSiem,
+		OutputCrowdstrikeNextGenSiem: &outputCrowdstrikeNextGenSiem,
 		Type:                         typ,
 	}
 }
 
-func CreateOutputDlS3(dlS3 OutputDlS3) Output {
-	typ := OutputTypeDlS3
-
-	typStr := OutputDlS3Type(typ)
-	dlS3.Type = typStr
+func CreateOutputOutputDlS3(outputDlS3 OutputDlS3) Output {
+	typ := OutputTypeOutputDlS3
 
 	return Output{
-		OutputDlS3: &dlS3,
+		OutputDlS3: &outputDlS3,
 		Type:       typ,
 	}
 }
 
-func CreateOutputSecurityLake(securityLake OutputSecurityLake) Output {
-	typ := OutputTypeSecurityLake
-
-	typStr := OutputSecurityLakeType(typ)
-	securityLake.Type = typStr
+func CreateOutputOutputSecurityLake(outputSecurityLake OutputSecurityLake) Output {
+	typ := OutputTypeOutputSecurityLake
 
 	return Output{
-		OutputSecurityLake: &securityLake,
+		OutputSecurityLake: &outputSecurityLake,
 		Type:               typ,
 	}
 }
 
-func CreateOutputCriblLake(criblLake OutputCriblLake) Output {
-	typ := OutputTypeCriblLake
-
-	typStr := OutputCriblLakeType(typ)
-	criblLake.Type = typStr
+func CreateOutputOutputCriblLake(outputCriblLake OutputCriblLake) Output {
+	typ := OutputTypeOutputCriblLake
 
 	return Output{
-		OutputCriblLake: &criblLake,
+		OutputCriblLake: &outputCriblLake,
 		Type:            typ,
 	}
 }
 
-func CreateOutputDiskSpool(diskSpool OutputDiskSpool) Output {
-	typ := OutputTypeDiskSpool
-
-	typStr := OutputDiskSpoolType(typ)
-	diskSpool.Type = typStr
+func CreateOutputOutputDiskSpool(outputDiskSpool OutputDiskSpool) Output {
+	typ := OutputTypeOutputDiskSpool
 
 	return Output{
-		OutputDiskSpool: &diskSpool,
+		OutputDiskSpool: &outputDiskSpool,
 		Type:            typ,
 	}
 }
 
-func CreateOutputClickHouse(clickHouse OutputClickHouse) Output {
-	typ := OutputTypeClickHouse
-
-	typStr := OutputClickHouseType(typ)
-	clickHouse.Type = typStr
+func CreateOutputOutputClickHouse(outputClickHouse OutputClickHouse) Output {
+	typ := OutputTypeOutputClickHouse
 
 	return Output{
-		OutputClickHouse: &clickHouse,
+		OutputClickHouse: &outputClickHouse,
 		Type:             typ,
 	}
 }
 
-func CreateOutputXsiam(xsiam OutputXsiam) Output {
-	typ := OutputTypeXsiam
-
-	typStr := OutputXsiamType(typ)
-	xsiam.Type = typStr
+func CreateOutputOutputXsiam(outputXsiam OutputXsiam) Output {
+	typ := OutputTypeOutputXsiam
 
 	return Output{
-		OutputXsiam: &xsiam,
+		OutputXsiam: &outputXsiam,
 		Type:        typ,
 	}
 }
 
-func CreateOutputNetflow(netflow OutputNetflow) Output {
-	typ := OutputTypeNetflow
-
-	typStr := OutputNetflowType(typ)
-	netflow.Type = typStr
+func CreateOutputOutputNetflow(outputNetflow OutputNetflow) Output {
+	typ := OutputTypeOutputNetflow
 
 	return Output{
-		OutputNetflow: &netflow,
+		OutputNetflow: &outputNetflow,
 		Type:          typ,
 	}
 }
 
-func CreateOutputDynatraceHTTP(dynatraceHTTP OutputDynatraceHTTP) Output {
-	typ := OutputTypeDynatraceHTTP
-
-	typStr := OutputDynatraceHTTPType(typ)
-	dynatraceHTTP.Type = typStr
+func CreateOutputOutputDynatraceHTTP(outputDynatraceHTTP OutputDynatraceHTTP) Output {
+	typ := OutputTypeOutputDynatraceHTTP
 
 	return Output{
-		OutputDynatraceHTTP: &dynatraceHTTP,
+		OutputDynatraceHTTP: &outputDynatraceHTTP,
 		Type:                typ,
 	}
 }
 
-func CreateOutputDynatraceOtlp(dynatraceOtlp OutputDynatraceOtlp) Output {
-	typ := OutputTypeDynatraceOtlp
-
-	typStr := OutputDynatraceOtlpType(typ)
-	dynatraceOtlp.Type = typStr
+func CreateOutputOutputDynatraceOtlp(outputDynatraceOtlp OutputDynatraceOtlp) Output {
+	typ := OutputTypeOutputDynatraceOtlp
 
 	return Output{
-		OutputDynatraceOtlp: &dynatraceOtlp,
+		OutputDynatraceOtlp: &outputDynatraceOtlp,
 		Type:                typ,
 	}
 }
 
-func CreateOutputSentinelOneAiSiem(sentinelOneAiSiem OutputSentinelOneAiSiem) Output {
-	typ := OutputTypeSentinelOneAiSiem
-
-	typStr := OutputSentinelOneAiSiemType(typ)
-	sentinelOneAiSiem.Type = typStr
+func CreateOutputOutputSentinelOneAiSiem(outputSentinelOneAiSiem OutputSentinelOneAiSiem) Output {
+	typ := OutputTypeOutputSentinelOneAiSiem
 
 	return Output{
-		OutputSentinelOneAiSiem: &sentinelOneAiSiem,
+		OutputSentinelOneAiSiem: &outputSentinelOneAiSiem,
 		Type:                    typ,
 	}
 }
 
 func (u *Output) UnmarshalJSON(data []byte) error {
 
-	type discriminator struct {
-		Type string `json:"type"`
+	var outputDevnull OutputDevnull = OutputDevnull{}
+	if err := utils.UnmarshalJSON(data, &outputDevnull, "", true, false); err == nil {
+		u.OutputDevnull = &outputDevnull
+		u.Type = OutputTypeOutputDevnull
+		return nil
 	}
 
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	var outputDefault OutputDefault = OutputDefault{}
+	if err := utils.UnmarshalJSON(data, &outputDefault, "", true, false); err == nil {
+		u.OutputDefault = &outputDefault
+		u.Type = OutputTypeOutputDefault
+		return nil
 	}
 
-	switch dis.Type {
-	case "default":
-		outputDefault := new(OutputDefault)
-		if err := utils.UnmarshalJSON(data, &outputDefault, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == default) type OutputDefault within Output: %w", string(data), err)
-		}
-
-		u.OutputDefault = outputDefault
-		u.Type = OutputTypeDefault
+	var outputRouter OutputRouter = OutputRouter{}
+	if err := utils.UnmarshalJSON(data, &outputRouter, "", true, false); err == nil {
+		u.OutputRouter = &outputRouter
+		u.Type = OutputTypeOutputRouter
 		return nil
-	case "webhook":
-		outputWebhook := new(OutputWebhook)
-		if err := utils.UnmarshalJSON(data, &outputWebhook, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == webhook) type OutputWebhook within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputWebhook = outputWebhook
-		u.Type = OutputTypeWebhook
+	var outputNetflow OutputNetflow = OutputNetflow{}
+	if err := utils.UnmarshalJSON(data, &outputNetflow, "", true, false); err == nil {
+		u.OutputNetflow = &outputNetflow
+		u.Type = OutputTypeOutputNetflow
 		return nil
-	case "sentinel":
-		outputSentinel := new(OutputSentinel)
-		if err := utils.UnmarshalJSON(data, &outputSentinel, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sentinel) type OutputSentinel within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSentinel = outputSentinel
-		u.Type = OutputTypeSentinel
+	var outputSnmp OutputSnmp = OutputSnmp{}
+	if err := utils.UnmarshalJSON(data, &outputSnmp, "", true, false); err == nil {
+		u.OutputSnmp = &outputSnmp
+		u.Type = OutputTypeOutputSnmp
 		return nil
-	case "devnull":
-		outputDevnull := new(OutputDevnull)
-		if err := utils.UnmarshalJSON(data, &outputDevnull, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == devnull) type OutputDevnull within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDevnull = outputDevnull
-		u.Type = OutputTypeDevnull
+	var outputDiskSpool OutputDiskSpool = OutputDiskSpool{}
+	if err := utils.UnmarshalJSON(data, &outputDiskSpool, "", true, false); err == nil {
+		u.OutputDiskSpool = &outputDiskSpool
+		u.Type = OutputTypeOutputDiskSpool
 		return nil
-	case "syslog":
-		outputSyslog := new(OutputSyslog)
-		if err := utils.UnmarshalJSON(data, &outputSyslog, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == syslog) type OutputSyslog within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSyslog = outputSyslog
-		u.Type = OutputTypeSyslog
+	var outputRing OutputRing = OutputRing{}
+	if err := utils.UnmarshalJSON(data, &outputRing, "", true, false); err == nil {
+		u.OutputRing = &outputRing
+		u.Type = OutputTypeOutputRing
 		return nil
-	case "splunk":
-		outputSplunk := new(OutputSplunk)
-		if err := utils.UnmarshalJSON(data, &outputSplunk, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk) type OutputSplunk within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSplunk = outputSplunk
-		u.Type = OutputTypeSplunk
+	var outputStatsdExt OutputStatsdExt = OutputStatsdExt{}
+	if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err == nil {
+		u.OutputStatsdExt = &outputStatsdExt
+		u.Type = OutputTypeOutputStatsdExt
 		return nil
-	case "splunk_lb":
-		outputSplunkLb := new(OutputSplunkLb)
-		if err := utils.UnmarshalJSON(data, &outputSplunkLb, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_lb) type OutputSplunkLb within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSplunkLb = outputSplunkLb
-		u.Type = OutputTypeSplunkLb
+	var outputGraphite OutputGraphite = OutputGraphite{}
+	if err := utils.UnmarshalJSON(data, &outputGraphite, "", true, false); err == nil {
+		u.OutputGraphite = &outputGraphite
+		u.Type = OutputTypeOutputGraphite
 		return nil
-	case "splunk_hec":
-		outputSplunkHec := new(OutputSplunkHec)
-		if err := utils.UnmarshalJSON(data, &outputSplunkHec, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_hec) type OutputSplunkHec within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSplunkHec = outputSplunkHec
-		u.Type = OutputTypeSplunkHec
+	var outputStatsd OutputStatsd = OutputStatsd{}
+	if err := utils.UnmarshalJSON(data, &outputStatsd, "", true, false); err == nil {
+		u.OutputStatsd = &outputStatsd
+		u.Type = OutputTypeOutputStatsd
 		return nil
-	case "tcpjson":
-		outputTcpjson := new(OutputTcpjson)
-		if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcpjson) type OutputTcpjson within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputTcpjson = outputTcpjson
-		u.Type = OutputTypeTcpjson
+	var outputGooglePubsub OutputGooglePubsub = OutputGooglePubsub{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsub, "", true, false); err == nil {
+		u.OutputGooglePubsub = &outputGooglePubsub
+		u.Type = OutputTypeOutputGooglePubsub
 		return nil
-	case "wavefront":
-		outputWavefront := new(OutputWavefront)
-		if err := utils.UnmarshalJSON(data, &outputWavefront, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wavefront) type OutputWavefront within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputWavefront = outputWavefront
-		u.Type = OutputTypeWavefront
+	var outputCriblTCP OutputCriblTCP = OutputCriblTCP{}
+	if err := utils.UnmarshalJSON(data, &outputCriblTCP, "", true, false); err == nil {
+		u.OutputCriblTCP = &outputCriblTCP
+		u.Type = OutputTypeOutputCriblTCP
 		return nil
-	case "signalfx":
-		outputSignalfx := new(OutputSignalfx)
-		if err := utils.UnmarshalJSON(data, &outputSignalfx, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == signalfx) type OutputSignalfx within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSignalfx = outputSignalfx
-		u.Type = OutputTypeSignalfx
+	var outputSns OutputSns = OutputSns{}
+	if err := utils.UnmarshalJSON(data, &outputSns, "", true, false); err == nil {
+		u.OutputSns = &outputSns
+		u.Type = OutputTypeOutputSns
 		return nil
-	case "filesystem":
-		outputFilesystem := new(OutputFilesystem)
-		if err := utils.UnmarshalJSON(data, &outputFilesystem, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == filesystem) type OutputFilesystem within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputFilesystem = outputFilesystem
-		u.Type = OutputTypeFilesystem
+	var outputSplunk OutputSplunk = OutputSplunk{}
+	if err := utils.UnmarshalJSON(data, &outputSplunk, "", true, false); err == nil {
+		u.OutputSplunk = &outputSplunk
+		u.Type = OutputTypeOutputSplunk
 		return nil
-	case "s3":
-		outputS3 := new(OutputS3)
-		if err := utils.UnmarshalJSON(data, &outputS3, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3) type OutputS3 within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputS3 = outputS3
-		u.Type = OutputTypeS3
+	var outputCloudwatch OutputCloudwatch = OutputCloudwatch{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatch, "", true, false); err == nil {
+		u.OutputCloudwatch = &outputCloudwatch
+		u.Type = OutputTypeOutputCloudwatch
 		return nil
-	case "azure_blob":
-		outputAzureBlob := new(OutputAzureBlob)
-		if err := utils.UnmarshalJSON(data, &outputAzureBlob, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_blob) type OutputAzureBlob within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputAzureBlob = outputAzureBlob
-		u.Type = OutputTypeAzureBlob
+	var outputSyslog OutputSyslog = OutputSyslog{}
+	if err := utils.UnmarshalJSON(data, &outputSyslog, "", true, false); err == nil {
+		u.OutputSyslog = &outputSyslog
+		u.Type = OutputTypeOutputSyslog
 		return nil
-	case "azure_data_explorer":
-		outputAzureDataExplorer := new(OutputAzureDataExplorer)
-		if err := utils.UnmarshalJSON(data, &outputAzureDataExplorer, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_data_explorer) type OutputAzureDataExplorer within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputAzureDataExplorer = outputAzureDataExplorer
-		u.Type = OutputTypeAzureDataExplorer
+	var outputAzureEventhub OutputAzureEventhub = OutputAzureEventhub{}
+	if err := utils.UnmarshalJSON(data, &outputAzureEventhub, "", true, false); err == nil {
+		u.OutputAzureEventhub = &outputAzureEventhub
+		u.Type = OutputTypeOutputAzureEventhub
 		return nil
-	case "azure_logs":
-		outputAzureLogs := new(OutputAzureLogs)
-		if err := utils.UnmarshalJSON(data, &outputAzureLogs, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_logs) type OutputAzureLogs within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputAzureLogs = outputAzureLogs
-		u.Type = OutputTypeAzureLogs
+	var outputWavefront OutputWavefront = OutputWavefront{}
+	if err := utils.UnmarshalJSON(data, &outputWavefront, "", true, false); err == nil {
+		u.OutputWavefront = &outputWavefront
+		u.Type = OutputTypeOutputWavefront
 		return nil
-	case "kinesis":
-		outputKinesis := new(OutputKinesis)
-		if err := utils.UnmarshalJSON(data, &outputKinesis, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kinesis) type OutputKinesis within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputKinesis = outputKinesis
-		u.Type = OutputTypeKinesis
+	var outputSignalfx OutputSignalfx = OutputSignalfx{}
+	if err := utils.UnmarshalJSON(data, &outputSignalfx, "", true, false); err == nil {
+		u.OutputSignalfx = &outputSignalfx
+		u.Type = OutputTypeOutputSignalfx
 		return nil
-	case "honeycomb":
-		outputHoneycomb := new(OutputHoneycomb)
-		if err := utils.UnmarshalJSON(data, &outputHoneycomb, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == honeycomb) type OutputHoneycomb within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputHoneycomb = outputHoneycomb
-		u.Type = OutputTypeHoneycomb
+	var outputHoneycomb OutputHoneycomb = OutputHoneycomb{}
+	if err := utils.UnmarshalJSON(data, &outputHoneycomb, "", true, false); err == nil {
+		u.OutputHoneycomb = &outputHoneycomb
+		u.Type = OutputTypeOutputHoneycomb
 		return nil
-	case "azure_eventhub":
-		outputAzureEventhub := new(OutputAzureEventhub)
-		if err := utils.UnmarshalJSON(data, &outputAzureEventhub, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_eventhub) type OutputAzureEventhub within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputAzureEventhub = outputAzureEventhub
-		u.Type = OutputTypeAzureEventhub
+	var outputSumoLogic OutputSumoLogic = OutputSumoLogic{}
+	if err := utils.UnmarshalJSON(data, &outputSumoLogic, "", true, false); err == nil {
+		u.OutputSumoLogic = &outputSumoLogic
+		u.Type = OutputTypeOutputSumoLogic
 		return nil
-	case "google_chronicle":
-		outputGoogleChronicle := new(OutputGoogleChronicle)
-		if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_chronicle) type OutputGoogleChronicle within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGoogleChronicle = outputGoogleChronicle
-		u.Type = OutputTypeGoogleChronicle
+	var outputTcpjson OutputTcpjson = OutputTcpjson{}
+	if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, false); err == nil {
+		u.OutputTcpjson = &outputTcpjson
+		u.Type = OutputTypeOutputTcpjson
 		return nil
-	case "google_cloud_storage":
-		outputGoogleCloudStorage := new(OutputGoogleCloudStorage)
-		if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorage, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_cloud_storage) type OutputGoogleCloudStorage within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGoogleCloudStorage = outputGoogleCloudStorage
-		u.Type = OutputTypeGoogleCloudStorage
+	var outputHumioHec OutputHumioHec = OutputHumioHec{}
+	if err := utils.UnmarshalJSON(data, &outputHumioHec, "", true, false); err == nil {
+		u.OutputHumioHec = &outputHumioHec
+		u.Type = OutputTypeOutputHumioHec
 		return nil
-	case "google_cloud_logging":
-		outputGoogleCloudLogging := new(OutputGoogleCloudLogging)
-		if err := utils.UnmarshalJSON(data, &outputGoogleCloudLogging, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_cloud_logging) type OutputGoogleCloudLogging within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGoogleCloudLogging = outputGoogleCloudLogging
-		u.Type = OutputTypeGoogleCloudLogging
+	var outputElasticCloud OutputElasticCloud = OutputElasticCloud{}
+	if err := utils.UnmarshalJSON(data, &outputElasticCloud, "", true, false); err == nil {
+		u.OutputElasticCloud = &outputElasticCloud
+		u.Type = OutputTypeOutputElasticCloud
 		return nil
-	case "google_pubsub":
-		outputGooglePubsub := new(OutputGooglePubsub)
-		if err := utils.UnmarshalJSON(data, &outputGooglePubsub, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_pubsub) type OutputGooglePubsub within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGooglePubsub = outputGooglePubsub
-		u.Type = OutputTypeGooglePubsub
+	var outputCrowdstrikeNextGenSiem OutputCrowdstrikeNextGenSiem = OutputCrowdstrikeNextGenSiem{}
+	if err := utils.UnmarshalJSON(data, &outputCrowdstrikeNextGenSiem, "", true, false); err == nil {
+		u.OutputCrowdstrikeNextGenSiem = &outputCrowdstrikeNextGenSiem
+		u.Type = OutputTypeOutputCrowdstrikeNextGenSiem
 		return nil
-	case "exabeam":
-		outputExabeam := new(OutputExabeam)
-		if err := utils.UnmarshalJSON(data, &outputExabeam, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == exabeam) type OutputExabeam within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputExabeam = outputExabeam
-		u.Type = OutputTypeExabeam
+	var outputKinesis OutputKinesis = OutputKinesis{}
+	if err := utils.UnmarshalJSON(data, &outputKinesis, "", true, false); err == nil {
+		u.OutputKinesis = &outputKinesis
+		u.Type = OutputTypeOutputKinesis
 		return nil
-	case "kafka":
-		outputKafka := new(OutputKafka)
-		if err := utils.UnmarshalJSON(data, &outputKafka, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kafka) type OutputKafka within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputKafka = outputKafka
-		u.Type = OutputTypeKafka
+	var outputConfluentCloud OutputConfluentCloud = OutputConfluentCloud{}
+	if err := utils.UnmarshalJSON(data, &outputConfluentCloud, "", true, false); err == nil {
+		u.OutputConfluentCloud = &outputConfluentCloud
+		u.Type = OutputTypeOutputConfluentCloud
 		return nil
-	case "confluent_cloud":
-		outputConfluentCloud := new(OutputConfluentCloud)
-		if err := utils.UnmarshalJSON(data, &outputConfluentCloud, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == confluent_cloud) type OutputConfluentCloud within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputConfluentCloud = outputConfluentCloud
-		u.Type = OutputTypeConfluentCloud
+	var outputKafka OutputKafka = OutputKafka{}
+	if err := utils.UnmarshalJSON(data, &outputKafka, "", true, false); err == nil {
+		u.OutputKafka = &outputKafka
+		u.Type = OutputTypeOutputKafka
 		return nil
-	case "msk":
-		outputMsk := new(OutputMsk)
-		if err := utils.UnmarshalJSON(data, &outputMsk, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == msk) type OutputMsk within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputMsk = outputMsk
-		u.Type = OutputTypeMsk
+	var outputExabeam OutputExabeam = OutputExabeam{}
+	if err := utils.UnmarshalJSON(data, &outputExabeam, "", true, false); err == nil {
+		u.OutputExabeam = &outputExabeam
+		u.Type = OutputTypeOutputExabeam
 		return nil
-	case "elastic":
-		outputElastic := new(OutputElastic)
-		if err := utils.UnmarshalJSON(data, &outputElastic, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == elastic) type OutputElastic within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputElastic = outputElastic
-		u.Type = OutputTypeElastic
+	var outputNewrelicEvents OutputNewrelicEvents = OutputNewrelicEvents{}
+	if err := utils.UnmarshalJSON(data, &outputNewrelicEvents, "", true, false); err == nil {
+		u.OutputNewrelicEvents = &outputNewrelicEvents
+		u.Type = OutputTypeOutputNewrelicEvents
 		return nil
-	case "elastic_cloud":
-		outputElasticCloud := new(OutputElasticCloud)
-		if err := utils.UnmarshalJSON(data, &outputElasticCloud, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == elastic_cloud) type OutputElasticCloud within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputElasticCloud = outputElasticCloud
-		u.Type = OutputTypeElasticCloud
+	var outputAzureLogs OutputAzureLogs = OutputAzureLogs{}
+	if err := utils.UnmarshalJSON(data, &outputAzureLogs, "", true, false); err == nil {
+		u.OutputAzureLogs = &outputAzureLogs
+		u.Type = OutputTypeOutputAzureLogs
 		return nil
-	case "newrelic":
-		outputNewrelic := new(OutputNewrelic)
-		if err := utils.UnmarshalJSON(data, &outputNewrelic, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == newrelic) type OutputNewrelic within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputNewrelic = outputNewrelic
-		u.Type = OutputTypeNewrelic
+	var outputSplunkLb OutputSplunkLb = OutputSplunkLb{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkLb, "", true, false); err == nil {
+		u.OutputSplunkLb = &outputSplunkLb
+		u.Type = OutputTypeOutputSplunkLb
 		return nil
-	case "newrelic_events":
-		outputNewrelicEvents := new(OutputNewrelicEvents)
-		if err := utils.UnmarshalJSON(data, &outputNewrelicEvents, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == newrelic_events) type OutputNewrelicEvents within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputNewrelicEvents = outputNewrelicEvents
-		u.Type = OutputTypeNewrelicEvents
+	var outputSqs OutputSqs = OutputSqs{}
+	if err := utils.UnmarshalJSON(data, &outputSqs, "", true, false); err == nil {
+		u.OutputSqs = &outputSqs
+		u.Type = OutputTypeOutputSqs
 		return nil
-	case "influxdb":
-		outputInfluxdb := new(OutputInfluxdb)
-		if err := utils.UnmarshalJSON(data, &outputInfluxdb, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == influxdb) type OutputInfluxdb within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputInfluxdb = outputInfluxdb
-		u.Type = OutputTypeInfluxdb
+	var outputNewrelic OutputNewrelic = OutputNewrelic{}
+	if err := utils.UnmarshalJSON(data, &outputNewrelic, "", true, false); err == nil {
+		u.OutputNewrelic = &outputNewrelic
+		u.Type = OutputTypeOutputNewrelic
 		return nil
-	case "cloudwatch":
-		outputCloudwatch := new(OutputCloudwatch)
-		if err := utils.UnmarshalJSON(data, &outputCloudwatch, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudwatch) type OutputCloudwatch within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputCloudwatch = outputCloudwatch
-		u.Type = OutputTypeCloudwatch
+	var outputCriblHTTP OutputCriblHTTP = OutputCriblHTTP{}
+	if err := utils.UnmarshalJSON(data, &outputCriblHTTP, "", true, false); err == nil {
+		u.OutputCriblHTTP = &outputCriblHTTP
+		u.Type = OutputTypeOutputCriblHTTP
 		return nil
-	case "minio":
-		outputMinio := new(OutputMinio)
-		if err := utils.UnmarshalJSON(data, &outputMinio, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == minio) type OutputMinio within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputMinio = outputMinio
-		u.Type = OutputTypeMinio
+	var outputXsiam OutputXsiam = OutputXsiam{}
+	if err := utils.UnmarshalJSON(data, &outputXsiam, "", true, false); err == nil {
+		u.OutputXsiam = &outputXsiam
+		u.Type = OutputTypeOutputXsiam
 		return nil
-	case "statsd":
-		outputStatsd := new(OutputStatsd)
-		if err := utils.UnmarshalJSON(data, &outputStatsd, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == statsd) type OutputStatsd within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputStatsd = outputStatsd
-		u.Type = OutputTypeStatsd
+	var outputFilesystem OutputFilesystem = OutputFilesystem{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystem, "", true, false); err == nil {
+		u.OutputFilesystem = &outputFilesystem
+		u.Type = OutputTypeOutputFilesystem
 		return nil
-	case "statsd_ext":
-		outputStatsdExt := new(OutputStatsdExt)
-		if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == statsd_ext) type OutputStatsdExt within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputStatsdExt = outputStatsdExt
-		u.Type = OutputTypeStatsdExt
+	var outputDataset OutputDataset = OutputDataset{}
+	if err := utils.UnmarshalJSON(data, &outputDataset, "", true, false); err == nil {
+		u.OutputDataset = &outputDataset
+		u.Type = OutputTypeOutputDataset
 		return nil
-	case "graphite":
-		outputGraphite := new(OutputGraphite)
-		if err := utils.UnmarshalJSON(data, &outputGraphite, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == graphite) type OutputGraphite within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGraphite = outputGraphite
-		u.Type = OutputTypeGraphite
+	var outputSplunkHec OutputSplunkHec = OutputSplunkHec{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHec, "", true, false); err == nil {
+		u.OutputSplunkHec = &outputSplunkHec
+		u.Type = OutputTypeOutputSplunkHec
 		return nil
-	case "router":
-		outputRouter := new(OutputRouter)
-		if err := utils.UnmarshalJSON(data, &outputRouter, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == router) type OutputRouter within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputRouter = outputRouter
-		u.Type = OutputTypeRouter
+	var outputDynatraceHTTP OutputDynatraceHTTP = OutputDynatraceHTTP{}
+	if err := utils.UnmarshalJSON(data, &outputDynatraceHTTP, "", true, false); err == nil {
+		u.OutputDynatraceHTTP = &outputDynatraceHTTP
+		u.Type = OutputTypeOutputDynatraceHTTP
 		return nil
-	case "sns":
-		outputSns := new(OutputSns)
-		if err := utils.UnmarshalJSON(data, &outputSns, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sns) type OutputSns within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSns = outputSns
-		u.Type = OutputTypeSns
+	var outputServiceNow OutputServiceNow = OutputServiceNow{}
+	if err := utils.UnmarshalJSON(data, &outputServiceNow, "", true, false); err == nil {
+		u.OutputServiceNow = &outputServiceNow
+		u.Type = OutputTypeOutputServiceNow
 		return nil
-	case "sqs":
-		outputSqs := new(OutputSqs)
-		if err := utils.UnmarshalJSON(data, &outputSqs, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sqs) type OutputSqs within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSqs = outputSqs
-		u.Type = OutputTypeSqs
+	var outputLoki OutputLoki = OutputLoki{}
+	if err := utils.UnmarshalJSON(data, &outputLoki, "", true, false); err == nil {
+		u.OutputLoki = &outputLoki
+		u.Type = OutputTypeOutputLoki
 		return nil
-	case "snmp":
-		outputSnmp := new(OutputSnmp)
-		if err := utils.UnmarshalJSON(data, &outputSnmp, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snmp) type OutputSnmp within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSnmp = outputSnmp
-		u.Type = OutputTypeSnmp
+	var outputDynatraceOtlp OutputDynatraceOtlp = OutputDynatraceOtlp{}
+	if err := utils.UnmarshalJSON(data, &outputDynatraceOtlp, "", true, false); err == nil {
+		u.OutputDynatraceOtlp = &outputDynatraceOtlp
+		u.Type = OutputTypeOutputDynatraceOtlp
 		return nil
-	case "sumo_logic":
-		outputSumoLogic := new(OutputSumoLogic)
-		if err := utils.UnmarshalJSON(data, &outputSumoLogic, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sumo_logic) type OutputSumoLogic within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSumoLogic = outputSumoLogic
-		u.Type = OutputTypeSumoLogic
+	var outputGoogleChronicle OutputGoogleChronicle = OutputGoogleChronicle{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, false); err == nil {
+		u.OutputGoogleChronicle = &outputGoogleChronicle
+		u.Type = OutputTypeOutputGoogleChronicle
 		return nil
-	case "datadog":
-		outputDatadog := new(OutputDatadog)
-		if err := utils.UnmarshalJSON(data, &outputDatadog, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datadog) type OutputDatadog within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDatadog = outputDatadog
-		u.Type = OutputTypeDatadog
+	var outputElastic OutputElastic = OutputElastic{}
+	if err := utils.UnmarshalJSON(data, &outputElastic, "", true, false); err == nil {
+		u.OutputElastic = &outputElastic
+		u.Type = OutputTypeOutputElastic
 		return nil
-	case "grafana_cloud":
-		outputGrafanaCloud := new(OutputGrafanaCloud)
-		if err := utils.UnmarshalJSON(data, &outputGrafanaCloud, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == grafana_cloud) type OutputGrafanaCloud within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputGrafanaCloud = outputGrafanaCloud
-		u.Type = OutputTypeGrafanaCloud
+	var outputDatadog OutputDatadog = OutputDatadog{}
+	if err := utils.UnmarshalJSON(data, &outputDatadog, "", true, false); err == nil {
+		u.OutputDatadog = &outputDatadog
+		u.Type = OutputTypeOutputDatadog
 		return nil
-	case "loki":
-		outputLoki := new(OutputLoki)
-		if err := utils.UnmarshalJSON(data, &outputLoki, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == loki) type OutputLoki within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputLoki = outputLoki
-		u.Type = OutputTypeLoki
+	var outputCriblLake OutputCriblLake = OutputCriblLake{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLake, "", true, false); err == nil {
+		u.OutputCriblLake = &outputCriblLake
+		u.Type = OutputTypeOutputCriblLake
 		return nil
-	case "prometheus":
-		outputPrometheus := new(OutputPrometheus)
-		if err := utils.UnmarshalJSON(data, &outputPrometheus, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus) type OutputPrometheus within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputPrometheus = outputPrometheus
-		u.Type = OutputTypePrometheus
+	var outputPrometheus OutputPrometheus = OutputPrometheus{}
+	if err := utils.UnmarshalJSON(data, &outputPrometheus, "", true, false); err == nil {
+		u.OutputPrometheus = &outputPrometheus
+		u.Type = OutputTypeOutputPrometheus
 		return nil
-	case "ring":
-		outputRing := new(OutputRing)
-		if err := utils.UnmarshalJSON(data, &outputRing, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ring) type OutputRing within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputRing = outputRing
-		u.Type = OutputTypeRing
+	var outputMsk OutputMsk = OutputMsk{}
+	if err := utils.UnmarshalJSON(data, &outputMsk, "", true, false); err == nil {
+		u.OutputMsk = &outputMsk
+		u.Type = OutputTypeOutputMsk
 		return nil
-	case "open_telemetry":
-		outputOpenTelemetry := new(OutputOpenTelemetry)
-		if err := utils.UnmarshalJSON(data, &outputOpenTelemetry, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == open_telemetry) type OutputOpenTelemetry within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputOpenTelemetry = outputOpenTelemetry
-		u.Type = OutputTypeOpenTelemetry
+	var outputSentinelOneAiSiem OutputSentinelOneAiSiem = OutputSentinelOneAiSiem{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiem, "", true, false); err == nil {
+		u.OutputSentinelOneAiSiem = &outputSentinelOneAiSiem
+		u.Type = OutputTypeOutputSentinelOneAiSiem
 		return nil
-	case "service_now":
-		outputServiceNow := new(OutputServiceNow)
-		if err := utils.UnmarshalJSON(data, &outputServiceNow, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == service_now) type OutputServiceNow within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputServiceNow = outputServiceNow
-		u.Type = OutputTypeServiceNow
+	var outputSentinel OutputSentinel = OutputSentinel{}
+	if err := utils.UnmarshalJSON(data, &outputSentinel, "", true, false); err == nil {
+		u.OutputSentinel = &outputSentinel
+		u.Type = OutputTypeOutputSentinel
 		return nil
-	case "dataset":
-		outputDataset := new(OutputDataset)
-		if err := utils.UnmarshalJSON(data, &outputDataset, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dataset) type OutputDataset within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDataset = outputDataset
-		u.Type = OutputTypeDataset
+	var outputInfluxdb OutputInfluxdb = OutputInfluxdb{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdb, "", true, false); err == nil {
+		u.OutputInfluxdb = &outputInfluxdb
+		u.Type = OutputTypeOutputInfluxdb
 		return nil
-	case "cribl_tcp":
-		outputCriblTCP := new(OutputCriblTCP)
-		if err := utils.UnmarshalJSON(data, &outputCriblTCP, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_tcp) type OutputCriblTCP within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputCriblTCP = outputCriblTCP
-		u.Type = OutputTypeCriblTCP
+	var outputGoogleCloudStorage OutputGoogleCloudStorage = OutputGoogleCloudStorage{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorage, "", true, false); err == nil {
+		u.OutputGoogleCloudStorage = &outputGoogleCloudStorage
+		u.Type = OutputTypeOutputGoogleCloudStorage
 		return nil
-	case "cribl_http":
-		outputCriblHTTP := new(OutputCriblHTTP)
-		if err := utils.UnmarshalJSON(data, &outputCriblHTTP, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_http) type OutputCriblHTTP within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputCriblHTTP = outputCriblHTTP
-		u.Type = OutputTypeCriblHTTP
+	var outputAzureBlob OutputAzureBlob = OutputAzureBlob{}
+	if err := utils.UnmarshalJSON(data, &outputAzureBlob, "", true, false); err == nil {
+		u.OutputAzureBlob = &outputAzureBlob
+		u.Type = OutputTypeOutputAzureBlob
 		return nil
-	case "humio_hec":
-		outputHumioHec := new(OutputHumioHec)
-		if err := utils.UnmarshalJSON(data, &outputHumioHec, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == humio_hec) type OutputHumioHec within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputHumioHec = outputHumioHec
-		u.Type = OutputTypeHumioHec
+	var outputOpenTelemetry OutputOpenTelemetry = OutputOpenTelemetry{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetry, "", true, false); err == nil {
+		u.OutputOpenTelemetry = &outputOpenTelemetry
+		u.Type = OutputTypeOutputOpenTelemetry
 		return nil
-	case "crowdstrike_next_gen_siem":
-		outputCrowdstrikeNextGenSiem := new(OutputCrowdstrikeNextGenSiem)
-		if err := utils.UnmarshalJSON(data, &outputCrowdstrikeNextGenSiem, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == crowdstrike_next_gen_siem) type OutputCrowdstrikeNextGenSiem within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputCrowdstrikeNextGenSiem = outputCrowdstrikeNextGenSiem
-		u.Type = OutputTypeCrowdstrikeNextGenSiem
+	var outputMinio OutputMinio = OutputMinio{}
+	if err := utils.UnmarshalJSON(data, &outputMinio, "", true, false); err == nil {
+		u.OutputMinio = &outputMinio
+		u.Type = OutputTypeOutputMinio
 		return nil
-	case "dl_s3":
-		outputDlS3 := new(OutputDlS3)
-		if err := utils.UnmarshalJSON(data, &outputDlS3, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dl_s3) type OutputDlS3 within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDlS3 = outputDlS3
-		u.Type = OutputTypeDlS3
+	var outputClickHouse OutputClickHouse = OutputClickHouse{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouse, "", true, false); err == nil {
+		u.OutputClickHouse = &outputClickHouse
+		u.Type = OutputTypeOutputClickHouse
 		return nil
-	case "security_lake":
-		outputSecurityLake := new(OutputSecurityLake)
-		if err := utils.UnmarshalJSON(data, &outputSecurityLake, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == security_lake) type OutputSecurityLake within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputSecurityLake = outputSecurityLake
-		u.Type = OutputTypeSecurityLake
+	var outputSecurityLake OutputSecurityLake = OutputSecurityLake{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLake, "", true, false); err == nil {
+		u.OutputSecurityLake = &outputSecurityLake
+		u.Type = OutputTypeOutputSecurityLake
 		return nil
-	case "cribl_lake":
-		outputCriblLake := new(OutputCriblLake)
-		if err := utils.UnmarshalJSON(data, &outputCriblLake, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_lake) type OutputCriblLake within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputCriblLake = outputCriblLake
-		u.Type = OutputTypeCriblLake
+	var outputDlS3 OutputDlS3 = OutputDlS3{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3, "", true, false); err == nil {
+		u.OutputDlS3 = &outputDlS3
+		u.Type = OutputTypeOutputDlS3
 		return nil
-	case "disk_spool":
-		outputDiskSpool := new(OutputDiskSpool)
-		if err := utils.UnmarshalJSON(data, &outputDiskSpool, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == disk_spool) type OutputDiskSpool within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDiskSpool = outputDiskSpool
-		u.Type = OutputTypeDiskSpool
+	var outputS3 OutputS3 = OutputS3{}
+	if err := utils.UnmarshalJSON(data, &outputS3, "", true, false); err == nil {
+		u.OutputS3 = &outputS3
+		u.Type = OutputTypeOutputS3
 		return nil
-	case "click_house":
-		outputClickHouse := new(OutputClickHouse)
-		if err := utils.UnmarshalJSON(data, &outputClickHouse, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == click_house) type OutputClickHouse within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputClickHouse = outputClickHouse
-		u.Type = OutputTypeClickHouse
+	var outputAzureDataExplorer OutputAzureDataExplorer = OutputAzureDataExplorer{}
+	if err := utils.UnmarshalJSON(data, &outputAzureDataExplorer, "", true, false); err == nil {
+		u.OutputAzureDataExplorer = &outputAzureDataExplorer
+		u.Type = OutputTypeOutputAzureDataExplorer
 		return nil
-	case "xsiam":
-		outputXsiam := new(OutputXsiam)
-		if err := utils.UnmarshalJSON(data, &outputXsiam, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == xsiam) type OutputXsiam within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputXsiam = outputXsiam
-		u.Type = OutputTypeXsiam
+	var outputWebhook OutputWebhook = OutputWebhook{}
+	if err := utils.UnmarshalJSON(data, &outputWebhook, "", true, false); err == nil {
+		u.OutputWebhook = &outputWebhook
+		u.Type = OutputTypeOutputWebhook
 		return nil
-	case "netflow":
-		outputNetflow := new(OutputNetflow)
-		if err := utils.UnmarshalJSON(data, &outputNetflow, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == netflow) type OutputNetflow within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputNetflow = outputNetflow
-		u.Type = OutputTypeNetflow
+	var outputGoogleCloudLogging OutputGoogleCloudLogging = OutputGoogleCloudLogging{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLogging, "", true, false); err == nil {
+		u.OutputGoogleCloudLogging = &outputGoogleCloudLogging
+		u.Type = OutputTypeOutputGoogleCloudLogging
 		return nil
-	case "dynatrace_http":
-		outputDynatraceHTTP := new(OutputDynatraceHTTP)
-		if err := utils.UnmarshalJSON(data, &outputDynatraceHTTP, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dynatrace_http) type OutputDynatraceHTTP within Output: %w", string(data), err)
-		}
+	}
 
-		u.OutputDynatraceHTTP = outputDynatraceHTTP
-		u.Type = OutputTypeDynatraceHTTP
-		return nil
-	case "dynatrace_otlp":
-		outputDynatraceOtlp := new(OutputDynatraceOtlp)
-		if err := utils.UnmarshalJSON(data, &outputDynatraceOtlp, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dynatrace_otlp) type OutputDynatraceOtlp within Output: %w", string(data), err)
-		}
-
-		u.OutputDynatraceOtlp = outputDynatraceOtlp
-		u.Type = OutputTypeDynatraceOtlp
-		return nil
-	case "sentinel_one_ai_siem":
-		outputSentinelOneAiSiem := new(OutputSentinelOneAiSiem)
-		if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiem, "", true, false); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sentinel_one_ai_siem) type OutputSentinelOneAiSiem within Output: %w", string(data), err)
-		}
-
-		u.OutputSentinelOneAiSiem = outputSentinelOneAiSiem
-		u.Type = OutputTypeSentinelOneAiSiem
+	var outputGrafanaCloud OutputGrafanaCloud = OutputGrafanaCloud{}
+	if err := utils.UnmarshalJSON(data, &outputGrafanaCloud, "", true, false); err == nil {
+		u.OutputGrafanaCloud = &outputGrafanaCloud
+		u.Type = OutputTypeOutputGrafanaCloud
 		return nil
 	}
 
