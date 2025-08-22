@@ -3,9 +3,9 @@
 package components
 
 type GitRevertParams struct {
-	Commit  string  `json:"commit"`
-	Force   *bool   `json:"force,omitempty"`
-	Message *string `json:"message,omitempty"`
+	Commit  string `json:"commit"`
+	Force   *bool  `json:"force,omitempty"`
+	Message string `json:"message"`
 }
 
 func (o *GitRevertParams) GetCommit() string {
@@ -22,9 +22,9 @@ func (o *GitRevertParams) GetForce() *bool {
 	return o.Force
 }
 
-func (o *GitRevertParams) GetMessage() *string {
+func (o *GitRevertParams) GetMessage() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Message
 }
