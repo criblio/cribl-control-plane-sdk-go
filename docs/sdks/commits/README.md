@@ -282,7 +282,7 @@ func main() {
     res, err := s.Versions.Commits.Revert(ctx, components.GitRevertParams{
         Commit: "<value>",
         Force: criblcontrolplanesdkgo.Bool(false),
-        Message: criblcontrolplanesdkgo.String("<value>"),
+        Message: "<value>",
     }, criblcontrolplanesdkgo.String("<value>"))
     if err != nil {
         log.Fatal(err)
