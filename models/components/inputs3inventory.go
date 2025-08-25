@@ -407,7 +407,7 @@ type InputS3Inventory struct {
 	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `default:"false" json:"skipOnError"`
-	// Include metadata from SQS notifications on outgoing events
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
 	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
 	// Use Assume Role credentials to access Amazon S3
 	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`

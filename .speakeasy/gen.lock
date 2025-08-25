@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 7117f9e73ff6b132ec81ba4366ee8712
-  docVersion: 4.14.0-alpha.1755792230606-47c829c2
+  docChecksum: 97ea285bac6d9bca4e3263346a46d09d
+  docVersion: 4.14.0-alpha.1756133891055-db064179
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.37
-  configChecksum: 8e2da80dfc59a9dc748affceba07539c
+  releaseVersion: 0.0.38
+  configChecksum: e9e6a79bf994793ce2b09eddf3eaec0e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -211,7 +211,7 @@ generatedFiles:
   - /models/components/outputxsiam.go
   - /models/components/packinfo.go
   - /models/components/packinstallinfo.go
-  - /models/components/packrequestbody.go
+  - /models/components/packrequestbodyunion.go
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
@@ -1945,8 +1945,11 @@ generatedFiles:
   - docs/models/components/packinfotags.md
   - docs/models/components/packinstallinfo.md
   - docs/models/components/packinstallinfotags.md
-  - docs/models/components/packrequestbody.md
-  - docs/models/components/packrequestbodytags.md
+  - docs/models/components/packrequestbody1.md
+  - docs/models/components/packrequestbody2.md
+  - docs/models/components/packrequestbodytags1.md
+  - docs/models/components/packrequestbodytags2.md
+  - docs/models/components/packrequestbodyunion.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
   - docs/models/components/pipelinefunctionconf.md
@@ -2699,7 +2702,7 @@ examples:
   createPacks:
     speakeasy-default-create-packs:
       requestBody:
-        application/json: {"allowCustomFunctions": false, "author": "<value>", "description": "premeditation coincide although", "displayName": "Myah14", "exports": ["<value 1>"], "force": false, "id": "<id>", "inputs": 4076.64, "minLogStreamVersion": "<value>", "outputs": 2759.4, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": [], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Myah14", "author": "<value>", "description": "premeditation coincide although", "source": "<value>", "tags": {"dataType": [], "domain": [], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": false}
       responses:
         "200":
           application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": "<value>"}]}
@@ -3155,4 +3158,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Packs.Get()`: **Added**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputWizWebhook]` **Added**\n  *  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputWizWebhook]` **Added**\n  *  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputWizWebhook]` **Added**\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `request.GitRevertParams.Message` **Changed**\n"
+releaseNotes: |
+  ## SDK Changes Detected:
+  * `CriblControlPlane.Packs.Install()`:  `request.Request` **Changed** **Breaking** :warning:
