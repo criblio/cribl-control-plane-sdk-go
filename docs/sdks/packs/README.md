@@ -7,7 +7,7 @@ Actions related to Packs
 
 ### Available Operations
 
-* [Install](#install) - Install a Pack
+* [Install](#install) - Create or install a Pack
 * [List](#list) - List all Packs
 * [Delete](#delete) - Uninstall a Pack
 * [Get](#get) - Get a Pack
@@ -15,7 +15,7 @@ Actions related to Packs
 
 ## Install
 
-Install a Pack.
+Create or install a Pack.
 
 ### Example Usage
 
@@ -41,34 +41,31 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Install(ctx, components.PackRequestBody{
-        AllowCustomFunctions: criblcontrolplanesdkgo.Bool(false),
-        Author: criblcontrolplanesdkgo.String("<value>"),
-        Description: criblcontrolplanesdkgo.String("premeditation coincide although"),
-        DisplayName: criblcontrolplanesdkgo.String("Myah14"),
-        Exports: []string{
-            "<value 1>",
-        },
-        Force: criblcontrolplanesdkgo.Bool(false),
-        ID: "<id>",
-        Inputs: criblcontrolplanesdkgo.Float64(4076.64),
-        MinLogStreamVersion: criblcontrolplanesdkgo.String("<value>"),
-        Outputs: criblcontrolplanesdkgo.Float64(2759.4),
-        Source: "<value>",
-        Spec: criblcontrolplanesdkgo.String("<value>"),
-        Tags: &components.PackRequestBodyTags{
-            DataType: []string{},
-            Domain: []string{},
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
+        components.PackRequestBody1{
+            ID: "<id>",
+            Spec: criblcontrolplanesdkgo.String("<value>"),
+            Version: criblcontrolplanesdkgo.String("<value>"),
+            MinLogStreamVersion: criblcontrolplanesdkgo.String("<value>"),
+            DisplayName: criblcontrolplanesdkgo.String("Myah14"),
+            Author: criblcontrolplanesdkgo.String("<value>"),
+            Description: criblcontrolplanesdkgo.String("premeditation coincide although"),
+            Source: criblcontrolplanesdkgo.String("<value>"),
+            Tags: &components.PackRequestBodyTags1{
+                DataType: []string{},
+                Domain: []string{},
+                Technology: []string{
+                    "<value 1>",
+                },
+                Streamtags: []string{
+                    "<value 1>",
+                    "<value 2>",
+                },
             },
-            Technology: []string{
-                "<value 1>",
-            },
+            AllowCustomFunctions: criblcontrolplanesdkgo.Bool(false),
+            Force: criblcontrolplanesdkgo.Bool(false),
         },
-        Version: criblcontrolplanesdkgo.String("<value>"),
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -80,11 +77,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `request`                                                                | [components.PackRequestBody](../../models/components/packrequestbody.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `request`                                                                          | [components.PackRequestBodyUnion](../../models/components/packrequestbodyunion.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
 
 ### Response
 

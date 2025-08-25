@@ -32,9 +32,9 @@ func newPacks(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// Install a Pack
-// Install a Pack.
-func (s *Packs) Install(ctx context.Context, request components.PackRequestBody, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
+// Install - Create or install a Pack
+// Create or install a Pack.
+func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyUnion, opts ...operations.Option) (*operations.CreatePacksResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
