@@ -8,26 +8,26 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputGooglePubsubTypeGooglePubsub string
+type OutputGooglePubsubType string
 
 const (
-	OutputGooglePubsubTypeGooglePubsubGooglePubsub OutputGooglePubsubTypeGooglePubsub = "google_pubsub"
+	OutputGooglePubsubTypeGooglePubsub OutputGooglePubsubType = "google_pubsub"
 )
 
-func (e OutputGooglePubsubTypeGooglePubsub) ToPointer() *OutputGooglePubsubTypeGooglePubsub {
+func (e OutputGooglePubsubType) ToPointer() *OutputGooglePubsubType {
 	return &e
 }
-func (e *OutputGooglePubsubTypeGooglePubsub) UnmarshalJSON(data []byte) error {
+func (e *OutputGooglePubsubType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "google_pubsub":
-		*e = OutputGooglePubsubTypeGooglePubsub(v)
+		*e = OutputGooglePubsubType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubTypeGooglePubsub: %v", v)
+		return fmt.Errorf("invalid value for OutputGooglePubsubType: %v", v)
 	}
 }
 
@@ -59,49 +59,6 @@ func (e *OutputGooglePubsubGoogleAuthenticationMethod) UnmarshalJSON(data []byte
 	default:
 		return fmt.Errorf("invalid value for OutputGooglePubsubGoogleAuthenticationMethod: %v", v)
 	}
-}
-
-type FlushPeriodSecType string
-
-const (
-	FlushPeriodSecTypeNumber FlushPeriodSecType = "number"
-)
-
-func (e FlushPeriodSecType) ToPointer() *FlushPeriodSecType {
-	return &e
-}
-func (e *FlushPeriodSecType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "number":
-		*e = FlushPeriodSecType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for FlushPeriodSecType: %v", v)
-	}
-}
-
-// FlushPeriodSec - Maximum time to wait before sending a batch (when batch size limit is not reached).
-type FlushPeriodSec struct {
-	Type    *FlushPeriodSecType `json:"type,omitempty"`
-	Default *float64            `json:"default,omitempty"`
-}
-
-func (o *FlushPeriodSec) GetType() *FlushPeriodSecType {
-	if o == nil {
-		return nil
-	}
-	return o.Type
-}
-
-func (o *FlushPeriodSec) GetDefault() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Default
 }
 
 // OutputGooglePubsubBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -223,8 +180,8 @@ type OutputGooglePubsubPqControls struct {
 
 type OutputGooglePubsub struct {
 	// Unique ID for this output
-	ID   *string                            `json:"id,omitempty"`
-	Type OutputGooglePubsubTypeGooglePubsub `json:"type"`
+	ID   *string                `json:"id,omitempty"`
+	Type OutputGooglePubsubType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -255,8 +212,8 @@ type OutputGooglePubsub struct {
 	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
 	// Maximum size (KB) of batches to send.
 	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
-	// Maximum time to wait before sending a batch (when batch size limit is not reached).
-	FlushPeriodSec *FlushPeriodSec `json:"flushPeriodSec,omitempty"`
+	// Maximum time to wait before sending a batch (when batch size limit is not reached)
+	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
 	// The maximum number of in-progress API requests before backpressure is applied.
 	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
 	// How to handle events when all receivers are exerting backpressure
@@ -295,9 +252,9 @@ func (o *OutputGooglePubsub) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputGooglePubsub) GetType() OutputGooglePubsubTypeGooglePubsub {
+func (o *OutputGooglePubsub) GetType() OutputGooglePubsubType {
 	if o == nil {
-		return OutputGooglePubsubTypeGooglePubsub("")
+		return OutputGooglePubsubType("")
 	}
 	return o.Type
 }
@@ -407,11 +364,11 @@ func (o *OutputGooglePubsub) GetMaxRecordSizeKB() *float64 {
 	return o.MaxRecordSizeKB
 }
 
-func (o *OutputGooglePubsub) GetFlushPeriodSec() *FlushPeriodSec {
+func (o *OutputGooglePubsub) GetFlushPeriod() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.FlushPeriodSec
+	return o.FlushPeriod
 }
 
 func (o *OutputGooglePubsub) GetMaxInProgress() *float64 {

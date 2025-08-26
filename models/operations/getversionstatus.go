@@ -8,14 +8,14 @@ import (
 
 type GetVersionStatusRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
-	Group *string `queryParam:"style=form,explode=true,name=group"`
+	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 }
 
-func (o *GetVersionStatusRequest) GetGroup() *string {
+func (o *GetVersionStatusRequest) GetGroupID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Group
+	return o.GroupID
 }
 
 // GetVersionStatusResponseBody - a list of GitStatusResult objects

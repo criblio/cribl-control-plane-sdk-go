@@ -4,8 +4,8 @@ package components
 
 type PackInfoTags struct {
 	DataType   []string `json:"dataType"`
-	Domain     []string `json:"domain"`
-	Streamtags []string `json:"streamtags"`
+	Domain     []string `json:"domain,omitempty"`
+	Streamtags []string `json:"streamtags,omitempty"`
 	Technology []string `json:"technology"`
 }
 
@@ -18,14 +18,14 @@ func (o *PackInfoTags) GetDataType() []string {
 
 func (o *PackInfoTags) GetDomain() []string {
 	if o == nil {
-		return []string{}
+		return nil
 	}
 	return o.Domain
 }
 
 func (o *PackInfoTags) GetStreamtags() []string {
 	if o == nil {
-		return []string{}
+		return nil
 	}
 	return o.Streamtags
 }

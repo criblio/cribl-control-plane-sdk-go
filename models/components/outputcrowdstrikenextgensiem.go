@@ -390,7 +390,7 @@ type OutputCrowdstrikeNextGenSiem struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
-	Format *OutputCrowdstrikeNextGenSiemRequestFormat `default:"raw" json:"format"`
+	Format *OutputCrowdstrikeNextGenSiemRequestFormat `default:"JSON" json:"format"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *OutputCrowdstrikeNextGenSiemAuthenticationMethod `default:"manual" json:"authType"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)

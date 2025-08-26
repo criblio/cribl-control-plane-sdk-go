@@ -33,9 +33,9 @@ func newStatuses(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 
 // Get the status of the current working tree
 // Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
-func (s *Statuses) Get(ctx context.Context, group *string, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
+func (s *Statuses) Get(ctx context.Context, groupID *string, opts ...operations.Option) (*operations.GetVersionStatusResponse, error) {
 	request := operations.GetVersionStatusRequest{
-		Group: group,
+		GroupID: groupID,
 	}
 
 	o := operations.Options{}

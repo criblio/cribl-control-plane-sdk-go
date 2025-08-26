@@ -36,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -51,7 +51,7 @@ func main() {
 | Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `ctx`                                                                       | [context.Context](https://pkg.go.dev/context#Context)                       | :heavy_check_mark:                                                          | The context to use for the request.                                         |
-| `group`                                                                     | **string*                                                                   | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
+| `groupID`                                                                   | **string*                                                                   | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
 | `id`                                                                        | **string*                                                                   | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |
 | `opts`                                                                      | [][operations.Option](../../models/operations/option.md)                    | :heavy_minus_sign:                                                          | The options for this request.                                               |
 
@@ -94,7 +94,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -109,7 +109,7 @@ func main() {
 | Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
-| `group`                                                                                 | **string*                                                                               | :heavy_minus_sign:                                                                      | The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for. |
+| `groupID`                                                                               | **string*                                                                               | :heavy_minus_sign:                                                                      | The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for. |
 | `id`                                                                                    | **string*                                                                               | :heavy_minus_sign:                                                                      | The Git commit hash to use as the starting point for the request.                       |
 | `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 

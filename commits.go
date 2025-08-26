@@ -36,7 +36,12 @@ func newCommits(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 
 // Create a new commit for pending changes to the Cribl configuration
 // Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
-func (s *Commits) Create(ctx context.Context, request components.GitCommitParams, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
+func (s *Commits) Create(ctx context.Context, gitCommitParams components.GitCommitParams, groupID *string, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
+	request := operations.CreateVersionCommitRequest{
+		GroupID:         groupID,
+		GitCommitParams: gitCommitParams,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -69,7 +74,7 @@ func (s *Commits) Create(ctx context.Context, request components.GitCommitParams
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "GitCommitParams", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -93,6 +98,10 @@ func (s *Commits) Create(ctx context.Context, request components.GitCommitParams
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
+	}
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
@@ -276,10 +285,10 @@ func (s *Commits) Create(ctx context.Context, request components.GitCommitParams
 
 // Diff - Get the diff for a commit
 // Get the diff for a commit. Default is the latest commit (HEAD).
-func (s *Commits) Diff(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
+func (s *Commits) Diff(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionDiffResponse, error) {
 	request := operations.GetVersionDiffRequest{
 		Commit:        commit,
-		Group:         group,
+		GroupID:       groupID,
 		Filename:      filename,
 		DiffLineLimit: diffLineLimit,
 	}
@@ -520,10 +529,10 @@ func (s *Commits) Diff(ctx context.Context, commit *string, group *string, filen
 
 // List the commit history
 // List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
-func (s *Commits) List(ctx context.Context, group *string, count *float64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
+func (s *Commits) List(ctx context.Context, groupID *string, count *float64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
 	request := operations.GetVersionRequest{
-		Group: group,
-		Count: count,
+		GroupID: groupID,
+		Count:   count,
 	}
 
 	o := operations.Options{}
@@ -995,9 +1004,9 @@ func (s *Commits) Push(ctx context.Context, opts ...operations.Option) (*operati
 
 // Revert a commit in the local repository
 // Revert a commit in the local repository.
-func (s *Commits) Revert(ctx context.Context, gitRevertParams components.GitRevertParams, group *string, opts ...operations.Option) (*operations.CreateVersionRevertResponse, error) {
+func (s *Commits) Revert(ctx context.Context, gitRevertParams components.GitRevertParams, groupID *string, opts ...operations.Option) (*operations.CreateVersionRevertResponse, error) {
 	request := operations.CreateVersionRevertRequest{
-		Group:           group,
+		GroupID:         groupID,
 		GitRevertParams: gitRevertParams,
 	}
 
@@ -1244,10 +1253,10 @@ func (s *Commits) Revert(ctx context.Context, gitRevertParams components.GitReve
 
 // Get the diff and log message for a commit
 // Get the diff and log message for a commit. Default is the latest commit (HEAD).
-func (s *Commits) Get(ctx context.Context, commit *string, group *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
+func (s *Commits) Get(ctx context.Context, commit *string, groupID *string, filename *string, diffLineLimit *float64, opts ...operations.Option) (*operations.GetVersionShowResponse, error) {
 	request := operations.GetVersionShowRequest{
 		Commit:        commit,
-		Group:         group,
+		GroupID:       groupID,
 		Filename:      filename,
 		DiffLineLimit: diffLineLimit,
 	}
@@ -1488,9 +1497,9 @@ func (s *Commits) Get(ctx context.Context, commit *string, group *string, filena
 
 // Undo - Discard uncommitted (staged) changes
 // Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
-func (s *Commits) Undo(ctx context.Context, group *string, opts ...operations.Option) (*operations.CreateVersionUndoResponse, error) {
+func (s *Commits) Undo(ctx context.Context, groupID *string, opts ...operations.Option) (*operations.CreateVersionUndoResponse, error) {
 	request := operations.CreateVersionUndoRequest{
-		Group: group,
+		GroupID: groupID,
 	}
 
 	o := operations.Options{}

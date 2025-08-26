@@ -9,12 +9,8 @@ import (
 type UpdatePacksByIDRequest struct {
 	// The <code>id</code> of the Pack to upgrade.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// body string required Pack source
-	Source *string `queryParam:"style=form,explode=true,name=source"`
-	// body boolean optional Only upgrade to minor/patch versions
-	Minor *string `queryParam:"style=form,explode=true,name=minor"`
-	// body string optional Specify a branch, tag or a semver spec
-	Spec *string `queryParam:"style=form,explode=true,name=spec"`
+	// PackUpgradeRequest object
+	PackUpgradeRequest components.PackUpgradeRequest `request:"mediaType=application/json"`
 }
 
 func (o *UpdatePacksByIDRequest) GetID() string {
@@ -24,25 +20,11 @@ func (o *UpdatePacksByIDRequest) GetID() string {
 	return o.ID
 }
 
-func (o *UpdatePacksByIDRequest) GetSource() *string {
+func (o *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeRequest {
 	if o == nil {
-		return nil
+		return components.PackUpgradeRequest{}
 	}
-	return o.Source
-}
-
-func (o *UpdatePacksByIDRequest) GetMinor() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Minor
-}
-
-func (o *UpdatePacksByIDRequest) GetSpec() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Spec
+	return o.PackUpgradeRequest
 }
 
 // UpdatePacksByIDResponseBody - a list of PackInfo objects

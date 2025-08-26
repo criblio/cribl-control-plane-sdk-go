@@ -8,16 +8,16 @@ import (
 
 type CreateVersionRevertRequest struct {
 	// Group ID
-	Group *string `queryParam:"style=form,explode=true,name=group"`
+	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// GitRevertParams object
 	GitRevertParams components.GitRevertParams `request:"mediaType=application/json"`
 }
 
-func (o *CreateVersionRevertRequest) GetGroup() *string {
+func (o *CreateVersionRevertRequest) GetGroupID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Group
+	return o.GroupID
 }
 
 func (o *CreateVersionRevertRequest) GetGitRevertParams() components.GitRevertParams {
