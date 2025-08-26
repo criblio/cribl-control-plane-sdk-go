@@ -989,12 +989,10 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 
 // Update - Upgrade a Pack
 // Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
-func (s *Packs) Update(ctx context.Context, id string, source *string, minor *string, spec *string, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
+func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest components.PackUpgradeRequest, opts ...operations.Option) (*operations.UpdatePacksByIDResponse, error) {
 	request := operations.UpdatePacksByIDRequest{
-		ID:     id,
-		Source: source,
-		Minor:  minor,
-		Spec:   spec,
+		ID:                 id,
+		PackUpgradeRequest: packUpgradeRequest,
 	}
 
 	o := operations.Options{}
@@ -1029,6 +1027,10 @@ func (s *Packs) Update(ctx context.Context, id string, source *string, minor *st
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "PackUpgradeRequest", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -1041,15 +1043,14 @@ func (s *Packs) Update(ctx context.Context, id string, source *string, minor *st
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "PATCH", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "PATCH", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
 	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {

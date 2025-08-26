@@ -293,7 +293,12 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.Update(ctx, "<id>", criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
+        AllowCustomFunctions: criblcontrolplanesdkgo.Bool(true),
+        Minor: criblcontrolplanesdkgo.String("<value>"),
+        Source: "<value>",
+        Spec: criblcontrolplanesdkgo.String("<value>"),
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -305,14 +310,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |
-| `id`                                                        | *string*                                                    | :heavy_check_mark:                                          | The <code>id</code> of the Pack to upgrade.                 |
-| `source`                                                    | **string*                                                   | :heavy_minus_sign:                                          | body string required Pack source                            |
-| `minor`                                                     | **string*                                                   | :heavy_minus_sign:                                          | body boolean optional Only upgrade to minor/patch versions  |
-| `spec`                                                      | **string*                                                   | :heavy_minus_sign:                                          | body string optional Specify a branch, tag or a semver spec |
-| `opts`                                                      | [][operations.Option](../../models/operations/option.md)    | :heavy_minus_sign:                                          | The options for this request.                               |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
+| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Pack to upgrade.                                    |
+| `packUpgradeRequest`                                                           | [components.PackUpgradeRequest](../../models/components/packupgraderequest.md) | :heavy_check_mark:                                                             | PackUpgradeRequest object                                                      |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
 ### Response
 

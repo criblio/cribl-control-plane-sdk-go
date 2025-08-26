@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 97ea285bac6d9bca4e3263346a46d09d
-  docVersion: 4.14.0-alpha.1756133891055-db064179
+  docChecksum: 21bd3436284a73dc5ee3d97059956387
+  docVersion: 4.14.0-alpha.1756226637429-1513a21f
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.38
-  configChecksum: e9e6a79bf994793ce2b09eddf3eaec0e
+  releaseVersion: 0.0.39
+  configChecksum: 0de318b6d572996e726c90fbb2415de2
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -212,6 +212,7 @@ generatedFiles:
   - /models/components/packinfo.go
   - /models/components/packinstallinfo.go
   - /models/components/packrequestbodyunion.go
+  - /models/components/packupgraderequest.go
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
@@ -359,8 +360,6 @@ generatedFiles:
   - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
-  - docs/models/components/flushperiodsec.md
-  - docs/models/components/flushperiodsectype.md
   - docs/models/components/functionspecificconfigs.md
   - docs/models/components/git.md
   - docs/models/components/gitcommitparams.md
@@ -1451,7 +1450,7 @@ generatedFiles:
   - docs/models/components/outputgooglepubsubmode.md
   - docs/models/components/outputgooglepubsubpqcontrols.md
   - docs/models/components/outputgooglepubsubqueuefullbehavior.md
-  - docs/models/components/outputgooglepubsubtypegooglepubsub.md
+  - docs/models/components/outputgooglepubsubtype.md
   - docs/models/components/outputgrafanacloud.md
   - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
   - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
@@ -1950,6 +1949,7 @@ generatedFiles:
   - docs/models/components/packrequestbodytags1.md
   - docs/models/components/packrequestbodytags2.md
   - docs/models/components/packrequestbodyunion.md
+  - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
   - docs/models/components/pipelinefunctionconf.md
@@ -2029,6 +2029,7 @@ generatedFiles:
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createroutesappendbyidresponsebody.md
+  - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
   - docs/models/operations/createversioncommitresponsebody.md
   - docs/models/operations/createversionpushresponse.md
@@ -2520,6 +2521,9 @@ examples:
           application/json: {"message": "<value>"}
   createVersionCommit:
     speakeasy-default-create-version-commit:
+      parameters:
+        query:
+          groupId: "<id>"
       requestBody:
         application/json: {"effective": false, "files": ["<value 1>"], "group": "<value>", "message": "<value>"}
       responses:
@@ -2533,6 +2537,7 @@ examples:
         query:
           group: "<value>"
           ID: "<id>"
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 856007, "items": [{"key": "<value>"}]}
@@ -2553,6 +2558,7 @@ examples:
           group: "<value>"
           filename: "example.file"
           diffLineLimit: 6362
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 236125, "items": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>"}, {}]}
@@ -2564,6 +2570,7 @@ examples:
         query:
           group: "<value>"
           ID: "<id>"
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 710228, "items": [{"commitMessage": {"key": "<value>"}, "count": 81.98, "items": []}]}
@@ -2588,6 +2595,7 @@ examples:
       parameters:
         query:
           group: "<value>"
+          groupId: "<id>"
       requestBody:
         application/json: {"commit": "<value>", "force": false, "message": "<value>"}
       responses:
@@ -2603,6 +2611,7 @@ examples:
           group: "<value>"
           filename: "example.file"
           diffLineLimit: 7771.94
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 969040, "items": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}]}
@@ -2613,6 +2622,7 @@ examples:
       parameters:
         query:
           group: "<value>"
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 616511, "items": [{"ahead": 3019.14, "behind": 4465.56, "conflicted": ["<value 1>", "<value 2>"], "created": ["<value 1>", "<value 2>"], "current": "<value>", "deleted": ["<value 1>"], "files": [], "modified": ["<value 1>", "<value 2>", "<value 3>"], "not_added": [], "renamed": [{"from": "<value>", "to": "<value>"}], "staged": ["<value 1>", "<value 2>", "<value 3>"]}]}
@@ -2630,6 +2640,7 @@ examples:
       parameters:
         query:
           group: "<value>"
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 219852, "items": ["<value 1>", "<value 2>"]}
@@ -2865,6 +2876,8 @@ examples:
           source: "<value>"
           minor: "<value>"
           spec: "<value>"
+      requestBody:
+        application/json: {"allowCustomFunctions": true, "minor": "<value>", "source": "<value>", "spec": "<value>"}
       responses:
         "200":
           application/json: {"count": 338042, "items": [{"author": "<value>", "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
@@ -3034,6 +3047,7 @@ examples:
         query:
           group: "<value>"
           count: 893.58
+          groupId: "<id>"
       responses:
         "200":
           application/json: {"count": 384008, "items": [{"author_email": "<value>", "author_name": "<value>", "body": "<value>", "date": "2024-03-31", "hash": "<value>", "message": "<value>", "refs": "<value>"}]}
@@ -3158,6 +3172,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `CriblControlPlane.Packs.Install()`:  `request.Request` **Changed** **Breaking** :warning:
+releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Versions.Commits.List()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Revert()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Statuses.Get()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Files.List()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Files.Count()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputGooglePubsub]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Create()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputGooglePubsub]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Diff()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Get()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags` **Changed**\n"

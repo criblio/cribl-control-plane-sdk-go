@@ -48,7 +48,7 @@ func main() {
         },
         Group: criblcontrolplanesdkgo.String("<value>"),
         Message: "<value>",
-    })
+    }, criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -60,11 +60,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `request`                                                                | [components.GitCommitParams](../../models/components/gitcommitparams.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `ctx`                                                                             | [context.Context](https://pkg.go.dev/context#Context)                             | :heavy_check_mark:                                                                | The context to use for the request.                                               |
+| `gitCommitParams`                                                                 | [components.GitCommitParams](../../models/components/gitcommitparams.md)          | :heavy_check_mark:                                                                | GitCommitParams object                                                            |
+| `groupID`                                                                         | **string*                                                                         | :heavy_minus_sign:                                                                | The <code>id</code> of the Worker Group or Edge Fleet to create a new commit for. |
+| `opts`                                                                            | [][operations.Option](../../models/operations/option.md)                          | :heavy_minus_sign:                                                                | The options for this request.                                                     |
 
 ### Response
 
@@ -105,7 +106,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
+    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
     if err != nil {
         log.Fatal(err)
     }
@@ -121,7 +122,7 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                                     | :heavy_check_mark:                                                                                                                        | The context to use for the request.                                                                                                       |
 | `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to get the diff for.                                                                                                  |
-| `group`                                                                                                                                   | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.                                                                |
+| `groupID`                                                                                                                                 | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.                                                                |
 | `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff for.                                                                                        |
 | `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
 | `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
@@ -165,7 +166,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.Float64(893.58))
+    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.Float64(893.58))
     if err != nil {
         log.Fatal(err)
     }
@@ -180,7 +181,7 @@ func main() {
 | Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
-| `group`                                                                              | **string*                                                                            | :heavy_minus_sign:                                                                   | The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for. |
+| `groupID`                                                                            | **string*                                                                            | :heavy_minus_sign:                                                                   | The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for. |
 | `count`                                                                              | **float64*                                                                           | :heavy_minus_sign:                                                                   | Maximum number of commits to return in the response for this request.                |
 | `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
 
@@ -283,7 +284,7 @@ func main() {
         Commit: "<value>",
         Force: criblcontrolplanesdkgo.Bool(false),
         Message: criblcontrolplanesdkgo.String("<value>"),
-    }, criblcontrolplanesdkgo.String("<value>"))
+    }, criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -299,7 +300,7 @@ func main() {
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
 | `gitRevertParams`                                                        | [components.GitRevertParams](../../models/components/gitrevertparams.md) | :heavy_check_mark:                                                       | GitRevertParams object                                                   |
-| `group`                                                                  | **string*                                                                | :heavy_minus_sign:                                                       | Group ID                                                                 |
+| `groupID`                                                                | **string*                                                                | :heavy_minus_sign:                                                       | Group ID                                                                 |
 | `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
 
 ### Response
@@ -341,7 +342,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
+    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -357,7 +358,7 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                                     | :heavy_check_mark:                                                                                                                        | The context to use for the request.                                                                                                       |
 | `commit`                                                                                                                                  | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The Git commit hash to retrieve the diff and log message for.                                                                             |
-| `group`                                                                                                                                   | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.                                                |
+| `groupID`                                                                                                                                 | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.                                                |
 | `filename`                                                                                                                                | **string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                        | The relative path of the file to get the diff and log message for.                                                                        |
 | `diffLineLimit`                                                                                                                           | **float64*                                                                                                                                | :heavy_minus_sign:                                                                                                                        | Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines. |
 | `opts`                                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                                  | :heavy_minus_sign:                                                                                                                        | The options for this request.                                                                                                             |
@@ -401,7 +402,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Undo(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Versions.Commits.Undo(ctx, criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -416,7 +417,7 @@ func main() {
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `ctx`                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                     | :heavy_check_mark:                                                                        | The context to use for the request.                                                       |
-| `group`                                                                                   | **string*                                                                                 | :heavy_minus_sign:                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for. |
+| `groupID`                                                                                 | **string*                                                                                 | :heavy_minus_sign:                                                                        | The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for. |
 | `opts`                                                                                    | [][operations.Option](../../models/operations/option.md)                                  | :heavy_minus_sign:                                                                        | The options for this request.                                                             |
 
 ### Response
