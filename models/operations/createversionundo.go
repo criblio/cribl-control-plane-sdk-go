@@ -8,14 +8,14 @@ import (
 
 type CreateVersionUndoRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
-	Group *string `queryParam:"style=form,explode=true,name=group"`
+	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 }
 
-func (o *CreateVersionUndoRequest) GetGroup() *string {
+func (o *CreateVersionUndoRequest) GetGroupID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Group
+	return o.GroupID
 }
 
 // CreateVersionUndoResponseBody - a list of object objects

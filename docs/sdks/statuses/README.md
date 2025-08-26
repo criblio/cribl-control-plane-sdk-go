@@ -35,7 +35,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Statuses.Get(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Versions.Statuses.Get(ctx, criblcontrolplanesdkgo.String("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -50,7 +50,7 @@ func main() {
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
-| `group`                                                                      | **string*                                                                    | :heavy_minus_sign:                                                           | The <code>id</code> of the Worker Group or Edge Fleet to get the status for. |
+| `groupID`                                                                    | **string*                                                                    | :heavy_minus_sign:                                                           | The <code>id</code> of the Worker Group or Edge Fleet to get the status for. |
 | `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
 ### Response

@@ -4,8 +4,8 @@ package components
 
 type PackInstallInfoTags struct {
 	DataType   []string `json:"dataType"`
-	Domain     []string `json:"domain"`
-	Streamtags []string `json:"streamtags"`
+	Domain     []string `json:"domain,omitempty"`
+	Streamtags []string `json:"streamtags,omitempty"`
 	Technology []string `json:"technology"`
 }
 
@@ -18,14 +18,14 @@ func (o *PackInstallInfoTags) GetDataType() []string {
 
 func (o *PackInstallInfoTags) GetDomain() []string {
 	if o == nil {
-		return []string{}
+		return nil
 	}
 	return o.Domain
 }
 
 func (o *PackInstallInfoTags) GetStreamtags() []string {
 	if o == nil {
-		return []string{}
+		return nil
 	}
 	return o.Streamtags
 }

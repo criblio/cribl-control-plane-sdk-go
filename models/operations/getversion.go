@@ -8,16 +8,16 @@ import (
 
 type GetVersionRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
-	Group *string `queryParam:"style=form,explode=true,name=group"`
+	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// Maximum number of commits to return in the response for this request.
 	Count *float64 `queryParam:"style=form,explode=true,name=count"`
 }
 
-func (o *GetVersionRequest) GetGroup() *string {
+func (o *GetVersionRequest) GetGroupID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Group
+	return o.GroupID
 }
 
 func (o *GetVersionRequest) GetCount() *float64 {

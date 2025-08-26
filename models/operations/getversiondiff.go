@@ -10,7 +10,7 @@ type GetVersionDiffRequest struct {
 	// The Git commit hash to get the diff for.
 	Commit *string `queryParam:"style=form,explode=true,name=commit"`
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.
-	Group *string `queryParam:"style=form,explode=true,name=group"`
+	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The relative path of the file to get the diff for.
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
 	// Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
@@ -24,11 +24,11 @@ func (o *GetVersionDiffRequest) GetCommit() *string {
 	return o.Commit
 }
 
-func (o *GetVersionDiffRequest) GetGroup() *string {
+func (o *GetVersionDiffRequest) GetGroupID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Group
+	return o.GroupID
 }
 
 func (o *GetVersionDiffRequest) GetFilename() *string {
