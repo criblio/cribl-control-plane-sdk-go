@@ -73,7 +73,7 @@ func (e *OutputSentinelOneAiSiemRegion) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// AISIEMEndpointPath - Regional endpoint used to send events to, such as /services/collector/event or /services/collector/raw
+// AISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
 type AISIEMEndpointPath string
 
 const (
@@ -406,7 +406,7 @@ type OutputSentinelOneAiSiem struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
 	Region *OutputSentinelOneAiSiemRegion `default:"US" json:"region"`
-	// Regional endpoint used to send events to, such as /services/collector/event or /services/collector/raw
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
 	Endpoint *AISIEMEndpointPath `default:"/services/collector/event" json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
