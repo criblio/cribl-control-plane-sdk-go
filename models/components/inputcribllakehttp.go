@@ -394,11 +394,22 @@ func (o *InputCriblLakeHTTPAuthTokensExtMetadatum) GetValue() string {
 }
 
 type InputCriblLakeHTTPAuthTokensExt struct {
-	// Shared secret to be provided by any client (Authorization: <token>)
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
+	Metadata        []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
+	EnableSplunkHec *bool                                      `default:"false" json:"enableSplunkHec"`
+}
+
+func (i InputCriblLakeHTTPAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputCriblLakeHTTPAuthTokensExt) GetToken() string {
@@ -420,6 +431,13 @@ func (o *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []InputCriblLakeHTTPAuth
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExt) GetEnableSplunkHec() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableSplunkHec
 }
 
 type InputCriblLakeHTTP struct {
@@ -477,8 +495,7 @@ type InputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
 	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
 	// Fields to add to events from this input
-	Metadata []InputCriblLakeHTTPMetadatum `json:"metadata,omitempty"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	Metadata      []InputCriblLakeHTTPMetadatum     `json:"metadata,omitempty"`
 	AuthTokensExt []InputCriblLakeHTTPAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                           `json:"description,omitempty"`
 }
