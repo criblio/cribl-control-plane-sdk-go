@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 21bd3436284a73dc5ee3d97059956387
-  docVersion: 4.14.0-alpha.1756226637429-1513a21f
+  docChecksum: 36d4fddcaf99747ad0ef92a847f4e919
+  docVersion: 4.14.0-alpha.1756720086962-ed6aba5c
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.39
-  configChecksum: 0de318b6d572996e726c90fbb2415de2
+  releaseVersion: 0.0.40
+  configChecksum: 16208f75870e5a425ec0a0d5c635fa1b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3172,4 +3172,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Versions.Commits.List()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Revert()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Statuses.Get()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Files.List()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Files.Count()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputGooglePubsub]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Create()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputGooglePubsub]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Diff()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputGooglePubsub]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Get()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags` **Changed**\n"
+releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n  *  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n  *  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.ConfigGroup.ConfigVersion` **Changed**\n  *  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.ConfigVersion` **Changed**\n  *  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].ConfigVersion` **Changed**\n"
