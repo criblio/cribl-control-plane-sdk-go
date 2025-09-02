@@ -1,11 +1,11 @@
 # GetVersionBranchResponseBody
 
-a list of any objects
+a list of BranchInfo objects
 
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `Count`                                    | **int64*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `Items`                                    | []map[string]*any*                         | :heavy_minus_sign:                         | N/A                                        |
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `Count`                                                          | **int64*                                                         | :heavy_minus_sign:                                               | number of items present in the items array                       |
+| `Items`                                                          | [][components.BranchInfo](../../models/components/branchinfo.md) | :heavy_minus_sign:                                               | N/A                                                              |
