@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 36d4fddcaf99747ad0ef92a847f4e919
-  docVersion: 4.14.0-alpha.1756720086962-ed6aba5c
+  docChecksum: 1a1b1dc97bae0b5390223995daac8e68
+  docVersion: 4.14.0-alpha.1756793140693-1fbdb43f
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.40
-  configChecksum: 16208f75870e5a425ec0a0d5c635fa1b
+  releaseVersion: 0.0.41-alpha.1
+  configChecksum: ef471902193d63ac301cbf5a2ac4ebe4
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -41,6 +41,7 @@ generatedFiles:
   - /models/components/addhectokenrequest.go
   - /models/components/appmode.go
   - /models/components/authtoken.go
+  - /models/components/branchinfo.go
   - /models/components/cacheconnection.go
   - /models/components/cacheconnectionbackfillstatus.go
   - /models/components/cloudprovider.go
@@ -55,9 +56,12 @@ generatedFiles:
   - /models/components/datasetmetadataruninfo.go
   - /models/components/deployrequest.go
   - /models/components/deployrequestlookups.go
+  - /models/components/difffiles.go
   - /models/components/distributedsummary.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
+  - /models/components/gitcountresult.go
+  - /models/components/gitdiffresult.go
   - /models/components/gitfile.go
   - /models/components/gitfilesresponse.go
   - /models/components/gitinfo.go
@@ -130,6 +134,8 @@ generatedFiles:
   - /models/components/inputwiz.go
   - /models/components/inputwizwebhook.go
   - /models/components/inputzscalerhec.go
+  - /models/components/jobinfo.go
+  - /models/components/jobstatus.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
@@ -222,6 +228,10 @@ generatedFiles:
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
+  - /models/components/runnablejob.go
+  - /models/components/runnablejobcollection.go
+  - /models/components/runnablejobexecutor.go
+  - /models/components/runnablejobscheduledsearch.go
   - /models/components/schemeclientoauth.go
   - /models/components/security.go
   - /models/components/teamaccesscontrollist.go
@@ -313,11 +323,17 @@ generatedFiles:
   - docs/models/components/authtype.md
   - docs/models/components/awsauthenticationmethod.md
   - docs/models/components/blobaccesstier.md
+  - docs/models/components/block.md
+  - docs/models/components/branchinfo.md
   - docs/models/components/cacheconnection.md
   - docs/models/components/cacheconnectionbackfillstatus.md
+  - docs/models/components/capturesettings.md
   - docs/models/components/certoptions.md
+  - docs/models/components/checksumbefore.md
   - docs/models/components/cloudprovider.md
+  - docs/models/components/collector.md
   - docs/models/components/collectors.md
+  - docs/models/components/collectorspecificsettings.md
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
@@ -342,6 +358,7 @@ generatedFiles:
   - docs/models/components/deployrequest.md
   - docs/models/components/deployrequestlookups.md
   - docs/models/components/deployrequestlookupslookup.md
+  - docs/models/components/difffiles.md
   - docs/models/components/disksandfilesystems.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
@@ -354,6 +371,8 @@ generatedFiles:
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
   - docs/models/components/eventformat.md
+  - docs/models/components/executor.md
+  - docs/models/components/executorspecificsettings.md
   - docs/models/components/extenttag.md
   - docs/models/components/extralogtype.md
   - docs/models/components/facility.md
@@ -365,6 +384,8 @@ generatedFiles:
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
   - docs/models/components/gitcommitsummaryfiles.md
+  - docs/models/components/gitcountresult.md
+  - docs/models/components/gitdiffresult.md
   - docs/models/components/gitfile.md
   - docs/models/components/gitfilesresponse.md
   - docs/models/components/gitinfo.md
@@ -1101,9 +1122,15 @@ generatedFiles:
   - docs/models/components/inputzscalerhectlssettingsserverside.md
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
+  - docs/models/components/jobinfo.md
+  - docs/models/components/jobstatus.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
   - docs/models/components/lastmetrics.md
+  - docs/models/components/line1.md
+  - docs/models/components/line2.md
+  - docs/models/components/line3.md
+  - docs/models/components/lineunion.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
@@ -1134,6 +1161,7 @@ generatedFiles:
   - docs/models/components/nodeskippedupgradestatus.md
   - docs/models/components/nodeupgradestate.md
   - docs/models/components/nodeupgradestatus.md
+  - docs/models/components/oldmode.md
   - docs/models/components/os.md
   - docs/models/components/output.md
   - docs/models/components/outputazureblob.md
@@ -1976,6 +2004,38 @@ generatedFiles:
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
+  - docs/models/components/runnablejob.md
+  - docs/models/components/runnablejobcollection.md
+  - docs/models/components/runnablejobcollectioninput.md
+  - docs/models/components/runnablejobcollectionjobtype.md
+  - docs/models/components/runnablejobcollectionloglevel.md
+  - docs/models/components/runnablejobcollectionmetadatum.md
+  - docs/models/components/runnablejobcollectionmode.md
+  - docs/models/components/runnablejobcollectionpreprocess.md
+  - docs/models/components/runnablejobcollectionrun.md
+  - docs/models/components/runnablejobcollectionrunsettings.md
+  - docs/models/components/runnablejobcollectionruntype.md
+  - docs/models/components/runnablejobcollectionschedule.md
+  - docs/models/components/runnablejobcollectionscheduleloglevel.md
+  - docs/models/components/runnablejobcollectionscheduletimewarning.md
+  - docs/models/components/runnablejobcollectiontimewarning.md
+  - docs/models/components/runnablejobcollectiontype.md
+  - docs/models/components/runnablejobexecutor.md
+  - docs/models/components/runnablejobexecutorjobtype.md
+  - docs/models/components/runnablejobexecutorloglevel.md
+  - docs/models/components/runnablejobexecutorrun.md
+  - docs/models/components/runnablejobexecutorrunsettings.md
+  - docs/models/components/runnablejobexecutorschedule.md
+  - docs/models/components/runnablejobexecutorscheduleloglevel.md
+  - docs/models/components/runnablejobexecutortimewarning.md
+  - docs/models/components/runnablejobexecutortype.md
+  - docs/models/components/runnablejobscheduledsearch.md
+  - docs/models/components/runnablejobscheduledsearchjobtype.md
+  - docs/models/components/runnablejobscheduledsearchloglevel.md
+  - docs/models/components/runnablejobscheduledsearchrunsettings.md
+  - docs/models/components/runnablejobscheduledsearchschedule.md
+  - docs/models/components/runnablejobscheduledsearchtimewarning.md
+  - docs/models/components/runnablejobscheduledsearchtype.md
   - docs/models/components/sample.md
   - docs/models/components/scanmode.md
   - docs/models/components/scheduletype.md
@@ -1997,6 +2057,7 @@ generatedFiles:
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
   - docs/models/components/telemetrytype.md
+  - docs/models/components/timerange.md
   - docs/models/components/timestampformat.md
   - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
@@ -2004,6 +2065,7 @@ generatedFiles:
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
+  - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
@@ -2391,6 +2453,8 @@ examples:
           application/json: {"count": 37997, "items": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
+        "201":
+          application/json: {"count": 37997, "items": ["<value 1>", "<value 2>"]}
   getOutputPqById:
     speakeasy-default-get-output-pq-by-id:
       parameters:
@@ -2398,7 +2462,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}, {"key": "<value>"}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2516,7 +2580,7 @@ examples:
     speakeasy-default-get-version-branch:
       responses:
         "200":
-          application/json: {"count": 752953, "items": [{"key": "<value>", "key1": "<value>"}]}
+          application/json: {"count": 752953, "items": [{"id": "<id>"}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionCommit:
@@ -2540,7 +2604,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 856007, "items": [{"key": "<value>"}]}
+          application/json: {"count": 856007, "items": [{"count": 8560.07}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionCurrentBranch:
@@ -2561,7 +2625,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 236125, "items": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>"}, {}]}
+          application/json: {"count": 236125, "items": [{"diffJson": [{"addedLines": 2361.25, "blocks": [{"header": "<value>", "lines": [], "newStartLine": 6726.7, "oldStartLine": 645.87, "oldStartLine2": 5821.43}], "changedPercentage": 9419.83, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 6123.7, "isBinary": false, "isCombined": false, "isCopy": true, "isDeleted": true, "isGitDiff": false, "isNew": true, "isRename": true, "isTooBig": true, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": "<value>", "oldName": "<value>", "unchangedPercentage": 4730.65}]}, {"diffJson": []}, {"diffJson": []}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionFiles:
@@ -3172,4 +3236,10 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n  *  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n  *  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputCriblLakeHttp].AuthTokensExt.[].EnableSplunkHec` **Added**\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.ConfigGroup.ConfigVersion` **Changed**\n  *  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.ConfigVersion` **Changed**\n  *  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].ConfigVersion` **Changed**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].ConfigVersion` **Changed**\n"
+releaseNotes: |
+  ## SDK Changes Detected:
+  * `CriblControlPlane.Destinations.Pq.Clear()`:  `response` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Versions.Branches.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Versions.Commits.Diff()`:  `response.Items.[]` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Versions.Commits.Files.Count()`:  `response.Items.[]` **Changed** **Breaking** :warning:
