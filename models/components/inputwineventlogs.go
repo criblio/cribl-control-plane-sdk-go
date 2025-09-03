@@ -276,7 +276,7 @@ type InputWinEventLogs struct {
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"oldest" json:"readMode"`
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
 	// Format of individual events
 	EventFormat *EventFormat `default:"json" json:"eventFormat"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)

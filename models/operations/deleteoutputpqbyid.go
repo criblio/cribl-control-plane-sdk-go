@@ -18,11 +18,11 @@ func (o *DeleteOutputPqByIDRequest) GetID() string {
 	return o.ID
 }
 
-// DeleteOutputPqByIDResponseBody - a list of any objects
+// DeleteOutputPqByIDResponseBody - a list of string objects
 type DeleteOutputPqByIDResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64   `json:"count,omitempty"`
+	Items []string `json:"items,omitempty"`
 }
 
 func (o *DeleteOutputPqByIDResponseBody) GetCount() *int64 {
@@ -32,7 +32,7 @@ func (o *DeleteOutputPqByIDResponseBody) GetCount() *int64 {
 	return o.Count
 }
 
-func (o *DeleteOutputPqByIDResponseBody) GetItems() []map[string]any {
+func (o *DeleteOutputPqByIDResponseBody) GetItems() []string {
 	if o == nil {
 		return nil
 	}
@@ -41,7 +41,7 @@ func (o *DeleteOutputPqByIDResponseBody) GetItems() []map[string]any {
 
 type DeleteOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of string objects
 	Object *DeleteOutputPqByIDResponseBody
 }
 

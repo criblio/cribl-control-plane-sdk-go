@@ -6,11 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// GetVersionBranchResponseBody - a list of any objects
+// GetVersionBranchResponseBody - a list of BranchInfo objects
 type GetVersionBranchResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64                  `json:"count,omitempty"`
+	Items []components.BranchInfo `json:"items,omitempty"`
 }
 
 func (o *GetVersionBranchResponseBody) GetCount() *int64 {
@@ -20,7 +20,7 @@ func (o *GetVersionBranchResponseBody) GetCount() *int64 {
 	return o.Count
 }
 
-func (o *GetVersionBranchResponseBody) GetItems() []map[string]any {
+func (o *GetVersionBranchResponseBody) GetItems() []components.BranchInfo {
 	if o == nil {
 		return nil
 	}
@@ -29,7 +29,7 @@ func (o *GetVersionBranchResponseBody) GetItems() []map[string]any {
 
 type GetVersionBranchResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of BranchInfo objects
 	Object *GetVersionBranchResponseBody
 }
 
