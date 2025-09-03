@@ -52,7 +52,7 @@ type PackInstallInfo struct {
 	Spec                *string              `json:"spec,omitempty"`
 	Tags                *PackInstallInfoTags `json:"tags,omitempty"`
 	Version             *string              `json:"version,omitempty"`
-	Warnings            []string             `json:"warnings"`
+	Warnings            []string             `json:"warnings,omitempty"`
 }
 
 func (o *PackInstallInfo) GetAuthor() *string {
@@ -155,7 +155,7 @@ func (o *PackInstallInfo) GetVersion() *string {
 
 func (o *PackInstallInfo) GetWarnings() []string {
 	if o == nil {
-		return []string{}
+		return nil
 	}
 	return o.Warnings
 }
