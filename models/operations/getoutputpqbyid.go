@@ -18,11 +18,11 @@ func (o *GetOutputPqByIDRequest) GetID() string {
 	return o.ID
 }
 
-// GetOutputPqByIDResponseBody - a list of any objects
+// GetOutputPqByIDResponseBody - a list of JobInfo objects
 type GetOutputPqByIDResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64               `json:"count,omitempty"`
+	Items []components.JobInfo `json:"items,omitempty"`
 }
 
 func (o *GetOutputPqByIDResponseBody) GetCount() *int64 {
@@ -32,7 +32,7 @@ func (o *GetOutputPqByIDResponseBody) GetCount() *int64 {
 	return o.Count
 }
 
-func (o *GetOutputPqByIDResponseBody) GetItems() []map[string]any {
+func (o *GetOutputPqByIDResponseBody) GetItems() []components.JobInfo {
 	if o == nil {
 		return nil
 	}
@@ -41,7 +41,7 @@ func (o *GetOutputPqByIDResponseBody) GetItems() []map[string]any {
 
 type GetOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of JobInfo objects
 	Object *GetOutputPqByIDResponseBody
 }
 
