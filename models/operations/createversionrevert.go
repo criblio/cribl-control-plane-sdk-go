@@ -7,7 +7,7 @@ import (
 )
 
 type CreateVersionRevertRequest struct {
-	// Group ID
+	// The <code>id</code> of the Worker Group or Edge Fleet to revert the commit for. Required in Distributed deployments. Omit in Single-instance deployments.
 	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// GitRevertParams object
 	GitRevertParams components.GitRevertParams `request:"mediaType=application/json"`

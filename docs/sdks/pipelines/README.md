@@ -9,13 +9,13 @@ Actions related to Pipelines
 
 * [List](#list) - List all Pipelines
 * [Create](#create) - Create a Pipeline
-* [Get](#get) - Retrieve a Pipeline
+* [Get](#get) - Get a Pipeline
 * [Update](#update) - Update a Pipeline
 * [Delete](#delete) - Delete a Pipeline
 
 ## List
 
-List all Pipelines
+Get a list of all Pipelines.
 
 ### Example Usage
 
@@ -71,7 +71,7 @@ func main() {
 
 ## Create
 
-Create a Pipeline
+Create a new Pipeline.
 
 ### Example Usage
 
@@ -154,7 +154,7 @@ func main() {
 
 ## Get
 
-Retrieve a Pipeline
+Get the specified Pipeline.
 
 ### Example Usage
 
@@ -195,7 +195,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to GET                                         |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to get.              |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -211,7 +211,7 @@ func main() {
 
 ## Update
 
-Update a Pipeline
+Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage
 
@@ -278,8 +278,8 @@ func main() {
 | Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
-| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | Unique ID to PATCH                                         |
-| `pipeline`                                                 | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | Pipeline object to be updated                              |
+| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Pipeline to update.             |
+| `pipeline`                                                 | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | Pipeline object                                            |
 | `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response
@@ -295,7 +295,7 @@ func main() {
 
 ## Delete
 
-Delete a Pipeline
+Delete the specified Pipeline.
 
 ### Example Usage
 
@@ -336,7 +336,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | Unique ID to DELETE                                      |
+| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to delete.           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
