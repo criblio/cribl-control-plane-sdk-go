@@ -7,9 +7,9 @@ import (
 )
 
 type UpdatePipelineByIDRequest struct {
-	// Unique ID to PATCH
+	// The <code>id</code> of the Pipeline to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Pipeline object to be updated
+	// Pipeline object
 	Pipeline components.Pipeline `request:"mediaType=application/json"`
 }
 
@@ -27,7 +27,7 @@ func (o *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
 	return o.Pipeline
 }
 
-// UpdatePipelineByIDResponseBody - a list of any objects
+// UpdatePipelineByIDResponseBody - a list of Pipeline objects
 type UpdatePipelineByIDResponseBody struct {
 	// number of items present in the items array
 	Count *int64                `json:"count,omitempty"`
@@ -50,7 +50,7 @@ func (o *UpdatePipelineByIDResponseBody) GetItems() []components.Pipeline {
 
 type UpdatePipelineByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of Pipeline objects
 	Object *UpdatePipelineByIDResponseBody
 }
 

@@ -32,8 +32,8 @@ func newRoutes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// List - Get a list of Routes objects
-// Get a list of Routes objects
+// List all Routes
+// Get a list of all Routes.
 func (s *Routes) List(ctx context.Context, opts ...operations.Option) (*operations.ListRoutesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -265,8 +265,8 @@ func (s *Routes) List(ctx context.Context, opts ...operations.Option) (*operatio
 
 }
 
-// Get Routes by ID
-// Get Routes by ID
+// Get a Routing table
+// Get the specified Routing table.
 func (s *Routes) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetRoutesByIDResponse, error) {
 	request := operations.GetRoutesByIDRequest{
 		ID: id,
@@ -502,8 +502,8 @@ func (s *Routes) Get(ctx context.Context, id string, opts ...operations.Option) 
 
 }
 
-// Update Routes
-// Update Routes
+// Update a Route
+// Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 func (s *Routes) Update(ctx context.Context, id string, routes components.Routes, opts ...operations.Option) (*operations.UpdateRoutesByIDResponse, error) {
 	request := operations.UpdateRoutesByIDRequest{
 		ID:     id,
@@ -747,8 +747,8 @@ func (s *Routes) Update(ctx context.Context, id string, routes components.Routes
 
 }
 
-// Append Routes to the end of the Routing table
-// Appends routes to the end of the routing table
+// Append a Route to the end of the Routing table
+// Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 func (s *Routes) Append(ctx context.Context, id string, requestBody []components.RouteConf, opts ...operations.Option) (*operations.CreateRoutesAppendByIDResponse, error) {
 	request := operations.CreateRoutesAppendByIDRequest{
 		ID:          id,

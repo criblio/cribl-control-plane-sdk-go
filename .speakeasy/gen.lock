@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 707c47f89012f1a8231e12609d62d236
-  docVersion: 4.14.0-alpha.1756909436543-ef8097da
+  docChecksum: f680cfcda3c33a1accdc761c4bc0134c
+  docVersion: 4.14.0-alpha.1757000684650-0bcbd7ed
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.42
-  configChecksum: 3e827f66dcd75f728cd53269c384ce31
+  releaseVersion: 0.0.43
+  configChecksum: 1ddd859b1710b157480f9e38894e50b6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3236,7 +3236,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `CriblControlPlane.Packs.Install()`:  `response.Items.[].Warnings` **Changed**
-  * `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Warnings` **Changed**

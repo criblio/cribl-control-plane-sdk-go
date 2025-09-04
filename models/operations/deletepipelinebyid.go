@@ -7,7 +7,7 @@ import (
 )
 
 type DeletePipelineByIDRequest struct {
-	// Unique ID to DELETE
+	// The <code>id</code> of the Pipeline to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

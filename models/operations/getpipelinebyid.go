@@ -7,7 +7,7 @@ import (
 )
 
 type GetPipelineByIDRequest struct {
-	// Unique ID to GET
+	// The <code>id</code> of the Pipeline to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
