@@ -7,7 +7,7 @@ import (
 )
 
 type UpdateRoutesByIDRequest struct {
-	// Unique ID to PATCH
+	// The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Routes object
 	Routes components.Routes `request:"mediaType=application/json"`

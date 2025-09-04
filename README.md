@@ -290,16 +290,16 @@ func main() {
 
 * [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
-* [Get](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+* [Get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [Update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
 * [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
-* [List](docs/sdks/routes/README.md#list) - Get a list of Routes objects
-* [Get](docs/sdks/routes/README.md#get) - Get Routes by ID
-* [Update](docs/sdks/routes/README.md#update) - Update Routes
-* [Append](docs/sdks/routes/README.md#append) - Append Routes to the end of the Routing table
+* [List](docs/sdks/routes/README.md#list) - List all Routes
+* [Get](docs/sdks/routes/README.md#get) - Get a Routing table
+* [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [Append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
 

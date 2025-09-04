@@ -33,7 +33,7 @@ func newPipelines(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 }
 
 // List all Pipelines
-// List all Pipelines
+// Get a list of all Pipelines.
 func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*operations.ListPipelineResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -266,7 +266,7 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 }
 
 // Create a Pipeline
-// Create a Pipeline
+// Create a new Pipeline.
 func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opts ...operations.Option) (*operations.CreatePipelineResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -505,8 +505,8 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 
 }
 
-// Get - Retrieve a Pipeline
-// Retrieve a Pipeline
+// Get a Pipeline
+// Get the specified Pipeline.
 func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetPipelineByIDResponse, error) {
 	request := operations.GetPipelineByIDRequest{
 		ID: id,
@@ -743,7 +743,7 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 }
 
 // Update a Pipeline
-// Update a Pipeline
+// Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
 func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.Pipeline, opts ...operations.Option) (*operations.UpdatePipelineByIDResponse, error) {
 	request := operations.UpdatePipelineByIDRequest{
 		ID:       id,
@@ -988,7 +988,7 @@ func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.P
 }
 
 // Delete a Pipeline
-// Delete a Pipeline
+// Delete the specified Pipeline.
 func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeletePipelineByIDResponse, error) {
 	request := operations.DeletePipelineByIDRequest{
 		ID: id,

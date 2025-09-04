@@ -7,7 +7,7 @@ import (
 )
 
 type GetRoutesByIDRequest struct {
-	// Unique ID to GET
+	// The <code>id</code> of the Routing table to get. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

@@ -475,7 +475,7 @@ type OutputGoogleChronicle struct {
 	LogType *string `json:"logType,omitempty"`
 	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
 	LogTextField *string `json:"logTextField,omitempty"`
-	// Unique identifier (UUID) corresponding to a particular SecOps instance. Provided by your SecOps representative.
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
 	CustomerID *string `json:"customerId,omitempty"`
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitempty"`
