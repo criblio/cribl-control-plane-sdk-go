@@ -105,6 +105,9 @@ func (e *InputGrafanaCompression2) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputGrafanaPqControls2 struct {
+}
+
 type InputGrafanaPq2 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputGrafanaMode2 `default:"always" json:"mode"`
@@ -119,7 +122,8 @@ type InputGrafanaPq2 struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputGrafanaCompression2 `default:"none" json:"compress"`
+	Compress   *InputGrafanaCompression2 `default:"none" json:"compress"`
+	PqControls *InputGrafanaPqControls2  `json:"pqControls,omitempty"`
 }
 
 func (i InputGrafanaPq2) MarshalJSON() ([]byte, error) {
@@ -180,6 +184,13 @@ func (o *InputGrafanaPq2) GetCompress() *InputGrafanaCompression2 {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputGrafanaPq2) GetPqControls() *InputGrafanaPqControls2 {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputGrafanaMinimumTLSVersion2 string
@@ -860,11 +871,9 @@ type InputGrafanaGrafana2 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
-	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-	ExtractStructuredMetadata *bool                        `default:"false" json:"extractStructuredMetadata"`
-	PrometheusAuth            *InputGrafanaPrometheusAuth2 `json:"prometheusAuth,omitempty"`
-	LokiAuth                  *InputGrafanaLokiAuth2       `json:"lokiAuth,omitempty"`
+	LokiAPI        *string                      `default:"/loki/api/v1/push" json:"lokiAPI"`
+	PrometheusAuth *InputGrafanaPrometheusAuth2 `json:"prometheusAuth,omitempty"`
+	LokiAuth       *InputGrafanaLokiAuth2       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []InputGrafanaMetadatum2 `json:"metadata,omitempty"`
 	Description *string                  `json:"description,omitempty"`
@@ -1063,13 +1072,6 @@ func (o *InputGrafanaGrafana2) GetLokiAPI() *string {
 	return o.LokiAPI
 }
 
-func (o *InputGrafanaGrafana2) GetExtractStructuredMetadata() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExtractStructuredMetadata
-}
-
 func (o *InputGrafanaGrafana2) GetPrometheusAuth() *InputGrafanaPrometheusAuth2 {
 	if o == nil {
 		return nil
@@ -1194,6 +1196,9 @@ func (e *InputGrafanaCompression1) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputGrafanaPqControls1 struct {
+}
+
 type InputGrafanaPq1 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputGrafanaMode1 `default:"always" json:"mode"`
@@ -1208,7 +1213,8 @@ type InputGrafanaPq1 struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputGrafanaCompression1 `default:"none" json:"compress"`
+	Compress   *InputGrafanaCompression1 `default:"none" json:"compress"`
+	PqControls *InputGrafanaPqControls1  `json:"pqControls,omitempty"`
 }
 
 func (i InputGrafanaPq1) MarshalJSON() ([]byte, error) {
@@ -1269,6 +1275,13 @@ func (o *InputGrafanaPq1) GetCompress() *InputGrafanaCompression1 {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputGrafanaPq1) GetPqControls() *InputGrafanaPqControls1 {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputGrafanaMinimumTLSVersion1 string
@@ -1949,11 +1962,9 @@ type InputGrafanaGrafana1 struct {
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
-	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
-	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-	ExtractStructuredMetadata *bool                        `default:"false" json:"extractStructuredMetadata"`
-	PrometheusAuth            *InputGrafanaPrometheusAuth1 `json:"prometheusAuth,omitempty"`
-	LokiAuth                  *InputGrafanaLokiAuth1       `json:"lokiAuth,omitempty"`
+	LokiAPI        *string                      `default:"/loki/api/v1/push" json:"lokiAPI"`
+	PrometheusAuth *InputGrafanaPrometheusAuth1 `json:"prometheusAuth,omitempty"`
+	LokiAuth       *InputGrafanaLokiAuth1       `json:"lokiAuth,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []InputGrafanaMetadatum1 `json:"metadata,omitempty"`
 	Description *string                  `json:"description,omitempty"`
@@ -2150,13 +2161,6 @@ func (o *InputGrafanaGrafana1) GetLokiAPI() *string {
 		return nil
 	}
 	return o.LokiAPI
-}
-
-func (o *InputGrafanaGrafana1) GetExtractStructuredMetadata() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExtractStructuredMetadata
 }
 
 func (o *InputGrafanaGrafana1) GetPrometheusAuth() *InputGrafanaPrometheusAuth1 {

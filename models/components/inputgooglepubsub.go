@@ -104,6 +104,9 @@ func (e *InputGooglePubsubCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputGooglePubsubPqControls struct {
+}
+
 type InputGooglePubsubPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputGooglePubsubMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputGooglePubsubPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputGooglePubsubCompression `default:"none" json:"compress"`
+	Compress   *InputGooglePubsubCompression `default:"none" json:"compress"`
+	PqControls *InputGooglePubsubPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputGooglePubsubPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputGooglePubsubPq) GetCompress() *InputGooglePubsubCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputGooglePubsubPq) GetPqControls() *InputGooglePubsubPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 // InputGooglePubsubGoogleAuthenticationMethod - Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
