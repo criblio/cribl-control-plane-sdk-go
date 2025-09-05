@@ -105,6 +105,9 @@ func (e *InputSyslogCompression2) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSyslogPqControls2 struct {
+}
+
 type InputSyslogPq2 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode2 `default:"always" json:"mode"`
@@ -119,7 +122,8 @@ type InputSyslogPq2 struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputSyslogCompression2 `default:"none" json:"compress"`
+	Compress   *InputSyslogCompression2 `default:"none" json:"compress"`
+	PqControls *InputSyslogPqControls2  `json:"pqControls,omitempty"`
 }
 
 func (i InputSyslogPq2) MarshalJSON() ([]byte, error) {
@@ -180,6 +184,13 @@ func (o *InputSyslogPq2) GetCompress() *InputSyslogCompression2 {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputSyslogPq2) GetPqControls() *InputSyslogPqControls2 {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputSyslogMinimumTLSVersion2 string
@@ -776,6 +787,9 @@ func (e *InputSyslogCompression1) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSyslogPqControls1 struct {
+}
+
 type InputSyslogPq1 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode1 `default:"always" json:"mode"`
@@ -790,7 +804,8 @@ type InputSyslogPq1 struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputSyslogCompression1 `default:"none" json:"compress"`
+	Compress   *InputSyslogCompression1 `default:"none" json:"compress"`
+	PqControls *InputSyslogPqControls1  `json:"pqControls,omitempty"`
 }
 
 func (i InputSyslogPq1) MarshalJSON() ([]byte, error) {
@@ -851,6 +866,13 @@ func (o *InputSyslogPq1) GetCompress() *InputSyslogCompression1 {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputSyslogPq1) GetPqControls() *InputSyslogPqControls1 {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputSyslogMinimumTLSVersion1 string

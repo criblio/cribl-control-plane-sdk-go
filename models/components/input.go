@@ -991,17 +991,17 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputPrometheusRw InputPrometheusRw = InputPrometheusRw{}
-	if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, false); err == nil {
-		u.InputPrometheusRw = &inputPrometheusRw
-		u.Type = InputTypeInputPrometheusRw
-		return nil
-	}
-
 	var inputLoki InputLoki = InputLoki{}
 	if err := utils.UnmarshalJSON(data, &inputLoki, "", true, false); err == nil {
 		u.InputLoki = &inputLoki
 		u.Type = InputTypeInputLoki
+		return nil
+	}
+
+	var inputPrometheusRw InputPrometheusRw = InputPrometheusRw{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, false); err == nil {
+		u.InputPrometheusRw = &inputPrometheusRw
+		u.Type = InputTypeInputPrometheusRw
 		return nil
 	}
 

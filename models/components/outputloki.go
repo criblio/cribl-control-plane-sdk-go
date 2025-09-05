@@ -438,8 +438,6 @@ type OutputLoki struct {
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
 	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
-	// Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
-	SendStructuredMetadata *bool `default:"false" json:"sendStructuredMetadata"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputLokiBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
@@ -656,13 +654,6 @@ func (o *OutputLoki) GetEnableDynamicHeaders() *bool {
 		return nil
 	}
 	return o.EnableDynamicHeaders
-}
-
-func (o *OutputLoki) GetSendStructuredMetadata() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.SendStructuredMetadata
 }
 
 func (o *OutputLoki) GetOnBackpressure() *OutputLokiBackpressureBehavior {

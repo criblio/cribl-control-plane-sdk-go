@@ -745,17 +745,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputNetflow OutputNetflow = OutputNetflow{}
-	if err := utils.UnmarshalJSON(data, &outputNetflow, "", true, false); err == nil {
-		u.OutputNetflow = &outputNetflow
-		u.Type = OutputTypeOutputNetflow
-		return nil
-	}
-
 	var outputSnmp OutputSnmp = OutputSnmp{}
 	if err := utils.UnmarshalJSON(data, &outputSnmp, "", true, false); err == nil {
 		u.OutputSnmp = &outputSnmp
 		u.Type = OutputTypeOutputSnmp
+		return nil
+	}
+
+	var outputNetflow OutputNetflow = OutputNetflow{}
+	if err := utils.UnmarshalJSON(data, &outputNetflow, "", true, false); err == nil {
+		u.OutputNetflow = &outputNetflow
+		u.Type = OutputTypeOutputNetflow
 		return nil
 	}
 
@@ -773,13 +773,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputStatsdExt OutputStatsdExt = OutputStatsdExt{}
-	if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err == nil {
-		u.OutputStatsdExt = &outputStatsdExt
-		u.Type = OutputTypeOutputStatsdExt
-		return nil
-	}
-
 	var outputGraphite OutputGraphite = OutputGraphite{}
 	if err := utils.UnmarshalJSON(data, &outputGraphite, "", true, false); err == nil {
 		u.OutputGraphite = &outputGraphite
@@ -791,6 +784,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputStatsd, "", true, false); err == nil {
 		u.OutputStatsd = &outputStatsd
 		u.Type = OutputTypeOutputStatsd
+		return nil
+	}
+
+	var outputStatsdExt OutputStatsdExt = OutputStatsdExt{}
+	if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err == nil {
+		u.OutputStatsdExt = &outputStatsdExt
+		u.Type = OutputTypeOutputStatsdExt
 		return nil
 	}
 
@@ -808,17 +808,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputSns OutputSns = OutputSns{}
-	if err := utils.UnmarshalJSON(data, &outputSns, "", true, false); err == nil {
-		u.OutputSns = &outputSns
-		u.Type = OutputTypeOutputSns
-		return nil
-	}
-
 	var outputSplunk OutputSplunk = OutputSplunk{}
 	if err := utils.UnmarshalJSON(data, &outputSplunk, "", true, false); err == nil {
 		u.OutputSplunk = &outputSplunk
 		u.Type = OutputTypeOutputSplunk
+		return nil
+	}
+
+	var outputSns OutputSns = OutputSns{}
+	if err := utils.UnmarshalJSON(data, &outputSns, "", true, false); err == nil {
+		u.OutputSns = &outputSns
+		u.Type = OutputTypeOutputSns
 		return nil
 	}
 
@@ -864,17 +864,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputSumoLogic OutputSumoLogic = OutputSumoLogic{}
-	if err := utils.UnmarshalJSON(data, &outputSumoLogic, "", true, false); err == nil {
-		u.OutputSumoLogic = &outputSumoLogic
-		u.Type = OutputTypeOutputSumoLogic
-		return nil
-	}
-
 	var outputTcpjson OutputTcpjson = OutputTcpjson{}
 	if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, false); err == nil {
 		u.OutputTcpjson = &outputTcpjson
 		u.Type = OutputTypeOutputTcpjson
+		return nil
+	}
+
+	var outputSumoLogic OutputSumoLogic = OutputSumoLogic{}
+	if err := utils.UnmarshalJSON(data, &outputSumoLogic, "", true, false); err == nil {
+		u.OutputSumoLogic = &outputSumoLogic
+		u.Type = OutputTypeOutputSumoLogic
 		return nil
 	}
 
@@ -990,6 +990,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputLoki OutputLoki = OutputLoki{}
+	if err := utils.UnmarshalJSON(data, &outputLoki, "", true, false); err == nil {
+		u.OutputLoki = &outputLoki
+		u.Type = OutputTypeOutputLoki
+		return nil
+	}
+
 	var outputSplunkHec OutputSplunkHec = OutputSplunkHec{}
 	if err := utils.UnmarshalJSON(data, &outputSplunkHec, "", true, false); err == nil {
 		u.OutputSplunkHec = &outputSplunkHec
@@ -1011,24 +1018,10 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputLoki OutputLoki = OutputLoki{}
-	if err := utils.UnmarshalJSON(data, &outputLoki, "", true, false); err == nil {
-		u.OutputLoki = &outputLoki
-		u.Type = OutputTypeOutputLoki
-		return nil
-	}
-
 	var outputDynatraceOtlp OutputDynatraceOtlp = OutputDynatraceOtlp{}
 	if err := utils.UnmarshalJSON(data, &outputDynatraceOtlp, "", true, false); err == nil {
 		u.OutputDynatraceOtlp = &outputDynatraceOtlp
 		u.Type = OutputTypeOutputDynatraceOtlp
-		return nil
-	}
-
-	var outputGoogleChronicle OutputGoogleChronicle = OutputGoogleChronicle{}
-	if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, false); err == nil {
-		u.OutputGoogleChronicle = &outputGoogleChronicle
-		u.Type = OutputTypeOutputGoogleChronicle
 		return nil
 	}
 
@@ -1039,10 +1032,10 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputDatadog OutputDatadog = OutputDatadog{}
-	if err := utils.UnmarshalJSON(data, &outputDatadog, "", true, false); err == nil {
-		u.OutputDatadog = &outputDatadog
-		u.Type = OutputTypeOutputDatadog
+	var outputGoogleChronicle OutputGoogleChronicle = OutputGoogleChronicle{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, false); err == nil {
+		u.OutputGoogleChronicle = &outputGoogleChronicle
+		u.Type = OutputTypeOutputGoogleChronicle
 		return nil
 	}
 
@@ -1050,6 +1043,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputCriblLake, "", true, false); err == nil {
 		u.OutputCriblLake = &outputCriblLake
 		u.Type = OutputTypeOutputCriblLake
+		return nil
+	}
+
+	var outputDatadog OutputDatadog = OutputDatadog{}
+	if err := utils.UnmarshalJSON(data, &outputDatadog, "", true, false); err == nil {
+		u.OutputDatadog = &outputDatadog
+		u.Type = OutputTypeOutputDatadog
 		return nil
 	}
 

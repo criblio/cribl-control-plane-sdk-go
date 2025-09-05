@@ -104,6 +104,9 @@ func (e *InputLokiCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputLokiPqControls struct {
+}
+
 type InputLokiPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputLokiMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputLokiPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputLokiCompression `default:"none" json:"compress"`
+	Compress   *InputLokiCompression `default:"none" json:"compress"`
+	PqControls *InputLokiPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputLokiPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputLokiPq) GetCompress() *InputLokiCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputLokiPq) GetPqControls() *InputLokiPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputLokiMinimumTLSVersion string
@@ -501,8 +512,6 @@ type InputLoki struct {
 	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
 	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
-	// Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-	ExtractStructuredMetadata *bool `default:"false" json:"extractStructuredMetadata"`
 	// Loki logs authentication type
 	AuthType *InputLokiAuthenticationType `default:"none" json:"authType"`
 	// Fields to add to events from this input
@@ -718,13 +727,6 @@ func (o *InputLoki) GetLokiAPI() *string {
 		return nil
 	}
 	return o.LokiAPI
-}
-
-func (o *InputLoki) GetExtractStructuredMetadata() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExtractStructuredMetadata
 }
 
 func (o *InputLoki) GetAuthType() *InputLokiAuthenticationType {

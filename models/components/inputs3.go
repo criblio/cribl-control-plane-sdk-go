@@ -104,6 +104,9 @@ func (e *InputS3Compression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputS3PqControls struct {
+}
+
 type InputS3Pq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputS3Mode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputS3Pq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputS3Compression `default:"none" json:"compress"`
+	Compress   *InputS3Compression `default:"none" json:"compress"`
+	PqControls *InputS3PqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputS3Pq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputS3Pq) GetCompress() *InputS3Compression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputS3Pq) GetPqControls() *InputS3PqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 // InputS3AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.

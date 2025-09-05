@@ -114,7 +114,9 @@ func main() {
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputTCPPq{},
+            Pq: &components.InputTCPPq{
+                PqControls: &components.InputTCPPqControls{},
+            },
             Port: 301.76,
             TLS: &components.InputTCPTLSSettingsServerSide{
                 CertificateName: criblcontrolplanesdkgo.String("<value>"),
@@ -276,7 +278,9 @@ func main() {
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputKubeEventsPq{},
+            Pq: &components.InputKubeEventsPq{
+                PqControls: &components.InputKubeEventsPqControls{},
+            },
             Rules: []components.InputKubeEventsRule{
                 components.InputKubeEventsRule{
                     Filter: "<value>",
