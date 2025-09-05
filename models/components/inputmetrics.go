@@ -104,6 +104,9 @@ func (e *InputMetricsCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputMetricsPqControls struct {
+}
+
 type InputMetricsPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputMetricsMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputMetricsPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputMetricsCompression `default:"none" json:"compress"`
+	Compress   *InputMetricsCompression `default:"none" json:"compress"`
+	PqControls *InputMetricsPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputMetricsPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputMetricsPq) GetCompress() *InputMetricsCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputMetricsPq) GetPqControls() *InputMetricsPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputMetricsMinimumTLSVersion string

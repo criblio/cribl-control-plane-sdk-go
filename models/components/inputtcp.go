@@ -104,6 +104,9 @@ func (e *InputTCPCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputTCPPqControls struct {
+}
+
 type InputTCPPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputTCPMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputTCPPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputTCPCompression `default:"none" json:"compress"`
+	Compress   *InputTCPCompression `default:"none" json:"compress"`
+	PqControls *InputTCPPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputTCPPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputTCPPq) GetCompress() *InputTCPCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputTCPPq) GetPqControls() *InputTCPPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputTCPMinimumTLSVersion string

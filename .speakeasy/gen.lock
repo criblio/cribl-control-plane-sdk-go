@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f680cfcda3c33a1accdc761c4bc0134c
-  docVersion: 4.14.0-alpha.1757000684650-0bcbd7ed
+  docChecksum: 5b089dd95e9aa5956eda42479ef9b11e
+  docVersion: 4.14.0-alpha.1757087755104-f460003f
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.43
-  configChecksum: 1ddd859b1710b157480f9e38894e50b6
+  releaseVersion: 0.0.44
+  configChecksum: e632615a25ec809c55fc958faf414e26
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -364,6 +364,7 @@ generatedFiles:
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
+  - docs/models/components/elasticsearchmetadata.md
   - docs/models/components/elasticversion.md
   - docs/models/components/endpoint.md
   - docs/models/components/endpointconfiguration.md
@@ -425,6 +426,7 @@ generatedFiles:
   - docs/models/components/inputappscopemode.md
   - docs/models/components/inputappscopepersistence.md
   - docs/models/components/inputappscopepq.md
+  - docs/models/components/inputappscopepqcontrols.md
   - docs/models/components/inputappscopetlssettingsserverside.md
   - docs/models/components/inputappscopetype.md
   - docs/models/components/inputazureblob.md
@@ -435,6 +437,7 @@ generatedFiles:
   - docs/models/components/inputazureblobmetadatum.md
   - docs/models/components/inputazureblobmode.md
   - docs/models/components/inputazureblobpq.md
+  - docs/models/components/inputazureblobpqcontrols.md
   - docs/models/components/inputazureblobtype.md
   - docs/models/components/inputcollection.md
   - docs/models/components/inputcollectioncompression.md
@@ -442,6 +445,7 @@ generatedFiles:
   - docs/models/components/inputcollectionmetadatum.md
   - docs/models/components/inputcollectionmode.md
   - docs/models/components/inputcollectionpq.md
+  - docs/models/components/inputcollectionpqcontrols.md
   - docs/models/components/inputcollectionpreprocess.md
   - docs/models/components/inputcollectiontype.md
   - docs/models/components/inputconfluentcloud.md
@@ -458,6 +462,7 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudminimumtlsversion.md
   - docs/models/components/inputconfluentcloudmode.md
   - docs/models/components/inputconfluentcloudpq.md
+  - docs/models/components/inputconfluentcloudpqcontrols.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
   - docs/models/components/inputconfluentcloudschematype.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
@@ -473,6 +478,7 @@ generatedFiles:
   - docs/models/components/inputcriblhttpminimumtlsversion.md
   - docs/models/components/inputcriblhttpmode.md
   - docs/models/components/inputcriblhttppq.md
+  - docs/models/components/inputcriblhttppqcontrols.md
   - docs/models/components/inputcriblhttptlssettingsserverside.md
   - docs/models/components/inputcriblhttptype.md
   - docs/models/components/inputcribllakehttp.md
@@ -485,6 +491,7 @@ generatedFiles:
   - docs/models/components/inputcribllakehttpminimumtlsversion.md
   - docs/models/components/inputcribllakehttpmode.md
   - docs/models/components/inputcribllakehttppq.md
+  - docs/models/components/inputcribllakehttppqcontrols.md
   - docs/models/components/inputcribllakehttptlssettingsserverside.md
   - docs/models/components/inputcribllakehttptype.md
   - docs/models/components/inputcriblmetadatum.md
@@ -494,9 +501,11 @@ generatedFiles:
   - docs/models/components/inputcriblmetricsmetadatum.md
   - docs/models/components/inputcriblmetricsmode.md
   - docs/models/components/inputcriblmetricspq.md
+  - docs/models/components/inputcriblmetricspqcontrols.md
   - docs/models/components/inputcriblmetricstype.md
   - docs/models/components/inputcriblmode.md
   - docs/models/components/inputcriblpq.md
+  - docs/models/components/inputcriblpqcontrols.md
   - docs/models/components/inputcribltcp.md
   - docs/models/components/inputcribltcpcompression.md
   - docs/models/components/inputcribltcpconnection.md
@@ -505,6 +514,7 @@ generatedFiles:
   - docs/models/components/inputcribltcpminimumtlsversion.md
   - docs/models/components/inputcribltcpmode.md
   - docs/models/components/inputcribltcppq.md
+  - docs/models/components/inputcribltcppqcontrols.md
   - docs/models/components/inputcribltcptlssettingsserverside.md
   - docs/models/components/inputcribltcptype.md
   - docs/models/components/inputcribltype.md
@@ -516,6 +526,7 @@ generatedFiles:
   - docs/models/components/inputcrowdstrikemetadatum.md
   - docs/models/components/inputcrowdstrikemode.md
   - docs/models/components/inputcrowdstrikepq.md
+  - docs/models/components/inputcrowdstrikepqcontrols.md
   - docs/models/components/inputcrowdstrikepreprocess.md
   - docs/models/components/inputcrowdstrikesignatureversion.md
   - docs/models/components/inputcrowdstriketagafterprocessing.md
@@ -528,6 +539,7 @@ generatedFiles:
   - docs/models/components/inputdatadogagentminimumtlsversion.md
   - docs/models/components/inputdatadogagentmode.md
   - docs/models/components/inputdatadogagentpq.md
+  - docs/models/components/inputdatadogagentpqcontrols.md
   - docs/models/components/inputdatadogagentproxymode.md
   - docs/models/components/inputdatadogagenttlssettingsserverside.md
   - docs/models/components/inputdatadogagenttype.md
@@ -537,6 +549,7 @@ generatedFiles:
   - docs/models/components/inputdatagenmetadatum.md
   - docs/models/components/inputdatagenmode.md
   - docs/models/components/inputdatagenpq.md
+  - docs/models/components/inputdatagenpqcontrols.md
   - docs/models/components/inputdatagentype.md
   - docs/models/components/inputedgeprometheus.md
   - docs/models/components/inputedgeprometheusauthtypeauthenticationmethod.md
@@ -549,6 +562,7 @@ generatedFiles:
   - docs/models/components/inputedgeprometheuspersistencecompression.md
   - docs/models/components/inputedgeprometheuspq.md
   - docs/models/components/inputedgeprometheuspqcompression.md
+  - docs/models/components/inputedgeprometheuspqcontrols.md
   - docs/models/components/inputedgeprometheusrecordtype.md
   - docs/models/components/inputedgeprometheussearchfilter.md
   - docs/models/components/inputedgeprometheussignatureversion.md
@@ -565,6 +579,7 @@ generatedFiles:
   - docs/models/components/inputelasticminimumtlsversion.md
   - docs/models/components/inputelasticmode.md
   - docs/models/components/inputelasticpq.md
+  - docs/models/components/inputelasticpqcontrols.md
   - docs/models/components/inputelasticproxymode.md
   - docs/models/components/inputelastictlssettingsserverside.md
   - docs/models/components/inputelastictype.md
@@ -575,6 +590,7 @@ generatedFiles:
   - docs/models/components/inputeventhubmetadatum.md
   - docs/models/components/inputeventhubmode.md
   - docs/models/components/inputeventhubpq.md
+  - docs/models/components/inputeventhubpqcontrols.md
   - docs/models/components/inputeventhubsaslmechanism.md
   - docs/models/components/inputeventhubtlssettingsclientside.md
   - docs/models/components/inputeventhubtype.md
@@ -584,6 +600,7 @@ generatedFiles:
   - docs/models/components/inputexecmetadatum.md
   - docs/models/components/inputexecmode.md
   - docs/models/components/inputexecpq.md
+  - docs/models/components/inputexecpqcontrols.md
   - docs/models/components/inputexectype.md
   - docs/models/components/inputfile.md
   - docs/models/components/inputfilecompression.md
@@ -591,6 +608,7 @@ generatedFiles:
   - docs/models/components/inputfilemetadatum.md
   - docs/models/components/inputfilemode.md
   - docs/models/components/inputfilepq.md
+  - docs/models/components/inputfilepqcontrols.md
   - docs/models/components/inputfilepqmode.md
   - docs/models/components/inputfiletype.md
   - docs/models/components/inputfirehose.md
@@ -601,6 +619,7 @@ generatedFiles:
   - docs/models/components/inputfirehoseminimumtlsversion.md
   - docs/models/components/inputfirehosemode.md
   - docs/models/components/inputfirehosepq.md
+  - docs/models/components/inputfirehosepqcontrols.md
   - docs/models/components/inputfirehosetlssettingsserverside.md
   - docs/models/components/inputfirehosetype.md
   - docs/models/components/inputgooglepubsub.md
@@ -610,6 +629,7 @@ generatedFiles:
   - docs/models/components/inputgooglepubsubmetadatum.md
   - docs/models/components/inputgooglepubsubmode.md
   - docs/models/components/inputgooglepubsubpq.md
+  - docs/models/components/inputgooglepubsubpqcontrols.md
   - docs/models/components/inputgooglepubsubtype.md
   - docs/models/components/inputgrafana.md
   - docs/models/components/inputgrafanacompression1.md
@@ -632,6 +652,8 @@ generatedFiles:
   - docs/models/components/inputgrafanamode2.md
   - docs/models/components/inputgrafanapq1.md
   - docs/models/components/inputgrafanapq2.md
+  - docs/models/components/inputgrafanapqcontrols1.md
+  - docs/models/components/inputgrafanapqcontrols2.md
   - docs/models/components/inputgrafanaprometheusauth1.md
   - docs/models/components/inputgrafanaprometheusauth2.md
   - docs/models/components/inputgrafanaprometheusauthauthenticationtype1.md
@@ -650,6 +672,7 @@ generatedFiles:
   - docs/models/components/inputhttpminimumtlsversion.md
   - docs/models/components/inputhttpmode.md
   - docs/models/components/inputhttppq.md
+  - docs/models/components/inputhttppqcontrols.md
   - docs/models/components/inputhttpraw.md
   - docs/models/components/inputhttprawauthtokensext.md
   - docs/models/components/inputhttprawauthtokensextmetadatum.md
@@ -660,6 +683,7 @@ generatedFiles:
   - docs/models/components/inputhttprawminimumtlsversion.md
   - docs/models/components/inputhttprawmode.md
   - docs/models/components/inputhttprawpq.md
+  - docs/models/components/inputhttprawpqcontrols.md
   - docs/models/components/inputhttprawtlssettingsserverside.md
   - docs/models/components/inputhttprawtype.md
   - docs/models/components/inputhttptlssettingsserverside.md
@@ -670,6 +694,7 @@ generatedFiles:
   - docs/models/components/inputjournalfilesmetadatum.md
   - docs/models/components/inputjournalfilesmode.md
   - docs/models/components/inputjournalfilespq.md
+  - docs/models/components/inputjournalfilespqcontrols.md
   - docs/models/components/inputjournalfilesrule.md
   - docs/models/components/inputjournalfilestype.md
   - docs/models/components/inputkafka.md
@@ -686,6 +711,7 @@ generatedFiles:
   - docs/models/components/inputkafkaminimumtlsversion.md
   - docs/models/components/inputkafkamode.md
   - docs/models/components/inputkafkapq.md
+  - docs/models/components/inputkafkapqcontrols.md
   - docs/models/components/inputkafkasaslmechanism.md
   - docs/models/components/inputkafkaschematype.md
   - docs/models/components/inputkafkatlssettingsclientside.md
@@ -697,6 +723,7 @@ generatedFiles:
   - docs/models/components/inputkinesismetadatum.md
   - docs/models/components/inputkinesismode.md
   - docs/models/components/inputkinesispq.md
+  - docs/models/components/inputkinesispqcontrols.md
   - docs/models/components/inputkinesisrecorddataformat.md
   - docs/models/components/inputkinesissignatureversion.md
   - docs/models/components/inputkinesistype.md
@@ -706,6 +733,7 @@ generatedFiles:
   - docs/models/components/inputkubeeventsmetadatum.md
   - docs/models/components/inputkubeeventsmode.md
   - docs/models/components/inputkubeeventspq.md
+  - docs/models/components/inputkubeeventspqcontrols.md
   - docs/models/components/inputkubeeventsrule.md
   - docs/models/components/inputkubeeventstype.md
   - docs/models/components/inputkubelogs.md
@@ -716,6 +744,7 @@ generatedFiles:
   - docs/models/components/inputkubelogspersistencecompression.md
   - docs/models/components/inputkubelogspq.md
   - docs/models/components/inputkubelogspqcompression.md
+  - docs/models/components/inputkubelogspqcontrols.md
   - docs/models/components/inputkubelogsrule.md
   - docs/models/components/inputkubelogstype.md
   - docs/models/components/inputkubemetrics.md
@@ -726,6 +755,7 @@ generatedFiles:
   - docs/models/components/inputkubemetricsmode.md
   - docs/models/components/inputkubemetricspersistence.md
   - docs/models/components/inputkubemetricspq.md
+  - docs/models/components/inputkubemetricspqcontrols.md
   - docs/models/components/inputkubemetricsrule.md
   - docs/models/components/inputkubemetricstype.md
   - docs/models/components/inputloki.md
@@ -739,6 +769,7 @@ generatedFiles:
   - docs/models/components/inputlokioauthheader.md
   - docs/models/components/inputlokioauthparam.md
   - docs/models/components/inputlokipq.md
+  - docs/models/components/inputlokipqcontrols.md
   - docs/models/components/inputlokitlssettingsserverside.md
   - docs/models/components/inputlokitype.md
   - docs/models/components/inputmetrics.md
@@ -749,6 +780,7 @@ generatedFiles:
   - docs/models/components/inputmetricsminimumtlsversion.md
   - docs/models/components/inputmetricsmode.md
   - docs/models/components/inputmetricspq.md
+  - docs/models/components/inputmetricspqcontrols.md
   - docs/models/components/inputmetricstlssettingsserverside.md
   - docs/models/components/inputmetricstype.md
   - docs/models/components/inputmodeldriventelemetry.md
@@ -759,6 +791,7 @@ generatedFiles:
   - docs/models/components/inputmodeldriventelemetryminimumtlsversion.md
   - docs/models/components/inputmodeldriventelemetrymode.md
   - docs/models/components/inputmodeldriventelemetrypq.md
+  - docs/models/components/inputmodeldriventelemetrypqcontrols.md
   - docs/models/components/inputmodeldriventelemetrytlssettingsserverside.md
   - docs/models/components/inputmodeldriventelemetrytype.md
   - docs/models/components/inputmsk.md
@@ -775,6 +808,7 @@ generatedFiles:
   - docs/models/components/inputmskminimumtlsversion.md
   - docs/models/components/inputmskmode.md
   - docs/models/components/inputmskpq.md
+  - docs/models/components/inputmskpqcontrols.md
   - docs/models/components/inputmskschematype.md
   - docs/models/components/inputmsksignatureversion.md
   - docs/models/components/inputmsktlssettingsclientside.md
@@ -785,6 +819,7 @@ generatedFiles:
   - docs/models/components/inputnetflowmetadatum.md
   - docs/models/components/inputnetflowmode.md
   - docs/models/components/inputnetflowpq.md
+  - docs/models/components/inputnetflowpqcontrols.md
   - docs/models/components/inputnetflowtype.md
   - docs/models/components/inputoffice365mgmt.md
   - docs/models/components/inputoffice365mgmtauthenticationmethod.md
@@ -795,6 +830,7 @@ generatedFiles:
   - docs/models/components/inputoffice365mgmtmetadatum.md
   - docs/models/components/inputoffice365mgmtmode.md
   - docs/models/components/inputoffice365mgmtpq.md
+  - docs/models/components/inputoffice365mgmtpqcontrols.md
   - docs/models/components/inputoffice365mgmtretryrules.md
   - docs/models/components/inputoffice365mgmtretrytype.md
   - docs/models/components/inputoffice365mgmtsubscriptionplan.md
@@ -807,6 +843,7 @@ generatedFiles:
   - docs/models/components/inputoffice365msgtracemetadatum.md
   - docs/models/components/inputoffice365msgtracemode.md
   - docs/models/components/inputoffice365msgtracepq.md
+  - docs/models/components/inputoffice365msgtracepqcontrols.md
   - docs/models/components/inputoffice365msgtraceretryrules.md
   - docs/models/components/inputoffice365msgtraceretrytype.md
   - docs/models/components/inputoffice365msgtracesubscriptionplan.md
@@ -820,6 +857,7 @@ generatedFiles:
   - docs/models/components/inputoffice365servicemetadatum.md
   - docs/models/components/inputoffice365servicemode.md
   - docs/models/components/inputoffice365servicepq.md
+  - docs/models/components/inputoffice365servicepqcontrols.md
   - docs/models/components/inputoffice365serviceretryrules.md
   - docs/models/components/inputoffice365serviceretrytype.md
   - docs/models/components/inputoffice365servicesubscriptionplan.md
@@ -836,6 +874,7 @@ generatedFiles:
   - docs/models/components/inputopentelemetryoauthparam.md
   - docs/models/components/inputopentelemetryotlpversion.md
   - docs/models/components/inputopentelemetrypq.md
+  - docs/models/components/inputopentelemetrypqcontrols.md
   - docs/models/components/inputopentelemetryprotocol.md
   - docs/models/components/inputopentelemetrytlssettingsserverside.md
   - docs/models/components/inputopentelemetrytype.md
@@ -849,6 +888,7 @@ generatedFiles:
   - docs/models/components/inputprometheusmetadatum.md
   - docs/models/components/inputprometheusmode.md
   - docs/models/components/inputprometheuspq.md
+  - docs/models/components/inputprometheuspqcontrols.md
   - docs/models/components/inputprometheusrecordtype.md
   - docs/models/components/inputprometheusrw.md
   - docs/models/components/inputprometheusrwauthenticationtype.md
@@ -861,6 +901,7 @@ generatedFiles:
   - docs/models/components/inputprometheusrwoauthheader.md
   - docs/models/components/inputprometheusrwoauthparam.md
   - docs/models/components/inputprometheusrwpq.md
+  - docs/models/components/inputprometheusrwpqcontrols.md
   - docs/models/components/inputprometheusrwtlssettingsserverside.md
   - docs/models/components/inputprometheusrwtype.md
   - docs/models/components/inputprometheussearchfilter.md
@@ -872,6 +913,7 @@ generatedFiles:
   - docs/models/components/inputrawudpmetadatum.md
   - docs/models/components/inputrawudpmode.md
   - docs/models/components/inputrawudppq.md
+  - docs/models/components/inputrawudppqcontrols.md
   - docs/models/components/inputrawudptype.md
   - docs/models/components/inputs3.md
   - docs/models/components/inputs3authenticationmethod.md
@@ -886,6 +928,7 @@ generatedFiles:
   - docs/models/components/inputs3inventorymetadatum.md
   - docs/models/components/inputs3inventorymode.md
   - docs/models/components/inputs3inventorypq.md
+  - docs/models/components/inputs3inventorypqcontrols.md
   - docs/models/components/inputs3inventorypreprocess.md
   - docs/models/components/inputs3inventorysignatureversion.md
   - docs/models/components/inputs3inventorytagafterprocessing.md
@@ -893,6 +936,7 @@ generatedFiles:
   - docs/models/components/inputs3metadatum.md
   - docs/models/components/inputs3mode.md
   - docs/models/components/inputs3pq.md
+  - docs/models/components/inputs3pqcontrols.md
   - docs/models/components/inputs3preprocess.md
   - docs/models/components/inputs3signatureversion.md
   - docs/models/components/inputs3type.md
@@ -904,6 +948,7 @@ generatedFiles:
   - docs/models/components/inputsecuritylakemetadatum.md
   - docs/models/components/inputsecuritylakemode.md
   - docs/models/components/inputsecuritylakepq.md
+  - docs/models/components/inputsecuritylakepqcontrols.md
   - docs/models/components/inputsecuritylakepreprocess.md
   - docs/models/components/inputsecuritylakesignatureversion.md
   - docs/models/components/inputsecuritylaketagafterprocessing.md
@@ -914,6 +959,7 @@ generatedFiles:
   - docs/models/components/inputsnmpmetadatum.md
   - docs/models/components/inputsnmpmode.md
   - docs/models/components/inputsnmppq.md
+  - docs/models/components/inputsnmppqcontrols.md
   - docs/models/components/inputsnmptype.md
   - docs/models/components/inputsplunk.md
   - docs/models/components/inputsplunkauthtoken.md
@@ -930,6 +976,7 @@ generatedFiles:
   - docs/models/components/inputsplunkhecminimumtlsversion.md
   - docs/models/components/inputsplunkhecmode.md
   - docs/models/components/inputsplunkhecpq.md
+  - docs/models/components/inputsplunkhecpqcontrols.md
   - docs/models/components/inputsplunkhectlssettingsserverside.md
   - docs/models/components/inputsplunkhectype.md
   - docs/models/components/inputsplunkmaximumtlsversion.md
@@ -939,6 +986,7 @@ generatedFiles:
   - docs/models/components/inputsplunkmode.md
   - docs/models/components/inputsplunkpq.md
   - docs/models/components/inputsplunkpqcompression.md
+  - docs/models/components/inputsplunkpqcontrols.md
   - docs/models/components/inputsplunksearch.md
   - docs/models/components/inputsplunksearchauthenticationtype.md
   - docs/models/components/inputsplunksearchcompression.md
@@ -949,6 +997,7 @@ generatedFiles:
   - docs/models/components/inputsplunksearchoauthheader.md
   - docs/models/components/inputsplunksearchoauthparam.md
   - docs/models/components/inputsplunksearchpq.md
+  - docs/models/components/inputsplunksearchpqcontrols.md
   - docs/models/components/inputsplunksearchretryrules.md
   - docs/models/components/inputsplunksearchretrytype.md
   - docs/models/components/inputsplunksearchtype.md
@@ -961,6 +1010,7 @@ generatedFiles:
   - docs/models/components/inputsqsmetadatum.md
   - docs/models/components/inputsqsmode.md
   - docs/models/components/inputsqspq.md
+  - docs/models/components/inputsqspqcontrols.md
   - docs/models/components/inputsqsqueuetype.md
   - docs/models/components/inputsqssignatureversion.md
   - docs/models/components/inputsqstype.md
@@ -979,6 +1029,8 @@ generatedFiles:
   - docs/models/components/inputsyslogmode2.md
   - docs/models/components/inputsyslogpq1.md
   - docs/models/components/inputsyslogpq2.md
+  - docs/models/components/inputsyslogpqcontrols1.md
+  - docs/models/components/inputsyslogpqcontrols2.md
   - docs/models/components/inputsyslogsyslog1.md
   - docs/models/components/inputsyslogsyslog2.md
   - docs/models/components/inputsyslogtlssettingsserverside1.md
@@ -1004,6 +1056,7 @@ generatedFiles:
   - docs/models/components/inputsystemmetricsnetworkmode.md
   - docs/models/components/inputsystemmetricspersistence.md
   - docs/models/components/inputsystemmetricspq.md
+  - docs/models/components/inputsystemmetricspqcontrols.md
   - docs/models/components/inputsystemmetricspqmode.md
   - docs/models/components/inputsystemmetricsprocess.md
   - docs/models/components/inputsystemmetricsset.md
@@ -1018,6 +1071,7 @@ generatedFiles:
   - docs/models/components/inputsystemstatemode.md
   - docs/models/components/inputsystemstatepersistence.md
   - docs/models/components/inputsystemstatepq.md
+  - docs/models/components/inputsystemstatepqcontrols.md
   - docs/models/components/inputsystemstateroutes.md
   - docs/models/components/inputsystemstatetype.md
   - docs/models/components/inputtcp.md
@@ -1033,6 +1087,7 @@ generatedFiles:
   - docs/models/components/inputtcpjsonminimumtlsversion.md
   - docs/models/components/inputtcpjsonmode.md
   - docs/models/components/inputtcpjsonpq.md
+  - docs/models/components/inputtcpjsonpqcontrols.md
   - docs/models/components/inputtcpjsontlssettingsserverside.md
   - docs/models/components/inputtcpjsontype.md
   - docs/models/components/inputtcpmaximumtlsversion.md
@@ -1040,6 +1095,7 @@ generatedFiles:
   - docs/models/components/inputtcpminimumtlsversion.md
   - docs/models/components/inputtcpmode.md
   - docs/models/components/inputtcppq.md
+  - docs/models/components/inputtcppqcontrols.md
   - docs/models/components/inputtcppreprocess.md
   - docs/models/components/inputtcptlssettingsserverside.md
   - docs/models/components/inputtcptype.md
@@ -1053,6 +1109,7 @@ generatedFiles:
   - docs/models/components/inputwefminimumtlsversion.md
   - docs/models/components/inputwefmode.md
   - docs/models/components/inputwefpq.md
+  - docs/models/components/inputwefpqcontrols.md
   - docs/models/components/inputweftype.md
   - docs/models/components/inputwindowsmetrics.md
   - docs/models/components/inputwindowsmetricscompression.md
@@ -1072,6 +1129,7 @@ generatedFiles:
   - docs/models/components/inputwindowsmetricsnetworkmode.md
   - docs/models/components/inputwindowsmetricspersistence.md
   - docs/models/components/inputwindowsmetricspq.md
+  - docs/models/components/inputwindowsmetricspqcontrols.md
   - docs/models/components/inputwindowsmetricspqmode.md
   - docs/models/components/inputwindowsmetricsprocess.md
   - docs/models/components/inputwindowsmetricsset.md
@@ -1084,6 +1142,7 @@ generatedFiles:
   - docs/models/components/inputwineventlogsmetadatum.md
   - docs/models/components/inputwineventlogsmode.md
   - docs/models/components/inputwineventlogspq.md
+  - docs/models/components/inputwineventlogspqcontrols.md
   - docs/models/components/inputwineventlogstype.md
   - docs/models/components/inputwiz.md
   - docs/models/components/inputwizauthenticationmethod.md
@@ -1093,6 +1152,7 @@ generatedFiles:
   - docs/models/components/inputwizmetadatum.md
   - docs/models/components/inputwizmode.md
   - docs/models/components/inputwizpq.md
+  - docs/models/components/inputwizpqcontrols.md
   - docs/models/components/inputwizretryrules.md
   - docs/models/components/inputwizretrytype.md
   - docs/models/components/inputwiztype.md
@@ -1106,6 +1166,7 @@ generatedFiles:
   - docs/models/components/inputwizwebhookminimumtlsversion.md
   - docs/models/components/inputwizwebhookmode.md
   - docs/models/components/inputwizwebhookpq.md
+  - docs/models/components/inputwizwebhookpqcontrols.md
   - docs/models/components/inputwizwebhooktlssettingsserverside.md
   - docs/models/components/inputwizwebhooktype.md
   - docs/models/components/inputzscalerhec.md
@@ -1119,6 +1180,7 @@ generatedFiles:
   - docs/models/components/inputzscalerhecminimumtlsversion.md
   - docs/models/components/inputzscalerhecmode.md
   - docs/models/components/inputzscalerhecpq.md
+  - docs/models/components/inputzscalerhecpqcontrols.md
   - docs/models/components/inputzscalerhectlssettingsserverside.md
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
@@ -2049,6 +2111,7 @@ generatedFiles:
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
+  - docs/models/components/splunkhecmetadata.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
@@ -2326,16 +2389,16 @@ examples:
     speakeasy-default-list-input:
       responses:
         "200":
-          application/json: {"count": 279473, "items": [{"id": "<id>", "type": "exec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "command": "<value>", "retries": 10, "scheduleType": "interval", "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "metadata": [{"name": "<value>", "value": "<value>"}], "description": "er er limp fill ack", "interval": 60, "cronSchedule": "* * * * *"}]}
+          application/json: {"count": 279473, "items": [{"id": "<id>", "type": "exec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "command": "<value>", "retries": 10, "scheduleType": "interval", "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "metadata": [{"name": "<value>", "value": "<value>"}], "description": "er er limp fill ack", "interval": 60, "cronSchedule": "* * * * *"}]}
         "500":
           application/json: {"message": "<value>"}
   createInput:
     speakeasy-default-create-input:
       requestBody:
-        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authType": "manual"}
+        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authType": "manual"}
       responses:
         "200":
-          application/json: {"count": 422422, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "interval": 15, "rules": [{"filter": "<value>", "description": "now forenenst circumference as up volunteer"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "hmph blank unless huzzah however"}]}
+          application/json: {"count": 422422, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 15, "rules": [{"filter": "<value>", "description": "now forenenst circumference as up volunteer"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "hmph blank unless huzzah however"}]}
         "500":
           application/json: {"message": "<value>"}
   getInputById:
@@ -2345,7 +2408,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
+          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputById:
@@ -2354,10 +2417,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "rules": [{"filter": "<value>", "description": "invite meh corny incidentally down"}], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "gown deployment portray gah mindless carp stabilise"}
+        application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "rules": [{"filter": "<value>", "description": "invite meh corny incidentally down"}], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "gown deployment portray gah mindless carp stabilise"}
       responses:
         "200":
-          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "host": "0.0.0.0", "udpPort": 4567.57, "tcpPort": 671.14, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 5485.92, "enableLoadBalancing": false, "description": "once curly finally mentor stormy usually understated", "enableEnhancedProxyHeaderParsing": false}]}
+          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "udpPort": 4567.57, "tcpPort": 671.14, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 5485.92, "enableLoadBalancing": false, "description": "once curly finally mentor stormy usually understated", "enableEnhancedProxyHeaderParsing": false}]}
         "500":
           application/json: {"message": "<value>"}
   deleteInputById:
@@ -2367,7 +2430,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 789302, "items": [{"id": "<id>", "type": "wef", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none"}, "host": "0.0.0.0", "port": 5986, "authMethod": "clientCert", "tls": {"disabled": false, "rejectUnauthorized": true, "requestCert": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "commonNameRegex": "/.*/", "minVersion": "TLSv1.3", "maxVersion": "TLSv1.1", "ocspCheck": false, "keytab": "<value>", "principal": "<value>", "ocspCheckFailClose": false}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "keepAliveTimeout": 90, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "socketTimeout": 0, "caFingerprint": "<value>", "keytab": "<value>", "principal": "<value>", "allowMachineIdMismatch": false, "subscriptions": [], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "apropos rear jittery pitiful", "logFingerprintMismatch": false}]}
+          application/json: {"count": 789302, "items": [{"id": "<id>", "type": "wef", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 5986, "authMethod": "clientCert", "tls": {"disabled": false, "rejectUnauthorized": true, "requestCert": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "commonNameRegex": "/.*/", "minVersion": "TLSv1.3", "maxVersion": "TLSv1.1", "ocspCheck": false, "keytab": "<value>", "principal": "<value>", "ocspCheckFailClose": false}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "keepAliveTimeout": 90, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "socketTimeout": 0, "caFingerprint": "<value>", "keytab": "<value>", "principal": "<value>", "allowMachineIdMismatch": false, "subscriptions": [], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "apropos rear jittery pitiful", "logFingerprintMismatch": false}]}
         "500":
           application/json: {"message": "<value>"}
   createInputHecTokenById:
@@ -2430,7 +2493,7 @@ examples:
         application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "grafana_cloud", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "lokiUrl": "https://funny-premise.biz/", "prometheusUrl": "https://shady-zebra.com/", "message": "<value>", "messageFormat": "protobuf", "labels": [{"name": "", "value": "<value>"}], "metricRenameExpr": "name.replace(/[^a-zA-Z0-9_]/g, '_')", "prometheusAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Lora_Gottlieb24", "password": "r_ivPa2hrC6f_iq", "credentialsSecret": "<value>"}, "lokiAuth": {"authType": "basic", "token": "<value>", "textSecret": "<value>", "username": "Elinor.Spencer73", "password": "eJz4Ts89q_oZrsD", "credentialsSecret": "<value>"}, "concurrency": 1, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 15, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "sendStructuredMetadata": false, "responseRetrySettings": [{"httpStatus": 6882.35, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "lady concerning supposing drat um", "compress": true, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:
@@ -3236,3 +3299,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n"

@@ -104,6 +104,9 @@ func (e *InputWefCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputWefPqControls struct {
+}
+
 type InputWefPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWefMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputWefPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputWefCompression `default:"none" json:"compress"`
+	Compress   *InputWefCompression `default:"none" json:"compress"`
+	PqControls *InputWefPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputWefPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputWefPq) GetCompress() *InputWefCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputWefPq) GetPqControls() *InputWefPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 // InputWefAuthenticationMethod - How to authenticate incoming client connections

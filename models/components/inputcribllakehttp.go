@@ -104,6 +104,9 @@ func (e *InputCriblLakeHTTPCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputCriblLakeHTTPPqControls struct {
+}
+
 type InputCriblLakeHTTPPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCriblLakeHTTPMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputCriblLakeHTTPPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputCriblLakeHTTPCompression `default:"none" json:"compress"`
+	Compress   *InputCriblLakeHTTPCompression `default:"none" json:"compress"`
+	PqControls *InputCriblLakeHTTPPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputCriblLakeHTTPPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputCriblLakeHTTPPq) GetCompress() *InputCriblLakeHTTPCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputCriblLakeHTTPPq) GetPqControls() *InputCriblLakeHTTPPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 type InputCriblLakeHTTPMinimumTLSVersion string
@@ -393,23 +404,35 @@ func (o *InputCriblLakeHTTPAuthTokensExtMetadatum) GetValue() string {
 	return o.Value
 }
 
+type SplunkHecMetadata struct {
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+func (o *SplunkHecMetadata) GetEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Enabled
+}
+
+type ElasticsearchMetadata struct {
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+func (o *ElasticsearchMetadata) GetEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Enabled
+}
+
 type InputCriblLakeHTTPAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata        []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
-	EnableSplunkHec *bool                                      `default:"false" json:"enableSplunkHec"`
-}
-
-func (i InputCriblLakeHTTPAuthTokensExt) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCriblLakeHTTPAuthTokensExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
-		return err
-	}
-	return nil
+	Metadata              []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
+	SplunkHecMetadata     *SplunkHecMetadata                         `json:"splunkHecMetadata,omitempty"`
+	ElasticsearchMetadata *ElasticsearchMetadata                     `json:"elasticsearchMetadata,omitempty"`
 }
 
 func (o *InputCriblLakeHTTPAuthTokensExt) GetToken() string {
@@ -433,11 +456,18 @@ func (o *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []InputCriblLakeHTTPAuth
 	return o.Metadata
 }
 
-func (o *InputCriblLakeHTTPAuthTokensExt) GetEnableSplunkHec() *bool {
+func (o *InputCriblLakeHTTPAuthTokensExt) GetSplunkHecMetadata() *SplunkHecMetadata {
 	if o == nil {
 		return nil
 	}
-	return o.EnableSplunkHec
+	return o.SplunkHecMetadata
+}
+
+func (o *InputCriblLakeHTTPAuthTokensExt) GetElasticsearchMetadata() *ElasticsearchMetadata {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticsearchMetadata
 }
 
 type InputCriblLakeHTTP struct {

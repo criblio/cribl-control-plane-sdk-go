@@ -104,6 +104,9 @@ func (e *InputOffice365MgmtCompression) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputOffice365MgmtPqControls struct {
+}
+
 type InputOffice365MgmtPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputOffice365MgmtMode `default:"always" json:"mode"`
@@ -118,7 +121,8 @@ type InputOffice365MgmtPq struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
 	// Codec to use to compress the persisted data
-	Compress *InputOffice365MgmtCompression `default:"none" json:"compress"`
+	Compress   *InputOffice365MgmtCompression `default:"none" json:"compress"`
+	PqControls *InputOffice365MgmtPqControls  `json:"pqControls,omitempty"`
 }
 
 func (i InputOffice365MgmtPq) MarshalJSON() ([]byte, error) {
@@ -179,6 +183,13 @@ func (o *InputOffice365MgmtPq) GetCompress() *InputOffice365MgmtCompression {
 		return nil
 	}
 	return o.Compress
+}
+
+func (o *InputOffice365MgmtPq) GetPqControls() *InputOffice365MgmtPqControls {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
 }
 
 // InputOffice365MgmtSubscriptionPlan - Office 365 subscription plan for your organization, typically Office 365 Enterprise
