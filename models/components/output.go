@@ -773,6 +773,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputStatsdExt OutputStatsdExt = OutputStatsdExt{}
+	if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err == nil {
+		u.OutputStatsdExt = &outputStatsdExt
+		u.Type = OutputTypeOutputStatsdExt
+		return nil
+	}
+
 	var outputGraphite OutputGraphite = OutputGraphite{}
 	if err := utils.UnmarshalJSON(data, &outputGraphite, "", true, false); err == nil {
 		u.OutputGraphite = &outputGraphite
@@ -784,13 +791,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputStatsd, "", true, false); err == nil {
 		u.OutputStatsd = &outputStatsd
 		u.Type = OutputTypeOutputStatsd
-		return nil
-	}
-
-	var outputStatsdExt OutputStatsdExt = OutputStatsdExt{}
-	if err := utils.UnmarshalJSON(data, &outputStatsdExt, "", true, false); err == nil {
-		u.OutputStatsdExt = &outputStatsdExt
-		u.Type = OutputTypeOutputStatsdExt
 		return nil
 	}
 
@@ -829,13 +829,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputSyslog OutputSyslog = OutputSyslog{}
-	if err := utils.UnmarshalJSON(data, &outputSyslog, "", true, false); err == nil {
-		u.OutputSyslog = &outputSyslog
-		u.Type = OutputTypeOutputSyslog
-		return nil
-	}
-
 	var outputAzureEventhub OutputAzureEventhub = OutputAzureEventhub{}
 	if err := utils.UnmarshalJSON(data, &outputAzureEventhub, "", true, false); err == nil {
 		u.OutputAzureEventhub = &outputAzureEventhub
@@ -864,17 +857,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputTcpjson OutputTcpjson = OutputTcpjson{}
-	if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, false); err == nil {
-		u.OutputTcpjson = &outputTcpjson
-		u.Type = OutputTypeOutputTcpjson
-		return nil
-	}
-
 	var outputSumoLogic OutputSumoLogic = OutputSumoLogic{}
 	if err := utils.UnmarshalJSON(data, &outputSumoLogic, "", true, false); err == nil {
 		u.OutputSumoLogic = &outputSumoLogic
 		u.Type = OutputTypeOutputSumoLogic
+		return nil
+	}
+
+	var outputCrowdstrikeNextGenSiem OutputCrowdstrikeNextGenSiem = OutputCrowdstrikeNextGenSiem{}
+	if err := utils.UnmarshalJSON(data, &outputCrowdstrikeNextGenSiem, "", true, false); err == nil {
+		u.OutputCrowdstrikeNextGenSiem = &outputCrowdstrikeNextGenSiem
+		u.Type = OutputTypeOutputCrowdstrikeNextGenSiem
 		return nil
 	}
 
@@ -885,17 +878,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputTcpjson OutputTcpjson = OutputTcpjson{}
+	if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, false); err == nil {
+		u.OutputTcpjson = &outputTcpjson
+		u.Type = OutputTypeOutputTcpjson
+		return nil
+	}
+
 	var outputElasticCloud OutputElasticCloud = OutputElasticCloud{}
 	if err := utils.UnmarshalJSON(data, &outputElasticCloud, "", true, false); err == nil {
 		u.OutputElasticCloud = &outputElasticCloud
 		u.Type = OutputTypeOutputElasticCloud
-		return nil
-	}
-
-	var outputCrowdstrikeNextGenSiem OutputCrowdstrikeNextGenSiem = OutputCrowdstrikeNextGenSiem{}
-	if err := utils.UnmarshalJSON(data, &outputCrowdstrikeNextGenSiem, "", true, false); err == nil {
-		u.OutputCrowdstrikeNextGenSiem = &outputCrowdstrikeNextGenSiem
-		u.Type = OutputTypeOutputCrowdstrikeNextGenSiem
 		return nil
 	}
 
@@ -945,6 +938,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputSplunkLb, "", true, false); err == nil {
 		u.OutputSplunkLb = &outputSplunkLb
 		u.Type = OutputTypeOutputSplunkLb
+		return nil
+	}
+
+	var outputSyslog OutputSyslog = OutputSyslog{}
+	if err := utils.UnmarshalJSON(data, &outputSyslog, "", true, false); err == nil {
+		u.OutputSyslog = &outputSyslog
+		u.Type = OutputTypeOutputSyslog
 		return nil
 	}
 
@@ -1144,17 +1144,17 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var outputAzureDataExplorer OutputAzureDataExplorer = OutputAzureDataExplorer{}
-	if err := utils.UnmarshalJSON(data, &outputAzureDataExplorer, "", true, false); err == nil {
-		u.OutputAzureDataExplorer = &outputAzureDataExplorer
-		u.Type = OutputTypeOutputAzureDataExplorer
-		return nil
-	}
-
 	var outputWebhook OutputWebhook = OutputWebhook{}
 	if err := utils.UnmarshalJSON(data, &outputWebhook, "", true, false); err == nil {
 		u.OutputWebhook = &outputWebhook
 		u.Type = OutputTypeOutputWebhook
+		return nil
+	}
+
+	var outputAzureDataExplorer OutputAzureDataExplorer = OutputAzureDataExplorer{}
+	if err := utils.UnmarshalJSON(data, &outputAzureDataExplorer, "", true, false); err == nil {
+		u.OutputAzureDataExplorer = &outputAzureDataExplorer
+		u.Type = OutputTypeOutputAzureDataExplorer
 		return nil
 	}
 

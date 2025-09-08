@@ -685,6 +685,8 @@ type OutputAzureDataExplorer struct {
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode     *OutputAzureDataExplorerMode       `default:"error" json:"pqMode"`
 	PqControls *OutputAzureDataExplorerPqControls `json:"pqControls,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -1130,4 +1132,11 @@ func (o *OutputAzureDataExplorer) GetPqControls() *OutputAzureDataExplorerPqCont
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputAzureDataExplorer) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
 }

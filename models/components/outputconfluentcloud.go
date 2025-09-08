@@ -653,6 +653,8 @@ func (e *OutputConfluentCloudSASLMechanism) UnmarshalJSON(data []byte) error {
 type OutputConfluentCloudAuthentication struct {
 	Disabled  *bool                              `default:"true" json:"disabled"`
 	Mechanism *OutputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
+	// Enable OAuth authentication
+	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
 }
 
 func (o OutputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -678,6 +680,13 @@ func (o *OutputConfluentCloudAuthentication) GetMechanism() *OutputConfluentClou
 		return nil
 	}
 	return o.Mechanism
+}
+
+func (o *OutputConfluentCloudAuthentication) GetOauthEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEnabled
 }
 
 // OutputConfluentCloudBackpressureBehavior - How to handle events when all receivers are exerting backpressure

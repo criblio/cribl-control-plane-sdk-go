@@ -537,6 +537,8 @@ func (e *InputKafkaSASLMechanism) UnmarshalJSON(data []byte) error {
 type InputKafkaAuthentication struct {
 	Disabled  *bool                    `default:"true" json:"disabled"`
 	Mechanism *InputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	// Enable OAuth authentication
+	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
 }
 
 func (i InputKafkaAuthentication) MarshalJSON() ([]byte, error) {
@@ -562,6 +564,13 @@ func (o *InputKafkaAuthentication) GetMechanism() *InputKafkaSASLMechanism {
 		return nil
 	}
 	return o.Mechanism
+}
+
+func (o *InputKafkaAuthentication) GetOauthEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEnabled
 }
 
 type InputKafkaMinimumTLSVersion string
