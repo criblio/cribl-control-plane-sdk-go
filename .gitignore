@@ -5,3 +5,4 @@
 .speakeasy/reports
 /examples/go.sum
 /examples/.env
+/examples/bin
