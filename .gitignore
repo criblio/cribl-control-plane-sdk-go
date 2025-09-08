@@ -3,3 +3,6 @@
 **/.speakeasy/temp/
 **/.speakeasy/logs/
 .speakeasy/reports
+/examples/go.sum
+/examples/.env
+/examples/bin
