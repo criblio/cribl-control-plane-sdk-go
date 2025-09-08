@@ -527,6 +527,92 @@ func (e *OutputSyslogMode) UnmarshalJSON(data []byte) error {
 type OutputSyslogPqControls struct {
 }
 
+// OutputSyslogTLS - Whether to inherit TLS configs from group setting or disable TLS
+type OutputSyslogTLS string
+
+const (
+	OutputSyslogTLSInherit OutputSyslogTLS = "inherit"
+	OutputSyslogTLSOff     OutputSyslogTLS = "off"
+)
+
+func (e OutputSyslogTLS) ToPointer() *OutputSyslogTLS {
+	return &e
+}
+func (e *OutputSyslogTLS) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "inherit":
+		fallthrough
+	case "off":
+		*e = OutputSyslogTLS(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSyslogTLS: %v", v)
+	}
+}
+
+type OutputSyslogHost struct {
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// Whether to inherit TLS configs from group setting or disable TLS
+	TLS *OutputSyslogTLS `default:"inherit" json:"tls"`
+	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
+	Servername *string `json:"servername,omitempty"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (o OutputSyslogHost) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSyslogHost) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSyslogHost) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSyslogHost) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSyslogHost) GetTLS() *OutputSyslogTLS {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSyslogHost) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputSyslogHost) GetWeight() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Weight
+}
+
 type OutputSyslog struct {
 	// Unique ID for this output
 	ID   *string          `json:"id,omitempty"`
@@ -588,6 +674,16 @@ type OutputSyslog struct {
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode     *OutputSyslogMode       `default:"error" json:"pqMode"`
 	PqControls *OutputSyslogPqControls `json:"pqControls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	// Set of hosts to load-balance data to.
+	Hosts []OutputSyslogHost `json:"hosts,omitempty"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -823,4 +919,39 @@ func (o *OutputSyslog) GetPqControls() *OutputSyslogPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSyslog) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSyslog) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSyslog) GetMaxConcurrentSenders() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentSenders
+}
+
+func (o *OutputSyslog) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSyslog) GetHosts() []OutputSyslogHost {
+	if o == nil {
+		return nil
+	}
+	return o.Hosts
 }

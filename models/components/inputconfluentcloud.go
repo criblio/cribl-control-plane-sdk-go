@@ -703,6 +703,8 @@ func (e *InputConfluentCloudSASLMechanism) UnmarshalJSON(data []byte) error {
 type InputConfluentCloudAuthentication struct {
 	Disabled  *bool                             `default:"true" json:"disabled"`
 	Mechanism *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
+	// Enable OAuth authentication
+	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
 }
 
 func (i InputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -728,6 +730,13 @@ func (o *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudS
 		return nil
 	}
 	return o.Mechanism
+}
+
+func (o *InputConfluentCloudAuthentication) GetOauthEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEnabled
 }
 
 type InputConfluentCloudMetadatum struct {
