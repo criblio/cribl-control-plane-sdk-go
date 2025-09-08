@@ -1,13 +1,13 @@
-/*
-Authentication Helper Module
-
-This helper module handles authentication for all SDK examples, supporting both
-cloud (OAuth2) and on-premises (username/password) deployments. It automatically
-detects the deployment type, loads environment variables, validates credentials,
-and provides authenticated SDK client instances.
-
-Used by: Example files that that can run on cloud or on-premises
-*/
+/**
+ * Authentication Helper Module
+ *
+ * This helper module handles authentication for all SDK examples, supporting both
+ * Cribl.Cloud (OAuth2) and on-prem (username/password) deployments. It
+ * automatically detects the deployment type, loads environment variables,
+ * validates credentials, and provides authenticated SDK client instances.
+ *
+ * Used by example files that can run on Cribl.Cloud and on-prem deployments.
+ */
 
 package main
 
@@ -22,8 +22,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/joho/godotenv"
 )
-
-const domain = "cribl-staging.cloud"
 
 type OnpremConfiguration struct {
 	ServerURL string
@@ -45,7 +43,7 @@ var (
 )
 
 func init() {
-	// Load .env file
+	// Load .env file if present (system environment variables take precedence)
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
@@ -59,7 +57,7 @@ func init() {
 	} else {
 		config := getCloudConfiguration()
 		configuration = config
-		BaseURL = fmt.Sprintf("https://%s-%s.%s/api/v1", config.WorkspaceName, config.OrgID, domain)
+		BaseURL = fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1", config.WorkspaceName, config.OrgID)
 	}
 }
 
@@ -78,13 +76,13 @@ func getOnpremConfiguration() OnpremConfiguration {
 	password := os.Getenv("ONPREM_PASSWORD")
 
 	if serverURL == "" {
-		log.Fatal("ONPREM_SERVER_URL is required for on-premises deployment")
+		log.Fatal("ONPREM_SERVER_URL is required for on-prem deployment")
 	}
 	if username == "" {
-		log.Fatal("ONPREM_USERNAME is required for on-premises deployment")
+		log.Fatal("ONPREM_USERNAME is required for on-prem deployment")
 	}
 	if password == "" {
-		log.Fatal("ONPREM_PASSWORD is required for on-premises deployment")
+		log.Fatal("ONPREM_PASSWORD is required for on-prem deployment")
 	}
 
 	return OnpremConfiguration{
@@ -101,16 +99,16 @@ func getCloudConfiguration() CloudConfiguration {
 	workspaceName := os.Getenv("WORKSPACE_NAME")
 
 	if orgID == "" {
-		log.Fatal("ORG_ID is required for cloud deployment")
+		log.Fatal("ORG_ID is required for Cribl.Cloud deployment")
 	}
 	if clientID == "" {
-		log.Fatal("CLIENT_ID is required for cloud deployment")
+		log.Fatal("CLIENT_ID is required for Cribl.Cloud deployment")
 	}
 	if clientSecret == "" {
-		log.Fatal("CLIENT_SECRET is required for cloud deployment")
+		log.Fatal("CLIENT_SECRET is required for Cribl.Cloud deployment")
 	}
 	if workspaceName == "" {
-		log.Fatal("WORKSPACE_NAME is required for cloud deployment")
+		log.Fatal("WORKSPACE_NAME is required for Cribl.Cloud deployment")
 	}
 
 	return CloudConfiguration{
@@ -121,7 +119,7 @@ func getCloudConfiguration() CloudConfiguration {
 	}
 }
 
-// createOnpremClient creates an authenticated client for on-premises deployment
+// createOnpremClient creates an authenticated client for on-prem deployment
 func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblControlPlane, error) {
 	config := configuration.(OnpremConfiguration)
 
@@ -136,7 +134,7 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 
 	response, err := tokenClient.Auth.Tokens.Get(ctx, loginInfo)
 	if err != nil {
-		return nil, fmt.Errorf("failed to authenticate with on-premises server: %w", err)
+		return nil, fmt.Errorf("failed to authenticate with on-prem server: %w", err)
 	}
 
 	if response.AuthToken == nil || response.AuthToken.Token == "" {
@@ -154,12 +152,12 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 	return client, nil
 }
 
-// createCloudClient creates an authenticated client for cloud deployment
+// createCloudClient creates an authenticated client for Cribl.Cloud deployment
 func createCloudClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblControlPlane, error) {
 	config := configuration.(CloudConfiguration)
 
-	tokenURL := fmt.Sprintf("https://login.%s/oauth/token", domain)
-	audience := fmt.Sprintf("https://api.%s", domain)
+	tokenURL := "https://login.cribl.cloud/oauth/token"
+	audience := "https://api.cribl.cloud"
 
 	client := criblcontrolplanesdkgo.New(
 		BaseURL,

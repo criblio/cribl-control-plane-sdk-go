@@ -5,7 +5,7 @@ This directory contains example programs demonstrating how to use the cribl-cont
 ## Prerequisites
 
 - Go 1.22 or higher
-- Access to a Cribl instance (cloud or on-premises)
+- Access to a Cribl instance (cloud or on-prem)
 
 ## Setup
 
@@ -31,7 +31,7 @@ These examples handle authentication internally and can be run standalone:
 # Cloud authentication example (uses hardcoded values)
 go run example-cloud-auth.go
 
-# On-premises authentication example (uses hardcoded values)  
+# On-prem authentication example (uses hardcoded values)  
 go run example-onprem-auth.go
 ```
 
@@ -60,7 +60,7 @@ go run example-packs.go auth.go
 | Example File | Description | Authentication Method |
 |---|---|---|
 | `example-cloud-auth.go` | Cloud authentication demo - validates OAuth2 connection | Hardcoded credentials |
-| `example-onprem-auth.go` | On-premises authentication demo - validates username/password login | Hardcoded credentials |
+| `example-onprem-auth.go` | On-prem authentication demo - validates username/password login | Hardcoded credentials |
 | `example-cloud-worker-group.go` | Creates and manages cloud worker groups | Uses `auth.go` + `.env` |
 | `example-stream.go` | Complete Cribl Stream pipeline: worker group, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
 | `example-edge.go` | Complete Cribl Edge pipeline: fleet, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
@@ -69,7 +69,7 @@ go run example-packs.go auth.go
 ## Configuration
 
 Each example can be configured by either:
-1. Using a `.env` file (recommended for examples that support both cloud and on-premises)
+1. Using a `.env` file (recommended for examples that support both cloud and on-prem)
 2. Editing the configuration constants directly in the example files (for simple examples)
 
 ### Environment Variables
@@ -81,9 +81,9 @@ For cloud deployments:
 - `CLIENT_SECRET` - Your OAuth2 client secret
 - `WORKSPACE_NAME` - Your workspace name
 
-For on-premises deployments:
+For on-prem deployments:
 - `DEPLOYMENT_ENV=onprem`
-- `ONPREM_SERVER_URL` - Your on-premises server URL
+- `ONPREM_SERVER_URL` - Your on-prem server URL
 - `ONPREM_USERNAME` - Your username
 - `ONPREM_PASSWORD` - Your password
 

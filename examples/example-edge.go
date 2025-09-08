@@ -1,26 +1,30 @@
-/*
-Cribl Edge Configuration Example
-
-This example demonstrates how to programmatically create and configure a complete
-data pipeline in Cribl Edge using the Control Plane SDK. It creates:
-
-1. A Fleet to manage the configuration
-2. A Syslog source to receive data on port 9021
-3. An Amazon S3 destination to store processed data
-4. A pipeline that filters events to keep only eventSource and eventID fields
-5. A route that connects the source to the pipeline and destination
-6. Deploys the configuration to the fleet to make it active
-
-Data flow: Syslog Source → Route → Pipeline → S3 Destination
-
-The example includes proper error handling, checks for existing resources,
-and actually invokes all the corresponding APIs.
-
-Prerequisites:
-- Configure your .env file with appropriate credentials
-- Update AWS S3 configuration values (AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, AWS_REGION)
-- Requires Enterprise License on the server
-*/
+/**
+ * Cribl Edge Configuration Example
+ *
+ * This example demonstrates how to programmatically create and configure a
+ * complete data pipeline in Cribl Edge using the Control Plane SDK.
+ *
+ * This example creates:
+ *
+ * 1. A Fleet to manage the configuration.
+ * 2. A Syslog Source to receive data on port 9021.
+ * 3. An Amazon S3 Destination to store processed data.
+ * 4. A Pipeline that filters events and keeps only data in the "eventSource"
+ * and "eventID" fields.
+ * 5. A Route that connects the Source to the Pipeline and Destination.
+ *
+ * This example also deploys the configuration to the Fleet to make it active.
+ *
+ * Data flow: Syslog Source → Route → Pipeline → Amazon S3 Destination
+ *
+ * This example includes error handling and checks for existing resources.
+ *
+ * Prerequisites:
+ * - An .env file that is configured with your credentials.
+ * - Your AWS S3 values for AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, and
+ * AWS_REGION.
+ * - An Enterprise License on the server.
+ */
 
 package main
 
@@ -38,11 +42,10 @@ import (
 const (
 	FLEET_ID = "my-fleet"
 
-	// Syslog source configuration
+	// Syslog Source configuration
 	SYSLOG_PORT = 9021
 
-	// Amazon S3 destination configuration
-	// [ UPDATE THESE VALUES ]
+	// Amazon S3 Destination configuration: Replace the placeholder values
 	AWS_API_KEY     = "your-aws-api-key"     // Replace with your AWS Access Key ID
 	AWS_SECRET_KEY  = "your-aws-secret-key"  // Replace with your AWS Secret Access Key
 	AWS_BUCKET_NAME = "your-aws-bucket-name" // Replace with your S3 bucket name
@@ -60,7 +63,7 @@ func main() {
 
 	groupURL := fmt.Sprintf("%s/m/%s", BaseURL, FLEET_ID)
 
-	// Check if fleet already exists
+	// Check if Fleet already exists
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreEdge, FLEET_ID, nil)
 	if err != nil {
 		log.Printf("Fleet doesn't exist yet, will create: %v", err)
@@ -88,7 +91,7 @@ func main() {
 		}
 	}
 
-	// Create Syslog source
+	// Create Syslog Source
 	syslogConfig := map[string]interface{}{
 		"id":      "my-syslog-source",
 		"type":    "syslog",
@@ -99,7 +102,7 @@ func main() {
 		},
 	}
 
-	// Convert to components.Input using JSON marshaling/unmarshaling (pattern from tests)
+	// Convert to components.Input using JSON marshaling/unmarshaling
 	sourceBytes, err := json.Marshal(syslogConfig)
 	if err != nil {
 		log.Printf("Error marshaling Syslog source config: %v", err)
@@ -118,7 +121,7 @@ func main() {
 		}
 	}
 
-	// Create S3 destination
+	// Create Amazon S3 Destination
 	s3Config := map[string]interface{}{
 		"id":             "my-s3-destination",
 		"type":           "s3",
@@ -130,21 +133,21 @@ func main() {
 		"fileNameSuffix": "\".log\"", // JavaScript expression that returns ".log"
 	}
 
-	// Convert to components.Output using JSON marshaling/unmarshaling (pattern from tests)
+	// Convert to components.Output using JSON marshaling/unmarshaling
 	destBytes, err := json.Marshal(s3Config)
 	if err != nil {
-		log.Printf("Error marshaling S3 destination config: %v", err)
+		log.Printf("Error marshaling Amazon S3 destination config: %v", err)
 	} else {
 		var s3Destination components.Output
 		err = json.Unmarshal(destBytes, &s3Destination)
 		if err != nil {
-			log.Printf("Error unmarshaling S3 destination config: %v", err)
+			log.Printf("Error unmarshaling Amazon S3 destination config: %v", err)
 		} else {
 			_, err = client.Destinations.Create(ctx, s3Destination, operations.WithServerURL(groupURL))
 			if err != nil {
-				log.Printf("Error creating S3 destination: %v", err)
+				log.Printf("Error creating Amazon S3 destination: %v", err)
 			} else {
-				fmt.Printf("✅ S3 destination created: my-s3-destination\n")
+				fmt.Printf("✅ Amazon S3 destination created: my-s3-destination\n")
 			}
 		}
 	}
@@ -165,7 +168,7 @@ func main() {
 		},
 	}
 
-	// Convert to components.Conf using JSON marshaling/unmarshaling (pattern from tests)
+	// Convert to components.Conf using JSON marshaling/unmarshaling
 	confBytes, err := json.Marshal(pipelineConf)
 	if err != nil {
 		log.Printf("Error marshaling pipeline config: %v", err)
@@ -189,15 +192,15 @@ func main() {
 		}
 	}
 
-	// Get existing routes and add new route (pattern from tests)
+	// Get existing Routes and add new Route
 	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
 	} else if routesListResponse.Object != nil && routesListResponse.Object.Items != nil && len(routesListResponse.Object.Items) > 0 {
-		// Get the first routes configuration
+		// Get the first Routes configuration
 		existingRoutes := routesListResponse.Object.Items[0]
 
-		// Create new route
+		// Create new Route
 		newRoute := components.RoutesRoute{
 			Final:                  criblcontrolplanesdkgo.Bool(false),
 			ID:                     criblcontrolplanesdkgo.String("my-route"),
@@ -206,13 +209,13 @@ func main() {
 			Output:                 "my-s3-destination",
 			EnableOutputExpression: criblcontrolplanesdkgo.Bool(true), // Allow custom output destinations
 			Filter:                 criblcontrolplanesdkgo.String("__inputId=='syslog:my-syslog-source'"),
-			Description:            criblcontrolplanesdkgo.String("This is my new route"),
+			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
-		// Add new route to existing routes (prepend to match TypeScript behavior)
+		// Add new Route to existing Routes
 		updatedRoutes := append([]components.RoutesRoute{newRoute}, existingRoutes.Routes...)
 
-		// Update routes configuration
+		// Update Routes configuration
 		if existingRoutes.ID != nil {
 			_, err = client.Routes.Update(ctx, *existingRoutes.ID, components.Routes{
 				ID:     existingRoutes.ID,
@@ -220,14 +223,14 @@ func main() {
 			}, operations.WithServerURL(groupURL))
 
 			if err != nil {
-				log.Printf("Error updating routes: %v", err)
+				log.Printf("Error updating Routes: %v", err)
 			} else {
 				fmt.Printf("✅ Route inserted: my-route\n")
 			}
 		}
 	}
 
-	// Get current version for deployment (pattern from worker group tests)
+	// Get current version for deployment
 	versionResponse, err := client.Groups.Configs.Versions.Get(ctx, components.ProductsCoreEdge, FLEET_ID)
 	if err != nil {
 		log.Printf("Error getting version for deployment: %v", err)

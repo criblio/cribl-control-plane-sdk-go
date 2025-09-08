@@ -1,19 +1,26 @@
-/*
-Cloud Authentication Example
-
-This example demonstrates how to authenticate with Cribl Cloud using OAuth2
-client credentials flow. It shows the authentication process:
-
-1. Creates an SDK client with OAuth2 client credentials configuration
-2. Automatically handles token exchange and refresh
-3. Validates the connection by checking server health status
-
-Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME, CRIBL_DOMAIN
-How to get these values: https://docs.cribl.io/api/#criblcloud
-
-Note: This example is for cloud deployments only and does not require a .env
-file configuration to run.
-*/
+/**
+ * Cribl.Cloud Authentication Example
+ *
+ * This example demonstrates how to authenticate with Cribl Cloud using OAuth2
+ * client credentials flow. It shows the authentication process:
+ *
+ * This example demonstrates the Cribl.Cloud authentication process using
+ * OAuth2 credentials.
+ *
+ * 1. Create an SDK client with OAuth2 client credentials.
+ * 2. Automatically handle token exchange and refresh.
+ * 3. Validate the connection by checking the server health status and listing
+ * all git branches.
+ *
+ * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID,
+ * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and
+ * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values,
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID
+ * and Secret are sensitive information and should be kept private.
+ *
+ * NOTE: This example is for Cribl.Cloud deployments only. It does not require
+ * .env file configuration.
+ */
 
 package main
 
@@ -26,19 +33,19 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// Cloud configuration - UPDATE THESE VALUES
+// Cribl.Cloud configuration: Replace the placeholder values
 const (
-	ORG_ID         = "your-org-id"        // Replace with your organization ID
-	CLIENT_ID      = "your-client-id"     // Replace with your OAuth2 client ID
-	CLIENT_SECRET  = "your-client-secret" // Replace with your OAuth2 client secret
-	WORKSPACE_NAME = "main"               // Replace with your workspace name
+	ORG_ID         = "your-org-id"        // Replace with your Organization ID
+	CLIENT_ID      = "your-client-id"     // Replace with your OAuth2 Client ID
+	CLIENT_SECRET  = "your-client-secret" // Replace with your OAuth2 Client Secret
+	WORKSPACE_NAME = "main"               // Replace with your Workspace name
 )
 
 func main() {
 	ctx := context.Background()
 	baseURL := fmt.Sprintf("https://%s-%s.cribl.cloud/api/v1", WORKSPACE_NAME, ORG_ID)
 
-	// Create authenticated client with OAuth2
+	// Create authenticated SDK client with OAuth2
 	client := criblcontrolplanesdkgo.New(
 		baseURL,
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
@@ -50,9 +57,9 @@ func main() {
 			},
 		}),
 	)
-	fmt.Println("✅ Cribl SDK client created for cloud deployment")
+	fmt.Println("✅ Cribl SDK client created for Cribl.Cloud deployment")
 
-	// Validate connection, try to list all git branches
+	// Validate connection, and list all git branches
 	response, err := client.Versions.Branches.List(ctx)
 	if err != nil {
 		handleError(err)
@@ -83,6 +90,6 @@ func handleError(err error) {
 	if strings.Contains(errStr, "401") || strings.Contains(errStr, "unauthorized") {
 		fmt.Println("⚠️ Authentication failed! Check your CLIENT_ID and CLIENT_SECRET.")
 	} else if strings.Contains(errStr, "429") || strings.Contains(errStr, "rate limit") {
-		fmt.Println("⚠️ Uh oh, you've hit the rate limit! Try again in a few seconds.")
+		fmt.Println("⚠️ Uh oh, you've reached the rate limit! Try again in a few seconds.")
 	}
 }
