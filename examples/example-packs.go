@@ -115,7 +115,7 @@ func main() {
 		} else {
 			_, err = client.Sources.Create(ctx, tcpJSONSource, operations.WithServerURL(packURL))
 			if err != nil {
-				log.Printf("Error creating TCP JSON Source in pack: %v", err)
+				log.Printf("Error creating TCP JSON Source in Pack: %v", err)
 			} else {
 				fmt.Printf("✅ Created tcp json Source: my-tcp-json in pack: \"%s\"\n", PACK_ID)
 			}
