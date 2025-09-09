@@ -70,7 +70,7 @@ func main() {
 	)
 	fmt.Println("✅ Cribl SDK client created for on-prem server")
 
-	// Validate connection, and list all git branches
+	// Validate connection and list all git branches
 	branchResponse, err := client.Versions.Branches.List(ctx)
 	if err != nil {
 		handleError(err)
