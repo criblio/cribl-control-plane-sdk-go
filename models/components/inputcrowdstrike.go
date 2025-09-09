@@ -36,6 +36,17 @@ type InputCrowdstrikeConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputCrowdstrikeConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCrowdstrikeConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCrowdstrikeConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputCrowdstrikeCompression) UnmarshalJSON(data []byte) error {
 type InputCrowdstrikePqControls struct {
 }
 
+func (i InputCrowdstrikePqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCrowdstrikePqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputCrowdstrikePq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCrowdstrikeMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputCrowdstrikePq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCrowdstrikePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -262,7 +284,7 @@ func (i InputCrowdstrikePreprocess) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCrowdstrikePreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -295,6 +317,17 @@ type InputCrowdstrikeMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputCrowdstrikeMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCrowdstrikeMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCrowdstrikeMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -321,7 +354,7 @@ func (i InputCrowdstrikeCheckpointing) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCrowdstrikeCheckpointing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -454,7 +487,7 @@ func (i InputCrowdstrike) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCrowdstrike) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil

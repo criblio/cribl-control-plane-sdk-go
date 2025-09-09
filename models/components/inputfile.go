@@ -36,6 +36,17 @@ type InputFileConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputFileConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFileConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputFileConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputFileCompression) UnmarshalJSON(data []byte) error {
 type InputFilePqControls struct {
 }
 
+func (i InputFilePqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFilePqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputFilePq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputFilePqMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputFilePq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFilePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -225,6 +247,17 @@ type InputFileMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputFileMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFileMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputFileMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -298,7 +331,7 @@ func (i InputFile) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFile) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

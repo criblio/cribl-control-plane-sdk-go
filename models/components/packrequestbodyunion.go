@@ -15,6 +15,17 @@ type PackRequestBodyTags2 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 }
 
+func (p PackRequestBodyTags2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PackRequestBodyTags2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *PackRequestBodyTags2) GetDataType() []string {
 	if o == nil {
 		return nil
@@ -56,6 +67,17 @@ type PackRequestBody2 struct {
 	Tags                 *PackRequestBodyTags2 `json:"tags,omitempty"`
 	AllowCustomFunctions *bool                 `json:"allowCustomFunctions,omitempty"`
 	Force                *bool                 `json:"force,omitempty"`
+}
+
+func (p PackRequestBody2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PackRequestBody2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"source"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PackRequestBody2) GetID() *string {
@@ -142,6 +164,17 @@ type PackRequestBodyTags1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 }
 
+func (p PackRequestBodyTags1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PackRequestBodyTags1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *PackRequestBodyTags1) GetDataType() []string {
 	if o == nil {
 		return nil
@@ -183,6 +216,17 @@ type PackRequestBody1 struct {
 	Tags                 *PackRequestBodyTags1 `json:"tags,omitempty"`
 	AllowCustomFunctions *bool                 `json:"allowCustomFunctions,omitempty"`
 	Force                *bool                 `json:"force,omitempty"`
+}
+
+func (p PackRequestBody1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PackRequestBody1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PackRequestBody1) GetID() string {
@@ -270,8 +314,8 @@ const (
 )
 
 type PackRequestBodyUnion struct {
-	PackRequestBody1 *PackRequestBody1 `queryParam:"inline"`
-	PackRequestBody2 *PackRequestBody2 `queryParam:"inline"`
+	PackRequestBody1 *PackRequestBody1 `queryParam:"inline" name:"PackRequestBody"`
+	PackRequestBody2 *PackRequestBody2 `queryParam:"inline" name:"PackRequestBody"`
 
 	Type PackRequestBodyUnionType
 }
@@ -297,14 +341,14 @@ func CreatePackRequestBodyUnionPackRequestBody2(packRequestBody2 PackRequestBody
 func (u *PackRequestBodyUnion) UnmarshalJSON(data []byte) error {
 
 	var packRequestBody1 PackRequestBody1 = PackRequestBody1{}
-	if err := utils.UnmarshalJSON(data, &packRequestBody1, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &packRequestBody1, "", true, nil); err == nil {
 		u.PackRequestBody1 = &packRequestBody1
 		u.Type = PackRequestBodyUnionTypePackRequestBody1
 		return nil
 	}
 
 	var packRequestBody2 PackRequestBody2 = PackRequestBody2{}
-	if err := utils.UnmarshalJSON(data, &packRequestBody2, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &packRequestBody2, "", true, nil); err == nil {
 		u.PackRequestBody2 = &packRequestBody2
 		u.Type = PackRequestBodyUnionTypePackRequestBody2
 		return nil

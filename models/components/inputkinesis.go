@@ -36,6 +36,17 @@ type InputKinesisConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputKinesisConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputKinesisConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputKinesisCompression) UnmarshalJSON(data []byte) error {
 type InputKinesisPqControls struct {
 }
 
+func (i InputKinesisPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputKinesisPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputKinesisMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputKinesisPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKinesisPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -342,6 +364,17 @@ type InputKinesisMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputKinesisMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputKinesisMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -428,7 +461,7 @@ func (i InputKinesis) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKinesis) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil

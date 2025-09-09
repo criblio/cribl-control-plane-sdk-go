@@ -36,6 +36,17 @@ type InputMskConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputMskConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputMskConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputMskCompression) UnmarshalJSON(data []byte) error {
 type InputMskPqControls struct {
 }
 
+func (i InputMskPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputMskPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputMskMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputMskPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMskPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,6 +220,17 @@ type InputMskMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputMskMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputMskMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -251,7 +284,7 @@ func (i InputMskAuth) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMskAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -361,7 +394,7 @@ func (i InputMskKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byte,
 }
 
 func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -459,7 +492,7 @@ func (i InputMskKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputMskKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -668,7 +701,7 @@ func (i InputMskTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMskTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -846,7 +879,7 @@ func (i InputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
 		return err
 	}
 	return nil

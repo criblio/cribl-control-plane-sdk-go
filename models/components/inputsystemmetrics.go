@@ -36,6 +36,17 @@ type InputSystemMetricsConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSystemMetricsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSystemMetricsConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputSystemMetricsCompression) UnmarshalJSON(data []byte) error {
 type InputSystemMetricsPqControls struct {
 }
 
+func (i InputSystemMetricsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSystemMetricsPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSystemMetricsPqMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputSystemMetricsPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -270,7 +292,7 @@ func (i InputSystemMetricsSystem) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsSystem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -339,7 +361,7 @@ func (i InputSystemMetricsCPU) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsCPU) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -418,7 +440,7 @@ func (i InputSystemMetricsMemory) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsMemory) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -487,7 +509,7 @@ func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsNetwork) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -574,7 +596,7 @@ func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsDisk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -630,6 +652,17 @@ type InputSystemMetricsCustom struct {
 	Disk    *InputSystemMetricsDisk    `json:"disk,omitempty"`
 }
 
+func (i InputSystemMetricsCustom) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCustom) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSystemMetricsCustom) GetSystem() *InputSystemMetricsSystem {
 	if o == nil {
 		return nil
@@ -676,7 +709,7 @@ func (i InputSystemMetricsHost) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -707,7 +740,7 @@ func (i InputSystemMetricsSet) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsSet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "filter"}); err != nil {
 		return err
 	}
 	return nil
@@ -737,6 +770,17 @@ func (o *InputSystemMetricsSet) GetIncludeChildren() *bool {
 type InputSystemMetricsProcess struct {
 	// Configure sets to collect process metrics
 	Sets []InputSystemMetricsSet `json:"sets,omitempty"`
+}
+
+func (i InputSystemMetricsProcess) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsProcess) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
@@ -783,6 +827,17 @@ type InputSystemMetricsFilter struct {
 	Expr string `json:"expr"`
 }
 
+func (i InputSystemMetricsFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSystemMetricsFilter) GetExpr() string {
 	if o == nil {
 		return ""
@@ -812,7 +867,7 @@ func (c Container) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Container) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -871,6 +926,17 @@ type InputSystemMetricsMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputSystemMetricsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputSystemMetricsMetadatum) GetName() string {
@@ -932,7 +998,7 @@ func (i InputSystemMetricsPersistence) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetricsPersistence) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1014,7 +1080,7 @@ func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

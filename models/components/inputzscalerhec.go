@@ -36,6 +36,17 @@ type InputZscalerHecConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputZscalerHecConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputZscalerHecConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputZscalerHecCompression) UnmarshalJSON(data []byte) error {
 type InputZscalerHecPqControls struct {
 }
 
+func (i InputZscalerHecPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputZscalerHecPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputZscalerHecMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputZscalerHecPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputZscalerHecPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -225,6 +247,17 @@ type InputZscalerHecAuthTokenMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputZscalerHecAuthTokenMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecAuthTokenMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputZscalerHecAuthTokenMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -257,7 +290,7 @@ func (i InputZscalerHecAuthToken) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputZscalerHecAuthToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
 		return err
 	}
 	return nil
@@ -401,7 +434,7 @@ func (i InputZscalerHecTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputZscalerHecTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -490,6 +523,17 @@ type InputZscalerHecMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputZscalerHecMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputZscalerHecMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -572,7 +616,7 @@ func (i InputZscalerHec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputZscalerHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

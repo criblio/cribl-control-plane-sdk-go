@@ -36,6 +36,17 @@ type InputAzureBlobConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputAzureBlobConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputAzureBlobConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputAzureBlobCompression) UnmarshalJSON(data []byte) error {
 type InputAzureBlobPqControls struct {
 }
 
+func (i InputAzureBlobPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputAzureBlobPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputAzureBlobMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputAzureBlobPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAzureBlobPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,6 +220,17 @@ type InputAzureBlobMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputAzureBlobMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputAzureBlobMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -247,6 +280,17 @@ func (e *InputAzureBlobAuthenticationMethod) UnmarshalJSON(data []byte) error {
 type InputAzureBlobCertificate struct {
 	// The certificate you registered as credentials for your app in the Azure portal
 	CertificateName string `json:"certificateName"`
+}
+
+func (i InputAzureBlobCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"certificateName"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputAzureBlobCertificate) GetCertificateName() string {
@@ -324,7 +368,7 @@ func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil

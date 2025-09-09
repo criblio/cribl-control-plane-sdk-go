@@ -36,6 +36,17 @@ type InputOffice365MgmtConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputOffice365MgmtConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365MgmtConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputOffice365MgmtConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputOffice365MgmtCompression) UnmarshalJSON(data []byte) error {
 type InputOffice365MgmtPqControls struct {
 }
 
+func (i InputOffice365MgmtPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365MgmtPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputOffice365MgmtPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputOffice365MgmtMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputOffice365MgmtPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365MgmtPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -231,6 +253,17 @@ type InputOffice365MgmtMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputOffice365MgmtMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365MgmtMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputOffice365MgmtMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -287,6 +320,17 @@ type InputOffice365MgmtContentConfig struct {
 	// Collector runtime Log Level
 	LogLevel *InputOffice365MgmtLogLevel `json:"logLevel,omitempty"`
 	Enabled  *bool                       `json:"enabled,omitempty"`
+}
+
+func (i InputOffice365MgmtContentConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365MgmtContentConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputOffice365MgmtContentConfig) GetContentType() *string {
@@ -378,7 +422,7 @@ func (i InputOffice365MgmtRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365MgmtRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -526,7 +570,7 @@ func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputOffice365Mgmt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tenantId", "appId"}); err != nil {
 		return err
 	}
 	return nil

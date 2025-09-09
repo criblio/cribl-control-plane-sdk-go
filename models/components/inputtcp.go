@@ -36,6 +36,17 @@ type InputTCPConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputTCPConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputTCPConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputTCPCompression) UnmarshalJSON(data []byte) error {
 type InputTCPPqControls struct {
 }
 
+func (i InputTCPPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputTCPPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputTCPMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputTCPPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTCPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputTCPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTCPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -370,6 +392,17 @@ type InputTCPMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputTCPMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputTCPMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -397,7 +430,7 @@ func (i InputTCPPreprocess) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTCPPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -505,7 +538,7 @@ func (i InputTCP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

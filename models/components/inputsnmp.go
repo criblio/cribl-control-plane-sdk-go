@@ -36,6 +36,17 @@ type InputSnmpConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSnmpConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSnmpConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputSnmpCompression) UnmarshalJSON(data []byte) error {
 type InputSnmpPqControls struct {
 }
 
+func (i InputSnmpPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSnmpPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSnmpMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputSnmpPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -245,7 +267,7 @@ func (v V3User) MarshalJSON() ([]byte, error) {
 }
 
 func (v *V3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &v, "", false, []string{"name"}); err != nil {
 		return err
 	}
 	return nil
@@ -293,7 +315,7 @@ func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -324,6 +346,17 @@ type InputSnmpMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputSnmpMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputSnmpMetadatum) GetName() string {
@@ -384,7 +417,7 @@ func (i InputSnmp) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

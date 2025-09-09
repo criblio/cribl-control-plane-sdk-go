@@ -36,6 +36,17 @@ type InputWefConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputWefConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWefConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputWefCompression) UnmarshalJSON(data []byte) error {
 type InputWefPqControls struct {
 }
 
+func (i InputWefPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputWefPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWefMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputWefPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWefPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -317,7 +339,7 @@ func (m MTLSSettings) MarshalJSON() ([]byte, error) {
 }
 
 func (m *MTLSSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
 		return err
 	}
 	return nil
@@ -487,6 +509,17 @@ type SubscriptionMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (s SubscriptionMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SubscriptionMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *SubscriptionMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -531,7 +564,7 @@ func (s Subscription) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Subscription) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
 		return err
 	}
 	return nil
@@ -627,6 +660,17 @@ type InputWefMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputWefMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWefMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -706,7 +750,7 @@ func (i InputWef) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
