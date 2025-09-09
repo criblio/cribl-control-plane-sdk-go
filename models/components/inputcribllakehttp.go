@@ -36,6 +36,17 @@ type InputCriblLakeHTTPConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputCriblLakeHTTPConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblLakeHTTPConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputCriblLakeHTTPCompression) UnmarshalJSON(data []byte) error {
 type InputCriblLakeHTTPPqControls struct {
 }
 
+func (i InputCriblLakeHTTPPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputCriblLakeHTTPPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCriblLakeHTTPMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputCriblLakeHTTPPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblLakeHTTPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputCriblLakeHTTPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblLakeHTTPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -370,6 +392,17 @@ type InputCriblLakeHTTPMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputCriblLakeHTTPMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblLakeHTTPMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -390,6 +423,17 @@ type InputCriblLakeHTTPAuthTokensExtMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputCriblLakeHTTPAuthTokensExtMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExtMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblLakeHTTPAuthTokensExtMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -408,6 +452,17 @@ type SplunkHecMetadata struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
+func (s SplunkHecMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SplunkHecMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *SplunkHecMetadata) GetEnabled() *bool {
 	if o == nil {
 		return nil
@@ -417,6 +472,17 @@ func (o *SplunkHecMetadata) GetEnabled() *bool {
 
 type ElasticsearchMetadata struct {
 	Enabled *bool `json:"enabled,omitempty"`
+}
+
+func (e ElasticsearchMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ElasticsearchMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ElasticsearchMetadata) GetEnabled() *bool {
@@ -433,6 +499,17 @@ type InputCriblLakeHTTPAuthTokensExt struct {
 	Metadata              []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
 	SplunkHecMetadata     *SplunkHecMetadata                         `json:"splunkHecMetadata,omitempty"`
 	ElasticsearchMetadata *ElasticsearchMetadata                     `json:"elasticsearchMetadata,omitempty"`
+}
+
+func (i InputCriblLakeHTTPAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputCriblLakeHTTPAuthTokensExt) GetToken() string {
@@ -535,7 +612,7 @@ func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

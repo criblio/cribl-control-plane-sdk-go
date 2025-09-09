@@ -36,6 +36,17 @@ type InputWinEventLogsConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputWinEventLogsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWinEventLogsConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputWinEventLogsCompression) UnmarshalJSON(data []byte) error {
 type InputWinEventLogsPqControls struct {
 }
 
+func (i InputWinEventLogsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputWinEventLogsPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWinEventLogsMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputWinEventLogsPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWinEventLogsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -252,6 +274,17 @@ type InputWinEventLogsMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputWinEventLogsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWinEventLogsMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -308,7 +341,7 @@ func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil

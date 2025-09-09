@@ -36,6 +36,17 @@ type InputTcpjsonConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputTcpjsonConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTcpjsonConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputTcpjsonConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputTcpjsonCompression) UnmarshalJSON(data []byte) error {
 type InputTcpjsonPqControls struct {
 }
 
+func (i InputTcpjsonPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTcpjsonPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputTcpjsonPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputTcpjsonMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputTcpjsonPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTcpjsonPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputTcpjsonTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTcpjsonTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -368,6 +390,17 @@ type InputTcpjsonMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputTcpjsonMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTcpjsonMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputTcpjsonMetadatum) GetName() string {
@@ -464,7 +497,7 @@ func (i InputTcpjson) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputTcpjson) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

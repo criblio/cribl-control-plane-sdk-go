@@ -260,7 +260,7 @@ func (o OutputExabeam) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputExabeam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "collectorInstanceId"}); err != nil {
 		return err
 	}
 	return nil

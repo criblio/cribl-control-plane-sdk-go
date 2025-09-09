@@ -36,6 +36,17 @@ type InputCriblHTTPConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputCriblHTTPConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblHTTPConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblHTTPConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputCriblHTTPCompression) UnmarshalJSON(data []byte) error {
 type InputCriblHTTPPqControls struct {
 }
 
+func (i InputCriblHTTPPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblHTTPPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputCriblHTTPPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCriblHTTPMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputCriblHTTPPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblHTTPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputCriblHTTPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblHTTPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -370,6 +392,17 @@ type InputCriblHTTPMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputCriblHTTPMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblHTTPMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblHTTPMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -441,7 +474,7 @@ func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblHTTP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

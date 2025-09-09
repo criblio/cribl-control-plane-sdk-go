@@ -105,6 +105,17 @@ type OutputSentinelOneAiSiemExtraHTTPHeader struct {
 	Value string  `json:"value"`
 }
 
+func (o OutputSentinelOneAiSiemExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *OutputSentinelOneAiSiemExtraHTTPHeader) GetName() *string {
 	if o == nil {
 		return nil
@@ -192,7 +203,7 @@ func (o OutputSentinelOneAiSiemResponseRetrySetting) MarshalJSON() ([]byte, erro
 }
 
 func (o *OutputSentinelOneAiSiemResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
 		return err
 	}
 	return nil
@@ -241,7 +252,7 @@ func (o OutputSentinelOneAiSiemTimeoutRetrySettings) MarshalJSON() ([]byte, erro
 }
 
 func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -392,6 +403,17 @@ func (e *OutputSentinelOneAiSiemMode) UnmarshalJSON(data []byte) error {
 type OutputSentinelOneAiSiemPqControls struct {
 }
 
+func (o OutputSentinelOneAiSiemPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type OutputSentinelOneAiSiem struct {
 	// Unique ID for this output
 	ID   *string                     `json:"id,omitempty"`
@@ -494,7 +516,7 @@ func (o OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

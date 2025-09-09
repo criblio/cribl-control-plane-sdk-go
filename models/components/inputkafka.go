@@ -36,6 +36,17 @@ type InputKafkaConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputKafkaConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputKafkaConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputKafkaCompression) UnmarshalJSON(data []byte) error {
 type InputKafkaPqControls struct {
 }
 
+func (i InputKafkaPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputKafkaPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputKafkaMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputKafkaPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafkaPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -231,7 +253,7 @@ func (i InputKafkaAuth) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafkaAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -341,7 +363,7 @@ func (i InputKafkaKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byt
 }
 
 func (i *InputKafkaKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -439,7 +461,7 @@ func (i InputKafkaKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputKafkaKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -537,6 +559,8 @@ func (e *InputKafkaSASLMechanism) UnmarshalJSON(data []byte) error {
 type InputKafkaAuthentication struct {
 	Disabled  *bool                    `default:"true" json:"disabled"`
 	Mechanism *InputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	// Enable OAuth authentication
+	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
 }
 
 func (i InputKafkaAuthentication) MarshalJSON() ([]byte, error) {
@@ -544,7 +568,7 @@ func (i InputKafkaAuthentication) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafkaAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -562,6 +586,13 @@ func (o *InputKafkaAuthentication) GetMechanism() *InputKafkaSASLMechanism {
 		return nil
 	}
 	return o.Mechanism
+}
+
+func (o *InputKafkaAuthentication) GetOauthEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEnabled
 }
 
 type InputKafkaMinimumTLSVersion string
@@ -654,7 +685,7 @@ func (i InputKafkaTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafkaTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -734,6 +765,17 @@ type InputKafkaMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputKafkaMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputKafkaMetadatum) GetName() string {
@@ -830,7 +872,7 @@ func (i InputKafka) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKafka) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil

@@ -36,6 +36,17 @@ type InputHTTPRawConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputHTTPRawConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputHTTPRawConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputHTTPRawCompression) UnmarshalJSON(data []byte) error {
 type InputHTTPRawPqControls struct {
 }
 
+func (i InputHTTPRawPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputHTTPRawPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputHTTPRawMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputHTTPRawPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTPRawPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputHTTPRawTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTPRawTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -370,6 +392,17 @@ type InputHTTPRawMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputHTTPRawMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputHTTPRawMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -388,6 +421,17 @@ type InputHTTPRawAuthTokensExtMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputHTTPRawAuthTokensExtMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawAuthTokensExtMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputHTTPRawAuthTokensExtMetadatum) GetName() string {
@@ -410,6 +454,17 @@ type InputHTTPRawAuthTokensExt struct {
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
 	Metadata []InputHTTPRawAuthTokensExtMetadatum `json:"metadata,omitempty"`
+}
+
+func (i InputHTTPRawAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputHTTPRawAuthTokensExt) GetToken() string {
@@ -500,7 +555,7 @@ func (i InputHTTPRaw) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputHTTPRaw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

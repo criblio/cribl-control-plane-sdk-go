@@ -36,6 +36,17 @@ type InputDatagenConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputDatagenConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputDatagenConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputDatagenCompression) UnmarshalJSON(data []byte) error {
 type InputDatagenPqControls struct {
 }
 
+func (i InputDatagenPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputDatagenPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputDatagenMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputDatagenPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatagenPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -203,7 +225,7 @@ func (s Sample) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Sample) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"sample"}); err != nil {
 		return err
 	}
 	return nil
@@ -227,6 +249,17 @@ type InputDatagenMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputDatagenMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputDatagenMetadatum) GetName() string {
@@ -272,7 +305,7 @@ func (i InputDatagen) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatagen) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
 		return err
 	}
 	return nil

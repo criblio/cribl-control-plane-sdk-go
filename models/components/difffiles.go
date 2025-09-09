@@ -14,6 +14,17 @@ type Line3 struct {
 	OldNumber float64 `json:"oldNumber"`
 }
 
+func (l Line3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Line3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber", "oldNumber"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *Line3) GetContent() string {
 	if o == nil {
 		return ""
@@ -40,6 +51,17 @@ type Line2 struct {
 	NewNumber float64 `json:"newNumber"`
 }
 
+func (l Line2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Line2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *Line2) GetContent() string {
 	if o == nil {
 		return ""
@@ -57,6 +79,17 @@ func (o *Line2) GetNewNumber() float64 {
 type Line1 struct {
 	Content   string  `json:"content"`
 	OldNumber float64 `json:"oldNumber"`
+}
+
+func (l Line1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *Line1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "oldNumber"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Line1) GetContent() string {
@@ -82,9 +115,9 @@ const (
 )
 
 type LineUnion struct {
-	Line1 *Line1 `queryParam:"inline"`
-	Line2 *Line2 `queryParam:"inline"`
-	Line3 *Line3 `queryParam:"inline"`
+	Line1 *Line1 `queryParam:"inline" name:"line"`
+	Line2 *Line2 `queryParam:"inline" name:"line"`
+	Line3 *Line3 `queryParam:"inline" name:"line"`
 
 	Type LineUnionType
 }
@@ -118,24 +151,24 @@ func CreateLineUnionLine3(line3 Line3) LineUnion {
 
 func (u *LineUnion) UnmarshalJSON(data []byte) error {
 
+	var line3 Line3 = Line3{}
+	if err := utils.UnmarshalJSON(data, &line3, "", true, nil); err == nil {
+		u.Line3 = &line3
+		u.Type = LineUnionTypeLine3
+		return nil
+	}
+
 	var line1 Line1 = Line1{}
-	if err := utils.UnmarshalJSON(data, &line1, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &line1, "", true, nil); err == nil {
 		u.Line1 = &line1
 		u.Type = LineUnionTypeLine1
 		return nil
 	}
 
 	var line2 Line2 = Line2{}
-	if err := utils.UnmarshalJSON(data, &line2, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &line2, "", true, nil); err == nil {
 		u.Line2 = &line2
 		u.Type = LineUnionTypeLine2
-		return nil
-	}
-
-	var line3 Line3 = Line3{}
-	if err := utils.UnmarshalJSON(data, &line3, "", true, false); err == nil {
-		u.Line3 = &line3
-		u.Type = LineUnionTypeLine3
 		return nil
 	}
 
@@ -209,8 +242,8 @@ const (
 )
 
 type ChecksumBefore struct {
-	Str        *string  `queryParam:"inline"`
-	ArrayOfStr []string `queryParam:"inline"`
+	Str        *string  `queryParam:"inline" name:"checksumBefore"`
+	ArrayOfStr []string `queryParam:"inline" name:"checksumBefore"`
 
 	Type ChecksumBeforeType
 }
@@ -236,14 +269,14 @@ func CreateChecksumBeforeArrayOfStr(arrayOfStr []string) ChecksumBefore {
 func (u *ChecksumBefore) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = ChecksumBeforeTypeStr
 		return nil
 	}
 
 	var arrayOfStr []string = []string{}
-	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
 		u.ArrayOfStr = arrayOfStr
 		u.Type = ChecksumBeforeTypeArrayOfStr
 		return nil
@@ -272,8 +305,8 @@ const (
 )
 
 type OldMode struct {
-	Str        *string  `queryParam:"inline"`
-	ArrayOfStr []string `queryParam:"inline"`
+	Str        *string  `queryParam:"inline" name:"oldMode"`
+	ArrayOfStr []string `queryParam:"inline" name:"oldMode"`
 
 	Type OldModeType
 }
@@ -299,14 +332,14 @@ func CreateOldModeArrayOfStr(arrayOfStr []string) OldMode {
 func (u *OldMode) UnmarshalJSON(data []byte) error {
 
 	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		u.Str = &str
 		u.Type = OldModeTypeStr
 		return nil
 	}
 
 	var arrayOfStr []string = []string{}
-	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
 		u.ArrayOfStr = arrayOfStr
 		u.Type = OldModeTypeArrayOfStr
 		return nil
