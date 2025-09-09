@@ -117,7 +117,7 @@ func main() {
 			if err != nil {
 				log.Printf("Error creating TCP JSON Source in Pack: %v", err)
 			} else {
-				fmt.Printf("✅ Created tcp json Source: my-tcp-json in pack: \"%s\"\n", PACK_ID)
+				fmt.Printf("✅ Created TCP JSON Source: my-tcp-json in Pack: \"%s\"\n", PACK_ID)
 			}
 		}
 	}
