@@ -36,6 +36,17 @@ type InputSystemStateConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSystemStateConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSystemStateConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputSystemStateCompression) UnmarshalJSON(data []byte) error {
 type InputSystemStatePqControls struct {
 }
 
+func (i InputSystemStatePqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStatePqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSystemStatePq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSystemStateMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputSystemStatePq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemStatePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,6 +220,17 @@ type InputSystemStateMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputSystemStateMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSystemStateMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -222,7 +255,7 @@ func (h HostsFile) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HostsFile) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -245,7 +278,7 @@ func (i Interfaces) MarshalJSON() ([]byte, error) {
 }
 
 func (i *Interfaces) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -268,7 +301,7 @@ func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DisksAndFileSystems) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -291,7 +324,7 @@ func (h HostInfo) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HostInfo) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -314,7 +347,7 @@ func (i InputSystemStateRoutes) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemStateRoutes) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -337,7 +370,7 @@ func (d DNS) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DNS) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -360,7 +393,7 @@ func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UsersAndGroups) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -383,7 +416,7 @@ func (f Firewall) MarshalJSON() ([]byte, error) {
 }
 
 func (f *Firewall) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -406,7 +439,7 @@ func (s Services) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Services) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -429,7 +462,7 @@ func (l ListeningPorts) MarshalJSON() ([]byte, error) {
 }
 
 func (l *ListeningPorts) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -452,7 +485,7 @@ func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LoggedInUsers) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -488,6 +521,17 @@ type Collectors struct {
 	Ports *ListeningPorts `json:"ports,omitempty"`
 	// Creates events from list of logged-in users
 	LoginUsers *LoggedInUsers `json:"loginUsers,omitempty"`
+}
+
+func (c Collectors) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Collectors) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Collectors) GetHostsfile() *HostsFile {
@@ -612,7 +656,7 @@ func (i InputSystemStatePersistence) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemStatePersistence) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -694,7 +738,7 @@ func (i InputSystemState) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSystemState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

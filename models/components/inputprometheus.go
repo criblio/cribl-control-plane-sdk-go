@@ -36,6 +36,17 @@ type InputPrometheusConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputPrometheusConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputPrometheusConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputPrometheusCompression) UnmarshalJSON(data []byte) error {
 type InputPrometheusPqControls struct {
 }
 
+func (i InputPrometheusPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputPrometheusPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputPrometheusMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputPrometheusPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -261,6 +283,17 @@ type InputPrometheusMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputPrometheusMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputPrometheusMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -364,6 +397,17 @@ type InputPrometheusSearchFilter struct {
 	Name string `json:"Name"`
 	// Search Filter Values, if empty only "running" EC2 instances will be returned
 	Values []string `json:"Values"`
+}
+
+func (i InputPrometheusSearchFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusSearchFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"Name", "Values"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputPrometheusSearchFilter) GetName() string {
@@ -528,7 +572,7 @@ func (i InputPrometheus) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheus) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

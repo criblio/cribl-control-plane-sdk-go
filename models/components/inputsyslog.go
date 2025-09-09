@@ -37,6 +37,17 @@ type InputSyslogConnection2 struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSyslogConnection2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogConnection2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSyslogConnection2) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -108,6 +119,17 @@ func (e *InputSyslogCompression2) UnmarshalJSON(data []byte) error {
 type InputSyslogPqControls2 struct {
 }
 
+func (i InputSyslogPqControls2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogPqControls2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSyslogPq2 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode2 `default:"always" json:"mode"`
@@ -131,7 +153,7 @@ func (i InputSyslogPq2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogPq2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -282,7 +304,7 @@ func (i InputSyslogTLSSettingsServerSide2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogTLSSettingsServerSide2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -371,6 +393,17 @@ type InputSyslogMetadatum2 struct {
 	Value string `json:"value"`
 }
 
+func (i InputSyslogMetadatum2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogMetadatum2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSyslogMetadatum2) GetName() string {
 	if o == nil {
 		return ""
@@ -454,7 +487,7 @@ func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tcpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -719,6 +752,17 @@ type InputSyslogConnection1 struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSyslogConnection1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogConnection1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSyslogConnection1) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -790,6 +834,17 @@ func (e *InputSyslogCompression1) UnmarshalJSON(data []byte) error {
 type InputSyslogPqControls1 struct {
 }
 
+func (i InputSyslogPqControls1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogPqControls1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSyslogPq1 struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode1 `default:"always" json:"mode"`
@@ -813,7 +868,7 @@ func (i InputSyslogPq1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogPq1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -964,7 +1019,7 @@ func (i InputSyslogTLSSettingsServerSide1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogTLSSettingsServerSide1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -1053,6 +1108,17 @@ type InputSyslogMetadatum1 struct {
 	Value string `json:"value"`
 }
 
+func (i InputSyslogMetadatum1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogMetadatum1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSyslogMetadatum1) GetName() string {
 	if o == nil {
 		return ""
@@ -1136,7 +1202,7 @@ func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "udpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -1381,8 +1447,8 @@ const (
 )
 
 type InputSyslog struct {
-	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline"`
-	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline"`
+	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline" name:"InputSyslog"`
+	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline" name:"InputSyslog"`
 
 	Type InputSyslogType
 }
@@ -1408,14 +1474,14 @@ func CreateInputSyslogInputSyslogSyslog2(inputSyslogSyslog2 InputSyslogSyslog2) 
 func (u *InputSyslog) UnmarshalJSON(data []byte) error {
 
 	var inputSyslogSyslog1 InputSyslogSyslog1 = InputSyslogSyslog1{}
-	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog1, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog1, "", true, nil); err == nil {
 		u.InputSyslogSyslog1 = &inputSyslogSyslog1
 		u.Type = InputSyslogTypeInputSyslogSyslog1
 		return nil
 	}
 
 	var inputSyslogSyslog2 InputSyslogSyslog2 = InputSyslogSyslog2{}
-	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog2, "", true, false); err == nil {
+	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog2, "", true, nil); err == nil {
 		u.InputSyslogSyslog2 = &inputSyslogSyslog2
 		u.Type = InputSyslogTypeInputSyslogSyslog2
 		return nil

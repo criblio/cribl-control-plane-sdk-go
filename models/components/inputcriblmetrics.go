@@ -36,6 +36,17 @@ type InputCriblmetricsConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputCriblmetricsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblmetricsConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputCriblmetricsCompression) UnmarshalJSON(data []byte) error {
 type InputCriblmetricsPqControls struct {
 }
 
+func (i InputCriblmetricsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputCriblmetricsPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCriblmetricsMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputCriblmetricsPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblmetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,6 +220,17 @@ type InputCriblmetricsMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputCriblmetricsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputCriblmetricsMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -244,7 +277,7 @@ func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblmetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

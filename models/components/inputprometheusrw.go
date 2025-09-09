@@ -36,6 +36,17 @@ type InputPrometheusRwConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputPrometheusRwConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputPrometheusRwConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputPrometheusRwCompression) UnmarshalJSON(data []byte) error {
 type InputPrometheusRwPqControls struct {
 }
 
+func (i InputPrometheusRwPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputPrometheusRwPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputPrometheusRwMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputPrometheusRwPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusRwPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputPrometheusRwTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusRwTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -409,6 +431,17 @@ type InputPrometheusRwMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputPrometheusRwMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputPrometheusRwMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -430,6 +463,17 @@ type InputPrometheusRwOauthParam struct {
 	Value string `json:"value"`
 }
 
+func (i InputPrometheusRwOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputPrometheusRwOauthParam) GetName() string {
 	if o == nil {
 		return ""
@@ -449,6 +493,17 @@ type InputPrometheusRwOauthHeader struct {
 	Name string `json:"name"`
 	// OAuth header value
 	Value string `json:"value"`
+}
+
+func (i InputPrometheusRwOauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwOauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputPrometheusRwOauthHeader) GetName() string {
@@ -548,7 +603,7 @@ func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusRw) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

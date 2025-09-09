@@ -122,6 +122,17 @@ type OutputAzureDataExplorerCertificate struct {
 	CertificateName *string `json:"certificateName,omitempty"`
 }
 
+func (o OutputAzureDataExplorerCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureDataExplorerCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *OutputAzureDataExplorerCertificate) GetCertificateName() *string {
 	if o == nil {
 		return nil
@@ -247,6 +258,17 @@ type ExtentTag struct {
 	Value  string          `json:"value"`
 }
 
+func (e ExtentTag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtentTag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *ExtentTag) GetPrefix() *PrefixOptional {
 	if o == nil {
 		return nil
@@ -263,6 +285,17 @@ func (o *ExtentTag) GetValue() string {
 
 type IngestIfNotExist struct {
 	Value string `json:"value"`
+}
+
+func (i IngestIfNotExist) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *IngestIfNotExist) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *IngestIfNotExist) GetValue() string {
@@ -337,6 +370,17 @@ type AdditionalProperty struct {
 	Value string `json:"value"`
 }
 
+func (a AdditionalProperty) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AdditionalProperty) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"key", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *AdditionalProperty) GetKey() string {
 	if o == nil {
 		return ""
@@ -367,7 +411,7 @@ func (o OutputAzureDataExplorerResponseRetrySetting) MarshalJSON() ([]byte, erro
 }
 
 func (o *OutputAzureDataExplorerResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
 		return err
 	}
 	return nil
@@ -416,7 +460,7 @@ func (o OutputAzureDataExplorerTimeoutRetrySettings) MarshalJSON() ([]byte, erro
 }
 
 func (o *OutputAzureDataExplorerTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -564,6 +608,17 @@ func (e *OutputAzureDataExplorerMode) UnmarshalJSON(data []byte) error {
 type OutputAzureDataExplorerPqControls struct {
 }
 
+func (o OutputAzureDataExplorerPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureDataExplorerPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type OutputAzureDataExplorer struct {
 	// Unique ID for this output
 	ID   *string                     `json:"id,omitempty"`
@@ -685,6 +740,8 @@ type OutputAzureDataExplorer struct {
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode     *OutputAzureDataExplorerMode       `default:"error" json:"pqMode"`
 	PqControls *OutputAzureDataExplorerPqControls `json:"pqControls,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -692,7 +749,7 @@ func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputAzureDataExplorer) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "clusterUrl", "database", "table", "tenantId", "clientId", "scope"}); err != nil {
 		return err
 	}
 	return nil
@@ -1130,4 +1187,11 @@ func (o *OutputAzureDataExplorer) GetPqControls() *OutputAzureDataExplorerPqCont
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputAzureDataExplorer) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
 }

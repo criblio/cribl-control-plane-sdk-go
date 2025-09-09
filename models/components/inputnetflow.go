@@ -36,6 +36,17 @@ type InputNetflowConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputNetflowConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputNetflowConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputNetflowCompression) UnmarshalJSON(data []byte) error {
 type InputNetflowPqControls struct {
 }
 
+func (i InputNetflowPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputNetflowPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputNetflowMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputNetflowPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputNetflowPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -198,6 +220,17 @@ type InputNetflowMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputNetflowMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputNetflowMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -260,7 +293,7 @@ func (i InputNetflow) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil

@@ -36,6 +36,17 @@ type InputWizWebhookConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputWizWebhookConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWizWebhookConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputWizWebhookCompression) UnmarshalJSON(data []byte) error {
 type InputWizWebhookPqControls struct {
 }
 
+func (i InputWizWebhookPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputWizWebhookPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWizWebhookMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputWizWebhookPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizWebhookPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -281,7 +303,7 @@ func (i InputWizWebhookTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizWebhookTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -370,6 +392,17 @@ type InputWizWebhookMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputWizWebhookMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputWizWebhookMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -388,6 +421,17 @@ type InputWizWebhookAuthTokensExtMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputWizWebhookAuthTokensExtMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookAuthTokensExtMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputWizWebhookAuthTokensExtMetadatum) GetName() string {
@@ -410,6 +454,17 @@ type InputWizWebhookAuthTokensExt struct {
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
 	Metadata []InputWizWebhookAuthTokensExtMetadatum `json:"metadata,omitempty"`
+}
+
+func (i InputWizWebhookAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputWizWebhookAuthTokensExt) GetToken() string {
@@ -500,7 +555,7 @@ func (i InputWizWebhook) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil

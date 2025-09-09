@@ -36,6 +36,17 @@ type InputSplunkSearchConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputSplunkSearchConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSplunkSearchConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputSplunkSearchCompression) UnmarshalJSON(data []byte) error {
 type InputSplunkSearchPqControls struct {
 }
 
+func (i InputSplunkSearchPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputSplunkSearchPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSplunkSearchMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputSplunkSearchPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkSearchPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -225,6 +247,17 @@ type EndpointParam struct {
 	Value string `json:"value"`
 }
 
+func (e EndpointParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EndpointParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *EndpointParam) GetName() string {
 	if o == nil {
 		return ""
@@ -243,6 +276,17 @@ type EndpointHeader struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
+}
+
+func (e EndpointHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *EndpointHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *EndpointHeader) GetName() string {
@@ -296,6 +340,17 @@ type InputSplunkSearchMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputSplunkSearchMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputSplunkSearchMetadatum) GetName() string {
@@ -366,7 +421,7 @@ func (i InputSplunkSearchRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkSearchRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -474,6 +529,17 @@ type InputSplunkSearchOauthParam struct {
 	Value string `json:"value"`
 }
 
+func (i InputSplunkSearchOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputSplunkSearchOauthParam) GetName() string {
 	if o == nil {
 		return ""
@@ -493,6 +559,17 @@ type InputSplunkSearchOauthHeader struct {
 	Name string `json:"name"`
 	// OAuth header value
 	Value string `json:"value"`
+}
+
+func (i InputSplunkSearchOauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchOauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputSplunkSearchOauthHeader) GetName() string {
@@ -606,7 +683,7 @@ func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
 		return err
 	}
 	return nil

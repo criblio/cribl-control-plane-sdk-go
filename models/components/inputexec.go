@@ -36,6 +36,17 @@ type InputExecConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputExecConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputExecConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputExecConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputExecCompression) UnmarshalJSON(data []byte) error {
 type InputExecPqControls struct {
 }
 
+func (i InputExecPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputExecPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputExecPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputExecMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputExecPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExecPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -225,6 +247,17 @@ type InputExecMetadatum struct {
 	Value string `json:"value"`
 }
 
+func (i InputExecMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputExecMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputExecMetadatum) GetName() string {
 	if o == nil {
 		return ""
@@ -281,7 +314,7 @@ func (i InputExec) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
 		return err
 	}
 	return nil

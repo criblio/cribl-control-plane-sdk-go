@@ -36,6 +36,17 @@ type InputConfluentCloudConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputConfluentCloudConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputConfluentCloudConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputConfluentCloudCompression) UnmarshalJSON(data []byte) error {
 type InputConfluentCloudPqControls struct {
 }
 
+func (i InputConfluentCloudPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputConfluentCloudPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputConfluentCloudMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputConfluentCloudPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloudPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -282,7 +304,7 @@ func (i InputConfluentCloudTLSSettingsClientSide) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputConfluentCloudTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -397,7 +419,7 @@ func (i InputConfluentCloudAuth) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloudAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -507,7 +529,7 @@ func (i InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON
 }
 
 func (i *InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -605,7 +627,7 @@ func (i InputConfluentCloudKafkaSchemaRegistryAuthentication) MarshalJSON() ([]b
 }
 
 func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -703,6 +725,8 @@ func (e *InputConfluentCloudSASLMechanism) UnmarshalJSON(data []byte) error {
 type InputConfluentCloudAuthentication struct {
 	Disabled  *bool                             `default:"true" json:"disabled"`
 	Mechanism *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
+	// Enable OAuth authentication
+	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
 }
 
 func (i InputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -710,7 +734,7 @@ func (i InputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloudAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -730,10 +754,28 @@ func (o *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudS
 	return o.Mechanism
 }
 
+func (o *InputConfluentCloudAuthentication) GetOauthEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEnabled
+}
+
 type InputConfluentCloudMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputConfluentCloudMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputConfluentCloudMetadatum) GetName() string {
@@ -830,7 +872,7 @@ func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputConfluentCloud) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil

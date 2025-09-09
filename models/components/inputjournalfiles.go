@@ -36,6 +36,17 @@ type InputJournalFilesConnection struct {
 	Output   string  `json:"output"`
 }
 
+func (i InputJournalFilesConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputJournalFilesConnection) GetPipeline() *string {
 	if o == nil {
 		return nil
@@ -107,6 +118,17 @@ func (e *InputJournalFilesCompression) UnmarshalJSON(data []byte) error {
 type InputJournalFilesPqControls struct {
 }
 
+func (i InputJournalFilesPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type InputJournalFilesPq struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputJournalFilesMode `default:"always" json:"mode"`
@@ -130,7 +152,7 @@ func (i InputJournalFilesPq) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputJournalFilesPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -199,6 +221,17 @@ type InputJournalFilesRule struct {
 	Description *string `json:"description,omitempty"`
 }
 
+func (i InputJournalFilesRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *InputJournalFilesRule) GetFilter() string {
 	if o == nil {
 		return ""
@@ -217,6 +250,17 @@ type InputJournalFilesMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
+}
+
+func (i InputJournalFilesMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *InputJournalFilesMetadatum) GetName() string {
@@ -273,7 +317,7 @@ func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputJournalFiles) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
