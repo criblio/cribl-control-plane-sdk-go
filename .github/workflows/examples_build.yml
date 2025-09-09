@@ -1,0 +1,78 @@
+name: Examples Build
+
+on:
+  pull_request:
+
+jobs:
+  examples-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.23'
+        
+    - name: Cache Go modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-1.23-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-1.23-
+          ${{ runner.os }}-go-
+          
+    - name: Prepare main module
+      run: |
+        go mod tidy
+        go mod download
+        
+    - name: Prepare examples module
+      run: |
+        cd examples
+        go mod tidy
+        go mod download
+        
+    - name: Build standalone examples (ending with -auth.go)
+      run: |
+        cd examples
+        echo "🔍 Building standalone examples (ending with -auth.go)..."
+        
+        standalone_examples=$(find . -name "example-*-auth.go" -type f | sort)
+        
+        if [ -n "$standalone_examples" ]; then
+          for example_file in $standalone_examples; do
+            example_name=$(basename "$example_file" .go)
+            echo "🔨 Building $example_name (standalone)..."
+            go build -v "$example_file"
+            echo "✅ $example_name built successfully"
+            echo ""
+          done
+        else
+          echo "📭 No standalone examples found"
+        fi
+        
+    - name: Build examples with auth.go dependency
+      run: |
+        cd examples
+        echo "🔍 Building examples that require auth.go..."
+        
+        # Find all example-*.go files that don't end with -auth.go
+        dependency_examples=$(find . -name "example-*.go" -type f ! -name "*-auth.go" | sort)
+        
+        if [ -n "$dependency_examples" ]; then
+          for example_file in $dependency_examples; do
+            example_name=$(basename "$example_file" .go)
+            echo "🔨 Building $example_name (with auth.go)..."
+            go build -v "$example_file" auth.go
+            echo "✅ $example_name built successfully"
+            echo ""
+          done
+        else
+          echo "📭 No examples requiring auth.go found"
+        fi
