@@ -72,21 +72,6 @@ const (
 func (e InputExecMode) ToPointer() *InputExecMode {
 	return &e
 }
-func (e *InputExecMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputExecMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputExecMode: %v", v)
-	}
-}
 
 // InputExecCompression - Codec to use to compress the persisted data
 type InputExecCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputExecCompression) ToPointer() *InputExecCompression {
 	return &e
-}
-func (e *InputExecCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputExecCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputExecCompression: %v", v)
-	}
 }
 
 type InputExecPqControls struct {
@@ -224,21 +194,6 @@ const (
 
 func (e ScheduleType) ToPointer() *ScheduleType {
 	return &e
-}
-func (e *ScheduleType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "interval":
-		fallthrough
-	case "cronSchedule":
-		*e = ScheduleType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ScheduleType: %v", v)
-	}
 }
 
 type InputExecMetadatum struct {

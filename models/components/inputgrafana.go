@@ -73,21 +73,6 @@ const (
 func (e InputGrafanaMode2) ToPointer() *InputGrafanaMode2 {
 	return &e
 }
-func (e *InputGrafanaMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGrafanaMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMode2: %v", v)
-	}
-}
 
 // InputGrafanaCompression2 - Codec to use to compress the persisted data
 type InputGrafanaCompression2 string
@@ -99,21 +84,6 @@ const (
 
 func (e InputGrafanaCompression2) ToPointer() *InputGrafanaCompression2 {
 	return &e
-}
-func (e *InputGrafanaCompression2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGrafanaCompression2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaCompression2: %v", v)
-	}
 }
 
 type InputGrafanaPqControls2 struct {
@@ -227,25 +197,6 @@ const (
 func (e InputGrafanaMinimumTLSVersion2) ToPointer() *InputGrafanaMinimumTLSVersion2 {
 	return &e
 }
-func (e *InputGrafanaMinimumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMinimumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMinimumTLSVersion2: %v", v)
-	}
-}
 
 type InputGrafanaMaximumTLSVersion2 string
 
@@ -258,25 +209,6 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion2) ToPointer() *InputGrafanaMaximumTLSVersion2 {
 	return &e
-}
-func (e *InputGrafanaMaximumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMaximumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMaximumTLSVersion2: %v", v)
-	}
 }
 
 type InputGrafanaTLSSettingsServerSide2 struct {
@@ -401,29 +333,6 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType2) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType2 {
 	return &e
-}
-func (e *InputGrafanaPrometheusAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaPrometheusAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaPrometheusAuthAuthenticationType2: %v", v)
-	}
 }
 
 type PrometheusAuthOauthParam2 struct {
@@ -642,29 +551,6 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType2) ToPointer() *InputGrafanaLokiAuthAuthenticationType2 {
 	return &e
-}
-func (e *InputGrafanaLokiAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaLokiAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaLokiAuthAuthenticationType2: %v", v)
-	}
 }
 
 type LokiAuthOauthParam2 struct {
@@ -1241,21 +1127,6 @@ const (
 func (e InputGrafanaMode1) ToPointer() *InputGrafanaMode1 {
 	return &e
 }
-func (e *InputGrafanaMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGrafanaMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMode1: %v", v)
-	}
-}
 
 // InputGrafanaCompression1 - Codec to use to compress the persisted data
 type InputGrafanaCompression1 string
@@ -1267,21 +1138,6 @@ const (
 
 func (e InputGrafanaCompression1) ToPointer() *InputGrafanaCompression1 {
 	return &e
-}
-func (e *InputGrafanaCompression1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGrafanaCompression1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaCompression1: %v", v)
-	}
 }
 
 type InputGrafanaPqControls1 struct {
@@ -1395,25 +1251,6 @@ const (
 func (e InputGrafanaMinimumTLSVersion1) ToPointer() *InputGrafanaMinimumTLSVersion1 {
 	return &e
 }
-func (e *InputGrafanaMinimumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMinimumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMinimumTLSVersion1: %v", v)
-	}
-}
 
 type InputGrafanaMaximumTLSVersion1 string
 
@@ -1426,25 +1263,6 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion1) ToPointer() *InputGrafanaMaximumTLSVersion1 {
 	return &e
-}
-func (e *InputGrafanaMaximumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMaximumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMaximumTLSVersion1: %v", v)
-	}
 }
 
 type InputGrafanaTLSSettingsServerSide1 struct {
@@ -1569,29 +1387,6 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType1) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType1 {
 	return &e
-}
-func (e *InputGrafanaPrometheusAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaPrometheusAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaPrometheusAuthAuthenticationType1: %v", v)
-	}
 }
 
 type PrometheusAuthOauthParam1 struct {
@@ -1810,29 +1605,6 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType1) ToPointer() *InputGrafanaLokiAuthAuthenticationType1 {
 	return &e
-}
-func (e *InputGrafanaLokiAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaLokiAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaLokiAuthAuthenticationType1: %v", v)
-	}
 }
 
 type LokiAuthOauthParam1 struct {

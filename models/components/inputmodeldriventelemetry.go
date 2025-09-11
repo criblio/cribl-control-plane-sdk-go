@@ -72,21 +72,6 @@ const (
 func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMode {
 	return &e
 }
-func (e *InputModelDrivenTelemetryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputModelDrivenTelemetryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMode: %v", v)
-	}
-}
 
 // InputModelDrivenTelemetryCompression - Codec to use to compress the persisted data
 type InputModelDrivenTelemetryCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputModelDrivenTelemetryCompression) ToPointer() *InputModelDrivenTelemetryCompression {
 	return &e
-}
-func (e *InputModelDrivenTelemetryCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputModelDrivenTelemetryCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryCompression: %v", v)
-	}
 }
 
 type InputModelDrivenTelemetryPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputModelDrivenTelemetryMinimumTLSVersion) ToPointer() *InputModelDrivenTelemetryMinimumTLSVersion {
 	return &e
 }
-func (e *InputModelDrivenTelemetryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputModelDrivenTelemetryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputModelDrivenTelemetryMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputModelDrivenTelemetryMaximumTLSVersion) ToPointer() *InputModelDrivenTelemetryMaximumTLSVersion {
 	return &e
-}
-func (e *InputModelDrivenTelemetryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputModelDrivenTelemetryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputModelDrivenTelemetryTLSSettingsServerSide struct {

@@ -72,21 +72,6 @@ const (
 func (e InputCriblHTTPMode) ToPointer() *InputCriblHTTPMode {
 	return &e
 }
-func (e *InputCriblHTTPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputCriblHTTPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblHTTPMode: %v", v)
-	}
-}
 
 // InputCriblHTTPCompression - Codec to use to compress the persisted data
 type InputCriblHTTPCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputCriblHTTPCompression) ToPointer() *InputCriblHTTPCompression {
 	return &e
-}
-func (e *InputCriblHTTPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputCriblHTTPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblHTTPCompression: %v", v)
-	}
 }
 
 type InputCriblHTTPPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputCriblHTTPMinimumTLSVersion) ToPointer() *InputCriblHTTPMinimumTLSVersion {
 	return &e
 }
-func (e *InputCriblHTTPMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblHTTPMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblHTTPMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputCriblHTTPMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputCriblHTTPMaximumTLSVersion) ToPointer() *InputCriblHTTPMaximumTLSVersion {
 	return &e
-}
-func (e *InputCriblHTTPMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblHTTPMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblHTTPMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputCriblHTTPTLSSettingsServerSide struct {

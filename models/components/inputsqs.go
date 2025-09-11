@@ -72,21 +72,6 @@ const (
 func (e InputSqsMode) ToPointer() *InputSqsMode {
 	return &e
 }
-func (e *InputSqsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSqsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsMode: %v", v)
-	}
-}
 
 // InputSqsCompression - Codec to use to compress the persisted data
 type InputSqsCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputSqsCompression) ToPointer() *InputSqsCompression {
 	return &e
-}
-func (e *InputSqsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSqsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsCompression: %v", v)
-	}
 }
 
 type InputSqsPqControls struct {
@@ -225,21 +195,6 @@ const (
 func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
 	return &e
 }
-func (e *InputSqsQueueType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "standard":
-		fallthrough
-	case "fifo":
-		*e = InputSqsQueueType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsQueueType: %v", v)
-	}
-}
 
 // InputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
 type InputSqsAuthenticationMethod string
@@ -253,23 +208,6 @@ const (
 func (e InputSqsAuthenticationMethod) ToPointer() *InputSqsAuthenticationMethod {
 	return &e
 }
-func (e *InputSqsAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputSqsAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsAuthenticationMethod: %v", v)
-	}
-}
 
 // InputSqsSignatureVersion - Signature version to use for signing SQS requests
 type InputSqsSignatureVersion string
@@ -281,21 +219,6 @@ const (
 
 func (e InputSqsSignatureVersion) ToPointer() *InputSqsSignatureVersion {
 	return &e
-}
-func (e *InputSqsSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = InputSqsSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsSignatureVersion: %v", v)
-	}
 }
 
 type InputSqsMetadatum struct {

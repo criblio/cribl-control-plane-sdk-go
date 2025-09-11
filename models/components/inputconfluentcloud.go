@@ -72,21 +72,6 @@ const (
 func (e InputConfluentCloudMode) ToPointer() *InputConfluentCloudMode {
 	return &e
 }
-func (e *InputConfluentCloudMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputConfluentCloudMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudMode: %v", v)
-	}
-}
 
 // InputConfluentCloudCompression - Codec to use to compress the persisted data
 type InputConfluentCloudCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputConfluentCloudCompression) ToPointer() *InputConfluentCloudCompression {
 	return &e
-}
-func (e *InputConfluentCloudCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputConfluentCloudCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudCompression: %v", v)
-	}
 }
 
 type InputConfluentCloudPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputConfluentCloudMinimumTLSVersion) ToPointer() *InputConfluentCloudMinimumTLSVersion {
 	return &e
 }
-func (e *InputConfluentCloudMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputConfluentCloudMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputConfluentCloudMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputConfluentCloudMaximumTLSVersion) ToPointer() *InputConfluentCloudMaximumTLSVersion {
 	return &e
-}
-func (e *InputConfluentCloudMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputConfluentCloudMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputConfluentCloudTLSSettingsClientSide struct {
@@ -391,21 +323,6 @@ const (
 func (e InputConfluentCloudSchemaType) ToPointer() *InputConfluentCloudSchemaType {
 	return &e
 }
-func (e *InputConfluentCloudSchemaType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "avro":
-		fallthrough
-	case "json":
-		*e = InputConfluentCloudSchemaType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudSchemaType: %v", v)
-	}
-}
 
 // InputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type InputConfluentCloudAuth struct {
@@ -451,25 +368,6 @@ const (
 func (e InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion {
 	return &e
 }
-func (e *InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion string
 
@@ -482,25 +380,6 @@ const (
 
 func (e InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
-}
-func (e *InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -700,25 +579,6 @@ const (
 
 func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMechanism {
 	return &e
-}
-func (e *InputConfluentCloudSASLMechanism) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "plain":
-		fallthrough
-	case "scram-sha-256":
-		fallthrough
-	case "scram-sha-512":
-		fallthrough
-	case "kerberos":
-		*e = InputConfluentCloudSASLMechanism(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudSASLMechanism: %v", v)
-	}
 }
 
 // InputConfluentCloudAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.

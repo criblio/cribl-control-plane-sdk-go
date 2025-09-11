@@ -46,29 +46,6 @@ const (
 func (e TimestampPrecision) ToPointer() *TimestampPrecision {
 	return &e
 }
-func (e *TimestampPrecision) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "ns":
-		fallthrough
-	case "u":
-		fallthrough
-	case "ms":
-		fallthrough
-	case "s":
-		fallthrough
-	case "m":
-		fallthrough
-	case "h":
-		*e = TimestampPrecision(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TimestampPrecision: %v", v)
-	}
-}
 
 type OutputInfluxdbExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -111,23 +88,6 @@ const (
 
 func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputInfluxdbFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputInfluxdbFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputInfluxdbResponseRetrySetting struct {
@@ -241,23 +201,6 @@ const (
 func (e OutputInfluxdbBackpressureBehavior) ToPointer() *OutputInfluxdbBackpressureBehavior {
 	return &e
 }
-func (e *OutputInfluxdbBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputInfluxdbBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputInfluxdbAuthenticationType - InfluxDB authentication type
 type OutputInfluxdbAuthenticationType string
@@ -274,29 +217,6 @@ const (
 func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticationType {
 	return &e
 }
-func (e *OutputInfluxdbAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = OutputInfluxdbAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbAuthenticationType: %v", v)
-	}
-}
 
 // OutputInfluxdbCompression - Codec to use to compress the persisted data
 type OutputInfluxdbCompression string
@@ -308,21 +228,6 @@ const (
 
 func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
 	return &e
-}
-func (e *OutputInfluxdbCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputInfluxdbCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbCompression: %v", v)
-	}
 }
 
 // OutputInfluxdbQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -336,21 +241,6 @@ const (
 func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
 	return &e
 }
-func (e *OutputInfluxdbQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputInfluxdbQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputInfluxdbMode string
@@ -363,23 +253,6 @@ const (
 
 func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
 	return &e
-}
-func (e *OutputInfluxdbMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputInfluxdbMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbMode: %v", v)
-	}
 }
 
 type OutputInfluxdbPqControls struct {
@@ -510,7 +383,7 @@ type OutputInfluxdb struct {
 	ResponseRetrySettings []OutputInfluxdbResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputInfluxdbTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputInfluxdbBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// InfluxDB authentication type

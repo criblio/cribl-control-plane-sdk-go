@@ -72,21 +72,6 @@ const (
 func (e InputRawUDPMode) ToPointer() *InputRawUDPMode {
 	return &e
 }
-func (e *InputRawUDPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputRawUDPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputRawUDPMode: %v", v)
-	}
-}
 
 // InputRawUDPCompression - Codec to use to compress the persisted data
 type InputRawUDPCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputRawUDPCompression) ToPointer() *InputRawUDPCompression {
 	return &e
-}
-func (e *InputRawUDPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputRawUDPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputRawUDPCompression: %v", v)
-	}
 }
 
 type InputRawUDPPqControls struct {

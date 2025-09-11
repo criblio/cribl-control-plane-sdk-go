@@ -43,21 +43,6 @@ const (
 func (e OutputGrafanaCloudMessageFormat2) ToPointer() *OutputGrafanaCloudMessageFormat2 {
 	return &e
 }
-func (e *OutputGrafanaCloudMessageFormat2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "protobuf":
-		fallthrough
-	case "json":
-		*e = OutputGrafanaCloudMessageFormat2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudMessageFormat2: %v", v)
-	}
-}
 
 type OutputGrafanaCloudLabel2 struct {
 	Name  *string `default:"" json:"name"`
@@ -101,27 +86,6 @@ const (
 
 func (e OutputGrafanaCloudPrometheusAuthAuthenticationType2) ToPointer() *OutputGrafanaCloudPrometheusAuthAuthenticationType2 {
 	return &e
-}
-func (e *OutputGrafanaCloudPrometheusAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		*e = OutputGrafanaCloudPrometheusAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudPrometheusAuthAuthenticationType2: %v", v)
-	}
 }
 
 type OutputGrafanaCloudPrometheusAuth2 struct {
@@ -203,27 +167,6 @@ const (
 
 func (e OutputGrafanaCloudLokiAuthAuthenticationType2) ToPointer() *OutputGrafanaCloudLokiAuthAuthenticationType2 {
 	return &e
-}
-func (e *OutputGrafanaCloudLokiAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		*e = OutputGrafanaCloudLokiAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudLokiAuthAuthenticationType2: %v", v)
-	}
 }
 
 type OutputGrafanaCloudLokiAuth2 struct {
@@ -334,23 +277,6 @@ const (
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode2) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode2 {
 	return &e
-}
-func (e *OutputGrafanaCloudFailedRequestLoggingMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputGrafanaCloudFailedRequestLoggingMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudFailedRequestLoggingMode2: %v", v)
-	}
 }
 
 type OutputGrafanaCloudResponseRetrySetting2 struct {
@@ -464,23 +390,6 @@ const (
 func (e OutputGrafanaCloudBackpressureBehavior2) ToPointer() *OutputGrafanaCloudBackpressureBehavior2 {
 	return &e
 }
-func (e *OutputGrafanaCloudBackpressureBehavior2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGrafanaCloudBackpressureBehavior2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudBackpressureBehavior2: %v", v)
-	}
-}
 
 // OutputGrafanaCloudCompression2 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression2 string
@@ -492,21 +401,6 @@ const (
 
 func (e OutputGrafanaCloudCompression2) ToPointer() *OutputGrafanaCloudCompression2 {
 	return &e
-}
-func (e *OutputGrafanaCloudCompression2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGrafanaCloudCompression2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudCompression2: %v", v)
-	}
 }
 
 // OutputGrafanaCloudQueueFullBehavior2 - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -520,21 +414,6 @@ const (
 func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQueueFullBehavior2 {
 	return &e
 }
-func (e *OutputGrafanaCloudQueueFullBehavior2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGrafanaCloudQueueFullBehavior2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudQueueFullBehavior2: %v", v)
-	}
-}
 
 // OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGrafanaCloudMode2 string
@@ -547,23 +426,6 @@ const (
 
 func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
 	return &e
-}
-func (e *OutputGrafanaCloudMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGrafanaCloudMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudMode2: %v", v)
-	}
 }
 
 type OutputGrafanaCloudPqControls2 struct {
@@ -632,7 +494,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting2 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings2  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputGrafanaCloudBackpressureBehavior2 `default:"block" json:"onBackpressure"`
 	Description    *string                                  `json:"description,omitempty"`
@@ -957,21 +819,6 @@ const (
 func (e OutputGrafanaCloudMessageFormat1) ToPointer() *OutputGrafanaCloudMessageFormat1 {
 	return &e
 }
-func (e *OutputGrafanaCloudMessageFormat1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "protobuf":
-		fallthrough
-	case "json":
-		*e = OutputGrafanaCloudMessageFormat1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudMessageFormat1: %v", v)
-	}
-}
 
 type OutputGrafanaCloudLabel1 struct {
 	Name  *string `default:"" json:"name"`
@@ -1015,27 +862,6 @@ const (
 
 func (e OutputGrafanaCloudPrometheusAuthAuthenticationType1) ToPointer() *OutputGrafanaCloudPrometheusAuthAuthenticationType1 {
 	return &e
-}
-func (e *OutputGrafanaCloudPrometheusAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		*e = OutputGrafanaCloudPrometheusAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudPrometheusAuthAuthenticationType1: %v", v)
-	}
 }
 
 type OutputGrafanaCloudPrometheusAuth1 struct {
@@ -1117,27 +943,6 @@ const (
 
 func (e OutputGrafanaCloudLokiAuthAuthenticationType1) ToPointer() *OutputGrafanaCloudLokiAuthAuthenticationType1 {
 	return &e
-}
-func (e *OutputGrafanaCloudLokiAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		*e = OutputGrafanaCloudLokiAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudLokiAuthAuthenticationType1: %v", v)
-	}
 }
 
 type OutputGrafanaCloudLokiAuth1 struct {
@@ -1248,23 +1053,6 @@ const (
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode1) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode1 {
 	return &e
-}
-func (e *OutputGrafanaCloudFailedRequestLoggingMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputGrafanaCloudFailedRequestLoggingMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudFailedRequestLoggingMode1: %v", v)
-	}
 }
 
 type OutputGrafanaCloudResponseRetrySetting1 struct {
@@ -1378,23 +1166,6 @@ const (
 func (e OutputGrafanaCloudBackpressureBehavior1) ToPointer() *OutputGrafanaCloudBackpressureBehavior1 {
 	return &e
 }
-func (e *OutputGrafanaCloudBackpressureBehavior1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGrafanaCloudBackpressureBehavior1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudBackpressureBehavior1: %v", v)
-	}
-}
 
 // OutputGrafanaCloudCompression1 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression1 string
@@ -1406,21 +1177,6 @@ const (
 
 func (e OutputGrafanaCloudCompression1) ToPointer() *OutputGrafanaCloudCompression1 {
 	return &e
-}
-func (e *OutputGrafanaCloudCompression1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGrafanaCloudCompression1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudCompression1: %v", v)
-	}
 }
 
 // OutputGrafanaCloudQueueFullBehavior1 - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -1434,21 +1190,6 @@ const (
 func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQueueFullBehavior1 {
 	return &e
 }
-func (e *OutputGrafanaCloudQueueFullBehavior1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGrafanaCloudQueueFullBehavior1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudQueueFullBehavior1: %v", v)
-	}
-}
 
 // OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGrafanaCloudMode1 string
@@ -1461,23 +1202,6 @@ const (
 
 func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
 	return &e
-}
-func (e *OutputGrafanaCloudMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGrafanaCloudMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGrafanaCloudMode1: %v", v)
-	}
 }
 
 type OutputGrafanaCloudPqControls1 struct {
@@ -1546,7 +1270,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting1 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings1  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputGrafanaCloudBackpressureBehavior1 `default:"block" json:"onBackpressure"`
 	Description    *string                                  `json:"description,omitempty"`

@@ -42,21 +42,6 @@ const (
 func (e OutputWavefrontAuthenticationMethod) ToPointer() *OutputWavefrontAuthenticationMethod {
 	return &e
 }
-func (e *OutputWavefrontAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputWavefrontAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontAuthenticationMethod: %v", v)
-	}
-}
 
 type OutputWavefrontExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -99,23 +84,6 @@ const (
 
 func (e OutputWavefrontFailedRequestLoggingMode) ToPointer() *OutputWavefrontFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputWavefrontFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputWavefrontFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputWavefrontResponseRetrySetting struct {
@@ -229,23 +197,6 @@ const (
 func (e OutputWavefrontBackpressureBehavior) ToPointer() *OutputWavefrontBackpressureBehavior {
 	return &e
 }
-func (e *OutputWavefrontBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputWavefrontBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputWavefrontCompression - Codec to use to compress the persisted data
 type OutputWavefrontCompression string
@@ -257,21 +208,6 @@ const (
 
 func (e OutputWavefrontCompression) ToPointer() *OutputWavefrontCompression {
 	return &e
-}
-func (e *OutputWavefrontCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputWavefrontCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontCompression: %v", v)
-	}
 }
 
 // OutputWavefrontQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -285,21 +221,6 @@ const (
 func (e OutputWavefrontQueueFullBehavior) ToPointer() *OutputWavefrontQueueFullBehavior {
 	return &e
 }
-func (e *OutputWavefrontQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputWavefrontQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputWavefrontMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputWavefrontMode string
@@ -312,23 +233,6 @@ const (
 
 func (e OutputWavefrontMode) ToPointer() *OutputWavefrontMode {
 	return &e
-}
-func (e *OutputWavefrontMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputWavefrontMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputWavefrontMode: %v", v)
-	}
 }
 
 type OutputWavefrontPqControls struct {
@@ -389,7 +293,7 @@ type OutputWavefront struct {
 	ResponseRetrySettings []OutputWavefrontResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputWavefrontTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputWavefrontBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                              `json:"description,omitempty"`

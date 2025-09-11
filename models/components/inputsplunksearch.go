@@ -72,21 +72,6 @@ const (
 func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
 	return &e
 }
-func (e *InputSplunkSearchMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSplunkSearchMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchMode: %v", v)
-	}
-}
 
 // InputSplunkSearchCompression - Codec to use to compress the persisted data
 type InputSplunkSearchCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputSplunkSearchCompression) ToPointer() *InputSplunkSearchCompression {
 	return &e
-}
-func (e *InputSplunkSearchCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSplunkSearchCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchCompression: %v", v)
-	}
 }
 
 type InputSplunkSearchPqControls struct {
@@ -225,21 +195,6 @@ const (
 func (e OutputMode) ToPointer() *OutputMode {
 	return &e
 }
-func (e *OutputMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "csv":
-		fallthrough
-	case "json":
-		*e = OutputMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMode: %v", v)
-	}
-}
 
 type EndpointParam struct {
 	Name string `json:"name"`
@@ -316,25 +271,6 @@ const (
 func (e InputSplunkSearchLogLevel) ToPointer() *InputSplunkSearchLogLevel {
 	return &e
 }
-func (e *InputSplunkSearchLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		*e = InputSplunkSearchLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchLogLevel: %v", v)
-	}
-}
 
 type InputSplunkSearchMetadatum struct {
 	Name string `json:"name"`
@@ -378,23 +314,6 @@ const (
 
 func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {
 	return &e
-}
-func (e *InputSplunkSearchRetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "backoff":
-		fallthrough
-	case "static":
-		*e = InputSplunkSearchRetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchRetryType: %v", v)
-	}
 }
 
 type InputSplunkSearchRetryRules struct {
@@ -497,29 +416,6 @@ const (
 
 func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
 	return &e
-}
-func (e *InputSplunkSearchAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputSplunkSearchAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchAuthenticationType: %v", v)
-	}
 }
 
 type InputSplunkSearchOauthParam struct {

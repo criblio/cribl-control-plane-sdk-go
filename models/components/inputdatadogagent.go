@@ -72,21 +72,6 @@ const (
 func (e InputDatadogAgentMode) ToPointer() *InputDatadogAgentMode {
 	return &e
 }
-func (e *InputDatadogAgentMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputDatadogAgentMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatadogAgentMode: %v", v)
-	}
-}
 
 // InputDatadogAgentCompression - Codec to use to compress the persisted data
 type InputDatadogAgentCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputDatadogAgentCompression) ToPointer() *InputDatadogAgentCompression {
 	return &e
-}
-func (e *InputDatadogAgentCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputDatadogAgentCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatadogAgentCompression: %v", v)
-	}
 }
 
 type InputDatadogAgentPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputDatadogAgentMinimumTLSVersion) ToPointer() *InputDatadogAgentMinimumTLSVersion {
 	return &e
 }
-func (e *InputDatadogAgentMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputDatadogAgentMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatadogAgentMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputDatadogAgentMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputDatadogAgentMaximumTLSVersion) ToPointer() *InputDatadogAgentMaximumTLSVersion {
 	return &e
-}
-func (e *InputDatadogAgentMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputDatadogAgentMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatadogAgentMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputDatadogAgentTLSSettingsServerSide struct {
