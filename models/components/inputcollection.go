@@ -72,21 +72,6 @@ const (
 func (e InputCollectionMode) ToPointer() *InputCollectionMode {
 	return &e
 }
-func (e *InputCollectionMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputCollectionMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCollectionMode: %v", v)
-	}
-}
 
 // InputCollectionCompression - Codec to use to compress the persisted data
 type InputCollectionCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputCollectionCompression) ToPointer() *InputCollectionCompression {
 	return &e
-}
-func (e *InputCollectionCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputCollectionCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCollectionCompression: %v", v)
-	}
 }
 
 type InputCollectionPqControls struct {

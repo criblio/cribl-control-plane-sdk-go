@@ -72,21 +72,6 @@ const (
 func (e InputFilePqMode) ToPointer() *InputFilePqMode {
 	return &e
 }
-func (e *InputFilePqMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputFilePqMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFilePqMode: %v", v)
-	}
-}
 
 // InputFileCompression - Codec to use to compress the persisted data
 type InputFileCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputFileCompression) ToPointer() *InputFileCompression {
 	return &e
-}
-func (e *InputFileCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputFileCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFileCompression: %v", v)
-	}
 }
 
 type InputFilePqControls struct {
@@ -224,21 +194,6 @@ const (
 
 func (e InputFileMode) ToPointer() *InputFileMode {
 	return &e
-}
-func (e *InputFileMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		*e = InputFileMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFileMode: %v", v)
-	}
 }
 
 type InputFileMetadatum struct {

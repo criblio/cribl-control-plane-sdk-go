@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type NodeSkippedUpgradeStatus int64
 
 const (
@@ -18,23 +13,4 @@ const (
 
 func (e NodeSkippedUpgradeStatus) ToPointer() *NodeSkippedUpgradeStatus {
 	return &e
-}
-func (e *NodeSkippedUpgradeStatus) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		fallthrough
-	case 3:
-		*e = NodeSkippedUpgradeStatus(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for NodeSkippedUpgradeStatus: %v", v)
-	}
 }

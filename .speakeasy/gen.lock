@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d1ddd19d9c9bd692e94434e9b57debb0
-  docVersion: 4.14.0-alpha.1757401089572-3ca67bed
+  docChecksum: 00b452125b4f1a91168480de90006e7b
+  docVersion: 4.14.0-alpha.1757595696230-1a9eb130
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 0.0.45
-  configChecksum: b66bd5dc6fd4c5273754971a7be227a0
+  releaseVersion: 0.0.45-alpha.2
+  configChecksum: 20ecd590f830021b425f899d071c7465
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -27,6 +27,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 0.4.0
+    openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
@@ -1099,6 +1100,7 @@ generatedFiles:
   - docs/models/components/inputtcppreprocess.md
   - docs/models/components/inputtcptlssettingsserverside.md
   - docs/models/components/inputtcptype.md
+  - docs/models/components/inputtype.md
   - docs/models/components/inputwef.md
   - docs/models/components/inputwefauthenticationmethod.md
   - docs/models/components/inputwefcompression.md
@@ -2083,7 +2085,6 @@ generatedFiles:
   - docs/models/components/runnablejobcollectionscheduleloglevel.md
   - docs/models/components/runnablejobcollectionscheduletimewarning.md
   - docs/models/components/runnablejobcollectiontimewarning.md
-  - docs/models/components/runnablejobcollectiontype.md
   - docs/models/components/runnablejobexecutor.md
   - docs/models/components/runnablejobexecutorjobtype.md
   - docs/models/components/runnablejobexecutorloglevel.md
@@ -3301,4 +3302,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"

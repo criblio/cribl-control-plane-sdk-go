@@ -41,19 +41,6 @@ const (
 func (e OutputDynatraceOtlpProtocol) ToPointer() *OutputDynatraceOtlpProtocol {
 	return &e
 }
-func (e *OutputDynatraceOtlpProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "http":
-		*e = OutputDynatraceOtlpProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpProtocol: %v", v)
-	}
-}
 
 // OutputDynatraceOTLPOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
 type OutputDynatraceOTLPOTLPVersion string
@@ -64,19 +51,6 @@ const (
 
 func (e OutputDynatraceOTLPOTLPVersion) ToPointer() *OutputDynatraceOTLPOTLPVersion {
 	return &e
-}
-func (e *OutputDynatraceOTLPOTLPVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "1.3.1":
-		*e = OutputDynatraceOTLPOTLPVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOTLPOTLPVersion: %v", v)
-	}
 }
 
 // OutputDynatraceOtlpCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -91,23 +65,6 @@ const (
 func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlpCompressCompression {
 	return &e
 }
-func (e *OutputDynatraceOtlpCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "deflate":
-		fallthrough
-	case "gzip":
-		*e = OutputDynatraceOtlpCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpCompressCompression: %v", v)
-	}
-}
 
 // OutputDynatraceOtlpHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputDynatraceOtlpHTTPCompressCompression string
@@ -119,21 +76,6 @@ const (
 
 func (e OutputDynatraceOtlpHTTPCompressCompression) ToPointer() *OutputDynatraceOtlpHTTPCompressCompression {
 	return &e
-}
-func (e *OutputDynatraceOtlpHTTPCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDynatraceOtlpHTTPCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpHTTPCompressCompression: %v", v)
-	}
 }
 
 type OutputDynatraceOtlpMetadatum struct {
@@ -178,23 +120,6 @@ const (
 func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatraceOtlpFailedRequestLoggingMode {
 	return &e
 }
-func (e *OutputDynatraceOtlpFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputDynatraceOtlpFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpFailedRequestLoggingMode: %v", v)
-	}
-}
 
 // EndpointType - Select the type of Dynatrace endpoint configured
 type EndpointType string
@@ -206,21 +131,6 @@ const (
 
 func (e EndpointType) ToPointer() *EndpointType {
 	return &e
-}
-func (e *EndpointType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "saas":
-		fallthrough
-	case "ag":
-		*e = EndpointType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EndpointType: %v", v)
-	}
 }
 
 // OutputDynatraceOtlpBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -234,23 +144,6 @@ const (
 
 func (e OutputDynatraceOtlpBackpressureBehavior) ToPointer() *OutputDynatraceOtlpBackpressureBehavior {
 	return &e
-}
-func (e *OutputDynatraceOtlpBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputDynatraceOtlpBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputDynatraceOtlpExtraHTTPHeader struct {
@@ -393,21 +286,6 @@ const (
 func (e OutputDynatraceOtlpPqCompressCompression) ToPointer() *OutputDynatraceOtlpPqCompressCompression {
 	return &e
 }
-func (e *OutputDynatraceOtlpPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDynatraceOtlpPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpPqCompressCompression: %v", v)
-	}
-}
 
 // OutputDynatraceOtlpQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDynatraceOtlpQueueFullBehavior string
@@ -419,21 +297,6 @@ const (
 
 func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQueueFullBehavior {
 	return &e
-}
-func (e *OutputDynatraceOtlpQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputDynatraceOtlpQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputDynatraceOtlpMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -447,23 +310,6 @@ const (
 
 func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
 	return &e
-}
-func (e *OutputDynatraceOtlpMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputDynatraceOtlpMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceOtlpMode: %v", v)
-	}
 }
 
 type OutputDynatraceOtlpPqControls struct {
@@ -548,7 +394,7 @@ type OutputDynatraceOtlp struct {
 	ResponseRetrySettings []OutputDynatraceOtlpResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputDynatraceOtlpTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
