@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -17,19 +15,6 @@ const (
 func (e OutputDiskSpoolType) ToPointer() *OutputDiskSpoolType {
 	return &e
 }
-func (e *OutputDiskSpoolType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "disk_spool":
-		*e = OutputDiskSpoolType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDiskSpoolType: %v", v)
-	}
-}
 
 // OutputDiskSpoolCompression - Data compression format. Default is gzip.
 type OutputDiskSpoolCompression string
@@ -41,21 +26,6 @@ const (
 
 func (e OutputDiskSpoolCompression) ToPointer() *OutputDiskSpoolCompression {
 	return &e
-}
-func (e *OutputDiskSpoolCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDiskSpoolCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDiskSpoolCompression: %v", v)
-	}
 }
 
 type OutputDiskSpool struct {

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e OutputDefaultType) ToPointer() *OutputDefaultType {
 	return &e
-}
-func (e *OutputDefaultType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "default":
-		*e = OutputDefaultType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDefaultType: %v", v)
-	}
 }
 
 type OutputDefault struct {

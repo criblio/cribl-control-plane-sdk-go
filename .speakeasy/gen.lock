@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d1ddd19d9c9bd692e94434e9b57debb0
-  docVersion: 4.14.0-alpha.1757401089572-3ca67bed
+  docChecksum: 6ce5ed56af925fecea7422df5f39a25a
+  docVersion: 4.14.0-alpha.1757581172405-aff4ea16
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 0.0.45
-  configChecksum: b66bd5dc6fd4c5273754971a7be227a0
+  releaseVersion: 0.0.45-alpha.2
+  configChecksum: 20ecd590f830021b425f899d071c7465
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -27,6 +27,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 0.4.0
+    openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
@@ -94,7 +95,7 @@ generatedFiles:
   - /models/components/inputfile.go
   - /models/components/inputfirehose.go
   - /models/components/inputgooglepubsub.go
-  - /models/components/inputgrafana.go
+  - /models/components/inputgrafanaunion.go
   - /models/components/inputhttp.go
   - /models/components/inputhttpraw.go
   - /models/components/inputjournalfiles.go
@@ -123,7 +124,7 @@ generatedFiles:
   - /models/components/inputsplunkhec.go
   - /models/components/inputsplunksearch.go
   - /models/components/inputsqs.go
-  - /models/components/inputsyslog.go
+  - /models/components/inputsyslogunion.go
   - /models/components/inputsystemmetrics.go
   - /models/components/inputsystemstate.go
   - /models/components/inputtcp.go
@@ -175,7 +176,7 @@ generatedFiles:
   - /models/components/outputgooglecloudlogging.go
   - /models/components/outputgooglecloudstorage.go
   - /models/components/outputgooglepubsub.go
-  - /models/components/outputgrafanacloud.go
+  - /models/components/outputgrafanacloudunion.go
   - /models/components/outputgraphite.go
   - /models/components/outputhoneycomb.go
   - /models/components/outputhumiohec.go
@@ -631,13 +632,12 @@ generatedFiles:
   - docs/models/components/inputgooglepubsubpq.md
   - docs/models/components/inputgooglepubsubpqcontrols.md
   - docs/models/components/inputgooglepubsubtype.md
-  - docs/models/components/inputgrafana.md
+  - docs/models/components/inputgrafana1.md
+  - docs/models/components/inputgrafana2.md
   - docs/models/components/inputgrafanacompression1.md
   - docs/models/components/inputgrafanacompression2.md
   - docs/models/components/inputgrafanaconnection1.md
   - docs/models/components/inputgrafanaconnection2.md
-  - docs/models/components/inputgrafanagrafana1.md
-  - docs/models/components/inputgrafanagrafana2.md
   - docs/models/components/inputgrafanalokiauth1.md
   - docs/models/components/inputgrafanalokiauth2.md
   - docs/models/components/inputgrafanalokiauthauthenticationtype1.md
@@ -662,6 +662,7 @@ generatedFiles:
   - docs/models/components/inputgrafanatlssettingsserverside2.md
   - docs/models/components/inputgrafanatype1.md
   - docs/models/components/inputgrafanatype2.md
+  - docs/models/components/inputgrafanaunion.md
   - docs/models/components/inputhttp.md
   - docs/models/components/inputhttpauthtokensext.md
   - docs/models/components/inputhttpauthtokensextmetadatum.md
@@ -1014,7 +1015,8 @@ generatedFiles:
   - docs/models/components/inputsqsqueuetype.md
   - docs/models/components/inputsqssignatureversion.md
   - docs/models/components/inputsqstype.md
-  - docs/models/components/inputsyslog.md
+  - docs/models/components/inputsyslog1.md
+  - docs/models/components/inputsyslog2.md
   - docs/models/components/inputsyslogcompression1.md
   - docs/models/components/inputsyslogcompression2.md
   - docs/models/components/inputsyslogconnection1.md
@@ -1031,12 +1033,11 @@ generatedFiles:
   - docs/models/components/inputsyslogpq2.md
   - docs/models/components/inputsyslogpqcontrols1.md
   - docs/models/components/inputsyslogpqcontrols2.md
-  - docs/models/components/inputsyslogsyslog1.md
-  - docs/models/components/inputsyslogsyslog2.md
   - docs/models/components/inputsyslogtlssettingsserverside1.md
   - docs/models/components/inputsyslogtlssettingsserverside2.md
   - docs/models/components/inputsyslogtype1.md
   - docs/models/components/inputsyslogtype2.md
+  - docs/models/components/inputsyslogunion.md
   - docs/models/components/inputsystemmetrics.md
   - docs/models/components/inputsystemmetricscompression.md
   - docs/models/components/inputsystemmetricsconnection.md
@@ -1099,6 +1100,7 @@ generatedFiles:
   - docs/models/components/inputtcppreprocess.md
   - docs/models/components/inputtcptlssettingsserverside.md
   - docs/models/components/inputtcptype.md
+  - docs/models/components/inputtype.md
   - docs/models/components/inputwef.md
   - docs/models/components/inputwefauthenticationmethod.md
   - docs/models/components/inputwefcompression.md
@@ -1541,7 +1543,8 @@ generatedFiles:
   - docs/models/components/outputgooglepubsubpqcontrols.md
   - docs/models/components/outputgooglepubsubqueuefullbehavior.md
   - docs/models/components/outputgooglepubsubtype.md
-  - docs/models/components/outputgrafanacloud.md
+  - docs/models/components/outputgrafanacloud1.md
+  - docs/models/components/outputgrafanacloud2.md
   - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
   - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
   - docs/models/components/outputgrafanacloudcompression1.md
@@ -1550,8 +1553,6 @@ generatedFiles:
   - docs/models/components/outputgrafanacloudextrahttpheader2.md
   - docs/models/components/outputgrafanacloudfailedrequestloggingmode1.md
   - docs/models/components/outputgrafanacloudfailedrequestloggingmode2.md
-  - docs/models/components/outputgrafanacloudgrafanacloud1.md
-  - docs/models/components/outputgrafanacloudgrafanacloud2.md
   - docs/models/components/outputgrafanacloudlabel1.md
   - docs/models/components/outputgrafanacloudlabel2.md
   - docs/models/components/outputgrafanacloudlokiauth1.md
@@ -1576,6 +1577,7 @@ generatedFiles:
   - docs/models/components/outputgrafanacloudtimeoutretrysettings2.md
   - docs/models/components/outputgrafanacloudtype1.md
   - docs/models/components/outputgrafanacloudtype2.md
+  - docs/models/components/outputgrafanacloudunion.md
   - docs/models/components/outputgraphite.md
   - docs/models/components/outputgraphitebackpressurebehavior.md
   - docs/models/components/outputgraphitecompression.md
@@ -2083,7 +2085,6 @@ generatedFiles:
   - docs/models/components/runnablejobcollectionscheduleloglevel.md
   - docs/models/components/runnablejobcollectionscheduletimewarning.md
   - docs/models/components/runnablejobcollectiontimewarning.md
-  - docs/models/components/runnablejobcollectiontype.md
   - docs/models/components/runnablejobexecutor.md
   - docs/models/components/runnablejobexecutorjobtype.md
   - docs/models/components/runnablejobexecutorloglevel.md
@@ -3301,4 +3302,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"

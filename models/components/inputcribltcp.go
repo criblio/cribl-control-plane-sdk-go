@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputCriblTCPType) ToPointer() *InputCriblTCPType {
 	return &e
-}
-func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cribl_tcp":
-		*e = InputCriblTCPType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPType: %v", v)
-	}
 }
 
 type InputCriblTCPConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputCriblTCPMode) ToPointer() *InputCriblTCPMode {
 	return &e
 }
-func (e *InputCriblTCPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputCriblTCPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMode: %v", v)
-	}
-}
 
 // InputCriblTCPCompression - Codec to use to compress the persisted data
 type InputCriblTCPCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputCriblTCPCompression) ToPointer() *InputCriblTCPCompression {
 	return &e
-}
-func (e *InputCriblTCPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputCriblTCPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPCompression: %v", v)
-	}
 }
 
 type InputCriblTCPPqControls struct {
@@ -226,25 +181,6 @@ const (
 func (e InputCriblTCPMinimumTLSVersion) ToPointer() *InputCriblTCPMinimumTLSVersion {
 	return &e
 }
-func (e *InputCriblTCPMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblTCPMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputCriblTCPMaximumTLSVersion string
 
@@ -257,25 +193,6 @@ const (
 
 func (e InputCriblTCPMaximumTLSVersion) ToPointer() *InputCriblTCPMaximumTLSVersion {
 	return &e
-}
-func (e *InputCriblTCPMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblTCPMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputCriblTCPTLSSettingsServerSide struct {

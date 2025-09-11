@@ -3,7 +3,6 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -17,19 +16,6 @@ const (
 
 func (e InputSyslogType2) ToPointer() *InputSyslogType2 {
 	return &e
-}
-func (e *InputSyslogType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		*e = InputSyslogType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogType2: %v", v)
-	}
 }
 
 type InputSyslogConnection2 struct {
@@ -73,21 +59,6 @@ const (
 func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 	return &e
 }
-func (e *InputSyslogMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSyslogMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMode2: %v", v)
-	}
-}
 
 // InputSyslogCompression2 - Codec to use to compress the persisted data
 type InputSyslogCompression2 string
@@ -99,21 +70,6 @@ const (
 
 func (e InputSyslogCompression2) ToPointer() *InputSyslogCompression2 {
 	return &e
-}
-func (e *InputSyslogCompression2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSyslogCompression2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogCompression2: %v", v)
-	}
 }
 
 type InputSyslogPqControls2 struct {
@@ -227,25 +183,6 @@ const (
 func (e InputSyslogMinimumTLSVersion2) ToPointer() *InputSyslogMinimumTLSVersion2 {
 	return &e
 }
-func (e *InputSyslogMinimumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMinimumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMinimumTLSVersion2: %v", v)
-	}
-}
 
 type InputSyslogMaximumTLSVersion2 string
 
@@ -258,25 +195,6 @@ const (
 
 func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion2 {
 	return &e
-}
-func (e *InputSyslogMaximumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMaximumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMaximumTLSVersion2: %v", v)
-	}
 }
 
 type InputSyslogTLSSettingsServerSide2 struct {
@@ -418,7 +336,7 @@ func (o *InputSyslogMetadatum2) GetValue() string {
 	return o.Value
 }
 
-type InputSyslogSyslog2 struct {
+type InputSyslog2 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType2 `json:"type"`
@@ -482,242 +400,242 @@ type InputSyslogSyslog2 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
 }
 
-func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
+func (i InputSyslog2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
+func (i *InputSyslog2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tcpPort"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *InputSyslogSyslog2) GetID() *string {
+func (o *InputSyslog2) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *InputSyslogSyslog2) GetType() InputSyslogType2 {
+func (o *InputSyslog2) GetType() InputSyslogType2 {
 	if o == nil {
 		return InputSyslogType2("")
 	}
 	return o.Type
 }
 
-func (o *InputSyslogSyslog2) GetDisabled() *bool {
+func (o *InputSyslog2) GetDisabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Disabled
 }
 
-func (o *InputSyslogSyslog2) GetPipeline() *string {
+func (o *InputSyslog2) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *InputSyslogSyslog2) GetSendToRoutes() *bool {
+func (o *InputSyslog2) GetSendToRoutes() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SendToRoutes
 }
 
-func (o *InputSyslogSyslog2) GetEnvironment() *string {
+func (o *InputSyslog2) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *InputSyslogSyslog2) GetPqEnabled() *bool {
+func (o *InputSyslog2) GetPqEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqEnabled
 }
 
-func (o *InputSyslogSyslog2) GetStreamtags() []string {
+func (o *InputSyslog2) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *InputSyslogSyslog2) GetConnections() []InputSyslogConnection2 {
+func (o *InputSyslog2) GetConnections() []InputSyslogConnection2 {
 	if o == nil {
 		return nil
 	}
 	return o.Connections
 }
 
-func (o *InputSyslogSyslog2) GetPq() *InputSyslogPq2 {
+func (o *InputSyslog2) GetPq() *InputSyslogPq2 {
 	if o == nil {
 		return nil
 	}
 	return o.Pq
 }
 
-func (o *InputSyslogSyslog2) GetHost() *string {
+func (o *InputSyslog2) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *InputSyslogSyslog2) GetUDPPort() *float64 {
+func (o *InputSyslog2) GetUDPPort() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.UDPPort
 }
 
-func (o *InputSyslogSyslog2) GetTCPPort() float64 {
+func (o *InputSyslog2) GetTCPPort() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.TCPPort
 }
 
-func (o *InputSyslogSyslog2) GetMaxBufferSize() *float64 {
+func (o *InputSyslog2) GetMaxBufferSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxBufferSize
 }
 
-func (o *InputSyslogSyslog2) GetIPWhitelistRegex() *string {
+func (o *InputSyslog2) GetIPWhitelistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPWhitelistRegex
 }
 
-func (o *InputSyslogSyslog2) GetTimestampTimezone() *string {
+func (o *InputSyslog2) GetTimestampTimezone() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TimestampTimezone
 }
 
-func (o *InputSyslogSyslog2) GetSingleMsgUDPPackets() *bool {
+func (o *InputSyslog2) GetSingleMsgUDPPackets() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SingleMsgUDPPackets
 }
 
-func (o *InputSyslogSyslog2) GetEnableProxyHeader() *bool {
+func (o *InputSyslog2) GetEnableProxyHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableProxyHeader
 }
 
-func (o *InputSyslogSyslog2) GetKeepFieldsList() []string {
+func (o *InputSyslog2) GetKeepFieldsList() []string {
 	if o == nil {
 		return nil
 	}
 	return o.KeepFieldsList
 }
 
-func (o *InputSyslogSyslog2) GetOctetCounting() *bool {
+func (o *InputSyslog2) GetOctetCounting() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.OctetCounting
 }
 
-func (o *InputSyslogSyslog2) GetInferFraming() *bool {
+func (o *InputSyslog2) GetInferFraming() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.InferFraming
 }
 
-func (o *InputSyslogSyslog2) GetStrictlyInferOctetCounting() *bool {
+func (o *InputSyslog2) GetStrictlyInferOctetCounting() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.StrictlyInferOctetCounting
 }
 
-func (o *InputSyslogSyslog2) GetAllowNonStandardAppName() *bool {
+func (o *InputSyslog2) GetAllowNonStandardAppName() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AllowNonStandardAppName
 }
 
-func (o *InputSyslogSyslog2) GetMaxActiveCxn() *float64 {
+func (o *InputSyslog2) GetMaxActiveCxn() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxActiveCxn
 }
 
-func (o *InputSyslogSyslog2) GetSocketIdleTimeout() *float64 {
+func (o *InputSyslog2) GetSocketIdleTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketIdleTimeout
 }
 
-func (o *InputSyslogSyslog2) GetSocketEndingMaxWait() *float64 {
+func (o *InputSyslog2) GetSocketEndingMaxWait() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketEndingMaxWait
 }
 
-func (o *InputSyslogSyslog2) GetSocketMaxLifespan() *float64 {
+func (o *InputSyslog2) GetSocketMaxLifespan() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketMaxLifespan
 }
 
-func (o *InputSyslogSyslog2) GetTLS() *InputSyslogTLSSettingsServerSide2 {
+func (o *InputSyslog2) GetTLS() *InputSyslogTLSSettingsServerSide2 {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *InputSyslogSyslog2) GetMetadata() []InputSyslogMetadatum2 {
+func (o *InputSyslog2) GetMetadata() []InputSyslogMetadatum2 {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
 }
 
-func (o *InputSyslogSyslog2) GetUDPSocketRxBufSize() *float64 {
+func (o *InputSyslog2) GetUDPSocketRxBufSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.UDPSocketRxBufSize
 }
 
-func (o *InputSyslogSyslog2) GetEnableLoadBalancing() *bool {
+func (o *InputSyslog2) GetEnableLoadBalancing() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableLoadBalancing
 }
 
-func (o *InputSyslogSyslog2) GetDescription() *string {
+func (o *InputSyslog2) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *InputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
+func (o *InputSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
 	if o == nil {
 		return nil
 	}
@@ -732,19 +650,6 @@ const (
 
 func (e InputSyslogType1) ToPointer() *InputSyslogType1 {
 	return &e
-}
-func (e *InputSyslogType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		*e = InputSyslogType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogType1: %v", v)
-	}
 }
 
 type InputSyslogConnection1 struct {
@@ -788,21 +693,6 @@ const (
 func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 	return &e
 }
-func (e *InputSyslogMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSyslogMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMode1: %v", v)
-	}
-}
 
 // InputSyslogCompression1 - Codec to use to compress the persisted data
 type InputSyslogCompression1 string
@@ -814,21 +704,6 @@ const (
 
 func (e InputSyslogCompression1) ToPointer() *InputSyslogCompression1 {
 	return &e
-}
-func (e *InputSyslogCompression1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSyslogCompression1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogCompression1: %v", v)
-	}
 }
 
 type InputSyslogPqControls1 struct {
@@ -942,25 +817,6 @@ const (
 func (e InputSyslogMinimumTLSVersion1) ToPointer() *InputSyslogMinimumTLSVersion1 {
 	return &e
 }
-func (e *InputSyslogMinimumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMinimumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMinimumTLSVersion1: %v", v)
-	}
-}
 
 type InputSyslogMaximumTLSVersion1 string
 
@@ -973,25 +829,6 @@ const (
 
 func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion1 {
 	return &e
-}
-func (e *InputSyslogMaximumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMaximumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMaximumTLSVersion1: %v", v)
-	}
 }
 
 type InputSyslogTLSSettingsServerSide1 struct {
@@ -1133,7 +970,7 @@ func (o *InputSyslogMetadatum1) GetValue() string {
 	return o.Value
 }
 
-type InputSyslogSyslog1 struct {
+type InputSyslog1 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType1 `json:"type"`
@@ -1197,307 +1034,307 @@ type InputSyslogSyslog1 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
 }
 
-func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
+func (i InputSyslog1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
+func (i *InputSyslog1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "udpPort"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *InputSyslogSyslog1) GetID() *string {
+func (o *InputSyslog1) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *InputSyslogSyslog1) GetType() InputSyslogType1 {
+func (o *InputSyslog1) GetType() InputSyslogType1 {
 	if o == nil {
 		return InputSyslogType1("")
 	}
 	return o.Type
 }
 
-func (o *InputSyslogSyslog1) GetDisabled() *bool {
+func (o *InputSyslog1) GetDisabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Disabled
 }
 
-func (o *InputSyslogSyslog1) GetPipeline() *string {
+func (o *InputSyslog1) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *InputSyslogSyslog1) GetSendToRoutes() *bool {
+func (o *InputSyslog1) GetSendToRoutes() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SendToRoutes
 }
 
-func (o *InputSyslogSyslog1) GetEnvironment() *string {
+func (o *InputSyslog1) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *InputSyslogSyslog1) GetPqEnabled() *bool {
+func (o *InputSyslog1) GetPqEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqEnabled
 }
 
-func (o *InputSyslogSyslog1) GetStreamtags() []string {
+func (o *InputSyslog1) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *InputSyslogSyslog1) GetConnections() []InputSyslogConnection1 {
+func (o *InputSyslog1) GetConnections() []InputSyslogConnection1 {
 	if o == nil {
 		return nil
 	}
 	return o.Connections
 }
 
-func (o *InputSyslogSyslog1) GetPq() *InputSyslogPq1 {
+func (o *InputSyslog1) GetPq() *InputSyslogPq1 {
 	if o == nil {
 		return nil
 	}
 	return o.Pq
 }
 
-func (o *InputSyslogSyslog1) GetHost() *string {
+func (o *InputSyslog1) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *InputSyslogSyslog1) GetUDPPort() float64 {
+func (o *InputSyslog1) GetUDPPort() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.UDPPort
 }
 
-func (o *InputSyslogSyslog1) GetTCPPort() *float64 {
+func (o *InputSyslog1) GetTCPPort() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TCPPort
 }
 
-func (o *InputSyslogSyslog1) GetMaxBufferSize() *float64 {
+func (o *InputSyslog1) GetMaxBufferSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxBufferSize
 }
 
-func (o *InputSyslogSyslog1) GetIPWhitelistRegex() *string {
+func (o *InputSyslog1) GetIPWhitelistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPWhitelistRegex
 }
 
-func (o *InputSyslogSyslog1) GetTimestampTimezone() *string {
+func (o *InputSyslog1) GetTimestampTimezone() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TimestampTimezone
 }
 
-func (o *InputSyslogSyslog1) GetSingleMsgUDPPackets() *bool {
+func (o *InputSyslog1) GetSingleMsgUDPPackets() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SingleMsgUDPPackets
 }
 
-func (o *InputSyslogSyslog1) GetEnableProxyHeader() *bool {
+func (o *InputSyslog1) GetEnableProxyHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableProxyHeader
 }
 
-func (o *InputSyslogSyslog1) GetKeepFieldsList() []string {
+func (o *InputSyslog1) GetKeepFieldsList() []string {
 	if o == nil {
 		return nil
 	}
 	return o.KeepFieldsList
 }
 
-func (o *InputSyslogSyslog1) GetOctetCounting() *bool {
+func (o *InputSyslog1) GetOctetCounting() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.OctetCounting
 }
 
-func (o *InputSyslogSyslog1) GetInferFraming() *bool {
+func (o *InputSyslog1) GetInferFraming() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.InferFraming
 }
 
-func (o *InputSyslogSyslog1) GetStrictlyInferOctetCounting() *bool {
+func (o *InputSyslog1) GetStrictlyInferOctetCounting() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.StrictlyInferOctetCounting
 }
 
-func (o *InputSyslogSyslog1) GetAllowNonStandardAppName() *bool {
+func (o *InputSyslog1) GetAllowNonStandardAppName() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AllowNonStandardAppName
 }
 
-func (o *InputSyslogSyslog1) GetMaxActiveCxn() *float64 {
+func (o *InputSyslog1) GetMaxActiveCxn() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxActiveCxn
 }
 
-func (o *InputSyslogSyslog1) GetSocketIdleTimeout() *float64 {
+func (o *InputSyslog1) GetSocketIdleTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketIdleTimeout
 }
 
-func (o *InputSyslogSyslog1) GetSocketEndingMaxWait() *float64 {
+func (o *InputSyslog1) GetSocketEndingMaxWait() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketEndingMaxWait
 }
 
-func (o *InputSyslogSyslog1) GetSocketMaxLifespan() *float64 {
+func (o *InputSyslog1) GetSocketMaxLifespan() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketMaxLifespan
 }
 
-func (o *InputSyslogSyslog1) GetTLS() *InputSyslogTLSSettingsServerSide1 {
+func (o *InputSyslog1) GetTLS() *InputSyslogTLSSettingsServerSide1 {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *InputSyslogSyslog1) GetMetadata() []InputSyslogMetadatum1 {
+func (o *InputSyslog1) GetMetadata() []InputSyslogMetadatum1 {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
 }
 
-func (o *InputSyslogSyslog1) GetUDPSocketRxBufSize() *float64 {
+func (o *InputSyslog1) GetUDPSocketRxBufSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.UDPSocketRxBufSize
 }
 
-func (o *InputSyslogSyslog1) GetEnableLoadBalancing() *bool {
+func (o *InputSyslog1) GetEnableLoadBalancing() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableLoadBalancing
 }
 
-func (o *InputSyslogSyslog1) GetDescription() *string {
+func (o *InputSyslog1) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *InputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
+func (o *InputSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableEnhancedProxyHeaderParsing
 }
 
-type InputSyslogType string
+type InputSyslogUnionType string
 
 const (
-	InputSyslogTypeInputSyslogSyslog1 InputSyslogType = "InputSyslog_Syslog_1"
-	InputSyslogTypeInputSyslogSyslog2 InputSyslogType = "InputSyslog_Syslog_2"
+	InputSyslogUnionTypeInputSyslog1 InputSyslogUnionType = "InputSyslog_1"
+	InputSyslogUnionTypeInputSyslog2 InputSyslogUnionType = "InputSyslog_2"
 )
 
-type InputSyslog struct {
-	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline" name:"InputSyslog"`
-	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline" name:"InputSyslog"`
+type InputSyslogUnion struct {
+	InputSyslog1 *InputSyslog1 `queryParam:"inline" name:"InputSyslog"`
+	InputSyslog2 *InputSyslog2 `queryParam:"inline" name:"InputSyslog"`
 
-	Type InputSyslogType
+	Type InputSyslogUnionType
 }
 
-func CreateInputSyslogInputSyslogSyslog1(inputSyslogSyslog1 InputSyslogSyslog1) InputSyslog {
-	typ := InputSyslogTypeInputSyslogSyslog1
+func CreateInputSyslogUnionInputSyslog1(inputSyslog1 InputSyslog1) InputSyslogUnion {
+	typ := InputSyslogUnionTypeInputSyslog1
 
-	return InputSyslog{
-		InputSyslogSyslog1: &inputSyslogSyslog1,
-		Type:               typ,
+	return InputSyslogUnion{
+		InputSyslog1: &inputSyslog1,
+		Type:         typ,
 	}
 }
 
-func CreateInputSyslogInputSyslogSyslog2(inputSyslogSyslog2 InputSyslogSyslog2) InputSyslog {
-	typ := InputSyslogTypeInputSyslogSyslog2
+func CreateInputSyslogUnionInputSyslog2(inputSyslog2 InputSyslog2) InputSyslogUnion {
+	typ := InputSyslogUnionTypeInputSyslog2
 
-	return InputSyslog{
-		InputSyslogSyslog2: &inputSyslogSyslog2,
-		Type:               typ,
+	return InputSyslogUnion{
+		InputSyslog2: &inputSyslog2,
+		Type:         typ,
 	}
 }
 
-func (u *InputSyslog) UnmarshalJSON(data []byte) error {
+func (u *InputSyslogUnion) UnmarshalJSON(data []byte) error {
 
-	var inputSyslogSyslog1 InputSyslogSyslog1 = InputSyslogSyslog1{}
-	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog1, "", true, nil); err == nil {
-		u.InputSyslogSyslog1 = &inputSyslogSyslog1
-		u.Type = InputSyslogTypeInputSyslogSyslog1
+	var inputSyslog1 InputSyslog1 = InputSyslog1{}
+	if err := utils.UnmarshalJSON(data, &inputSyslog1, "", true, nil); err == nil {
+		u.InputSyslog1 = &inputSyslog1
+		u.Type = InputSyslogUnionTypeInputSyslog1
 		return nil
 	}
 
-	var inputSyslogSyslog2 InputSyslogSyslog2 = InputSyslogSyslog2{}
-	if err := utils.UnmarshalJSON(data, &inputSyslogSyslog2, "", true, nil); err == nil {
-		u.InputSyslogSyslog2 = &inputSyslogSyslog2
-		u.Type = InputSyslogTypeInputSyslogSyslog2
+	var inputSyslog2 InputSyslog2 = InputSyslog2{}
+	if err := utils.UnmarshalJSON(data, &inputSyslog2, "", true, nil); err == nil {
+		u.InputSyslog2 = &inputSyslog2
+		u.Type = InputSyslogUnionTypeInputSyslog2
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslog", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslogUnion", string(data))
 }
 
-func (u InputSyslog) MarshalJSON() ([]byte, error) {
-	if u.InputSyslogSyslog1 != nil {
-		return utils.MarshalJSON(u.InputSyslogSyslog1, "", true)
+func (u InputSyslogUnion) MarshalJSON() ([]byte, error) {
+	if u.InputSyslog1 != nil {
+		return utils.MarshalJSON(u.InputSyslog1, "", true)
 	}
 
-	if u.InputSyslogSyslog2 != nil {
-		return utils.MarshalJSON(u.InputSyslogSyslog2, "", true)
+	if u.InputSyslog2 != nil {
+		return utils.MarshalJSON(u.InputSyslog2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type InputSyslog: all fields are null")
+	return nil, errors.New("could not marshal union type InputSyslogUnion: all fields are null")
 }

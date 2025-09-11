@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputGooglePubsubType) ToPointer() *InputGooglePubsubType {
 	return &e
-}
-func (e *InputGooglePubsubType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "google_pubsub":
-		*e = InputGooglePubsubType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubType: %v", v)
-	}
 }
 
 type InputGooglePubsubConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputGooglePubsubMode) ToPointer() *InputGooglePubsubMode {
 	return &e
 }
-func (e *InputGooglePubsubMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGooglePubsubMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubMode: %v", v)
-	}
-}
 
 // InputGooglePubsubCompression - Codec to use to compress the persisted data
 type InputGooglePubsubCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputGooglePubsubCompression) ToPointer() *InputGooglePubsubCompression {
 	return &e
-}
-func (e *InputGooglePubsubCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGooglePubsubCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubCompression: %v", v)
-	}
 }
 
 type InputGooglePubsubPqControls struct {
@@ -225,23 +180,6 @@ const (
 
 func (e InputGooglePubsubGoogleAuthenticationMethod) ToPointer() *InputGooglePubsubGoogleAuthenticationMethod {
 	return &e
-}
-func (e *InputGooglePubsubGoogleAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputGooglePubsubGoogleAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubGoogleAuthenticationMethod: %v", v)
-	}
 }
 
 type InputGooglePubsubMetadatum struct {

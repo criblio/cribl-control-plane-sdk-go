@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -17,19 +15,6 @@ const (
 func (e OutputSumoLogicType) ToPointer() *OutputSumoLogicType {
 	return &e
 }
-func (e *OutputSumoLogicType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "sumo_logic":
-		*e = OutputSumoLogicType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicType: %v", v)
-	}
-}
 
 // OutputSumoLogicDataFormat - Preserve the raw event format instead of JSONifying it
 type OutputSumoLogicDataFormat string
@@ -41,21 +26,6 @@ const (
 
 func (e OutputSumoLogicDataFormat) ToPointer() *OutputSumoLogicDataFormat {
 	return &e
-}
-func (e *OutputSumoLogicDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		*e = OutputSumoLogicDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicDataFormat: %v", v)
-	}
 }
 
 type OutputSumoLogicExtraHTTPHeader struct {
@@ -99,23 +69,6 @@ const (
 
 func (e OutputSumoLogicFailedRequestLoggingMode) ToPointer() *OutputSumoLogicFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputSumoLogicFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputSumoLogicFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputSumoLogicResponseRetrySetting struct {
@@ -229,23 +182,6 @@ const (
 func (e OutputSumoLogicBackpressureBehavior) ToPointer() *OutputSumoLogicBackpressureBehavior {
 	return &e
 }
-func (e *OutputSumoLogicBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSumoLogicBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputSumoLogicCompression - Codec to use to compress the persisted data
 type OutputSumoLogicCompression string
@@ -257,21 +193,6 @@ const (
 
 func (e OutputSumoLogicCompression) ToPointer() *OutputSumoLogicCompression {
 	return &e
-}
-func (e *OutputSumoLogicCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSumoLogicCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicCompression: %v", v)
-	}
 }
 
 // OutputSumoLogicQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -285,21 +206,6 @@ const (
 func (e OutputSumoLogicQueueFullBehavior) ToPointer() *OutputSumoLogicQueueFullBehavior {
 	return &e
 }
-func (e *OutputSumoLogicQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSumoLogicQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputSumoLogicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSumoLogicMode string
@@ -312,23 +218,6 @@ const (
 
 func (e OutputSumoLogicMode) ToPointer() *OutputSumoLogicMode {
 	return &e
-}
-func (e *OutputSumoLogicMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSumoLogicMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicMode: %v", v)
-	}
 }
 
 type OutputSumoLogicPqControls struct {

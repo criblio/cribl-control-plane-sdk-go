@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputKubeLogsType) ToPointer() *InputKubeLogsType {
 	return &e
-}
-func (e *InputKubeLogsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "kube_logs":
-		*e = InputKubeLogsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsType: %v", v)
-	}
 }
 
 type InputKubeLogsConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputKubeLogsMode) ToPointer() *InputKubeLogsMode {
 	return &e
 }
-func (e *InputKubeLogsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputKubeLogsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsMode: %v", v)
-	}
-}
 
 // InputKubeLogsPqCompression - Codec to use to compress the persisted data
 type InputKubeLogsPqCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputKubeLogsPqCompression) ToPointer() *InputKubeLogsPqCompression {
 	return &e
-}
-func (e *InputKubeLogsPqCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeLogsPqCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsPqCompression: %v", v)
-	}
 }
 
 type InputKubeLogsPqControls struct {
@@ -287,21 +242,6 @@ const (
 
 func (e InputKubeLogsPersistenceCompression) ToPointer() *InputKubeLogsPersistenceCompression {
 	return &e
-}
-func (e *InputKubeLogsPersistenceCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeLogsPersistenceCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsPersistenceCompression: %v", v)
-	}
 }
 
 type InputKubeLogsDiskSpooling struct {

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e OutputSnmpType) ToPointer() *OutputSnmpType {
 	return &e
-}
-func (e *OutputSnmpType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "snmp":
-		*e = OutputSnmpType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnmpType: %v", v)
-	}
 }
 
 type OutputSnmpHost struct {

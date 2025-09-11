@@ -3,7 +3,6 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -17,19 +16,6 @@ const (
 
 func (e InputGrafanaType2) ToPointer() *InputGrafanaType2 {
 	return &e
-}
-func (e *InputGrafanaType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "grafana":
-		*e = InputGrafanaType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaType2: %v", v)
-	}
 }
 
 type InputGrafanaConnection2 struct {
@@ -73,21 +59,6 @@ const (
 func (e InputGrafanaMode2) ToPointer() *InputGrafanaMode2 {
 	return &e
 }
-func (e *InputGrafanaMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGrafanaMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMode2: %v", v)
-	}
-}
 
 // InputGrafanaCompression2 - Codec to use to compress the persisted data
 type InputGrafanaCompression2 string
@@ -99,21 +70,6 @@ const (
 
 func (e InputGrafanaCompression2) ToPointer() *InputGrafanaCompression2 {
 	return &e
-}
-func (e *InputGrafanaCompression2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGrafanaCompression2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaCompression2: %v", v)
-	}
 }
 
 type InputGrafanaPqControls2 struct {
@@ -227,25 +183,6 @@ const (
 func (e InputGrafanaMinimumTLSVersion2) ToPointer() *InputGrafanaMinimumTLSVersion2 {
 	return &e
 }
-func (e *InputGrafanaMinimumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMinimumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMinimumTLSVersion2: %v", v)
-	}
-}
 
 type InputGrafanaMaximumTLSVersion2 string
 
@@ -258,25 +195,6 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion2) ToPointer() *InputGrafanaMaximumTLSVersion2 {
 	return &e
-}
-func (e *InputGrafanaMaximumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMaximumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMaximumTLSVersion2: %v", v)
-	}
 }
 
 type InputGrafanaTLSSettingsServerSide2 struct {
@@ -401,29 +319,6 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType2) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType2 {
 	return &e
-}
-func (e *InputGrafanaPrometheusAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaPrometheusAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaPrometheusAuthAuthenticationType2: %v", v)
-	}
 }
 
 type PrometheusAuthOauthParam2 struct {
@@ -642,29 +537,6 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType2) ToPointer() *InputGrafanaLokiAuthAuthenticationType2 {
 	return &e
-}
-func (e *InputGrafanaLokiAuthAuthenticationType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaLokiAuthAuthenticationType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaLokiAuthAuthenticationType2: %v", v)
-	}
 }
 
 type LokiAuthOauthParam2 struct {
@@ -900,7 +772,7 @@ func (o *InputGrafanaMetadatum2) GetValue() string {
 	return o.Value
 }
 
-type InputGrafanaGrafana2 struct {
+type InputGrafana2 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputGrafanaType2 `json:"type"`
@@ -956,221 +828,221 @@ type InputGrafanaGrafana2 struct {
 	Description *string                  `json:"description,omitempty"`
 }
 
-func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
+func (i InputGrafana2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGrafanaGrafana2) UnmarshalJSON(data []byte) error {
+func (i *InputGrafana2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *InputGrafanaGrafana2) GetID() *string {
+func (o *InputGrafana2) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *InputGrafanaGrafana2) GetType() InputGrafanaType2 {
+func (o *InputGrafana2) GetType() InputGrafanaType2 {
 	if o == nil {
 		return InputGrafanaType2("")
 	}
 	return o.Type
 }
 
-func (o *InputGrafanaGrafana2) GetDisabled() *bool {
+func (o *InputGrafana2) GetDisabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Disabled
 }
 
-func (o *InputGrafanaGrafana2) GetPipeline() *string {
+func (o *InputGrafana2) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *InputGrafanaGrafana2) GetSendToRoutes() *bool {
+func (o *InputGrafana2) GetSendToRoutes() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SendToRoutes
 }
 
-func (o *InputGrafanaGrafana2) GetEnvironment() *string {
+func (o *InputGrafana2) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *InputGrafanaGrafana2) GetPqEnabled() *bool {
+func (o *InputGrafana2) GetPqEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqEnabled
 }
 
-func (o *InputGrafanaGrafana2) GetStreamtags() []string {
+func (o *InputGrafana2) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *InputGrafanaGrafana2) GetConnections() []InputGrafanaConnection2 {
+func (o *InputGrafana2) GetConnections() []InputGrafanaConnection2 {
 	if o == nil {
 		return nil
 	}
 	return o.Connections
 }
 
-func (o *InputGrafanaGrafana2) GetPq() *InputGrafanaPq2 {
+func (o *InputGrafana2) GetPq() *InputGrafanaPq2 {
 	if o == nil {
 		return nil
 	}
 	return o.Pq
 }
 
-func (o *InputGrafanaGrafana2) GetHost() *string {
+func (o *InputGrafana2) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *InputGrafanaGrafana2) GetPort() float64 {
+func (o *InputGrafana2) GetPort() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.Port
 }
 
-func (o *InputGrafanaGrafana2) GetTLS() *InputGrafanaTLSSettingsServerSide2 {
+func (o *InputGrafana2) GetTLS() *InputGrafanaTLSSettingsServerSide2 {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *InputGrafanaGrafana2) GetMaxActiveReq() *float64 {
+func (o *InputGrafana2) GetMaxActiveReq() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxActiveReq
 }
 
-func (o *InputGrafanaGrafana2) GetMaxRequestsPerSocket() *int64 {
+func (o *InputGrafana2) GetMaxRequestsPerSocket() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRequestsPerSocket
 }
 
-func (o *InputGrafanaGrafana2) GetEnableProxyHeader() *bool {
+func (o *InputGrafana2) GetEnableProxyHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableProxyHeader
 }
 
-func (o *InputGrafanaGrafana2) GetCaptureHeaders() *bool {
+func (o *InputGrafana2) GetCaptureHeaders() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.CaptureHeaders
 }
 
-func (o *InputGrafanaGrafana2) GetActivityLogSampleRate() *float64 {
+func (o *InputGrafana2) GetActivityLogSampleRate() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ActivityLogSampleRate
 }
 
-func (o *InputGrafanaGrafana2) GetRequestTimeout() *float64 {
+func (o *InputGrafana2) GetRequestTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.RequestTimeout
 }
 
-func (o *InputGrafanaGrafana2) GetSocketTimeout() *float64 {
+func (o *InputGrafana2) GetSocketTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketTimeout
 }
 
-func (o *InputGrafanaGrafana2) GetKeepAliveTimeout() *float64 {
+func (o *InputGrafana2) GetKeepAliveTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.KeepAliveTimeout
 }
 
-func (o *InputGrafanaGrafana2) GetEnableHealthCheck() *bool {
+func (o *InputGrafana2) GetEnableHealthCheck() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableHealthCheck
 }
 
-func (o *InputGrafanaGrafana2) GetIPAllowlistRegex() *string {
+func (o *InputGrafana2) GetIPAllowlistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPAllowlistRegex
 }
 
-func (o *InputGrafanaGrafana2) GetIPDenylistRegex() *string {
+func (o *InputGrafana2) GetIPDenylistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPDenylistRegex
 }
 
-func (o *InputGrafanaGrafana2) GetPrometheusAPI() *string {
+func (o *InputGrafana2) GetPrometheusAPI() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PrometheusAPI
 }
 
-func (o *InputGrafanaGrafana2) GetLokiAPI() *string {
+func (o *InputGrafana2) GetLokiAPI() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LokiAPI
 }
 
-func (o *InputGrafanaGrafana2) GetPrometheusAuth() *InputGrafanaPrometheusAuth2 {
+func (o *InputGrafana2) GetPrometheusAuth() *InputGrafanaPrometheusAuth2 {
 	if o == nil {
 		return nil
 	}
 	return o.PrometheusAuth
 }
 
-func (o *InputGrafanaGrafana2) GetLokiAuth() *InputGrafanaLokiAuth2 {
+func (o *InputGrafana2) GetLokiAuth() *InputGrafanaLokiAuth2 {
 	if o == nil {
 		return nil
 	}
 	return o.LokiAuth
 }
 
-func (o *InputGrafanaGrafana2) GetMetadata() []InputGrafanaMetadatum2 {
+func (o *InputGrafana2) GetMetadata() []InputGrafanaMetadatum2 {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
 }
 
-func (o *InputGrafanaGrafana2) GetDescription() *string {
+func (o *InputGrafana2) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
@@ -1185,19 +1057,6 @@ const (
 
 func (e InputGrafanaType1) ToPointer() *InputGrafanaType1 {
 	return &e
-}
-func (e *InputGrafanaType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "grafana":
-		*e = InputGrafanaType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaType1: %v", v)
-	}
 }
 
 type InputGrafanaConnection1 struct {
@@ -1241,21 +1100,6 @@ const (
 func (e InputGrafanaMode1) ToPointer() *InputGrafanaMode1 {
 	return &e
 }
-func (e *InputGrafanaMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGrafanaMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMode1: %v", v)
-	}
-}
 
 // InputGrafanaCompression1 - Codec to use to compress the persisted data
 type InputGrafanaCompression1 string
@@ -1267,21 +1111,6 @@ const (
 
 func (e InputGrafanaCompression1) ToPointer() *InputGrafanaCompression1 {
 	return &e
-}
-func (e *InputGrafanaCompression1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGrafanaCompression1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaCompression1: %v", v)
-	}
 }
 
 type InputGrafanaPqControls1 struct {
@@ -1395,25 +1224,6 @@ const (
 func (e InputGrafanaMinimumTLSVersion1) ToPointer() *InputGrafanaMinimumTLSVersion1 {
 	return &e
 }
-func (e *InputGrafanaMinimumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMinimumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMinimumTLSVersion1: %v", v)
-	}
-}
 
 type InputGrafanaMaximumTLSVersion1 string
 
@@ -1426,25 +1236,6 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion1) ToPointer() *InputGrafanaMaximumTLSVersion1 {
 	return &e
-}
-func (e *InputGrafanaMaximumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputGrafanaMaximumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaMaximumTLSVersion1: %v", v)
-	}
 }
 
 type InputGrafanaTLSSettingsServerSide1 struct {
@@ -1569,29 +1360,6 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType1) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType1 {
 	return &e
-}
-func (e *InputGrafanaPrometheusAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaPrometheusAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaPrometheusAuthAuthenticationType1: %v", v)
-	}
 }
 
 type PrometheusAuthOauthParam1 struct {
@@ -1810,29 +1578,6 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType1) ToPointer() *InputGrafanaLokiAuthAuthenticationType1 {
 	return &e
-}
-func (e *InputGrafanaLokiAuthAuthenticationType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputGrafanaLokiAuthAuthenticationType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGrafanaLokiAuthAuthenticationType1: %v", v)
-	}
 }
 
 type LokiAuthOauthParam1 struct {
@@ -2068,7 +1813,7 @@ func (o *InputGrafanaMetadatum1) GetValue() string {
 	return o.Value
 }
 
-type InputGrafanaGrafana1 struct {
+type InputGrafana1 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputGrafanaType1 `json:"type"`
@@ -2124,286 +1869,286 @@ type InputGrafanaGrafana1 struct {
 	Description *string                  `json:"description,omitempty"`
 }
 
-func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
+func (i InputGrafana1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGrafanaGrafana1) UnmarshalJSON(data []byte) error {
+func (i *InputGrafana1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *InputGrafanaGrafana1) GetID() *string {
+func (o *InputGrafana1) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *InputGrafanaGrafana1) GetType() InputGrafanaType1 {
+func (o *InputGrafana1) GetType() InputGrafanaType1 {
 	if o == nil {
 		return InputGrafanaType1("")
 	}
 	return o.Type
 }
 
-func (o *InputGrafanaGrafana1) GetDisabled() *bool {
+func (o *InputGrafana1) GetDisabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Disabled
 }
 
-func (o *InputGrafanaGrafana1) GetPipeline() *string {
+func (o *InputGrafana1) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *InputGrafanaGrafana1) GetSendToRoutes() *bool {
+func (o *InputGrafana1) GetSendToRoutes() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.SendToRoutes
 }
 
-func (o *InputGrafanaGrafana1) GetEnvironment() *string {
+func (o *InputGrafana1) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *InputGrafanaGrafana1) GetPqEnabled() *bool {
+func (o *InputGrafana1) GetPqEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqEnabled
 }
 
-func (o *InputGrafanaGrafana1) GetStreamtags() []string {
+func (o *InputGrafana1) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *InputGrafanaGrafana1) GetConnections() []InputGrafanaConnection1 {
+func (o *InputGrafana1) GetConnections() []InputGrafanaConnection1 {
 	if o == nil {
 		return nil
 	}
 	return o.Connections
 }
 
-func (o *InputGrafanaGrafana1) GetPq() *InputGrafanaPq1 {
+func (o *InputGrafana1) GetPq() *InputGrafanaPq1 {
 	if o == nil {
 		return nil
 	}
 	return o.Pq
 }
 
-func (o *InputGrafanaGrafana1) GetHost() *string {
+func (o *InputGrafana1) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *InputGrafanaGrafana1) GetPort() float64 {
+func (o *InputGrafana1) GetPort() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.Port
 }
 
-func (o *InputGrafanaGrafana1) GetTLS() *InputGrafanaTLSSettingsServerSide1 {
+func (o *InputGrafana1) GetTLS() *InputGrafanaTLSSettingsServerSide1 {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *InputGrafanaGrafana1) GetMaxActiveReq() *float64 {
+func (o *InputGrafana1) GetMaxActiveReq() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxActiveReq
 }
 
-func (o *InputGrafanaGrafana1) GetMaxRequestsPerSocket() *int64 {
+func (o *InputGrafana1) GetMaxRequestsPerSocket() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRequestsPerSocket
 }
 
-func (o *InputGrafanaGrafana1) GetEnableProxyHeader() *bool {
+func (o *InputGrafana1) GetEnableProxyHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableProxyHeader
 }
 
-func (o *InputGrafanaGrafana1) GetCaptureHeaders() *bool {
+func (o *InputGrafana1) GetCaptureHeaders() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.CaptureHeaders
 }
 
-func (o *InputGrafanaGrafana1) GetActivityLogSampleRate() *float64 {
+func (o *InputGrafana1) GetActivityLogSampleRate() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ActivityLogSampleRate
 }
 
-func (o *InputGrafanaGrafana1) GetRequestTimeout() *float64 {
+func (o *InputGrafana1) GetRequestTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.RequestTimeout
 }
 
-func (o *InputGrafanaGrafana1) GetSocketTimeout() *float64 {
+func (o *InputGrafana1) GetSocketTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.SocketTimeout
 }
 
-func (o *InputGrafanaGrafana1) GetKeepAliveTimeout() *float64 {
+func (o *InputGrafana1) GetKeepAliveTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.KeepAliveTimeout
 }
 
-func (o *InputGrafanaGrafana1) GetEnableHealthCheck() *bool {
+func (o *InputGrafana1) GetEnableHealthCheck() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableHealthCheck
 }
 
-func (o *InputGrafanaGrafana1) GetIPAllowlistRegex() *string {
+func (o *InputGrafana1) GetIPAllowlistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPAllowlistRegex
 }
 
-func (o *InputGrafanaGrafana1) GetIPDenylistRegex() *string {
+func (o *InputGrafana1) GetIPDenylistRegex() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IPDenylistRegex
 }
 
-func (o *InputGrafanaGrafana1) GetPrometheusAPI() *string {
+func (o *InputGrafana1) GetPrometheusAPI() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PrometheusAPI
 }
 
-func (o *InputGrafanaGrafana1) GetLokiAPI() *string {
+func (o *InputGrafana1) GetLokiAPI() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LokiAPI
 }
 
-func (o *InputGrafanaGrafana1) GetPrometheusAuth() *InputGrafanaPrometheusAuth1 {
+func (o *InputGrafana1) GetPrometheusAuth() *InputGrafanaPrometheusAuth1 {
 	if o == nil {
 		return nil
 	}
 	return o.PrometheusAuth
 }
 
-func (o *InputGrafanaGrafana1) GetLokiAuth() *InputGrafanaLokiAuth1 {
+func (o *InputGrafana1) GetLokiAuth() *InputGrafanaLokiAuth1 {
 	if o == nil {
 		return nil
 	}
 	return o.LokiAuth
 }
 
-func (o *InputGrafanaGrafana1) GetMetadata() []InputGrafanaMetadatum1 {
+func (o *InputGrafana1) GetMetadata() []InputGrafanaMetadatum1 {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
 }
 
-func (o *InputGrafanaGrafana1) GetDescription() *string {
+func (o *InputGrafana1) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-type InputGrafanaType string
+type InputGrafanaUnionType string
 
 const (
-	InputGrafanaTypeInputGrafanaGrafana1 InputGrafanaType = "InputGrafana_Grafana_1"
-	InputGrafanaTypeInputGrafanaGrafana2 InputGrafanaType = "InputGrafana_Grafana_2"
+	InputGrafanaUnionTypeInputGrafana1 InputGrafanaUnionType = "InputGrafana_1"
+	InputGrafanaUnionTypeInputGrafana2 InputGrafanaUnionType = "InputGrafana_2"
 )
 
-type InputGrafana struct {
-	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline" name:"InputGrafana"`
-	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline" name:"InputGrafana"`
+type InputGrafanaUnion struct {
+	InputGrafana1 *InputGrafana1 `queryParam:"inline" name:"InputGrafana"`
+	InputGrafana2 *InputGrafana2 `queryParam:"inline" name:"InputGrafana"`
 
-	Type InputGrafanaType
+	Type InputGrafanaUnionType
 }
 
-func CreateInputGrafanaInputGrafanaGrafana1(inputGrafanaGrafana1 InputGrafanaGrafana1) InputGrafana {
-	typ := InputGrafanaTypeInputGrafanaGrafana1
+func CreateInputGrafanaUnionInputGrafana1(inputGrafana1 InputGrafana1) InputGrafanaUnion {
+	typ := InputGrafanaUnionTypeInputGrafana1
 
-	return InputGrafana{
-		InputGrafanaGrafana1: &inputGrafanaGrafana1,
-		Type:                 typ,
+	return InputGrafanaUnion{
+		InputGrafana1: &inputGrafana1,
+		Type:          typ,
 	}
 }
 
-func CreateInputGrafanaInputGrafanaGrafana2(inputGrafanaGrafana2 InputGrafanaGrafana2) InputGrafana {
-	typ := InputGrafanaTypeInputGrafanaGrafana2
+func CreateInputGrafanaUnionInputGrafana2(inputGrafana2 InputGrafana2) InputGrafanaUnion {
+	typ := InputGrafanaUnionTypeInputGrafana2
 
-	return InputGrafana{
-		InputGrafanaGrafana2: &inputGrafanaGrafana2,
-		Type:                 typ,
+	return InputGrafanaUnion{
+		InputGrafana2: &inputGrafana2,
+		Type:          typ,
 	}
 }
 
-func (u *InputGrafana) UnmarshalJSON(data []byte) error {
+func (u *InputGrafanaUnion) UnmarshalJSON(data []byte) error {
 
-	var inputGrafanaGrafana1 InputGrafanaGrafana1 = InputGrafanaGrafana1{}
-	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana1, "", true, nil); err == nil {
-		u.InputGrafanaGrafana1 = &inputGrafanaGrafana1
-		u.Type = InputGrafanaTypeInputGrafanaGrafana1
+	var inputGrafana1 InputGrafana1 = InputGrafana1{}
+	if err := utils.UnmarshalJSON(data, &inputGrafana1, "", true, nil); err == nil {
+		u.InputGrafana1 = &inputGrafana1
+		u.Type = InputGrafanaUnionTypeInputGrafana1
 		return nil
 	}
 
-	var inputGrafanaGrafana2 InputGrafanaGrafana2 = InputGrafanaGrafana2{}
-	if err := utils.UnmarshalJSON(data, &inputGrafanaGrafana2, "", true, nil); err == nil {
-		u.InputGrafanaGrafana2 = &inputGrafanaGrafana2
-		u.Type = InputGrafanaTypeInputGrafanaGrafana2
+	var inputGrafana2 InputGrafana2 = InputGrafana2{}
+	if err := utils.UnmarshalJSON(data, &inputGrafana2, "", true, nil); err == nil {
+		u.InputGrafana2 = &inputGrafana2
+		u.Type = InputGrafanaUnionTypeInputGrafana2
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafana", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputGrafanaUnion", string(data))
 }
 
-func (u InputGrafana) MarshalJSON() ([]byte, error) {
-	if u.InputGrafanaGrafana1 != nil {
-		return utils.MarshalJSON(u.InputGrafanaGrafana1, "", true)
+func (u InputGrafanaUnion) MarshalJSON() ([]byte, error) {
+	if u.InputGrafana1 != nil {
+		return utils.MarshalJSON(u.InputGrafana1, "", true)
 	}
 
-	if u.InputGrafanaGrafana2 != nil {
-		return utils.MarshalJSON(u.InputGrafanaGrafana2, "", true)
+	if u.InputGrafana2 != nil {
+		return utils.MarshalJSON(u.InputGrafana2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type InputGrafana: all fields are null")
+	return nil, errors.New("could not marshal union type InputGrafanaUnion: all fields are null")
 }

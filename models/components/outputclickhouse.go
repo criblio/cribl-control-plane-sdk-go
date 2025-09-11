@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e OutputClickHouseType) ToPointer() *OutputClickHouseType {
 	return &e
-}
-func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "click_house":
-		*e = OutputClickHouseType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseType: %v", v)
-	}
 }
 
 type OutputClickHouseAuthenticationType string
@@ -46,31 +31,6 @@ const (
 func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthenticationType {
 	return &e
 }
-func (e *OutputClickHouseAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "sslUserCertificate":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = OutputClickHouseAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseAuthenticationType: %v", v)
-	}
-}
 
 // OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 type OutputClickHouseFormat string
@@ -83,21 +43,6 @@ const (
 func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
 	return &e
 }
-func (e *OutputClickHouseFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json-compact-each-row-with-names":
-		fallthrough
-	case "json-each-row":
-		*e = OutputClickHouseFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseFormat: %v", v)
-	}
-}
 
 // MappingType - How event fields are mapped to ClickHouse columns.
 type MappingType string
@@ -109,21 +54,6 @@ const (
 
 func (e MappingType) ToPointer() *MappingType {
 	return &e
-}
-func (e *MappingType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "automatic":
-		fallthrough
-	case "custom":
-		*e = MappingType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for MappingType: %v", v)
-	}
 }
 
 type OutputClickHouseMinimumTLSVersion string
@@ -138,25 +68,6 @@ const (
 func (e OutputClickHouseMinimumTLSVersion) ToPointer() *OutputClickHouseMinimumTLSVersion {
 	return &e
 }
-func (e *OutputClickHouseMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputClickHouseMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputClickHouseMaximumTLSVersion string
 
@@ -169,25 +80,6 @@ const (
 
 func (e OutputClickHouseMaximumTLSVersion) ToPointer() *OutputClickHouseMaximumTLSVersion {
 	return &e
-}
-func (e *OutputClickHouseMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputClickHouseMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputClickHouseTLSSettingsClientSide struct {
@@ -324,23 +216,6 @@ const (
 func (e OutputClickHouseFailedRequestLoggingMode) ToPointer() *OutputClickHouseFailedRequestLoggingMode {
 	return &e
 }
-func (e *OutputClickHouseFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputClickHouseFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseFailedRequestLoggingMode: %v", v)
-	}
-}
 
 type OutputClickHouseResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
@@ -452,23 +327,6 @@ const (
 
 func (e OutputClickHouseBackpressureBehavior) ToPointer() *OutputClickHouseBackpressureBehavior {
 	return &e
-}
-func (e *OutputClickHouseBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputClickHouseBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputClickHouseOauthParam struct {
@@ -587,21 +445,6 @@ const (
 func (e OutputClickHouseCompression) ToPointer() *OutputClickHouseCompression {
 	return &e
 }
-func (e *OutputClickHouseCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputClickHouseCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseCompression: %v", v)
-	}
-}
 
 // OutputClickHouseQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputClickHouseQueueFullBehavior string
@@ -613,21 +456,6 @@ const (
 
 func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFullBehavior {
 	return &e
-}
-func (e *OutputClickHouseQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputClickHouseQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputClickHouseMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -641,23 +469,6 @@ const (
 
 func (e OutputClickHouseMode) ToPointer() *OutputClickHouseMode {
 	return &e
-}
-func (e *OutputClickHouseMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputClickHouseMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputClickHouseMode: %v", v)
-	}
 }
 
 type OutputClickHousePqControls struct {

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -17,19 +15,6 @@ const (
 func (e OutputExabeamType) ToPointer() *OutputExabeamType {
 	return &e
 }
-func (e *OutputExabeamType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "exabeam":
-		*e = OutputExabeamType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamType: %v", v)
-	}
-}
 
 // OutputExabeamSignatureVersion - Signature version to use for signing Google Cloud Storage requests
 type OutputExabeamSignatureVersion string
@@ -41,21 +26,6 @@ const (
 
 func (e OutputExabeamSignatureVersion) ToPointer() *OutputExabeamSignatureVersion {
 	return &e
-}
-func (e *OutputExabeamSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputExabeamSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamSignatureVersion: %v", v)
-	}
 }
 
 // OutputExabeamObjectACL - Object ACL to assign to uploaded objects
@@ -73,29 +43,6 @@ const (
 func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
 	return &e
 }
-func (e *OutputExabeamObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		fallthrough
-	case "project-private":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "public-read":
-		*e = OutputExabeamObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamObjectACL: %v", v)
-	}
-}
 
 // OutputExabeamStorageClass - Storage class to select for uploaded objects
 type OutputExabeamStorageClass string
@@ -110,25 +57,6 @@ const (
 func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
 	return &e
 }
-func (e *OutputExabeamStorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "NEARLINE":
-		fallthrough
-	case "COLDLINE":
-		fallthrough
-	case "ARCHIVE":
-		*e = OutputExabeamStorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamStorageClass: %v", v)
-	}
-}
 
 // OutputExabeamBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputExabeamBackpressureBehavior string
@@ -141,21 +69,6 @@ const (
 func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressureBehavior {
 	return &e
 }
-func (e *OutputExabeamBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputExabeamBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputExabeamDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputExabeamDiskSpaceProtection string
@@ -167,21 +80,6 @@ const (
 
 func (e OutputExabeamDiskSpaceProtection) ToPointer() *OutputExabeamDiskSpaceProtection {
 	return &e
-}
-func (e *OutputExabeamDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputExabeamDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamDiskSpaceProtection: %v", v)
-	}
 }
 
 type OutputExabeam struct {

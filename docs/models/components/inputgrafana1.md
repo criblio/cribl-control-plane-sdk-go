@@ -1,4 +1,4 @@
-# InputGrafanaGrafana1
+# InputGrafana1
 
 
 ## Fields

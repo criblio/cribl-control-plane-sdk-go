@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputJournalFilesType) ToPointer() *InputJournalFilesType {
 	return &e
-}
-func (e *InputJournalFilesType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "journal_files":
-		*e = InputJournalFilesType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputJournalFilesType: %v", v)
-	}
 }
 
 type InputJournalFilesConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputJournalFilesMode) ToPointer() *InputJournalFilesMode {
 	return &e
 }
-func (e *InputJournalFilesMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputJournalFilesMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputJournalFilesMode: %v", v)
-	}
-}
 
 // InputJournalFilesCompression - Codec to use to compress the persisted data
 type InputJournalFilesCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputJournalFilesCompression) ToPointer() *InputJournalFilesCompression {
 	return &e
-}
-func (e *InputJournalFilesCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputJournalFilesCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputJournalFilesCompression: %v", v)
-	}
 }
 
 type InputJournalFilesPqControls struct {

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputWizType) ToPointer() *InputWizType {
 	return &e
-}
-func (e *InputWizType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "wiz":
-		*e = InputWizType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizType: %v", v)
-	}
 }
 
 type InputWizConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputWizMode) ToPointer() *InputWizMode {
 	return &e
 }
-func (e *InputWizMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputWizMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizMode: %v", v)
-	}
-}
 
 // InputWizCompression - Codec to use to compress the persisted data
 type InputWizCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputWizCompression) ToPointer() *InputWizCompression {
 	return &e
-}
-func (e *InputWizCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWizCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizCompression: %v", v)
-	}
 }
 
 type InputWizPqControls struct {
@@ -296,23 +251,6 @@ const (
 func (e InputWizRetryType) ToPointer() *InputWizRetryType {
 	return &e
 }
-func (e *InputWizRetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "backoff":
-		fallthrough
-	case "static":
-		*e = InputWizRetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizRetryType: %v", v)
-	}
-}
 
 type InputWizRetryRules struct {
 	// The algorithm to use when performing HTTP retries
@@ -410,21 +348,6 @@ const (
 
 func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
 	return &e
-}
-func (e *InputWizAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputWizAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizAuthenticationMethod: %v", v)
-	}
 }
 
 type InputWiz struct {

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputNetflowType) ToPointer() *InputNetflowType {
 	return &e
-}
-func (e *InputNetflowType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "netflow":
-		*e = InputNetflowType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowType: %v", v)
-	}
 }
 
 type InputNetflowConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputNetflowMode) ToPointer() *InputNetflowMode {
 	return &e
 }
-func (e *InputNetflowMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputNetflowMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowMode: %v", v)
-	}
-}
 
 // InputNetflowCompression - Codec to use to compress the persisted data
 type InputNetflowCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputNetflowCompression) ToPointer() *InputNetflowCompression {
 	return &e
-}
-func (e *InputNetflowCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputNetflowCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowCompression: %v", v)
-	}
 }
 
 type InputNetflowPqControls struct {

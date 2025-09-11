@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputSplunkHecType) ToPointer() *InputSplunkHecType {
 	return &e
-}
-func (e *InputSplunkHecType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk_hec":
-		*e = InputSplunkHecType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecType: %v", v)
-	}
 }
 
 type InputSplunkHecConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
 	return &e
 }
-func (e *InputSplunkHecMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSplunkHecMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecMode: %v", v)
-	}
-}
 
 // InputSplunkHecCompression - Codec to use to compress the persisted data
 type InputSplunkHecCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputSplunkHecCompression) ToPointer() *InputSplunkHecCompression {
 	return &e
-}
-func (e *InputSplunkHecCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSplunkHecCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecCompression: %v", v)
-	}
 }
 
 type InputSplunkHecPqControls struct {
@@ -224,21 +179,6 @@ const (
 
 func (e InputSplunkHecAuthenticationMethod) ToPointer() *InputSplunkHecAuthenticationMethod {
 	return &e
-}
-func (e *InputSplunkHecAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputSplunkHecAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecAuthenticationMethod: %v", v)
-	}
 }
 
 type InputSplunkHecAuthTokenMetadatum struct {
@@ -358,25 +298,6 @@ const (
 func (e InputSplunkHecMinimumTLSVersion) ToPointer() *InputSplunkHecMinimumTLSVersion {
 	return &e
 }
-func (e *InputSplunkHecMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSplunkHecMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputSplunkHecMaximumTLSVersion string
 
@@ -389,25 +310,6 @@ const (
 
 func (e InputSplunkHecMaximumTLSVersion) ToPointer() *InputSplunkHecMaximumTLSVersion {
 	return &e
-}
-func (e *InputSplunkHecMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSplunkHecMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkHecMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputSplunkHecTLSSettingsServerSide struct {

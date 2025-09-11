@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,19 +14,6 @@ const (
 
 func (e InputSystemStateType) ToPointer() *InputSystemStateType {
 	return &e
-}
-func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "system_state":
-		*e = InputSystemStateType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemStateType: %v", v)
-	}
 }
 
 type InputSystemStateConnection struct {
@@ -72,21 +57,6 @@ const (
 func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
 	return &e
 }
-func (e *InputSystemStateMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSystemStateMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemStateMode: %v", v)
-	}
-}
 
 // InputSystemStateCompression - Codec to use to compress the persisted data
 type InputSystemStateCompression string
@@ -98,21 +68,6 @@ const (
 
 func (e InputSystemStateCompression) ToPointer() *InputSystemStateCompression {
 	return &e
-}
-func (e *InputSystemStateCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSystemStateCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemStateCompression: %v", v)
-	}
 }
 
 type InputSystemStatePqControls struct {
@@ -620,21 +575,6 @@ const (
 
 func (e InputSystemStateDataCompressionFormat) ToPointer() *InputSystemStateDataCompressionFormat {
 	return &e
-}
-func (e *InputSystemStateDataCompressionFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSystemStateDataCompressionFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemStateDataCompressionFormat: %v", v)
-	}
 }
 
 type InputSystemStatePersistence struct {
