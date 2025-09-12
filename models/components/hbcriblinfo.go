@@ -46,19 +46,20 @@ func (o *Config) GetVersion() *string {
 }
 
 type HBCriblInfo struct {
-	Config         Config          `json:"config"`
-	DeploymentID   *string         `json:"deploymentId,omitempty"`
-	DistMode       AppMode         `json:"distMode"`
-	EdgeNodes      *float64        `json:"edgeNodes,omitempty"`
-	Group          string          `json:"group"`
-	GUID           string          `json:"guid"`
-	InstallType    *string         `json:"installType,omitempty"`
-	LookupVersions *LookupVersions `json:"lookupVersions,omitempty"`
-	Master         *HBLeaderInfo   `json:"master,omitempty"`
-	Pid            *float64        `json:"pid,omitempty"`
-	StartTime      float64         `json:"startTime"`
-	Tags           []string        `json:"tags"`
-	Version        *string         `json:"version,omitempty"`
+	Config            Config          `json:"config"`
+	DeploymentID      *string         `json:"deploymentId,omitempty"`
+	DisableSNIRouting *bool           `json:"disableSNIRouting,omitempty"`
+	DistMode          AppMode         `json:"distMode"`
+	EdgeNodes         *float64        `json:"edgeNodes,omitempty"`
+	Group             string          `json:"group"`
+	GUID              string          `json:"guid"`
+	InstallType       *string         `json:"installType,omitempty"`
+	LookupVersions    *LookupVersions `json:"lookupVersions,omitempty"`
+	Master            *HBLeaderInfo   `json:"master,omitempty"`
+	Pid               *float64        `json:"pid,omitempty"`
+	StartTime         float64         `json:"startTime"`
+	Tags              []string        `json:"tags"`
+	Version           *string         `json:"version,omitempty"`
 }
 
 func (o *HBCriblInfo) GetConfig() Config {
@@ -73,6 +74,13 @@ func (o *HBCriblInfo) GetDeploymentID() *string {
 		return nil
 	}
 	return o.DeploymentID
+}
+
+func (o *HBCriblInfo) GetDisableSNIRouting() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DisableSNIRouting
 }
 
 func (o *HBCriblInfo) GetDistMode() AppMode {

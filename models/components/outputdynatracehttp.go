@@ -500,7 +500,7 @@ type OutputDynatraceHTTP struct {
 	ResponseRetrySettings []OutputDynatraceHTTPResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputDynatraceHTTPTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputDynatraceHTTPBackpressureBehavior `default:"block" json:"onBackpressure"`
 	AuthType       *OutputDynatraceHTTPAuthenticationType   `default:"token" json:"authType"`
