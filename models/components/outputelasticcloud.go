@@ -461,7 +461,7 @@ type OutputElasticCloud struct {
 	ResponseRetrySettings []OutputElasticCloudResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputElasticCloudTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputElasticCloudBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                                 `json:"description,omitempty"`

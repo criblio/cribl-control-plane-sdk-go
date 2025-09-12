@@ -632,7 +632,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting2 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings2  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputGrafanaCloudBackpressureBehavior2 `default:"block" json:"onBackpressure"`
 	Description    *string                                  `json:"description,omitempty"`
@@ -1546,7 +1546,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	ResponseRetrySettings []OutputGrafanaCloudResponseRetrySetting1 `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputGrafanaCloudTimeoutRetrySettings1  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputGrafanaCloudBackpressureBehavior1 `default:"block" json:"onBackpressure"`
 	Description    *string                                  `json:"description,omitempty"`
