@@ -727,7 +727,7 @@ type OutputClickHouse struct {
 	ResponseRetrySettings []OutputClickHouseResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputClickHouseTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
 	// How to handle events when all receivers are exerting backpressure
