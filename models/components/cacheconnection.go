@@ -12,51 +12,51 @@ type CacheConnection struct {
 	RetentionInDays         float64                        `json:"retentionInDays"`
 }
 
-func (o *CacheConnection) GetAcceleratedFields() []string {
-	if o == nil {
+func (c *CacheConnection) GetAcceleratedFields() []string {
+	if c == nil {
 		return nil
 	}
-	return o.AcceleratedFields
+	return c.AcceleratedFields
 }
 
-func (o *CacheConnection) GetBackfillStatus() *CacheConnectionBackfillStatus {
-	if o == nil {
+func (c *CacheConnection) GetBackfillStatus() *CacheConnectionBackfillStatus {
+	if c == nil {
 		return nil
 	}
-	return o.BackfillStatus
+	return c.BackfillStatus
 }
 
-func (o *CacheConnection) GetCacheRef() string {
-	if o == nil {
+func (c *CacheConnection) GetCacheRef() string {
+	if c == nil {
 		return ""
 	}
-	return o.CacheRef
+	return c.CacheRef
 }
 
-func (o *CacheConnection) GetCreatedAt() float64 {
-	if o == nil {
+func (c *CacheConnection) GetCreatedAt() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return o.CreatedAt
+	return c.CreatedAt
 }
 
-func (o *CacheConnection) GetLakehouseConnectionType() *LakehouseConnectionType {
-	if o == nil {
+func (c *CacheConnection) GetLakehouseConnectionType() *LakehouseConnectionType {
+	if c == nil {
 		return nil
 	}
-	return o.LakehouseConnectionType
+	return c.LakehouseConnectionType
 }
 
-func (o *CacheConnection) GetMigrationQueryID() *string {
-	if o == nil {
+func (c *CacheConnection) GetMigrationQueryID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.MigrationQueryID
+	return c.MigrationQueryID
 }
 
-func (o *CacheConnection) GetRetentionInDays() float64 {
-	if o == nil {
+func (c *CacheConnection) GetRetentionInDays() float64 {
+	if c == nil {
 		return 0.0
 	}
-	return o.RetentionInDays
+	return c.RetentionInDays
 }

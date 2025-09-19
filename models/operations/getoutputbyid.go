@@ -11,11 +11,11 @@ type GetOutputByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetOutputByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetOutputByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetOutputByIDResponseBody - a list of Destination objects
@@ -25,18 +25,18 @@ type GetOutputByIDResponseBody struct {
 	Items []components.Output `json:"items,omitempty"`
 }
 
-func (o *GetOutputByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetOutputByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetOutputByIDResponseBody) GetItems() []components.Output {
-	if o == nil {
+func (g *GetOutputByIDResponseBody) GetItems() []components.Output {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetOutputByIDResponse struct {
@@ -45,16 +45,16 @@ type GetOutputByIDResponse struct {
 	Object *GetOutputByIDResponseBody
 }
 
-func (o *GetOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetOutputByIDResponse) GetObject() *GetOutputByIDResponseBody {
-	if o == nil {
+func (g *GetOutputByIDResponse) GetObject() *GetOutputByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

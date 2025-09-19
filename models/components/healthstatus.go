@@ -68,23 +68,23 @@ type HealthStatus struct {
 	StartTime float64 `json:"startTime"`
 }
 
-func (o *HealthStatus) GetRole() *Role {
-	if o == nil {
+func (h *HealthStatus) GetRole() *Role {
+	if h == nil {
 		return nil
 	}
-	return o.Role
+	return h.Role
 }
 
-func (o *HealthStatus) GetStatus() Status {
-	if o == nil {
+func (h *HealthStatus) GetStatus() Status {
+	if h == nil {
 		return Status("")
 	}
-	return o.Status
+	return h.Status
 }
 
-func (o *HealthStatus) GetStartTime() float64 {
-	if o == nil {
+func (h *HealthStatus) GetStartTime() float64 {
+	if h == nil {
 		return 0.0
 	}
-	return o.StartTime
+	return h.StartTime
 }

@@ -11,11 +11,11 @@ type GetPacksByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetPacksByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetPacksByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetPacksByIDResponseBody - a list of PackInfo objects
@@ -25,18 +25,18 @@ type GetPacksByIDResponseBody struct {
 	Items []components.PackInfo `json:"items,omitempty"`
 }
 
-func (o *GetPacksByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetPacksByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetPacksByIDResponseBody) GetItems() []components.PackInfo {
-	if o == nil {
+func (g *GetPacksByIDResponseBody) GetItems() []components.PackInfo {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetPacksByIDResponse struct {
@@ -45,16 +45,16 @@ type GetPacksByIDResponse struct {
 	Object *GetPacksByIDResponseBody
 }
 
-func (o *GetPacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPacksByIDResponse) GetObject() *GetPacksByIDResponseBody {
-	if o == nil {
+func (g *GetPacksByIDResponse) GetObject() *GetPacksByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

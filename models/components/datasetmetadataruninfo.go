@@ -9,30 +9,30 @@ type DatasetMetadataRunInfo struct {
 	ObjectCount         *float64 `json:"objectCount,omitempty"`
 }
 
-func (o *DatasetMetadataRunInfo) GetEarliestScannedTime() *float64 {
-	if o == nil {
+func (d *DatasetMetadataRunInfo) GetEarliestScannedTime() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.EarliestScannedTime
+	return d.EarliestScannedTime
 }
 
-func (o *DatasetMetadataRunInfo) GetFinishedAt() *float64 {
-	if o == nil {
+func (d *DatasetMetadataRunInfo) GetFinishedAt() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.FinishedAt
+	return d.FinishedAt
 }
 
-func (o *DatasetMetadataRunInfo) GetLatestScannedTime() *float64 {
-	if o == nil {
+func (d *DatasetMetadataRunInfo) GetLatestScannedTime() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.LatestScannedTime
+	return d.LatestScannedTime
 }
 
-func (o *DatasetMetadataRunInfo) GetObjectCount() *float64 {
-	if o == nil {
+func (d *DatasetMetadataRunInfo) GetObjectCount() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.ObjectCount
+	return d.ObjectCount
 }

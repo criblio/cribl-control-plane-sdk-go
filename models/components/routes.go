@@ -14,25 +14,25 @@ type RoutesGroups struct {
 	Disabled *bool `json:"disabled,omitempty"`
 }
 
-func (o *RoutesGroups) GetName() string {
-	if o == nil {
+func (r *RoutesGroups) GetName() string {
+	if r == nil {
 		return ""
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *RoutesGroups) GetDescription() *string {
-	if o == nil {
+func (r *RoutesGroups) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *RoutesGroups) GetDisabled() *bool {
-	if o == nil {
+func (r *RoutesGroups) GetDisabled() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.Disabled
+	return r.Disabled
 }
 
 type Comment struct {
@@ -52,18 +52,18 @@ func (c *Comment) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Comment) GetComment() *string {
-	if o == nil {
+func (c *Comment) GetComment() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Comment
+	return c.Comment
 }
 
-func (o *Comment) GetAdditionalProperties() map[string]any {
-	if o == nil {
+func (c *Comment) GetAdditionalProperties() map[string]any {
+	if c == nil {
 		return nil
 	}
-	return o.AdditionalProperties
+	return c.AdditionalProperties
 }
 
 type Routes struct {
@@ -76,30 +76,30 @@ type Routes struct {
 	Comments []Comment `json:"comments,omitempty"`
 }
 
-func (o *Routes) GetID() *string {
-	if o == nil {
+func (r *Routes) GetID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *Routes) GetRoutes() []RoutesRoute {
-	if o == nil {
+func (r *Routes) GetRoutes() []RoutesRoute {
+	if r == nil {
 		return []RoutesRoute{}
 	}
-	return o.Routes
+	return r.Routes
 }
 
-func (o *Routes) GetGroups() map[string]RoutesGroups {
-	if o == nil {
+func (r *Routes) GetGroups() map[string]RoutesGroups {
+	if r == nil {
 		return nil
 	}
-	return o.Groups
+	return r.Groups
 }
 
-func (o *Routes) GetComments() []Comment {
-	if o == nil {
+func (r *Routes) GetComments() []Comment {
+	if r == nil {
 		return nil
 	}
-	return o.Comments
+	return r.Comments
 }

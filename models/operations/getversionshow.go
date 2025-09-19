@@ -17,32 +17,32 @@ type GetVersionShowRequest struct {
 	DiffLineLimit *float64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
 }
 
-func (o *GetVersionShowRequest) GetCommit() *string {
-	if o == nil {
+func (g *GetVersionShowRequest) GetCommit() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Commit
+	return g.Commit
 }
 
-func (o *GetVersionShowRequest) GetGroupID() *string {
-	if o == nil {
+func (g *GetVersionShowRequest) GetGroupID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.GroupID
+	return g.GroupID
 }
 
-func (o *GetVersionShowRequest) GetFilename() *string {
-	if o == nil {
+func (g *GetVersionShowRequest) GetFilename() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Filename
+	return g.Filename
 }
 
-func (o *GetVersionShowRequest) GetDiffLineLimit() *float64 {
-	if o == nil {
+func (g *GetVersionShowRequest) GetDiffLineLimit() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.DiffLineLimit
+	return g.DiffLineLimit
 }
 
 // GetVersionShowResponseBody - a list of any objects
@@ -52,18 +52,18 @@ type GetVersionShowResponseBody struct {
 	Items []map[string]any `json:"items,omitempty"`
 }
 
-func (o *GetVersionShowResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionShowResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionShowResponseBody) GetItems() []map[string]any {
-	if o == nil {
+func (g *GetVersionShowResponseBody) GetItems() []map[string]any {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionShowResponse struct {
@@ -72,16 +72,16 @@ type GetVersionShowResponse struct {
 	Object *GetVersionShowResponseBody
 }
 
-func (o *GetVersionShowResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionShowResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionShowResponse) GetObject() *GetVersionShowResponseBody {
-	if o == nil {
+func (g *GetVersionShowResponse) GetObject() *GetVersionShowResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

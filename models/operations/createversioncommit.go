@@ -13,18 +13,18 @@ type CreateVersionCommitRequest struct {
 	GitCommitParams components.GitCommitParams `request:"mediaType=application/json"`
 }
 
-func (o *CreateVersionCommitRequest) GetGroupID() *string {
-	if o == nil {
+func (c *CreateVersionCommitRequest) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.GroupID
+	return c.GroupID
 }
 
-func (o *CreateVersionCommitRequest) GetGitCommitParams() components.GitCommitParams {
-	if o == nil {
+func (c *CreateVersionCommitRequest) GetGitCommitParams() components.GitCommitParams {
+	if c == nil {
 		return components.GitCommitParams{}
 	}
-	return o.GitCommitParams
+	return c.GitCommitParams
 }
 
 // CreateVersionCommitResponseBody - a list of GitCommitSummary objects
@@ -34,18 +34,18 @@ type CreateVersionCommitResponseBody struct {
 	Items []components.GitCommitSummary `json:"items,omitempty"`
 }
 
-func (o *CreateVersionCommitResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateVersionCommitResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateVersionCommitResponseBody) GetItems() []components.GitCommitSummary {
-	if o == nil {
+func (c *CreateVersionCommitResponseBody) GetItems() []components.GitCommitSummary {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateVersionCommitResponse struct {
@@ -54,16 +54,16 @@ type CreateVersionCommitResponse struct {
 	Object *CreateVersionCommitResponseBody
 }
 
-func (o *CreateVersionCommitResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateVersionCommitResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateVersionCommitResponse) GetObject() *CreateVersionCommitResponseBody {
-	if o == nil {
+func (c *CreateVersionCommitResponse) GetObject() *CreateVersionCommitResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

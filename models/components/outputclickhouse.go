@@ -555,25 +555,25 @@ func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *ColumnMapping) GetColumnName() string {
-	if o == nil {
+func (c *ColumnMapping) GetColumnName() string {
+	if c == nil {
 		return ""
 	}
-	return o.ColumnName
+	return c.ColumnName
 }
 
-func (o *ColumnMapping) GetColumnType() *string {
-	if o == nil {
+func (c *ColumnMapping) GetColumnType() *string {
+	if c == nil {
 		return nil
 	}
-	return o.ColumnType
+	return c.ColumnType
 }
 
-func (o *ColumnMapping) GetColumnValueExpression() string {
-	if o == nil {
+func (c *ColumnMapping) GetColumnValueExpression() string {
+	if c == nil {
 		return ""
 	}
-	return o.ColumnValueExpression
+	return c.ColumnValueExpression
 }
 
 // OutputClickHouseCompression - Codec to use to compress the persisted data

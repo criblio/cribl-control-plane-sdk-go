@@ -11,11 +11,11 @@ type GetRoutesByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetRoutesByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetRoutesByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetRoutesByIDResponseBody - a list of Routes objects
@@ -25,18 +25,18 @@ type GetRoutesByIDResponseBody struct {
 	Items []components.Routes `json:"items,omitempty"`
 }
 
-func (o *GetRoutesByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetRoutesByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetRoutesByIDResponseBody) GetItems() []components.Routes {
-	if o == nil {
+func (g *GetRoutesByIDResponseBody) GetItems() []components.Routes {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetRoutesByIDResponse struct {
@@ -45,16 +45,16 @@ type GetRoutesByIDResponse struct {
 	Object *GetRoutesByIDResponseBody
 }
 
-func (o *GetRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetRoutesByIDResponse) GetObject() *GetRoutesByIDResponseBody {
-	if o == nil {
+func (g *GetRoutesByIDResponse) GetObject() *GetRoutesByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

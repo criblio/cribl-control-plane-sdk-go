@@ -9,30 +9,30 @@ type PackUpgradeRequest struct {
 	Spec                 *string `json:"spec,omitempty"`
 }
 
-func (o *PackUpgradeRequest) GetAllowCustomFunctions() *bool {
-	if o == nil {
+func (p *PackUpgradeRequest) GetAllowCustomFunctions() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.AllowCustomFunctions
+	return p.AllowCustomFunctions
 }
 
-func (o *PackUpgradeRequest) GetMinor() *string {
-	if o == nil {
+func (p *PackUpgradeRequest) GetMinor() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Minor
+	return p.Minor
 }
 
-func (o *PackUpgradeRequest) GetSource() string {
-	if o == nil {
+func (p *PackUpgradeRequest) GetSource() string {
+	if p == nil {
 		return ""
 	}
-	return o.Source
+	return p.Source
 }
 
-func (o *PackUpgradeRequest) GetSpec() *string {
-	if o == nil {
+func (p *PackUpgradeRequest) GetSpec() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Spec
+	return p.Spec
 }

@@ -12,51 +12,51 @@ type GitLogResult struct {
 	Refs        *string `json:"refs,omitempty"`
 }
 
-func (o *GitLogResult) GetAuthorEmail() *string {
-	if o == nil {
+func (g *GitLogResult) GetAuthorEmail() *string {
+	if g == nil {
 		return nil
 	}
-	return o.AuthorEmail
+	return g.AuthorEmail
 }
 
-func (o *GitLogResult) GetAuthorName() *string {
-	if o == nil {
+func (g *GitLogResult) GetAuthorName() *string {
+	if g == nil {
 		return nil
 	}
-	return o.AuthorName
+	return g.AuthorName
 }
 
-func (o *GitLogResult) GetBody() *string {
-	if o == nil {
+func (g *GitLogResult) GetBody() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Body
+	return g.Body
 }
 
-func (o *GitLogResult) GetDate() *string {
-	if o == nil {
+func (g *GitLogResult) GetDate() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Date
+	return g.Date
 }
 
-func (o *GitLogResult) GetHash() *string {
-	if o == nil {
+func (g *GitLogResult) GetHash() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Hash
+	return g.Hash
 }
 
-func (o *GitLogResult) GetMessage() *string {
-	if o == nil {
+func (g *GitLogResult) GetMessage() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Message
+	return g.Message
 }
 
-func (o *GitLogResult) GetRefs() *string {
-	if o == nil {
+func (g *GitLogResult) GetRefs() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Refs
+	return g.Refs
 }

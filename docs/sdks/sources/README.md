@@ -37,7 +37,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -93,16 +93,16 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
         components.InputTCP{
-            ID: criblcontrolplanesdkgo.String("<id>"),
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.InputTCPTypeTCP,
-            Pipeline: criblcontrolplanesdkgo.String("<value>"),
-            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
@@ -110,7 +110,7 @@ func main() {
             },
             Connections: []components.InputTCPConnection{
                 components.InputTCPConnection{
-                    Pipeline: criblcontrolplanesdkgo.String("<value>"),
+                    Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
@@ -119,11 +119,11 @@ func main() {
             },
             Port: 301.76,
             TLS: &components.InputTCPTLSSettingsServerSide{
-                CertificateName: criblcontrolplanesdkgo.String("<value>"),
-                PrivKeyPath: criblcontrolplanesdkgo.String("<value>"),
-                Passphrase: criblcontrolplanesdkgo.String("<value>"),
-                CertPath: criblcontrolplanesdkgo.String("<value>"),
-                CaPath: criblcontrolplanesdkgo.String("<value>"),
+                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 RejectUnauthorized: "<value>",
                 CommonNameRegex: "<value>",
                 MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
@@ -139,14 +139,14 @@ func main() {
                 "<value 1>",
             },
             Preprocess: &components.InputTCPPreprocess{
-                Command: criblcontrolplanesdkgo.String("<value>"),
+                Command: criblcontrolplanesdkgo.Pointer("<value>"),
                 Args: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
                 },
             },
-            Description: criblcontrolplanesdkgo.String("classic pish supposing misguided carefully fen"),
+            Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
         },
     ))
     if err != nil {
@@ -201,7 +201,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -258,23 +258,23 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
         components.InputKubeEvents{
-            ID: criblcontrolplanesdkgo.String("<id>"),
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.InputKubeEventsTypeKubeEvents,
-            Pipeline: criblcontrolplanesdkgo.String("<value>"),
-            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
             Connections: []components.InputKubeEventsConnection{
                 components.InputKubeEventsConnection{
-                    Pipeline: criblcontrolplanesdkgo.String("<value>"),
+                    Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
@@ -284,7 +284,7 @@ func main() {
             Rules: []components.InputKubeEventsRule{
                 components.InputKubeEventsRule{
                     Filter: "<value>",
-                    Description: criblcontrolplanesdkgo.String("invite meh corny incidentally down"),
+                    Description: criblcontrolplanesdkgo.Pointer("invite meh corny incidentally down"),
                 },
             },
             Metadata: []components.InputKubeEventsMetadatum{
@@ -293,7 +293,7 @@ func main() {
                     Value: "<value>",
                 },
             },
-            Description: criblcontrolplanesdkgo.String("gown deployment portray gah mindless carp stabilise"),
+            Description: criblcontrolplanesdkgo.Pointer("gown deployment portray gah mindless carp stabilise"),
         },
     ))
     if err != nil {
@@ -349,7 +349,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 

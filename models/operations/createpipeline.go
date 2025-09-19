@@ -13,18 +13,18 @@ type CreatePipelineResponseBody struct {
 	Items []components.Pipeline `json:"items,omitempty"`
 }
 
-func (o *CreatePipelineResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreatePipelineResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreatePipelineResponseBody) GetItems() []components.Pipeline {
-	if o == nil {
+func (c *CreatePipelineResponseBody) GetItems() []components.Pipeline {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreatePipelineResponse struct {
@@ -33,16 +33,16 @@ type CreatePipelineResponse struct {
 	Object *CreatePipelineResponseBody
 }
 
-func (o *CreatePipelineResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreatePipelineResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreatePipelineResponse) GetObject() *CreatePipelineResponseBody {
-	if o == nil {
+func (c *CreatePipelineResponse) GetObject() *CreatePipelineResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

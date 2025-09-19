@@ -13,18 +13,18 @@ type CreateVersionPushResponseBody struct {
 	Items []map[string]any `json:"items,omitempty"`
 }
 
-func (o *CreateVersionPushResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateVersionPushResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateVersionPushResponseBody) GetItems() []map[string]any {
-	if o == nil {
+func (c *CreateVersionPushResponseBody) GetItems() []map[string]any {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateVersionPushResponse struct {
@@ -33,16 +33,16 @@ type CreateVersionPushResponse struct {
 	Object *CreateVersionPushResponseBody
 }
 
-func (o *CreateVersionPushResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateVersionPushResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateVersionPushResponse) GetObject() *CreateVersionPushResponseBody {
-	if o == nil {
+func (c *CreateVersionPushResponse) GetObject() *CreateVersionPushResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

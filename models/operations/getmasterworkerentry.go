@@ -11,11 +11,11 @@ type GetMasterWorkerEntryRequest struct {
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 }
 
-func (o *GetMasterWorkerEntryRequest) GetFilterExp() *string {
-	if o == nil {
+func (g *GetMasterWorkerEntryRequest) GetFilterExp() *string {
+	if g == nil {
 		return nil
 	}
-	return o.FilterExp
+	return g.FilterExp
 }
 
 // GetMasterWorkerEntryResponseBody - a list of number objects
@@ -25,18 +25,18 @@ type GetMasterWorkerEntryResponseBody struct {
 	Items []float64 `json:"items,omitempty"`
 }
 
-func (o *GetMasterWorkerEntryResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetMasterWorkerEntryResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetMasterWorkerEntryResponseBody) GetItems() []float64 {
-	if o == nil {
+func (g *GetMasterWorkerEntryResponseBody) GetItems() []float64 {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetMasterWorkerEntryResponse struct {
@@ -45,16 +45,16 @@ type GetMasterWorkerEntryResponse struct {
 	Object *GetMasterWorkerEntryResponseBody
 }
 
-func (o *GetMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetMasterWorkerEntryResponse) GetObject() *GetMasterWorkerEntryResponseBody {
-	if o == nil {
+func (g *GetMasterWorkerEntryResponse) GetObject() *GetMasterWorkerEntryResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

@@ -15,25 +15,25 @@ type UpdateConfigGroupDeployByProductAndIDRequest struct {
 	DeployRequest components.DeployRequest `request:"mediaType=application/json"`
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if u == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return u.Product
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDRequest) GetDeployRequest() components.DeployRequest {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetDeployRequest() components.DeployRequest {
+	if u == nil {
 		return components.DeployRequest{}
 	}
-	return o.DeployRequest
+	return u.DeployRequest
 }
 
 // UpdateConfigGroupDeployByProductAndIDResponseBody - a list of ConfigGroup objects
@@ -43,18 +43,18 @@ type UpdateConfigGroupDeployByProductAndIDResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateConfigGroupDeployByProductAndIDResponse struct {
@@ -63,16 +63,16 @@ type UpdateConfigGroupDeployByProductAndIDResponse struct {
 	Object *UpdateConfigGroupDeployByProductAndIDResponseBody
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateConfigGroupDeployByProductAndIDResponse) GetObject() *UpdateConfigGroupDeployByProductAndIDResponseBody {
-	if o == nil {
+func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetObject() *UpdateConfigGroupDeployByProductAndIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

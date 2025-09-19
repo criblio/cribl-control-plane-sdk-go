@@ -11,11 +11,11 @@ type GetPipelineByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetPipelineByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetPipelineByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetPipelineByIDResponseBody - a list of Pipeline objects
@@ -25,18 +25,18 @@ type GetPipelineByIDResponseBody struct {
 	Items []components.Pipeline `json:"items,omitempty"`
 }
 
-func (o *GetPipelineByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetPipelineByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetPipelineByIDResponseBody) GetItems() []components.Pipeline {
-	if o == nil {
+func (g *GetPipelineByIDResponseBody) GetItems() []components.Pipeline {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetPipelineByIDResponse struct {
@@ -45,16 +45,16 @@ type GetPipelineByIDResponse struct {
 	Object *GetPipelineByIDResponseBody
 }
 
-func (o *GetPipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPipelineByIDResponse) GetObject() *GetPipelineByIDResponseBody {
-	if o == nil {
+func (g *GetPipelineByIDResponse) GetObject() *GetPipelineByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

@@ -15,25 +15,25 @@ type UpdateInputHecTokenByIDAndTokenRequest struct {
 	UpdateHecTokenRequest components.UpdateHecTokenRequest `request:"mediaType=application/json"`
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenRequest) GetID() string {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenRequest) GetToken() string {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenRequest) GetToken() string {
+	if u == nil {
 		return ""
 	}
-	return o.Token
+	return u.Token
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenRequest) GetUpdateHecTokenRequest() components.UpdateHecTokenRequest {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenRequest) GetUpdateHecTokenRequest() components.UpdateHecTokenRequest {
+	if u == nil {
 		return components.UpdateHecTokenRequest{}
 	}
-	return o.UpdateHecTokenRequest
+	return u.UpdateHecTokenRequest
 }
 
 // UpdateInputHecTokenByIDAndTokenResponseBody - a list of any objects
@@ -43,18 +43,18 @@ type UpdateInputHecTokenByIDAndTokenResponseBody struct {
 	Items []map[string]any `json:"items,omitempty"`
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenResponseBody) GetItems() []map[string]any {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenResponseBody) GetItems() []map[string]any {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateInputHecTokenByIDAndTokenResponse struct {
@@ -63,16 +63,16 @@ type UpdateInputHecTokenByIDAndTokenResponse struct {
 	Object *UpdateInputHecTokenByIDAndTokenResponseBody
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateInputHecTokenByIDAndTokenResponse) GetObject() *UpdateInputHecTokenByIDAndTokenResponseBody {
-	if o == nil {
+func (u *UpdateInputHecTokenByIDAndTokenResponse) GetObject() *UpdateInputHecTokenByIDAndTokenResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

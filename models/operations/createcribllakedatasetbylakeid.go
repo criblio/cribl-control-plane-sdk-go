@@ -13,18 +13,18 @@ type CreateCriblLakeDatasetByLakeIDRequest struct {
 	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
+	if c == nil {
 		return ""
 	}
-	return o.LakeID
+	return c.LakeID
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDRequest) GetCriblLakeDataset() components.CriblLakeDataset {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDRequest) GetCriblLakeDataset() components.CriblLakeDataset {
+	if c == nil {
 		return components.CriblLakeDataset{}
 	}
-	return o.CriblLakeDataset
+	return c.CriblLakeDataset
 }
 
 // CreateCriblLakeDatasetByLakeIDResponseBody - a list of CriblLakeDataset objects
@@ -34,18 +34,18 @@ type CreateCriblLakeDatasetByLakeIDResponseBody struct {
 	Items []components.CriblLakeDataset `json:"items,omitempty"`
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDResponseBody) GetItems() []components.CriblLakeDataset {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateCriblLakeDatasetByLakeIDResponse struct {
@@ -54,16 +54,16 @@ type CreateCriblLakeDatasetByLakeIDResponse struct {
 	Object *CreateCriblLakeDatasetByLakeIDResponseBody
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateCriblLakeDatasetByLakeIDResponse) GetObject() *CreateCriblLakeDatasetByLakeIDResponseBody {
-	if o == nil {
+func (c *CreateCriblLakeDatasetByLakeIDResponse) GetObject() *CreateCriblLakeDatasetByLakeIDResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

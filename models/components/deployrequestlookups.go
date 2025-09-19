@@ -7,18 +7,18 @@ type DeployRequestLookupsLookup struct {
 	Version string `json:"version"`
 }
 
-func (o *DeployRequestLookupsLookup) GetFile() string {
-	if o == nil {
+func (d *DeployRequestLookupsLookup) GetFile() string {
+	if d == nil {
 		return ""
 	}
-	return o.File
+	return d.File
 }
 
-func (o *DeployRequestLookupsLookup) GetVersion() string {
-	if o == nil {
+func (d *DeployRequestLookupsLookup) GetVersion() string {
+	if d == nil {
 		return ""
 	}
-	return o.Version
+	return d.Version
 }
 
 type DeployRequestLookups struct {
@@ -26,16 +26,16 @@ type DeployRequestLookups struct {
 	Lookups []DeployRequestLookupsLookup `json:"lookups"`
 }
 
-func (o *DeployRequestLookups) GetContext() string {
-	if o == nil {
+func (d *DeployRequestLookups) GetContext() string {
+	if d == nil {
 		return ""
 	}
-	return o.Context
+	return d.Context
 }
 
-func (o *DeployRequestLookups) GetLookups() []DeployRequestLookupsLookup {
-	if o == nil {
+func (d *DeployRequestLookups) GetLookups() []DeployRequestLookupsLookup {
+	if d == nil {
 		return []DeployRequestLookupsLookup{}
 	}
-	return o.Lookups
+	return d.Lookups
 }

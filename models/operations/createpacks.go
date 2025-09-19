@@ -13,18 +13,18 @@ type CreatePacksResponseBody struct {
 	Items []components.PackInstallInfo `json:"items,omitempty"`
 }
 
-func (o *CreatePacksResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreatePacksResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreatePacksResponseBody) GetItems() []components.PackInstallInfo {
-	if o == nil {
+func (c *CreatePacksResponseBody) GetItems() []components.PackInstallInfo {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreatePacksResponse struct {
@@ -33,16 +33,16 @@ type CreatePacksResponse struct {
 	Object *CreatePacksResponseBody
 }
 
-func (o *CreatePacksResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreatePacksResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreatePacksResponse) GetObject() *CreatePacksResponseBody {
-	if o == nil {
+func (c *CreatePacksResponse) GetObject() *CreatePacksResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

@@ -32,13 +32,13 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
-        Description: criblcontrolplanesdkgo.String("bah ick stingy"),
-        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Description: criblcontrolplanesdkgo.Pointer("bah ick stingy"),
+        Enabled: criblcontrolplanesdkgo.Pointer(false),
         Metadata: []components.AddHecTokenRequestMetadatum{
             components.AddHecTokenRequestMetadatum{
                 Name: "<value>",
@@ -100,13 +100,13 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
-        Description: criblcontrolplanesdkgo.String("by bleakly fortunately phew barring"),
-        Enabled: criblcontrolplanesdkgo.Bool(false),
+        Description: criblcontrolplanesdkgo.Pointer("by bleakly fortunately phew barring"),
+        Enabled: criblcontrolplanesdkgo.Pointer(false),
         Metadata: []components.UpdateHecTokenRequestMetadatum{
             components.UpdateHecTokenRequestMetadatum{
                 Name: "<value>",
