@@ -33,17 +33,17 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Nodes.List(ctx, operations.ListMasterWorkerEntryRequest{
-        FilterExp: criblcontrolplanesdkgo.String("<value>"),
-        SortExp: criblcontrolplanesdkgo.String("<value>"),
-        Filter: criblcontrolplanesdkgo.String("<value>"),
-        Sort: criblcontrolplanesdkgo.String("<value>"),
-        Limit: criblcontrolplanesdkgo.Int64(554169),
-        Offset: criblcontrolplanesdkgo.Int64(426660),
+        FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
+        SortExp: criblcontrolplanesdkgo.Pointer("<value>"),
+        Filter: criblcontrolplanesdkgo.Pointer("<value>"),
+        Sort: criblcontrolplanesdkgo.Pointer("<value>"),
+        Limit: criblcontrolplanesdkgo.Pointer[int64](554169),
+        Offset: criblcontrolplanesdkgo.Pointer[int64](426660),
     })
     if err != nil {
         log.Fatal(err)
@@ -97,11 +97,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Nodes.Count(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Nodes.Count(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }

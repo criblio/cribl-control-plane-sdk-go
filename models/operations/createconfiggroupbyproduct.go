@@ -13,18 +13,18 @@ type CreateConfigGroupByProductRequest struct {
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
 }
 
-func (o *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (c *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore {
+	if c == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return c.Product
 }
 
-func (o *CreateConfigGroupByProductRequest) GetConfigGroup() components.ConfigGroup {
-	if o == nil {
+func (c *CreateConfigGroupByProductRequest) GetConfigGroup() components.ConfigGroup {
+	if c == nil {
 		return components.ConfigGroup{}
 	}
-	return o.ConfigGroup
+	return c.ConfigGroup
 }
 
 // CreateConfigGroupByProductResponseBody - a list of ConfigGroup objects
@@ -34,18 +34,18 @@ type CreateConfigGroupByProductResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *CreateConfigGroupByProductResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateConfigGroupByProductResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (c *CreateConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateConfigGroupByProductResponse struct {
@@ -54,16 +54,16 @@ type CreateConfigGroupByProductResponse struct {
 	Object *CreateConfigGroupByProductResponseBody
 }
 
-func (o *CreateConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateConfigGroupByProductResponse) GetObject() *CreateConfigGroupByProductResponseBody {
-	if o == nil {
+func (c *CreateConfigGroupByProductResponse) GetObject() *CreateConfigGroupByProductResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

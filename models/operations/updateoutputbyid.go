@@ -13,18 +13,18 @@ type UpdateOutputByIDRequest struct {
 	Output components.Output `request:"mediaType=application/json"`
 }
 
-func (o *UpdateOutputByIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateOutputByIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateOutputByIDRequest) GetOutput() components.Output {
-	if o == nil {
+func (u *UpdateOutputByIDRequest) GetOutput() components.Output {
+	if u == nil {
 		return components.Output{}
 	}
-	return o.Output
+	return u.Output
 }
 
 // UpdateOutputByIDResponseBody - a list of Destination objects
@@ -34,18 +34,18 @@ type UpdateOutputByIDResponseBody struct {
 	Items []components.Output `json:"items,omitempty"`
 }
 
-func (o *UpdateOutputByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateOutputByIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateOutputByIDResponseBody) GetItems() []components.Output {
-	if o == nil {
+func (u *UpdateOutputByIDResponseBody) GetItems() []components.Output {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateOutputByIDResponse struct {
@@ -54,16 +54,16 @@ type UpdateOutputByIDResponse struct {
 	Object *UpdateOutputByIDResponseBody
 }
 
-func (o *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateOutputByIDResponse) GetObject() *UpdateOutputByIDResponseBody {
-	if o == nil {
+func (u *UpdateOutputByIDResponse) GetObject() *UpdateOutputByIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

@@ -26,32 +26,32 @@ func (p *PackRequestBodyTags2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *PackRequestBodyTags2) GetDataType() []string {
-	if o == nil {
+func (p *PackRequestBodyTags2) GetDataType() []string {
+	if p == nil {
 		return nil
 	}
-	return o.DataType
+	return p.DataType
 }
 
-func (o *PackRequestBodyTags2) GetDomain() []string {
-	if o == nil {
+func (p *PackRequestBodyTags2) GetDomain() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Domain
+	return p.Domain
 }
 
-func (o *PackRequestBodyTags2) GetTechnology() []string {
-	if o == nil {
+func (p *PackRequestBodyTags2) GetTechnology() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Technology
+	return p.Technology
 }
 
-func (o *PackRequestBodyTags2) GetStreamtags() []string {
-	if o == nil {
+func (p *PackRequestBodyTags2) GetStreamtags() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Streamtags
+	return p.Streamtags
 }
 
 type PackRequestBody2 struct {
@@ -80,81 +80,81 @@ func (p *PackRequestBody2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *PackRequestBody2) GetID() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetID() *string {
+	if p == nil {
 		return nil
 	}
-	return o.ID
+	return p.ID
 }
 
-func (o *PackRequestBody2) GetSpec() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetSpec() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Spec
+	return p.Spec
 }
 
-func (o *PackRequestBody2) GetVersion() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetVersion() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Version
+	return p.Version
 }
 
-func (o *PackRequestBody2) GetMinLogStreamVersion() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetMinLogStreamVersion() *string {
+	if p == nil {
 		return nil
 	}
-	return o.MinLogStreamVersion
+	return p.MinLogStreamVersion
 }
 
-func (o *PackRequestBody2) GetDisplayName() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetDisplayName() *string {
+	if p == nil {
 		return nil
 	}
-	return o.DisplayName
+	return p.DisplayName
 }
 
-func (o *PackRequestBody2) GetAuthor() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetAuthor() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Author
+	return p.Author
 }
 
-func (o *PackRequestBody2) GetDescription() *string {
-	if o == nil {
+func (p *PackRequestBody2) GetDescription() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Description
+	return p.Description
 }
 
-func (o *PackRequestBody2) GetSource() string {
-	if o == nil {
+func (p *PackRequestBody2) GetSource() string {
+	if p == nil {
 		return ""
 	}
-	return o.Source
+	return p.Source
 }
 
-func (o *PackRequestBody2) GetTags() *PackRequestBodyTags2 {
-	if o == nil {
+func (p *PackRequestBody2) GetTags() *PackRequestBodyTags2 {
+	if p == nil {
 		return nil
 	}
-	return o.Tags
+	return p.Tags
 }
 
-func (o *PackRequestBody2) GetAllowCustomFunctions() *bool {
-	if o == nil {
+func (p *PackRequestBody2) GetAllowCustomFunctions() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.AllowCustomFunctions
+	return p.AllowCustomFunctions
 }
 
-func (o *PackRequestBody2) GetForce() *bool {
-	if o == nil {
+func (p *PackRequestBody2) GetForce() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.Force
+	return p.Force
 }
 
 type PackRequestBodyTags1 struct {
@@ -175,32 +175,32 @@ func (p *PackRequestBodyTags1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *PackRequestBodyTags1) GetDataType() []string {
-	if o == nil {
+func (p *PackRequestBodyTags1) GetDataType() []string {
+	if p == nil {
 		return nil
 	}
-	return o.DataType
+	return p.DataType
 }
 
-func (o *PackRequestBodyTags1) GetDomain() []string {
-	if o == nil {
+func (p *PackRequestBodyTags1) GetDomain() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Domain
+	return p.Domain
 }
 
-func (o *PackRequestBodyTags1) GetTechnology() []string {
-	if o == nil {
+func (p *PackRequestBodyTags1) GetTechnology() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Technology
+	return p.Technology
 }
 
-func (o *PackRequestBodyTags1) GetStreamtags() []string {
-	if o == nil {
+func (p *PackRequestBodyTags1) GetStreamtags() []string {
+	if p == nil {
 		return nil
 	}
-	return o.Streamtags
+	return p.Streamtags
 }
 
 type PackRequestBody1 struct {
@@ -229,81 +229,81 @@ func (p *PackRequestBody1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *PackRequestBody1) GetID() string {
-	if o == nil {
+func (p *PackRequestBody1) GetID() string {
+	if p == nil {
 		return ""
 	}
-	return o.ID
+	return p.ID
 }
 
-func (o *PackRequestBody1) GetSpec() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetSpec() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Spec
+	return p.Spec
 }
 
-func (o *PackRequestBody1) GetVersion() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetVersion() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Version
+	return p.Version
 }
 
-func (o *PackRequestBody1) GetMinLogStreamVersion() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetMinLogStreamVersion() *string {
+	if p == nil {
 		return nil
 	}
-	return o.MinLogStreamVersion
+	return p.MinLogStreamVersion
 }
 
-func (o *PackRequestBody1) GetDisplayName() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetDisplayName() *string {
+	if p == nil {
 		return nil
 	}
-	return o.DisplayName
+	return p.DisplayName
 }
 
-func (o *PackRequestBody1) GetAuthor() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetAuthor() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Author
+	return p.Author
 }
 
-func (o *PackRequestBody1) GetDescription() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetDescription() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Description
+	return p.Description
 }
 
-func (o *PackRequestBody1) GetSource() *string {
-	if o == nil {
+func (p *PackRequestBody1) GetSource() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Source
+	return p.Source
 }
 
-func (o *PackRequestBody1) GetTags() *PackRequestBodyTags1 {
-	if o == nil {
+func (p *PackRequestBody1) GetTags() *PackRequestBodyTags1 {
+	if p == nil {
 		return nil
 	}
-	return o.Tags
+	return p.Tags
 }
 
-func (o *PackRequestBody1) GetAllowCustomFunctions() *bool {
-	if o == nil {
+func (p *PackRequestBody1) GetAllowCustomFunctions() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.AllowCustomFunctions
+	return p.AllowCustomFunctions
 }
 
-func (o *PackRequestBody1) GetForce() *bool {
-	if o == nil {
+func (p *PackRequestBody1) GetForce() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.Force
+	return p.Force
 }
 
 type PackRequestBodyUnionType string

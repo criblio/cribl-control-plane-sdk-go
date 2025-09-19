@@ -41,37 +41,37 @@ type DatasetMetadata struct {
 	ScanMode           ScanMode                `json:"scanMode"`
 }
 
-func (o *DatasetMetadata) GetEarliest() string {
-	if o == nil {
+func (d *DatasetMetadata) GetEarliest() string {
+	if d == nil {
 		return ""
 	}
-	return o.Earliest
+	return d.Earliest
 }
 
-func (o *DatasetMetadata) GetEnableAcceleration() bool {
-	if o == nil {
+func (d *DatasetMetadata) GetEnableAcceleration() bool {
+	if d == nil {
 		return false
 	}
-	return o.EnableAcceleration
+	return d.EnableAcceleration
 }
 
-func (o *DatasetMetadata) GetFieldList() []string {
-	if o == nil {
+func (d *DatasetMetadata) GetFieldList() []string {
+	if d == nil {
 		return []string{}
 	}
-	return o.FieldList
+	return d.FieldList
 }
 
-func (o *DatasetMetadata) GetLatestRunInfo() *DatasetMetadataRunInfo {
-	if o == nil {
+func (d *DatasetMetadata) GetLatestRunInfo() *DatasetMetadataRunInfo {
+	if d == nil {
 		return nil
 	}
-	return o.LatestRunInfo
+	return d.LatestRunInfo
 }
 
-func (o *DatasetMetadata) GetScanMode() ScanMode {
-	if o == nil {
+func (d *DatasetMetadata) GetScanMode() ScanMode {
+	if d == nil {
 		return ScanMode("")
 	}
-	return o.ScanMode
+	return d.ScanMode
 }

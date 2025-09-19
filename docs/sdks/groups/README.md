@@ -38,11 +38,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Groups.List(ctx, components.ProductsCoreEdge, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.List(ctx, components.ProductsCoreEdge, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -96,7 +96,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -105,17 +105,17 @@ func main() {
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
         },
-        ConfigVersion: criblcontrolplanesdkgo.String("<value>"),
-        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(393.49),
-        Description: criblcontrolplanesdkgo.String("ack before fondly scent because gee without where exactly"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(346.37),
+        ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
+        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](393.49),
+        Description: criblcontrolplanesdkgo.Pointer("ack before fondly scent because gee without where exactly"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Pointer[float64](346.37),
         Git: &components.Git{
-            Commit: criblcontrolplanesdkgo.String("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Float64(5255.51),
+            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
+            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](5255.51),
             Log: []components.Commit{
                 components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
+                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
+                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
                     Date: "2024-06-13",
                     Hash: "<value>",
                     Message: "<value>",
@@ -124,30 +124,30 @@ func main() {
             },
         },
         ID: "<id>",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(5613.31),
-        Inherits: criblcontrolplanesdkgo.String("<value>"),
-        IsFleet: criblcontrolplanesdkgo.Bool(true),
-        IsSearch: criblcontrolplanesdkgo.Bool(false),
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](5613.31),
+        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
+        IsFleet: criblcontrolplanesdkgo.Pointer(true),
+        IsSearch: criblcontrolplanesdkgo.Pointer(false),
         LookupDeployments: []components.ConfigGroupLookups{
             components.ConfigGroupLookups{
                 Context: "<value>",
                 Lookups: []components.ConfigGroupLookupsLookup{},
             },
         },
-        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
-        Name: criblcontrolplanesdkgo.String("<value>"),
-        OnPrem: criblcontrolplanesdkgo.Bool(false),
-        Provisioned: criblcontrolplanesdkgo.Bool(true),
+        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
+        Name: criblcontrolplanesdkgo.Pointer("<value>"),
+        OnPrem: criblcontrolplanesdkgo.Pointer(false),
+        Provisioned: criblcontrolplanesdkgo.Pointer(true),
         Streamtags: []string{
             "<value 1>",
             "<value 2>",
             "<value 3>",
         },
-        Tags: criblcontrolplanesdkgo.String("<value>"),
+        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
         Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Float64(3050.1),
-        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(false),
+        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
+        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](3050.1),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(false),
     })
     if err != nil {
         log.Fatal(err)
@@ -202,11 +202,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Groups.Get(ctx, components.ProductsCoreEdge, "<id>", criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Groups.Get(ctx, components.ProductsCoreEdge, "<id>", criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -261,7 +261,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -270,17 +270,17 @@ func main() {
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
         },
-        ConfigVersion: criblcontrolplanesdkgo.String("<value>"),
-        DeployingWorkerCount: criblcontrolplanesdkgo.Float64(7451.49),
-        Description: criblcontrolplanesdkgo.String("verbally feminize harmful prance really"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Float64(6748.35),
+        ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
+        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7451.49),
+        Description: criblcontrolplanesdkgo.Pointer("verbally feminize harmful prance really"),
+        EstimatedIngestRate: criblcontrolplanesdkgo.Pointer[float64](6748.35),
         Git: &components.Git{
-            Commit: criblcontrolplanesdkgo.String("<value>"),
-            LocalChanges: criblcontrolplanesdkgo.Float64(4475.22),
+            Commit: criblcontrolplanesdkgo.Pointer("<value>"),
+            LocalChanges: criblcontrolplanesdkgo.Pointer[float64](4475.22),
             Log: []components.Commit{
                 components.Commit{
-                    AuthorEmail: criblcontrolplanesdkgo.String("<value>"),
-                    AuthorName: criblcontrolplanesdkgo.String("<value>"),
+                    AuthorEmail: criblcontrolplanesdkgo.Pointer("<value>"),
+                    AuthorName: criblcontrolplanesdkgo.Pointer("<value>"),
                     Date: "2024-01-27",
                     Hash: "<value>",
                     Message: "<value>",
@@ -289,35 +289,35 @@ func main() {
             },
         },
         ID: "<id>",
-        IncompatibleWorkerCount: criblcontrolplanesdkgo.Float64(2043.29),
-        Inherits: criblcontrolplanesdkgo.String("<value>"),
-        IsFleet: criblcontrolplanesdkgo.Bool(false),
-        IsSearch: criblcontrolplanesdkgo.Bool(false),
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[float64](2043.29),
+        Inherits: criblcontrolplanesdkgo.Pointer("<value>"),
+        IsFleet: criblcontrolplanesdkgo.Pointer(false),
+        IsSearch: criblcontrolplanesdkgo.Pointer(false),
         LookupDeployments: []components.ConfigGroupLookups{
             components.ConfigGroupLookups{
                 Context: "<value>",
                 Lookups: []components.ConfigGroupLookupsLookup{
                     components.ConfigGroupLookupsLookup{
-                        DeployedVersion: criblcontrolplanesdkgo.String("<value>"),
+                        DeployedVersion: criblcontrolplanesdkgo.Pointer("<value>"),
                         File: "<value>",
-                        Version: criblcontrolplanesdkgo.String("<value>"),
+                        Version: criblcontrolplanesdkgo.Pointer("<value>"),
                     },
                 },
             },
         },
-        MaxWorkerAge: criblcontrolplanesdkgo.String("<value>"),
-        Name: criblcontrolplanesdkgo.String("<value>"),
-        OnPrem: criblcontrolplanesdkgo.Bool(false),
-        Provisioned: criblcontrolplanesdkgo.Bool(true),
+        MaxWorkerAge: criblcontrolplanesdkgo.Pointer("<value>"),
+        Name: criblcontrolplanesdkgo.Pointer("<value>"),
+        OnPrem: criblcontrolplanesdkgo.Pointer(false),
+        Provisioned: criblcontrolplanesdkgo.Pointer(true),
         Streamtags: []string{
             "<value 1>",
             "<value 2>",
         },
-        Tags: criblcontrolplanesdkgo.String("<value>"),
+        Tags: criblcontrolplanesdkgo.Pointer("<value>"),
         Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
-        UpgradeVersion: criblcontrolplanesdkgo.String("<value>"),
-        WorkerCount: criblcontrolplanesdkgo.Float64(1557.82),
-        WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(false),
+        UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
+        WorkerCount: criblcontrolplanesdkgo.Pointer[float64](1557.82),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(false),
     })
     if err != nil {
         log.Fatal(err)
@@ -373,7 +373,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -431,7 +431,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 

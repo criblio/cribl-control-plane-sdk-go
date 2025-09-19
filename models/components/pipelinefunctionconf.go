@@ -36,51 +36,51 @@ func (p *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *PipelineFunctionConf) GetFilter() *string {
-	if o == nil {
+func (p *PipelineFunctionConf) GetFilter() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Filter
+	return p.Filter
 }
 
-func (o *PipelineFunctionConf) GetID() string {
-	if o == nil {
+func (p *PipelineFunctionConf) GetID() string {
+	if p == nil {
 		return ""
 	}
-	return o.ID
+	return p.ID
 }
 
-func (o *PipelineFunctionConf) GetDescription() *string {
-	if o == nil {
+func (p *PipelineFunctionConf) GetDescription() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Description
+	return p.Description
 }
 
-func (o *PipelineFunctionConf) GetDisabled() *bool {
-	if o == nil {
+func (p *PipelineFunctionConf) GetDisabled() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.Disabled
+	return p.Disabled
 }
 
-func (o *PipelineFunctionConf) GetFinal() *bool {
-	if o == nil {
+func (p *PipelineFunctionConf) GetFinal() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.Final
+	return p.Final
 }
 
-func (o *PipelineFunctionConf) GetConf() FunctionSpecificConfigs {
-	if o == nil {
+func (p *PipelineFunctionConf) GetConf() FunctionSpecificConfigs {
+	if p == nil {
 		return FunctionSpecificConfigs{}
 	}
-	return o.Conf
+	return p.Conf
 }
 
-func (o *PipelineFunctionConf) GetGroupID() *string {
-	if o == nil {
+func (p *PipelineFunctionConf) GetGroupID() *string {
+	if p == nil {
 		return nil
 	}
-	return o.GroupID
+	return p.GroupID
 }

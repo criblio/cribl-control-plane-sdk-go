@@ -13,18 +13,18 @@ type DeleteConfigGroupByProductAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if d == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return d.Product
 }
 
-func (o *DeleteConfigGroupByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 // DeleteConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
@@ -34,18 +34,18 @@ type DeleteConfigGroupByProductAndIDResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *DeleteConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
+	if d == nil {
 		return nil
 	}
-	return o.Count
+	return d.Count
 }
 
-func (o *DeleteConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
+	if d == nil {
 		return nil
 	}
-	return o.Items
+	return d.Items
 }
 
 type DeleteConfigGroupByProductAndIDResponse struct {
@@ -54,16 +54,16 @@ type DeleteConfigGroupByProductAndIDResponse struct {
 	Object *DeleteConfigGroupByProductAndIDResponseBody
 }
 
-func (o *DeleteConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteConfigGroupByProductAndIDResponse) GetObject() *DeleteConfigGroupByProductAndIDResponseBody {
-	if o == nil {
+func (d *DeleteConfigGroupByProductAndIDResponse) GetObject() *DeleteConfigGroupByProductAndIDResponseBody {
+	if d == nil {
 		return nil
 	}
-	return o.Object
+	return d.Object
 }

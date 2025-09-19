@@ -11,11 +11,11 @@ type GetOutputSamplesByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetOutputSamplesByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetOutputSamplesByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetOutputSamplesByIDResponseBody - a list of OutputSamplesResponse objects
@@ -25,18 +25,18 @@ type GetOutputSamplesByIDResponseBody struct {
 	Items []components.OutputSamplesResponse `json:"items,omitempty"`
 }
 
-func (o *GetOutputSamplesByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetOutputSamplesByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetOutputSamplesByIDResponseBody) GetItems() []components.OutputSamplesResponse {
-	if o == nil {
+func (g *GetOutputSamplesByIDResponseBody) GetItems() []components.OutputSamplesResponse {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetOutputSamplesByIDResponse struct {
@@ -45,16 +45,16 @@ type GetOutputSamplesByIDResponse struct {
 	Object *GetOutputSamplesByIDResponseBody
 }
 
-func (o *GetOutputSamplesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetOutputSamplesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetOutputSamplesByIDResponse) GetObject() *GetOutputSamplesByIDResponseBody {
-	if o == nil {
+func (g *GetOutputSamplesByIDResponse) GetObject() *GetOutputSamplesByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

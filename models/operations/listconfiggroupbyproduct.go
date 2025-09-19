@@ -13,18 +13,18 @@ type ListConfigGroupByProductRequest struct {
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 }
 
-func (o *ListConfigGroupByProductRequest) GetFields() *string {
-	if o == nil {
+func (l *ListConfigGroupByProductRequest) GetFields() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Fields
+	return l.Fields
 }
 
-func (o *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (l *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
+	if l == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return l.Product
 }
 
 // ListConfigGroupByProductResponseBody - a list of ConfigGroup objects
@@ -34,18 +34,18 @@ type ListConfigGroupByProductResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *ListConfigGroupByProductResponseBody) GetCount() *int64 {
-	if o == nil {
+func (l *ListConfigGroupByProductResponseBody) GetCount() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Count
+	return l.Count
 }
 
-func (o *ListConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (l *ListConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
+	if l == nil {
 		return nil
 	}
-	return o.Items
+	return l.Items
 }
 
 type ListConfigGroupByProductResponse struct {
@@ -54,16 +54,16 @@ type ListConfigGroupByProductResponse struct {
 	Object *ListConfigGroupByProductResponseBody
 }
 
-func (o *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *ListConfigGroupByProductResponse) GetObject() *ListConfigGroupByProductResponseBody {
-	if o == nil {
+func (l *ListConfigGroupByProductResponse) GetObject() *ListConfigGroupByProductResponseBody {
+	if l == nil {
 		return nil
 	}
-	return o.Object
+	return l.Object
 }

@@ -13,18 +13,18 @@ type GetVersionFilesRequest struct {
 	ID *string `queryParam:"style=form,explode=true,name=ID"`
 }
 
-func (o *GetVersionFilesRequest) GetGroupID() *string {
-	if o == nil {
+func (g *GetVersionFilesRequest) GetGroupID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.GroupID
+	return g.GroupID
 }
 
-func (o *GetVersionFilesRequest) GetID() *string {
-	if o == nil {
+func (g *GetVersionFilesRequest) GetID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetVersionFilesResponseBody - a list of GitFilesResponse objects
@@ -34,18 +34,18 @@ type GetVersionFilesResponseBody struct {
 	Items []components.GitFilesResponse `json:"items,omitempty"`
 }
 
-func (o *GetVersionFilesResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionFilesResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionFilesResponseBody) GetItems() []components.GitFilesResponse {
-	if o == nil {
+func (g *GetVersionFilesResponseBody) GetItems() []components.GitFilesResponse {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionFilesResponse struct {
@@ -54,16 +54,16 @@ type GetVersionFilesResponse struct {
 	Object *GetVersionFilesResponseBody
 }
 
-func (o *GetVersionFilesResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionFilesResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionFilesResponse) GetObject() *GetVersionFilesResponseBody {
-	if o == nil {
+func (g *GetVersionFilesResponse) GetObject() *GetVersionFilesResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

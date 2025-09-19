@@ -15,25 +15,25 @@ type UpdateConfigGroupByProductAndIDRequest struct {
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
 }
 
-func (o *UpdateConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if u == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return u.Product
 }
 
-func (o *UpdateConfigGroupByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateConfigGroupByProductAndIDRequest) GetConfigGroup() components.ConfigGroup {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDRequest) GetConfigGroup() components.ConfigGroup {
+	if u == nil {
 		return components.ConfigGroup{}
 	}
-	return o.ConfigGroup
+	return u.ConfigGroup
 }
 
 // UpdateConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
@@ -43,18 +43,18 @@ type UpdateConfigGroupByProductAndIDResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *UpdateConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateConfigGroupByProductAndIDResponse struct {
@@ -63,16 +63,16 @@ type UpdateConfigGroupByProductAndIDResponse struct {
 	Object *UpdateConfigGroupByProductAndIDResponseBody
 }
 
-func (o *UpdateConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateConfigGroupByProductAndIDResponse) GetObject() *UpdateConfigGroupByProductAndIDResponseBody {
-	if o == nil {
+func (u *UpdateConfigGroupByProductAndIDResponse) GetObject() *UpdateConfigGroupByProductAndIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

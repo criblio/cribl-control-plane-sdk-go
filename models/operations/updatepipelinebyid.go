@@ -13,18 +13,18 @@ type UpdatePipelineByIDRequest struct {
 	Pipeline components.Pipeline `request:"mediaType=application/json"`
 }
 
-func (o *UpdatePipelineByIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdatePipelineByIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
-	if o == nil {
+func (u *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
+	if u == nil {
 		return components.Pipeline{}
 	}
-	return o.Pipeline
+	return u.Pipeline
 }
 
 // UpdatePipelineByIDResponseBody - a list of Pipeline objects
@@ -34,18 +34,18 @@ type UpdatePipelineByIDResponseBody struct {
 	Items []components.Pipeline `json:"items,omitempty"`
 }
 
-func (o *UpdatePipelineByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdatePipelineByIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdatePipelineByIDResponseBody) GetItems() []components.Pipeline {
-	if o == nil {
+func (u *UpdatePipelineByIDResponseBody) GetItems() []components.Pipeline {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdatePipelineByIDResponse struct {
@@ -54,16 +54,16 @@ type UpdatePipelineByIDResponse struct {
 	Object *UpdatePipelineByIDResponseBody
 }
 
-func (o *UpdatePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdatePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdatePipelineByIDResponse) GetObject() *UpdatePipelineByIDResponseBody {
-	if o == nil {
+func (u *UpdatePipelineByIDResponse) GetObject() *UpdatePipelineByIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

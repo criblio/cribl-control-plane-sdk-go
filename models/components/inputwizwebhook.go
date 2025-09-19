@@ -47,18 +47,18 @@ func (i *InputWizWebhookConnection) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWizWebhookConnection) GetPipeline() *string {
-	if o == nil {
+func (i *InputWizWebhookConnection) GetPipeline() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Pipeline
+	return i.Pipeline
 }
 
-func (o *InputWizWebhookConnection) GetOutput() string {
-	if o == nil {
+func (i *InputWizWebhookConnection) GetOutput() string {
+	if i == nil {
 		return ""
 	}
-	return o.Output
+	return i.Output
 }
 
 // InputWizWebhookMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -158,60 +158,60 @@ func (i *InputWizWebhookPq) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWizWebhookPq) GetMode() *InputWizWebhookMode {
-	if o == nil {
+func (i *InputWizWebhookPq) GetMode() *InputWizWebhookMode {
+	if i == nil {
 		return nil
 	}
-	return o.Mode
+	return i.Mode
 }
 
-func (o *InputWizWebhookPq) GetMaxBufferSize() *float64 {
-	if o == nil {
+func (i *InputWizWebhookPq) GetMaxBufferSize() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.MaxBufferSize
+	return i.MaxBufferSize
 }
 
-func (o *InputWizWebhookPq) GetCommitFrequency() *float64 {
-	if o == nil {
+func (i *InputWizWebhookPq) GetCommitFrequency() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.CommitFrequency
+	return i.CommitFrequency
 }
 
-func (o *InputWizWebhookPq) GetMaxFileSize() *string {
-	if o == nil {
+func (i *InputWizWebhookPq) GetMaxFileSize() *string {
+	if i == nil {
 		return nil
 	}
-	return o.MaxFileSize
+	return i.MaxFileSize
 }
 
-func (o *InputWizWebhookPq) GetMaxSize() *string {
-	if o == nil {
+func (i *InputWizWebhookPq) GetMaxSize() *string {
+	if i == nil {
 		return nil
 	}
-	return o.MaxSize
+	return i.MaxSize
 }
 
-func (o *InputWizWebhookPq) GetPath() *string {
-	if o == nil {
+func (i *InputWizWebhookPq) GetPath() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Path
+	return i.Path
 }
 
-func (o *InputWizWebhookPq) GetCompress() *InputWizWebhookCompression {
-	if o == nil {
+func (i *InputWizWebhookPq) GetCompress() *InputWizWebhookCompression {
+	if i == nil {
 		return nil
 	}
-	return o.Compress
+	return i.Compress
 }
 
-func (o *InputWizWebhookPq) GetPqControls() *InputWizWebhookPqControls {
-	if o == nil {
+func (i *InputWizWebhookPq) GetPqControls() *InputWizWebhookPqControls {
+	if i == nil {
 		return nil
 	}
-	return o.PqControls
+	return i.PqControls
 }
 
 type InputWizWebhookMinimumTLSVersion string
@@ -309,81 +309,81 @@ func (i *InputWizWebhookTLSSettingsServerSide) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetDisabled() *bool {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetDisabled() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.Disabled
+	return i.Disabled
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetCertificateName() *string {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetCertificateName() *string {
+	if i == nil {
 		return nil
 	}
-	return o.CertificateName
+	return i.CertificateName
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if i == nil {
 		return nil
 	}
-	return o.PrivKeyPath
+	return i.PrivKeyPath
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetPassphrase() *string {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Passphrase
+	return i.Passphrase
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetCertPath() *string {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetCertPath() *string {
+	if i == nil {
 		return nil
 	}
-	return o.CertPath
+	return i.CertPath
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetCaPath() *string {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetCaPath() *string {
+	if i == nil {
 		return nil
 	}
-	return o.CaPath
+	return i.CaPath
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetRequestCert() *bool {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.RequestCert
+	return i.RequestCert
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetRejectUnauthorized() any {
+	if i == nil {
 		return nil
 	}
-	return o.RejectUnauthorized
+	return i.RejectUnauthorized
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetCommonNameRegex() any {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetCommonNameRegex() any {
+	if i == nil {
 		return nil
 	}
-	return o.CommonNameRegex
+	return i.CommonNameRegex
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetMinVersion() *InputWizWebhookMinimumTLSVersion {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetMinVersion() *InputWizWebhookMinimumTLSVersion {
+	if i == nil {
 		return nil
 	}
-	return o.MinVersion
+	return i.MinVersion
 }
 
-func (o *InputWizWebhookTLSSettingsServerSide) GetMaxVersion() *InputWizWebhookMaximumTLSVersion {
-	if o == nil {
+func (i *InputWizWebhookTLSSettingsServerSide) GetMaxVersion() *InputWizWebhookMaximumTLSVersion {
+	if i == nil {
 		return nil
 	}
-	return o.MaxVersion
+	return i.MaxVersion
 }
 
 type InputWizWebhookMetadatum struct {
@@ -403,18 +403,18 @@ func (i *InputWizWebhookMetadatum) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWizWebhookMetadatum) GetName() string {
-	if o == nil {
+func (i *InputWizWebhookMetadatum) GetName() string {
+	if i == nil {
 		return ""
 	}
-	return o.Name
+	return i.Name
 }
 
-func (o *InputWizWebhookMetadatum) GetValue() string {
-	if o == nil {
+func (i *InputWizWebhookMetadatum) GetValue() string {
+	if i == nil {
 		return ""
 	}
-	return o.Value
+	return i.Value
 }
 
 type InputWizWebhookAuthTokensExtMetadatum struct {
@@ -434,18 +434,18 @@ func (i *InputWizWebhookAuthTokensExtMetadatum) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (o *InputWizWebhookAuthTokensExtMetadatum) GetName() string {
-	if o == nil {
+func (i *InputWizWebhookAuthTokensExtMetadatum) GetName() string {
+	if i == nil {
 		return ""
 	}
-	return o.Name
+	return i.Name
 }
 
-func (o *InputWizWebhookAuthTokensExtMetadatum) GetValue() string {
-	if o == nil {
+func (i *InputWizWebhookAuthTokensExtMetadatum) GetValue() string {
+	if i == nil {
 		return ""
 	}
-	return o.Value
+	return i.Value
 }
 
 type InputWizWebhookAuthTokensExt struct {
@@ -467,25 +467,25 @@ func (i *InputWizWebhookAuthTokensExt) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWizWebhookAuthTokensExt) GetToken() string {
-	if o == nil {
+func (i *InputWizWebhookAuthTokensExt) GetToken() string {
+	if i == nil {
 		return ""
 	}
-	return o.Token
+	return i.Token
 }
 
-func (o *InputWizWebhookAuthTokensExt) GetDescription() *string {
-	if o == nil {
+func (i *InputWizWebhookAuthTokensExt) GetDescription() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Description
+	return i.Description
 }
 
-func (o *InputWizWebhookAuthTokensExt) GetMetadata() []InputWizWebhookAuthTokensExtMetadatum {
-	if o == nil {
+func (i *InputWizWebhookAuthTokensExt) GetMetadata() []InputWizWebhookAuthTokensExtMetadatum {
+	if i == nil {
 		return nil
 	}
-	return o.Metadata
+	return i.Metadata
 }
 
 type InputWizWebhook struct {
@@ -561,226 +561,226 @@ func (i *InputWizWebhook) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *InputWizWebhook) GetID() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetID() *string {
+	if i == nil {
 		return nil
 	}
-	return o.ID
+	return i.ID
 }
 
-func (o *InputWizWebhook) GetType() InputWizWebhookType {
-	if o == nil {
+func (i *InputWizWebhook) GetType() InputWizWebhookType {
+	if i == nil {
 		return InputWizWebhookType("")
 	}
-	return o.Type
+	return i.Type
 }
 
-func (o *InputWizWebhook) GetDisabled() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetDisabled() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.Disabled
+	return i.Disabled
 }
 
-func (o *InputWizWebhook) GetPipeline() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetPipeline() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Pipeline
+	return i.Pipeline
 }
 
-func (o *InputWizWebhook) GetSendToRoutes() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetSendToRoutes() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.SendToRoutes
+	return i.SendToRoutes
 }
 
-func (o *InputWizWebhook) GetEnvironment() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetEnvironment() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Environment
+	return i.Environment
 }
 
-func (o *InputWizWebhook) GetPqEnabled() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetPqEnabled() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.PqEnabled
+	return i.PqEnabled
 }
 
-func (o *InputWizWebhook) GetStreamtags() []string {
-	if o == nil {
+func (i *InputWizWebhook) GetStreamtags() []string {
+	if i == nil {
 		return nil
 	}
-	return o.Streamtags
+	return i.Streamtags
 }
 
-func (o *InputWizWebhook) GetConnections() []InputWizWebhookConnection {
-	if o == nil {
+func (i *InputWizWebhook) GetConnections() []InputWizWebhookConnection {
+	if i == nil {
 		return nil
 	}
-	return o.Connections
+	return i.Connections
 }
 
-func (o *InputWizWebhook) GetPq() *InputWizWebhookPq {
-	if o == nil {
+func (i *InputWizWebhook) GetPq() *InputWizWebhookPq {
+	if i == nil {
 		return nil
 	}
-	return o.Pq
+	return i.Pq
 }
 
-func (o *InputWizWebhook) GetHost() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetHost() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Host
+	return i.Host
 }
 
-func (o *InputWizWebhook) GetPort() float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetPort() float64 {
+	if i == nil {
 		return 0.0
 	}
-	return o.Port
+	return i.Port
 }
 
-func (o *InputWizWebhook) GetAuthTokens() []string {
-	if o == nil {
+func (i *InputWizWebhook) GetAuthTokens() []string {
+	if i == nil {
 		return nil
 	}
-	return o.AuthTokens
+	return i.AuthTokens
 }
 
-func (o *InputWizWebhook) GetTLS() *InputWizWebhookTLSSettingsServerSide {
-	if o == nil {
+func (i *InputWizWebhook) GetTLS() *InputWizWebhookTLSSettingsServerSide {
+	if i == nil {
 		return nil
 	}
-	return o.TLS
+	return i.TLS
 }
 
-func (o *InputWizWebhook) GetMaxActiveReq() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetMaxActiveReq() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.MaxActiveReq
+	return i.MaxActiveReq
 }
 
-func (o *InputWizWebhook) GetMaxRequestsPerSocket() *int64 {
-	if o == nil {
+func (i *InputWizWebhook) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
 		return nil
 	}
-	return o.MaxRequestsPerSocket
+	return i.MaxRequestsPerSocket
 }
 
-func (o *InputWizWebhook) GetEnableProxyHeader() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetEnableProxyHeader() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.EnableProxyHeader
+	return i.EnableProxyHeader
 }
 
-func (o *InputWizWebhook) GetCaptureHeaders() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetCaptureHeaders() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.CaptureHeaders
+	return i.CaptureHeaders
 }
 
-func (o *InputWizWebhook) GetActivityLogSampleRate() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetActivityLogSampleRate() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.ActivityLogSampleRate
+	return i.ActivityLogSampleRate
 }
 
-func (o *InputWizWebhook) GetRequestTimeout() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetRequestTimeout() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.RequestTimeout
+	return i.RequestTimeout
 }
 
-func (o *InputWizWebhook) GetSocketTimeout() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetSocketTimeout() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.SocketTimeout
+	return i.SocketTimeout
 }
 
-func (o *InputWizWebhook) GetKeepAliveTimeout() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetKeepAliveTimeout() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.KeepAliveTimeout
+	return i.KeepAliveTimeout
 }
 
-func (o *InputWizWebhook) GetEnableHealthCheck() *bool {
-	if o == nil {
+func (i *InputWizWebhook) GetEnableHealthCheck() *bool {
+	if i == nil {
 		return nil
 	}
-	return o.EnableHealthCheck
+	return i.EnableHealthCheck
 }
 
-func (o *InputWizWebhook) GetIPAllowlistRegex() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetIPAllowlistRegex() *string {
+	if i == nil {
 		return nil
 	}
-	return o.IPAllowlistRegex
+	return i.IPAllowlistRegex
 }
 
-func (o *InputWizWebhook) GetIPDenylistRegex() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetIPDenylistRegex() *string {
+	if i == nil {
 		return nil
 	}
-	return o.IPDenylistRegex
+	return i.IPDenylistRegex
 }
 
-func (o *InputWizWebhook) GetBreakerRulesets() []string {
-	if o == nil {
+func (i *InputWizWebhook) GetBreakerRulesets() []string {
+	if i == nil {
 		return nil
 	}
-	return o.BreakerRulesets
+	return i.BreakerRulesets
 }
 
-func (o *InputWizWebhook) GetStaleChannelFlushMs() *float64 {
-	if o == nil {
+func (i *InputWizWebhook) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
 		return nil
 	}
-	return o.StaleChannelFlushMs
+	return i.StaleChannelFlushMs
 }
 
-func (o *InputWizWebhook) GetMetadata() []InputWizWebhookMetadatum {
-	if o == nil {
+func (i *InputWizWebhook) GetMetadata() []InputWizWebhookMetadatum {
+	if i == nil {
 		return nil
 	}
-	return o.Metadata
+	return i.Metadata
 }
 
-func (o *InputWizWebhook) GetAllowedPaths() []string {
-	if o == nil {
+func (i *InputWizWebhook) GetAllowedPaths() []string {
+	if i == nil {
 		return nil
 	}
-	return o.AllowedPaths
+	return i.AllowedPaths
 }
 
-func (o *InputWizWebhook) GetAllowedMethods() []string {
-	if o == nil {
+func (i *InputWizWebhook) GetAllowedMethods() []string {
+	if i == nil {
 		return nil
 	}
-	return o.AllowedMethods
+	return i.AllowedMethods
 }
 
-func (o *InputWizWebhook) GetAuthTokensExt() []InputWizWebhookAuthTokensExt {
-	if o == nil {
+func (i *InputWizWebhook) GetAuthTokensExt() []InputWizWebhookAuthTokensExt {
+	if i == nil {
 		return nil
 	}
-	return o.AuthTokensExt
+	return i.AuthTokensExt
 }
 
-func (o *InputWizWebhook) GetDescription() *string {
-	if o == nil {
+func (i *InputWizWebhook) GetDescription() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Description
+	return i.Description
 }

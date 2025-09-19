@@ -12,16 +12,16 @@ type GetHealthInfoResponse struct {
 	HealthStatus *components.HealthStatus
 }
 
-func (o *GetHealthInfoResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetHealthInfoResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetHealthInfoResponse) GetHealthStatus() *components.HealthStatus {
-	if o == nil {
+func (g *GetHealthInfoResponse) GetHealthStatus() *components.HealthStatus {
+	if g == nil {
 		return nil
 	}
-	return o.HealthStatus
+	return g.HealthStatus
 }

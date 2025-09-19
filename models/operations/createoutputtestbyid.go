@@ -13,18 +13,18 @@ type CreateOutputTestByIDRequest struct {
 	OutputTestRequest components.OutputTestRequest `request:"mediaType=application/json"`
 }
 
-func (o *CreateOutputTestByIDRequest) GetID() string {
-	if o == nil {
+func (c *CreateOutputTestByIDRequest) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *CreateOutputTestByIDRequest) GetOutputTestRequest() components.OutputTestRequest {
-	if o == nil {
+func (c *CreateOutputTestByIDRequest) GetOutputTestRequest() components.OutputTestRequest {
+	if c == nil {
 		return components.OutputTestRequest{}
 	}
-	return o.OutputTestRequest
+	return c.OutputTestRequest
 }
 
 // CreateOutputTestByIDResponseBody - a list of OutputTestResponse objects
@@ -34,18 +34,18 @@ type CreateOutputTestByIDResponseBody struct {
 	Items []components.OutputTestResponse `json:"items,omitempty"`
 }
 
-func (o *CreateOutputTestByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateOutputTestByIDResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateOutputTestByIDResponseBody) GetItems() []components.OutputTestResponse {
-	if o == nil {
+func (c *CreateOutputTestByIDResponseBody) GetItems() []components.OutputTestResponse {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateOutputTestByIDResponse struct {
@@ -54,16 +54,16 @@ type CreateOutputTestByIDResponse struct {
 	Object *CreateOutputTestByIDResponseBody
 }
 
-func (o *CreateOutputTestByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateOutputTestByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateOutputTestByIDResponse) GetObject() *CreateOutputTestByIDResponseBody {
-	if o == nil {
+func (c *CreateOutputTestByIDResponse) GetObject() *CreateOutputTestByIDResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

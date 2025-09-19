@@ -17,32 +17,32 @@ type GetVersionDiffRequest struct {
 	DiffLineLimit *float64 `queryParam:"style=form,explode=true,name=diffLineLimit"`
 }
 
-func (o *GetVersionDiffRequest) GetCommit() *string {
-	if o == nil {
+func (g *GetVersionDiffRequest) GetCommit() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Commit
+	return g.Commit
 }
 
-func (o *GetVersionDiffRequest) GetGroupID() *string {
-	if o == nil {
+func (g *GetVersionDiffRequest) GetGroupID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.GroupID
+	return g.GroupID
 }
 
-func (o *GetVersionDiffRequest) GetFilename() *string {
-	if o == nil {
+func (g *GetVersionDiffRequest) GetFilename() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Filename
+	return g.Filename
 }
 
-func (o *GetVersionDiffRequest) GetDiffLineLimit() *float64 {
-	if o == nil {
+func (g *GetVersionDiffRequest) GetDiffLineLimit() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.DiffLineLimit
+	return g.DiffLineLimit
 }
 
 // GetVersionDiffResponseBody - a list of GitDiffResult objects
@@ -52,18 +52,18 @@ type GetVersionDiffResponseBody struct {
 	Items []components.GitDiffResult `json:"items,omitempty"`
 }
 
-func (o *GetVersionDiffResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionDiffResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionDiffResponseBody) GetItems() []components.GitDiffResult {
-	if o == nil {
+func (g *GetVersionDiffResponseBody) GetItems() []components.GitDiffResult {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionDiffResponse struct {
@@ -72,16 +72,16 @@ type GetVersionDiffResponse struct {
 	Object *GetVersionDiffResponseBody
 }
 
-func (o *GetVersionDiffResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionDiffResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionDiffResponse) GetObject() *GetVersionDiffResponseBody {
-	if o == nil {
+func (g *GetVersionDiffResponse) GetObject() *GetVersionDiffResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

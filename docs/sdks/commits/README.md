@@ -37,18 +37,18 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Versions.Commits.Create(ctx, components.GitCommitParams{
-        Effective: criblcontrolplanesdkgo.Bool(false),
+        Effective: criblcontrolplanesdkgo.Pointer(false),
         Files: []string{
             "<value 1>",
         },
-        Group: criblcontrolplanesdkgo.String("<value>"),
+        Group: criblcontrolplanesdkgo.Pointer("<value>"),
         Message: "<value>",
-    }, criblcontrolplanesdkgo.String("<id>"))
+    }, criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -102,11 +102,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(6362))
+    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[float64](6362))
     if err != nil {
         log.Fatal(err)
     }
@@ -162,11 +162,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.Float64(893.58))
+    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer[float64](893.58))
     if err != nil {
         log.Fatal(err)
     }
@@ -220,7 +220,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -276,15 +276,15 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Versions.Commits.Revert(ctx, components.GitRevertParams{
         Commit: "<value>",
-        Force: criblcontrolplanesdkgo.Bool(false),
-        Message: criblcontrolplanesdkgo.String("<value>"),
-    }, criblcontrolplanesdkgo.String("<id>"))
+        Force: criblcontrolplanesdkgo.Pointer(false),
+        Message: criblcontrolplanesdkgo.Pointer("<value>"),
+    }, criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -338,11 +338,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.String("<value>"), criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("example.file"), criblcontrolplanesdkgo.Float64(7771.94))
+    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[float64](7771.94))
     if err != nil {
         log.Fatal(err)
     }
@@ -398,11 +398,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.Undo(ctx, criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Commits.Undo(ctx, criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }

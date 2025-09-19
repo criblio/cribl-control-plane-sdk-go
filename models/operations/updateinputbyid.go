@@ -13,18 +13,18 @@ type UpdateInputByIDRequest struct {
 	Input components.Input `request:"mediaType=application/json"`
 }
 
-func (o *UpdateInputByIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateInputByIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateInputByIDRequest) GetInput() components.Input {
-	if o == nil {
+func (u *UpdateInputByIDRequest) GetInput() components.Input {
+	if u == nil {
 		return components.Input{}
 	}
-	return o.Input
+	return u.Input
 }
 
 // UpdateInputByIDResponseBody - a list of Source objects
@@ -34,18 +34,18 @@ type UpdateInputByIDResponseBody struct {
 	Items []components.Input `json:"items,omitempty"`
 }
 
-func (o *UpdateInputByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateInputByIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateInputByIDResponseBody) GetItems() []components.Input {
-	if o == nil {
+func (u *UpdateInputByIDResponseBody) GetItems() []components.Input {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateInputByIDResponse struct {
@@ -54,16 +54,16 @@ type UpdateInputByIDResponse struct {
 	Object *UpdateInputByIDResponseBody
 }
 
-func (o *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateInputByIDResponse) GetObject() *UpdateInputByIDResponseBody {
-	if o == nil {
+func (u *UpdateInputByIDResponse) GetObject() *UpdateInputByIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

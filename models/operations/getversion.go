@@ -13,18 +13,18 @@ type GetVersionRequest struct {
 	Count *float64 `queryParam:"style=form,explode=true,name=count"`
 }
 
-func (o *GetVersionRequest) GetGroupID() *string {
-	if o == nil {
+func (g *GetVersionRequest) GetGroupID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.GroupID
+	return g.GroupID
 }
 
-func (o *GetVersionRequest) GetCount() *float64 {
-	if o == nil {
+func (g *GetVersionRequest) GetCount() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
 // GetVersionResponseBody - a list of GitLogResult objects
@@ -34,18 +34,18 @@ type GetVersionResponseBody struct {
 	Items []components.GitLogResult `json:"items,omitempty"`
 }
 
-func (o *GetVersionResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionResponseBody) GetItems() []components.GitLogResult {
-	if o == nil {
+func (g *GetVersionResponseBody) GetItems() []components.GitLogResult {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionResponse struct {
@@ -54,16 +54,16 @@ type GetVersionResponse struct {
 	Object *GetVersionResponseBody
 }
 
-func (o *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionResponse) GetObject() *GetVersionResponseBody {
-	if o == nil {
+func (g *GetVersionResponse) GetObject() *GetVersionResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }
