@@ -13,18 +13,18 @@ type UpdateRoutesByIDRequest struct {
 	Routes components.Routes `request:"mediaType=application/json"`
 }
 
-func (o *UpdateRoutesByIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateRoutesByIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateRoutesByIDRequest) GetRoutes() components.Routes {
-	if o == nil {
+func (u *UpdateRoutesByIDRequest) GetRoutes() components.Routes {
+	if u == nil {
 		return components.Routes{}
 	}
-	return o.Routes
+	return u.Routes
 }
 
 // UpdateRoutesByIDResponseBody - a list of Routes objects
@@ -34,18 +34,18 @@ type UpdateRoutesByIDResponseBody struct {
 	Items []components.Routes `json:"items,omitempty"`
 }
 
-func (o *UpdateRoutesByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateRoutesByIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateRoutesByIDResponseBody) GetItems() []components.Routes {
-	if o == nil {
+func (u *UpdateRoutesByIDResponseBody) GetItems() []components.Routes {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateRoutesByIDResponse struct {
@@ -54,16 +54,16 @@ type UpdateRoutesByIDResponse struct {
 	Object *UpdateRoutesByIDResponseBody
 }
 
-func (o *UpdateRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateRoutesByIDResponse) GetObject() *UpdateRoutesByIDResponseBody {
-	if o == nil {
+func (u *UpdateRoutesByIDResponse) GetObject() *UpdateRoutesByIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

@@ -13,18 +13,18 @@ type GetVersionInfoResponseBody struct {
 	Items []components.GitInfo `json:"items,omitempty"`
 }
 
-func (o *GetVersionInfoResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionInfoResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionInfoResponseBody) GetItems() []components.GitInfo {
-	if o == nil {
+func (g *GetVersionInfoResponseBody) GetItems() []components.GitInfo {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionInfoResponse struct {
@@ -33,16 +33,16 @@ type GetVersionInfoResponse struct {
 	Object *GetVersionInfoResponseBody
 }
 
-func (o *GetVersionInfoResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionInfoResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionInfoResponse) GetObject() *GetVersionInfoResponseBody {
-	if o == nil {
+func (g *GetVersionInfoResponse) GetObject() *GetVersionInfoResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

@@ -13,18 +13,18 @@ type CreateVersionRevertRequest struct {
 	GitRevertParams components.GitRevertParams `request:"mediaType=application/json"`
 }
 
-func (o *CreateVersionRevertRequest) GetGroupID() *string {
-	if o == nil {
+func (c *CreateVersionRevertRequest) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.GroupID
+	return c.GroupID
 }
 
-func (o *CreateVersionRevertRequest) GetGitRevertParams() components.GitRevertParams {
-	if o == nil {
+func (c *CreateVersionRevertRequest) GetGitRevertParams() components.GitRevertParams {
+	if c == nil {
 		return components.GitRevertParams{}
 	}
-	return o.GitRevertParams
+	return c.GitRevertParams
 }
 
 // CreateVersionRevertResponseBody - a list of GitRevertResult objects
@@ -34,18 +34,18 @@ type CreateVersionRevertResponseBody struct {
 	Items []components.GitRevertResult `json:"items,omitempty"`
 }
 
-func (o *CreateVersionRevertResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateVersionRevertResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateVersionRevertResponseBody) GetItems() []components.GitRevertResult {
-	if o == nil {
+func (c *CreateVersionRevertResponseBody) GetItems() []components.GitRevertResult {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateVersionRevertResponse struct {
@@ -54,16 +54,16 @@ type CreateVersionRevertResponse struct {
 	Object *CreateVersionRevertResponseBody
 }
 
-func (o *CreateVersionRevertResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateVersionRevertResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateVersionRevertResponse) GetObject() *CreateVersionRevertResponseBody {
-	if o == nil {
+func (c *CreateVersionRevertResponse) GetObject() *CreateVersionRevertResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

@@ -15,25 +15,25 @@ type GetConfigGroupACLByProductAndIDRequest struct {
 	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`
 }
 
-func (o *GetConfigGroupACLByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if g == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return g.Product
 }
 
-func (o *GetConfigGroupACLByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetConfigGroupACLByProductAndIDRequest) GetType() *components.RbacResource {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDRequest) GetType() *components.RbacResource {
+	if g == nil {
 		return nil
 	}
-	return o.Type
+	return g.Type
 }
 
 // GetConfigGroupACLByProductAndIDResponseBody - a list of UserAccessControlList objects
@@ -43,18 +43,18 @@ type GetConfigGroupACLByProductAndIDResponseBody struct {
 	Items []components.UserAccessControlList `json:"items,omitempty"`
 }
 
-func (o *GetConfigGroupACLByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetConfigGroupACLByProductAndIDResponseBody) GetItems() []components.UserAccessControlList {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDResponseBody) GetItems() []components.UserAccessControlList {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetConfigGroupACLByProductAndIDResponse struct {
@@ -63,16 +63,16 @@ type GetConfigGroupACLByProductAndIDResponse struct {
 	Object *GetConfigGroupACLByProductAndIDResponseBody
 }
 
-func (o *GetConfigGroupACLByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetConfigGroupACLByProductAndIDResponse) GetObject() *GetConfigGroupACLByProductAndIDResponseBody {
-	if o == nil {
+func (g *GetConfigGroupACLByProductAndIDResponse) GetObject() *GetConfigGroupACLByProductAndIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

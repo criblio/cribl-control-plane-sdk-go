@@ -37,7 +37,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -93,33 +93,33 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Pipelines.Create(ctx, components.Pipeline{
         ID: "<id>",
         Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(905091),
-            Description: criblcontrolplanesdkgo.String("next tightly positively"),
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](905091),
+            Description: criblcontrolplanesdkgo.Pointer("next tightly positively"),
             Streamtags: []string{
                 "<value 1>",
             },
             Functions: []components.PipelineFunctionConf{
                 components.PipelineFunctionConf{
                     ID: "<id>",
-                    Description: criblcontrolplanesdkgo.String("academics woot finally woot queasy bah"),
-                    Disabled: criblcontrolplanesdkgo.Bool(false),
-                    Final: criblcontrolplanesdkgo.Bool(false),
+                    Description: criblcontrolplanesdkgo.Pointer("academics woot finally woot queasy bah"),
+                    Disabled: criblcontrolplanesdkgo.Pointer(false),
+                    Final: criblcontrolplanesdkgo.Pointer(false),
                     Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.String("<id>"),
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
             Groups: map[string]components.PipelineGroups{
                 "key": components.PipelineGroups{
                     Name: "<value>",
-                    Description: criblcontrolplanesdkgo.String("yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet"),
-                    Disabled: criblcontrolplanesdkgo.Bool(true),
+                    Description: criblcontrolplanesdkgo.Pointer("yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet"),
+                    Disabled: criblcontrolplanesdkgo.Pointer(true),
                 },
             },
         },
@@ -176,7 +176,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -233,33 +233,33 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
         ID: "<id>",
         Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Int64(430119),
-            Description: criblcontrolplanesdkgo.String("reflecting for productive extroverted instead upwardly"),
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](430119),
+            Description: criblcontrolplanesdkgo.Pointer("reflecting for productive extroverted instead upwardly"),
             Streamtags: []string{
                 "<value 1>",
             },
             Functions: []components.PipelineFunctionConf{
                 components.PipelineFunctionConf{
                     ID: "<id>",
-                    Description: criblcontrolplanesdkgo.String("mozzarella boohoo possession as grok"),
-                    Disabled: criblcontrolplanesdkgo.Bool(false),
-                    Final: criblcontrolplanesdkgo.Bool(false),
+                    Description: criblcontrolplanesdkgo.Pointer("mozzarella boohoo possession as grok"),
+                    Disabled: criblcontrolplanesdkgo.Pointer(false),
+                    Final: criblcontrolplanesdkgo.Pointer(false),
                     Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.String("<id>"),
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
             Groups: map[string]components.PipelineGroups{
                 "key": components.PipelineGroups{
                     Name: "<value>",
-                    Description: criblcontrolplanesdkgo.String("definitive ew but busily freely scaly indeed"),
-                    Disabled: criblcontrolplanesdkgo.Bool(true),
+                    Description: criblcontrolplanesdkgo.Pointer("definitive ew but busily freely scaly indeed"),
+                    Disabled: criblcontrolplanesdkgo.Pointer(true),
                 },
             },
         },
@@ -317,7 +317,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 

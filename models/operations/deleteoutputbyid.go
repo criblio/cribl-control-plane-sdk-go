@@ -11,11 +11,11 @@ type DeleteOutputByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteOutputByIDRequest) GetID() string {
-	if o == nil {
+func (d *DeleteOutputByIDRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 // DeleteOutputByIDResponseBody - a list of Destination objects
@@ -25,18 +25,18 @@ type DeleteOutputByIDResponseBody struct {
 	Items []components.Output `json:"items,omitempty"`
 }
 
-func (o *DeleteOutputByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (d *DeleteOutputByIDResponseBody) GetCount() *int64 {
+	if d == nil {
 		return nil
 	}
-	return o.Count
+	return d.Count
 }
 
-func (o *DeleteOutputByIDResponseBody) GetItems() []components.Output {
-	if o == nil {
+func (d *DeleteOutputByIDResponseBody) GetItems() []components.Output {
+	if d == nil {
 		return nil
 	}
-	return o.Items
+	return d.Items
 }
 
 type DeleteOutputByIDResponse struct {
@@ -45,16 +45,16 @@ type DeleteOutputByIDResponse struct {
 	Object *DeleteOutputByIDResponseBody
 }
 
-func (o *DeleteOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteOutputByIDResponse) GetObject() *DeleteOutputByIDResponseBody {
-	if o == nil {
+func (d *DeleteOutputByIDResponse) GetObject() *DeleteOutputByIDResponseBody {
+	if d == nil {
 		return nil
 	}
-	return o.Object
+	return d.Object
 }

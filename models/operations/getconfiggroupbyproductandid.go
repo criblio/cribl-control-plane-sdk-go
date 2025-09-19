@@ -15,25 +15,25 @@ type GetConfigGroupByProductAndIDRequest struct {
 	Fields *string `queryParam:"style=form,explode=true,name=fields"`
 }
 
-func (o *GetConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if g == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return g.Product
 }
 
-func (o *GetConfigGroupByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetConfigGroupByProductAndIDRequest) GetFields() *string {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDRequest) GetFields() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Fields
+	return g.Fields
 }
 
 // GetConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
@@ -43,18 +43,18 @@ type GetConfigGroupByProductAndIDResponseBody struct {
 	Items []components.ConfigGroup `json:"items,omitempty"`
 }
 
-func (o *GetConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetConfigGroupByProductAndIDResponse struct {
@@ -63,16 +63,16 @@ type GetConfigGroupByProductAndIDResponse struct {
 	Object *GetConfigGroupByProductAndIDResponseBody
 }
 
-func (o *GetConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetConfigGroupByProductAndIDResponse) GetObject() *GetConfigGroupByProductAndIDResponseBody {
-	if o == nil {
+func (g *GetConfigGroupByProductAndIDResponse) GetObject() *GetConfigGroupByProductAndIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

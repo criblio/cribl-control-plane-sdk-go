@@ -13,18 +13,18 @@ type GetVersionBranchResponseBody struct {
 	Items []components.BranchInfo `json:"items,omitempty"`
 }
 
-func (o *GetVersionBranchResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetVersionBranchResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetVersionBranchResponseBody) GetItems() []components.BranchInfo {
-	if o == nil {
+func (g *GetVersionBranchResponseBody) GetItems() []components.BranchInfo {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetVersionBranchResponse struct {
@@ -33,16 +33,16 @@ type GetVersionBranchResponse struct {
 	Object *GetVersionBranchResponseBody
 }
 
-func (o *GetVersionBranchResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionBranchResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionBranchResponse) GetObject() *GetVersionBranchResponseBody {
-	if o == nil {
+func (g *GetVersionBranchResponse) GetObject() *GetVersionBranchResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

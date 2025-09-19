@@ -3,10 +3,10 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 0c45762d1c7f05ccca71a32eff80a6a6
   docVersion: 4.14.0-837595d5
-  speakeasyVersion: 1.613.0
-  generationVersion: 2.696.0
-  releaseVersion: 0.0.47
-  configChecksum: 66ceca1d6b3e0d32bbe884209f94139b
+  speakeasyVersion: 1.621.0
+  generationVersion: 2.707.0
+  releaseVersion: 0.0.48
+  configChecksum: 7ffe985c5912a1e6942f7e988a5406e3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,18 +14,18 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.9.6
+    core: 3.11.0
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     envVarSecurityUsage: 0.3.2
     flattening: 2.81.1
-    globalSecurity: 2.82.11
+    globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.3
     groups: 2.81.2
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
-    nullables: 0.1.1
+    nullables: 0.2.0
     oauth2ClientCredentials: 0.4.0
     responseFormat: 0.1.2
     retries: 2.84.2
@@ -2354,6 +2354,8 @@ generatedFiles:
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
+  - optionalnullable/optionalnullable.go
+  - optionalnullable/optionalnullable_test.go
   - packs.go
   - pipelines.go
   - pq.go

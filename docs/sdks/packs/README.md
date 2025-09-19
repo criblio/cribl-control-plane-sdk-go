@@ -37,20 +37,20 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody1(
         components.PackRequestBody1{
             ID: "<id>",
-            Spec: criblcontrolplanesdkgo.String("<value>"),
-            Version: criblcontrolplanesdkgo.String("<value>"),
-            MinLogStreamVersion: criblcontrolplanesdkgo.String("<value>"),
-            DisplayName: criblcontrolplanesdkgo.String("Myah14"),
-            Author: criblcontrolplanesdkgo.String("<value>"),
-            Description: criblcontrolplanesdkgo.String("premeditation coincide although"),
-            Source: criblcontrolplanesdkgo.String("<value>"),
+            Spec: criblcontrolplanesdkgo.Pointer("<value>"),
+            Version: criblcontrolplanesdkgo.Pointer("<value>"),
+            MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
+            DisplayName: criblcontrolplanesdkgo.Pointer("Myah14"),
+            Author: criblcontrolplanesdkgo.Pointer("<value>"),
+            Description: criblcontrolplanesdkgo.Pointer("premeditation coincide although"),
+            Source: criblcontrolplanesdkgo.Pointer("<value>"),
             Tags: &components.PackRequestBodyTags1{
                 DataType: []string{},
                 Domain: []string{},
@@ -62,8 +62,8 @@ func main() {
                     "<value 2>",
                 },
             },
-            AllowCustomFunctions: criblcontrolplanesdkgo.Bool(false),
-            Force: criblcontrolplanesdkgo.Bool(false),
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
+            Force: criblcontrolplanesdkgo.Pointer(false),
         },
     ))
     if err != nil {
@@ -118,11 +118,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Packs.List(ctx, criblcontrolplanesdkgo.String("<value>"))
+    res, err := s.Packs.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -175,7 +175,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -232,7 +232,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -289,15 +289,15 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
-        AllowCustomFunctions: criblcontrolplanesdkgo.Bool(true),
-        Minor: criblcontrolplanesdkgo.String("<value>"),
+        AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
+        Minor: criblcontrolplanesdkgo.Pointer("<value>"),
         Source: "<value>",
-        Spec: criblcontrolplanesdkgo.String("<value>"),
+        Spec: criblcontrolplanesdkgo.Pointer("<value>"),
     })
     if err != nil {
         log.Fatal(err)

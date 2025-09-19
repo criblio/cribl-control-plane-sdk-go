@@ -13,18 +13,18 @@ type CreateInputResponseBody struct {
 	Items []components.Input `json:"items,omitempty"`
 }
 
-func (o *CreateInputResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateInputResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateInputResponseBody) GetItems() []components.Input {
-	if o == nil {
+func (c *CreateInputResponseBody) GetItems() []components.Input {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateInputResponse struct {
@@ -33,16 +33,16 @@ type CreateInputResponse struct {
 	Object *CreateInputResponseBody
 }
 
-func (o *CreateInputResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateInputResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateInputResponse) GetObject() *CreateInputResponseBody {
-	if o == nil {
+func (c *CreateInputResponse) GetObject() *CreateInputResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

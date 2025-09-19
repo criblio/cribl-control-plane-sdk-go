@@ -21,46 +21,46 @@ type ListMasterWorkerEntryRequest struct {
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
-func (o *ListMasterWorkerEntryRequest) GetFilterExp() *string {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetFilterExp() *string {
+	if l == nil {
 		return nil
 	}
-	return o.FilterExp
+	return l.FilterExp
 }
 
-func (o *ListMasterWorkerEntryRequest) GetSortExp() *string {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetSortExp() *string {
+	if l == nil {
 		return nil
 	}
-	return o.SortExp
+	return l.SortExp
 }
 
-func (o *ListMasterWorkerEntryRequest) GetFilter() *string {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetFilter() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Filter
+	return l.Filter
 }
 
-func (o *ListMasterWorkerEntryRequest) GetSort() *string {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetSort() *string {
+	if l == nil {
 		return nil
 	}
-	return o.Sort
+	return l.Sort
 }
 
-func (o *ListMasterWorkerEntryRequest) GetLimit() *int64 {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetLimit() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Limit
+	return l.Limit
 }
 
-func (o *ListMasterWorkerEntryRequest) GetOffset() *int64 {
-	if o == nil {
+func (l *ListMasterWorkerEntryRequest) GetOffset() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Offset
+	return l.Offset
 }
 
 // ListMasterWorkerEntryResponseBody - a list of MasterWorkerEntry objects
@@ -70,18 +70,18 @@ type ListMasterWorkerEntryResponseBody struct {
 	Items []components.MasterWorkerEntry `json:"items,omitempty"`
 }
 
-func (o *ListMasterWorkerEntryResponseBody) GetCount() *int64 {
-	if o == nil {
+func (l *ListMasterWorkerEntryResponseBody) GetCount() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Count
+	return l.Count
 }
 
-func (o *ListMasterWorkerEntryResponseBody) GetItems() []components.MasterWorkerEntry {
-	if o == nil {
+func (l *ListMasterWorkerEntryResponseBody) GetItems() []components.MasterWorkerEntry {
+	if l == nil {
 		return nil
 	}
-	return o.Items
+	return l.Items
 }
 
 type ListMasterWorkerEntryResponse struct {
@@ -90,16 +90,16 @@ type ListMasterWorkerEntryResponse struct {
 	Object *ListMasterWorkerEntryResponseBody
 }
 
-func (o *ListMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *ListMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *ListMasterWorkerEntryResponse) GetObject() *ListMasterWorkerEntryResponseBody {
-	if o == nil {
+func (l *ListMasterWorkerEntryResponse) GetObject() *ListMasterWorkerEntryResponseBody {
+	if l == nil {
 		return nil
 	}
-	return o.Object
+	return l.Object
 }

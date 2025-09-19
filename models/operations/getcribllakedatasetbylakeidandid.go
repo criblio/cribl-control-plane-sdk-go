@@ -13,18 +13,18 @@ type GetCriblLakeDatasetByLakeIDAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
+	if g == nil {
 		return ""
 	}
-	return o.LakeID
+	return g.LakeID
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetCriblLakeDatasetByLakeIDAndIDResponseBody - a list of CriblLakeDataset objects
@@ -34,18 +34,18 @@ type GetCriblLakeDatasetByLakeIDAndIDResponseBody struct {
 	Items []components.CriblLakeDataset `json:"items,omitempty"`
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetCriblLakeDatasetByLakeIDAndIDResponse struct {
@@ -54,16 +54,16 @@ type GetCriblLakeDatasetByLakeIDAndIDResponse struct {
 	Object *GetCriblLakeDatasetByLakeIDAndIDResponseBody
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *GetCriblLakeDatasetByLakeIDAndIDResponseBody {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *GetCriblLakeDatasetByLakeIDAndIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

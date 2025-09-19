@@ -13,18 +13,18 @@ type UpdatePacksByIDRequest struct {
 	PackUpgradeRequest components.PackUpgradeRequest `request:"mediaType=application/json"`
 }
 
-func (o *UpdatePacksByIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdatePacksByIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeRequest {
-	if o == nil {
+func (u *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeRequest {
+	if u == nil {
 		return components.PackUpgradeRequest{}
 	}
-	return o.PackUpgradeRequest
+	return u.PackUpgradeRequest
 }
 
 // UpdatePacksByIDResponseBody - a list of PackInfo objects
@@ -34,18 +34,18 @@ type UpdatePacksByIDResponseBody struct {
 	Items []components.PackInfo `json:"items,omitempty"`
 }
 
-func (o *UpdatePacksByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdatePacksByIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdatePacksByIDResponseBody) GetItems() []components.PackInfo {
-	if o == nil {
+func (u *UpdatePacksByIDResponseBody) GetItems() []components.PackInfo {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdatePacksByIDResponse struct {
@@ -54,16 +54,16 @@ type UpdatePacksByIDResponse struct {
 	Object *UpdatePacksByIDResponseBody
 }
 
-func (o *UpdatePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdatePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdatePacksByIDResponse) GetObject() *UpdatePacksByIDResponseBody {
-	if o == nil {
+func (u *UpdatePacksByIDResponse) GetObject() *UpdatePacksByIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

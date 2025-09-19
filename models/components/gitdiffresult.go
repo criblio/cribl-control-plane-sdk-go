@@ -6,9 +6,9 @@ type GitDiffResult struct {
 	DiffJSON []DiffFiles `json:"diffJson"`
 }
 
-func (o *GitDiffResult) GetDiffJSON() []DiffFiles {
-	if o == nil {
+func (g *GitDiffResult) GetDiffJSON() []DiffFiles {
+	if g == nil {
 		return []DiffFiles{}
 	}
-	return o.DiffJSON
+	return g.DiffJSON
 }

@@ -12,16 +12,16 @@ type GetVersionCurrentBranchResponse struct {
 	CurrentBranchResult *components.CurrentBranchResult
 }
 
-func (o *GetVersionCurrentBranchResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetVersionCurrentBranchResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetVersionCurrentBranchResponse) GetCurrentBranchResult() *components.CurrentBranchResult {
-	if o == nil {
+func (g *GetVersionCurrentBranchResponse) GetCurrentBranchResult() *components.CurrentBranchResult {
+	if g == nil {
 		return nil
 	}
-	return o.CurrentBranchResult
+	return g.CurrentBranchResult
 }

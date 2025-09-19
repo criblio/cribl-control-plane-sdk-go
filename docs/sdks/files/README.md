@@ -32,11 +32,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -90,11 +90,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.String("<id>"), criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }

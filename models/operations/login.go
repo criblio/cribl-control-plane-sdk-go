@@ -12,16 +12,16 @@ type LoginResponse struct {
 	AuthToken *components.AuthToken
 }
 
-func (o *LoginResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *LoginResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *LoginResponse) GetAuthToken() *components.AuthToken {
-	if o == nil {
+func (l *LoginResponse) GetAuthToken() *components.AuthToken {
+	if l == nil {
 		return nil
 	}
-	return o.AuthToken
+	return l.AuthToken
 }

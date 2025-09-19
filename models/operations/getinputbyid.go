@@ -11,11 +11,11 @@ type GetInputByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetInputByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetInputByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetInputByIDResponseBody - a list of Source objects
@@ -25,18 +25,18 @@ type GetInputByIDResponseBody struct {
 	Items []components.Input `json:"items,omitempty"`
 }
 
-func (o *GetInputByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetInputByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetInputByIDResponseBody) GetItems() []components.Input {
-	if o == nil {
+func (g *GetInputByIDResponseBody) GetItems() []components.Input {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetInputByIDResponse struct {
@@ -45,16 +45,16 @@ type GetInputByIDResponse struct {
 	Object *GetInputByIDResponseBody
 }
 
-func (o *GetInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetInputByIDResponse) GetObject() *GetInputByIDResponseBody {
-	if o == nil {
+func (g *GetInputByIDResponse) GetObject() *GetInputByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

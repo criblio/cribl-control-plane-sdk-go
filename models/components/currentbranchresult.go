@@ -6,9 +6,9 @@ type CurrentBranchResult struct {
 	Branch string `json:"branch"`
 }
 
-func (o *CurrentBranchResult) GetBranch() string {
-	if o == nil {
+func (c *CurrentBranchResult) GetBranch() string {
+	if c == nil {
 		return ""
 	}
-	return o.Branch
+	return c.Branch
 }

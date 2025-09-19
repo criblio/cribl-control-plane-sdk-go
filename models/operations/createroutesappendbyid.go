@@ -13,18 +13,18 @@ type CreateRoutesAppendByIDRequest struct {
 	RequestBody []components.RouteConf `request:"mediaType=application/json"`
 }
 
-func (o *CreateRoutesAppendByIDRequest) GetID() string {
-	if o == nil {
+func (c *CreateRoutesAppendByIDRequest) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConf {
-	if o == nil {
+func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConf {
+	if c == nil {
 		return []components.RouteConf{}
 	}
-	return o.RequestBody
+	return c.RequestBody
 }
 
 // CreateRoutesAppendByIDResponseBody - a list of Routes objects
@@ -34,18 +34,18 @@ type CreateRoutesAppendByIDResponseBody struct {
 	Items []components.Routes `json:"items,omitempty"`
 }
 
-func (o *CreateRoutesAppendByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateRoutesAppendByIDResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateRoutesAppendByIDResponseBody) GetItems() []components.Routes {
-	if o == nil {
+func (c *CreateRoutesAppendByIDResponseBody) GetItems() []components.Routes {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateRoutesAppendByIDResponse struct {
@@ -54,16 +54,16 @@ type CreateRoutesAppendByIDResponse struct {
 	Object *CreateRoutesAppendByIDResponseBody
 }
 
-func (o *CreateRoutesAppendByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateRoutesAppendByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateRoutesAppendByIDResponse) GetObject() *CreateRoutesAppendByIDResponseBody {
-	if o == nil {
+func (c *CreateRoutesAppendByIDResponse) GetObject() *CreateRoutesAppendByIDResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

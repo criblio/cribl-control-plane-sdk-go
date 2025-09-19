@@ -13,18 +13,18 @@ type DeleteCriblLakeDatasetByLakeIDAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
+	if d == nil {
 		return ""
 	}
-	return o.LakeID
+	return d.LakeID
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 // DeleteCriblLakeDatasetByLakeIDAndIDResponseBody - a list of CriblLakeDataset objects
@@ -34,18 +34,18 @@ type DeleteCriblLakeDatasetByLakeIDAndIDResponseBody struct {
 	Items []components.CriblLakeDataset `json:"items,omitempty"`
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
+	if d == nil {
 		return nil
 	}
-	return o.Count
+	return d.Count
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
+	if d == nil {
 		return nil
 	}
-	return o.Items
+	return d.Items
 }
 
 type DeleteCriblLakeDatasetByLakeIDAndIDResponse struct {
@@ -54,16 +54,16 @@ type DeleteCriblLakeDatasetByLakeIDAndIDResponse struct {
 	Object *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody {
-	if o == nil {
+func (d *DeleteCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *DeleteCriblLakeDatasetByLakeIDAndIDResponseBody {
+	if d == nil {
 		return nil
 	}
-	return o.Object
+	return d.Object
 }

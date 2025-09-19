@@ -6,9 +6,9 @@ type BranchInfo struct {
 	ID string `json:"id"`
 }
 
-func (o *BranchInfo) GetID() string {
-	if o == nil {
+func (b *BranchInfo) GetID() string {
+	if b == nil {
 		return ""
 	}
-	return o.ID
+	return b.ID
 }

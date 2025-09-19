@@ -11,11 +11,11 @@ type GetPacksRequest struct {
 	With *string `queryParam:"style=form,explode=true,name=with"`
 }
 
-func (o *GetPacksRequest) GetWith() *string {
-	if o == nil {
+func (g *GetPacksRequest) GetWith() *string {
+	if g == nil {
 		return nil
 	}
-	return o.With
+	return g.With
 }
 
 // GetPacksResponseBody - a list of PackInfo objects
@@ -25,18 +25,18 @@ type GetPacksResponseBody struct {
 	Items []components.PackInfo `json:"items,omitempty"`
 }
 
-func (o *GetPacksResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetPacksResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetPacksResponseBody) GetItems() []components.PackInfo {
-	if o == nil {
+func (g *GetPacksResponseBody) GetItems() []components.PackInfo {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetPacksResponse struct {
@@ -45,16 +45,16 @@ type GetPacksResponse struct {
 	Object *GetPacksResponseBody
 }
 
-func (o *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetPacksResponse) GetObject() *GetPacksResponseBody {
-	if o == nil {
+func (g *GetPacksResponse) GetObject() *GetPacksResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

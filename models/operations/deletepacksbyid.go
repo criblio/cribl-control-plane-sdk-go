@@ -11,11 +11,11 @@ type DeletePacksByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeletePacksByIDRequest) GetID() string {
-	if o == nil {
+func (d *DeletePacksByIDRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 // DeletePacksByIDResponseBody - a list of PackInstallInfo objects
@@ -25,18 +25,18 @@ type DeletePacksByIDResponseBody struct {
 	Items []components.PackInstallInfo `json:"items,omitempty"`
 }
 
-func (o *DeletePacksByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (d *DeletePacksByIDResponseBody) GetCount() *int64 {
+	if d == nil {
 		return nil
 	}
-	return o.Count
+	return d.Count
 }
 
-func (o *DeletePacksByIDResponseBody) GetItems() []components.PackInstallInfo {
-	if o == nil {
+func (d *DeletePacksByIDResponseBody) GetItems() []components.PackInstallInfo {
+	if d == nil {
 		return nil
 	}
-	return o.Items
+	return d.Items
 }
 
 type DeletePacksByIDResponse struct {
@@ -45,16 +45,16 @@ type DeletePacksByIDResponse struct {
 	Object *DeletePacksByIDResponseBody
 }
 
-func (o *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeletePacksByIDResponse) GetObject() *DeletePacksByIDResponseBody {
-	if o == nil {
+func (d *DeletePacksByIDResponse) GetObject() *DeletePacksByIDResponseBody {
+	if d == nil {
 		return nil
 	}
-	return o.Object
+	return d.Object
 }

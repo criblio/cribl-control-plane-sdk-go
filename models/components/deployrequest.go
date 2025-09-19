@@ -7,16 +7,16 @@ type DeployRequest struct {
 	Version string                 `json:"version"`
 }
 
-func (o *DeployRequest) GetLookups() []DeployRequestLookups {
-	if o == nil {
+func (d *DeployRequest) GetLookups() []DeployRequestLookups {
+	if d == nil {
 		return nil
 	}
-	return o.Lookups
+	return d.Lookups
 }
 
-func (o *DeployRequest) GetVersion() string {
-	if o == nil {
+func (d *DeployRequest) GetVersion() string {
+	if d == nil {
 		return ""
 	}
-	return o.Version
+	return d.Version
 }
