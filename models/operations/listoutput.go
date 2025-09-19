@@ -13,18 +13,18 @@ type ListOutputResponseBody struct {
 	Items []components.Output `json:"items,omitempty"`
 }
 
-func (o *ListOutputResponseBody) GetCount() *int64 {
-	if o == nil {
+func (l *ListOutputResponseBody) GetCount() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Count
+	return l.Count
 }
 
-func (o *ListOutputResponseBody) GetItems() []components.Output {
-	if o == nil {
+func (l *ListOutputResponseBody) GetItems() []components.Output {
+	if l == nil {
 		return nil
 	}
-	return o.Items
+	return l.Items
 }
 
 type ListOutputResponse struct {
@@ -33,16 +33,16 @@ type ListOutputResponse struct {
 	Object *ListOutputResponseBody
 }
 
-func (o *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *ListOutputResponse) GetObject() *ListOutputResponseBody {
-	if o == nil {
+func (l *ListOutputResponse) GetObject() *ListOutputResponseBody {
+	if l == nil {
 		return nil
 	}
-	return o.Object
+	return l.Object
 }

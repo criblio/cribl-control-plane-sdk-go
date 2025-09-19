@@ -31,11 +31,11 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
-    res, err := s.Versions.Statuses.Get(ctx, criblcontrolplanesdkgo.String("<id>"))
+    res, err := s.Versions.Statuses.Get(ctx, criblcontrolplanesdkgo.Pointer("<id>"))
     if err != nil {
         log.Fatal(err)
     }

@@ -11,11 +11,11 @@ type CreateVersionUndoRequest struct {
 	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 }
 
-func (o *CreateVersionUndoRequest) GetGroupID() *string {
-	if o == nil {
+func (c *CreateVersionUndoRequest) GetGroupID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.GroupID
+	return c.GroupID
 }
 
 // CreateVersionUndoResponseBody - a list of object objects
@@ -25,18 +25,18 @@ type CreateVersionUndoResponseBody struct {
 	Items []string `json:"items,omitempty"`
 }
 
-func (o *CreateVersionUndoResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateVersionUndoResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateVersionUndoResponseBody) GetItems() []string {
-	if o == nil {
+func (c *CreateVersionUndoResponseBody) GetItems() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateVersionUndoResponse struct {
@@ -45,16 +45,16 @@ type CreateVersionUndoResponse struct {
 	Object *CreateVersionUndoResponseBody
 }
 
-func (o *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateVersionUndoResponse) GetObject() *CreateVersionUndoResponseBody {
-	if o == nil {
+func (c *CreateVersionUndoResponse) GetObject() *CreateVersionUndoResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

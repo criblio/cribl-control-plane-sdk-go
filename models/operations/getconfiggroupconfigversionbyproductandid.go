@@ -13,18 +13,18 @@ type GetConfigGroupConfigVersionByProductAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if g == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return g.Product
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetConfigGroupConfigVersionByProductAndIDResponseBody - a list of string objects
@@ -34,18 +34,18 @@ type GetConfigGroupConfigVersionByProductAndIDResponseBody struct {
 	Items []string `json:"items,omitempty"`
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetItems() []string {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDResponseBody) GetItems() []string {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetConfigGroupConfigVersionByProductAndIDResponse struct {
@@ -54,16 +54,16 @@ type GetConfigGroupConfigVersionByProductAndIDResponse struct {
 	Object *GetConfigGroupConfigVersionByProductAndIDResponseBody
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetConfigGroupConfigVersionByProductAndIDResponse) GetObject() *GetConfigGroupConfigVersionByProductAndIDResponseBody {
-	if o == nil {
+func (g *GetConfigGroupConfigVersionByProductAndIDResponse) GetObject() *GetConfigGroupConfigVersionByProductAndIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

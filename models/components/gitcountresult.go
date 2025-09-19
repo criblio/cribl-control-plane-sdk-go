@@ -6,9 +6,9 @@ type GitCountResult struct {
 	Count float64 `json:"count"`
 }
 
-func (o *GitCountResult) GetCount() float64 {
-	if o == nil {
+func (g *GitCountResult) GetCount() float64 {
+	if g == nil {
 		return 0.0
 	}
-	return o.Count
+	return g.Count
 }

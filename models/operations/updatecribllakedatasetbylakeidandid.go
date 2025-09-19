@@ -15,25 +15,25 @@ type UpdateCriblLakeDatasetByLakeIDAndIDRequest struct {
 	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
+	if u == nil {
 		return ""
 	}
-	return o.LakeID
+	return u.LakeID
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
+	if u == nil {
 		return ""
 	}
-	return o.ID
+	return u.ID
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDataset() components.CriblLakeDataset {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDataset() components.CriblLakeDataset {
+	if u == nil {
 		return components.CriblLakeDataset{}
 	}
-	return o.CriblLakeDataset
+	return u.CriblLakeDataset
 }
 
 // UpdateCriblLakeDatasetByLakeIDAndIDResponseBody - a list of CriblLakeDataset objects
@@ -43,18 +43,18 @@ type UpdateCriblLakeDatasetByLakeIDAndIDResponseBody struct {
 	Items []components.CriblLakeDataset `json:"items,omitempty"`
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
+	if u == nil {
 		return nil
 	}
-	return o.Count
+	return u.Count
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
+	if u == nil {
 		return nil
 	}
-	return o.Items
+	return u.Items
 }
 
 type UpdateCriblLakeDatasetByLakeIDAndIDResponse struct {
@@ -63,16 +63,16 @@ type UpdateCriblLakeDatasetByLakeIDAndIDResponse struct {
 	Object *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if u == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return u.HTTPMeta
 }
 
-func (o *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody {
-	if o == nil {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody {
+	if u == nil {
 		return nil
 	}
-	return o.Object
+	return u.Object
 }

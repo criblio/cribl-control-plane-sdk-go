@@ -36,7 +36,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -92,7 +92,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -149,23 +149,23 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.String("<id>"),
+        ID: criblcontrolplanesdkgo.Pointer("<id>"),
         Routes: []components.RoutesRoute{},
         Groups: map[string]components.RoutesGroups{
             "key": components.RoutesGroups{
                 Name: "<value>",
-                Description: criblcontrolplanesdkgo.String("where internationalize yesterday woefully tank underneath"),
-                Disabled: criblcontrolplanesdkgo.Bool(true),
+                Description: criblcontrolplanesdkgo.Pointer("where internationalize yesterday woefully tank underneath"),
+                Disabled: criblcontrolplanesdkgo.Pointer(true),
             },
         },
         Comments: []components.Comment{
             components.Comment{
-                Comment: criblcontrolplanesdkgo.String("New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"),
+                Comment: criblcontrolplanesdkgo.Pointer("New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"),
             },
         },
     })
@@ -222,7 +222,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 

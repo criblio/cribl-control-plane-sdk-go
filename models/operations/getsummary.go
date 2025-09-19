@@ -11,11 +11,11 @@ type GetSummaryRequest struct {
 	Mode *components.WorkerTypes `queryParam:"style=form,explode=true,name=mode"`
 }
 
-func (o *GetSummaryRequest) GetMode() *components.WorkerTypes {
-	if o == nil {
+func (g *GetSummaryRequest) GetMode() *components.WorkerTypes {
+	if g == nil {
 		return nil
 	}
-	return o.Mode
+	return g.Mode
 }
 
 // GetSummaryResponseBody - a list of DistributedSummary objects
@@ -25,18 +25,18 @@ type GetSummaryResponseBody struct {
 	Items []components.DistributedSummary `json:"items,omitempty"`
 }
 
-func (o *GetSummaryResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetSummaryResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetSummaryResponseBody) GetItems() []components.DistributedSummary {
-	if o == nil {
+func (g *GetSummaryResponseBody) GetItems() []components.DistributedSummary {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetSummaryResponse struct {
@@ -45,16 +45,16 @@ type GetSummaryResponse struct {
 	Object *GetSummaryResponseBody
 }
 
-func (o *GetSummaryResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetSummaryResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetSummaryResponse) GetObject() *GetSummaryResponseBody {
-	if o == nil {
+func (g *GetSummaryResponse) GetObject() *GetSummaryResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

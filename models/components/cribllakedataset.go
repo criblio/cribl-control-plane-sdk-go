@@ -51,86 +51,86 @@ type CriblLakeDataset struct {
 	ViewName              *string                  `json:"viewName,omitempty"`
 }
 
-func (o *CriblLakeDataset) GetAcceleratedFields() []string {
-	if o == nil {
+func (c *CriblLakeDataset) GetAcceleratedFields() []string {
+	if c == nil {
 		return nil
 	}
-	return o.AcceleratedFields
+	return c.AcceleratedFields
 }
 
-func (o *CriblLakeDataset) GetBucketName() *string {
-	if o == nil {
+func (c *CriblLakeDataset) GetBucketName() *string {
+	if c == nil {
 		return nil
 	}
-	return o.BucketName
+	return c.BucketName
 }
 
-func (o *CriblLakeDataset) GetCacheConnection() *CacheConnection {
-	if o == nil {
+func (c *CriblLakeDataset) GetCacheConnection() *CacheConnection {
+	if c == nil {
 		return nil
 	}
-	return o.CacheConnection
+	return c.CacheConnection
 }
 
-func (o *CriblLakeDataset) GetDeletionStartedAt() *float64 {
-	if o == nil {
+func (c *CriblLakeDataset) GetDeletionStartedAt() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.DeletionStartedAt
+	return c.DeletionStartedAt
 }
 
-func (o *CriblLakeDataset) GetDescription() *string {
-	if o == nil {
+func (c *CriblLakeDataset) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Description
+	return c.Description
 }
 
-func (o *CriblLakeDataset) GetFormat() *CriblLakeDatasetFormat {
-	if o == nil {
+func (c *CriblLakeDataset) GetFormat() *CriblLakeDatasetFormat {
+	if c == nil {
 		return nil
 	}
-	return o.Format
+	return c.Format
 }
 
-func (o *CriblLakeDataset) GetHTTPDAUsed() *bool {
-	if o == nil {
+func (c *CriblLakeDataset) GetHTTPDAUsed() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.HTTPDAUsed
+	return c.HTTPDAUsed
 }
 
-func (o *CriblLakeDataset) GetID() string {
-	if o == nil {
+func (c *CriblLakeDataset) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *CriblLakeDataset) GetRetentionPeriodInDays() *float64 {
-	if o == nil {
+func (c *CriblLakeDataset) GetRetentionPeriodInDays() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.RetentionPeriodInDays
+	return c.RetentionPeriodInDays
 }
 
-func (o *CriblLakeDataset) GetSearchConfig() *LakeDatasetSearchConfig {
-	if o == nil {
+func (c *CriblLakeDataset) GetSearchConfig() *LakeDatasetSearchConfig {
+	if c == nil {
 		return nil
 	}
-	return o.SearchConfig
+	return c.SearchConfig
 }
 
-func (o *CriblLakeDataset) GetStorageLocationID() *string {
-	if o == nil {
+func (c *CriblLakeDataset) GetStorageLocationID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.StorageLocationID
+	return c.StorageLocationID
 }
 
-func (o *CriblLakeDataset) GetViewName() *string {
-	if o == nil {
+func (c *CriblLakeDataset) GetViewName() *string {
+	if c == nil {
 		return nil
 	}
-	return o.ViewName
+	return c.ViewName
 }

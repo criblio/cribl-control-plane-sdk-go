@@ -13,18 +13,18 @@ type ListRoutesResponseBody struct {
 	Items []components.Routes `json:"items,omitempty"`
 }
 
-func (o *ListRoutesResponseBody) GetCount() *int64 {
-	if o == nil {
+func (l *ListRoutesResponseBody) GetCount() *int64 {
+	if l == nil {
 		return nil
 	}
-	return o.Count
+	return l.Count
 }
 
-func (o *ListRoutesResponseBody) GetItems() []components.Routes {
-	if o == nil {
+func (l *ListRoutesResponseBody) GetItems() []components.Routes {
+	if l == nil {
 		return nil
 	}
-	return o.Items
+	return l.Items
 }
 
 type ListRoutesResponse struct {
@@ -33,16 +33,16 @@ type ListRoutesResponse struct {
 	Object *ListRoutesResponseBody
 }
 
-func (o *ListRoutesResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (l *ListRoutesResponse) GetHTTPMeta() components.HTTPMetadata {
+	if l == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return l.HTTPMeta
 }
 
-func (o *ListRoutesResponse) GetObject() *ListRoutesResponseBody {
-	if o == nil {
+func (l *ListRoutesResponse) GetObject() *ListRoutesResponseBody {
+	if l == nil {
 		return nil
 	}
-	return o.Object
+	return l.Object
 }

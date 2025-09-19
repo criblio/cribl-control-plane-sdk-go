@@ -7,16 +7,16 @@ type Security struct {
 	ClientOauth *SchemeClientOauth `security:"scheme,type=oauth2,subtype=client_credentials"`
 }
 
-func (o *Security) GetBearerAuth() *string {
-	if o == nil {
+func (s *Security) GetBearerAuth() *string {
+	if s == nil {
 		return nil
 	}
-	return o.BearerAuth
+	return s.BearerAuth
 }
 
-func (o *Security) GetClientOauth() *SchemeClientOauth {
-	if o == nil {
+func (s *Security) GetClientOauth() *SchemeClientOauth {
+	if s == nil {
 		return nil
 	}
-	return o.ClientOauth
+	return s.ClientOauth
 }

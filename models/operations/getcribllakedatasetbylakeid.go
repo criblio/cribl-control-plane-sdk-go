@@ -11,11 +11,11 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 }
 
-func (o *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
+	if g == nil {
 		return ""
 	}
-	return o.LakeID
+	return g.LakeID
 }
 
 // GetCriblLakeDatasetByLakeIDResponseBody - a list of CriblLakeDataset objects
@@ -25,18 +25,18 @@ type GetCriblLakeDatasetByLakeIDResponseBody struct {
 	Items []components.CriblLakeDataset `json:"items,omitempty"`
 }
 
-func (o *GetCriblLakeDatasetByLakeIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetCriblLakeDatasetByLakeIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDResponseBody) GetItems() []components.CriblLakeDataset {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetCriblLakeDatasetByLakeIDResponse struct {
@@ -45,16 +45,16 @@ type GetCriblLakeDatasetByLakeIDResponse struct {
 	Object *GetCriblLakeDatasetByLakeIDResponseBody
 }
 
-func (o *GetCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetCriblLakeDatasetByLakeIDResponse) GetObject() *GetCriblLakeDatasetByLakeIDResponseBody {
-	if o == nil {
+func (g *GetCriblLakeDatasetByLakeIDResponse) GetObject() *GetCriblLakeDatasetByLakeIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

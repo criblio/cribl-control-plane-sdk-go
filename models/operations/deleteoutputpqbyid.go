@@ -11,11 +11,11 @@ type DeleteOutputPqByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteOutputPqByIDRequest) GetID() string {
-	if o == nil {
+func (d *DeleteOutputPqByIDRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 // DeleteOutputPqByIDResponseBody - a list of string objects
@@ -25,18 +25,18 @@ type DeleteOutputPqByIDResponseBody struct {
 	Items []string `json:"items,omitempty"`
 }
 
-func (o *DeleteOutputPqByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (d *DeleteOutputPqByIDResponseBody) GetCount() *int64 {
+	if d == nil {
 		return nil
 	}
-	return o.Count
+	return d.Count
 }
 
-func (o *DeleteOutputPqByIDResponseBody) GetItems() []string {
-	if o == nil {
+func (d *DeleteOutputPqByIDResponseBody) GetItems() []string {
+	if d == nil {
 		return nil
 	}
-	return o.Items
+	return d.Items
 }
 
 type DeleteOutputPqByIDResponse struct {
@@ -45,16 +45,16 @@ type DeleteOutputPqByIDResponse struct {
 	Object *DeleteOutputPqByIDResponseBody
 }
 
-func (o *DeleteOutputPqByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (d *DeleteOutputPqByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if d == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return d.HTTPMeta
 }
 
-func (o *DeleteOutputPqByIDResponse) GetObject() *DeleteOutputPqByIDResponseBody {
-	if o == nil {
+func (d *DeleteOutputPqByIDResponse) GetObject() *DeleteOutputPqByIDResponseBody {
+	if d == nil {
 		return nil
 	}
-	return o.Object
+	return d.Object
 }

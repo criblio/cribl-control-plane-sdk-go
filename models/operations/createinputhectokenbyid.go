@@ -13,18 +13,18 @@ type CreateInputHecTokenByIDRequest struct {
 	AddHecTokenRequest components.AddHecTokenRequest `request:"mediaType=application/json"`
 }
 
-func (o *CreateInputHecTokenByIDRequest) GetID() string {
-	if o == nil {
+func (c *CreateInputHecTokenByIDRequest) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *CreateInputHecTokenByIDRequest) GetAddHecTokenRequest() components.AddHecTokenRequest {
-	if o == nil {
+func (c *CreateInputHecTokenByIDRequest) GetAddHecTokenRequest() components.AddHecTokenRequest {
+	if c == nil {
 		return components.AddHecTokenRequest{}
 	}
-	return o.AddHecTokenRequest
+	return c.AddHecTokenRequest
 }
 
 // CreateInputHecTokenByIDResponseBody - a list of any objects
@@ -34,18 +34,18 @@ type CreateInputHecTokenByIDResponseBody struct {
 	Items []map[string]any `json:"items,omitempty"`
 }
 
-func (o *CreateInputHecTokenByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (c *CreateInputHecTokenByIDResponseBody) GetCount() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Count
+	return c.Count
 }
 
-func (o *CreateInputHecTokenByIDResponseBody) GetItems() []map[string]any {
-	if o == nil {
+func (c *CreateInputHecTokenByIDResponseBody) GetItems() []map[string]any {
+	if c == nil {
 		return nil
 	}
-	return o.Items
+	return c.Items
 }
 
 type CreateInputHecTokenByIDResponse struct {
@@ -54,16 +54,16 @@ type CreateInputHecTokenByIDResponse struct {
 	Object *CreateInputHecTokenByIDResponseBody
 }
 
-func (o *CreateInputHecTokenByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (c *CreateInputHecTokenByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (o *CreateInputHecTokenByIDResponse) GetObject() *CreateInputHecTokenByIDResponseBody {
-	if o == nil {
+func (c *CreateInputHecTokenByIDResponse) GetObject() *CreateInputHecTokenByIDResponseBody {
+	if c == nil {
 		return nil
 	}
-	return o.Object
+	return c.Object
 }

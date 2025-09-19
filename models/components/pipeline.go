@@ -14,25 +14,25 @@ type PipelineGroups struct {
 	Disabled *bool `json:"disabled,omitempty"`
 }
 
-func (o *PipelineGroups) GetName() string {
-	if o == nil {
+func (p *PipelineGroups) GetName() string {
+	if p == nil {
 		return ""
 	}
-	return o.Name
+	return p.Name
 }
 
-func (o *PipelineGroups) GetDescription() *string {
-	if o == nil {
+func (p *PipelineGroups) GetDescription() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Description
+	return p.Description
 }
 
-func (o *PipelineGroups) GetDisabled() *bool {
-	if o == nil {
+func (p *PipelineGroups) GetDisabled() *bool {
+	if p == nil {
 		return nil
 	}
-	return o.Disabled
+	return p.Disabled
 }
 
 type Conf struct {
@@ -59,46 +59,46 @@ func (c *Conf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Conf) GetAsyncFuncTimeout() *int64 {
-	if o == nil {
+func (c *Conf) GetAsyncFuncTimeout() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.AsyncFuncTimeout
+	return c.AsyncFuncTimeout
 }
 
-func (o *Conf) GetOutput() *string {
-	if o == nil {
+func (c *Conf) GetOutput() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Output
+	return c.Output
 }
 
-func (o *Conf) GetDescription() *string {
-	if o == nil {
+func (c *Conf) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Description
+	return c.Description
 }
 
-func (o *Conf) GetStreamtags() []string {
-	if o == nil {
+func (c *Conf) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Streamtags
+	return c.Streamtags
 }
 
-func (o *Conf) GetFunctions() []PipelineFunctionConf {
-	if o == nil {
+func (c *Conf) GetFunctions() []PipelineFunctionConf {
+	if c == nil {
 		return nil
 	}
-	return o.Functions
+	return c.Functions
 }
 
-func (o *Conf) GetGroups() map[string]PipelineGroups {
-	if o == nil {
+func (c *Conf) GetGroups() map[string]PipelineGroups {
+	if c == nil {
 		return nil
 	}
-	return o.Groups
+	return c.Groups
 }
 
 type Pipeline struct {
@@ -106,16 +106,16 @@ type Pipeline struct {
 	Conf Conf   `json:"conf"`
 }
 
-func (o *Pipeline) GetID() string {
-	if o == nil {
+func (p *Pipeline) GetID() string {
+	if p == nil {
 		return ""
 	}
-	return o.ID
+	return p.ID
 }
 
-func (o *Pipeline) GetConf() Conf {
-	if o == nil {
+func (p *Pipeline) GetConf() Conf {
+	if p == nil {
 		return Conf{}
 	}
-	return o.Conf
+	return p.Conf
 }

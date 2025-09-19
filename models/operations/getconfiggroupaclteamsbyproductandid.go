@@ -15,25 +15,25 @@ type GetConfigGroupACLTeamsByProductAndIDRequest struct {
 	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetProduct() components.ProductsCore {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetProduct() components.ProductsCore {
+	if g == nil {
 		return components.ProductsCore("")
 	}
-	return o.Product
+	return g.Product
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetID() string {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.RbacResource {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.RbacResource {
+	if g == nil {
 		return nil
 	}
-	return o.Type
+	return g.Type
 }
 
 // GetConfigGroupACLTeamsByProductAndIDResponseBody - a list of TeamAccessControlList objects
@@ -43,18 +43,18 @@ type GetConfigGroupACLTeamsByProductAndIDResponseBody struct {
 	Items []components.TeamAccessControlList `json:"items,omitempty"`
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetItems() []components.TeamAccessControlList {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetItems() []components.TeamAccessControlList {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetConfigGroupACLTeamsByProductAndIDResponse struct {
@@ -63,16 +63,16 @@ type GetConfigGroupACLTeamsByProductAndIDResponse struct {
 	Object *GetConfigGroupACLTeamsByProductAndIDResponseBody
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetConfigGroupACLTeamsByProductAndIDResponse) GetObject() *GetConfigGroupACLTeamsByProductAndIDResponseBody {
-	if o == nil {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetObject() *GetConfigGroupACLTeamsByProductAndIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }

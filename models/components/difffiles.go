@@ -25,25 +25,25 @@ func (l *Line3) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Line3) GetContent() string {
-	if o == nil {
+func (l *Line3) GetContent() string {
+	if l == nil {
 		return ""
 	}
-	return o.Content
+	return l.Content
 }
 
-func (o *Line3) GetNewNumber() float64 {
-	if o == nil {
+func (l *Line3) GetNewNumber() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.NewNumber
+	return l.NewNumber
 }
 
-func (o *Line3) GetOldNumber() float64 {
-	if o == nil {
+func (l *Line3) GetOldNumber() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.OldNumber
+	return l.OldNumber
 }
 
 type Line2 struct {
@@ -62,18 +62,18 @@ func (l *Line2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Line2) GetContent() string {
-	if o == nil {
+func (l *Line2) GetContent() string {
+	if l == nil {
 		return ""
 	}
-	return o.Content
+	return l.Content
 }
 
-func (o *Line2) GetNewNumber() float64 {
-	if o == nil {
+func (l *Line2) GetNewNumber() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.NewNumber
+	return l.NewNumber
 }
 
 type Line1 struct {
@@ -92,18 +92,18 @@ func (l *Line1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Line1) GetContent() string {
-	if o == nil {
+func (l *Line1) GetContent() string {
+	if l == nil {
 		return ""
 	}
-	return o.Content
+	return l.Content
 }
 
-func (o *Line1) GetOldNumber() float64 {
-	if o == nil {
+func (l *Line1) GetOldNumber() float64 {
+	if l == nil {
 		return 0.0
 	}
-	return o.OldNumber
+	return l.OldNumber
 }
 
 type LineUnionType string
@@ -199,39 +199,39 @@ type Block struct {
 	OldStartLine2 *float64    `json:"oldStartLine2,omitempty"`
 }
 
-func (o *Block) GetHeader() string {
-	if o == nil {
+func (b *Block) GetHeader() string {
+	if b == nil {
 		return ""
 	}
-	return o.Header
+	return b.Header
 }
 
-func (o *Block) GetLines() []LineUnion {
-	if o == nil {
+func (b *Block) GetLines() []LineUnion {
+	if b == nil {
 		return []LineUnion{}
 	}
-	return o.Lines
+	return b.Lines
 }
 
-func (o *Block) GetNewStartLine() float64 {
-	if o == nil {
+func (b *Block) GetNewStartLine() float64 {
+	if b == nil {
 		return 0.0
 	}
-	return o.NewStartLine
+	return b.NewStartLine
 }
 
-func (o *Block) GetOldStartLine() float64 {
-	if o == nil {
+func (b *Block) GetOldStartLine() float64 {
+	if b == nil {
 		return 0.0
 	}
-	return o.OldStartLine
+	return b.OldStartLine
 }
 
-func (o *Block) GetOldStartLine2() *float64 {
-	if o == nil {
+func (b *Block) GetOldStartLine2() *float64 {
+	if b == nil {
 		return nil
 	}
-	return o.OldStartLine2
+	return b.OldStartLine2
 }
 
 type ChecksumBeforeType string
@@ -386,163 +386,163 @@ type DiffFiles struct {
 	UnchangedPercentage *float64        `json:"unchangedPercentage,omitempty"`
 }
 
-func (o *DiffFiles) GetAddedLines() float64 {
-	if o == nil {
+func (d *DiffFiles) GetAddedLines() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return o.AddedLines
+	return d.AddedLines
 }
 
-func (o *DiffFiles) GetBlocks() []Block {
-	if o == nil {
+func (d *DiffFiles) GetBlocks() []Block {
+	if d == nil {
 		return []Block{}
 	}
-	return o.Blocks
+	return d.Blocks
 }
 
-func (o *DiffFiles) GetChangedPercentage() *float64 {
-	if o == nil {
+func (d *DiffFiles) GetChangedPercentage() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.ChangedPercentage
+	return d.ChangedPercentage
 }
 
-func (o *DiffFiles) GetChecksumAfter() *string {
-	if o == nil {
+func (d *DiffFiles) GetChecksumAfter() *string {
+	if d == nil {
 		return nil
 	}
-	return o.ChecksumAfter
+	return d.ChecksumAfter
 }
 
-func (o *DiffFiles) GetChecksumBefore() *ChecksumBefore {
-	if o == nil {
+func (d *DiffFiles) GetChecksumBefore() *ChecksumBefore {
+	if d == nil {
 		return nil
 	}
-	return o.ChecksumBefore
+	return d.ChecksumBefore
 }
 
-func (o *DiffFiles) GetDeletedFileMode() *string {
-	if o == nil {
+func (d *DiffFiles) GetDeletedFileMode() *string {
+	if d == nil {
 		return nil
 	}
-	return o.DeletedFileMode
+	return d.DeletedFileMode
 }
 
-func (o *DiffFiles) GetDeletedLines() float64 {
-	if o == nil {
+func (d *DiffFiles) GetDeletedLines() float64 {
+	if d == nil {
 		return 0.0
 	}
-	return o.DeletedLines
+	return d.DeletedLines
 }
 
-func (o *DiffFiles) GetIsBinary() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsBinary() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsBinary
+	return d.IsBinary
 }
 
-func (o *DiffFiles) GetIsCombined() bool {
-	if o == nil {
+func (d *DiffFiles) GetIsCombined() bool {
+	if d == nil {
 		return false
 	}
-	return o.IsCombined
+	return d.IsCombined
 }
 
-func (o *DiffFiles) GetIsCopy() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsCopy() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsCopy
+	return d.IsCopy
 }
 
-func (o *DiffFiles) GetIsDeleted() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsDeleted() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsDeleted
+	return d.IsDeleted
 }
 
-func (o *DiffFiles) GetIsGitDiff() bool {
-	if o == nil {
+func (d *DiffFiles) GetIsGitDiff() bool {
+	if d == nil {
 		return false
 	}
-	return o.IsGitDiff
+	return d.IsGitDiff
 }
 
-func (o *DiffFiles) GetIsNew() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsNew() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsNew
+	return d.IsNew
 }
 
-func (o *DiffFiles) GetIsRename() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsRename() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsRename
+	return d.IsRename
 }
 
-func (o *DiffFiles) GetIsTooBig() *bool {
-	if o == nil {
+func (d *DiffFiles) GetIsTooBig() *bool {
+	if d == nil {
 		return nil
 	}
-	return o.IsTooBig
+	return d.IsTooBig
 }
 
-func (o *DiffFiles) GetLanguage() string {
-	if o == nil {
+func (d *DiffFiles) GetLanguage() string {
+	if d == nil {
 		return ""
 	}
-	return o.Language
+	return d.Language
 }
 
-func (o *DiffFiles) GetMode() *string {
-	if o == nil {
+func (d *DiffFiles) GetMode() *string {
+	if d == nil {
 		return nil
 	}
-	return o.Mode
+	return d.Mode
 }
 
-func (o *DiffFiles) GetNewFileMode() *string {
-	if o == nil {
+func (d *DiffFiles) GetNewFileMode() *string {
+	if d == nil {
 		return nil
 	}
-	return o.NewFileMode
+	return d.NewFileMode
 }
 
-func (o *DiffFiles) GetNewMode() *string {
-	if o == nil {
+func (d *DiffFiles) GetNewMode() *string {
+	if d == nil {
 		return nil
 	}
-	return o.NewMode
+	return d.NewMode
 }
 
-func (o *DiffFiles) GetNewName() string {
-	if o == nil {
+func (d *DiffFiles) GetNewName() string {
+	if d == nil {
 		return ""
 	}
-	return o.NewName
+	return d.NewName
 }
 
-func (o *DiffFiles) GetOldMode() *OldMode {
-	if o == nil {
+func (d *DiffFiles) GetOldMode() *OldMode {
+	if d == nil {
 		return nil
 	}
-	return o.OldMode
+	return d.OldMode
 }
 
-func (o *DiffFiles) GetOldName() string {
-	if o == nil {
+func (d *DiffFiles) GetOldName() string {
+	if d == nil {
 		return ""
 	}
-	return o.OldName
+	return d.OldName
 }
 
-func (o *DiffFiles) GetUnchangedPercentage() *float64 {
-	if o == nil {
+func (d *DiffFiles) GetUnchangedPercentage() *float64 {
+	if d == nil {
 		return nil
 	}
-	return o.UnchangedPercentage
+	return d.UnchangedPercentage
 }

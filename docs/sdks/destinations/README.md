@@ -37,7 +37,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -93,20 +93,20 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
         components.OutputElasticCloud{
-            ID: criblcontrolplanesdkgo.String("<id>"),
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.OutputElasticCloudTypeElasticCloud,
-            Pipeline: criblcontrolplanesdkgo.String("<value>"),
+            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
                 "<value 2>",
             },
-            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
             },
@@ -114,7 +114,7 @@ func main() {
             Index: "<value>",
             ExtraHTTPHeaders: []components.OutputElasticCloudExtraHTTPHeader{
                 components.OutputElasticCloudExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.String("<value>"),
+                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
                     Value: "<value>",
                 },
             },
@@ -129,15 +129,15 @@ func main() {
                 },
             },
             Auth: &components.OutputElasticCloudAuth{},
-            ElasticPipeline: criblcontrolplanesdkgo.String("<value>"),
+            ElasticPipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             ResponseRetrySettings: []components.OutputElasticCloudResponseRetrySetting{
                 components.OutputElasticCloudResponseRetrySetting{
                     HTTPStatus: 7295.73,
                 },
             },
             TimeoutRetrySettings: &components.OutputElasticCloudTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Bool(false),
-            Description: criblcontrolplanesdkgo.String("hourly about into"),
+            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
+            Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
             PqControls: &components.OutputElasticCloudPqControls{},
         },
     ))
@@ -193,7 +193,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
@@ -250,26 +250,26 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputOutputSignalfx(
         components.OutputSignalfx{
-            ID: criblcontrolplanesdkgo.String("<id>"),
+            ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.OutputSignalfxTypeSignalfx,
-            Pipeline: criblcontrolplanesdkgo.String("<value>"),
+            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
             },
-            Environment: criblcontrolplanesdkgo.String("<value>"),
+            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
             ExtraHTTPHeaders: []components.OutputSignalfxExtraHTTPHeader{
                 components.OutputSignalfxExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.String("<value>"),
+                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
                     Value: "<value>",
                 },
             },
@@ -282,10 +282,10 @@ func main() {
                 },
             },
             TimeoutRetrySettings: &components.OutputSignalfxTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Bool(false),
-            Description: criblcontrolplanesdkgo.String("phooey positively a consequently meh until"),
-            Token: criblcontrolplanesdkgo.String("<value>"),
-            TextSecret: criblcontrolplanesdkgo.String("<value>"),
+            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
+            Description: criblcontrolplanesdkgo.Pointer("phooey positively a consequently meh until"),
+            Token: criblcontrolplanesdkgo.Pointer("<value>"),
+            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
             PqControls: &components.OutputSignalfxPqControls{},
         },
     ))
@@ -342,7 +342,7 @@ func main() {
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
         criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.String(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
         }),
     )
 

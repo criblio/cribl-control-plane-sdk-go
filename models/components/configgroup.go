@@ -13,25 +13,25 @@ type Git struct {
 	Log          []Commit `json:"log,omitempty"`
 }
 
-func (o *Git) GetCommit() *string {
-	if o == nil {
+func (g *Git) GetCommit() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Commit
+	return g.Commit
 }
 
-func (o *Git) GetLocalChanges() *float64 {
-	if o == nil {
+func (g *Git) GetLocalChanges() *float64 {
+	if g == nil {
 		return nil
 	}
-	return o.LocalChanges
+	return g.LocalChanges
 }
 
-func (o *Git) GetLog() []Commit {
-	if o == nil {
+func (g *Git) GetLog() []Commit {
+	if g == nil {
 		return nil
 	}
-	return o.Log
+	return g.Log
 }
 
 type ConfigGroupType string
@@ -82,156 +82,156 @@ type ConfigGroup struct {
 	WorkerRemoteAccess      *bool                `json:"workerRemoteAccess,omitempty"`
 }
 
-func (o *ConfigGroup) GetCloud() *ConfigGroupCloud {
-	if o == nil {
+func (c *ConfigGroup) GetCloud() *ConfigGroupCloud {
+	if c == nil {
 		return nil
 	}
-	return o.Cloud
+	return c.Cloud
 }
 
-func (o *ConfigGroup) GetConfigVersion() *string {
-	if o == nil {
+func (c *ConfigGroup) GetConfigVersion() *string {
+	if c == nil {
 		return nil
 	}
-	return o.ConfigVersion
+	return c.ConfigVersion
 }
 
-func (o *ConfigGroup) GetDeployingWorkerCount() *float64 {
-	if o == nil {
+func (c *ConfigGroup) GetDeployingWorkerCount() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.DeployingWorkerCount
+	return c.DeployingWorkerCount
 }
 
-func (o *ConfigGroup) GetDescription() *string {
-	if o == nil {
+func (c *ConfigGroup) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Description
+	return c.Description
 }
 
-func (o *ConfigGroup) GetEstimatedIngestRate() *float64 {
-	if o == nil {
+func (c *ConfigGroup) GetEstimatedIngestRate() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.EstimatedIngestRate
+	return c.EstimatedIngestRate
 }
 
-func (o *ConfigGroup) GetGit() *Git {
-	if o == nil {
+func (c *ConfigGroup) GetGit() *Git {
+	if c == nil {
 		return nil
 	}
-	return o.Git
+	return c.Git
 }
 
-func (o *ConfigGroup) GetID() string {
-	if o == nil {
+func (c *ConfigGroup) GetID() string {
+	if c == nil {
 		return ""
 	}
-	return o.ID
+	return c.ID
 }
 
-func (o *ConfigGroup) GetIncompatibleWorkerCount() *float64 {
-	if o == nil {
+func (c *ConfigGroup) GetIncompatibleWorkerCount() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.IncompatibleWorkerCount
+	return c.IncompatibleWorkerCount
 }
 
-func (o *ConfigGroup) GetInherits() *string {
-	if o == nil {
+func (c *ConfigGroup) GetInherits() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Inherits
+	return c.Inherits
 }
 
-func (o *ConfigGroup) GetIsFleet() *bool {
-	if o == nil {
+func (c *ConfigGroup) GetIsFleet() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.IsFleet
+	return c.IsFleet
 }
 
-func (o *ConfigGroup) GetIsSearch() *bool {
-	if o == nil {
+func (c *ConfigGroup) GetIsSearch() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.IsSearch
+	return c.IsSearch
 }
 
-func (o *ConfigGroup) GetLookupDeployments() []ConfigGroupLookups {
-	if o == nil {
+func (c *ConfigGroup) GetLookupDeployments() []ConfigGroupLookups {
+	if c == nil {
 		return nil
 	}
-	return o.LookupDeployments
+	return c.LookupDeployments
 }
 
-func (o *ConfigGroup) GetMaxWorkerAge() *string {
-	if o == nil {
+func (c *ConfigGroup) GetMaxWorkerAge() *string {
+	if c == nil {
 		return nil
 	}
-	return o.MaxWorkerAge
+	return c.MaxWorkerAge
 }
 
-func (o *ConfigGroup) GetName() *string {
-	if o == nil {
+func (c *ConfigGroup) GetName() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Name
+	return c.Name
 }
 
-func (o *ConfigGroup) GetOnPrem() *bool {
-	if o == nil {
+func (c *ConfigGroup) GetOnPrem() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.OnPrem
+	return c.OnPrem
 }
 
-func (o *ConfigGroup) GetProvisioned() *bool {
-	if o == nil {
+func (c *ConfigGroup) GetProvisioned() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.Provisioned
+	return c.Provisioned
 }
 
-func (o *ConfigGroup) GetStreamtags() []string {
-	if o == nil {
+func (c *ConfigGroup) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Streamtags
+	return c.Streamtags
 }
 
-func (o *ConfigGroup) GetTags() *string {
-	if o == nil {
+func (c *ConfigGroup) GetTags() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Tags
+	return c.Tags
 }
 
-func (o *ConfigGroup) GetType() *ConfigGroupType {
-	if o == nil {
+func (c *ConfigGroup) GetType() *ConfigGroupType {
+	if c == nil {
 		return nil
 	}
-	return o.Type
+	return c.Type
 }
 
-func (o *ConfigGroup) GetUpgradeVersion() *string {
-	if o == nil {
+func (c *ConfigGroup) GetUpgradeVersion() *string {
+	if c == nil {
 		return nil
 	}
-	return o.UpgradeVersion
+	return c.UpgradeVersion
 }
 
-func (o *ConfigGroup) GetWorkerCount() *float64 {
-	if o == nil {
+func (c *ConfigGroup) GetWorkerCount() *float64 {
+	if c == nil {
 		return nil
 	}
-	return o.WorkerCount
+	return c.WorkerCount
 }
 
-func (o *ConfigGroup) GetWorkerRemoteAccess() *bool {
-	if o == nil {
+func (c *ConfigGroup) GetWorkerRemoteAccess() *bool {
+	if c == nil {
 		return nil
 	}
-	return o.WorkerRemoteAccess
+	return c.WorkerRemoteAccess
 }

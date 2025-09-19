@@ -11,11 +11,11 @@ type GetOutputPqByIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetOutputPqByIDRequest) GetID() string {
-	if o == nil {
+func (g *GetOutputPqByIDRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 // GetOutputPqByIDResponseBody - a list of JobInfo objects
@@ -25,18 +25,18 @@ type GetOutputPqByIDResponseBody struct {
 	Items []components.JobInfo `json:"items,omitempty"`
 }
 
-func (o *GetOutputPqByIDResponseBody) GetCount() *int64 {
-	if o == nil {
+func (g *GetOutputPqByIDResponseBody) GetCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.Count
+	return g.Count
 }
 
-func (o *GetOutputPqByIDResponseBody) GetItems() []components.JobInfo {
-	if o == nil {
+func (g *GetOutputPqByIDResponseBody) GetItems() []components.JobInfo {
+	if g == nil {
 		return nil
 	}
-	return o.Items
+	return g.Items
 }
 
 type GetOutputPqByIDResponse struct {
@@ -45,16 +45,16 @@ type GetOutputPqByIDResponse struct {
 	Object *GetOutputPqByIDResponseBody
 }
 
-func (o *GetOutputPqByIDResponse) GetHTTPMeta() components.HTTPMetadata {
-	if o == nil {
+func (g *GetOutputPqByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+	if g == nil {
 		return components.HTTPMetadata{}
 	}
-	return o.HTTPMeta
+	return g.HTTPMeta
 }
 
-func (o *GetOutputPqByIDResponse) GetObject() *GetOutputPqByIDResponseBody {
-	if o == nil {
+func (g *GetOutputPqByIDResponse) GetObject() *GetOutputPqByIDResponseBody {
+	if g == nil {
 		return nil
 	}
-	return o.Object
+	return g.Object
 }
