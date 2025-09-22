@@ -72,21 +72,6 @@ const (
 func (e InputWizWebhookMode) ToPointer() *InputWizWebhookMode {
 	return &e
 }
-func (e *InputWizWebhookMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputWizWebhookMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizWebhookMode: %v", v)
-	}
-}
 
 // InputWizWebhookCompression - Codec to use to compress the persisted data
 type InputWizWebhookCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputWizWebhookCompression) ToPointer() *InputWizWebhookCompression {
 	return &e
-}
-func (e *InputWizWebhookCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWizWebhookCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizWebhookCompression: %v", v)
-	}
 }
 
 type InputWizWebhookPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputWizWebhookMinimumTLSVersion) ToPointer() *InputWizWebhookMinimumTLSVersion {
 	return &e
 }
-func (e *InputWizWebhookMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputWizWebhookMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizWebhookMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputWizWebhookMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputWizWebhookMaximumTLSVersion) ToPointer() *InputWizWebhookMaximumTLSVersion {
 	return &e
-}
-func (e *InputWizWebhookMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputWizWebhookMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizWebhookMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputWizWebhookTLSSettingsServerSide struct {

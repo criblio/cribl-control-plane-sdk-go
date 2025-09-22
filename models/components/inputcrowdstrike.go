@@ -72,21 +72,6 @@ const (
 func (e InputCrowdstrikeMode) ToPointer() *InputCrowdstrikeMode {
 	return &e
 }
-func (e *InputCrowdstrikeMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputCrowdstrikeMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCrowdstrikeMode: %v", v)
-	}
-}
 
 // InputCrowdstrikeCompression - Codec to use to compress the persisted data
 type InputCrowdstrikeCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputCrowdstrikeCompression) ToPointer() *InputCrowdstrikeCompression {
 	return &e
-}
-func (e *InputCrowdstrikeCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputCrowdstrikeCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCrowdstrikeCompression: %v", v)
-	}
 }
 
 type InputCrowdstrikePqControls struct {
@@ -226,23 +196,6 @@ const (
 func (e InputCrowdstrikeAuthenticationMethod) ToPointer() *InputCrowdstrikeAuthenticationMethod {
 	return &e
 }
-func (e *InputCrowdstrikeAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputCrowdstrikeAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCrowdstrikeAuthenticationMethod: %v", v)
-	}
-}
 
 // InputCrowdstrikeSignatureVersion - Signature version to use for signing S3 requests
 type InputCrowdstrikeSignatureVersion string
@@ -254,21 +207,6 @@ const (
 
 func (e InputCrowdstrikeSignatureVersion) ToPointer() *InputCrowdstrikeSignatureVersion {
 	return &e
-}
-func (e *InputCrowdstrikeSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = InputCrowdstrikeSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCrowdstrikeSignatureVersion: %v", v)
-	}
 }
 
 type InputCrowdstrikePreprocess struct {
@@ -383,21 +321,6 @@ const (
 
 func (e InputCrowdstrikeTagAfterProcessing) ToPointer() *InputCrowdstrikeTagAfterProcessing {
 	return &e
-}
-func (e *InputCrowdstrikeTagAfterProcessing) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "false":
-		fallthrough
-	case "true":
-		*e = InputCrowdstrikeTagAfterProcessing(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCrowdstrikeTagAfterProcessing: %v", v)
-	}
 }
 
 type InputCrowdstrike struct {
