@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type Git struct {
 	Commit       *string  `json:"commit,omitempty"`
 	LocalChanges *float64 `json:"localChanges,omitempty"`
@@ -42,19 +37,6 @@ const (
 
 func (e ConfigGroupType) ToPointer() *ConfigGroupType {
 	return &e
-}
-func (e *ConfigGroupType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "lake_access":
-		*e = ConfigGroupType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ConfigGroupType: %v", v)
-	}
 }
 
 type ConfigGroup struct {

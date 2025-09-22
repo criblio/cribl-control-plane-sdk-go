@@ -12,11 +12,12 @@ type NodeProvidedInfoTags struct {
 }
 
 type NodeProvidedInfoAws struct {
-	Enabled bool                  `json:"enabled"`
-	Region  string                `json:"region"`
-	Tags    *NodeProvidedInfoTags `json:"tags,omitempty"`
-	Type    string                `json:"type"`
-	Zone    string                `json:"zone"`
+	Enabled    bool                  `json:"enabled"`
+	InstanceID string                `json:"instanceId"`
+	Region     string                `json:"region"`
+	Tags       *NodeProvidedInfoTags `json:"tags,omitempty"`
+	Type       string                `json:"type"`
+	Zone       string                `json:"zone"`
 }
 
 func (n *NodeProvidedInfoAws) GetEnabled() bool {
@@ -24,6 +25,13 @@ func (n *NodeProvidedInfoAws) GetEnabled() bool {
 		return false
 	}
 	return n.Enabled
+}
+
+func (n *NodeProvidedInfoAws) GetInstanceID() string {
+	if n == nil {
+		return ""
+	}
+	return n.InstanceID
 }
 
 func (n *NodeProvidedInfoAws) GetRegion() string {

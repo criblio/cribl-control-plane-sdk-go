@@ -72,21 +72,6 @@ const (
 func (e InputKubeMetricsMode) ToPointer() *InputKubeMetricsMode {
 	return &e
 }
-func (e *InputKubeMetricsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputKubeMetricsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeMetricsMode: %v", v)
-	}
-}
 
 // InputKubeMetricsCompression - Codec to use to compress the persisted data
 type InputKubeMetricsCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputKubeMetricsCompression) ToPointer() *InputKubeMetricsCompression {
 	return &e
-}
-func (e *InputKubeMetricsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeMetricsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeMetricsCompression: %v", v)
-	}
 }
 
 type InputKubeMetricsPqControls struct {
@@ -286,21 +256,6 @@ const (
 
 func (e InputKubeMetricsDataCompressionFormat) ToPointer() *InputKubeMetricsDataCompressionFormat {
 	return &e
-}
-func (e *InputKubeMetricsDataCompressionFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeMetricsDataCompressionFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeMetricsDataCompressionFormat: %v", v)
-	}
 }
 
 type InputKubeMetricsPersistence struct {

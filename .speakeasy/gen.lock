@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 0c45762d1c7f05ccca71a32eff80a6a6
-  docVersion: 4.14.0-837595d5
+  docChecksum: 02cbb6c109aca4dc74c777169a40f4d9
+  docVersion: 4.15.0-alpha.1758566860656-1c3a24b3
   speakeasyVersion: 1.621.0
   generationVersion: 2.707.0
-  releaseVersion: 0.0.48
-  configChecksum: 7ffe985c5912a1e6942f7e988a5406e3
+  releaseVersion: 0.0.49-alpha.1
+  configChecksum: adc33c832841ff325803af92271515aa
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -27,6 +27,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.2.0
     oauth2ClientCredentials: 0.4.0
+    openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
@@ -39,7 +40,6 @@ generatedFiles:
   - /models/apierrors/error.go
   - /models/apierrors/healthstatuserror.go
   - /models/components/addhectokenrequest.go
-  - /models/components/appmode.go
   - /models/components/authtoken.go
   - /models/components/branchinfo.go
   - /models/components/cacheconnection.go
@@ -224,7 +224,6 @@ generatedFiles:
   - /models/components/productscore.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
-  - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
@@ -315,7 +314,6 @@ generatedFiles:
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
-  - docs/models/components/appmode.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
@@ -360,6 +358,7 @@ generatedFiles:
   - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/difffiles.md
   - docs/models/components/disksandfilesystems.md
+  - docs/models/components/distmode.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
@@ -1099,6 +1098,7 @@ generatedFiles:
   - docs/models/components/inputtcppreprocess.md
   - docs/models/components/inputtcptlssettingsserverside.md
   - docs/models/components/inputtcptype.md
+  - docs/models/components/inputtype.md
   - docs/models/components/inputwef.md
   - docs/models/components/inputwefauthenticationmethod.md
   - docs/models/components/inputwefcompression.md
@@ -2063,7 +2063,6 @@ generatedFiles:
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
   - docs/models/components/role.md
-  - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
@@ -2083,7 +2082,6 @@ generatedFiles:
   - docs/models/components/runnablejobcollectionscheduleloglevel.md
   - docs/models/components/runnablejobcollectionscheduletimewarning.md
   - docs/models/components/runnablejobcollectiontimewarning.md
-  - docs/models/components/runnablejobcollectiontype.md
   - docs/models/components/runnablejobexecutor.md
   - docs/models/components/runnablejobexecutorjobtype.md
   - docs/models/components/runnablejobexecutorloglevel.md
@@ -3048,7 +3046,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3303,3 +3301,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n  *  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n  *  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n"

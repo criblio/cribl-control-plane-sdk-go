@@ -19,23 +19,6 @@ const (
 func (e RunnableJobCollectionJobType) ToPointer() *RunnableJobCollectionJobType {
 	return &e
 }
-func (e *RunnableJobCollectionJobType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "collection":
-		fallthrough
-	case "executor":
-		fallthrough
-	case "scheduledSearch":
-		*e = RunnableJobCollectionJobType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionJobType: %v", v)
-	}
-}
 
 type RunnableJobCollectionRunType string
 
@@ -398,27 +381,14 @@ func (c *Collector) GetEncoding() *string {
 	return c.Encoding
 }
 
-type RunnableJobCollectionType string
+type InputType string
 
 const (
-	RunnableJobCollectionTypeCollection RunnableJobCollectionType = "collection"
+	InputTypeCollection InputType = "collection"
 )
 
-func (e RunnableJobCollectionType) ToPointer() *RunnableJobCollectionType {
+func (e InputType) ToPointer() *InputType {
 	return &e
-}
-func (e *RunnableJobCollectionType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "collection":
-		*e = RunnableJobCollectionType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionType: %v", v)
-	}
 }
 
 type RunnableJobCollectionPreprocess struct {
@@ -493,7 +463,7 @@ func (r *RunnableJobCollectionMetadatum) GetValue() string {
 }
 
 type RunnableJobCollectionInput struct {
-	Type *RunnableJobCollectionType `default:"collection" json:"type"`
+	Type *InputType `default:"collection" json:"type"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -522,7 +492,7 @@ func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RunnableJobCollectionInput) GetType() *RunnableJobCollectionType {
+func (r *RunnableJobCollectionInput) GetType() *InputType {
 	if r == nil {
 		return nil
 	}
@@ -599,27 +569,6 @@ const (
 func (e RunnableJobCollectionLogLevel) ToPointer() *RunnableJobCollectionLogLevel {
 	return &e
 }
-func (e *RunnableJobCollectionLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = RunnableJobCollectionLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionLogLevel: %v", v)
-	}
-}
 
 // RunnableJobCollectionMode - Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
 type RunnableJobCollectionMode string
@@ -633,23 +582,6 @@ const (
 func (e RunnableJobCollectionMode) ToPointer() *RunnableJobCollectionMode {
 	return &e
 }
-func (e *RunnableJobCollectionMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "list":
-		fallthrough
-	case "preview":
-		fallthrough
-	case "run":
-		*e = RunnableJobCollectionMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionMode: %v", v)
-	}
-}
 
 type TimeRange string
 
@@ -660,21 +592,6 @@ const (
 
 func (e TimeRange) ToPointer() *TimeRange {
 	return &e
-}
-func (e *TimeRange) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "absolute":
-		fallthrough
-	case "relative":
-		*e = TimeRange(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TimeRange: %v", v)
-	}
 }
 
 type RunnableJobCollectionTimeWarning struct {
@@ -702,25 +619,6 @@ const (
 
 func (e WhereToCapture) ToPointer() *WhereToCapture {
 	return &e
-}
-func (e *WhereToCapture) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		fallthrough
-	case 3:
-		*e = WhereToCapture(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for WhereToCapture: %v", v)
-	}
 }
 
 type CaptureSettings struct {
