@@ -52,16 +52,7 @@ jobs:
             echo "needs_update=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Get latest Speakeasy SDK Generation Action commit
-        if: steps.check-update.outputs.needs_update == 'true'
-        id: action-commit
-        run: |
-          # Get the latest commit SHA from the Speakeasy SDK Generation Action repository
-          latest_commit=$(curl -s https://api.github.com/repos/speakeasy-api/sdk-generation-action/commits/main | jq -r '.sha')
-          echo "Latest action commit: $latest_commit"
-          echo "commit=$latest_commit" >> "$GITHUB_OUTPUT"
-
-      - name: Update workflow.yaml and action versions
+      - name: Update workflow.yaml
         if: steps.check-update.outputs.needs_update == 'true'
         run: |
           # Update the speakeasyVersion in workflow.yaml
@@ -70,45 +61,20 @@ jobs:
           echo "Updated .speakeasy/workflow.yaml:"
           echo "Before: speakeasyVersion: ${{ steps.current-version.outputs.version }}"
           echo "After:  speakeasyVersion: ${{ steps.speakeasy-version.outputs.version }}"
-          
-          # Update pinned action versions in workflow files
-          echo "Updating Speakeasy action versions in workflow files..."
-          find .github/workflows \( -name "*.yaml" -o -name "*.yml" \) -print0 | xargs -0 grep -l "speakeasy-api/sdk-generation-action" | while IFS= read -r file; do
-            echo "Updating $file"
-            # Update the commit hash for speakeasy-api/sdk-generation-action
-            sed -i "s|speakeasy-api/sdk-generation-action/\.github/workflows/.*@[a-f0-9]*|speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@${{ steps.action-commit.outputs.commit }}|g" "$file"
-            sed -i "s|speakeasy-api/sdk-generation-action/\.github/workflows/.*@[a-f0-9]*|speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@${{ steps.action-commit.outputs.commit }}|g" "$file"
-            sed -i "s|speakeasy-api/sdk-generation-action/\.github/workflows/.*@[a-f0-9]*|speakeasy-api/sdk-generation-action/.github/workflows/sdk-test.yaml@${{ steps.action-commit.outputs.commit }}|g" "$file"
-          done
 
       - name: Verify changes
         if: steps.check-update.outputs.needs_update == 'true'
         run: |
-          echo "All changes made:"
-          git diff --name-only || echo "No files changed"
+          echo "Changes made to .speakeasy/workflow.yaml:"
+          git diff --no-index /dev/null .speakeasy/workflow.yaml || true
           
-          echo ""
-          echo "Changes to .speakeasy/workflow.yaml:"
-          git diff .speakeasy/workflow.yaml || true
-          
-          echo ""
-          echo "Changes to workflow files:"
-          git diff .github/workflows/ || true
-          
-          # Check that the speakeasyVersion change was applied correctly
+          # Check that the change was applied correctly
           updated_version=$(grep "speakeasyVersion:" .speakeasy/workflow.yaml | sed 's/speakeasyVersion: //')
           if [ "$updated_version" = "${{ steps.speakeasy-version.outputs.version }}" ]; then
-            echo "✅ speakeasyVersion successfully updated to $updated_version"
+            echo "Version successfully updated to $updated_version"
           else
-            echo "❌ speakeasyVersion update failed. Expected: ${{ steps.speakeasy-version.outputs.version }}, Got: $updated_version"
+            echo "Version update failed. Expected: ${{ steps.speakeasy-version.outputs.version }}, Got: $updated_version"
             exit 1
-          fi
-          
-          # Check if action versions were updated
-          if grep -r "${{ steps.action-commit.outputs.commit }}" .github/workflows/ > /dev/null; then
-            echo "✅ Speakeasy action versions updated to latest commit"
-          else
-            echo "⚠️ No action version updates detected (may be expected if no action updates were needed)"
           fi
 
       - name: Create pull request with changes
@@ -122,8 +88,8 @@ jobs:
           branch_name="update-speakeasy-version-${{ steps.speakeasy-version.outputs.version }}"
           git checkout -b "$branch_name"
           
-          # Add all changes (workflow.yaml and any updated workflow files)
-          git add .speakeasy/workflow.yaml .github/workflows/
+          # Add changes
+          git add .speakeasy/workflow.yaml
           
           # Use custom commit message if provided, otherwise use default
           commit_message="${{ github.event.inputs.commit_message }}"
@@ -140,7 +106,7 @@ jobs:
           # Create pull request using GitHub CLI
           gh pr create \
             --title "Update Speakeasy version to ${{ steps.speakeasy-version.outputs.version }}" \
-            --body "Updates Speakeasy version from ${{ steps.current-version.outputs.version }} to ${{ steps.speakeasy-version.outputs.version }} and updates pinned action versions to latest commit ${{ steps.action-commit.outputs.commit }}." \
+            --body "Updates Speakeasy version from ${{ steps.current-version.outputs.version }} to ${{ steps.speakeasy-version.outputs.version }}." \
             --head "$branch_name" \
             --base main
         env:
@@ -156,8 +122,7 @@ jobs:
               echo "- **Previous Version:** ${{ steps.current-version.outputs.version }}"
               echo "- **New Version:** ${{ steps.speakeasy-version.outputs.version }}"
               echo "- **Release Tag:** ${{ steps.speakeasy-version.outputs.tag_name }}"
-              echo "- **Files Updated:** \`.speakeasy/workflow.yaml\` and GitHub workflow files"
-              echo "- **Action Commit:** ${{ steps.action-commit.outputs.commit }}"
+              echo "- **File Updated:** \`.speakeasy/workflow.yaml\`"
               echo "- **Branch:** \`update-speakeasy-version-${{ steps.speakeasy-version.outputs.version }}\`"
               echo ""
               echo "A pull request has been created with the version update. Please review and merge it to apply the changes."
