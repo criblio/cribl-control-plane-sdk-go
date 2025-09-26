@@ -51,6 +51,9 @@ go run example-edge.go auth.go
 
 # Cribl Packs integration
 go run example-packs.go auth.go
+
+# Worker group replication
+go run example-worker-group-replication.go auth.go
 ```
 
 **Important**: Always include `auth.go` when running configuration examples, as they depend on the authentication helper functions.
@@ -65,6 +68,7 @@ go run example-packs.go auth.go
 | `example-stream.go` | Complete Cribl Stream pipeline: worker group, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
 | `example-edge.go` | Complete Cribl Edge pipeline: fleet, source, destination, pipeline, routes, deployment | Uses `auth.go` + `.env` |
 | `example-packs.go` | Installs Cribl Pack and creates complete data pipeline within the pack | Uses `auth.go` + `.env` |
+| `example-worker-group-replication.go` | Replicates an existing worker group with a new unique identity | Uses `auth.go` + `.env` |
 
 ## Configuration
 
