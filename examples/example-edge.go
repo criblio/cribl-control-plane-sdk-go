@@ -230,13 +230,21 @@ func main() {
 		}
 	}
 
-	// Get current version for deployment
-	versionResponse, err := client.Groups.Configs.Versions.Get(ctx, components.ProductsCoreEdge, FLEET_ID)
+	// Commit configuration changes
+	effective := true
+	commitParams := components.GitCommitParams{
+		Message:   "Commit for Edge example",
+		Effective: &effective,
+		Files:     []string{"."},
+	}
+
+	fleetID := FLEET_ID
+	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &fleetID)
 	if err != nil {
-		log.Printf("Error getting version for deployment: %v", err)
-	} else if versionResponse.Object != nil && versionResponse.Object.Items != nil && len(versionResponse.Object.Items) > 0 {
-		// Get the current version (it's a string)
-		version := versionResponse.Object.Items[0]
+		log.Printf("Error creating commit: %v", err)
+	} else if commitResponse.Object != nil && commitResponse.Object.Items != nil && len(commitResponse.Object.Items) > 0 {
+		version := commitResponse.Object.Items[0].Commit
+		fmt.Printf("✅ Committed configuration changes to the fleet: %s, commit ID: %s\n", FLEET_ID, version)
 
 		// Deploy the configuration using DeployRequest
 		deployRequest := components.DeployRequest{
@@ -250,7 +258,4 @@ func main() {
 			fmt.Printf("✅ Fleet changes deployed: %s\n", FLEET_ID)
 		}
 	}
-
-	fmt.Println("ℹ️ Complete data pipeline created and deployed!")
-	fmt.Printf("ℹ️ Fleet URL: %s\n", groupURL)
 }
