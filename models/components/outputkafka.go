@@ -43,23 +43,6 @@ const (
 func (e OutputKafkaAcknowledgments) ToPointer() *OutputKafkaAcknowledgments {
 	return &e
 }
-func (e *OutputKafkaAcknowledgments) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 1:
-		fallthrough
-	case 0:
-		fallthrough
-	case -1:
-		*e = OutputKafkaAcknowledgments(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaAcknowledgments: %v", v)
-	}
-}
 
 // OutputKafkaRecordDataFormat - Format to use to serialize events before writing to Kafka.
 type OutputKafkaRecordDataFormat string
@@ -72,23 +55,6 @@ const (
 
 func (e OutputKafkaRecordDataFormat) ToPointer() *OutputKafkaRecordDataFormat {
 	return &e
-}
-func (e *OutputKafkaRecordDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "protobuf":
-		*e = OutputKafkaRecordDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaRecordDataFormat: %v", v)
-	}
 }
 
 // OutputKafkaCompression - Codec to use to compress the data before sending to Kafka
@@ -103,52 +69,6 @@ const (
 
 func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {
 	return &e
-}
-func (e *OutputKafkaCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		fallthrough
-	case "snappy":
-		fallthrough
-	case "lz4":
-		*e = OutputKafkaCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaCompression: %v", v)
-	}
-}
-
-// OutputKafkaSchemaType - The schema format used to encode and decode event data
-type OutputKafkaSchemaType string
-
-const (
-	OutputKafkaSchemaTypeAvro OutputKafkaSchemaType = "avro"
-	OutputKafkaSchemaTypeJSON OutputKafkaSchemaType = "json"
-)
-
-func (e OutputKafkaSchemaType) ToPointer() *OutputKafkaSchemaType {
-	return &e
-}
-func (e *OutputKafkaSchemaType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "avro":
-		fallthrough
-	case "json":
-		*e = OutputKafkaSchemaType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaSchemaType: %v", v)
-	}
 }
 
 // OutputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -195,25 +115,6 @@ const (
 func (e OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion {
 	return &e
 }
-func (e *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputKafkaKafkaSchemaRegistryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaKafkaSchemaRegistryMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputKafkaKafkaSchemaRegistryMaximumTLSVersion string
 
@@ -226,25 +127,6 @@ const (
 
 func (e OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
-}
-func (e *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputKafkaKafkaSchemaRegistryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaKafkaSchemaRegistryMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -353,8 +235,6 @@ type OutputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *OutputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -393,13 +273,6 @@ func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *s
 		return nil
 	}
 	return o.SchemaRegistryURL
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputKafkaSchemaType {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaType
 }
 
 func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -463,25 +336,6 @@ const (
 func (e OutputKafkaSASLMechanism) ToPointer() *OutputKafkaSASLMechanism {
 	return &e
 }
-func (e *OutputKafkaSASLMechanism) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "plain":
-		fallthrough
-	case "scram-sha-256":
-		fallthrough
-	case "scram-sha-512":
-		fallthrough
-	case "kerberos":
-		*e = OutputKafkaSASLMechanism(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaSASLMechanism: %v", v)
-	}
-}
 
 // OutputKafkaAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type OutputKafkaAuthentication struct {
@@ -535,25 +389,6 @@ const (
 func (e OutputKafkaMinimumTLSVersion) ToPointer() *OutputKafkaMinimumTLSVersion {
 	return &e
 }
-func (e *OutputKafkaMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputKafkaMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputKafkaMaximumTLSVersion string
 
@@ -566,25 +401,6 @@ const (
 
 func (e OutputKafkaMaximumTLSVersion) ToPointer() *OutputKafkaMaximumTLSVersion {
 	return &e
-}
-func (e *OutputKafkaMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputKafkaMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputKafkaTLSSettingsClientSide struct {
@@ -701,23 +517,6 @@ const (
 func (e OutputKafkaBackpressureBehavior) ToPointer() *OutputKafkaBackpressureBehavior {
 	return &e
 }
-func (e *OutputKafkaBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputKafkaBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputKafkaPqCompressCompression - Codec to use to compress the persisted data
 type OutputKafkaPqCompressCompression string
@@ -729,21 +528,6 @@ const (
 
 func (e OutputKafkaPqCompressCompression) ToPointer() *OutputKafkaPqCompressCompression {
 	return &e
-}
-func (e *OutputKafkaPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputKafkaPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaPqCompressCompression: %v", v)
-	}
 }
 
 // OutputKafkaQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -757,21 +541,6 @@ const (
 func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior {
 	return &e
 }
-func (e *OutputKafkaQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputKafkaQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputKafkaMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputKafkaMode string
@@ -784,23 +553,6 @@ const (
 
 func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {
 	return &e
-}
-func (e *OutputKafkaMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputKafkaMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKafkaMode: %v", v)
-	}
 }
 
 type OutputKafkaPqControls struct {
