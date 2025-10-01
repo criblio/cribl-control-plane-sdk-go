@@ -296,6 +296,7 @@ type NodeProvidedInfo struct {
 	ConnIP         *string                 `json:"conn_ip,omitempty"`
 	Cpus           float64                 `json:"cpus"`
 	Cribl          HBCriblInfo             `json:"cribl"`
+	Env            map[string]string       `json:"env"`
 	FreeDiskSpace  float64                 `json:"freeDiskSpace"`
 	HostOs         *NodeProvidedInfoHostOs `json:"hostOs,omitempty"`
 	Hostname       string                  `json:"hostname"`
@@ -344,6 +345,13 @@ func (n *NodeProvidedInfo) GetCribl() HBCriblInfo {
 		return HBCriblInfo{}
 	}
 	return n.Cribl
+}
+
+func (n *NodeProvidedInfo) GetEnv() map[string]string {
+	if n == nil {
+		return map[string]string{}
+	}
+	return n.Env
 }
 
 func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {
