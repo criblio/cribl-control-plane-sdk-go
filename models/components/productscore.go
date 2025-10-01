@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type ProductsCore string
 
 const (
@@ -16,19 +11,4 @@ const (
 
 func (e ProductsCore) ToPointer() *ProductsCore {
 	return &e
-}
-func (e *ProductsCore) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "stream":
-		fallthrough
-	case "edge":
-		*e = ProductsCore(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ProductsCore: %v", v)
-	}
 }

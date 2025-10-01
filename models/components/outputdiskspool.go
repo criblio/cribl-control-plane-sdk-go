@@ -42,21 +42,6 @@ const (
 func (e OutputDiskSpoolCompression) ToPointer() *OutputDiskSpoolCompression {
 	return &e
 }
-func (e *OutputDiskSpoolCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDiskSpoolCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDiskSpoolCompression: %v", v)
-	}
-}
 
 type OutputDiskSpool struct {
 	// Unique ID for this output
