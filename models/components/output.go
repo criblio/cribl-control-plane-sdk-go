@@ -75,6 +75,7 @@ const (
 	OutputTypeOutputDynatraceHTTP          OutputType = "OutputDynatraceHttp"
 	OutputTypeOutputDynatraceOtlp          OutputType = "OutputDynatraceOtlp"
 	OutputTypeOutputSentinelOneAiSiem      OutputType = "OutputSentinelOneAiSiem"
+	OutputTypeOutputDatabricks             OutputType = "OutputDatabricks"
 )
 
 type Output struct {
@@ -142,6 +143,7 @@ type Output struct {
 	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline,name=Output"`
 	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline,name=Output"`
 	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline,name=Output"`
+	OutputDatabricks             *OutputDatabricks             `queryParam:"inline,name=Output"`
 
 	Type OutputType
 }
@@ -722,6 +724,15 @@ func CreateOutputOutputSentinelOneAiSiem(outputSentinelOneAiSiem OutputSentinelO
 	}
 }
 
+func CreateOutputOutputDatabricks(outputDatabricks OutputDatabricks) Output {
+	typ := OutputTypeOutputDatabricks
+
+	return Output{
+		OutputDatabricks: &outputDatabricks,
+		Type:             typ,
+	}
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	var outputAzureDataExplorer OutputAzureDataExplorer = OutputAzureDataExplorer{}
@@ -1165,6 +1176,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputDatabricks OutputDatabricks = OutputDatabricks{}
+	if err := utils.UnmarshalJSON(data, &outputDatabricks, "", true, nil); err == nil {
+		u.OutputDatabricks = &outputDatabricks
+		u.Type = OutputTypeOutputDatabricks
+		return nil
+	}
+
 	var outputGrafanaCloud OutputGrafanaCloud = OutputGrafanaCloud{}
 	if err := utils.UnmarshalJSON(data, &outputGrafanaCloud, "", true, nil); err == nil {
 		u.OutputGrafanaCloud = &outputGrafanaCloud
@@ -1430,6 +1448,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSentinelOneAiSiem != nil {
 		return utils.MarshalJSON(u.OutputSentinelOneAiSiem, "", true)
+	}
+
+	if u.OutputDatabricks != nil {
+		return utils.MarshalJSON(u.OutputDatabricks, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

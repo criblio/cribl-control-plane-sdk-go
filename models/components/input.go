@@ -8,68 +8,68 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputType string
+type InputUnionType string
 
 const (
-	InputTypeInputCollection           InputType = "InputCollection"
-	InputTypeInputKafka                InputType = "InputKafka"
-	InputTypeInputMsk                  InputType = "InputMsk"
-	InputTypeInputHTTP                 InputType = "InputHttp"
-	InputTypeInputSplunk               InputType = "InputSplunk"
-	InputTypeInputSplunkSearch         InputType = "InputSplunkSearch"
-	InputTypeInputSplunkHec            InputType = "InputSplunkHec"
-	InputTypeInputAzureBlob            InputType = "InputAzureBlob"
-	InputTypeInputElastic              InputType = "InputElastic"
-	InputTypeInputConfluentCloud       InputType = "InputConfluentCloud"
-	InputTypeInputGrafana              InputType = "InputGrafana"
-	InputTypeInputLoki                 InputType = "InputLoki"
-	InputTypeInputPrometheusRw         InputType = "InputPrometheusRw"
-	InputTypeInputPrometheus           InputType = "InputPrometheus"
-	InputTypeInputEdgePrometheus       InputType = "InputEdgePrometheus"
-	InputTypeInputOffice365Mgmt        InputType = "InputOffice365Mgmt"
-	InputTypeInputOffice365Service     InputType = "InputOffice365Service"
-	InputTypeInputOffice365MsgTrace    InputType = "InputOffice365MsgTrace"
-	InputTypeInputEventhub             InputType = "InputEventhub"
-	InputTypeInputExec                 InputType = "InputExec"
-	InputTypeInputFirehose             InputType = "InputFirehose"
-	InputTypeInputGooglePubsub         InputType = "InputGooglePubsub"
-	InputTypeInputCribl                InputType = "InputCribl"
-	InputTypeInputCriblTCP             InputType = "InputCriblTcp"
-	InputTypeInputCriblHTTP            InputType = "InputCriblHttp"
-	InputTypeInputCriblLakeHTTP        InputType = "InputCriblLakeHttp"
-	InputTypeInputTcpjson              InputType = "InputTcpjson"
-	InputTypeInputSystemMetrics        InputType = "InputSystemMetrics"
-	InputTypeInputSystemState          InputType = "InputSystemState"
-	InputTypeInputKubeMetrics          InputType = "InputKubeMetrics"
-	InputTypeInputKubeLogs             InputType = "InputKubeLogs"
-	InputTypeInputKubeEvents           InputType = "InputKubeEvents"
-	InputTypeInputWindowsMetrics       InputType = "InputWindowsMetrics"
-	InputTypeInputCrowdstrike          InputType = "InputCrowdstrike"
-	InputTypeInputDatadogAgent         InputType = "InputDatadogAgent"
-	InputTypeInputDatagen              InputType = "InputDatagen"
-	InputTypeInputHTTPRaw              InputType = "InputHttpRaw"
-	InputTypeInputKinesis              InputType = "InputKinesis"
-	InputTypeInputCriblmetrics         InputType = "InputCriblmetrics"
-	InputTypeInputMetrics              InputType = "InputMetrics"
-	InputTypeInputS3                   InputType = "InputS3"
-	InputTypeInputS3Inventory          InputType = "InputS3Inventory"
-	InputTypeInputSnmp                 InputType = "InputSnmp"
-	InputTypeInputOpenTelemetry        InputType = "InputOpenTelemetry"
-	InputTypeInputModelDrivenTelemetry InputType = "InputModelDrivenTelemetry"
-	InputTypeInputSqs                  InputType = "InputSqs"
-	InputTypeInputSyslog               InputType = "InputSyslog"
-	InputTypeInputFile                 InputType = "InputFile"
-	InputTypeInputTCP                  InputType = "InputTcp"
-	InputTypeInputAppscope             InputType = "InputAppscope"
-	InputTypeInputWef                  InputType = "InputWef"
-	InputTypeInputWinEventLogs         InputType = "InputWinEventLogs"
-	InputTypeInputRawUDP               InputType = "InputRawUdp"
-	InputTypeInputJournalFiles         InputType = "InputJournalFiles"
-	InputTypeInputWiz                  InputType = "InputWiz"
-	InputTypeInputWizWebhook           InputType = "InputWizWebhook"
-	InputTypeInputNetflow              InputType = "InputNetflow"
-	InputTypeInputSecurityLake         InputType = "InputSecurityLake"
-	InputTypeInputZscalerHec           InputType = "InputZscalerHec"
+	InputUnionTypeInputCollection           InputUnionType = "InputCollection"
+	InputUnionTypeInputKafka                InputUnionType = "InputKafka"
+	InputUnionTypeInputMsk                  InputUnionType = "InputMsk"
+	InputUnionTypeInputHTTP                 InputUnionType = "InputHttp"
+	InputUnionTypeInputSplunk               InputUnionType = "InputSplunk"
+	InputUnionTypeInputSplunkSearch         InputUnionType = "InputSplunkSearch"
+	InputUnionTypeInputSplunkHec            InputUnionType = "InputSplunkHec"
+	InputUnionTypeInputAzureBlob            InputUnionType = "InputAzureBlob"
+	InputUnionTypeInputElastic              InputUnionType = "InputElastic"
+	InputUnionTypeInputConfluentCloud       InputUnionType = "InputConfluentCloud"
+	InputUnionTypeInputGrafana              InputUnionType = "InputGrafana"
+	InputUnionTypeInputLoki                 InputUnionType = "InputLoki"
+	InputUnionTypeInputPrometheusRw         InputUnionType = "InputPrometheusRw"
+	InputUnionTypeInputPrometheus           InputUnionType = "InputPrometheus"
+	InputUnionTypeInputEdgePrometheus       InputUnionType = "InputEdgePrometheus"
+	InputUnionTypeInputOffice365Mgmt        InputUnionType = "InputOffice365Mgmt"
+	InputUnionTypeInputOffice365Service     InputUnionType = "InputOffice365Service"
+	InputUnionTypeInputOffice365MsgTrace    InputUnionType = "InputOffice365MsgTrace"
+	InputUnionTypeInputEventhub             InputUnionType = "InputEventhub"
+	InputUnionTypeInputExec                 InputUnionType = "InputExec"
+	InputUnionTypeInputFirehose             InputUnionType = "InputFirehose"
+	InputUnionTypeInputGooglePubsub         InputUnionType = "InputGooglePubsub"
+	InputUnionTypeInputCribl                InputUnionType = "InputCribl"
+	InputUnionTypeInputCriblTCP             InputUnionType = "InputCriblTcp"
+	InputUnionTypeInputCriblHTTP            InputUnionType = "InputCriblHttp"
+	InputUnionTypeInputCriblLakeHTTP        InputUnionType = "InputCriblLakeHttp"
+	InputUnionTypeInputTcpjson              InputUnionType = "InputTcpjson"
+	InputUnionTypeInputSystemMetrics        InputUnionType = "InputSystemMetrics"
+	InputUnionTypeInputSystemState          InputUnionType = "InputSystemState"
+	InputUnionTypeInputKubeMetrics          InputUnionType = "InputKubeMetrics"
+	InputUnionTypeInputKubeLogs             InputUnionType = "InputKubeLogs"
+	InputUnionTypeInputKubeEvents           InputUnionType = "InputKubeEvents"
+	InputUnionTypeInputWindowsMetrics       InputUnionType = "InputWindowsMetrics"
+	InputUnionTypeInputCrowdstrike          InputUnionType = "InputCrowdstrike"
+	InputUnionTypeInputDatadogAgent         InputUnionType = "InputDatadogAgent"
+	InputUnionTypeInputDatagen              InputUnionType = "InputDatagen"
+	InputUnionTypeInputHTTPRaw              InputUnionType = "InputHttpRaw"
+	InputUnionTypeInputKinesis              InputUnionType = "InputKinesis"
+	InputUnionTypeInputCriblmetrics         InputUnionType = "InputCriblmetrics"
+	InputUnionTypeInputMetrics              InputUnionType = "InputMetrics"
+	InputUnionTypeInputS3                   InputUnionType = "InputS3"
+	InputUnionTypeInputS3Inventory          InputUnionType = "InputS3Inventory"
+	InputUnionTypeInputSnmp                 InputUnionType = "InputSnmp"
+	InputUnionTypeInputOpenTelemetry        InputUnionType = "InputOpenTelemetry"
+	InputUnionTypeInputModelDrivenTelemetry InputUnionType = "InputModelDrivenTelemetry"
+	InputUnionTypeInputSqs                  InputUnionType = "InputSqs"
+	InputUnionTypeInputSyslog               InputUnionType = "InputSyslog"
+	InputUnionTypeInputFile                 InputUnionType = "InputFile"
+	InputUnionTypeInputTCP                  InputUnionType = "InputTcp"
+	InputUnionTypeInputAppscope             InputUnionType = "InputAppscope"
+	InputUnionTypeInputWef                  InputUnionType = "InputWef"
+	InputUnionTypeInputWinEventLogs         InputUnionType = "InputWinEventLogs"
+	InputUnionTypeInputRawUDP               InputUnionType = "InputRawUdp"
+	InputUnionTypeInputJournalFiles         InputUnionType = "InputJournalFiles"
+	InputUnionTypeInputWiz                  InputUnionType = "InputWiz"
+	InputUnionTypeInputWizWebhook           InputUnionType = "InputWizWebhook"
+	InputUnionTypeInputNetflow              InputUnionType = "InputNetflow"
+	InputUnionTypeInputSecurityLake         InputUnionType = "InputSecurityLake"
+	InputUnionTypeInputZscalerHec           InputUnionType = "InputZscalerHec"
 )
 
 type Input struct {
@@ -133,11 +133,11 @@ type Input struct {
 	InputSecurityLake         *InputSecurityLake         `queryParam:"inline,name=Input"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline,name=Input"`
 
-	Type InputType
+	Type InputUnionType
 }
 
 func CreateInputInputCollection(inputCollection InputCollection) Input {
-	typ := InputTypeInputCollection
+	typ := InputUnionTypeInputCollection
 
 	return Input{
 		InputCollection: &inputCollection,
@@ -146,7 +146,7 @@ func CreateInputInputCollection(inputCollection InputCollection) Input {
 }
 
 func CreateInputInputKafka(inputKafka InputKafka) Input {
-	typ := InputTypeInputKafka
+	typ := InputUnionTypeInputKafka
 
 	return Input{
 		InputKafka: &inputKafka,
@@ -155,7 +155,7 @@ func CreateInputInputKafka(inputKafka InputKafka) Input {
 }
 
 func CreateInputInputMsk(inputMsk InputMsk) Input {
-	typ := InputTypeInputMsk
+	typ := InputUnionTypeInputMsk
 
 	return Input{
 		InputMsk: &inputMsk,
@@ -164,7 +164,7 @@ func CreateInputInputMsk(inputMsk InputMsk) Input {
 }
 
 func CreateInputInputHTTP(inputHTTP InputHTTP) Input {
-	typ := InputTypeInputHTTP
+	typ := InputUnionTypeInputHTTP
 
 	return Input{
 		InputHTTP: &inputHTTP,
@@ -173,7 +173,7 @@ func CreateInputInputHTTP(inputHTTP InputHTTP) Input {
 }
 
 func CreateInputInputSplunk(inputSplunk InputSplunk) Input {
-	typ := InputTypeInputSplunk
+	typ := InputUnionTypeInputSplunk
 
 	return Input{
 		InputSplunk: &inputSplunk,
@@ -182,7 +182,7 @@ func CreateInputInputSplunk(inputSplunk InputSplunk) Input {
 }
 
 func CreateInputInputSplunkSearch(inputSplunkSearch InputSplunkSearch) Input {
-	typ := InputTypeInputSplunkSearch
+	typ := InputUnionTypeInputSplunkSearch
 
 	return Input{
 		InputSplunkSearch: &inputSplunkSearch,
@@ -191,7 +191,7 @@ func CreateInputInputSplunkSearch(inputSplunkSearch InputSplunkSearch) Input {
 }
 
 func CreateInputInputSplunkHec(inputSplunkHec InputSplunkHec) Input {
-	typ := InputTypeInputSplunkHec
+	typ := InputUnionTypeInputSplunkHec
 
 	return Input{
 		InputSplunkHec: &inputSplunkHec,
@@ -200,7 +200,7 @@ func CreateInputInputSplunkHec(inputSplunkHec InputSplunkHec) Input {
 }
 
 func CreateInputInputAzureBlob(inputAzureBlob InputAzureBlob) Input {
-	typ := InputTypeInputAzureBlob
+	typ := InputUnionTypeInputAzureBlob
 
 	return Input{
 		InputAzureBlob: &inputAzureBlob,
@@ -209,7 +209,7 @@ func CreateInputInputAzureBlob(inputAzureBlob InputAzureBlob) Input {
 }
 
 func CreateInputInputElastic(inputElastic InputElastic) Input {
-	typ := InputTypeInputElastic
+	typ := InputUnionTypeInputElastic
 
 	return Input{
 		InputElastic: &inputElastic,
@@ -218,7 +218,7 @@ func CreateInputInputElastic(inputElastic InputElastic) Input {
 }
 
 func CreateInputInputConfluentCloud(inputConfluentCloud InputConfluentCloud) Input {
-	typ := InputTypeInputConfluentCloud
+	typ := InputUnionTypeInputConfluentCloud
 
 	return Input{
 		InputConfluentCloud: &inputConfluentCloud,
@@ -227,7 +227,7 @@ func CreateInputInputConfluentCloud(inputConfluentCloud InputConfluentCloud) Inp
 }
 
 func CreateInputInputGrafana(inputGrafana InputGrafana) Input {
-	typ := InputTypeInputGrafana
+	typ := InputUnionTypeInputGrafana
 
 	return Input{
 		InputGrafana: &inputGrafana,
@@ -236,7 +236,7 @@ func CreateInputInputGrafana(inputGrafana InputGrafana) Input {
 }
 
 func CreateInputInputLoki(inputLoki InputLoki) Input {
-	typ := InputTypeInputLoki
+	typ := InputUnionTypeInputLoki
 
 	return Input{
 		InputLoki: &inputLoki,
@@ -245,7 +245,7 @@ func CreateInputInputLoki(inputLoki InputLoki) Input {
 }
 
 func CreateInputInputPrometheusRw(inputPrometheusRw InputPrometheusRw) Input {
-	typ := InputTypeInputPrometheusRw
+	typ := InputUnionTypeInputPrometheusRw
 
 	return Input{
 		InputPrometheusRw: &inputPrometheusRw,
@@ -254,7 +254,7 @@ func CreateInputInputPrometheusRw(inputPrometheusRw InputPrometheusRw) Input {
 }
 
 func CreateInputInputPrometheus(inputPrometheus InputPrometheus) Input {
-	typ := InputTypeInputPrometheus
+	typ := InputUnionTypeInputPrometheus
 
 	return Input{
 		InputPrometheus: &inputPrometheus,
@@ -263,7 +263,7 @@ func CreateInputInputPrometheus(inputPrometheus InputPrometheus) Input {
 }
 
 func CreateInputInputEdgePrometheus(inputEdgePrometheus InputEdgePrometheus) Input {
-	typ := InputTypeInputEdgePrometheus
+	typ := InputUnionTypeInputEdgePrometheus
 
 	return Input{
 		InputEdgePrometheus: &inputEdgePrometheus,
@@ -272,7 +272,7 @@ func CreateInputInputEdgePrometheus(inputEdgePrometheus InputEdgePrometheus) Inp
 }
 
 func CreateInputInputOffice365Mgmt(inputOffice365Mgmt InputOffice365Mgmt) Input {
-	typ := InputTypeInputOffice365Mgmt
+	typ := InputUnionTypeInputOffice365Mgmt
 
 	return Input{
 		InputOffice365Mgmt: &inputOffice365Mgmt,
@@ -281,7 +281,7 @@ func CreateInputInputOffice365Mgmt(inputOffice365Mgmt InputOffice365Mgmt) Input 
 }
 
 func CreateInputInputOffice365Service(inputOffice365Service InputOffice365Service) Input {
-	typ := InputTypeInputOffice365Service
+	typ := InputUnionTypeInputOffice365Service
 
 	return Input{
 		InputOffice365Service: &inputOffice365Service,
@@ -290,7 +290,7 @@ func CreateInputInputOffice365Service(inputOffice365Service InputOffice365Servic
 }
 
 func CreateInputInputOffice365MsgTrace(inputOffice365MsgTrace InputOffice365MsgTrace) Input {
-	typ := InputTypeInputOffice365MsgTrace
+	typ := InputUnionTypeInputOffice365MsgTrace
 
 	return Input{
 		InputOffice365MsgTrace: &inputOffice365MsgTrace,
@@ -299,7 +299,7 @@ func CreateInputInputOffice365MsgTrace(inputOffice365MsgTrace InputOffice365MsgT
 }
 
 func CreateInputInputEventhub(inputEventhub InputEventhub) Input {
-	typ := InputTypeInputEventhub
+	typ := InputUnionTypeInputEventhub
 
 	return Input{
 		InputEventhub: &inputEventhub,
@@ -308,7 +308,7 @@ func CreateInputInputEventhub(inputEventhub InputEventhub) Input {
 }
 
 func CreateInputInputExec(inputExec InputExec) Input {
-	typ := InputTypeInputExec
+	typ := InputUnionTypeInputExec
 
 	return Input{
 		InputExec: &inputExec,
@@ -317,7 +317,7 @@ func CreateInputInputExec(inputExec InputExec) Input {
 }
 
 func CreateInputInputFirehose(inputFirehose InputFirehose) Input {
-	typ := InputTypeInputFirehose
+	typ := InputUnionTypeInputFirehose
 
 	return Input{
 		InputFirehose: &inputFirehose,
@@ -326,7 +326,7 @@ func CreateInputInputFirehose(inputFirehose InputFirehose) Input {
 }
 
 func CreateInputInputGooglePubsub(inputGooglePubsub InputGooglePubsub) Input {
-	typ := InputTypeInputGooglePubsub
+	typ := InputUnionTypeInputGooglePubsub
 
 	return Input{
 		InputGooglePubsub: &inputGooglePubsub,
@@ -335,7 +335,7 @@ func CreateInputInputGooglePubsub(inputGooglePubsub InputGooglePubsub) Input {
 }
 
 func CreateInputInputCribl(inputCribl InputCribl) Input {
-	typ := InputTypeInputCribl
+	typ := InputUnionTypeInputCribl
 
 	return Input{
 		InputCribl: &inputCribl,
@@ -344,7 +344,7 @@ func CreateInputInputCribl(inputCribl InputCribl) Input {
 }
 
 func CreateInputInputCriblTCP(inputCriblTCP InputCriblTCP) Input {
-	typ := InputTypeInputCriblTCP
+	typ := InputUnionTypeInputCriblTCP
 
 	return Input{
 		InputCriblTCP: &inputCriblTCP,
@@ -353,7 +353,7 @@ func CreateInputInputCriblTCP(inputCriblTCP InputCriblTCP) Input {
 }
 
 func CreateInputInputCriblHTTP(inputCriblHTTP InputCriblHTTP) Input {
-	typ := InputTypeInputCriblHTTP
+	typ := InputUnionTypeInputCriblHTTP
 
 	return Input{
 		InputCriblHTTP: &inputCriblHTTP,
@@ -362,7 +362,7 @@ func CreateInputInputCriblHTTP(inputCriblHTTP InputCriblHTTP) Input {
 }
 
 func CreateInputInputCriblLakeHTTP(inputCriblLakeHTTP InputCriblLakeHTTP) Input {
-	typ := InputTypeInputCriblLakeHTTP
+	typ := InputUnionTypeInputCriblLakeHTTP
 
 	return Input{
 		InputCriblLakeHTTP: &inputCriblLakeHTTP,
@@ -371,7 +371,7 @@ func CreateInputInputCriblLakeHTTP(inputCriblLakeHTTP InputCriblLakeHTTP) Input 
 }
 
 func CreateInputInputTcpjson(inputTcpjson InputTcpjson) Input {
-	typ := InputTypeInputTcpjson
+	typ := InputUnionTypeInputTcpjson
 
 	return Input{
 		InputTcpjson: &inputTcpjson,
@@ -380,7 +380,7 @@ func CreateInputInputTcpjson(inputTcpjson InputTcpjson) Input {
 }
 
 func CreateInputInputSystemMetrics(inputSystemMetrics InputSystemMetrics) Input {
-	typ := InputTypeInputSystemMetrics
+	typ := InputUnionTypeInputSystemMetrics
 
 	return Input{
 		InputSystemMetrics: &inputSystemMetrics,
@@ -389,7 +389,7 @@ func CreateInputInputSystemMetrics(inputSystemMetrics InputSystemMetrics) Input 
 }
 
 func CreateInputInputSystemState(inputSystemState InputSystemState) Input {
-	typ := InputTypeInputSystemState
+	typ := InputUnionTypeInputSystemState
 
 	return Input{
 		InputSystemState: &inputSystemState,
@@ -398,7 +398,7 @@ func CreateInputInputSystemState(inputSystemState InputSystemState) Input {
 }
 
 func CreateInputInputKubeMetrics(inputKubeMetrics InputKubeMetrics) Input {
-	typ := InputTypeInputKubeMetrics
+	typ := InputUnionTypeInputKubeMetrics
 
 	return Input{
 		InputKubeMetrics: &inputKubeMetrics,
@@ -407,7 +407,7 @@ func CreateInputInputKubeMetrics(inputKubeMetrics InputKubeMetrics) Input {
 }
 
 func CreateInputInputKubeLogs(inputKubeLogs InputKubeLogs) Input {
-	typ := InputTypeInputKubeLogs
+	typ := InputUnionTypeInputKubeLogs
 
 	return Input{
 		InputKubeLogs: &inputKubeLogs,
@@ -416,7 +416,7 @@ func CreateInputInputKubeLogs(inputKubeLogs InputKubeLogs) Input {
 }
 
 func CreateInputInputKubeEvents(inputKubeEvents InputKubeEvents) Input {
-	typ := InputTypeInputKubeEvents
+	typ := InputUnionTypeInputKubeEvents
 
 	return Input{
 		InputKubeEvents: &inputKubeEvents,
@@ -425,7 +425,7 @@ func CreateInputInputKubeEvents(inputKubeEvents InputKubeEvents) Input {
 }
 
 func CreateInputInputWindowsMetrics(inputWindowsMetrics InputWindowsMetrics) Input {
-	typ := InputTypeInputWindowsMetrics
+	typ := InputUnionTypeInputWindowsMetrics
 
 	return Input{
 		InputWindowsMetrics: &inputWindowsMetrics,
@@ -434,7 +434,7 @@ func CreateInputInputWindowsMetrics(inputWindowsMetrics InputWindowsMetrics) Inp
 }
 
 func CreateInputInputCrowdstrike(inputCrowdstrike InputCrowdstrike) Input {
-	typ := InputTypeInputCrowdstrike
+	typ := InputUnionTypeInputCrowdstrike
 
 	return Input{
 		InputCrowdstrike: &inputCrowdstrike,
@@ -443,7 +443,7 @@ func CreateInputInputCrowdstrike(inputCrowdstrike InputCrowdstrike) Input {
 }
 
 func CreateInputInputDatadogAgent(inputDatadogAgent InputDatadogAgent) Input {
-	typ := InputTypeInputDatadogAgent
+	typ := InputUnionTypeInputDatadogAgent
 
 	return Input{
 		InputDatadogAgent: &inputDatadogAgent,
@@ -452,7 +452,7 @@ func CreateInputInputDatadogAgent(inputDatadogAgent InputDatadogAgent) Input {
 }
 
 func CreateInputInputDatagen(inputDatagen InputDatagen) Input {
-	typ := InputTypeInputDatagen
+	typ := InputUnionTypeInputDatagen
 
 	return Input{
 		InputDatagen: &inputDatagen,
@@ -461,7 +461,7 @@ func CreateInputInputDatagen(inputDatagen InputDatagen) Input {
 }
 
 func CreateInputInputHTTPRaw(inputHTTPRaw InputHTTPRaw) Input {
-	typ := InputTypeInputHTTPRaw
+	typ := InputUnionTypeInputHTTPRaw
 
 	return Input{
 		InputHTTPRaw: &inputHTTPRaw,
@@ -470,7 +470,7 @@ func CreateInputInputHTTPRaw(inputHTTPRaw InputHTTPRaw) Input {
 }
 
 func CreateInputInputKinesis(inputKinesis InputKinesis) Input {
-	typ := InputTypeInputKinesis
+	typ := InputUnionTypeInputKinesis
 
 	return Input{
 		InputKinesis: &inputKinesis,
@@ -479,7 +479,7 @@ func CreateInputInputKinesis(inputKinesis InputKinesis) Input {
 }
 
 func CreateInputInputCriblmetrics(inputCriblmetrics InputCriblmetrics) Input {
-	typ := InputTypeInputCriblmetrics
+	typ := InputUnionTypeInputCriblmetrics
 
 	return Input{
 		InputCriblmetrics: &inputCriblmetrics,
@@ -488,7 +488,7 @@ func CreateInputInputCriblmetrics(inputCriblmetrics InputCriblmetrics) Input {
 }
 
 func CreateInputInputMetrics(inputMetrics InputMetrics) Input {
-	typ := InputTypeInputMetrics
+	typ := InputUnionTypeInputMetrics
 
 	return Input{
 		InputMetrics: &inputMetrics,
@@ -497,7 +497,7 @@ func CreateInputInputMetrics(inputMetrics InputMetrics) Input {
 }
 
 func CreateInputInputS3(inputS3 InputS3) Input {
-	typ := InputTypeInputS3
+	typ := InputUnionTypeInputS3
 
 	return Input{
 		InputS3: &inputS3,
@@ -506,7 +506,7 @@ func CreateInputInputS3(inputS3 InputS3) Input {
 }
 
 func CreateInputInputS3Inventory(inputS3Inventory InputS3Inventory) Input {
-	typ := InputTypeInputS3Inventory
+	typ := InputUnionTypeInputS3Inventory
 
 	return Input{
 		InputS3Inventory: &inputS3Inventory,
@@ -515,7 +515,7 @@ func CreateInputInputS3Inventory(inputS3Inventory InputS3Inventory) Input {
 }
 
 func CreateInputInputSnmp(inputSnmp InputSnmp) Input {
-	typ := InputTypeInputSnmp
+	typ := InputUnionTypeInputSnmp
 
 	return Input{
 		InputSnmp: &inputSnmp,
@@ -524,7 +524,7 @@ func CreateInputInputSnmp(inputSnmp InputSnmp) Input {
 }
 
 func CreateInputInputOpenTelemetry(inputOpenTelemetry InputOpenTelemetry) Input {
-	typ := InputTypeInputOpenTelemetry
+	typ := InputUnionTypeInputOpenTelemetry
 
 	return Input{
 		InputOpenTelemetry: &inputOpenTelemetry,
@@ -533,7 +533,7 @@ func CreateInputInputOpenTelemetry(inputOpenTelemetry InputOpenTelemetry) Input 
 }
 
 func CreateInputInputModelDrivenTelemetry(inputModelDrivenTelemetry InputModelDrivenTelemetry) Input {
-	typ := InputTypeInputModelDrivenTelemetry
+	typ := InputUnionTypeInputModelDrivenTelemetry
 
 	return Input{
 		InputModelDrivenTelemetry: &inputModelDrivenTelemetry,
@@ -542,7 +542,7 @@ func CreateInputInputModelDrivenTelemetry(inputModelDrivenTelemetry InputModelDr
 }
 
 func CreateInputInputSqs(inputSqs InputSqs) Input {
-	typ := InputTypeInputSqs
+	typ := InputUnionTypeInputSqs
 
 	return Input{
 		InputSqs: &inputSqs,
@@ -551,7 +551,7 @@ func CreateInputInputSqs(inputSqs InputSqs) Input {
 }
 
 func CreateInputInputSyslog(inputSyslog InputSyslog) Input {
-	typ := InputTypeInputSyslog
+	typ := InputUnionTypeInputSyslog
 
 	return Input{
 		InputSyslog: &inputSyslog,
@@ -560,7 +560,7 @@ func CreateInputInputSyslog(inputSyslog InputSyslog) Input {
 }
 
 func CreateInputInputFile(inputFile InputFile) Input {
-	typ := InputTypeInputFile
+	typ := InputUnionTypeInputFile
 
 	return Input{
 		InputFile: &inputFile,
@@ -569,7 +569,7 @@ func CreateInputInputFile(inputFile InputFile) Input {
 }
 
 func CreateInputInputTCP(inputTCP InputTCP) Input {
-	typ := InputTypeInputTCP
+	typ := InputUnionTypeInputTCP
 
 	return Input{
 		InputTCP: &inputTCP,
@@ -578,7 +578,7 @@ func CreateInputInputTCP(inputTCP InputTCP) Input {
 }
 
 func CreateInputInputAppscope(inputAppscope InputAppscope) Input {
-	typ := InputTypeInputAppscope
+	typ := InputUnionTypeInputAppscope
 
 	return Input{
 		InputAppscope: &inputAppscope,
@@ -587,7 +587,7 @@ func CreateInputInputAppscope(inputAppscope InputAppscope) Input {
 }
 
 func CreateInputInputWef(inputWef InputWef) Input {
-	typ := InputTypeInputWef
+	typ := InputUnionTypeInputWef
 
 	return Input{
 		InputWef: &inputWef,
@@ -596,7 +596,7 @@ func CreateInputInputWef(inputWef InputWef) Input {
 }
 
 func CreateInputInputWinEventLogs(inputWinEventLogs InputWinEventLogs) Input {
-	typ := InputTypeInputWinEventLogs
+	typ := InputUnionTypeInputWinEventLogs
 
 	return Input{
 		InputWinEventLogs: &inputWinEventLogs,
@@ -605,7 +605,7 @@ func CreateInputInputWinEventLogs(inputWinEventLogs InputWinEventLogs) Input {
 }
 
 func CreateInputInputRawUDP(inputRawUDP InputRawUDP) Input {
-	typ := InputTypeInputRawUDP
+	typ := InputUnionTypeInputRawUDP
 
 	return Input{
 		InputRawUDP: &inputRawUDP,
@@ -614,7 +614,7 @@ func CreateInputInputRawUDP(inputRawUDP InputRawUDP) Input {
 }
 
 func CreateInputInputJournalFiles(inputJournalFiles InputJournalFiles) Input {
-	typ := InputTypeInputJournalFiles
+	typ := InputUnionTypeInputJournalFiles
 
 	return Input{
 		InputJournalFiles: &inputJournalFiles,
@@ -623,7 +623,7 @@ func CreateInputInputJournalFiles(inputJournalFiles InputJournalFiles) Input {
 }
 
 func CreateInputInputWiz(inputWiz InputWiz) Input {
-	typ := InputTypeInputWiz
+	typ := InputUnionTypeInputWiz
 
 	return Input{
 		InputWiz: &inputWiz,
@@ -632,7 +632,7 @@ func CreateInputInputWiz(inputWiz InputWiz) Input {
 }
 
 func CreateInputInputWizWebhook(inputWizWebhook InputWizWebhook) Input {
-	typ := InputTypeInputWizWebhook
+	typ := InputUnionTypeInputWizWebhook
 
 	return Input{
 		InputWizWebhook: &inputWizWebhook,
@@ -641,7 +641,7 @@ func CreateInputInputWizWebhook(inputWizWebhook InputWizWebhook) Input {
 }
 
 func CreateInputInputNetflow(inputNetflow InputNetflow) Input {
-	typ := InputTypeInputNetflow
+	typ := InputUnionTypeInputNetflow
 
 	return Input{
 		InputNetflow: &inputNetflow,
@@ -650,7 +650,7 @@ func CreateInputInputNetflow(inputNetflow InputNetflow) Input {
 }
 
 func CreateInputInputSecurityLake(inputSecurityLake InputSecurityLake) Input {
-	typ := InputTypeInputSecurityLake
+	typ := InputUnionTypeInputSecurityLake
 
 	return Input{
 		InputSecurityLake: &inputSecurityLake,
@@ -659,7 +659,7 @@ func CreateInputInputSecurityLake(inputSecurityLake InputSecurityLake) Input {
 }
 
 func CreateInputInputZscalerHec(inputZscalerHec InputZscalerHec) Input {
-	typ := InputTypeInputZscalerHec
+	typ := InputUnionTypeInputZscalerHec
 
 	return Input{
 		InputZscalerHec: &inputZscalerHec,
@@ -672,413 +672,413 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 	var inputMsk InputMsk = InputMsk{}
 	if err := utils.UnmarshalJSON(data, &inputMsk, "", true, nil); err == nil {
 		u.InputMsk = &inputMsk
-		u.Type = InputTypeInputMsk
+		u.Type = InputUnionTypeInputMsk
 		return nil
 	}
 
 	var inputWiz InputWiz = InputWiz{}
 	if err := utils.UnmarshalJSON(data, &inputWiz, "", true, nil); err == nil {
 		u.InputWiz = &inputWiz
-		u.Type = InputTypeInputWiz
+		u.Type = InputUnionTypeInputWiz
 		return nil
 	}
 
 	var inputKafka InputKafka = InputKafka{}
 	if err := utils.UnmarshalJSON(data, &inputKafka, "", true, nil); err == nil {
 		u.InputKafka = &inputKafka
-		u.Type = InputTypeInputKafka
+		u.Type = InputUnionTypeInputKafka
 		return nil
 	}
 
 	var inputConfluentCloud InputConfluentCloud = InputConfluentCloud{}
 	if err := utils.UnmarshalJSON(data, &inputConfluentCloud, "", true, nil); err == nil {
 		u.InputConfluentCloud = &inputConfluentCloud
-		u.Type = InputTypeInputConfluentCloud
+		u.Type = InputUnionTypeInputConfluentCloud
 		return nil
 	}
 
 	var inputOffice365Mgmt InputOffice365Mgmt = InputOffice365Mgmt{}
 	if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, nil); err == nil {
 		u.InputOffice365Mgmt = &inputOffice365Mgmt
-		u.Type = InputTypeInputOffice365Mgmt
+		u.Type = InputUnionTypeInputOffice365Mgmt
 		return nil
 	}
 
 	var inputOffice365Service InputOffice365Service = InputOffice365Service{}
 	if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, nil); err == nil {
 		u.InputOffice365Service = &inputOffice365Service
-		u.Type = InputTypeInputOffice365Service
+		u.Type = InputUnionTypeInputOffice365Service
 		return nil
 	}
 
 	var inputEventhub InputEventhub = InputEventhub{}
 	if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, nil); err == nil {
 		u.InputEventhub = &inputEventhub
-		u.Type = InputTypeInputEventhub
+		u.Type = InputUnionTypeInputEventhub
 		return nil
 	}
 
 	var inputKinesis InputKinesis = InputKinesis{}
 	if err := utils.UnmarshalJSON(data, &inputKinesis, "", true, nil); err == nil {
 		u.InputKinesis = &inputKinesis
-		u.Type = InputTypeInputKinesis
+		u.Type = InputUnionTypeInputKinesis
 		return nil
 	}
 
 	var inputJournalFiles InputJournalFiles = InputJournalFiles{}
 	if err := utils.UnmarshalJSON(data, &inputJournalFiles, "", true, nil); err == nil {
 		u.InputJournalFiles = &inputJournalFiles
-		u.Type = InputTypeInputJournalFiles
+		u.Type = InputUnionTypeInputJournalFiles
 		return nil
 	}
 
 	var inputHTTP InputHTTP = InputHTTP{}
 	if err := utils.UnmarshalJSON(data, &inputHTTP, "", true, nil); err == nil {
 		u.InputHTTP = &inputHTTP
-		u.Type = InputTypeInputHTTP
+		u.Type = InputUnionTypeInputHTTP
 		return nil
 	}
 
 	var inputSplunk InputSplunk = InputSplunk{}
 	if err := utils.UnmarshalJSON(data, &inputSplunk, "", true, nil); err == nil {
 		u.InputSplunk = &inputSplunk
-		u.Type = InputTypeInputSplunk
+		u.Type = InputUnionTypeInputSplunk
 		return nil
 	}
 
 	var inputSplunkSearch InputSplunkSearch = InputSplunkSearch{}
 	if err := utils.UnmarshalJSON(data, &inputSplunkSearch, "", true, nil); err == nil {
 		u.InputSplunkSearch = &inputSplunkSearch
-		u.Type = InputTypeInputSplunkSearch
+		u.Type = InputUnionTypeInputSplunkSearch
 		return nil
 	}
 
 	var inputSplunkHec InputSplunkHec = InputSplunkHec{}
 	if err := utils.UnmarshalJSON(data, &inputSplunkHec, "", true, nil); err == nil {
 		u.InputSplunkHec = &inputSplunkHec
-		u.Type = InputTypeInputSplunkHec
+		u.Type = InputUnionTypeInputSplunkHec
 		return nil
 	}
 
 	var inputAzureBlob InputAzureBlob = InputAzureBlob{}
 	if err := utils.UnmarshalJSON(data, &inputAzureBlob, "", true, nil); err == nil {
 		u.InputAzureBlob = &inputAzureBlob
-		u.Type = InputTypeInputAzureBlob
+		u.Type = InputUnionTypeInputAzureBlob
 		return nil
 	}
 
 	var inputElastic InputElastic = InputElastic{}
 	if err := utils.UnmarshalJSON(data, &inputElastic, "", true, nil); err == nil {
 		u.InputElastic = &inputElastic
-		u.Type = InputTypeInputElastic
+		u.Type = InputUnionTypeInputElastic
 		return nil
 	}
 
 	var inputLoki InputLoki = InputLoki{}
 	if err := utils.UnmarshalJSON(data, &inputLoki, "", true, nil); err == nil {
 		u.InputLoki = &inputLoki
-		u.Type = InputTypeInputLoki
+		u.Type = InputUnionTypeInputLoki
 		return nil
 	}
 
 	var inputPrometheusRw InputPrometheusRw = InputPrometheusRw{}
 	if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, nil); err == nil {
 		u.InputPrometheusRw = &inputPrometheusRw
-		u.Type = InputTypeInputPrometheusRw
+		u.Type = InputUnionTypeInputPrometheusRw
 		return nil
 	}
 
 	var inputExec InputExec = InputExec{}
 	if err := utils.UnmarshalJSON(data, &inputExec, "", true, nil); err == nil {
 		u.InputExec = &inputExec
-		u.Type = InputTypeInputExec
+		u.Type = InputUnionTypeInputExec
 		return nil
 	}
 
 	var inputFirehose InputFirehose = InputFirehose{}
 	if err := utils.UnmarshalJSON(data, &inputFirehose, "", true, nil); err == nil {
 		u.InputFirehose = &inputFirehose
-		u.Type = InputTypeInputFirehose
+		u.Type = InputUnionTypeInputFirehose
 		return nil
 	}
 
 	var inputGooglePubsub InputGooglePubsub = InputGooglePubsub{}
 	if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, nil); err == nil {
 		u.InputGooglePubsub = &inputGooglePubsub
-		u.Type = InputTypeInputGooglePubsub
+		u.Type = InputUnionTypeInputGooglePubsub
 		return nil
 	}
 
 	var inputCriblTCP InputCriblTCP = InputCriblTCP{}
 	if err := utils.UnmarshalJSON(data, &inputCriblTCP, "", true, nil); err == nil {
 		u.InputCriblTCP = &inputCriblTCP
-		u.Type = InputTypeInputCriblTCP
+		u.Type = InputUnionTypeInputCriblTCP
 		return nil
 	}
 
 	var inputCriblHTTP InputCriblHTTP = InputCriblHTTP{}
 	if err := utils.UnmarshalJSON(data, &inputCriblHTTP, "", true, nil); err == nil {
 		u.InputCriblHTTP = &inputCriblHTTP
-		u.Type = InputTypeInputCriblHTTP
+		u.Type = InputUnionTypeInputCriblHTTP
 		return nil
 	}
 
 	var inputCriblLakeHTTP InputCriblLakeHTTP = InputCriblLakeHTTP{}
 	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTP, "", true, nil); err == nil {
 		u.InputCriblLakeHTTP = &inputCriblLakeHTTP
-		u.Type = InputTypeInputCriblLakeHTTP
+		u.Type = InputUnionTypeInputCriblLakeHTTP
 		return nil
 	}
 
 	var inputTcpjson InputTcpjson = InputTcpjson{}
 	if err := utils.UnmarshalJSON(data, &inputTcpjson, "", true, nil); err == nil {
 		u.InputTcpjson = &inputTcpjson
-		u.Type = InputTypeInputTcpjson
+		u.Type = InputUnionTypeInputTcpjson
 		return nil
 	}
 
 	var inputCrowdstrike InputCrowdstrike = InputCrowdstrike{}
 	if err := utils.UnmarshalJSON(data, &inputCrowdstrike, "", true, nil); err == nil {
 		u.InputCrowdstrike = &inputCrowdstrike
-		u.Type = InputTypeInputCrowdstrike
+		u.Type = InputUnionTypeInputCrowdstrike
 		return nil
 	}
 
 	var inputDatadogAgent InputDatadogAgent = InputDatadogAgent{}
 	if err := utils.UnmarshalJSON(data, &inputDatadogAgent, "", true, nil); err == nil {
 		u.InputDatadogAgent = &inputDatadogAgent
-		u.Type = InputTypeInputDatadogAgent
+		u.Type = InputUnionTypeInputDatadogAgent
 		return nil
 	}
 
 	var inputDatagen InputDatagen = InputDatagen{}
 	if err := utils.UnmarshalJSON(data, &inputDatagen, "", true, nil); err == nil {
 		u.InputDatagen = &inputDatagen
-		u.Type = InputTypeInputDatagen
+		u.Type = InputUnionTypeInputDatagen
 		return nil
 	}
 
 	var inputHTTPRaw InputHTTPRaw = InputHTTPRaw{}
 	if err := utils.UnmarshalJSON(data, &inputHTTPRaw, "", true, nil); err == nil {
 		u.InputHTTPRaw = &inputHTTPRaw
-		u.Type = InputTypeInputHTTPRaw
+		u.Type = InputUnionTypeInputHTTPRaw
 		return nil
 	}
 
 	var inputS3 InputS3 = InputS3{}
 	if err := utils.UnmarshalJSON(data, &inputS3, "", true, nil); err == nil {
 		u.InputS3 = &inputS3
-		u.Type = InputTypeInputS3
+		u.Type = InputUnionTypeInputS3
 		return nil
 	}
 
 	var inputS3Inventory InputS3Inventory = InputS3Inventory{}
 	if err := utils.UnmarshalJSON(data, &inputS3Inventory, "", true, nil); err == nil {
 		u.InputS3Inventory = &inputS3Inventory
-		u.Type = InputTypeInputS3Inventory
+		u.Type = InputUnionTypeInputS3Inventory
 		return nil
 	}
 
 	var inputSqs InputSqs = InputSqs{}
 	if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err == nil {
 		u.InputSqs = &inputSqs
-		u.Type = InputTypeInputSqs
+		u.Type = InputUnionTypeInputSqs
 		return nil
 	}
 
 	var inputTCP InputTCP = InputTCP{}
 	if err := utils.UnmarshalJSON(data, &inputTCP, "", true, nil); err == nil {
 		u.InputTCP = &inputTCP
-		u.Type = InputTypeInputTCP
+		u.Type = InputUnionTypeInputTCP
 		return nil
 	}
 
 	var inputWef InputWef = InputWef{}
 	if err := utils.UnmarshalJSON(data, &inputWef, "", true, nil); err == nil {
 		u.InputWef = &inputWef
-		u.Type = InputTypeInputWef
+		u.Type = InputUnionTypeInputWef
 		return nil
 	}
 
 	var inputWinEventLogs InputWinEventLogs = InputWinEventLogs{}
 	if err := utils.UnmarshalJSON(data, &inputWinEventLogs, "", true, nil); err == nil {
 		u.InputWinEventLogs = &inputWinEventLogs
-		u.Type = InputTypeInputWinEventLogs
+		u.Type = InputUnionTypeInputWinEventLogs
 		return nil
 	}
 
 	var inputRawUDP InputRawUDP = InputRawUDP{}
 	if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, nil); err == nil {
 		u.InputRawUDP = &inputRawUDP
-		u.Type = InputTypeInputRawUDP
+		u.Type = InputUnionTypeInputRawUDP
 		return nil
 	}
 
 	var inputWizWebhook InputWizWebhook = InputWizWebhook{}
 	if err := utils.UnmarshalJSON(data, &inputWizWebhook, "", true, nil); err == nil {
 		u.InputWizWebhook = &inputWizWebhook
-		u.Type = InputTypeInputWizWebhook
+		u.Type = InputUnionTypeInputWizWebhook
 		return nil
 	}
 
 	var inputSecurityLake InputSecurityLake = InputSecurityLake{}
 	if err := utils.UnmarshalJSON(data, &inputSecurityLake, "", true, nil); err == nil {
 		u.InputSecurityLake = &inputSecurityLake
-		u.Type = InputTypeInputSecurityLake
+		u.Type = InputUnionTypeInputSecurityLake
 		return nil
 	}
 
 	var inputZscalerHec InputZscalerHec = InputZscalerHec{}
 	if err := utils.UnmarshalJSON(data, &inputZscalerHec, "", true, nil); err == nil {
 		u.InputZscalerHec = &inputZscalerHec
-		u.Type = InputTypeInputZscalerHec
+		u.Type = InputUnionTypeInputZscalerHec
 		return nil
 	}
 
 	var inputPrometheus InputPrometheus = InputPrometheus{}
 	if err := utils.UnmarshalJSON(data, &inputPrometheus, "", true, nil); err == nil {
 		u.InputPrometheus = &inputPrometheus
-		u.Type = InputTypeInputPrometheus
+		u.Type = InputUnionTypeInputPrometheus
 		return nil
 	}
 
 	var inputEdgePrometheus InputEdgePrometheus = InputEdgePrometheus{}
 	if err := utils.UnmarshalJSON(data, &inputEdgePrometheus, "", true, nil); err == nil {
 		u.InputEdgePrometheus = &inputEdgePrometheus
-		u.Type = InputTypeInputEdgePrometheus
+		u.Type = InputUnionTypeInputEdgePrometheus
 		return nil
 	}
 
 	var inputOffice365MsgTrace InputOffice365MsgTrace = InputOffice365MsgTrace{}
 	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTrace, "", true, nil); err == nil {
 		u.InputOffice365MsgTrace = &inputOffice365MsgTrace
-		u.Type = InputTypeInputOffice365MsgTrace
+		u.Type = InputUnionTypeInputOffice365MsgTrace
 		return nil
 	}
 
 	var inputCribl InputCribl = InputCribl{}
 	if err := utils.UnmarshalJSON(data, &inputCribl, "", true, nil); err == nil {
 		u.InputCribl = &inputCribl
-		u.Type = InputTypeInputCribl
+		u.Type = InputUnionTypeInputCribl
 		return nil
 	}
 
 	var inputSystemMetrics InputSystemMetrics = InputSystemMetrics{}
 	if err := utils.UnmarshalJSON(data, &inputSystemMetrics, "", true, nil); err == nil {
 		u.InputSystemMetrics = &inputSystemMetrics
-		u.Type = InputTypeInputSystemMetrics
+		u.Type = InputUnionTypeInputSystemMetrics
 		return nil
 	}
 
 	var inputSystemState InputSystemState = InputSystemState{}
 	if err := utils.UnmarshalJSON(data, &inputSystemState, "", true, nil); err == nil {
 		u.InputSystemState = &inputSystemState
-		u.Type = InputTypeInputSystemState
+		u.Type = InputUnionTypeInputSystemState
 		return nil
 	}
 
 	var inputKubeMetrics InputKubeMetrics = InputKubeMetrics{}
 	if err := utils.UnmarshalJSON(data, &inputKubeMetrics, "", true, nil); err == nil {
 		u.InputKubeMetrics = &inputKubeMetrics
-		u.Type = InputTypeInputKubeMetrics
+		u.Type = InputUnionTypeInputKubeMetrics
 		return nil
 	}
 
 	var inputKubeLogs InputKubeLogs = InputKubeLogs{}
 	if err := utils.UnmarshalJSON(data, &inputKubeLogs, "", true, nil); err == nil {
 		u.InputKubeLogs = &inputKubeLogs
-		u.Type = InputTypeInputKubeLogs
+		u.Type = InputUnionTypeInputKubeLogs
 		return nil
 	}
 
 	var inputKubeEvents InputKubeEvents = InputKubeEvents{}
 	if err := utils.UnmarshalJSON(data, &inputKubeEvents, "", true, nil); err == nil {
 		u.InputKubeEvents = &inputKubeEvents
-		u.Type = InputTypeInputKubeEvents
+		u.Type = InputUnionTypeInputKubeEvents
 		return nil
 	}
 
 	var inputWindowsMetrics InputWindowsMetrics = InputWindowsMetrics{}
 	if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, nil); err == nil {
 		u.InputWindowsMetrics = &inputWindowsMetrics
-		u.Type = InputTypeInputWindowsMetrics
+		u.Type = InputUnionTypeInputWindowsMetrics
 		return nil
 	}
 
 	var inputCriblmetrics InputCriblmetrics = InputCriblmetrics{}
 	if err := utils.UnmarshalJSON(data, &inputCriblmetrics, "", true, nil); err == nil {
 		u.InputCriblmetrics = &inputCriblmetrics
-		u.Type = InputTypeInputCriblmetrics
+		u.Type = InputUnionTypeInputCriblmetrics
 		return nil
 	}
 
 	var inputMetrics InputMetrics = InputMetrics{}
 	if err := utils.UnmarshalJSON(data, &inputMetrics, "", true, nil); err == nil {
 		u.InputMetrics = &inputMetrics
-		u.Type = InputTypeInputMetrics
+		u.Type = InputUnionTypeInputMetrics
 		return nil
 	}
 
 	var inputSnmp InputSnmp = InputSnmp{}
 	if err := utils.UnmarshalJSON(data, &inputSnmp, "", true, nil); err == nil {
 		u.InputSnmp = &inputSnmp
-		u.Type = InputTypeInputSnmp
+		u.Type = InputUnionTypeInputSnmp
 		return nil
 	}
 
 	var inputOpenTelemetry InputOpenTelemetry = InputOpenTelemetry{}
 	if err := utils.UnmarshalJSON(data, &inputOpenTelemetry, "", true, nil); err == nil {
 		u.InputOpenTelemetry = &inputOpenTelemetry
-		u.Type = InputTypeInputOpenTelemetry
+		u.Type = InputUnionTypeInputOpenTelemetry
 		return nil
 	}
 
 	var inputModelDrivenTelemetry InputModelDrivenTelemetry = InputModelDrivenTelemetry{}
 	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetry, "", true, nil); err == nil {
 		u.InputModelDrivenTelemetry = &inputModelDrivenTelemetry
-		u.Type = InputTypeInputModelDrivenTelemetry
+		u.Type = InputUnionTypeInputModelDrivenTelemetry
 		return nil
 	}
 
 	var inputFile InputFile = InputFile{}
 	if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err == nil {
 		u.InputFile = &inputFile
-		u.Type = InputTypeInputFile
+		u.Type = InputUnionTypeInputFile
 		return nil
 	}
 
 	var inputAppscope InputAppscope = InputAppscope{}
 	if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, nil); err == nil {
 		u.InputAppscope = &inputAppscope
-		u.Type = InputTypeInputAppscope
+		u.Type = InputUnionTypeInputAppscope
 		return nil
 	}
 
 	var inputNetflow InputNetflow = InputNetflow{}
 	if err := utils.UnmarshalJSON(data, &inputNetflow, "", true, nil); err == nil {
 		u.InputNetflow = &inputNetflow
-		u.Type = InputTypeInputNetflow
+		u.Type = InputUnionTypeInputNetflow
 		return nil
 	}
 
 	var inputCollection InputCollection = InputCollection{}
 	if err := utils.UnmarshalJSON(data, &inputCollection, "", true, nil); err == nil {
 		u.InputCollection = &inputCollection
-		u.Type = InputTypeInputCollection
+		u.Type = InputUnionTypeInputCollection
 		return nil
 	}
 
 	var inputGrafana InputGrafana = InputGrafana{}
 	if err := utils.UnmarshalJSON(data, &inputGrafana, "", true, nil); err == nil {
 		u.InputGrafana = &inputGrafana
-		u.Type = InputTypeInputGrafana
+		u.Type = InputUnionTypeInputGrafana
 		return nil
 	}
 
 	var inputSyslog InputSyslog = InputSyslog{}
 	if err := utils.UnmarshalJSON(data, &inputSyslog, "", true, nil); err == nil {
 		u.InputSyslog = &inputSyslog
-		u.Type = InputTypeInputSyslog
+		u.Type = InputUnionTypeInputSyslog
 		return nil
 	}
 

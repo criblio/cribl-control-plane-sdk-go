@@ -42,21 +42,6 @@ const (
 func (e OutputLokiMessageFormat) ToPointer() *OutputLokiMessageFormat {
 	return &e
 }
-func (e *OutputLokiMessageFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "protobuf":
-		fallthrough
-	case "json":
-		*e = OutputLokiMessageFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiMessageFormat: %v", v)
-	}
-}
 
 type OutputLokiLabel struct {
 	Name  *string `default:"" json:"name"`
@@ -101,27 +86,6 @@ const (
 func (e OutputLokiAuthenticationType) ToPointer() *OutputLokiAuthenticationType {
 	return &e
 }
-func (e *OutputLokiAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		*e = OutputLokiAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiAuthenticationType: %v", v)
-	}
-}
 
 type OutputLokiExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -164,23 +128,6 @@ const (
 
 func (e OutputLokiFailedRequestLoggingMode) ToPointer() *OutputLokiFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputLokiFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputLokiFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputLokiResponseRetrySetting struct {
@@ -294,23 +241,6 @@ const (
 func (e OutputLokiBackpressureBehavior) ToPointer() *OutputLokiBackpressureBehavior {
 	return &e
 }
-func (e *OutputLokiBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputLokiBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputLokiCompression - Codec to use to compress the persisted data
 type OutputLokiCompression string
@@ -322,21 +252,6 @@ const (
 
 func (e OutputLokiCompression) ToPointer() *OutputLokiCompression {
 	return &e
-}
-func (e *OutputLokiCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputLokiCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiCompression: %v", v)
-	}
 }
 
 // OutputLokiQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -350,21 +265,6 @@ const (
 func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
 	return &e
 }
-func (e *OutputLokiQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputLokiQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputLokiMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputLokiMode string
@@ -377,23 +277,6 @@ const (
 
 func (e OutputLokiMode) ToPointer() *OutputLokiMode {
 	return &e
-}
-func (e *OutputLokiMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputLokiMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiMode: %v", v)
-	}
 }
 
 type OutputLokiPqControls struct {
