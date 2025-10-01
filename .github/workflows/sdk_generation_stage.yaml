@@ -6,7 +6,12 @@ permissions:
   statuses: write
 
 on:
-  workflow_dispatch: # Manual trigger only
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Force generation of SDKs
+        type: boolean
+        default: false
 
 jobs:
   check-branch:
