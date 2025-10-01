@@ -39,6 +39,7 @@ func (p *PackInstallInfoTags) GetTechnology() []string {
 
 type PackInstallInfo struct {
 	Author              *string              `json:"author,omitempty"`
+	Dependencies        map[string]string    `json:"dependencies,omitempty"`
 	Description         *string              `json:"description,omitempty"`
 	DisplayName         *string              `json:"displayName,omitempty"`
 	Exports             []string             `json:"exports,omitempty"`
@@ -60,6 +61,13 @@ func (p *PackInstallInfo) GetAuthor() *string {
 		return nil
 	}
 	return p.Author
+}
+
+func (p *PackInstallInfo) GetDependencies() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.Dependencies
 }
 
 func (p *PackInstallInfo) GetDescription() *string {

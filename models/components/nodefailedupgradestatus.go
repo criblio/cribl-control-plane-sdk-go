@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type NodeFailedUpgradeStatus int64
 
 const (
@@ -16,19 +11,4 @@ const (
 
 func (e NodeFailedUpgradeStatus) ToPointer() *NodeFailedUpgradeStatus {
 	return &e
-}
-func (e *NodeFailedUpgradeStatus) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		*e = NodeFailedUpgradeStatus(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for NodeFailedUpgradeStatus: %v", v)
-	}
 }

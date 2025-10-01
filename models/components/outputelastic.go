@@ -73,23 +73,6 @@ const (
 func (e OutputElasticFailedRequestLoggingMode) ToPointer() *OutputElasticFailedRequestLoggingMode {
 	return &e
 }
-func (e *OutputElasticFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputElasticFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticFailedRequestLoggingMode: %v", v)
-	}
-}
 
 type OutputElasticResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
@@ -233,25 +216,6 @@ const (
 func (e OutputElasticAuthenticationMethod) ToPointer() *OutputElasticAuthenticationMethod {
 	return &e
 }
-func (e *OutputElasticAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "manualAPIKey":
-		fallthrough
-	case "textSecret":
-		*e = OutputElasticAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticAuthenticationMethod: %v", v)
-	}
-}
 
 type OutputElasticAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -296,23 +260,6 @@ const (
 func (e ElasticVersion) ToPointer() *ElasticVersion {
 	return &e
 }
-func (e *ElasticVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "6":
-		fallthrough
-	case "7":
-		*e = ElasticVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ElasticVersion: %v", v)
-	}
-}
 
 // WriteAction - Action to use when writing events. Must be set to `Create` when writing to a data stream.
 type WriteAction string
@@ -324,21 +271,6 @@ const (
 
 func (e WriteAction) ToPointer() *WriteAction {
 	return &e
-}
-func (e *WriteAction) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "index":
-		fallthrough
-	case "create":
-		*e = WriteAction(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for WriteAction: %v", v)
-	}
 }
 
 // OutputElasticBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -352,23 +284,6 @@ const (
 
 func (e OutputElasticBackpressureBehavior) ToPointer() *OutputElasticBackpressureBehavior {
 	return &e
-}
-func (e *OutputElasticBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputElasticBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputElasticURL struct {
@@ -414,21 +329,6 @@ const (
 func (e OutputElasticCompression) ToPointer() *OutputElasticCompression {
 	return &e
 }
-func (e *OutputElasticCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputElasticCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCompression: %v", v)
-	}
-}
 
 // OutputElasticQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputElasticQueueFullBehavior string
@@ -440,21 +340,6 @@ const (
 
 func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehavior {
 	return &e
-}
-func (e *OutputElasticQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputElasticQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputElasticMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -468,23 +353,6 @@ const (
 
 func (e OutputElasticMode) ToPointer() *OutputElasticMode {
 	return &e
-}
-func (e *OutputElasticMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputElasticMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticMode: %v", v)
-	}
 }
 
 type OutputElasticPqControls struct {
