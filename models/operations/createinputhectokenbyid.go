@@ -27,11 +27,11 @@ func (c *CreateInputHecTokenByIDRequest) GetAddHecTokenRequest() components.AddH
 	return c.AddHecTokenRequest
 }
 
-// CreateInputHecTokenByIDResponseBody - a list of any objects
+// CreateInputHecTokenByIDResponseBody - a list of InputSplunkHec objects
 type CreateInputHecTokenByIDResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64                      `json:"count,omitempty"`
+	Items []components.InputSplunkHec `json:"items,omitempty"`
 }
 
 func (c *CreateInputHecTokenByIDResponseBody) GetCount() *int64 {
@@ -41,7 +41,7 @@ func (c *CreateInputHecTokenByIDResponseBody) GetCount() *int64 {
 	return c.Count
 }
 
-func (c *CreateInputHecTokenByIDResponseBody) GetItems() []map[string]any {
+func (c *CreateInputHecTokenByIDResponseBody) GetItems() []components.InputSplunkHec {
 	if c == nil {
 		return nil
 	}
@@ -50,7 +50,7 @@ func (c *CreateInputHecTokenByIDResponseBody) GetItems() []map[string]any {
 
 type CreateInputHecTokenByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of InputSplunkHec objects
 	Object *CreateInputHecTokenByIDResponseBody
 }
 

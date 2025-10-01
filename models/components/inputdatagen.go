@@ -72,21 +72,6 @@ const (
 func (e InputDatagenMode) ToPointer() *InputDatagenMode {
 	return &e
 }
-func (e *InputDatagenMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputDatagenMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatagenMode: %v", v)
-	}
-}
 
 // InputDatagenCompression - Codec to use to compress the persisted data
 type InputDatagenCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputDatagenCompression) ToPointer() *InputDatagenCompression {
 	return &e
-}
-func (e *InputDatagenCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputDatagenCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputDatagenCompression: %v", v)
-	}
 }
 
 type InputDatagenPqControls struct {
