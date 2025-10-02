@@ -854,6 +854,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputDatabricks OutputDatabricks = OutputDatabricks{}
+	if err := utils.UnmarshalJSON(data, &outputDatabricks, "", true, nil); err == nil {
+		u.OutputDatabricks = &outputDatabricks
+		u.Type = OutputTypeOutputDatabricks
+		return nil
+	}
+
 	var outputDefault OutputDefault = OutputDefault{}
 	if err := utils.UnmarshalJSON(data, &outputDefault, "", true, nil); err == nil {
 		u.OutputDefault = &outputDefault
@@ -1173,13 +1180,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiem, "", true, nil); err == nil {
 		u.OutputSentinelOneAiSiem = &outputSentinelOneAiSiem
 		u.Type = OutputTypeOutputSentinelOneAiSiem
-		return nil
-	}
-
-	var outputDatabricks OutputDatabricks = OutputDatabricks{}
-	if err := utils.UnmarshalJSON(data, &outputDatabricks, "", true, nil); err == nil {
-		u.OutputDatabricks = &outputDatabricks
-		u.Type = OutputTypeOutputDatabricks
 		return nil
 	}
 
