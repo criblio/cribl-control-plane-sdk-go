@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.1-alpha.1758626754698-b3680673
   speakeasyVersion: 1.631.5
   generationVersion: 2.716.16
-  releaseVersion: 0.1.0-alpha.1
-  configChecksum: 3d5a771a542f1df7718ab1a25774ad2e
+  releaseVersion: 0.1.0-alpha.2
+  configChecksum: 09ea7998a0e7b878d7ce005dc176f86b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3309,4 +3309,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Push()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Health.Get()`:  `response.status[default]` **Added** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n  *  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n  *  `response.Items.[].[inputModelDrivenTelemetry].Tls.Passphrase` **Added**\n"
