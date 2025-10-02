@@ -85,7 +85,7 @@ func main() {
 		Provisioned:         criblcontrolplanesdkgo.Bool(false),
 		IsFleet:             criblcontrolplanesdkgo.Bool(false),
 		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: criblcontrolplanesdkgo.Float64(2048), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+		EstimatedIngestRate: components.EstimatedIngestRateTwoThousandAndFortyEight.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
 		Cloud: &components.ConfigGroupCloud{
 			Provider: &awsProvider,
 			Region:   "us-east-1",
@@ -104,7 +104,7 @@ func main() {
 	fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 
 	// Scale and provision the Worker Group
-	group.EstimatedIngestRate = criblcontrolplanesdkgo.Float64(4096) // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+	group.EstimatedIngestRate = components.EstimatedIngestRateFourThousandAndNinetySix.ToPointer() // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
 	group.Provisioned = criblcontrolplanesdkgo.Bool(true)
 
 	updateResponse, err := client.Groups.Update(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, group)
