@@ -80,86 +80,6 @@ func (e OutputDatabricksAuthenticationMethod) ToPointer() *OutputDatabricksAuthe
 	return &e
 }
 
-// OutputDatabricksCompression - Data compression format to apply to HTTP content before it is delivered
-type OutputDatabricksCompression string
-
-const (
-	OutputDatabricksCompressionNone OutputDatabricksCompression = "none"
-	OutputDatabricksCompressionGzip OutputDatabricksCompression = "gzip"
-)
-
-func (e OutputDatabricksCompression) ToPointer() *OutputDatabricksCompression {
-	return &e
-}
-
-// OutputDatabricksCompressionLevel - Compression level to apply before moving files to final destination
-type OutputDatabricksCompressionLevel string
-
-const (
-	OutputDatabricksCompressionLevelBestSpeed       OutputDatabricksCompressionLevel = "best_speed"
-	OutputDatabricksCompressionLevelNormal          OutputDatabricksCompressionLevel = "normal"
-	OutputDatabricksCompressionLevelBestCompression OutputDatabricksCompressionLevel = "best_compression"
-)
-
-func (e OutputDatabricksCompressionLevel) ToPointer() *OutputDatabricksCompressionLevel {
-	return &e
-}
-
-// OutputDatabricksParquetVersion - Determines which data types are supported and how they are represented
-type OutputDatabricksParquetVersion string
-
-const (
-	OutputDatabricksParquetVersionParquet10 OutputDatabricksParquetVersion = "PARQUET_1_0"
-	OutputDatabricksParquetVersionParquet24 OutputDatabricksParquetVersion = "PARQUET_2_4"
-	OutputDatabricksParquetVersionParquet26 OutputDatabricksParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputDatabricksParquetVersion) ToPointer() *OutputDatabricksParquetVersion {
-	return &e
-}
-
-// OutputDatabricksDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputDatabricksDataPageVersion string
-
-const (
-	OutputDatabricksDataPageVersionDataPageV1 OutputDatabricksDataPageVersion = "DATA_PAGE_V1"
-	OutputDatabricksDataPageVersionDataPageV2 OutputDatabricksDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputDatabricksDataPageVersion) ToPointer() *OutputDatabricksDataPageVersion {
-	return &e
-}
-
-type OutputDatabricksKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputDatabricksKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDatabricksKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDatabricksKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputDatabricksKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
 type OutputDatabricks struct {
 	// Unique ID for this output
 	ID   *string              `json:"id,omitempty"`
@@ -209,13 +129,7 @@ type OutputDatabricks struct {
 	// Unity Catalog authentication method. Choose Manual to enter credentials directly, or Secret to use a stored secret.
 	UnityAuthMethod *OutputDatabricksAuthenticationMethod `default:"manual" json:"unityAuthMethod"`
 	// URL for Unity Catalog OAuth token endpoint (example: 'https://your-workspace.cloud.databricks.com/oauth/token')
-	LoginURL *string `json:"loginUrl,omitempty"`
-	// JavaScript expression to compute the OAuth client ID for Unity Catalog authentication. Can be a constant.
-	ClientID *string `json:"clientId,omitempty"`
-	// JavaScript expression to compute the OAuth client secret for Unity Catalog authentication. Can be a constant.
-	ClientSecret *string `json:"clientSecret,omitempty"`
-	// Select or create a stored secret that references your Client ID and Client Secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	LoginURL string `json:"loginUrl"`
 	// OAuth scope for Unity Catalog authentication
 	Scope *string `default:"all-apis" json:"scope"`
 	// How often the OAuth token should be refreshed
@@ -226,39 +140,15 @@ type OutputDatabricks struct {
 	DefaultSchema *string `default:"external" json:"defaultSchema"`
 	// Name of the events volume in Databricks
 	EventsVolumeName *string `default:"events" json:"eventsVolumeName"`
+	// JavaScript expression to compute the OAuth client ID for Unity Catalog authentication. Can be a constant.
+	ClientID string `json:"clientId"`
 	// Uploaded files should be overwritten if they already exist. If disabled, upload will fail if a file already exists.
 	OverWriteFiles *bool   `default:"false" json:"overWriteFiles"`
 	Description    *string `json:"description,omitempty"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputDatabricksCompression `default:"gzip" json:"compress"`
-	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputDatabricksCompressionLevel `default:"best_speed" json:"compressionLevel"`
-	// Automatically calculate the schema based on the events of each Parquet file generated
-	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
-	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputDatabricksParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
-	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputDatabricksDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
-	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
-	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
-	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
-	// Log up to 3 rows that @{product} skips due to data mismatch
-	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
-	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputDatabricksKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
-	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-	EnableStatistics *bool `default:"true" json:"enableStatistics"`
-	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
-	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
-	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
-	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
-	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// JavaScript expression to compute the OAuth client secret for Unity Catalog authentication. Can be a constant.
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
 }
 
 func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
@@ -266,7 +156,7 @@ func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDatabricks) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "clientId"}); err != nil {
 		return err
 	}
 	return nil
@@ -440,32 +330,11 @@ func (o *OutputDatabricks) GetUnityAuthMethod() *OutputDatabricksAuthenticationM
 	return o.UnityAuthMethod
 }
 
-func (o *OutputDatabricks) GetLoginURL() *string {
+func (o *OutputDatabricks) GetLoginURL() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.LoginURL
-}
-
-func (o *OutputDatabricks) GetClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientID
-}
-
-func (o *OutputDatabricks) GetClientSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientSecret
-}
-
-func (o *OutputDatabricks) GetClientTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientTextSecret
 }
 
 func (o *OutputDatabricks) GetScope() *string {
@@ -503,6 +372,13 @@ func (o *OutputDatabricks) GetEventsVolumeName() *string {
 	return o.EventsVolumeName
 }
 
+func (o *OutputDatabricks) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
 func (o *OutputDatabricks) GetOverWriteFiles() *bool {
 	if o == nil {
 		return nil
@@ -517,107 +393,16 @@ func (o *OutputDatabricks) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputDatabricks) GetCompress() *OutputDatabricksCompression {
+func (o *OutputDatabricks) GetClientSecret() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Compress
+	return o.ClientSecret
 }
 
-func (o *OutputDatabricks) GetCompressionLevel() *OutputDatabricksCompressionLevel {
+func (o *OutputDatabricks) GetClientTextSecret() *string {
 	if o == nil {
 		return nil
 	}
-	return o.CompressionLevel
-}
-
-func (o *OutputDatabricks) GetAutomaticSchema() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AutomaticSchema
-}
-
-func (o *OutputDatabricks) GetParquetVersion() *OutputDatabricksParquetVersion {
-	if o == nil {
-		return nil
-	}
-	return o.ParquetVersion
-}
-
-func (o *OutputDatabricks) GetParquetDataPageVersion() *OutputDatabricksDataPageVersion {
-	if o == nil {
-		return nil
-	}
-	return o.ParquetDataPageVersion
-}
-
-func (o *OutputDatabricks) GetParquetRowGroupLength() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ParquetRowGroupLength
-}
-
-func (o *OutputDatabricks) GetParquetPageSize() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ParquetPageSize
-}
-
-func (o *OutputDatabricks) GetShouldLogInvalidRows() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ShouldLogInvalidRows
-}
-
-func (o *OutputDatabricks) GetKeyValueMetadata() []OutputDatabricksKeyValueMetadatum {
-	if o == nil {
-		return nil
-	}
-	return o.KeyValueMetadata
-}
-
-func (o *OutputDatabricks) GetEnableStatistics() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableStatistics
-}
-
-func (o *OutputDatabricks) GetEnableWritePageIndex() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableWritePageIndex
-}
-
-func (o *OutputDatabricks) GetEnablePageChecksum() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnablePageChecksum
-}
-
-func (o *OutputDatabricks) GetEmptyDirCleanupSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.EmptyDirCleanupSec
-}
-
-func (o *OutputDatabricks) GetDeadletterPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DeadletterPath
-}
-
-func (o *OutputDatabricks) GetMaxRetryNum() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxRetryNum
+	return o.ClientTextSecret
 }
