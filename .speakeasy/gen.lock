@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2bde1728e7e8cedb080adc4cf5fbe15c
-  docVersion: 4.14.1-alpha.1758626754698-b3680673
-  speakeasyVersion: 1.631.5
-  generationVersion: 2.716.16
-  releaseVersion: 0.1.0-alpha.2
-  configChecksum: 09ea7998a0e7b878d7ce005dc176f86b
+  docChecksum: 3e4881b4057fbb6524188ccdc34a991b
+  docVersion: 4.14.1-alpha.1759348021885-ce0ae185
+  speakeasyVersion: 1.634.1
+  generationVersion: 2.721.0
+  releaseVersion: 0.1.0-alpha.3
+  configChecksum: 6addd74218b92c038130307a5dfdcbfe
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -31,7 +31,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.85.14
+    unions: 2.86.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -2063,6 +2063,7 @@ generatedFiles:
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
   - docs/models/components/remote.md
+  - docs/models/components/remoteenum.md
   - docs/models/components/renamed.md
   - docs/models/components/reportlevel.md
   - docs/models/components/reportmethod.md
@@ -2717,7 +2718,7 @@ examples:
     speakeasy-default-get-version-info:
       responses:
         "200":
-          application/json: {"count": 716855, "items": [{"remote": true, "versioning": false}]}
+          application/json: {"count": 716855, "items": [{"remote": "false", "versioning": false}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionPush:
@@ -3054,7 +3055,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3309,3 +3310,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Cribl.SocksEnabled` **Added**\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n"
