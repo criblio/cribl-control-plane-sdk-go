@@ -72,21 +72,6 @@ const (
 func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
 	return &e
 }
-func (e *InputWindowsMetricsPqMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputWindowsMetricsPqMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsPqMode: %v", v)
-	}
-}
 
 // InputWindowsMetricsCompression - Codec to use to compress the persisted data
 type InputWindowsMetricsCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputWindowsMetricsCompression) ToPointer() *InputWindowsMetricsCompression {
 	return &e
-}
-func (e *InputWindowsMetricsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWindowsMetricsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsCompression: %v", v)
-	}
 }
 
 type InputWindowsMetricsPqControls struct {
@@ -227,25 +197,6 @@ const (
 func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
 	return &e
 }
-func (e *InputWindowsMetricsHostMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsHostMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsHostMode: %v", v)
-	}
-}
 
 // InputWindowsMetricsSystemMode - Select the level of details for system metrics
 type InputWindowsMetricsSystemMode string
@@ -259,25 +210,6 @@ const (
 
 func (e InputWindowsMetricsSystemMode) ToPointer() *InputWindowsMetricsSystemMode {
 	return &e
-}
-func (e *InputWindowsMetricsSystemMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsSystemMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsSystemMode: %v", v)
-	}
 }
 
 type InputWindowsMetricsSystem struct {
@@ -324,25 +256,6 @@ const (
 
 func (e InputWindowsMetricsCPUMode) ToPointer() *InputWindowsMetricsCPUMode {
 	return &e
-}
-func (e *InputWindowsMetricsCPUMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsCPUMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsCPUMode: %v", v)
-	}
 }
 
 type InputWindowsMetricsCPU struct {
@@ -408,25 +321,6 @@ const (
 func (e InputWindowsMetricsMemoryMode) ToPointer() *InputWindowsMetricsMemoryMode {
 	return &e
 }
-func (e *InputWindowsMetricsMemoryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsMemoryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsMemoryMode: %v", v)
-	}
-}
 
 type InputWindowsMetricsMemory struct {
 	// Select the level of details for memory metrics
@@ -472,25 +366,6 @@ const (
 
 func (e InputWindowsMetricsNetworkMode) ToPointer() *InputWindowsMetricsNetworkMode {
 	return &e
-}
-func (e *InputWindowsMetricsNetworkMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsNetworkMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsNetworkMode: %v", v)
-	}
 }
 
 type InputWindowsMetricsNetwork struct {
@@ -555,25 +430,6 @@ const (
 
 func (e InputWindowsMetricsDiskMode) ToPointer() *InputWindowsMetricsDiskMode {
 	return &e
-}
-func (e *InputWindowsMetricsDiskMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputWindowsMetricsDiskMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsDiskMode: %v", v)
-	}
 }
 
 type InputWindowsMetricsDisk struct {
@@ -803,21 +659,6 @@ const (
 
 func (e InputWindowsMetricsDataCompressionFormat) ToPointer() *InputWindowsMetricsDataCompressionFormat {
 	return &e
-}
-func (e *InputWindowsMetricsDataCompressionFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWindowsMetricsDataCompressionFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsDataCompressionFormat: %v", v)
-	}
 }
 
 type InputWindowsMetricsPersistence struct {
