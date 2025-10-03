@@ -43,23 +43,6 @@ const (
 func (e OutputMskAcknowledgments) ToPointer() *OutputMskAcknowledgments {
 	return &e
 }
-func (e *OutputMskAcknowledgments) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 1:
-		fallthrough
-	case 0:
-		fallthrough
-	case -1:
-		*e = OutputMskAcknowledgments(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskAcknowledgments: %v", v)
-	}
-}
 
 // OutputMskRecordDataFormat - Format to use to serialize events before writing to Kafka.
 type OutputMskRecordDataFormat string
@@ -72,23 +55,6 @@ const (
 
 func (e OutputMskRecordDataFormat) ToPointer() *OutputMskRecordDataFormat {
 	return &e
-}
-func (e *OutputMskRecordDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "protobuf":
-		*e = OutputMskRecordDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskRecordDataFormat: %v", v)
-	}
 }
 
 // OutputMskCompression - Codec to use to compress the data before sending to Kafka
@@ -103,52 +69,6 @@ const (
 
 func (e OutputMskCompression) ToPointer() *OutputMskCompression {
 	return &e
-}
-func (e *OutputMskCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		fallthrough
-	case "snappy":
-		fallthrough
-	case "lz4":
-		*e = OutputMskCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskCompression: %v", v)
-	}
-}
-
-// OutputMskSchemaType - The schema format used to encode and decode event data
-type OutputMskSchemaType string
-
-const (
-	OutputMskSchemaTypeAvro OutputMskSchemaType = "avro"
-	OutputMskSchemaTypeJSON OutputMskSchemaType = "json"
-)
-
-func (e OutputMskSchemaType) ToPointer() *OutputMskSchemaType {
-	return &e
-}
-func (e *OutputMskSchemaType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "avro":
-		fallthrough
-	case "json":
-		*e = OutputMskSchemaType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskSchemaType: %v", v)
-	}
 }
 
 // OutputMskAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -195,25 +115,6 @@ const (
 func (e OutputMskKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputMskKafkaSchemaRegistryMinimumTLSVersion {
 	return &e
 }
-func (e *OutputMskKafkaSchemaRegistryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputMskKafkaSchemaRegistryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskKafkaSchemaRegistryMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputMskKafkaSchemaRegistryMaximumTLSVersion string
 
@@ -226,25 +127,6 @@ const (
 
 func (e OutputMskKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputMskKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
-}
-func (e *OutputMskKafkaSchemaRegistryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputMskKafkaSchemaRegistryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskKafkaSchemaRegistryMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputMskKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -353,8 +235,6 @@ type OutputMskKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *OutputMskSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -393,13 +273,6 @@ func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *str
 		return nil
 	}
 	return o.SchemaRegistryURL
-}
-
-func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputMskSchemaType {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaType
 }
 
 func (o *OutputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -463,23 +336,6 @@ const (
 func (e OutputMskAuthenticationMethod) ToPointer() *OutputMskAuthenticationMethod {
 	return &e
 }
-func (e *OutputMskAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputMskAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputMskSignatureVersion - Signature version to use for signing MSK cluster requests
 type OutputMskSignatureVersion string
@@ -491,21 +347,6 @@ const (
 
 func (e OutputMskSignatureVersion) ToPointer() *OutputMskSignatureVersion {
 	return &e
-}
-func (e *OutputMskSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputMskSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskSignatureVersion: %v", v)
-	}
 }
 
 type OutputMskMinimumTLSVersion string
@@ -520,25 +361,6 @@ const (
 func (e OutputMskMinimumTLSVersion) ToPointer() *OutputMskMinimumTLSVersion {
 	return &e
 }
-func (e *OutputMskMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputMskMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputMskMaximumTLSVersion string
 
@@ -551,25 +373,6 @@ const (
 
 func (e OutputMskMaximumTLSVersion) ToPointer() *OutputMskMaximumTLSVersion {
 	return &e
-}
-func (e *OutputMskMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputMskMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputMskTLSSettingsClientSide struct {
@@ -686,23 +489,6 @@ const (
 func (e OutputMskBackpressureBehavior) ToPointer() *OutputMskBackpressureBehavior {
 	return &e
 }
-func (e *OutputMskBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputMskBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputMskPqCompressCompression - Codec to use to compress the persisted data
 type OutputMskPqCompressCompression string
@@ -714,21 +500,6 @@ const (
 
 func (e OutputMskPqCompressCompression) ToPointer() *OutputMskPqCompressCompression {
 	return &e
-}
-func (e *OutputMskPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputMskPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskPqCompressCompression: %v", v)
-	}
 }
 
 // OutputMskQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -742,21 +513,6 @@ const (
 func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
 	return &e
 }
-func (e *OutputMskQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputMskQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputMskMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputMskMode string
@@ -769,23 +525,6 @@ const (
 
 func (e OutputMskMode) ToPointer() *OutputMskMode {
 	return &e
-}
-func (e *OutputMskMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputMskMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskMode: %v", v)
-	}
 }
 
 type OutputMskPqControls struct {
