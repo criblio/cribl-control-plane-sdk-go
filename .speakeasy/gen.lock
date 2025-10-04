@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.1-alpha.1759348021885-ce0ae185
   speakeasyVersion: 1.634.1
   generationVersion: 2.721.0
-  releaseVersion: 0.1.0-alpha.3
-  configChecksum: 6addd74218b92c038130307a5dfdcbfe
+  releaseVersion: 0.1.0-alpha.4
+  configChecksum: 3ef62e8f2a9fd559607df9ae05419819
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3310,4 +3310,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Cribl.SocksEnabled` **Added**\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n"
