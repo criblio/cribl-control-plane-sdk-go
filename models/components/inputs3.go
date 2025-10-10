@@ -65,54 +65,28 @@ func (i *InputS3Connection) GetOutput() string {
 type InputS3Mode string
 
 const (
-	InputS3ModeSmart  InputS3Mode = "smart"
+	// InputS3ModeSmart Smart
+	InputS3ModeSmart InputS3Mode = "smart"
+	// InputS3ModeAlways Always On
 	InputS3ModeAlways InputS3Mode = "always"
 )
 
 func (e InputS3Mode) ToPointer() *InputS3Mode {
 	return &e
 }
-func (e *InputS3Mode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputS3Mode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3Mode: %v", v)
-	}
-}
 
 // InputS3Compression - Codec to use to compress the persisted data
 type InputS3Compression string
 
 const (
+	// InputS3CompressionNone None
 	InputS3CompressionNone InputS3Compression = "none"
+	// InputS3CompressionGzip Gzip
 	InputS3CompressionGzip InputS3Compression = "gzip"
 )
 
 func (e InputS3Compression) ToPointer() *InputS3Compression {
 	return &e
-}
-func (e *InputS3Compression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputS3Compression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3Compression: %v", v)
-	}
 }
 
 type InputS3PqControls struct {
@@ -218,30 +192,16 @@ func (i *InputS3Pq) GetPqControls() *InputS3PqControls {
 type InputS3AuthenticationMethod string
 
 const (
-	InputS3AuthenticationMethodAuto   InputS3AuthenticationMethod = "auto"
+	// InputS3AuthenticationMethodAuto Auto
+	InputS3AuthenticationMethodAuto InputS3AuthenticationMethod = "auto"
+	// InputS3AuthenticationMethodManual Manual
 	InputS3AuthenticationMethodManual InputS3AuthenticationMethod = "manual"
+	// InputS3AuthenticationMethodSecret Secret Key pair
 	InputS3AuthenticationMethodSecret InputS3AuthenticationMethod = "secret"
 )
 
 func (e InputS3AuthenticationMethod) ToPointer() *InputS3AuthenticationMethod {
 	return &e
-}
-func (e *InputS3AuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputS3AuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3AuthenticationMethod: %v", v)
-	}
 }
 
 // InputS3SignatureVersion - Signature version to use for signing S3 requests
@@ -254,21 +214,6 @@ const (
 
 func (e InputS3SignatureVersion) ToPointer() *InputS3SignatureVersion {
 	return &e
-}
-func (e *InputS3SignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = InputS3SignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3SignatureVersion: %v", v)
-	}
 }
 
 type InputS3Preprocess struct {

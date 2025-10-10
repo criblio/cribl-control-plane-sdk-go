@@ -35,84 +35,44 @@ func (e *OutputFilesystemType) UnmarshalJSON(data []byte) error {
 type OutputFilesystemDataFormat string
 
 const (
-	OutputFilesystemDataFormatJSON    OutputFilesystemDataFormat = "json"
-	OutputFilesystemDataFormatRaw     OutputFilesystemDataFormat = "raw"
+	// OutputFilesystemDataFormatJSON JSON
+	OutputFilesystemDataFormatJSON OutputFilesystemDataFormat = "json"
+	// OutputFilesystemDataFormatRaw Raw
+	OutputFilesystemDataFormatRaw OutputFilesystemDataFormat = "raw"
+	// OutputFilesystemDataFormatParquet Parquet
 	OutputFilesystemDataFormatParquet OutputFilesystemDataFormat = "parquet"
 )
 
 func (e OutputFilesystemDataFormat) ToPointer() *OutputFilesystemDataFormat {
 	return &e
 }
-func (e *OutputFilesystemDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "parquet":
-		*e = OutputFilesystemDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemDataFormat: %v", v)
-	}
-}
 
 // OutputFilesystemBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputFilesystemBackpressureBehavior string
 
 const (
+	// OutputFilesystemBackpressureBehaviorBlock Block
 	OutputFilesystemBackpressureBehaviorBlock OutputFilesystemBackpressureBehavior = "block"
-	OutputFilesystemBackpressureBehaviorDrop  OutputFilesystemBackpressureBehavior = "drop"
+	// OutputFilesystemBackpressureBehaviorDrop Drop
+	OutputFilesystemBackpressureBehaviorDrop OutputFilesystemBackpressureBehavior = "drop"
 )
 
 func (e OutputFilesystemBackpressureBehavior) ToPointer() *OutputFilesystemBackpressureBehavior {
 	return &e
-}
-func (e *OutputFilesystemBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputFilesystemBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputFilesystemDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputFilesystemDiskSpaceProtection string
 
 const (
+	// OutputFilesystemDiskSpaceProtectionBlock Block
 	OutputFilesystemDiskSpaceProtectionBlock OutputFilesystemDiskSpaceProtection = "block"
-	OutputFilesystemDiskSpaceProtectionDrop  OutputFilesystemDiskSpaceProtection = "drop"
+	// OutputFilesystemDiskSpaceProtectionDrop Drop
+	OutputFilesystemDiskSpaceProtectionDrop OutputFilesystemDiskSpaceProtection = "drop"
 )
 
 func (e OutputFilesystemDiskSpaceProtection) ToPointer() *OutputFilesystemDiskSpaceProtection {
 	return &e
-}
-func (e *OutputFilesystemDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputFilesystemDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemDiskSpaceProtection: %v", v)
-	}
 }
 
 // OutputFilesystemCompression - Data compression format to apply to HTTP content before it is delivered
@@ -126,107 +86,51 @@ const (
 func (e OutputFilesystemCompression) ToPointer() *OutputFilesystemCompression {
 	return &e
 }
-func (e *OutputFilesystemCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputFilesystemCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemCompression: %v", v)
-	}
-}
 
 // OutputFilesystemCompressionLevel - Compression level to apply before moving files to final destination
 type OutputFilesystemCompressionLevel string
 
 const (
-	OutputFilesystemCompressionLevelBestSpeed       OutputFilesystemCompressionLevel = "best_speed"
-	OutputFilesystemCompressionLevelNormal          OutputFilesystemCompressionLevel = "normal"
+	// OutputFilesystemCompressionLevelBestSpeed Best Speed
+	OutputFilesystemCompressionLevelBestSpeed OutputFilesystemCompressionLevel = "best_speed"
+	// OutputFilesystemCompressionLevelNormal Normal
+	OutputFilesystemCompressionLevelNormal OutputFilesystemCompressionLevel = "normal"
+	// OutputFilesystemCompressionLevelBestCompression Best Compression
 	OutputFilesystemCompressionLevelBestCompression OutputFilesystemCompressionLevel = "best_compression"
 )
 
 func (e OutputFilesystemCompressionLevel) ToPointer() *OutputFilesystemCompressionLevel {
 	return &e
 }
-func (e *OutputFilesystemCompressionLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "best_speed":
-		fallthrough
-	case "normal":
-		fallthrough
-	case "best_compression":
-		*e = OutputFilesystemCompressionLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemCompressionLevel: %v", v)
-	}
-}
 
 // OutputFilesystemParquetVersion - Determines which data types are supported and how they are represented
 type OutputFilesystemParquetVersion string
 
 const (
+	// OutputFilesystemParquetVersionParquet10 1.0
 	OutputFilesystemParquetVersionParquet10 OutputFilesystemParquetVersion = "PARQUET_1_0"
+	// OutputFilesystemParquetVersionParquet24 2.4
 	OutputFilesystemParquetVersionParquet24 OutputFilesystemParquetVersion = "PARQUET_2_4"
+	// OutputFilesystemParquetVersionParquet26 2.6
 	OutputFilesystemParquetVersionParquet26 OutputFilesystemParquetVersion = "PARQUET_2_6"
 )
 
 func (e OutputFilesystemParquetVersion) ToPointer() *OutputFilesystemParquetVersion {
 	return &e
 }
-func (e *OutputFilesystemParquetVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "PARQUET_1_0":
-		fallthrough
-	case "PARQUET_2_4":
-		fallthrough
-	case "PARQUET_2_6":
-		*e = OutputFilesystemParquetVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemParquetVersion: %v", v)
-	}
-}
 
 // OutputFilesystemDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputFilesystemDataPageVersion string
 
 const (
+	// OutputFilesystemDataPageVersionDataPageV1 V1
 	OutputFilesystemDataPageVersionDataPageV1 OutputFilesystemDataPageVersion = "DATA_PAGE_V1"
+	// OutputFilesystemDataPageVersionDataPageV2 V2
 	OutputFilesystemDataPageVersionDataPageV2 OutputFilesystemDataPageVersion = "DATA_PAGE_V2"
 )
 
 func (e OutputFilesystemDataPageVersion) ToPointer() *OutputFilesystemDataPageVersion {
 	return &e
-}
-func (e *OutputFilesystemDataPageVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "DATA_PAGE_V1":
-		fallthrough
-	case "DATA_PAGE_V2":
-		*e = OutputFilesystemDataPageVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFilesystemDataPageVersion: %v", v)
-	}
 }
 
 type OutputFilesystemKeyValueMetadatum struct {

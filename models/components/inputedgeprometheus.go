@@ -65,54 +65,28 @@ func (i *InputEdgePrometheusConnection) GetOutput() string {
 type InputEdgePrometheusMode string
 
 const (
-	InputEdgePrometheusModeSmart  InputEdgePrometheusMode = "smart"
+	// InputEdgePrometheusModeSmart Smart
+	InputEdgePrometheusModeSmart InputEdgePrometheusMode = "smart"
+	// InputEdgePrometheusModeAlways Always On
 	InputEdgePrometheusModeAlways InputEdgePrometheusMode = "always"
 )
 
 func (e InputEdgePrometheusMode) ToPointer() *InputEdgePrometheusMode {
 	return &e
 }
-func (e *InputEdgePrometheusMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputEdgePrometheusMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusMode: %v", v)
-	}
-}
 
 // InputEdgePrometheusPqCompression - Codec to use to compress the persisted data
 type InputEdgePrometheusPqCompression string
 
 const (
+	// InputEdgePrometheusPqCompressionNone None
 	InputEdgePrometheusPqCompressionNone InputEdgePrometheusPqCompression = "none"
+	// InputEdgePrometheusPqCompressionGzip Gzip
 	InputEdgePrometheusPqCompressionGzip InputEdgePrometheusPqCompression = "gzip"
 )
 
 func (e InputEdgePrometheusPqCompression) ToPointer() *InputEdgePrometheusPqCompression {
 	return &e
-}
-func (e *InputEdgePrometheusPqCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputEdgePrometheusPqCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusPqCompression: %v", v)
-	}
 }
 
 type InputEdgePrometheusPqControls struct {
@@ -218,36 +192,20 @@ func (i *InputEdgePrometheusPq) GetPqControls() *InputEdgePrometheusPqControls {
 type InputEdgePrometheusDiscoveryType string
 
 const (
-	InputEdgePrometheusDiscoveryTypeStatic  InputEdgePrometheusDiscoveryType = "static"
-	InputEdgePrometheusDiscoveryTypeDNS     InputEdgePrometheusDiscoveryType = "dns"
-	InputEdgePrometheusDiscoveryTypeEc2     InputEdgePrometheusDiscoveryType = "ec2"
+	// InputEdgePrometheusDiscoveryTypeStatic Static
+	InputEdgePrometheusDiscoveryTypeStatic InputEdgePrometheusDiscoveryType = "static"
+	// InputEdgePrometheusDiscoveryTypeDNS DNS
+	InputEdgePrometheusDiscoveryTypeDNS InputEdgePrometheusDiscoveryType = "dns"
+	// InputEdgePrometheusDiscoveryTypeEc2 AWS EC2
+	InputEdgePrometheusDiscoveryTypeEc2 InputEdgePrometheusDiscoveryType = "ec2"
+	// InputEdgePrometheusDiscoveryTypeK8sNode Kubernetes Node
 	InputEdgePrometheusDiscoveryTypeK8sNode InputEdgePrometheusDiscoveryType = "k8s-node"
+	// InputEdgePrometheusDiscoveryTypeK8sPods Kubernetes Pods
 	InputEdgePrometheusDiscoveryTypeK8sPods InputEdgePrometheusDiscoveryType = "k8s-pods"
 )
 
 func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscoveryType {
 	return &e
-}
-func (e *InputEdgePrometheusDiscoveryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "static":
-		fallthrough
-	case "dns":
-		fallthrough
-	case "ec2":
-		fallthrough
-	case "k8s-node":
-		fallthrough
-	case "k8s-pods":
-		*e = InputEdgePrometheusDiscoveryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusDiscoveryType: %v", v)
-	}
 }
 
 // InputEdgePrometheusPersistenceCompression - Data compression format. Default is gzip.
@@ -260,21 +218,6 @@ const (
 
 func (e InputEdgePrometheusPersistenceCompression) ToPointer() *InputEdgePrometheusPersistenceCompression {
 	return &e
-}
-func (e *InputEdgePrometheusPersistenceCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputEdgePrometheusPersistenceCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusPersistenceCompression: %v", v)
-	}
 }
 
 type InputEdgePrometheusDiskSpooling struct {
@@ -379,23 +322,6 @@ const (
 func (e InputEdgePrometheusAuthTypeAuthenticationMethod) ToPointer() *InputEdgePrometheusAuthTypeAuthenticationMethod {
 	return &e
 }
-func (e *InputEdgePrometheusAuthTypeAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "kubernetes":
-		*e = InputEdgePrometheusAuthTypeAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusAuthTypeAuthenticationMethod: %v", v)
-	}
-}
 
 // TargetProtocol - Protocol to use when collecting metrics
 type TargetProtocol string
@@ -407,21 +333,6 @@ const (
 
 func (e TargetProtocol) ToPointer() *TargetProtocol {
 	return &e
-}
-func (e *TargetProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "http":
-		fallthrough
-	case "https":
-		*e = TargetProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TargetProtocol: %v", v)
-	}
 }
 
 type Target struct {
@@ -486,23 +397,6 @@ const (
 func (e InputEdgePrometheusRecordType) ToPointer() *InputEdgePrometheusRecordType {
 	return &e
 }
-func (e *InputEdgePrometheusRecordType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "SRV":
-		fallthrough
-	case "A":
-		fallthrough
-	case "AAAA":
-		*e = InputEdgePrometheusRecordType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusRecordType: %v", v)
-	}
-}
 
 // ScrapeProtocolProtocol - Protocol to use when collecting metrics
 type ScrapeProtocolProtocol string
@@ -514,21 +408,6 @@ const (
 
 func (e ScrapeProtocolProtocol) ToPointer() *ScrapeProtocolProtocol {
 	return &e
-}
-func (e *ScrapeProtocolProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "http":
-		fallthrough
-	case "https":
-		*e = ScrapeProtocolProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ScrapeProtocolProtocol: %v", v)
-	}
 }
 
 type InputEdgePrometheusSearchFilter struct {
@@ -567,30 +446,16 @@ func (i *InputEdgePrometheusSearchFilter) GetValues() []string {
 type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod string
 
 const (
-	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto   InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
+	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
 	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
 	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
 )
 
 func (e InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
 	return &e
-}
-func (e *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod: %v", v)
-	}
 }
 
 // InputEdgePrometheusSignatureVersion - Signature version to use for signing EC2 requests
@@ -603,21 +468,6 @@ const (
 
 func (e InputEdgePrometheusSignatureVersion) ToPointer() *InputEdgePrometheusSignatureVersion {
 	return &e
-}
-func (e *InputEdgePrometheusSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = InputEdgePrometheusSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputEdgePrometheusSignatureVersion: %v", v)
-	}
 }
 
 type PodFilter struct {

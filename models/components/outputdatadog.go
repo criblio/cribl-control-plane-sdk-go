@@ -35,114 +35,64 @@ func (e *OutputDatadogType) UnmarshalJSON(data []byte) error {
 type SendLogsAs string
 
 const (
+	// SendLogsAsText text/plain
 	SendLogsAsText SendLogsAs = "text"
+	// SendLogsAsJSON application/json
 	SendLogsAsJSON SendLogsAs = "json"
 )
 
 func (e SendLogsAs) ToPointer() *SendLogsAs {
 	return &e
 }
-func (e *SendLogsAs) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "text":
-		fallthrough
-	case "json":
-		*e = SendLogsAs(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for SendLogsAs: %v", v)
-	}
-}
 
 // OutputDatadogSeverity - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
 type OutputDatadogSeverity string
 
 const (
+	// OutputDatadogSeverityEmergency emergency
 	OutputDatadogSeverityEmergency OutputDatadogSeverity = "emergency"
-	OutputDatadogSeverityAlert     OutputDatadogSeverity = "alert"
-	OutputDatadogSeverityCritical  OutputDatadogSeverity = "critical"
-	OutputDatadogSeverityError     OutputDatadogSeverity = "error"
-	OutputDatadogSeverityWarning   OutputDatadogSeverity = "warning"
-	OutputDatadogSeverityNotice    OutputDatadogSeverity = "notice"
-	OutputDatadogSeverityInfo      OutputDatadogSeverity = "info"
-	OutputDatadogSeverityDebug     OutputDatadogSeverity = "debug"
+	// OutputDatadogSeverityAlert alert
+	OutputDatadogSeverityAlert OutputDatadogSeverity = "alert"
+	// OutputDatadogSeverityCritical critical
+	OutputDatadogSeverityCritical OutputDatadogSeverity = "critical"
+	// OutputDatadogSeverityError error
+	OutputDatadogSeverityError OutputDatadogSeverity = "error"
+	// OutputDatadogSeverityWarning warning
+	OutputDatadogSeverityWarning OutputDatadogSeverity = "warning"
+	// OutputDatadogSeverityNotice notice
+	OutputDatadogSeverityNotice OutputDatadogSeverity = "notice"
+	// OutputDatadogSeverityInfo info
+	OutputDatadogSeverityInfo OutputDatadogSeverity = "info"
+	// OutputDatadogSeverityDebug debug
+	OutputDatadogSeverityDebug OutputDatadogSeverity = "debug"
 )
 
 func (e OutputDatadogSeverity) ToPointer() *OutputDatadogSeverity {
 	return &e
-}
-func (e *OutputDatadogSeverity) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "emergency":
-		fallthrough
-	case "alert":
-		fallthrough
-	case "critical":
-		fallthrough
-	case "error":
-		fallthrough
-	case "warning":
-		fallthrough
-	case "notice":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		*e = OutputDatadogSeverity(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogSeverity: %v", v)
-	}
 }
 
 // DatadogSite - Datadog site to which events should be sent
 type DatadogSite string
 
 const (
-	DatadogSiteUs     DatadogSite = "us"
-	DatadogSiteUs3    DatadogSite = "us3"
-	DatadogSiteUs5    DatadogSite = "us5"
-	DatadogSiteEu     DatadogSite = "eu"
-	DatadogSiteFed1   DatadogSite = "fed1"
-	DatadogSiteAp1    DatadogSite = "ap1"
+	// DatadogSiteUs US
+	DatadogSiteUs DatadogSite = "us"
+	// DatadogSiteUs3 US3
+	DatadogSiteUs3 DatadogSite = "us3"
+	// DatadogSiteUs5 US5
+	DatadogSiteUs5 DatadogSite = "us5"
+	// DatadogSiteEu Europe
+	DatadogSiteEu DatadogSite = "eu"
+	// DatadogSiteFed1 US1-FED
+	DatadogSiteFed1 DatadogSite = "fed1"
+	// DatadogSiteAp1 AP1
+	DatadogSiteAp1 DatadogSite = "ap1"
+	// DatadogSiteCustom Custom
 	DatadogSiteCustom DatadogSite = "custom"
 )
 
 func (e DatadogSite) ToPointer() *DatadogSite {
 	return &e
-}
-func (e *DatadogSite) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "us":
-		fallthrough
-	case "us3":
-		fallthrough
-	case "us5":
-		fallthrough
-	case "eu":
-		fallthrough
-	case "fed1":
-		fallthrough
-	case "ap1":
-		fallthrough
-	case "custom":
-		*e = DatadogSite(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for DatadogSite: %v", v)
-	}
 }
 
 type OutputDatadogExtraHTTPHeader struct {
@@ -179,30 +129,16 @@ func (o *OutputDatadogExtraHTTPHeader) GetValue() string {
 type OutputDatadogFailedRequestLoggingMode string
 
 const (
-	OutputDatadogFailedRequestLoggingModePayload           OutputDatadogFailedRequestLoggingMode = "payload"
+	// OutputDatadogFailedRequestLoggingModePayload Payload
+	OutputDatadogFailedRequestLoggingModePayload OutputDatadogFailedRequestLoggingMode = "payload"
+	// OutputDatadogFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDatadogFailedRequestLoggingModePayloadAndHeaders OutputDatadogFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatadogFailedRequestLoggingModeNone              OutputDatadogFailedRequestLoggingMode = "none"
+	// OutputDatadogFailedRequestLoggingModeNone None
+	OutputDatadogFailedRequestLoggingModeNone OutputDatadogFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDatadogFailedRequestLoggingMode) ToPointer() *OutputDatadogFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputDatadogFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputDatadogFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputDatadogResponseRetrySetting struct {
@@ -308,30 +244,16 @@ func (o *OutputDatadogTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDatadogBackpressureBehavior string
 
 const (
+	// OutputDatadogBackpressureBehaviorBlock Block
 	OutputDatadogBackpressureBehaviorBlock OutputDatadogBackpressureBehavior = "block"
-	OutputDatadogBackpressureBehaviorDrop  OutputDatadogBackpressureBehavior = "drop"
+	// OutputDatadogBackpressureBehaviorDrop Drop
+	OutputDatadogBackpressureBehaviorDrop OutputDatadogBackpressureBehavior = "drop"
+	// OutputDatadogBackpressureBehaviorQueue Persistent Queue
 	OutputDatadogBackpressureBehaviorQueue OutputDatadogBackpressureBehavior = "queue"
 )
 
 func (e OutputDatadogBackpressureBehavior) ToPointer() *OutputDatadogBackpressureBehavior {
 	return &e
-}
-func (e *OutputDatadogBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputDatadogBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputDatadogAuthenticationMethod - Enter API key directly, or select a stored secret
@@ -345,104 +267,49 @@ const (
 func (e OutputDatadogAuthenticationMethod) ToPointer() *OutputDatadogAuthenticationMethod {
 	return &e
 }
-func (e *OutputDatadogAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputDatadogAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputDatadogCompression - Codec to use to compress the persisted data
 type OutputDatadogCompression string
 
 const (
+	// OutputDatadogCompressionNone None
 	OutputDatadogCompressionNone OutputDatadogCompression = "none"
+	// OutputDatadogCompressionGzip Gzip
 	OutputDatadogCompressionGzip OutputDatadogCompression = "gzip"
 )
 
 func (e OutputDatadogCompression) ToPointer() *OutputDatadogCompression {
 	return &e
 }
-func (e *OutputDatadogCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDatadogCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogCompression: %v", v)
-	}
-}
 
 // OutputDatadogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDatadogQueueFullBehavior string
 
 const (
+	// OutputDatadogQueueFullBehaviorBlock Block
 	OutputDatadogQueueFullBehaviorBlock OutputDatadogQueueFullBehavior = "block"
-	OutputDatadogQueueFullBehaviorDrop  OutputDatadogQueueFullBehavior = "drop"
+	// OutputDatadogQueueFullBehaviorDrop Drop new data
+	OutputDatadogQueueFullBehaviorDrop OutputDatadogQueueFullBehavior = "drop"
 )
 
 func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehavior {
 	return &e
-}
-func (e *OutputDatadogQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputDatadogQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputDatadogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputDatadogMode string
 
 const (
-	OutputDatadogModeError        OutputDatadogMode = "error"
+	// OutputDatadogModeError Error
+	OutputDatadogModeError OutputDatadogMode = "error"
+	// OutputDatadogModeBackpressure Backpressure
 	OutputDatadogModeBackpressure OutputDatadogMode = "backpressure"
-	OutputDatadogModeAlways       OutputDatadogMode = "always"
+	// OutputDatadogModeAlways Always On
+	OutputDatadogModeAlways OutputDatadogMode = "always"
 )
 
 func (e OutputDatadogMode) ToPointer() *OutputDatadogMode {
 	return &e
-}
-func (e *OutputDatadogMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputDatadogMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatadogMode: %v", v)
-	}
 }
 
 type OutputDatadogPqControls struct {

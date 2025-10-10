@@ -65,54 +65,28 @@ func (i *InputGooglePubsubConnection) GetOutput() string {
 type InputGooglePubsubMode string
 
 const (
-	InputGooglePubsubModeSmart  InputGooglePubsubMode = "smart"
+	// InputGooglePubsubModeSmart Smart
+	InputGooglePubsubModeSmart InputGooglePubsubMode = "smart"
+	// InputGooglePubsubModeAlways Always On
 	InputGooglePubsubModeAlways InputGooglePubsubMode = "always"
 )
 
 func (e InputGooglePubsubMode) ToPointer() *InputGooglePubsubMode {
 	return &e
 }
-func (e *InputGooglePubsubMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputGooglePubsubMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubMode: %v", v)
-	}
-}
 
 // InputGooglePubsubCompression - Codec to use to compress the persisted data
 type InputGooglePubsubCompression string
 
 const (
+	// InputGooglePubsubCompressionNone None
 	InputGooglePubsubCompressionNone InputGooglePubsubCompression = "none"
+	// InputGooglePubsubCompressionGzip Gzip
 	InputGooglePubsubCompressionGzip InputGooglePubsubCompression = "gzip"
 )
 
 func (e InputGooglePubsubCompression) ToPointer() *InputGooglePubsubCompression {
 	return &e
-}
-func (e *InputGooglePubsubCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputGooglePubsubCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubCompression: %v", v)
-	}
 }
 
 type InputGooglePubsubPqControls struct {
@@ -218,30 +192,16 @@ func (i *InputGooglePubsubPq) GetPqControls() *InputGooglePubsubPqControls {
 type InputGooglePubsubGoogleAuthenticationMethod string
 
 const (
-	InputGooglePubsubGoogleAuthenticationMethodAuto   InputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// InputGooglePubsubGoogleAuthenticationMethodAuto Auto
+	InputGooglePubsubGoogleAuthenticationMethodAuto InputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// InputGooglePubsubGoogleAuthenticationMethodManual Manual
 	InputGooglePubsubGoogleAuthenticationMethodManual InputGooglePubsubGoogleAuthenticationMethod = "manual"
+	// InputGooglePubsubGoogleAuthenticationMethodSecret Secret
 	InputGooglePubsubGoogleAuthenticationMethodSecret InputGooglePubsubGoogleAuthenticationMethod = "secret"
 )
 
 func (e InputGooglePubsubGoogleAuthenticationMethod) ToPointer() *InputGooglePubsubGoogleAuthenticationMethod {
 	return &e
-}
-func (e *InputGooglePubsubGoogleAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputGooglePubsubGoogleAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubGoogleAuthenticationMethod: %v", v)
-	}
 }
 
 type InputGooglePubsubMetadatum struct {

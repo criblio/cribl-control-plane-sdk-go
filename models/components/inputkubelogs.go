@@ -65,54 +65,28 @@ func (i *InputKubeLogsConnection) GetOutput() string {
 type InputKubeLogsMode string
 
 const (
-	InputKubeLogsModeSmart  InputKubeLogsMode = "smart"
+	// InputKubeLogsModeSmart Smart
+	InputKubeLogsModeSmart InputKubeLogsMode = "smart"
+	// InputKubeLogsModeAlways Always On
 	InputKubeLogsModeAlways InputKubeLogsMode = "always"
 )
 
 func (e InputKubeLogsMode) ToPointer() *InputKubeLogsMode {
 	return &e
 }
-func (e *InputKubeLogsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputKubeLogsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsMode: %v", v)
-	}
-}
 
 // InputKubeLogsPqCompression - Codec to use to compress the persisted data
 type InputKubeLogsPqCompression string
 
 const (
+	// InputKubeLogsPqCompressionNone None
 	InputKubeLogsPqCompressionNone InputKubeLogsPqCompression = "none"
+	// InputKubeLogsPqCompressionGzip Gzip
 	InputKubeLogsPqCompressionGzip InputKubeLogsPqCompression = "gzip"
 )
 
 func (e InputKubeLogsPqCompression) ToPointer() *InputKubeLogsPqCompression {
 	return &e
-}
-func (e *InputKubeLogsPqCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeLogsPqCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsPqCompression: %v", v)
-	}
 }
 
 type InputKubeLogsPqControls struct {
@@ -287,21 +261,6 @@ const (
 
 func (e InputKubeLogsPersistenceCompression) ToPointer() *InputKubeLogsPersistenceCompression {
 	return &e
-}
-func (e *InputKubeLogsPersistenceCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeLogsPersistenceCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeLogsPersistenceCompression: %v", v)
-	}
 }
 
 type InputKubeLogsDiskSpooling struct {

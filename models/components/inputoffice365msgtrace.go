@@ -65,54 +65,28 @@ func (i *InputOffice365MsgTraceConnection) GetOutput() string {
 type InputOffice365MsgTraceMode string
 
 const (
-	InputOffice365MsgTraceModeSmart  InputOffice365MsgTraceMode = "smart"
+	// InputOffice365MsgTraceModeSmart Smart
+	InputOffice365MsgTraceModeSmart InputOffice365MsgTraceMode = "smart"
+	// InputOffice365MsgTraceModeAlways Always On
 	InputOffice365MsgTraceModeAlways InputOffice365MsgTraceMode = "always"
 )
 
 func (e InputOffice365MsgTraceMode) ToPointer() *InputOffice365MsgTraceMode {
 	return &e
 }
-func (e *InputOffice365MsgTraceMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputOffice365MsgTraceMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceMode: %v", v)
-	}
-}
 
 // InputOffice365MsgTraceCompression - Codec to use to compress the persisted data
 type InputOffice365MsgTraceCompression string
 
 const (
+	// InputOffice365MsgTraceCompressionNone None
 	InputOffice365MsgTraceCompressionNone InputOffice365MsgTraceCompression = "none"
+	// InputOffice365MsgTraceCompressionGzip Gzip
 	InputOffice365MsgTraceCompressionGzip InputOffice365MsgTraceCompression = "gzip"
 )
 
 func (e InputOffice365MsgTraceCompression) ToPointer() *InputOffice365MsgTraceCompression {
 	return &e
-}
-func (e *InputOffice365MsgTraceCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputOffice365MsgTraceCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceCompression: %v", v)
-	}
 }
 
 type InputOffice365MsgTracePqControls struct {
@@ -228,27 +202,6 @@ const (
 func (e InputOffice365MsgTraceAuthenticationMethod) ToPointer() *InputOffice365MsgTraceAuthenticationMethod {
 	return &e
 }
-func (e *InputOffice365MsgTraceAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "oauth":
-		fallthrough
-	case "oauthSecret":
-		fallthrough
-	case "oauthCert":
-		*e = InputOffice365MsgTraceAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceAuthenticationMethod: %v", v)
-	}
-}
 
 // InputOffice365MsgTraceLogLevel - Log Level (verbosity) for collection runtime behavior.
 type InputOffice365MsgTraceLogLevel string
@@ -263,27 +216,6 @@ const (
 
 func (e InputOffice365MsgTraceLogLevel) ToPointer() *InputOffice365MsgTraceLogLevel {
 	return &e
-}
-func (e *InputOffice365MsgTraceLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = InputOffice365MsgTraceLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceLogLevel: %v", v)
-	}
 }
 
 type InputOffice365MsgTraceMetadatum struct {
@@ -321,30 +253,16 @@ func (i *InputOffice365MsgTraceMetadatum) GetValue() string {
 type InputOffice365MsgTraceRetryType string
 
 const (
-	InputOffice365MsgTraceRetryTypeNone    InputOffice365MsgTraceRetryType = "none"
+	// InputOffice365MsgTraceRetryTypeNone Disabled
+	InputOffice365MsgTraceRetryTypeNone InputOffice365MsgTraceRetryType = "none"
+	// InputOffice365MsgTraceRetryTypeBackoff Backoff
 	InputOffice365MsgTraceRetryTypeBackoff InputOffice365MsgTraceRetryType = "backoff"
-	InputOffice365MsgTraceRetryTypeStatic  InputOffice365MsgTraceRetryType = "static"
+	// InputOffice365MsgTraceRetryTypeStatic Static
+	InputOffice365MsgTraceRetryTypeStatic InputOffice365MsgTraceRetryType = "static"
 )
 
 func (e InputOffice365MsgTraceRetryType) ToPointer() *InputOffice365MsgTraceRetryType {
 	return &e
-}
-func (e *InputOffice365MsgTraceRetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "backoff":
-		fallthrough
-	case "static":
-		*e = InputOffice365MsgTraceRetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceRetryType: %v", v)
-	}
 }
 
 type InputOffice365MsgTraceRetryRules struct {
@@ -437,33 +355,18 @@ func (i *InputOffice365MsgTraceRetryRules) GetRetryConnectReset() *bool {
 type InputOffice365MsgTraceSubscriptionPlan string
 
 const (
+	// InputOffice365MsgTraceSubscriptionPlanEnterpriseGcc Office 365 Enterprise
 	InputOffice365MsgTraceSubscriptionPlanEnterpriseGcc InputOffice365MsgTraceSubscriptionPlan = "enterprise_gcc"
-	InputOffice365MsgTraceSubscriptionPlanGcc           InputOffice365MsgTraceSubscriptionPlan = "gcc"
-	InputOffice365MsgTraceSubscriptionPlanGccHigh       InputOffice365MsgTraceSubscriptionPlan = "gcc_high"
-	InputOffice365MsgTraceSubscriptionPlanDod           InputOffice365MsgTraceSubscriptionPlan = "dod"
+	// InputOffice365MsgTraceSubscriptionPlanGcc Office 365 GCC
+	InputOffice365MsgTraceSubscriptionPlanGcc InputOffice365MsgTraceSubscriptionPlan = "gcc"
+	// InputOffice365MsgTraceSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365MsgTraceSubscriptionPlanGccHigh InputOffice365MsgTraceSubscriptionPlan = "gcc_high"
+	// InputOffice365MsgTraceSubscriptionPlanDod Office 365 DoD
+	InputOffice365MsgTraceSubscriptionPlanDod InputOffice365MsgTraceSubscriptionPlan = "dod"
 )
 
 func (e InputOffice365MsgTraceSubscriptionPlan) ToPointer() *InputOffice365MsgTraceSubscriptionPlan {
 	return &e
-}
-func (e *InputOffice365MsgTraceSubscriptionPlan) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "enterprise_gcc":
-		fallthrough
-	case "gcc":
-		fallthrough
-	case "gcc_high":
-		fallthrough
-	case "dod":
-		*e = InputOffice365MsgTraceSubscriptionPlan(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MsgTraceSubscriptionPlan: %v", v)
-	}
 }
 
 type CertOptions struct {

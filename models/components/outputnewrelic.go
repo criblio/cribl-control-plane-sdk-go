@@ -35,30 +35,16 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 type OutputNewrelicRegion string
 
 const (
-	OutputNewrelicRegionUs     OutputNewrelicRegion = "US"
-	OutputNewrelicRegionEu     OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionUs US
+	OutputNewrelicRegionUs OutputNewrelicRegion = "US"
+	// OutputNewrelicRegionEu Europe
+	OutputNewrelicRegionEu OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionCustom Custom
 	OutputNewrelicRegionCustom OutputNewrelicRegion = "Custom"
 )
 
 func (e OutputNewrelicRegion) ToPointer() *OutputNewrelicRegion {
 	return &e
-}
-func (e *OutputNewrelicRegion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "US":
-		fallthrough
-	case "EU":
-		fallthrough
-	case "Custom":
-		*e = OutputNewrelicRegion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicRegion: %v", v)
-	}
 }
 
 type FieldName string
@@ -72,25 +58,6 @@ const (
 
 func (e FieldName) ToPointer() *FieldName {
 	return &e
-}
-func (e *FieldName) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "service":
-		fallthrough
-	case "hostname":
-		fallthrough
-	case "timestamp":
-		fallthrough
-	case "auditId":
-		*e = FieldName(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for FieldName: %v", v)
-	}
 }
 
 type OutputNewrelicMetadatum struct {
@@ -158,30 +125,16 @@ func (o *OutputNewrelicExtraHTTPHeader) GetValue() string {
 type OutputNewrelicFailedRequestLoggingMode string
 
 const (
-	OutputNewrelicFailedRequestLoggingModePayload           OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayload Payload
+	OutputNewrelicFailedRequestLoggingModePayload OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputNewrelicFailedRequestLoggingModePayloadAndHeaders OutputNewrelicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputNewrelicFailedRequestLoggingModeNone              OutputNewrelicFailedRequestLoggingMode = "none"
+	// OutputNewrelicFailedRequestLoggingModeNone None
+	OutputNewrelicFailedRequestLoggingModeNone OutputNewrelicFailedRequestLoggingMode = "none"
 )
 
 func (e OutputNewrelicFailedRequestLoggingMode) ToPointer() *OutputNewrelicFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputNewrelicFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputNewrelicFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputNewrelicResponseRetrySetting struct {
@@ -287,30 +240,16 @@ func (o *OutputNewrelicTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputNewrelicBackpressureBehavior string
 
 const (
+	// OutputNewrelicBackpressureBehaviorBlock Block
 	OutputNewrelicBackpressureBehaviorBlock OutputNewrelicBackpressureBehavior = "block"
-	OutputNewrelicBackpressureBehaviorDrop  OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorDrop Drop
+	OutputNewrelicBackpressureBehaviorDrop OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorQueue Persistent Queue
 	OutputNewrelicBackpressureBehaviorQueue OutputNewrelicBackpressureBehavior = "queue"
 )
 
 func (e OutputNewrelicBackpressureBehavior) ToPointer() *OutputNewrelicBackpressureBehavior {
 	return &e
-}
-func (e *OutputNewrelicBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputNewrelicBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputNewrelicAuthenticationMethod - Enter API key directly, or select a stored secret
@@ -324,104 +263,49 @@ const (
 func (e OutputNewrelicAuthenticationMethod) ToPointer() *OutputNewrelicAuthenticationMethod {
 	return &e
 }
-func (e *OutputNewrelicAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputNewrelicAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputNewrelicCompression - Codec to use to compress the persisted data
 type OutputNewrelicCompression string
 
 const (
+	// OutputNewrelicCompressionNone None
 	OutputNewrelicCompressionNone OutputNewrelicCompression = "none"
+	// OutputNewrelicCompressionGzip Gzip
 	OutputNewrelicCompressionGzip OutputNewrelicCompression = "gzip"
 )
 
 func (e OutputNewrelicCompression) ToPointer() *OutputNewrelicCompression {
 	return &e
 }
-func (e *OutputNewrelicCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputNewrelicCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicCompression: %v", v)
-	}
-}
 
 // OutputNewrelicQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputNewrelicQueueFullBehavior string
 
 const (
+	// OutputNewrelicQueueFullBehaviorBlock Block
 	OutputNewrelicQueueFullBehaviorBlock OutputNewrelicQueueFullBehavior = "block"
-	OutputNewrelicQueueFullBehaviorDrop  OutputNewrelicQueueFullBehavior = "drop"
+	// OutputNewrelicQueueFullBehaviorDrop Drop new data
+	OutputNewrelicQueueFullBehaviorDrop OutputNewrelicQueueFullBehavior = "drop"
 )
 
 func (e OutputNewrelicQueueFullBehavior) ToPointer() *OutputNewrelicQueueFullBehavior {
 	return &e
-}
-func (e *OutputNewrelicQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputNewrelicQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputNewrelicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputNewrelicMode string
 
 const (
-	OutputNewrelicModeError        OutputNewrelicMode = "error"
+	// OutputNewrelicModeError Error
+	OutputNewrelicModeError OutputNewrelicMode = "error"
+	// OutputNewrelicModeBackpressure Backpressure
 	OutputNewrelicModeBackpressure OutputNewrelicMode = "backpressure"
-	OutputNewrelicModeAlways       OutputNewrelicMode = "always"
+	// OutputNewrelicModeAlways Always On
+	OutputNewrelicModeAlways OutputNewrelicMode = "always"
 )
 
 func (e OutputNewrelicMode) ToPointer() *OutputNewrelicMode {
 	return &e
-}
-func (e *OutputNewrelicMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputNewrelicMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNewrelicMode: %v", v)
-	}
 }
 
 type OutputNewrelicPqControls struct {

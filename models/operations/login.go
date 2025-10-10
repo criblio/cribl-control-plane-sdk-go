@@ -10,6 +10,7 @@ type LoginResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Authentication token
 	AuthToken *components.AuthToken
+	Headers   map[string][]string
 }
 
 func (l *LoginResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -24,4 +25,11 @@ func (l *LoginResponse) GetAuthToken() *components.AuthToken {
 		return nil
 	}
 	return l.AuthToken
+}
+
+func (l *LoginResponse) GetHeaders() map[string][]string {
+	if l == nil {
+		return map[string][]string{}
+	}
+	return l.Headers
 }
