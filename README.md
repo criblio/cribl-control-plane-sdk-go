@@ -219,13 +219,9 @@ func main() {
 <details open>
 <summary>Available methods</summary>
 
-### [Auth](docs/sdks/auth/README.md)
-
-
 #### [Auth.Tokens](docs/sdks/tokens/README.md)
 
 * [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
-
 
 ### [Destinations](docs/sdks/destinations/README.md)
 
@@ -322,9 +318,6 @@ func main() {
 
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
-
-### [Versions](docs/sdks/versions/README.md)
-
 
 #### [Versions.Branches](docs/sdks/branches/README.md)
 
