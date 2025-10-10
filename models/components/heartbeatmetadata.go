@@ -6,11 +6,12 @@ type HeartbeatMetadataTags struct {
 }
 
 type HeartbeatMetadataAws struct {
-	Enabled bool                   `json:"enabled"`
-	Region  string                 `json:"region"`
-	Tags    *HeartbeatMetadataTags `json:"tags,omitempty"`
-	Type    string                 `json:"type"`
-	Zone    string                 `json:"zone"`
+	Enabled    bool                   `json:"enabled"`
+	InstanceID string                 `json:"instanceId"`
+	Region     string                 `json:"region"`
+	Tags       *HeartbeatMetadataTags `json:"tags,omitempty"`
+	Type       string                 `json:"type"`
+	Zone       string                 `json:"zone"`
 }
 
 func (h *HeartbeatMetadataAws) GetEnabled() bool {
@@ -18,6 +19,13 @@ func (h *HeartbeatMetadataAws) GetEnabled() bool {
 		return false
 	}
 	return h.Enabled
+}
+
+func (h *HeartbeatMetadataAws) GetInstanceID() string {
+	if h == nil {
+		return ""
+	}
+	return h.InstanceID
 }
 
 func (h *HeartbeatMetadataAws) GetRegion() string {

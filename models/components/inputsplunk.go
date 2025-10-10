@@ -65,54 +65,28 @@ func (i *InputSplunkConnection) GetOutput() string {
 type InputSplunkMode string
 
 const (
-	InputSplunkModeSmart  InputSplunkMode = "smart"
+	// InputSplunkModeSmart Smart
+	InputSplunkModeSmart InputSplunkMode = "smart"
+	// InputSplunkModeAlways Always On
 	InputSplunkModeAlways InputSplunkMode = "always"
 )
 
 func (e InputSplunkMode) ToPointer() *InputSplunkMode {
 	return &e
 }
-func (e *InputSplunkMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSplunkMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkMode: %v", v)
-	}
-}
 
 // InputSplunkPqCompression - Codec to use to compress the persisted data
 type InputSplunkPqCompression string
 
 const (
+	// InputSplunkPqCompressionNone None
 	InputSplunkPqCompressionNone InputSplunkPqCompression = "none"
+	// InputSplunkPqCompressionGzip Gzip
 	InputSplunkPqCompressionGzip InputSplunkPqCompression = "gzip"
 )
 
 func (e InputSplunkPqCompression) ToPointer() *InputSplunkPqCompression {
 	return &e
-}
-func (e *InputSplunkPqCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSplunkPqCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkPqCompression: %v", v)
-	}
 }
 
 type InputSplunkPqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputSplunkMinimumTLSVersion) ToPointer() *InputSplunkMinimumTLSVersion {
 	return &e
 }
-func (e *InputSplunkMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSplunkMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputSplunkMaximumTLSVersion string
 
@@ -257,25 +212,6 @@ const (
 
 func (e InputSplunkMaximumTLSVersion) ToPointer() *InputSplunkMaximumTLSVersion {
 	return &e
-}
-func (e *InputSplunkMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSplunkMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputSplunkTLSSettingsServerSide struct {
@@ -452,57 +388,30 @@ func (i *InputSplunkAuthToken) GetDescription() *string {
 type InputSplunkMaxS2SVersion string
 
 const (
+	// InputSplunkMaxS2SVersionV3 v3
 	InputSplunkMaxS2SVersionV3 InputSplunkMaxS2SVersion = "v3"
+	// InputSplunkMaxS2SVersionV4 v4
 	InputSplunkMaxS2SVersionV4 InputSplunkMaxS2SVersion = "v4"
 )
 
 func (e InputSplunkMaxS2SVersion) ToPointer() *InputSplunkMaxS2SVersion {
 	return &e
 }
-func (e *InputSplunkMaxS2SVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v3":
-		fallthrough
-	case "v4":
-		*e = InputSplunkMaxS2SVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkMaxS2SVersion: %v", v)
-	}
-}
 
 // InputSplunkCompression - Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 type InputSplunkCompression string
 
 const (
+	// InputSplunkCompressionDisabled Disabled
 	InputSplunkCompressionDisabled InputSplunkCompression = "disabled"
-	InputSplunkCompressionAuto     InputSplunkCompression = "auto"
-	InputSplunkCompressionAlways   InputSplunkCompression = "always"
+	// InputSplunkCompressionAuto Automatic
+	InputSplunkCompressionAuto InputSplunkCompression = "auto"
+	// InputSplunkCompressionAlways Always
+	InputSplunkCompressionAlways InputSplunkCompression = "always"
 )
 
 func (e InputSplunkCompression) ToPointer() *InputSplunkCompression {
 	return &e
-}
-func (e *InputSplunkCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "disabled":
-		fallthrough
-	case "auto":
-		fallthrough
-	case "always":
-		*e = InputSplunkCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkCompression: %v", v)
-	}
 }
 
 type InputSplunk struct {

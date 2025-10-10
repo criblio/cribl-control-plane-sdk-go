@@ -42,187 +42,96 @@ const (
 func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVersion {
 	return &e
 }
-func (e *OutputCriblLakeSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputCriblLakeSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeSignatureVersion: %v", v)
-	}
-}
 
 // OutputCriblLakeObjectACL - Object ACL to assign to uploaded objects
 type OutputCriblLakeObjectACL string
 
 const (
-	OutputCriblLakeObjectACLPrivate                OutputCriblLakeObjectACL = "private"
-	OutputCriblLakeObjectACLPublicRead             OutputCriblLakeObjectACL = "public-read"
-	OutputCriblLakeObjectACLPublicReadWrite        OutputCriblLakeObjectACL = "public-read-write"
-	OutputCriblLakeObjectACLAuthenticatedRead      OutputCriblLakeObjectACL = "authenticated-read"
-	OutputCriblLakeObjectACLAwsExecRead            OutputCriblLakeObjectACL = "aws-exec-read"
-	OutputCriblLakeObjectACLBucketOwnerRead        OutputCriblLakeObjectACL = "bucket-owner-read"
+	// OutputCriblLakeObjectACLPrivate Private
+	OutputCriblLakeObjectACLPrivate OutputCriblLakeObjectACL = "private"
+	// OutputCriblLakeObjectACLPublicRead Public Read Only
+	OutputCriblLakeObjectACLPublicRead OutputCriblLakeObjectACL = "public-read"
+	// OutputCriblLakeObjectACLPublicReadWrite Public Read/Write
+	OutputCriblLakeObjectACLPublicReadWrite OutputCriblLakeObjectACL = "public-read-write"
+	// OutputCriblLakeObjectACLAuthenticatedRead Authenticated Read Only
+	OutputCriblLakeObjectACLAuthenticatedRead OutputCriblLakeObjectACL = "authenticated-read"
+	// OutputCriblLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputCriblLakeObjectACLAwsExecRead OutputCriblLakeObjectACL = "aws-exec-read"
+	// OutputCriblLakeObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputCriblLakeObjectACLBucketOwnerRead OutputCriblLakeObjectACL = "bucket-owner-read"
+	// OutputCriblLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputCriblLakeObjectACLBucketOwnerFullControl OutputCriblLakeObjectACL = "bucket-owner-full-control"
 )
 
 func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
 	return &e
 }
-func (e *OutputCriblLakeObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "public-read":
-		fallthrough
-	case "public-read-write":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "aws-exec-read":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		*e = OutputCriblLakeObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeObjectACL: %v", v)
-	}
-}
 
 // OutputCriblLakeStorageClass - Storage class to select for uploaded objects
 type OutputCriblLakeStorageClass string
 
 const (
-	OutputCriblLakeStorageClassStandard           OutputCriblLakeStorageClass = "STANDARD"
-	OutputCriblLakeStorageClassReducedRedundancy  OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputCriblLakeStorageClassStandardIa         OutputCriblLakeStorageClass = "STANDARD_IA"
-	OutputCriblLakeStorageClassOnezoneIa          OutputCriblLakeStorageClass = "ONEZONE_IA"
+	// OutputCriblLakeStorageClassStandard Standard
+	OutputCriblLakeStorageClassStandard OutputCriblLakeStorageClass = "STANDARD"
+	// OutputCriblLakeStorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputCriblLakeStorageClassReducedRedundancy OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
+	// OutputCriblLakeStorageClassStandardIa Standard, Infrequent Access
+	OutputCriblLakeStorageClassStandardIa OutputCriblLakeStorageClass = "STANDARD_IA"
+	// OutputCriblLakeStorageClassOnezoneIa One Zone, Infrequent Access
+	OutputCriblLakeStorageClassOnezoneIa OutputCriblLakeStorageClass = "ONEZONE_IA"
+	// OutputCriblLakeStorageClassIntelligentTiering Intelligent Tiering
 	OutputCriblLakeStorageClassIntelligentTiering OutputCriblLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputCriblLakeStorageClassGlacier            OutputCriblLakeStorageClass = "GLACIER"
-	OutputCriblLakeStorageClassGlacierIr          OutputCriblLakeStorageClass = "GLACIER_IR"
-	OutputCriblLakeStorageClassDeepArchive        OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
+	// OutputCriblLakeStorageClassGlacier Glacier Flexible Retrieval
+	OutputCriblLakeStorageClassGlacier OutputCriblLakeStorageClass = "GLACIER"
+	// OutputCriblLakeStorageClassGlacierIr Glacier Instant Retrieval
+	OutputCriblLakeStorageClassGlacierIr OutputCriblLakeStorageClass = "GLACIER_IR"
+	// OutputCriblLakeStorageClassDeepArchive Glacier Deep Archive
+	OutputCriblLakeStorageClassDeepArchive OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
 	return &e
 }
-func (e *OutputCriblLakeStorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "REDUCED_REDUNDANCY":
-		fallthrough
-	case "STANDARD_IA":
-		fallthrough
-	case "ONEZONE_IA":
-		fallthrough
-	case "INTELLIGENT_TIERING":
-		fallthrough
-	case "GLACIER":
-		fallthrough
-	case "GLACIER_IR":
-		fallthrough
-	case "DEEP_ARCHIVE":
-		*e = OutputCriblLakeStorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeStorageClass: %v", v)
-	}
-}
 
 type OutputCriblLakeServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 OutputCriblLakeServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms OutputCriblLakeServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
 func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
 	return &e
 }
-func (e *OutputCriblLakeServerSideEncryptionForUploadedObjects) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "AES256":
-		fallthrough
-	case "aws:kms":
-		*e = OutputCriblLakeServerSideEncryptionForUploadedObjects(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeServerSideEncryptionForUploadedObjects: %v", v)
-	}
-}
 
 // OutputCriblLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputCriblLakeBackpressureBehavior string
 
 const (
+	// OutputCriblLakeBackpressureBehaviorBlock Block
 	OutputCriblLakeBackpressureBehaviorBlock OutputCriblLakeBackpressureBehavior = "block"
-	OutputCriblLakeBackpressureBehaviorDrop  OutputCriblLakeBackpressureBehavior = "drop"
+	// OutputCriblLakeBackpressureBehaviorDrop Drop
+	OutputCriblLakeBackpressureBehaviorDrop OutputCriblLakeBackpressureBehavior = "drop"
 )
 
 func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpressureBehavior {
 	return &e
-}
-func (e *OutputCriblLakeBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputCriblLakeBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputCriblLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputCriblLakeDiskSpaceProtection string
 
 const (
+	// OutputCriblLakeDiskSpaceProtectionBlock Block
 	OutputCriblLakeDiskSpaceProtectionBlock OutputCriblLakeDiskSpaceProtection = "block"
-	OutputCriblLakeDiskSpaceProtectionDrop  OutputCriblLakeDiskSpaceProtection = "drop"
+	// OutputCriblLakeDiskSpaceProtectionDrop Drop
+	OutputCriblLakeDiskSpaceProtectionDrop OutputCriblLakeDiskSpaceProtection = "drop"
 )
 
 func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpaceProtection {
 	return &e
-}
-func (e *OutputCriblLakeDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputCriblLakeDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeDiskSpaceProtection: %v", v)
-	}
 }
 
 type AwsAuthenticationMethod string
@@ -236,23 +145,6 @@ const (
 func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
 	return &e
 }
-func (e *AwsAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "auto_rpc":
-		fallthrough
-	case "manual":
-		*e = AwsAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for AwsAuthenticationMethod: %v", v)
-	}
-}
 
 type OutputCriblLakeFormat string
 
@@ -264,23 +156,6 @@ const (
 
 func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
 	return &e
-}
-func (e *OutputCriblLakeFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "parquet":
-		fallthrough
-	case "ddss":
-		*e = OutputCriblLakeFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeFormat: %v", v)
-	}
 }
 
 type OutputCriblLake struct {

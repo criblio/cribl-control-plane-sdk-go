@@ -65,54 +65,28 @@ func (i *InputS3InventoryConnection) GetOutput() string {
 type InputS3InventoryMode string
 
 const (
-	InputS3InventoryModeSmart  InputS3InventoryMode = "smart"
+	// InputS3InventoryModeSmart Smart
+	InputS3InventoryModeSmart InputS3InventoryMode = "smart"
+	// InputS3InventoryModeAlways Always On
 	InputS3InventoryModeAlways InputS3InventoryMode = "always"
 )
 
 func (e InputS3InventoryMode) ToPointer() *InputS3InventoryMode {
 	return &e
 }
-func (e *InputS3InventoryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputS3InventoryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3InventoryMode: %v", v)
-	}
-}
 
 // InputS3InventoryCompression - Codec to use to compress the persisted data
 type InputS3InventoryCompression string
 
 const (
+	// InputS3InventoryCompressionNone None
 	InputS3InventoryCompressionNone InputS3InventoryCompression = "none"
+	// InputS3InventoryCompressionGzip Gzip
 	InputS3InventoryCompressionGzip InputS3InventoryCompression = "gzip"
 )
 
 func (e InputS3InventoryCompression) ToPointer() *InputS3InventoryCompression {
 	return &e
-}
-func (e *InputS3InventoryCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputS3InventoryCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3InventoryCompression: %v", v)
-	}
 }
 
 type InputS3InventoryPqControls struct {
@@ -218,30 +192,16 @@ func (i *InputS3InventoryPq) GetPqControls() *InputS3InventoryPqControls {
 type InputS3InventoryAuthenticationMethod string
 
 const (
-	InputS3InventoryAuthenticationMethodAuto   InputS3InventoryAuthenticationMethod = "auto"
+	// InputS3InventoryAuthenticationMethodAuto Auto
+	InputS3InventoryAuthenticationMethodAuto InputS3InventoryAuthenticationMethod = "auto"
+	// InputS3InventoryAuthenticationMethodManual Manual
 	InputS3InventoryAuthenticationMethodManual InputS3InventoryAuthenticationMethod = "manual"
+	// InputS3InventoryAuthenticationMethodSecret Secret Key pair
 	InputS3InventoryAuthenticationMethodSecret InputS3InventoryAuthenticationMethod = "secret"
 )
 
 func (e InputS3InventoryAuthenticationMethod) ToPointer() *InputS3InventoryAuthenticationMethod {
 	return &e
-}
-func (e *InputS3InventoryAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputS3InventoryAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3InventoryAuthenticationMethod: %v", v)
-	}
 }
 
 // InputS3InventorySignatureVersion - Signature version to use for signing S3 requests
@@ -254,21 +214,6 @@ const (
 
 func (e InputS3InventorySignatureVersion) ToPointer() *InputS3InventorySignatureVersion {
 	return &e
-}
-func (e *InputS3InventorySignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = InputS3InventorySignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3InventorySignatureVersion: %v", v)
-	}
 }
 
 type InputS3InventoryPreprocess struct {
@@ -383,21 +328,6 @@ const (
 
 func (e InputS3InventoryTagAfterProcessing) ToPointer() *InputS3InventoryTagAfterProcessing {
 	return &e
-}
-func (e *InputS3InventoryTagAfterProcessing) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "false":
-		fallthrough
-	case "true":
-		*e = InputS3InventoryTagAfterProcessing(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputS3InventoryTagAfterProcessing: %v", v)
-	}
 }
 
 type InputS3Inventory struct {

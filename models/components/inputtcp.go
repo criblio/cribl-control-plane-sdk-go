@@ -65,54 +65,28 @@ func (i *InputTCPConnection) GetOutput() string {
 type InputTCPMode string
 
 const (
-	InputTCPModeSmart  InputTCPMode = "smart"
+	// InputTCPModeSmart Smart
+	InputTCPModeSmart InputTCPMode = "smart"
+	// InputTCPModeAlways Always On
 	InputTCPModeAlways InputTCPMode = "always"
 )
 
 func (e InputTCPMode) ToPointer() *InputTCPMode {
 	return &e
 }
-func (e *InputTCPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputTCPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTCPMode: %v", v)
-	}
-}
 
 // InputTCPCompression - Codec to use to compress the persisted data
 type InputTCPCompression string
 
 const (
+	// InputTCPCompressionNone None
 	InputTCPCompressionNone InputTCPCompression = "none"
+	// InputTCPCompressionGzip Gzip
 	InputTCPCompressionGzip InputTCPCompression = "gzip"
 )
 
 func (e InputTCPCompression) ToPointer() *InputTCPCompression {
 	return &e
-}
-func (e *InputTCPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputTCPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTCPCompression: %v", v)
-	}
 }
 
 type InputTCPPqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputTCPMinimumTLSVersion) ToPointer() *InputTCPMinimumTLSVersion {
 	return &e
 }
-func (e *InputTCPMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputTCPMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTCPMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputTCPMaximumTLSVersion string
 
@@ -257,25 +212,6 @@ const (
 
 func (e InputTCPMaximumTLSVersion) ToPointer() *InputTCPMaximumTLSVersion {
 	return &e
-}
-func (e *InputTCPMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputTCPMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTCPMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputTCPTLSSettingsServerSide struct {
@@ -467,21 +403,6 @@ const (
 
 func (e InputTCPAuthenticationMethod) ToPointer() *InputTCPAuthenticationMethod {
 	return &e
-}
-func (e *InputTCPAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputTCPAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTCPAuthenticationMethod: %v", v)
-	}
 }
 
 type InputTCP struct {

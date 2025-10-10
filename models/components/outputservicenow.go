@@ -35,108 +35,56 @@ func (e *OutputServiceNowType) UnmarshalJSON(data []byte) error {
 type OutputServiceNowOTLPVersion string
 
 const (
+	// OutputServiceNowOTLPVersionOneDot3Dot1 1.3.1
 	OutputServiceNowOTLPVersionOneDot3Dot1 OutputServiceNowOTLPVersion = "1.3.1"
 )
 
 func (e OutputServiceNowOTLPVersion) ToPointer() *OutputServiceNowOTLPVersion {
 	return &e
 }
-func (e *OutputServiceNowOTLPVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "1.3.1":
-		*e = OutputServiceNowOTLPVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowOTLPVersion: %v", v)
-	}
-}
 
 // OutputServiceNowProtocol - Select a transport option for OpenTelemetry
 type OutputServiceNowProtocol string
 
 const (
+	// OutputServiceNowProtocolGrpc gRPC
 	OutputServiceNowProtocolGrpc OutputServiceNowProtocol = "grpc"
+	// OutputServiceNowProtocolHTTP HTTP
 	OutputServiceNowProtocolHTTP OutputServiceNowProtocol = "http"
 )
 
 func (e OutputServiceNowProtocol) ToPointer() *OutputServiceNowProtocol {
 	return &e
 }
-func (e *OutputServiceNowProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "grpc":
-		fallthrough
-	case "http":
-		*e = OutputServiceNowProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowProtocol: %v", v)
-	}
-}
 
 // OutputServiceNowCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputServiceNowCompressCompression string
 
 const (
-	OutputServiceNowCompressCompressionNone    OutputServiceNowCompressCompression = "none"
+	// OutputServiceNowCompressCompressionNone None
+	OutputServiceNowCompressCompressionNone OutputServiceNowCompressCompression = "none"
+	// OutputServiceNowCompressCompressionDeflate Deflate
 	OutputServiceNowCompressCompressionDeflate OutputServiceNowCompressCompression = "deflate"
-	OutputServiceNowCompressCompressionGzip    OutputServiceNowCompressCompression = "gzip"
+	// OutputServiceNowCompressCompressionGzip Gzip
+	OutputServiceNowCompressCompressionGzip OutputServiceNowCompressCompression = "gzip"
 )
 
 func (e OutputServiceNowCompressCompression) ToPointer() *OutputServiceNowCompressCompression {
 	return &e
-}
-func (e *OutputServiceNowCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "deflate":
-		fallthrough
-	case "gzip":
-		*e = OutputServiceNowCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowCompressCompression: %v", v)
-	}
 }
 
 // OutputServiceNowHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputServiceNowHTTPCompressCompression string
 
 const (
+	// OutputServiceNowHTTPCompressCompressionNone None
 	OutputServiceNowHTTPCompressCompressionNone OutputServiceNowHTTPCompressCompression = "none"
+	// OutputServiceNowHTTPCompressCompressionGzip Gzip
 	OutputServiceNowHTTPCompressCompressionGzip OutputServiceNowHTTPCompressCompression = "gzip"
 )
 
 func (e OutputServiceNowHTTPCompressCompression) ToPointer() *OutputServiceNowHTTPCompressCompression {
 	return &e
-}
-func (e *OutputServiceNowHTTPCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputServiceNowHTTPCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowHTTPCompressCompression: %v", v)
-	}
 }
 
 type OutputServiceNowMetadatum struct {
@@ -173,60 +121,32 @@ func (o *OutputServiceNowMetadatum) GetValue() string {
 type OutputServiceNowFailedRequestLoggingMode string
 
 const (
-	OutputServiceNowFailedRequestLoggingModePayload           OutputServiceNowFailedRequestLoggingMode = "payload"
+	// OutputServiceNowFailedRequestLoggingModePayload Payload
+	OutputServiceNowFailedRequestLoggingModePayload OutputServiceNowFailedRequestLoggingMode = "payload"
+	// OutputServiceNowFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputServiceNowFailedRequestLoggingModePayloadAndHeaders OutputServiceNowFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputServiceNowFailedRequestLoggingModeNone              OutputServiceNowFailedRequestLoggingMode = "none"
+	// OutputServiceNowFailedRequestLoggingModeNone None
+	OutputServiceNowFailedRequestLoggingModeNone OutputServiceNowFailedRequestLoggingMode = "none"
 )
 
 func (e OutputServiceNowFailedRequestLoggingMode) ToPointer() *OutputServiceNowFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputServiceNowFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputServiceNowFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowFailedRequestLoggingMode: %v", v)
-	}
 }
 
 // OutputServiceNowBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputServiceNowBackpressureBehavior string
 
 const (
+	// OutputServiceNowBackpressureBehaviorBlock Block
 	OutputServiceNowBackpressureBehaviorBlock OutputServiceNowBackpressureBehavior = "block"
-	OutputServiceNowBackpressureBehaviorDrop  OutputServiceNowBackpressureBehavior = "drop"
+	// OutputServiceNowBackpressureBehaviorDrop Drop
+	OutputServiceNowBackpressureBehaviorDrop OutputServiceNowBackpressureBehavior = "drop"
+	// OutputServiceNowBackpressureBehaviorQueue Persistent Queue
 	OutputServiceNowBackpressureBehaviorQueue OutputServiceNowBackpressureBehavior = "queue"
 )
 
 func (e OutputServiceNowBackpressureBehavior) ToPointer() *OutputServiceNowBackpressureBehavior {
 	return &e
-}
-func (e *OutputServiceNowBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputServiceNowBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputServiceNowExtraHTTPHeader struct {
@@ -370,25 +290,6 @@ const (
 func (e OutputServiceNowMinimumTLSVersion) ToPointer() *OutputServiceNowMinimumTLSVersion {
 	return &e
 }
-func (e *OutputServiceNowMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputServiceNowMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputServiceNowMaximumTLSVersion string
 
@@ -401,25 +302,6 @@ const (
 
 func (e OutputServiceNowMaximumTLSVersion) ToPointer() *OutputServiceNowMaximumTLSVersion {
 	return &e
-}
-func (e *OutputServiceNowMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputServiceNowMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputServiceNowTLSSettingsClientSide struct {
@@ -519,84 +401,44 @@ func (o *OutputServiceNowTLSSettingsClientSide) GetMaxVersion() *OutputServiceNo
 type OutputServiceNowPqCompressCompression string
 
 const (
+	// OutputServiceNowPqCompressCompressionNone None
 	OutputServiceNowPqCompressCompressionNone OutputServiceNowPqCompressCompression = "none"
+	// OutputServiceNowPqCompressCompressionGzip Gzip
 	OutputServiceNowPqCompressCompressionGzip OutputServiceNowPqCompressCompression = "gzip"
 )
 
 func (e OutputServiceNowPqCompressCompression) ToPointer() *OutputServiceNowPqCompressCompression {
 	return &e
 }
-func (e *OutputServiceNowPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputServiceNowPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowPqCompressCompression: %v", v)
-	}
-}
 
 // OutputServiceNowQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputServiceNowQueueFullBehavior string
 
 const (
+	// OutputServiceNowQueueFullBehaviorBlock Block
 	OutputServiceNowQueueFullBehaviorBlock OutputServiceNowQueueFullBehavior = "block"
-	OutputServiceNowQueueFullBehaviorDrop  OutputServiceNowQueueFullBehavior = "drop"
+	// OutputServiceNowQueueFullBehaviorDrop Drop new data
+	OutputServiceNowQueueFullBehaviorDrop OutputServiceNowQueueFullBehavior = "drop"
 )
 
 func (e OutputServiceNowQueueFullBehavior) ToPointer() *OutputServiceNowQueueFullBehavior {
 	return &e
-}
-func (e *OutputServiceNowQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputServiceNowQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputServiceNowMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputServiceNowMode string
 
 const (
-	OutputServiceNowModeError        OutputServiceNowMode = "error"
+	// OutputServiceNowModeError Error
+	OutputServiceNowModeError OutputServiceNowMode = "error"
+	// OutputServiceNowModeBackpressure Backpressure
 	OutputServiceNowModeBackpressure OutputServiceNowMode = "backpressure"
-	OutputServiceNowModeAlways       OutputServiceNowMode = "always"
+	// OutputServiceNowModeAlways Always On
+	OutputServiceNowModeAlways OutputServiceNowMode = "always"
 )
 
 func (e OutputServiceNowMode) ToPointer() *OutputServiceNowMode {
 	return &e
-}
-func (e *OutputServiceNowMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputServiceNowMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputServiceNowMode: %v", v)
-	}
 }
 
 type OutputServiceNowPqControls struct {

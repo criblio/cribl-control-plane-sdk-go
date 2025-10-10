@@ -35,30 +35,16 @@ func (e *OutputS3Type) UnmarshalJSON(data []byte) error {
 type OutputS3AuthenticationMethod string
 
 const (
-	OutputS3AuthenticationMethodAuto   OutputS3AuthenticationMethod = "auto"
+	// OutputS3AuthenticationMethodAuto Auto
+	OutputS3AuthenticationMethodAuto OutputS3AuthenticationMethod = "auto"
+	// OutputS3AuthenticationMethodManual Manual
 	OutputS3AuthenticationMethodManual OutputS3AuthenticationMethod = "manual"
+	// OutputS3AuthenticationMethodSecret Secret Key pair
 	OutputS3AuthenticationMethodSecret OutputS3AuthenticationMethod = "secret"
 )
 
 func (e OutputS3AuthenticationMethod) ToPointer() *OutputS3AuthenticationMethod {
 	return &e
-}
-func (e *OutputS3AuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputS3AuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3AuthenticationMethod: %v", v)
-	}
 }
 
 // OutputS3SignatureVersion - Signature version to use for signing S3 requests
@@ -72,217 +58,112 @@ const (
 func (e OutputS3SignatureVersion) ToPointer() *OutputS3SignatureVersion {
 	return &e
 }
-func (e *OutputS3SignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputS3SignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3SignatureVersion: %v", v)
-	}
-}
 
 // OutputS3ObjectACL - Object ACL to assign to uploaded objects
 type OutputS3ObjectACL string
 
 const (
-	OutputS3ObjectACLPrivate                OutputS3ObjectACL = "private"
-	OutputS3ObjectACLPublicRead             OutputS3ObjectACL = "public-read"
-	OutputS3ObjectACLPublicReadWrite        OutputS3ObjectACL = "public-read-write"
-	OutputS3ObjectACLAuthenticatedRead      OutputS3ObjectACL = "authenticated-read"
-	OutputS3ObjectACLAwsExecRead            OutputS3ObjectACL = "aws-exec-read"
-	OutputS3ObjectACLBucketOwnerRead        OutputS3ObjectACL = "bucket-owner-read"
+	// OutputS3ObjectACLPrivate Private
+	OutputS3ObjectACLPrivate OutputS3ObjectACL = "private"
+	// OutputS3ObjectACLPublicRead Public Read Only
+	OutputS3ObjectACLPublicRead OutputS3ObjectACL = "public-read"
+	// OutputS3ObjectACLPublicReadWrite Public Read/Write
+	OutputS3ObjectACLPublicReadWrite OutputS3ObjectACL = "public-read-write"
+	// OutputS3ObjectACLAuthenticatedRead Authenticated Read Only
+	OutputS3ObjectACLAuthenticatedRead OutputS3ObjectACL = "authenticated-read"
+	// OutputS3ObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputS3ObjectACLAwsExecRead OutputS3ObjectACL = "aws-exec-read"
+	// OutputS3ObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputS3ObjectACLBucketOwnerRead OutputS3ObjectACL = "bucket-owner-read"
+	// OutputS3ObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputS3ObjectACLBucketOwnerFullControl OutputS3ObjectACL = "bucket-owner-full-control"
 )
 
 func (e OutputS3ObjectACL) ToPointer() *OutputS3ObjectACL {
 	return &e
 }
-func (e *OutputS3ObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "public-read":
-		fallthrough
-	case "public-read-write":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "aws-exec-read":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		*e = OutputS3ObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3ObjectACL: %v", v)
-	}
-}
 
 // OutputS3StorageClass - Storage class to select for uploaded objects
 type OutputS3StorageClass string
 
 const (
-	OutputS3StorageClassStandard           OutputS3StorageClass = "STANDARD"
-	OutputS3StorageClassReducedRedundancy  OutputS3StorageClass = "REDUCED_REDUNDANCY"
-	OutputS3StorageClassStandardIa         OutputS3StorageClass = "STANDARD_IA"
-	OutputS3StorageClassOnezoneIa          OutputS3StorageClass = "ONEZONE_IA"
+	// OutputS3StorageClassStandard Standard
+	OutputS3StorageClassStandard OutputS3StorageClass = "STANDARD"
+	// OutputS3StorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputS3StorageClassReducedRedundancy OutputS3StorageClass = "REDUCED_REDUNDANCY"
+	// OutputS3StorageClassStandardIa Standard, Infrequent Access
+	OutputS3StorageClassStandardIa OutputS3StorageClass = "STANDARD_IA"
+	// OutputS3StorageClassOnezoneIa One Zone, Infrequent Access
+	OutputS3StorageClassOnezoneIa OutputS3StorageClass = "ONEZONE_IA"
+	// OutputS3StorageClassIntelligentTiering Intelligent Tiering
 	OutputS3StorageClassIntelligentTiering OutputS3StorageClass = "INTELLIGENT_TIERING"
-	OutputS3StorageClassGlacier            OutputS3StorageClass = "GLACIER"
-	OutputS3StorageClassGlacierIr          OutputS3StorageClass = "GLACIER_IR"
-	OutputS3StorageClassDeepArchive        OutputS3StorageClass = "DEEP_ARCHIVE"
+	// OutputS3StorageClassGlacier Glacier Flexible Retrieval
+	OutputS3StorageClassGlacier OutputS3StorageClass = "GLACIER"
+	// OutputS3StorageClassGlacierIr Glacier Instant Retrieval
+	OutputS3StorageClassGlacierIr OutputS3StorageClass = "GLACIER_IR"
+	// OutputS3StorageClassDeepArchive Glacier Deep Archive
+	OutputS3StorageClassDeepArchive OutputS3StorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputS3StorageClass) ToPointer() *OutputS3StorageClass {
 	return &e
 }
-func (e *OutputS3StorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "REDUCED_REDUNDANCY":
-		fallthrough
-	case "STANDARD_IA":
-		fallthrough
-	case "ONEZONE_IA":
-		fallthrough
-	case "INTELLIGENT_TIERING":
-		fallthrough
-	case "GLACIER":
-		fallthrough
-	case "GLACIER_IR":
-		fallthrough
-	case "DEEP_ARCHIVE":
-		*e = OutputS3StorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3StorageClass: %v", v)
-	}
-}
 
 type OutputS3ServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputS3ServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputS3ServerSideEncryptionForUploadedObjectsAes256 OutputS3ServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputS3ServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputS3ServerSideEncryptionForUploadedObjectsAwsKms OutputS3ServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
 func (e OutputS3ServerSideEncryptionForUploadedObjects) ToPointer() *OutputS3ServerSideEncryptionForUploadedObjects {
 	return &e
 }
-func (e *OutputS3ServerSideEncryptionForUploadedObjects) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "AES256":
-		fallthrough
-	case "aws:kms":
-		*e = OutputS3ServerSideEncryptionForUploadedObjects(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3ServerSideEncryptionForUploadedObjects: %v", v)
-	}
-}
 
 // OutputS3DataFormat - Format of the output data
 type OutputS3DataFormat string
 
 const (
-	OutputS3DataFormatJSON    OutputS3DataFormat = "json"
-	OutputS3DataFormatRaw     OutputS3DataFormat = "raw"
+	// OutputS3DataFormatJSON JSON
+	OutputS3DataFormatJSON OutputS3DataFormat = "json"
+	// OutputS3DataFormatRaw Raw
+	OutputS3DataFormatRaw OutputS3DataFormat = "raw"
+	// OutputS3DataFormatParquet Parquet
 	OutputS3DataFormatParquet OutputS3DataFormat = "parquet"
 )
 
 func (e OutputS3DataFormat) ToPointer() *OutputS3DataFormat {
 	return &e
 }
-func (e *OutputS3DataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "parquet":
-		*e = OutputS3DataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3DataFormat: %v", v)
-	}
-}
 
 // OutputS3BackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputS3BackpressureBehavior string
 
 const (
+	// OutputS3BackpressureBehaviorBlock Block
 	OutputS3BackpressureBehaviorBlock OutputS3BackpressureBehavior = "block"
-	OutputS3BackpressureBehaviorDrop  OutputS3BackpressureBehavior = "drop"
+	// OutputS3BackpressureBehaviorDrop Drop
+	OutputS3BackpressureBehaviorDrop OutputS3BackpressureBehavior = "drop"
 )
 
 func (e OutputS3BackpressureBehavior) ToPointer() *OutputS3BackpressureBehavior {
 	return &e
-}
-func (e *OutputS3BackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputS3BackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3BackpressureBehavior: %v", v)
-	}
 }
 
 // OutputS3DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputS3DiskSpaceProtection string
 
 const (
+	// OutputS3DiskSpaceProtectionBlock Block
 	OutputS3DiskSpaceProtectionBlock OutputS3DiskSpaceProtection = "block"
-	OutputS3DiskSpaceProtectionDrop  OutputS3DiskSpaceProtection = "drop"
+	// OutputS3DiskSpaceProtectionDrop Drop
+	OutputS3DiskSpaceProtectionDrop OutputS3DiskSpaceProtection = "drop"
 )
 
 func (e OutputS3DiskSpaceProtection) ToPointer() *OutputS3DiskSpaceProtection {
 	return &e
-}
-func (e *OutputS3DiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputS3DiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3DiskSpaceProtection: %v", v)
-	}
 }
 
 // OutputS3Compression - Data compression format to apply to HTTP content before it is delivered
@@ -296,107 +177,51 @@ const (
 func (e OutputS3Compression) ToPointer() *OutputS3Compression {
 	return &e
 }
-func (e *OutputS3Compression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputS3Compression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3Compression: %v", v)
-	}
-}
 
 // OutputS3CompressionLevel - Compression level to apply before moving files to final destination
 type OutputS3CompressionLevel string
 
 const (
-	OutputS3CompressionLevelBestSpeed       OutputS3CompressionLevel = "best_speed"
-	OutputS3CompressionLevelNormal          OutputS3CompressionLevel = "normal"
+	// OutputS3CompressionLevelBestSpeed Best Speed
+	OutputS3CompressionLevelBestSpeed OutputS3CompressionLevel = "best_speed"
+	// OutputS3CompressionLevelNormal Normal
+	OutputS3CompressionLevelNormal OutputS3CompressionLevel = "normal"
+	// OutputS3CompressionLevelBestCompression Best Compression
 	OutputS3CompressionLevelBestCompression OutputS3CompressionLevel = "best_compression"
 )
 
 func (e OutputS3CompressionLevel) ToPointer() *OutputS3CompressionLevel {
 	return &e
 }
-func (e *OutputS3CompressionLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "best_speed":
-		fallthrough
-	case "normal":
-		fallthrough
-	case "best_compression":
-		*e = OutputS3CompressionLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3CompressionLevel: %v", v)
-	}
-}
 
 // OutputS3ParquetVersion - Determines which data types are supported and how they are represented
 type OutputS3ParquetVersion string
 
 const (
+	// OutputS3ParquetVersionParquet10 1.0
 	OutputS3ParquetVersionParquet10 OutputS3ParquetVersion = "PARQUET_1_0"
+	// OutputS3ParquetVersionParquet24 2.4
 	OutputS3ParquetVersionParquet24 OutputS3ParquetVersion = "PARQUET_2_4"
+	// OutputS3ParquetVersionParquet26 2.6
 	OutputS3ParquetVersionParquet26 OutputS3ParquetVersion = "PARQUET_2_6"
 )
 
 func (e OutputS3ParquetVersion) ToPointer() *OutputS3ParquetVersion {
 	return &e
 }
-func (e *OutputS3ParquetVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "PARQUET_1_0":
-		fallthrough
-	case "PARQUET_2_4":
-		fallthrough
-	case "PARQUET_2_6":
-		*e = OutputS3ParquetVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3ParquetVersion: %v", v)
-	}
-}
 
 // OutputS3DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputS3DataPageVersion string
 
 const (
+	// OutputS3DataPageVersionDataPageV1 V1
 	OutputS3DataPageVersionDataPageV1 OutputS3DataPageVersion = "DATA_PAGE_V1"
+	// OutputS3DataPageVersionDataPageV2 V2
 	OutputS3DataPageVersionDataPageV2 OutputS3DataPageVersion = "DATA_PAGE_V2"
 )
 
 func (e OutputS3DataPageVersion) ToPointer() *OutputS3DataPageVersion {
 	return &e
-}
-func (e *OutputS3DataPageVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "DATA_PAGE_V1":
-		fallthrough
-	case "DATA_PAGE_V2":
-		*e = OutputS3DataPageVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3DataPageVersion: %v", v)
-	}
 }
 
 type OutputS3KeyValueMetadatum struct {

@@ -35,30 +35,16 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 type OutputSnsAuthenticationMethod string
 
 const (
-	OutputSnsAuthenticationMethodAuto   OutputSnsAuthenticationMethod = "auto"
+	// OutputSnsAuthenticationMethodAuto Auto
+	OutputSnsAuthenticationMethodAuto OutputSnsAuthenticationMethod = "auto"
+	// OutputSnsAuthenticationMethodManual Manual
 	OutputSnsAuthenticationMethodManual OutputSnsAuthenticationMethod = "manual"
+	// OutputSnsAuthenticationMethodSecret Secret Key pair
 	OutputSnsAuthenticationMethodSecret OutputSnsAuthenticationMethod = "secret"
 )
 
 func (e OutputSnsAuthenticationMethod) ToPointer() *OutputSnsAuthenticationMethod {
 	return &e
-}
-func (e *OutputSnsAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputSnsAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsAuthenticationMethod: %v", v)
-	}
 }
 
 // OutputSnsSignatureVersion - Signature version to use for signing SNS requests
@@ -72,134 +58,65 @@ const (
 func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
 	return &e
 }
-func (e *OutputSnsSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputSnsSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsSignatureVersion: %v", v)
-	}
-}
 
 // OutputSnsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputSnsBackpressureBehavior string
 
 const (
+	// OutputSnsBackpressureBehaviorBlock Block
 	OutputSnsBackpressureBehaviorBlock OutputSnsBackpressureBehavior = "block"
-	OutputSnsBackpressureBehaviorDrop  OutputSnsBackpressureBehavior = "drop"
+	// OutputSnsBackpressureBehaviorDrop Drop
+	OutputSnsBackpressureBehaviorDrop OutputSnsBackpressureBehavior = "drop"
+	// OutputSnsBackpressureBehaviorQueue Persistent Queue
 	OutputSnsBackpressureBehaviorQueue OutputSnsBackpressureBehavior = "queue"
 )
 
 func (e OutputSnsBackpressureBehavior) ToPointer() *OutputSnsBackpressureBehavior {
 	return &e
 }
-func (e *OutputSnsBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSnsBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputSnsCompression - Codec to use to compress the persisted data
 type OutputSnsCompression string
 
 const (
+	// OutputSnsCompressionNone None
 	OutputSnsCompressionNone OutputSnsCompression = "none"
+	// OutputSnsCompressionGzip Gzip
 	OutputSnsCompressionGzip OutputSnsCompression = "gzip"
 )
 
 func (e OutputSnsCompression) ToPointer() *OutputSnsCompression {
 	return &e
 }
-func (e *OutputSnsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSnsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsCompression: %v", v)
-	}
-}
 
 // OutputSnsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSnsQueueFullBehavior string
 
 const (
+	// OutputSnsQueueFullBehaviorBlock Block
 	OutputSnsQueueFullBehaviorBlock OutputSnsQueueFullBehavior = "block"
-	OutputSnsQueueFullBehaviorDrop  OutputSnsQueueFullBehavior = "drop"
+	// OutputSnsQueueFullBehaviorDrop Drop new data
+	OutputSnsQueueFullBehaviorDrop OutputSnsQueueFullBehavior = "drop"
 )
 
 func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
 	return &e
-}
-func (e *OutputSnsQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSnsQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputSnsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSnsMode string
 
 const (
-	OutputSnsModeError        OutputSnsMode = "error"
+	// OutputSnsModeError Error
+	OutputSnsModeError OutputSnsMode = "error"
+	// OutputSnsModeBackpressure Backpressure
 	OutputSnsModeBackpressure OutputSnsMode = "backpressure"
-	OutputSnsModeAlways       OutputSnsMode = "always"
+	// OutputSnsModeAlways Always On
+	OutputSnsModeAlways OutputSnsMode = "always"
 )
 
 func (e OutputSnsMode) ToPointer() *OutputSnsMode {
 	return &e
-}
-func (e *OutputSnsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSnsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnsMode: %v", v)
-	}
 }
 
 type OutputSnsPqControls struct {

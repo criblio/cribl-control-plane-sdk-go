@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type LastMetrics struct {
 }
 
@@ -20,23 +15,6 @@ const (
 
 func (e MasterWorkerEntryType) ToPointer() *MasterWorkerEntryType {
 	return &e
-}
-func (e *MasterWorkerEntryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "info":
-		fallthrough
-	case "req":
-		fallthrough
-	case "resp":
-		*e = MasterWorkerEntryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for MasterWorkerEntryType: %v", v)
-	}
 }
 
 type MasterWorkerEntryWorkers struct {

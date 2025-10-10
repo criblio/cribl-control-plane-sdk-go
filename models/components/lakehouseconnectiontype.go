@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type LakehouseConnectionType string
 
 const (
@@ -16,19 +11,4 @@ const (
 
 func (e LakehouseConnectionType) ToPointer() *LakehouseConnectionType {
 	return &e
-}
-func (e *LakehouseConnectionType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cache":
-		fallthrough
-	case "zeroPoint":
-		*e = LakehouseConnectionType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for LakehouseConnectionType: %v", v)
-	}
 }

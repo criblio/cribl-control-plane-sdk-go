@@ -65,54 +65,28 @@ func (i *InputSystemMetricsConnection) GetOutput() string {
 type InputSystemMetricsPqMode string
 
 const (
-	InputSystemMetricsPqModeSmart  InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeSmart Smart
+	InputSystemMetricsPqModeSmart InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeAlways Always On
 	InputSystemMetricsPqModeAlways InputSystemMetricsPqMode = "always"
 )
 
 func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
 	return &e
 }
-func (e *InputSystemMetricsPqMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSystemMetricsPqMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsPqMode: %v", v)
-	}
-}
 
 // InputSystemMetricsCompression - Codec to use to compress the persisted data
 type InputSystemMetricsCompression string
 
 const (
+	// InputSystemMetricsCompressionNone None
 	InputSystemMetricsCompressionNone InputSystemMetricsCompression = "none"
+	// InputSystemMetricsCompressionGzip Gzip
 	InputSystemMetricsCompressionGzip InputSystemMetricsCompression = "gzip"
 )
 
 func (e InputSystemMetricsCompression) ToPointer() *InputSystemMetricsCompression {
 	return &e
-}
-func (e *InputSystemMetricsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSystemMetricsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsCompression: %v", v)
-	}
 }
 
 type InputSystemMetricsPqControls struct {
@@ -218,66 +192,36 @@ func (i *InputSystemMetricsPq) GetPqControls() *InputSystemMetricsPqControls {
 type InputSystemMetricsHostMode string
 
 const (
-	InputSystemMetricsHostModeBasic    InputSystemMetricsHostMode = "basic"
-	InputSystemMetricsHostModeAll      InputSystemMetricsHostMode = "all"
-	InputSystemMetricsHostModeCustom   InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeBasic Basic
+	InputSystemMetricsHostModeBasic InputSystemMetricsHostMode = "basic"
+	// InputSystemMetricsHostModeAll All
+	InputSystemMetricsHostModeAll InputSystemMetricsHostMode = "all"
+	// InputSystemMetricsHostModeCustom Custom
+	InputSystemMetricsHostModeCustom InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeDisabled Disabled
 	InputSystemMetricsHostModeDisabled InputSystemMetricsHostMode = "disabled"
 )
 
 func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
 	return &e
 }
-func (e *InputSystemMetricsHostMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsHostMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsHostMode: %v", v)
-	}
-}
 
 // InputSystemMetricsSystemMode - Select the level of detail for system metrics
 type InputSystemMetricsSystemMode string
 
 const (
-	InputSystemMetricsSystemModeBasic    InputSystemMetricsSystemMode = "basic"
-	InputSystemMetricsSystemModeAll      InputSystemMetricsSystemMode = "all"
-	InputSystemMetricsSystemModeCustom   InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeBasic Basic
+	InputSystemMetricsSystemModeBasic InputSystemMetricsSystemMode = "basic"
+	// InputSystemMetricsSystemModeAll All
+	InputSystemMetricsSystemModeAll InputSystemMetricsSystemMode = "all"
+	// InputSystemMetricsSystemModeCustom Custom
+	InputSystemMetricsSystemModeCustom InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeDisabled Disabled
 	InputSystemMetricsSystemModeDisabled InputSystemMetricsSystemMode = "disabled"
 )
 
 func (e InputSystemMetricsSystemMode) ToPointer() *InputSystemMetricsSystemMode {
 	return &e
-}
-func (e *InputSystemMetricsSystemMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsSystemMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsSystemMode: %v", v)
-	}
 }
 
 type InputSystemMetricsSystem struct {
@@ -316,33 +260,18 @@ func (i *InputSystemMetricsSystem) GetProcesses() *bool {
 type InputSystemMetricsCPUMode string
 
 const (
-	InputSystemMetricsCPUModeBasic    InputSystemMetricsCPUMode = "basic"
-	InputSystemMetricsCPUModeAll      InputSystemMetricsCPUMode = "all"
-	InputSystemMetricsCPUModeCustom   InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeBasic Basic
+	InputSystemMetricsCPUModeBasic InputSystemMetricsCPUMode = "basic"
+	// InputSystemMetricsCPUModeAll All
+	InputSystemMetricsCPUModeAll InputSystemMetricsCPUMode = "all"
+	// InputSystemMetricsCPUModeCustom Custom
+	InputSystemMetricsCPUModeCustom InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeDisabled Disabled
 	InputSystemMetricsCPUModeDisabled InputSystemMetricsCPUMode = "disabled"
 )
 
 func (e InputSystemMetricsCPUMode) ToPointer() *InputSystemMetricsCPUMode {
 	return &e
-}
-func (e *InputSystemMetricsCPUMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsCPUMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsCPUMode: %v", v)
-	}
 }
 
 type InputSystemMetricsCPU struct {
@@ -399,33 +328,18 @@ func (i *InputSystemMetricsCPU) GetTime() *bool {
 type InputSystemMetricsMemoryMode string
 
 const (
-	InputSystemMetricsMemoryModeBasic    InputSystemMetricsMemoryMode = "basic"
-	InputSystemMetricsMemoryModeAll      InputSystemMetricsMemoryMode = "all"
-	InputSystemMetricsMemoryModeCustom   InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeBasic Basic
+	InputSystemMetricsMemoryModeBasic InputSystemMetricsMemoryMode = "basic"
+	// InputSystemMetricsMemoryModeAll All
+	InputSystemMetricsMemoryModeAll InputSystemMetricsMemoryMode = "all"
+	// InputSystemMetricsMemoryModeCustom Custom
+	InputSystemMetricsMemoryModeCustom InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeDisabled Disabled
 	InputSystemMetricsMemoryModeDisabled InputSystemMetricsMemoryMode = "disabled"
 )
 
 func (e InputSystemMetricsMemoryMode) ToPointer() *InputSystemMetricsMemoryMode {
 	return &e
-}
-func (e *InputSystemMetricsMemoryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsMemoryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsMemoryMode: %v", v)
-	}
 }
 
 type InputSystemMetricsMemory struct {
@@ -464,33 +378,18 @@ func (i *InputSystemMetricsMemory) GetDetail() *bool {
 type InputSystemMetricsNetworkMode string
 
 const (
-	InputSystemMetricsNetworkModeBasic    InputSystemMetricsNetworkMode = "basic"
-	InputSystemMetricsNetworkModeAll      InputSystemMetricsNetworkMode = "all"
-	InputSystemMetricsNetworkModeCustom   InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeBasic Basic
+	InputSystemMetricsNetworkModeBasic InputSystemMetricsNetworkMode = "basic"
+	// InputSystemMetricsNetworkModeAll All
+	InputSystemMetricsNetworkModeAll InputSystemMetricsNetworkMode = "all"
+	// InputSystemMetricsNetworkModeCustom Custom
+	InputSystemMetricsNetworkModeCustom InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeDisabled Disabled
 	InputSystemMetricsNetworkModeDisabled InputSystemMetricsNetworkMode = "disabled"
 )
 
 func (e InputSystemMetricsNetworkMode) ToPointer() *InputSystemMetricsNetworkMode {
 	return &e
-}
-func (e *InputSystemMetricsNetworkMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsNetworkMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsNetworkMode: %v", v)
-	}
 }
 
 type InputSystemMetricsNetwork struct {
@@ -547,33 +446,18 @@ func (i *InputSystemMetricsNetwork) GetDetail() *bool {
 type InputSystemMetricsDiskMode string
 
 const (
-	InputSystemMetricsDiskModeBasic    InputSystemMetricsDiskMode = "basic"
-	InputSystemMetricsDiskModeAll      InputSystemMetricsDiskMode = "all"
-	InputSystemMetricsDiskModeCustom   InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeBasic Basic
+	InputSystemMetricsDiskModeBasic InputSystemMetricsDiskMode = "basic"
+	// InputSystemMetricsDiskModeAll All
+	InputSystemMetricsDiskModeAll InputSystemMetricsDiskMode = "all"
+	// InputSystemMetricsDiskModeCustom Custom
+	InputSystemMetricsDiskModeCustom InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeDisabled Disabled
 	InputSystemMetricsDiskModeDisabled InputSystemMetricsDiskMode = "disabled"
 )
 
 func (e InputSystemMetricsDiskMode) ToPointer() *InputSystemMetricsDiskMode {
 	return &e
-}
-func (e *InputSystemMetricsDiskMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = InputSystemMetricsDiskMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsDiskMode: %v", v)
-	}
 }
 
 type InputSystemMetricsDisk struct {
@@ -794,33 +678,18 @@ func (i *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
 type ContainerMode string
 
 const (
-	ContainerModeBasic    ContainerMode = "basic"
-	ContainerModeAll      ContainerMode = "all"
-	ContainerModeCustom   ContainerMode = "custom"
+	// ContainerModeBasic Basic
+	ContainerModeBasic ContainerMode = "basic"
+	// ContainerModeAll All
+	ContainerModeAll ContainerMode = "all"
+	// ContainerModeCustom Custom
+	ContainerModeCustom ContainerMode = "custom"
+	// ContainerModeDisabled Disabled
 	ContainerModeDisabled ContainerMode = "disabled"
 )
 
 func (e ContainerMode) ToPointer() *ContainerMode {
 	return &e
-}
-func (e *ContainerMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "basic":
-		fallthrough
-	case "all":
-		fallthrough
-	case "custom":
-		fallthrough
-	case "disabled":
-		*e = ContainerMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ContainerMode: %v", v)
-	}
 }
 
 type InputSystemMetricsFilter struct {
@@ -962,21 +831,6 @@ const (
 
 func (e InputSystemMetricsDataCompressionFormat) ToPointer() *InputSystemMetricsDataCompressionFormat {
 	return &e
-}
-func (e *InputSystemMetricsDataCompressionFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSystemMetricsDataCompressionFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsDataCompressionFormat: %v", v)
-	}
 }
 
 type InputSystemMetricsPersistence struct {

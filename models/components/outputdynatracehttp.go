@@ -43,23 +43,6 @@ const (
 func (e OutputDynatraceHTTPMethod) ToPointer() *OutputDynatraceHTTPMethod {
 	return &e
 }
-func (e *OutputDynatraceHTTPMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "POST":
-		fallthrough
-	case "PUT":
-		fallthrough
-	case "PATCH":
-		*e = OutputDynatraceHTTPMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPMethod: %v", v)
-	}
-}
 
 type OutputDynatraceHTTPExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -95,30 +78,16 @@ func (o *OutputDynatraceHTTPExtraHTTPHeader) GetValue() string {
 type OutputDynatraceHTTPFailedRequestLoggingMode string
 
 const (
-	OutputDynatraceHTTPFailedRequestLoggingModePayload           OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayload Payload
+	OutputDynatraceHTTPFailedRequestLoggingModePayload OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders OutputDynatraceHTTPFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDynatraceHTTPFailedRequestLoggingModeNone              OutputDynatraceHTTPFailedRequestLoggingMode = "none"
+	// OutputDynatraceHTTPFailedRequestLoggingModeNone None
+	OutputDynatraceHTTPFailedRequestLoggingModeNone OutputDynatraceHTTPFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDynatraceHTTPFailedRequestLoggingMode) ToPointer() *OutputDynatraceHTTPFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputDynatraceHTTPFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputDynatraceHTTPFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputDynatraceHTTPResponseRetrySetting struct {
@@ -224,222 +193,115 @@ func (o *OutputDynatraceHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDynatraceHTTPBackpressureBehavior string
 
 const (
+	// OutputDynatraceHTTPBackpressureBehaviorBlock Block
 	OutputDynatraceHTTPBackpressureBehaviorBlock OutputDynatraceHTTPBackpressureBehavior = "block"
-	OutputDynatraceHTTPBackpressureBehaviorDrop  OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorDrop Drop
+	OutputDynatraceHTTPBackpressureBehaviorDrop OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorQueue Persistent Queue
 	OutputDynatraceHTTPBackpressureBehaviorQueue OutputDynatraceHTTPBackpressureBehavior = "queue"
 )
 
 func (e OutputDynatraceHTTPBackpressureBehavior) ToPointer() *OutputDynatraceHTTPBackpressureBehavior {
 	return &e
 }
-func (e *OutputDynatraceHTTPBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputDynatraceHTTPBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPBackpressureBehavior: %v", v)
-	}
-}
 
 type OutputDynatraceHTTPAuthenticationType string
 
 const (
-	OutputDynatraceHTTPAuthenticationTypeToken      OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeToken Auth token
+	OutputDynatraceHTTPAuthenticationTypeToken OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeTextSecret Token (text secret)
 	OutputDynatraceHTTPAuthenticationTypeTextSecret OutputDynatraceHTTPAuthenticationType = "textSecret"
 )
 
 func (e OutputDynatraceHTTPAuthenticationType) ToPointer() *OutputDynatraceHTTPAuthenticationType {
 	return &e
 }
-func (e *OutputDynatraceHTTPAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "token":
-		fallthrough
-	case "textSecret":
-		*e = OutputDynatraceHTTPAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPAuthenticationType: %v", v)
-	}
-}
 
 // OutputDynatraceHTTPFormat - How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
 type OutputDynatraceHTTPFormat string
 
 const (
+	// OutputDynatraceHTTPFormatJSONArray JSON
 	OutputDynatraceHTTPFormatJSONArray OutputDynatraceHTTPFormat = "json_array"
+	// OutputDynatraceHTTPFormatPlaintext Plaintext
 	OutputDynatraceHTTPFormatPlaintext OutputDynatraceHTTPFormat = "plaintext"
 )
 
 func (e OutputDynatraceHTTPFormat) ToPointer() *OutputDynatraceHTTPFormat {
 	return &e
 }
-func (e *OutputDynatraceHTTPFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json_array":
-		fallthrough
-	case "plaintext":
-		*e = OutputDynatraceHTTPFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPFormat: %v", v)
-	}
-}
 
 type Endpoint string
 
 const (
-	EndpointCloud      Endpoint = "cloud"
+	// EndpointCloud Cloud
+	EndpointCloud Endpoint = "cloud"
+	// EndpointActiveGate ActiveGate
 	EndpointActiveGate Endpoint = "activeGate"
-	EndpointManual     Endpoint = "manual"
+	// EndpointManual Manual
+	EndpointManual Endpoint = "manual"
 )
 
 func (e Endpoint) ToPointer() *Endpoint {
 	return &e
 }
-func (e *Endpoint) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cloud":
-		fallthrough
-	case "activeGate":
-		fallthrough
-	case "manual":
-		*e = Endpoint(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Endpoint: %v", v)
-	}
-}
 
 type TelemetryType string
 
 const (
-	TelemetryTypeLogs    TelemetryType = "logs"
+	// TelemetryTypeLogs Logs
+	TelemetryTypeLogs TelemetryType = "logs"
+	// TelemetryTypeMetrics Metrics
 	TelemetryTypeMetrics TelemetryType = "metrics"
 )
 
 func (e TelemetryType) ToPointer() *TelemetryType {
 	return &e
 }
-func (e *TelemetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "logs":
-		fallthrough
-	case "metrics":
-		*e = TelemetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TelemetryType: %v", v)
-	}
-}
 
 // OutputDynatraceHTTPCompression - Codec to use to compress the persisted data
 type OutputDynatraceHTTPCompression string
 
 const (
+	// OutputDynatraceHTTPCompressionNone None
 	OutputDynatraceHTTPCompressionNone OutputDynatraceHTTPCompression = "none"
+	// OutputDynatraceHTTPCompressionGzip Gzip
 	OutputDynatraceHTTPCompressionGzip OutputDynatraceHTTPCompression = "gzip"
 )
 
 func (e OutputDynatraceHTTPCompression) ToPointer() *OutputDynatraceHTTPCompression {
 	return &e
 }
-func (e *OutputDynatraceHTTPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDynatraceHTTPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPCompression: %v", v)
-	}
-}
 
 // OutputDynatraceHTTPQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDynatraceHTTPQueueFullBehavior string
 
 const (
+	// OutputDynatraceHTTPQueueFullBehaviorBlock Block
 	OutputDynatraceHTTPQueueFullBehaviorBlock OutputDynatraceHTTPQueueFullBehavior = "block"
-	OutputDynatraceHTTPQueueFullBehaviorDrop  OutputDynatraceHTTPQueueFullBehavior = "drop"
+	// OutputDynatraceHTTPQueueFullBehaviorDrop Drop new data
+	OutputDynatraceHTTPQueueFullBehaviorDrop OutputDynatraceHTTPQueueFullBehavior = "drop"
 )
 
 func (e OutputDynatraceHTTPQueueFullBehavior) ToPointer() *OutputDynatraceHTTPQueueFullBehavior {
 	return &e
-}
-func (e *OutputDynatraceHTTPQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputDynatraceHTTPQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputDynatraceHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputDynatraceHTTPMode string
 
 const (
-	OutputDynatraceHTTPModeError        OutputDynatraceHTTPMode = "error"
+	// OutputDynatraceHTTPModeError Error
+	OutputDynatraceHTTPModeError OutputDynatraceHTTPMode = "error"
+	// OutputDynatraceHTTPModeBackpressure Backpressure
 	OutputDynatraceHTTPModeBackpressure OutputDynatraceHTTPMode = "backpressure"
-	OutputDynatraceHTTPModeAlways       OutputDynatraceHTTPMode = "always"
+	// OutputDynatraceHTTPModeAlways Always On
+	OutputDynatraceHTTPModeAlways OutputDynatraceHTTPMode = "always"
 )
 
 func (e OutputDynatraceHTTPMode) ToPointer() *OutputDynatraceHTTPMode {
 	return &e
-}
-func (e *OutputDynatraceHTTPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputDynatraceHTTPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDynatraceHTTPMode: %v", v)
-	}
 }
 
 type OutputDynatraceHTTPPqControls struct {

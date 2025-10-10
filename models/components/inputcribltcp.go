@@ -65,54 +65,28 @@ func (i *InputCriblTCPConnection) GetOutput() string {
 type InputCriblTCPMode string
 
 const (
-	InputCriblTCPModeSmart  InputCriblTCPMode = "smart"
+	// InputCriblTCPModeSmart Smart
+	InputCriblTCPModeSmart InputCriblTCPMode = "smart"
+	// InputCriblTCPModeAlways Always On
 	InputCriblTCPModeAlways InputCriblTCPMode = "always"
 )
 
 func (e InputCriblTCPMode) ToPointer() *InputCriblTCPMode {
 	return &e
 }
-func (e *InputCriblTCPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputCriblTCPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMode: %v", v)
-	}
-}
 
 // InputCriblTCPCompression - Codec to use to compress the persisted data
 type InputCriblTCPCompression string
 
 const (
+	// InputCriblTCPCompressionNone None
 	InputCriblTCPCompressionNone InputCriblTCPCompression = "none"
+	// InputCriblTCPCompressionGzip Gzip
 	InputCriblTCPCompressionGzip InputCriblTCPCompression = "gzip"
 )
 
 func (e InputCriblTCPCompression) ToPointer() *InputCriblTCPCompression {
 	return &e
-}
-func (e *InputCriblTCPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputCriblTCPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPCompression: %v", v)
-	}
 }
 
 type InputCriblTCPPqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputCriblTCPMinimumTLSVersion) ToPointer() *InputCriblTCPMinimumTLSVersion {
 	return &e
 }
-func (e *InputCriblTCPMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblTCPMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputCriblTCPMaximumTLSVersion string
 
@@ -257,25 +212,6 @@ const (
 
 func (e InputCriblTCPMaximumTLSVersion) ToPointer() *InputCriblTCPMaximumTLSVersion {
 	return &e
-}
-func (e *InputCriblTCPMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputCriblTCPMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputCriblTCPTLSSettingsServerSide struct {

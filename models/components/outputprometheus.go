@@ -65,30 +65,16 @@ func (o *OutputPrometheusExtraHTTPHeader) GetValue() string {
 type OutputPrometheusFailedRequestLoggingMode string
 
 const (
-	OutputPrometheusFailedRequestLoggingModePayload           OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayload Payload
+	OutputPrometheusFailedRequestLoggingModePayload OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputPrometheusFailedRequestLoggingModePayloadAndHeaders OutputPrometheusFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputPrometheusFailedRequestLoggingModeNone              OutputPrometheusFailedRequestLoggingMode = "none"
+	// OutputPrometheusFailedRequestLoggingModeNone None
+	OutputPrometheusFailedRequestLoggingModeNone OutputPrometheusFailedRequestLoggingMode = "none"
 )
 
 func (e OutputPrometheusFailedRequestLoggingMode) ToPointer() *OutputPrometheusFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputPrometheusFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputPrometheusFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputPrometheusResponseRetrySetting struct {
@@ -194,30 +180,16 @@ func (o *OutputPrometheusTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputPrometheusBackpressureBehavior string
 
 const (
+	// OutputPrometheusBackpressureBehaviorBlock Block
 	OutputPrometheusBackpressureBehaviorBlock OutputPrometheusBackpressureBehavior = "block"
-	OutputPrometheusBackpressureBehaviorDrop  OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorDrop Drop
+	OutputPrometheusBackpressureBehaviorDrop OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorQueue Persistent Queue
 	OutputPrometheusBackpressureBehaviorQueue OutputPrometheusBackpressureBehavior = "queue"
 )
 
 func (e OutputPrometheusBackpressureBehavior) ToPointer() *OutputPrometheusBackpressureBehavior {
 	return &e
-}
-func (e *OutputPrometheusBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputPrometheusBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputPrometheusAuthenticationType - Remote Write authentication type
@@ -235,112 +207,49 @@ const (
 func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthenticationType {
 	return &e
 }
-func (e *OutputPrometheusAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = OutputPrometheusAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusAuthenticationType: %v", v)
-	}
-}
 
 // OutputPrometheusCompression - Codec to use to compress the persisted data
 type OutputPrometheusCompression string
 
 const (
+	// OutputPrometheusCompressionNone None
 	OutputPrometheusCompressionNone OutputPrometheusCompression = "none"
+	// OutputPrometheusCompressionGzip Gzip
 	OutputPrometheusCompressionGzip OutputPrometheusCompression = "gzip"
 )
 
 func (e OutputPrometheusCompression) ToPointer() *OutputPrometheusCompression {
 	return &e
 }
-func (e *OutputPrometheusCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputPrometheusCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusCompression: %v", v)
-	}
-}
 
 // OutputPrometheusQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputPrometheusQueueFullBehavior string
 
 const (
+	// OutputPrometheusQueueFullBehaviorBlock Block
 	OutputPrometheusQueueFullBehaviorBlock OutputPrometheusQueueFullBehavior = "block"
-	OutputPrometheusQueueFullBehaviorDrop  OutputPrometheusQueueFullBehavior = "drop"
+	// OutputPrometheusQueueFullBehaviorDrop Drop new data
+	OutputPrometheusQueueFullBehaviorDrop OutputPrometheusQueueFullBehavior = "drop"
 )
 
 func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFullBehavior {
 	return &e
-}
-func (e *OutputPrometheusQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputPrometheusQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputPrometheusMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputPrometheusMode string
 
 const (
-	OutputPrometheusModeError        OutputPrometheusMode = "error"
+	// OutputPrometheusModeError Error
+	OutputPrometheusModeError OutputPrometheusMode = "error"
+	// OutputPrometheusModeBackpressure Backpressure
 	OutputPrometheusModeBackpressure OutputPrometheusMode = "backpressure"
-	OutputPrometheusModeAlways       OutputPrometheusMode = "always"
+	// OutputPrometheusModeAlways Always On
+	OutputPrometheusModeAlways OutputPrometheusMode = "always"
 )
 
 func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {
 	return &e
-}
-func (e *OutputPrometheusMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputPrometheusMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusMode: %v", v)
-	}
 }
 
 type OutputPrometheusPqControls struct {

@@ -6,11 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// CreateVersionPushResponseBody - a list of any objects
+// CreateVersionPushResponseBody - a list of string objects
 type CreateVersionPushResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64   `json:"count,omitempty"`
+	Items []string `json:"items,omitempty"`
 }
 
 func (c *CreateVersionPushResponseBody) GetCount() *int64 {
@@ -20,7 +20,7 @@ func (c *CreateVersionPushResponseBody) GetCount() *int64 {
 	return c.Count
 }
 
-func (c *CreateVersionPushResponseBody) GetItems() []map[string]any {
+func (c *CreateVersionPushResponseBody) GetItems() []string {
 	if c == nil {
 		return nil
 	}
@@ -29,7 +29,7 @@ func (c *CreateVersionPushResponseBody) GetItems() []map[string]any {
 
 type CreateVersionPushResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of string objects
 	Object *CreateVersionPushResponseBody
 }
 

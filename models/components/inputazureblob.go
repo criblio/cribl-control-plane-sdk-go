@@ -65,54 +65,28 @@ func (i *InputAzureBlobConnection) GetOutput() string {
 type InputAzureBlobMode string
 
 const (
-	InputAzureBlobModeSmart  InputAzureBlobMode = "smart"
+	// InputAzureBlobModeSmart Smart
+	InputAzureBlobModeSmart InputAzureBlobMode = "smart"
+	// InputAzureBlobModeAlways Always On
 	InputAzureBlobModeAlways InputAzureBlobMode = "always"
 )
 
 func (e InputAzureBlobMode) ToPointer() *InputAzureBlobMode {
 	return &e
 }
-func (e *InputAzureBlobMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputAzureBlobMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputAzureBlobMode: %v", v)
-	}
-}
 
 // InputAzureBlobCompression - Codec to use to compress the persisted data
 type InputAzureBlobCompression string
 
 const (
+	// InputAzureBlobCompressionNone None
 	InputAzureBlobCompressionNone InputAzureBlobCompression = "none"
+	// InputAzureBlobCompressionGzip Gzip
 	InputAzureBlobCompressionGzip InputAzureBlobCompression = "gzip"
 )
 
 func (e InputAzureBlobCompression) ToPointer() *InputAzureBlobCompression {
 	return &e
-}
-func (e *InputAzureBlobCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputAzureBlobCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputAzureBlobCompression: %v", v)
-	}
 }
 
 type InputAzureBlobPqControls struct {
@@ -256,25 +230,6 @@ const (
 
 func (e InputAzureBlobAuthenticationMethod) ToPointer() *InputAzureBlobAuthenticationMethod {
 	return &e
-}
-func (e *InputAzureBlobAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "clientSecret":
-		fallthrough
-	case "clientCert":
-		*e = InputAzureBlobAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputAzureBlobAuthenticationMethod: %v", v)
-	}
 }
 
 type InputAzureBlobCertificate struct {

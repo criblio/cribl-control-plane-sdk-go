@@ -65,54 +65,28 @@ func (i *InputSnmpConnection) GetOutput() string {
 type InputSnmpMode string
 
 const (
-	InputSnmpModeSmart  InputSnmpMode = "smart"
+	// InputSnmpModeSmart Smart
+	InputSnmpModeSmart InputSnmpMode = "smart"
+	// InputSnmpModeAlways Always On
 	InputSnmpModeAlways InputSnmpMode = "always"
 )
 
 func (e InputSnmpMode) ToPointer() *InputSnmpMode {
 	return &e
 }
-func (e *InputSnmpMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSnmpMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSnmpMode: %v", v)
-	}
-}
 
 // InputSnmpCompression - Codec to use to compress the persisted data
 type InputSnmpCompression string
 
 const (
+	// InputSnmpCompressionNone None
 	InputSnmpCompressionNone InputSnmpCompression = "none"
+	// InputSnmpCompressionGzip Gzip
 	InputSnmpCompressionGzip InputSnmpCompression = "gzip"
 )
 
 func (e InputSnmpCompression) ToPointer() *InputSnmpCompression {
 	return &e
-}
-func (e *InputSnmpCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSnmpCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSnmpCompression: %v", v)
-	}
 }
 
 type InputSnmpPqControls struct {
@@ -217,42 +191,24 @@ func (i *InputSnmpPq) GetPqControls() *InputSnmpPqControls {
 type AuthenticationProtocol string
 
 const (
-	AuthenticationProtocolNone   AuthenticationProtocol = "none"
-	AuthenticationProtocolMd5    AuthenticationProtocol = "md5"
-	AuthenticationProtocolSha    AuthenticationProtocol = "sha"
+	// AuthenticationProtocolNone None
+	AuthenticationProtocolNone AuthenticationProtocol = "none"
+	// AuthenticationProtocolMd5 MD5
+	AuthenticationProtocolMd5 AuthenticationProtocol = "md5"
+	// AuthenticationProtocolSha SHA1
+	AuthenticationProtocolSha AuthenticationProtocol = "sha"
+	// AuthenticationProtocolSha224 SHA224
 	AuthenticationProtocolSha224 AuthenticationProtocol = "sha224"
+	// AuthenticationProtocolSha256 SHA256
 	AuthenticationProtocolSha256 AuthenticationProtocol = "sha256"
+	// AuthenticationProtocolSha384 SHA384
 	AuthenticationProtocolSha384 AuthenticationProtocol = "sha384"
+	// AuthenticationProtocolSha512 SHA512
 	AuthenticationProtocolSha512 AuthenticationProtocol = "sha512"
 )
 
 func (e AuthenticationProtocol) ToPointer() *AuthenticationProtocol {
 	return &e
-}
-func (e *AuthenticationProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "md5":
-		fallthrough
-	case "sha":
-		fallthrough
-	case "sha224":
-		fallthrough
-	case "sha256":
-		fallthrough
-	case "sha384":
-		fallthrough
-	case "sha512":
-		*e = AuthenticationProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for AuthenticationProtocol: %v", v)
-	}
 }
 
 type V3User struct {

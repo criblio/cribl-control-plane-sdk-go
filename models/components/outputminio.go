@@ -35,30 +35,16 @@ func (e *OutputMinioType) UnmarshalJSON(data []byte) error {
 type OutputMinioAuthenticationMethod string
 
 const (
-	OutputMinioAuthenticationMethodAuto   OutputMinioAuthenticationMethod = "auto"
+	// OutputMinioAuthenticationMethodAuto Auto
+	OutputMinioAuthenticationMethodAuto OutputMinioAuthenticationMethod = "auto"
+	// OutputMinioAuthenticationMethodManual Manual
 	OutputMinioAuthenticationMethodManual OutputMinioAuthenticationMethod = "manual"
+	// OutputMinioAuthenticationMethodSecret Secret Key pair
 	OutputMinioAuthenticationMethodSecret OutputMinioAuthenticationMethod = "secret"
 )
 
 func (e OutputMinioAuthenticationMethod) ToPointer() *OutputMinioAuthenticationMethod {
 	return &e
-}
-func (e *OutputMinioAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputMinioAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioAuthenticationMethod: %v", v)
-	}
 }
 
 // OutputMinioSignatureVersion - Signature version to use for signing MinIO requests
@@ -72,197 +58,99 @@ const (
 func (e OutputMinioSignatureVersion) ToPointer() *OutputMinioSignatureVersion {
 	return &e
 }
-func (e *OutputMinioSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputMinioSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioSignatureVersion: %v", v)
-	}
-}
 
 // OutputMinioObjectACL - Object ACL to assign to uploaded objects
 type OutputMinioObjectACL string
 
 const (
-	OutputMinioObjectACLPrivate                OutputMinioObjectACL = "private"
-	OutputMinioObjectACLPublicRead             OutputMinioObjectACL = "public-read"
-	OutputMinioObjectACLPublicReadWrite        OutputMinioObjectACL = "public-read-write"
-	OutputMinioObjectACLAuthenticatedRead      OutputMinioObjectACL = "authenticated-read"
-	OutputMinioObjectACLAwsExecRead            OutputMinioObjectACL = "aws-exec-read"
-	OutputMinioObjectACLBucketOwnerRead        OutputMinioObjectACL = "bucket-owner-read"
+	// OutputMinioObjectACLPrivate Private
+	OutputMinioObjectACLPrivate OutputMinioObjectACL = "private"
+	// OutputMinioObjectACLPublicRead Public Read Only
+	OutputMinioObjectACLPublicRead OutputMinioObjectACL = "public-read"
+	// OutputMinioObjectACLPublicReadWrite Public Read/Write
+	OutputMinioObjectACLPublicReadWrite OutputMinioObjectACL = "public-read-write"
+	// OutputMinioObjectACLAuthenticatedRead Authenticated Read Only
+	OutputMinioObjectACLAuthenticatedRead OutputMinioObjectACL = "authenticated-read"
+	// OutputMinioObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputMinioObjectACLAwsExecRead OutputMinioObjectACL = "aws-exec-read"
+	// OutputMinioObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputMinioObjectACLBucketOwnerRead OutputMinioObjectACL = "bucket-owner-read"
+	// OutputMinioObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputMinioObjectACLBucketOwnerFullControl OutputMinioObjectACL = "bucket-owner-full-control"
 )
 
 func (e OutputMinioObjectACL) ToPointer() *OutputMinioObjectACL {
 	return &e
 }
-func (e *OutputMinioObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "public-read":
-		fallthrough
-	case "public-read-write":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "aws-exec-read":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		*e = OutputMinioObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioObjectACL: %v", v)
-	}
-}
 
 // OutputMinioStorageClass - Storage class to select for uploaded objects
 type OutputMinioStorageClass string
 
 const (
-	OutputMinioStorageClassStandard          OutputMinioStorageClass = "STANDARD"
+	// OutputMinioStorageClassStandard Standard
+	OutputMinioStorageClassStandard OutputMinioStorageClass = "STANDARD"
+	// OutputMinioStorageClassReducedRedundancy Reduced Redundancy Storage
 	OutputMinioStorageClassReducedRedundancy OutputMinioStorageClass = "REDUCED_REDUNDANCY"
 )
 
 func (e OutputMinioStorageClass) ToPointer() *OutputMinioStorageClass {
 	return &e
 }
-func (e *OutputMinioStorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "REDUCED_REDUNDANCY":
-		*e = OutputMinioStorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioStorageClass: %v", v)
-	}
-}
 
 // ServerSideEncryption - Server-side encryption for uploaded objects
 type ServerSideEncryption string
 
 const (
+	// ServerSideEncryptionAes256 Amazon S3 Managed Key
 	ServerSideEncryptionAes256 ServerSideEncryption = "AES256"
 )
 
 func (e ServerSideEncryption) ToPointer() *ServerSideEncryption {
 	return &e
 }
-func (e *ServerSideEncryption) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "AES256":
-		*e = ServerSideEncryption(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ServerSideEncryption: %v", v)
-	}
-}
 
 // OutputMinioDataFormat - Format of the output data
 type OutputMinioDataFormat string
 
 const (
-	OutputMinioDataFormatJSON    OutputMinioDataFormat = "json"
-	OutputMinioDataFormatRaw     OutputMinioDataFormat = "raw"
+	// OutputMinioDataFormatJSON JSON
+	OutputMinioDataFormatJSON OutputMinioDataFormat = "json"
+	// OutputMinioDataFormatRaw Raw
+	OutputMinioDataFormatRaw OutputMinioDataFormat = "raw"
+	// OutputMinioDataFormatParquet Parquet
 	OutputMinioDataFormatParquet OutputMinioDataFormat = "parquet"
 )
 
 func (e OutputMinioDataFormat) ToPointer() *OutputMinioDataFormat {
 	return &e
 }
-func (e *OutputMinioDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "parquet":
-		*e = OutputMinioDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioDataFormat: %v", v)
-	}
-}
 
 // OutputMinioBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputMinioBackpressureBehavior string
 
 const (
+	// OutputMinioBackpressureBehaviorBlock Block
 	OutputMinioBackpressureBehaviorBlock OutputMinioBackpressureBehavior = "block"
-	OutputMinioBackpressureBehaviorDrop  OutputMinioBackpressureBehavior = "drop"
+	// OutputMinioBackpressureBehaviorDrop Drop
+	OutputMinioBackpressureBehaviorDrop OutputMinioBackpressureBehavior = "drop"
 )
 
 func (e OutputMinioBackpressureBehavior) ToPointer() *OutputMinioBackpressureBehavior {
 	return &e
-}
-func (e *OutputMinioBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputMinioBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputMinioDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputMinioDiskSpaceProtection string
 
 const (
+	// OutputMinioDiskSpaceProtectionBlock Block
 	OutputMinioDiskSpaceProtectionBlock OutputMinioDiskSpaceProtection = "block"
-	OutputMinioDiskSpaceProtectionDrop  OutputMinioDiskSpaceProtection = "drop"
+	// OutputMinioDiskSpaceProtectionDrop Drop
+	OutputMinioDiskSpaceProtectionDrop OutputMinioDiskSpaceProtection = "drop"
 )
 
 func (e OutputMinioDiskSpaceProtection) ToPointer() *OutputMinioDiskSpaceProtection {
 	return &e
-}
-func (e *OutputMinioDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputMinioDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioDiskSpaceProtection: %v", v)
-	}
 }
 
 // OutputMinioCompression - Data compression format to apply to HTTP content before it is delivered
@@ -276,107 +164,51 @@ const (
 func (e OutputMinioCompression) ToPointer() *OutputMinioCompression {
 	return &e
 }
-func (e *OutputMinioCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputMinioCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioCompression: %v", v)
-	}
-}
 
 // OutputMinioCompressionLevel - Compression level to apply before moving files to final destination
 type OutputMinioCompressionLevel string
 
 const (
-	OutputMinioCompressionLevelBestSpeed       OutputMinioCompressionLevel = "best_speed"
-	OutputMinioCompressionLevelNormal          OutputMinioCompressionLevel = "normal"
+	// OutputMinioCompressionLevelBestSpeed Best Speed
+	OutputMinioCompressionLevelBestSpeed OutputMinioCompressionLevel = "best_speed"
+	// OutputMinioCompressionLevelNormal Normal
+	OutputMinioCompressionLevelNormal OutputMinioCompressionLevel = "normal"
+	// OutputMinioCompressionLevelBestCompression Best Compression
 	OutputMinioCompressionLevelBestCompression OutputMinioCompressionLevel = "best_compression"
 )
 
 func (e OutputMinioCompressionLevel) ToPointer() *OutputMinioCompressionLevel {
 	return &e
 }
-func (e *OutputMinioCompressionLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "best_speed":
-		fallthrough
-	case "normal":
-		fallthrough
-	case "best_compression":
-		*e = OutputMinioCompressionLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioCompressionLevel: %v", v)
-	}
-}
 
 // OutputMinioParquetVersion - Determines which data types are supported and how they are represented
 type OutputMinioParquetVersion string
 
 const (
+	// OutputMinioParquetVersionParquet10 1.0
 	OutputMinioParquetVersionParquet10 OutputMinioParquetVersion = "PARQUET_1_0"
+	// OutputMinioParquetVersionParquet24 2.4
 	OutputMinioParquetVersionParquet24 OutputMinioParquetVersion = "PARQUET_2_4"
+	// OutputMinioParquetVersionParquet26 2.6
 	OutputMinioParquetVersionParquet26 OutputMinioParquetVersion = "PARQUET_2_6"
 )
 
 func (e OutputMinioParquetVersion) ToPointer() *OutputMinioParquetVersion {
 	return &e
 }
-func (e *OutputMinioParquetVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "PARQUET_1_0":
-		fallthrough
-	case "PARQUET_2_4":
-		fallthrough
-	case "PARQUET_2_6":
-		*e = OutputMinioParquetVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioParquetVersion: %v", v)
-	}
-}
 
 // OutputMinioDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputMinioDataPageVersion string
 
 const (
+	// OutputMinioDataPageVersionDataPageV1 V1
 	OutputMinioDataPageVersionDataPageV1 OutputMinioDataPageVersion = "DATA_PAGE_V1"
+	// OutputMinioDataPageVersionDataPageV2 V2
 	OutputMinioDataPageVersionDataPageV2 OutputMinioDataPageVersion = "DATA_PAGE_V2"
 )
 
 func (e OutputMinioDataPageVersion) ToPointer() *OutputMinioDataPageVersion {
 	return &e
-}
-func (e *OutputMinioDataPageVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "DATA_PAGE_V1":
-		fallthrough
-	case "DATA_PAGE_V2":
-		*e = OutputMinioDataPageVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMinioDataPageVersion: %v", v)
-	}
 }
 
 type OutputMinioKeyValueMetadatum struct {

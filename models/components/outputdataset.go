@@ -35,42 +35,24 @@ func (e *OutputDatasetType) UnmarshalJSON(data []byte) error {
 type OutputDatasetSeverity string
 
 const (
-	OutputDatasetSeverityFinest  OutputDatasetSeverity = "finest"
-	OutputDatasetSeverityFiner   OutputDatasetSeverity = "finer"
-	OutputDatasetSeverityFine    OutputDatasetSeverity = "fine"
-	OutputDatasetSeverityInfo    OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityFinest 0 - finest
+	OutputDatasetSeverityFinest OutputDatasetSeverity = "finest"
+	// OutputDatasetSeverityFiner 1 - finer
+	OutputDatasetSeverityFiner OutputDatasetSeverity = "finer"
+	// OutputDatasetSeverityFine 2 - fine
+	OutputDatasetSeverityFine OutputDatasetSeverity = "fine"
+	// OutputDatasetSeverityInfo 3 - info
+	OutputDatasetSeverityInfo OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityWarning 4 - warning
 	OutputDatasetSeverityWarning OutputDatasetSeverity = "warning"
-	OutputDatasetSeverityError   OutputDatasetSeverity = "error"
-	OutputDatasetSeverityFatal   OutputDatasetSeverity = "fatal"
+	// OutputDatasetSeverityError 5 - error
+	OutputDatasetSeverityError OutputDatasetSeverity = "error"
+	// OutputDatasetSeverityFatal 6 - fatal
+	OutputDatasetSeverityFatal OutputDatasetSeverity = "fatal"
 )
 
 func (e OutputDatasetSeverity) ToPointer() *OutputDatasetSeverity {
 	return &e
-}
-func (e *OutputDatasetSeverity) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "finest":
-		fallthrough
-	case "finer":
-		fallthrough
-	case "fine":
-		fallthrough
-	case "info":
-		fallthrough
-	case "warning":
-		fallthrough
-	case "error":
-		fallthrough
-	case "fatal":
-		*e = OutputDatasetSeverity(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetSeverity: %v", v)
-	}
 }
 
 type OutputDatasetResponseRetrySetting struct {
@@ -176,30 +158,16 @@ func (o *OutputDatasetTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type DataSetSite string
 
 const (
-	DataSetSiteUs     DataSetSite = "us"
-	DataSetSiteEu     DataSetSite = "eu"
+	// DataSetSiteUs US
+	DataSetSiteUs DataSetSite = "us"
+	// DataSetSiteEu Europe
+	DataSetSiteEu DataSetSite = "eu"
+	// DataSetSiteCustom Custom
 	DataSetSiteCustom DataSetSite = "custom"
 )
 
 func (e DataSetSite) ToPointer() *DataSetSite {
 	return &e
-}
-func (e *DataSetSite) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "us":
-		fallthrough
-	case "eu":
-		fallthrough
-	case "custom":
-		*e = DataSetSite(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for DataSetSite: %v", v)
-	}
 }
 
 type OutputDatasetExtraHTTPHeader struct {
@@ -236,60 +204,32 @@ func (o *OutputDatasetExtraHTTPHeader) GetValue() string {
 type OutputDatasetFailedRequestLoggingMode string
 
 const (
-	OutputDatasetFailedRequestLoggingModePayload           OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayload Payload
+	OutputDatasetFailedRequestLoggingModePayload OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDatasetFailedRequestLoggingModePayloadAndHeaders OutputDatasetFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatasetFailedRequestLoggingModeNone              OutputDatasetFailedRequestLoggingMode = "none"
+	// OutputDatasetFailedRequestLoggingModeNone None
+	OutputDatasetFailedRequestLoggingModeNone OutputDatasetFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputDatasetFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputDatasetFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetFailedRequestLoggingMode: %v", v)
-	}
 }
 
 // OutputDatasetBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputDatasetBackpressureBehavior string
 
 const (
+	// OutputDatasetBackpressureBehaviorBlock Block
 	OutputDatasetBackpressureBehaviorBlock OutputDatasetBackpressureBehavior = "block"
-	OutputDatasetBackpressureBehaviorDrop  OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorDrop Drop
+	OutputDatasetBackpressureBehaviorDrop OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorQueue Persistent Queue
 	OutputDatasetBackpressureBehaviorQueue OutputDatasetBackpressureBehavior = "queue"
 )
 
 func (e OutputDatasetBackpressureBehavior) ToPointer() *OutputDatasetBackpressureBehavior {
 	return &e
-}
-func (e *OutputDatasetBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputDatasetBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputDatasetAuthenticationMethod - Enter API key directly, or select a stored secret
@@ -303,104 +243,49 @@ const (
 func (e OutputDatasetAuthenticationMethod) ToPointer() *OutputDatasetAuthenticationMethod {
 	return &e
 }
-func (e *OutputDatasetAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputDatasetAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputDatasetCompression - Codec to use to compress the persisted data
 type OutputDatasetCompression string
 
 const (
+	// OutputDatasetCompressionNone None
 	OutputDatasetCompressionNone OutputDatasetCompression = "none"
+	// OutputDatasetCompressionGzip Gzip
 	OutputDatasetCompressionGzip OutputDatasetCompression = "gzip"
 )
 
 func (e OutputDatasetCompression) ToPointer() *OutputDatasetCompression {
 	return &e
 }
-func (e *OutputDatasetCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputDatasetCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetCompression: %v", v)
-	}
-}
 
 // OutputDatasetQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDatasetQueueFullBehavior string
 
 const (
+	// OutputDatasetQueueFullBehaviorBlock Block
 	OutputDatasetQueueFullBehaviorBlock OutputDatasetQueueFullBehavior = "block"
-	OutputDatasetQueueFullBehaviorDrop  OutputDatasetQueueFullBehavior = "drop"
+	// OutputDatasetQueueFullBehaviorDrop Drop new data
+	OutputDatasetQueueFullBehaviorDrop OutputDatasetQueueFullBehavior = "drop"
 )
 
 func (e OutputDatasetQueueFullBehavior) ToPointer() *OutputDatasetQueueFullBehavior {
 	return &e
-}
-func (e *OutputDatasetQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputDatasetQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputDatasetMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputDatasetMode string
 
 const (
-	OutputDatasetModeError        OutputDatasetMode = "error"
+	// OutputDatasetModeError Error
+	OutputDatasetModeError OutputDatasetMode = "error"
+	// OutputDatasetModeBackpressure Backpressure
 	OutputDatasetModeBackpressure OutputDatasetMode = "backpressure"
-	OutputDatasetModeAlways       OutputDatasetMode = "always"
+	// OutputDatasetModeAlways Always On
+	OutputDatasetModeAlways OutputDatasetMode = "always"
 )
 
 func (e OutputDatasetMode) ToPointer() *OutputDatasetMode {
 	return &e
-}
-func (e *OutputDatasetMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputDatasetMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputDatasetMode: %v", v)
-	}
 }
 
 type OutputDatasetPqControls struct {

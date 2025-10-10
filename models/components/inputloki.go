@@ -65,54 +65,28 @@ func (i *InputLokiConnection) GetOutput() string {
 type InputLokiMode string
 
 const (
-	InputLokiModeSmart  InputLokiMode = "smart"
+	// InputLokiModeSmart Smart
+	InputLokiModeSmart InputLokiMode = "smart"
+	// InputLokiModeAlways Always On
 	InputLokiModeAlways InputLokiMode = "always"
 )
 
 func (e InputLokiMode) ToPointer() *InputLokiMode {
 	return &e
 }
-func (e *InputLokiMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputLokiMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputLokiMode: %v", v)
-	}
-}
 
 // InputLokiCompression - Codec to use to compress the persisted data
 type InputLokiCompression string
 
 const (
+	// InputLokiCompressionNone None
 	InputLokiCompressionNone InputLokiCompression = "none"
+	// InputLokiCompressionGzip Gzip
 	InputLokiCompressionGzip InputLokiCompression = "gzip"
 )
 
 func (e InputLokiCompression) ToPointer() *InputLokiCompression {
 	return &e
-}
-func (e *InputLokiCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputLokiCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputLokiCompression: %v", v)
-	}
 }
 
 type InputLokiPqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputLokiMinimumTLSVersion) ToPointer() *InputLokiMinimumTLSVersion {
 	return &e
 }
-func (e *InputLokiMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputLokiMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputLokiMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputLokiMaximumTLSVersion string
 
@@ -257,25 +212,6 @@ const (
 
 func (e InputLokiMaximumTLSVersion) ToPointer() *InputLokiMaximumTLSVersion {
 	return &e
-}
-func (e *InputLokiMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputLokiMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputLokiMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputLokiTLSSettingsServerSide struct {
@@ -400,29 +336,6 @@ const (
 
 func (e InputLokiAuthenticationType) ToPointer() *InputLokiAuthenticationType {
 	return &e
-}
-func (e *InputLokiAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputLokiAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputLokiAuthenticationType: %v", v)
-	}
 }
 
 type InputLokiMetadatum struct {

@@ -19,23 +19,6 @@ const (
 func (e RunnableJobScheduledSearchJobType) ToPointer() *RunnableJobScheduledSearchJobType {
 	return &e
 }
-func (e *RunnableJobScheduledSearchJobType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "collection":
-		fallthrough
-	case "executor":
-		fallthrough
-	case "scheduledSearch":
-		*e = RunnableJobScheduledSearchJobType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobScheduledSearchJobType: %v", v)
-	}
-}
 
 type RunnableJobScheduledSearchType string
 

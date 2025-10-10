@@ -65,54 +65,28 @@ func (i *InputNetflowConnection) GetOutput() string {
 type InputNetflowMode string
 
 const (
-	InputNetflowModeSmart  InputNetflowMode = "smart"
+	// InputNetflowModeSmart Smart
+	InputNetflowModeSmart InputNetflowMode = "smart"
+	// InputNetflowModeAlways Always On
 	InputNetflowModeAlways InputNetflowMode = "always"
 )
 
 func (e InputNetflowMode) ToPointer() *InputNetflowMode {
 	return &e
 }
-func (e *InputNetflowMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputNetflowMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowMode: %v", v)
-	}
-}
 
 // InputNetflowCompression - Codec to use to compress the persisted data
 type InputNetflowCompression string
 
 const (
+	// InputNetflowCompressionNone None
 	InputNetflowCompressionNone InputNetflowCompression = "none"
+	// InputNetflowCompressionGzip Gzip
 	InputNetflowCompressionGzip InputNetflowCompression = "gzip"
 )
 
 func (e InputNetflowCompression) ToPointer() *InputNetflowCompression {
 	return &e
-}
-func (e *InputNetflowCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputNetflowCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowCompression: %v", v)
-	}
 }
 
 type InputNetflowPqControls struct {

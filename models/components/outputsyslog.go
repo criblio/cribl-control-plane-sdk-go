@@ -35,27 +35,14 @@ func (e *OutputSyslogType) UnmarshalJSON(data []byte) error {
 type OutputSyslogProtocol string
 
 const (
+	// OutputSyslogProtocolTCP TCP
 	OutputSyslogProtocolTCP OutputSyslogProtocol = "tcp"
+	// OutputSyslogProtocolUDP UDP
 	OutputSyslogProtocolUDP OutputSyslogProtocol = "udp"
 )
 
 func (e OutputSyslogProtocol) ToPointer() *OutputSyslogProtocol {
 	return &e
-}
-func (e *OutputSyslogProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "tcp":
-		fallthrough
-	case "udp":
-		*e = OutputSyslogProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogProtocol: %v", v)
-	}
 }
 
 // Facility - Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
@@ -89,159 +76,59 @@ const (
 func (e Facility) ToPointer() *Facility {
 	return &e
 }
-func (e *Facility) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		fallthrough
-	case 3:
-		fallthrough
-	case 4:
-		fallthrough
-	case 5:
-		fallthrough
-	case 6:
-		fallthrough
-	case 7:
-		fallthrough
-	case 8:
-		fallthrough
-	case 9:
-		fallthrough
-	case 10:
-		fallthrough
-	case 11:
-		fallthrough
-	case 12:
-		fallthrough
-	case 13:
-		fallthrough
-	case 14:
-		fallthrough
-	case 15:
-		fallthrough
-	case 16:
-		fallthrough
-	case 17:
-		fallthrough
-	case 18:
-		fallthrough
-	case 19:
-		fallthrough
-	case 20:
-		fallthrough
-	case 21:
-		*e = Facility(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Facility: %v", v)
-	}
-}
 
 // OutputSyslogSeverity - Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
 type OutputSyslogSeverity int64
 
 const (
-	OutputSyslogSeverityZero  OutputSyslogSeverity = 0
-	OutputSyslogSeverityOne   OutputSyslogSeverity = 1
-	OutputSyslogSeverityTwo   OutputSyslogSeverity = 2
+	// OutputSyslogSeverityZero emergency
+	OutputSyslogSeverityZero OutputSyslogSeverity = 0
+	// OutputSyslogSeverityOne alert
+	OutputSyslogSeverityOne OutputSyslogSeverity = 1
+	// OutputSyslogSeverityTwo critical
+	OutputSyslogSeverityTwo OutputSyslogSeverity = 2
+	// OutputSyslogSeverityThree error
 	OutputSyslogSeverityThree OutputSyslogSeverity = 3
-	OutputSyslogSeverityFour  OutputSyslogSeverity = 4
-	OutputSyslogSeverityFive  OutputSyslogSeverity = 5
-	OutputSyslogSeveritySix   OutputSyslogSeverity = 6
+	// OutputSyslogSeverityFour warning
+	OutputSyslogSeverityFour OutputSyslogSeverity = 4
+	// OutputSyslogSeverityFive notice
+	OutputSyslogSeverityFive OutputSyslogSeverity = 5
+	// OutputSyslogSeveritySix info
+	OutputSyslogSeveritySix OutputSyslogSeverity = 6
+	// OutputSyslogSeveritySeven debug
 	OutputSyslogSeveritySeven OutputSyslogSeverity = 7
 )
 
 func (e OutputSyslogSeverity) ToPointer() *OutputSyslogSeverity {
 	return &e
 }
-func (e *OutputSyslogSeverity) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		fallthrough
-	case 3:
-		fallthrough
-	case 4:
-		fallthrough
-	case 5:
-		fallthrough
-	case 6:
-		fallthrough
-	case 7:
-		*e = OutputSyslogSeverity(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogSeverity: %v", v)
-	}
-}
 
 // OutputSyslogMessageFormat - The syslog message format depending on the receiver's support
 type OutputSyslogMessageFormat string
 
 const (
+	// OutputSyslogMessageFormatRfc3164 RFC3164
 	OutputSyslogMessageFormatRfc3164 OutputSyslogMessageFormat = "rfc3164"
+	// OutputSyslogMessageFormatRfc5424 RFC5424
 	OutputSyslogMessageFormatRfc5424 OutputSyslogMessageFormat = "rfc5424"
 )
 
 func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 	return &e
 }
-func (e *OutputSyslogMessageFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "rfc3164":
-		fallthrough
-	case "rfc5424":
-		*e = OutputSyslogMessageFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogMessageFormat: %v", v)
-	}
-}
 
 // TimestampFormat - Timestamp format to use when serializing event's time field
 type TimestampFormat string
 
 const (
-	TimestampFormatSyslog  TimestampFormat = "syslog"
+	// TimestampFormatSyslog Syslog
+	TimestampFormatSyslog TimestampFormat = "syslog"
+	// TimestampFormatIso8601 ISO8601
 	TimestampFormatIso8601 TimestampFormat = "iso8601"
 )
 
 func (e TimestampFormat) ToPointer() *TimestampFormat {
 	return &e
-}
-func (e *TimestampFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		fallthrough
-	case "iso8601":
-		*e = TimestampFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TimestampFormat: %v", v)
-	}
 }
 
 type OutputSyslogMinimumTLSVersion string
@@ -256,25 +143,6 @@ const (
 func (e OutputSyslogMinimumTLSVersion) ToPointer() *OutputSyslogMinimumTLSVersion {
 	return &e
 }
-func (e *OutputSyslogMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputSyslogMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputSyslogMaximumTLSVersion string
 
@@ -287,25 +155,6 @@ const (
 
 func (e OutputSyslogMaximumTLSVersion) ToPointer() *OutputSyslogMaximumTLSVersion {
 	return &e
-}
-func (e *OutputSyslogMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputSyslogMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputSyslogTLSSettingsClientSide struct {
@@ -414,114 +263,60 @@ func (o *OutputSyslogTLSSettingsClientSide) GetMaxVersion() *OutputSyslogMaximum
 type OutputSyslogBackpressureBehavior string
 
 const (
+	// OutputSyslogBackpressureBehaviorBlock Block
 	OutputSyslogBackpressureBehaviorBlock OutputSyslogBackpressureBehavior = "block"
-	OutputSyslogBackpressureBehaviorDrop  OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorDrop Drop
+	OutputSyslogBackpressureBehaviorDrop OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorQueue Persistent Queue
 	OutputSyslogBackpressureBehaviorQueue OutputSyslogBackpressureBehavior = "queue"
 )
 
 func (e OutputSyslogBackpressureBehavior) ToPointer() *OutputSyslogBackpressureBehavior {
 	return &e
 }
-func (e *OutputSyslogBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSyslogBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputSyslogCompression - Codec to use to compress the persisted data
 type OutputSyslogCompression string
 
 const (
+	// OutputSyslogCompressionNone None
 	OutputSyslogCompressionNone OutputSyslogCompression = "none"
+	// OutputSyslogCompressionGzip Gzip
 	OutputSyslogCompressionGzip OutputSyslogCompression = "gzip"
 )
 
 func (e OutputSyslogCompression) ToPointer() *OutputSyslogCompression {
 	return &e
 }
-func (e *OutputSyslogCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSyslogCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogCompression: %v", v)
-	}
-}
 
 // OutputSyslogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSyslogQueueFullBehavior string
 
 const (
+	// OutputSyslogQueueFullBehaviorBlock Block
 	OutputSyslogQueueFullBehaviorBlock OutputSyslogQueueFullBehavior = "block"
-	OutputSyslogQueueFullBehaviorDrop  OutputSyslogQueueFullBehavior = "drop"
+	// OutputSyslogQueueFullBehaviorDrop Drop new data
+	OutputSyslogQueueFullBehaviorDrop OutputSyslogQueueFullBehavior = "drop"
 )
 
 func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavior {
 	return &e
-}
-func (e *OutputSyslogQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSyslogQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputSyslogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSyslogMode string
 
 const (
-	OutputSyslogModeError        OutputSyslogMode = "error"
+	// OutputSyslogModeError Error
+	OutputSyslogModeError OutputSyslogMode = "error"
+	// OutputSyslogModeBackpressure Backpressure
 	OutputSyslogModeBackpressure OutputSyslogMode = "backpressure"
-	OutputSyslogModeAlways       OutputSyslogMode = "always"
+	// OutputSyslogModeAlways Always On
+	OutputSyslogModeAlways OutputSyslogMode = "always"
 )
 
 func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {
 	return &e
-}
-func (e *OutputSyslogMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSyslogMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogMode: %v", v)
-	}
 }
 
 type OutputSyslogPqControls struct {

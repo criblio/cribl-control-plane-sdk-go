@@ -42,146 +42,73 @@ const (
 func (e OutputExabeamSignatureVersion) ToPointer() *OutputExabeamSignatureVersion {
 	return &e
 }
-func (e *OutputExabeamSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputExabeamSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamSignatureVersion: %v", v)
-	}
-}
 
 // OutputExabeamObjectACL - Object ACL to assign to uploaded objects
 type OutputExabeamObjectACL string
 
 const (
-	OutputExabeamObjectACLPrivate                OutputExabeamObjectACL = "private"
-	OutputExabeamObjectACLBucketOwnerRead        OutputExabeamObjectACL = "bucket-owner-read"
+	// OutputExabeamObjectACLPrivate private
+	OutputExabeamObjectACLPrivate OutputExabeamObjectACL = "private"
+	// OutputExabeamObjectACLBucketOwnerRead bucket-owner-read
+	OutputExabeamObjectACLBucketOwnerRead OutputExabeamObjectACL = "bucket-owner-read"
+	// OutputExabeamObjectACLBucketOwnerFullControl bucket-owner-full-control
 	OutputExabeamObjectACLBucketOwnerFullControl OutputExabeamObjectACL = "bucket-owner-full-control"
-	OutputExabeamObjectACLProjectPrivate         OutputExabeamObjectACL = "project-private"
-	OutputExabeamObjectACLAuthenticatedRead      OutputExabeamObjectACL = "authenticated-read"
-	OutputExabeamObjectACLPublicRead             OutputExabeamObjectACL = "public-read"
+	// OutputExabeamObjectACLProjectPrivate project-private
+	OutputExabeamObjectACLProjectPrivate OutputExabeamObjectACL = "project-private"
+	// OutputExabeamObjectACLAuthenticatedRead authenticated-read
+	OutputExabeamObjectACLAuthenticatedRead OutputExabeamObjectACL = "authenticated-read"
+	// OutputExabeamObjectACLPublicRead public-read
+	OutputExabeamObjectACLPublicRead OutputExabeamObjectACL = "public-read"
 )
 
 func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
 	return &e
-}
-func (e *OutputExabeamObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		fallthrough
-	case "project-private":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "public-read":
-		*e = OutputExabeamObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamObjectACL: %v", v)
-	}
 }
 
 // OutputExabeamStorageClass - Storage class to select for uploaded objects
 type OutputExabeamStorageClass string
 
 const (
+	// OutputExabeamStorageClassStandard Standard Storage
 	OutputExabeamStorageClassStandard OutputExabeamStorageClass = "STANDARD"
+	// OutputExabeamStorageClassNearline Nearline Storage
 	OutputExabeamStorageClassNearline OutputExabeamStorageClass = "NEARLINE"
+	// OutputExabeamStorageClassColdline Coldline Storage
 	OutputExabeamStorageClassColdline OutputExabeamStorageClass = "COLDLINE"
-	OutputExabeamStorageClassArchive  OutputExabeamStorageClass = "ARCHIVE"
+	// OutputExabeamStorageClassArchive Archive Storage
+	OutputExabeamStorageClassArchive OutputExabeamStorageClass = "ARCHIVE"
 )
 
 func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
 	return &e
-}
-func (e *OutputExabeamStorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "NEARLINE":
-		fallthrough
-	case "COLDLINE":
-		fallthrough
-	case "ARCHIVE":
-		*e = OutputExabeamStorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamStorageClass: %v", v)
-	}
 }
 
 // OutputExabeamBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputExabeamBackpressureBehavior string
 
 const (
+	// OutputExabeamBackpressureBehaviorBlock Block
 	OutputExabeamBackpressureBehaviorBlock OutputExabeamBackpressureBehavior = "block"
-	OutputExabeamBackpressureBehaviorDrop  OutputExabeamBackpressureBehavior = "drop"
+	// OutputExabeamBackpressureBehaviorDrop Drop
+	OutputExabeamBackpressureBehaviorDrop OutputExabeamBackpressureBehavior = "drop"
 )
 
 func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressureBehavior {
 	return &e
-}
-func (e *OutputExabeamBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputExabeamBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputExabeamDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputExabeamDiskSpaceProtection string
 
 const (
+	// OutputExabeamDiskSpaceProtectionBlock Block
 	OutputExabeamDiskSpaceProtectionBlock OutputExabeamDiskSpaceProtection = "block"
-	OutputExabeamDiskSpaceProtectionDrop  OutputExabeamDiskSpaceProtection = "drop"
+	// OutputExabeamDiskSpaceProtectionDrop Drop
+	OutputExabeamDiskSpaceProtectionDrop OutputExabeamDiskSpaceProtection = "drop"
 )
 
 func (e OutputExabeamDiskSpaceProtection) ToPointer() *OutputExabeamDiskSpaceProtection {
 	return &e
-}
-func (e *OutputExabeamDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputExabeamDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputExabeamDiskSpaceProtection: %v", v)
-	}
 }
 
 type OutputExabeam struct {

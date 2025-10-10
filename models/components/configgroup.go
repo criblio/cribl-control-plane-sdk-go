@@ -2,10 +2,23 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
+type EstimatedIngestRate int64
+
+const (
+	EstimatedIngestRateOneThousandAndTwentyFour              EstimatedIngestRate = 1024
+	EstimatedIngestRateFourThousandAndNinetySix              EstimatedIngestRate = 4096
+	EstimatedIngestRateTenThousandTwoHundredAndForty         EstimatedIngestRate = 10240
+	EstimatedIngestRateTwoThousandAndFortyEight              EstimatedIngestRate = 2048
+	EstimatedIngestRateThreeThousandAndSeventyTwo            EstimatedIngestRate = 3072
+	EstimatedIngestRateFiveThousandOneHundredAndTwenty       EstimatedIngestRate = 5120
+	EstimatedIngestRateSevenThousandOneHundredAndSixtyEight  EstimatedIngestRate = 7168
+	EstimatedIngestRateThirteenThousandThreeHundredAndTwelve EstimatedIngestRate = 13312
+	EstimatedIngestRateFifteenThousandThreeHundredAndSixty   EstimatedIngestRate = 15360
 )
+
+func (e EstimatedIngestRate) ToPointer() *EstimatedIngestRate {
+	return &e
+}
 
 type Git struct {
 	Commit       *string  `json:"commit,omitempty"`
@@ -43,26 +56,13 @@ const (
 func (e ConfigGroupType) ToPointer() *ConfigGroupType {
 	return &e
 }
-func (e *ConfigGroupType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "lake_access":
-		*e = ConfigGroupType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ConfigGroupType: %v", v)
-	}
-}
 
 type ConfigGroup struct {
 	Cloud                   *ConfigGroupCloud    `json:"cloud,omitempty"`
 	ConfigVersion           *string              `json:"configVersion,omitempty"`
 	DeployingWorkerCount    *float64             `json:"deployingWorkerCount,omitempty"`
 	Description             *string              `json:"description,omitempty"`
-	EstimatedIngestRate     *float64             `json:"estimatedIngestRate,omitempty"`
+	EstimatedIngestRate     *EstimatedIngestRate `json:"estimatedIngestRate,omitempty"`
 	Git                     *Git                 `json:"git,omitempty"`
 	ID                      string               `json:"id"`
 	IncompatibleWorkerCount *float64             `json:"incompatibleWorkerCount,omitempty"`
@@ -110,7 +110,7 @@ func (c *ConfigGroup) GetDescription() *string {
 	return c.Description
 }
 
-func (c *ConfigGroup) GetEstimatedIngestRate() *float64 {
+func (c *ConfigGroup) GetEstimatedIngestRate() *EstimatedIngestRate {
 	if c == nil {
 		return nil
 	}

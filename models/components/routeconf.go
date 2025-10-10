@@ -3,22 +3,22 @@
 package components
 
 type RouteConf struct {
-	Clones                 []RouteCloneConf `json:"clones,omitempty"`
-	Context                *string          `json:"context,omitempty"`
-	Description            *string          `json:"description,omitempty"`
-	Disabled               *bool            `json:"disabled,omitempty"`
-	EnableOutputExpression *bool            `json:"enableOutputExpression,omitempty"`
-	Filter                 *string          `json:"filter,omitempty"`
-	Final                  bool             `json:"final"`
-	GroupID                *string          `json:"groupId,omitempty"`
-	ID                     string           `json:"id"`
-	Name                   string           `json:"name"`
-	Output                 *string          `json:"output,omitempty"`
-	OutputExpression       *string          `json:"outputExpression,omitempty"`
-	Pipeline               string           `json:"pipeline"`
+	Clones                 []map[string]string `json:"clones,omitempty"`
+	Context                *string             `json:"context,omitempty"`
+	Description            *string             `json:"description,omitempty"`
+	Disabled               *bool               `json:"disabled,omitempty"`
+	EnableOutputExpression *bool               `json:"enableOutputExpression,omitempty"`
+	Filter                 *string             `json:"filter,omitempty"`
+	Final                  bool                `json:"final"`
+	GroupID                *string             `json:"groupId,omitempty"`
+	ID                     string              `json:"id"`
+	Name                   string              `json:"name"`
+	Output                 *string             `json:"output,omitempty"`
+	OutputExpression       *string             `json:"outputExpression,omitempty"`
+	Pipeline               string              `json:"pipeline"`
 }
 
-func (r *RouteConf) GetClones() []RouteCloneConf {
+func (r *RouteConf) GetClones() []map[string]string {
 	if r == nil {
 		return nil
 	}

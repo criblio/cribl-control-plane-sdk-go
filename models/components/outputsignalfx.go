@@ -42,21 +42,6 @@ const (
 func (e OutputSignalfxAuthenticationMethod) ToPointer() *OutputSignalfxAuthenticationMethod {
 	return &e
 }
-func (e *OutputSignalfxAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputSignalfxAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxAuthenticationMethod: %v", v)
-	}
-}
 
 type OutputSignalfxExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -92,30 +77,16 @@ func (o *OutputSignalfxExtraHTTPHeader) GetValue() string {
 type OutputSignalfxFailedRequestLoggingMode string
 
 const (
-	OutputSignalfxFailedRequestLoggingModePayload           OutputSignalfxFailedRequestLoggingMode = "payload"
+	// OutputSignalfxFailedRequestLoggingModePayload Payload
+	OutputSignalfxFailedRequestLoggingModePayload OutputSignalfxFailedRequestLoggingMode = "payload"
+	// OutputSignalfxFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSignalfxFailedRequestLoggingModePayloadAndHeaders OutputSignalfxFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSignalfxFailedRequestLoggingModeNone              OutputSignalfxFailedRequestLoggingMode = "none"
+	// OutputSignalfxFailedRequestLoggingModeNone None
+	OutputSignalfxFailedRequestLoggingModeNone OutputSignalfxFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSignalfxFailedRequestLoggingMode) ToPointer() *OutputSignalfxFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputSignalfxFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputSignalfxFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputSignalfxResponseRetrySetting struct {
@@ -221,114 +192,60 @@ func (o *OutputSignalfxTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSignalfxBackpressureBehavior string
 
 const (
+	// OutputSignalfxBackpressureBehaviorBlock Block
 	OutputSignalfxBackpressureBehaviorBlock OutputSignalfxBackpressureBehavior = "block"
-	OutputSignalfxBackpressureBehaviorDrop  OutputSignalfxBackpressureBehavior = "drop"
+	// OutputSignalfxBackpressureBehaviorDrop Drop
+	OutputSignalfxBackpressureBehaviorDrop OutputSignalfxBackpressureBehavior = "drop"
+	// OutputSignalfxBackpressureBehaviorQueue Persistent Queue
 	OutputSignalfxBackpressureBehaviorQueue OutputSignalfxBackpressureBehavior = "queue"
 )
 
 func (e OutputSignalfxBackpressureBehavior) ToPointer() *OutputSignalfxBackpressureBehavior {
 	return &e
 }
-func (e *OutputSignalfxBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSignalfxBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputSignalfxCompression - Codec to use to compress the persisted data
 type OutputSignalfxCompression string
 
 const (
+	// OutputSignalfxCompressionNone None
 	OutputSignalfxCompressionNone OutputSignalfxCompression = "none"
+	// OutputSignalfxCompressionGzip Gzip
 	OutputSignalfxCompressionGzip OutputSignalfxCompression = "gzip"
 )
 
 func (e OutputSignalfxCompression) ToPointer() *OutputSignalfxCompression {
 	return &e
 }
-func (e *OutputSignalfxCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSignalfxCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxCompression: %v", v)
-	}
-}
 
 // OutputSignalfxQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSignalfxQueueFullBehavior string
 
 const (
+	// OutputSignalfxQueueFullBehaviorBlock Block
 	OutputSignalfxQueueFullBehaviorBlock OutputSignalfxQueueFullBehavior = "block"
-	OutputSignalfxQueueFullBehaviorDrop  OutputSignalfxQueueFullBehavior = "drop"
+	// OutputSignalfxQueueFullBehaviorDrop Drop new data
+	OutputSignalfxQueueFullBehaviorDrop OutputSignalfxQueueFullBehavior = "drop"
 )
 
 func (e OutputSignalfxQueueFullBehavior) ToPointer() *OutputSignalfxQueueFullBehavior {
 	return &e
-}
-func (e *OutputSignalfxQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSignalfxQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputSignalfxMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSignalfxMode string
 
 const (
-	OutputSignalfxModeError        OutputSignalfxMode = "error"
+	// OutputSignalfxModeError Error
+	OutputSignalfxModeError OutputSignalfxMode = "error"
+	// OutputSignalfxModeBackpressure Backpressure
 	OutputSignalfxModeBackpressure OutputSignalfxMode = "backpressure"
-	OutputSignalfxModeAlways       OutputSignalfxMode = "always"
+	// OutputSignalfxModeAlways Always On
+	OutputSignalfxModeAlways OutputSignalfxMode = "always"
 )
 
 func (e OutputSignalfxMode) ToPointer() *OutputSignalfxMode {
 	return &e
-}
-func (e *OutputSignalfxMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSignalfxMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSignalfxMode: %v", v)
-	}
 }
 
 type OutputSignalfxPqControls struct {

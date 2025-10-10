@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type CacheConnectionBackfillStatus string
 
 const (
@@ -19,25 +14,4 @@ const (
 
 func (e CacheConnectionBackfillStatus) ToPointer() *CacheConnectionBackfillStatus {
 	return &e
-}
-func (e *CacheConnectionBackfillStatus) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "scheduled":
-		fallthrough
-	case "pending":
-		fallthrough
-	case "started":
-		fallthrough
-	case "finished":
-		fallthrough
-	case "incomplete":
-		*e = CacheConnectionBackfillStatus(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CacheConnectionBackfillStatus: %v", v)
-	}
 }

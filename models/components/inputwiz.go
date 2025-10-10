@@ -65,54 +65,28 @@ func (i *InputWizConnection) GetOutput() string {
 type InputWizMode string
 
 const (
-	InputWizModeSmart  InputWizMode = "smart"
+	// InputWizModeSmart Smart
+	InputWizModeSmart InputWizMode = "smart"
+	// InputWizModeAlways Always On
 	InputWizModeAlways InputWizMode = "always"
 )
 
 func (e InputWizMode) ToPointer() *InputWizMode {
 	return &e
 }
-func (e *InputWizMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputWizMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizMode: %v", v)
-	}
-}
 
 // InputWizCompression - Codec to use to compress the persisted data
 type InputWizCompression string
 
 const (
+	// InputWizCompressionNone None
 	InputWizCompressionNone InputWizCompression = "none"
+	// InputWizCompressionGzip Gzip
 	InputWizCompressionGzip InputWizCompression = "gzip"
 )
 
 func (e InputWizCompression) ToPointer() *InputWizCompression {
 	return &e
-}
-func (e *InputWizCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWizCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizCompression: %v", v)
-	}
 }
 
 type InputWizPqControls struct {
@@ -288,30 +262,16 @@ func (i *InputWizMetadatum) GetValue() string {
 type InputWizRetryType string
 
 const (
-	InputWizRetryTypeNone    InputWizRetryType = "none"
+	// InputWizRetryTypeNone Disabled
+	InputWizRetryTypeNone InputWizRetryType = "none"
+	// InputWizRetryTypeBackoff Backoff
 	InputWizRetryTypeBackoff InputWizRetryType = "backoff"
-	InputWizRetryTypeStatic  InputWizRetryType = "static"
+	// InputWizRetryTypeStatic Static
+	InputWizRetryTypeStatic InputWizRetryType = "static"
 )
 
 func (e InputWizRetryType) ToPointer() *InputWizRetryType {
 	return &e
-}
-func (e *InputWizRetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "backoff":
-		fallthrough
-	case "static":
-		*e = InputWizRetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizRetryType: %v", v)
-	}
 }
 
 type InputWizRetryRules struct {
@@ -410,21 +370,6 @@ const (
 
 func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
 	return &e
-}
-func (e *InputWizAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputWizAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWizAuthenticationMethod: %v", v)
-	}
 }
 
 type InputWiz struct {
