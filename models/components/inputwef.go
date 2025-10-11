@@ -65,7 +65,9 @@ func (i *InputWefConnection) GetOutput() string {
 type InputWefMode string
 
 const (
-	InputWefModeSmart  InputWefMode = "smart"
+	// InputWefModeSmart Smart
+	InputWefModeSmart InputWefMode = "smart"
+	// InputWefModeAlways Always On
 	InputWefModeAlways InputWefMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWefMode) ToPointer() *InputWefMode {
 type InputWefCompression string
 
 const (
+	// InputWefCompressionNone None
 	InputWefCompressionNone InputWefCompression = "none"
+	// InputWefCompressionGzip Gzip
 	InputWefCompressionGzip InputWefCompression = "gzip"
 )
 
@@ -188,8 +192,10 @@ func (i *InputWefPq) GetPqControls() *InputWefPqControls {
 type InputWefAuthenticationMethod string
 
 const (
+	// InputWefAuthenticationMethodClientCert Client certificate
 	InputWefAuthenticationMethodClientCert InputWefAuthenticationMethod = "clientCert"
-	InputWefAuthenticationMethodKerberos   InputWefAuthenticationMethod = "kerberos"
+	// InputWefAuthenticationMethodKerberos Kerberos
+	InputWefAuthenticationMethodKerberos InputWefAuthenticationMethod = "kerberos"
 )
 
 func (e InputWefAuthenticationMethod) ToPointer() *InputWefAuthenticationMethod {

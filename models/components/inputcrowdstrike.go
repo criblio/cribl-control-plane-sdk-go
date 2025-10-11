@@ -65,7 +65,9 @@ func (i *InputCrowdstrikeConnection) GetOutput() string {
 type InputCrowdstrikeMode string
 
 const (
-	InputCrowdstrikeModeSmart  InputCrowdstrikeMode = "smart"
+	// InputCrowdstrikeModeSmart Smart
+	InputCrowdstrikeModeSmart InputCrowdstrikeMode = "smart"
+	// InputCrowdstrikeModeAlways Always On
 	InputCrowdstrikeModeAlways InputCrowdstrikeMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCrowdstrikeMode) ToPointer() *InputCrowdstrikeMode {
 type InputCrowdstrikeCompression string
 
 const (
+	// InputCrowdstrikeCompressionNone None
 	InputCrowdstrikeCompressionNone InputCrowdstrikeCompression = "none"
+	// InputCrowdstrikeCompressionGzip Gzip
 	InputCrowdstrikeCompressionGzip InputCrowdstrikeCompression = "gzip"
 )
 
@@ -188,8 +192,11 @@ func (i *InputCrowdstrikePq) GetPqControls() *InputCrowdstrikePqControls {
 type InputCrowdstrikeAuthenticationMethod string
 
 const (
-	InputCrowdstrikeAuthenticationMethodAuto   InputCrowdstrikeAuthenticationMethod = "auto"
+	// InputCrowdstrikeAuthenticationMethodAuto Auto
+	InputCrowdstrikeAuthenticationMethodAuto InputCrowdstrikeAuthenticationMethod = "auto"
+	// InputCrowdstrikeAuthenticationMethodManual Manual
 	InputCrowdstrikeAuthenticationMethodManual InputCrowdstrikeAuthenticationMethod = "manual"
+	// InputCrowdstrikeAuthenticationMethodSecret Secret Key pair
 	InputCrowdstrikeAuthenticationMethodSecret InputCrowdstrikeAuthenticationMethod = "secret"
 )
 

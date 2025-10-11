@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 7c05f856993b39e71b664f4613588b0e
-  docVersion: 4.15.0-alpha.1759327501989-3e9845e9
-  speakeasyVersion: 1.631.5
-  generationVersion: 2.716.16
-  releaseVersion: 0.1.0-beta.2
-  configChecksum: c587b79ac1c0469708ecc372d6e6f756
+  docChecksum: e0caf1e866a0fdc4d2cf481351c48e69
+  docVersion: 4.15.0-alpha.1760137873808-498c0e83
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.2.0-beta.1
+  configChecksum: e2a8166dc985abaa88ac88bffc17b71a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -22,16 +22,16 @@ features:
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.3
-    groups: 2.81.2
+    groups: 2.81.3
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
-    nullables: 0.2.0
-    oauth2ClientCredentials: 0.4.0
+    nullables: 0.2.1
+    oauth2ClientCredentials: 1.1.0
     openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.85.14
+    unions: 2.86.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -149,75 +149,9 @@ generatedFiles:
   - /models/components/nodeskippedupgradestatus.go
   - /models/components/nodeupgradestate.go
   - /models/components/nodeupgradestatus.go
-  - /models/components/output.go
-  - /models/components/outputazureblob.go
-  - /models/components/outputazuredataexplorer.go
-  - /models/components/outputazureeventhub.go
-  - /models/components/outputazurelogs.go
-  - /models/components/outputclickhouse.go
-  - /models/components/outputcloudwatch.go
-  - /models/components/outputconfluentcloud.go
-  - /models/components/outputcriblhttp.go
-  - /models/components/outputcribllake.go
-  - /models/components/outputcribltcp.go
-  - /models/components/outputcrowdstrikenextgensiem.go
-  - /models/components/outputdatabricks.go
-  - /models/components/outputdatadog.go
-  - /models/components/outputdataset.go
-  - /models/components/outputdefault.go
-  - /models/components/outputdevnull.go
-  - /models/components/outputdiskspool.go
-  - /models/components/outputdls3.go
-  - /models/components/outputdynatracehttp.go
-  - /models/components/outputdynatraceotlp.go
-  - /models/components/outputelastic.go
-  - /models/components/outputelasticcloud.go
-  - /models/components/outputexabeam.go
-  - /models/components/outputfilesystem.go
-  - /models/components/outputgooglechronicle.go
-  - /models/components/outputgooglecloudlogging.go
-  - /models/components/outputgooglecloudstorage.go
-  - /models/components/outputgooglepubsub.go
-  - /models/components/outputgrafanacloud.go
-  - /models/components/outputgraphite.go
-  - /models/components/outputhoneycomb.go
-  - /models/components/outputhumiohec.go
-  - /models/components/outputinfluxdb.go
-  - /models/components/outputkafka.go
-  - /models/components/outputkinesis.go
-  - /models/components/outputloki.go
-  - /models/components/outputminio.go
-  - /models/components/outputmsk.go
-  - /models/components/outputnetflow.go
-  - /models/components/outputnewrelic.go
-  - /models/components/outputnewrelicevents.go
-  - /models/components/outputopentelemetry.go
-  - /models/components/outputprometheus.go
-  - /models/components/outputring.go
-  - /models/components/outputrouter.go
-  - /models/components/outputs3.go
   - /models/components/outputsamplesresponse.go
-  - /models/components/outputsecuritylake.go
-  - /models/components/outputsentinel.go
-  - /models/components/outputsentineloneaisiem.go
-  - /models/components/outputservicenow.go
-  - /models/components/outputsignalfx.go
-  - /models/components/outputsnmp.go
-  - /models/components/outputsns.go
-  - /models/components/outputsplunk.go
-  - /models/components/outputsplunkhec.go
-  - /models/components/outputsplunklb.go
-  - /models/components/outputsqs.go
-  - /models/components/outputstatsd.go
-  - /models/components/outputstatsdext.go
-  - /models/components/outputsumologic.go
-  - /models/components/outputsyslog.go
-  - /models/components/outputtcpjson.go
   - /models/components/outputtestrequest.go
   - /models/components/outputtestresponse.go
-  - /models/components/outputwavefront.go
-  - /models/components/outputwebhook.go
-  - /models/components/outputxsiam.go
   - /models/components/packinfo.go
   - /models/components/packinstallinfo.go
   - /models/components/packrequestbodyunion.go
@@ -244,7 +178,6 @@ generatedFiles:
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
   - /models/operations/createinputhectokenbyid.go
-  - /models/operations/createoutput.go
   - /models/operations/createoutputtestbyid.go
   - /models/operations/createpacks.go
   - /models/operations/createpipeline.go
@@ -256,7 +189,6 @@ generatedFiles:
   - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deleteinputbyid.go
-  - /models/operations/deleteoutputbyid.go
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
@@ -269,7 +201,6 @@ generatedFiles:
   - /models/operations/gethealthinfo.go
   - /models/operations/getinputbyid.go
   - /models/operations/getmasterworkerentry.go
-  - /models/operations/getoutputbyid.go
   - /models/operations/getoutputpqbyid.go
   - /models/operations/getoutputsamplesbyid.go
   - /models/operations/getpacks.go
@@ -289,7 +220,6 @@ generatedFiles:
   - /models/operations/listconfiggroupbyproduct.go
   - /models/operations/listinput.go
   - /models/operations/listmasterworkerentry.go
-  - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
   - /models/operations/login.go
@@ -298,7 +228,6 @@ generatedFiles:
   - /models/operations/updatecribllakedatasetbylakeidandid.go
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
-  - /models/operations/updateoutputbyid.go
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
@@ -314,16 +243,11 @@ generatedFiles:
   - docs/models/apierrors/healthstatuserror.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
-  - docs/models/components/additionalproperty.md
-  - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
   - docs/models/components/authtoken.md
-  - docs/models/components/authtype.md
-  - docs/models/components/awsauthenticationmethod.md
-  - docs/models/components/blobaccesstier.md
   - docs/models/components/block.md
   - docs/models/components/branchinfo.md
   - docs/models/components/cacheconnection.md
@@ -335,7 +259,6 @@ generatedFiles:
   - docs/models/components/collector.md
   - docs/models/components/collectors.md
   - docs/models/components/collectorspecificsettings.md
-  - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
   - docs/models/components/conf.md
@@ -351,11 +274,8 @@ generatedFiles:
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
   - docs/models/components/currentbranchresult.md
-  - docs/models/components/customlabel.md
-  - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
   - docs/models/components/datasetmetadataruninfo.md
-  - docs/models/components/datasetsite.md
   - docs/models/components/deployrequest.md
   - docs/models/components/deployrequestlookups.md
   - docs/models/components/deployrequestlookupslookup.md
@@ -367,21 +287,13 @@ generatedFiles:
   - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
   - docs/models/components/elasticsearchmetadata.md
-  - docs/models/components/elasticversion.md
-  - docs/models/components/endpoint.md
-  - docs/models/components/endpointconfiguration.md
   - docs/models/components/endpointheader.md
   - docs/models/components/endpointparam.md
-  - docs/models/components/endpointtype.md
   - docs/models/components/error.md
   - docs/models/components/estimatedingestrate.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
-  - docs/models/components/extenttag.md
-  - docs/models/components/extralogtype.md
-  - docs/models/components/facility.md
-  - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
   - docs/models/components/functionspecificconfigs.md
@@ -413,11 +325,6 @@ generatedFiles:
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
-  - docs/models/components/indexerdiscoveryconfigs.md
-  - docs/models/components/indexerdiscoveryconfigsauthenticationmethod.md
-  - docs/models/components/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
-  - docs/models/components/ingestifnotexist.md
-  - docs/models/components/ingestionmode.md
   - docs/models/components/input.md
   - docs/models/components/inputappscope.md
   - docs/models/components/inputappscopeauthenticationmethod.md
@@ -1199,19 +1106,15 @@ generatedFiles:
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
-  - docs/models/components/loglabel.md
-  - docs/models/components/loglocationtype.md
   - docs/models/components/lokiauthoauthheader1.md
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
-  - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
   - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
-  - docs/models/components/microsoftentraidauthenticationendpoint.md
   - docs/models/components/mtlssettings.md
   - docs/models/components/nodeactiveupgradestatus.md
   - docs/models/components/nodefailedupgradestatus.md
@@ -1228,816 +1131,10 @@ generatedFiles:
   - docs/models/components/nodeupgradestatus.md
   - docs/models/components/oldmode.md
   - docs/models/components/os.md
-  - docs/models/components/output.md
-  - docs/models/components/outputazureblob.md
-  - docs/models/components/outputazureblobauthenticationmethod.md
-  - docs/models/components/outputazureblobbackpressurebehavior.md
-  - docs/models/components/outputazureblobcertificate.md
-  - docs/models/components/outputazureblobcompression.md
-  - docs/models/components/outputazureblobcompressionlevel.md
-  - docs/models/components/outputazureblobdataformat.md
-  - docs/models/components/outputazureblobdatapageversion.md
-  - docs/models/components/outputazureblobdiskspaceprotection.md
-  - docs/models/components/outputazureblobkeyvaluemetadatum.md
-  - docs/models/components/outputazureblobparquetversion.md
-  - docs/models/components/outputazureblobtype.md
-  - docs/models/components/outputazuredataexplorer.md
-  - docs/models/components/outputazuredataexplorerauthenticationmethod.md
-  - docs/models/components/outputazuredataexplorerbackpressurebehavior.md
-  - docs/models/components/outputazuredataexplorercertificate.md
-  - docs/models/components/outputazuredataexplorercompresscompression.md
-  - docs/models/components/outputazuredataexplorerdataformat.md
-  - docs/models/components/outputazuredataexplorerdiskspaceprotection.md
-  - docs/models/components/outputazuredataexplorermode.md
-  - docs/models/components/outputazuredataexplorerpqcompresscompression.md
-  - docs/models/components/outputazuredataexplorerpqcontrols.md
-  - docs/models/components/outputazuredataexplorerqueuefullbehavior.md
-  - docs/models/components/outputazuredataexplorerresponseretrysetting.md
-  - docs/models/components/outputazuredataexplorertimeoutretrysettings.md
-  - docs/models/components/outputazuredataexplorertype.md
-  - docs/models/components/outputazureeventhub.md
-  - docs/models/components/outputazureeventhubacknowledgments.md
-  - docs/models/components/outputazureeventhubauthentication.md
-  - docs/models/components/outputazureeventhubbackpressurebehavior.md
-  - docs/models/components/outputazureeventhubcompression.md
-  - docs/models/components/outputazureeventhubmode.md
-  - docs/models/components/outputazureeventhubpqcontrols.md
-  - docs/models/components/outputazureeventhubqueuefullbehavior.md
-  - docs/models/components/outputazureeventhubrecorddataformat.md
-  - docs/models/components/outputazureeventhubsaslmechanism.md
-  - docs/models/components/outputazureeventhubtlssettingsclientside.md
-  - docs/models/components/outputazureeventhubtype.md
-  - docs/models/components/outputazurelogs.md
-  - docs/models/components/outputazurelogsauthenticationmethod.md
-  - docs/models/components/outputazurelogsbackpressurebehavior.md
-  - docs/models/components/outputazurelogscompression.md
-  - docs/models/components/outputazurelogsextrahttpheader.md
-  - docs/models/components/outputazurelogsfailedrequestloggingmode.md
-  - docs/models/components/outputazurelogsmode.md
-  - docs/models/components/outputazurelogspqcontrols.md
-  - docs/models/components/outputazurelogsqueuefullbehavior.md
-  - docs/models/components/outputazurelogsresponseretrysetting.md
-  - docs/models/components/outputazurelogstimeoutretrysettings.md
-  - docs/models/components/outputazurelogstype.md
-  - docs/models/components/outputclickhouse.md
-  - docs/models/components/outputclickhouseauthenticationtype.md
-  - docs/models/components/outputclickhousebackpressurebehavior.md
-  - docs/models/components/outputclickhousecompression.md
-  - docs/models/components/outputclickhouseextrahttpheader.md
-  - docs/models/components/outputclickhousefailedrequestloggingmode.md
-  - docs/models/components/outputclickhouseformat.md
-  - docs/models/components/outputclickhousemaximumtlsversion.md
-  - docs/models/components/outputclickhouseminimumtlsversion.md
-  - docs/models/components/outputclickhousemode.md
-  - docs/models/components/outputclickhouseoauthheader.md
-  - docs/models/components/outputclickhouseoauthparam.md
-  - docs/models/components/outputclickhousepqcontrols.md
-  - docs/models/components/outputclickhousequeuefullbehavior.md
-  - docs/models/components/outputclickhouseresponseretrysetting.md
-  - docs/models/components/outputclickhousetimeoutretrysettings.md
-  - docs/models/components/outputclickhousetlssettingsclientside.md
-  - docs/models/components/outputclickhousetype.md
-  - docs/models/components/outputcloudwatch.md
-  - docs/models/components/outputcloudwatchauthenticationmethod.md
-  - docs/models/components/outputcloudwatchbackpressurebehavior.md
-  - docs/models/components/outputcloudwatchcompression.md
-  - docs/models/components/outputcloudwatchmode.md
-  - docs/models/components/outputcloudwatchpqcontrols.md
-  - docs/models/components/outputcloudwatchqueuefullbehavior.md
-  - docs/models/components/outputcloudwatchtype.md
-  - docs/models/components/outputconfluentcloud.md
-  - docs/models/components/outputconfluentcloudacknowledgments.md
-  - docs/models/components/outputconfluentcloudauth.md
-  - docs/models/components/outputconfluentcloudauthentication.md
-  - docs/models/components/outputconfluentcloudbackpressurebehavior.md
-  - docs/models/components/outputconfluentcloudcompression.md
-  - docs/models/components/outputconfluentcloudkafkaschemaregistryauthentication.md
-  - docs/models/components/outputconfluentcloudkafkaschemaregistrymaximumtlsversion.md
-  - docs/models/components/outputconfluentcloudkafkaschemaregistryminimumtlsversion.md
-  - docs/models/components/outputconfluentcloudkafkaschemaregistrytlssettingsclientside.md
-  - docs/models/components/outputconfluentcloudmaximumtlsversion.md
-  - docs/models/components/outputconfluentcloudminimumtlsversion.md
-  - docs/models/components/outputconfluentcloudmode.md
-  - docs/models/components/outputconfluentcloudpqcompresscompression.md
-  - docs/models/components/outputconfluentcloudpqcontrols.md
-  - docs/models/components/outputconfluentcloudqueuefullbehavior.md
-  - docs/models/components/outputconfluentcloudrecorddataformat.md
-  - docs/models/components/outputconfluentcloudsaslmechanism.md
-  - docs/models/components/outputconfluentcloudtlssettingsclientside.md
-  - docs/models/components/outputconfluentcloudtype.md
-  - docs/models/components/outputcriblhttp.md
-  - docs/models/components/outputcriblhttpbackpressurebehavior.md
-  - docs/models/components/outputcriblhttpcompression.md
-  - docs/models/components/outputcriblhttpextrahttpheader.md
-  - docs/models/components/outputcriblhttpfailedrequestloggingmode.md
-  - docs/models/components/outputcriblhttpmaximumtlsversion.md
-  - docs/models/components/outputcriblhttpminimumtlsversion.md
-  - docs/models/components/outputcriblhttpmode.md
-  - docs/models/components/outputcriblhttppqcompresscompression.md
-  - docs/models/components/outputcriblhttppqcontrols.md
-  - docs/models/components/outputcriblhttpqueuefullbehavior.md
-  - docs/models/components/outputcriblhttpresponseretrysetting.md
-  - docs/models/components/outputcriblhttptimeoutretrysettings.md
-  - docs/models/components/outputcriblhttptlssettingsclientside.md
-  - docs/models/components/outputcriblhttptype.md
-  - docs/models/components/outputcriblhttpurl.md
-  - docs/models/components/outputcribllake.md
-  - docs/models/components/outputcribllakebackpressurebehavior.md
-  - docs/models/components/outputcribllakediskspaceprotection.md
-  - docs/models/components/outputcribllakeformat.md
-  - docs/models/components/outputcribllakeobjectacl.md
-  - docs/models/components/outputcribllakeserversideencryptionforuploadedobjects.md
-  - docs/models/components/outputcribllakesignatureversion.md
-  - docs/models/components/outputcribllakestorageclass.md
-  - docs/models/components/outputcribllaketype.md
-  - docs/models/components/outputcribltcp.md
-  - docs/models/components/outputcribltcpbackpressurebehavior.md
-  - docs/models/components/outputcribltcpcompression.md
-  - docs/models/components/outputcribltcphost.md
-  - docs/models/components/outputcribltcpmaximumtlsversion.md
-  - docs/models/components/outputcribltcpminimumtlsversion.md
-  - docs/models/components/outputcribltcpmode.md
-  - docs/models/components/outputcribltcppqcompresscompression.md
-  - docs/models/components/outputcribltcppqcontrols.md
-  - docs/models/components/outputcribltcpqueuefullbehavior.md
-  - docs/models/components/outputcribltcptls.md
-  - docs/models/components/outputcribltcptlssettingsclientside.md
-  - docs/models/components/outputcribltcptype.md
-  - docs/models/components/outputcrowdstrikenextgensiem.md
-  - docs/models/components/outputcrowdstrikenextgensiemauthenticationmethod.md
-  - docs/models/components/outputcrowdstrikenextgensiembackpressurebehavior.md
-  - docs/models/components/outputcrowdstrikenextgensiemcompression.md
-  - docs/models/components/outputcrowdstrikenextgensiemextrahttpheader.md
-  - docs/models/components/outputcrowdstrikenextgensiemfailedrequestloggingmode.md
-  - docs/models/components/outputcrowdstrikenextgensiemmode.md
-  - docs/models/components/outputcrowdstrikenextgensiempqcontrols.md
-  - docs/models/components/outputcrowdstrikenextgensiemqueuefullbehavior.md
-  - docs/models/components/outputcrowdstrikenextgensiemrequestformat.md
-  - docs/models/components/outputcrowdstrikenextgensiemresponseretrysetting.md
-  - docs/models/components/outputcrowdstrikenextgensiemtimeoutretrysettings.md
-  - docs/models/components/outputcrowdstrikenextgensiemtype.md
-  - docs/models/components/outputdatabricks.md
-  - docs/models/components/outputdatabricksauthenticationmethod.md
-  - docs/models/components/outputdatabricksbackpressurebehavior.md
-  - docs/models/components/outputdatabricksdataformat.md
-  - docs/models/components/outputdatabricksdiskspaceprotection.md
-  - docs/models/components/outputdatabrickstype.md
-  - docs/models/components/outputdatadog.md
-  - docs/models/components/outputdatadogauthenticationmethod.md
-  - docs/models/components/outputdatadogbackpressurebehavior.md
-  - docs/models/components/outputdatadogcompression.md
-  - docs/models/components/outputdatadogextrahttpheader.md
-  - docs/models/components/outputdatadogfailedrequestloggingmode.md
-  - docs/models/components/outputdatadogmode.md
-  - docs/models/components/outputdatadogpqcontrols.md
-  - docs/models/components/outputdatadogqueuefullbehavior.md
-  - docs/models/components/outputdatadogresponseretrysetting.md
-  - docs/models/components/outputdatadogseverity.md
-  - docs/models/components/outputdatadogtimeoutretrysettings.md
-  - docs/models/components/outputdatadogtype.md
-  - docs/models/components/outputdataset.md
-  - docs/models/components/outputdatasetauthenticationmethod.md
-  - docs/models/components/outputdatasetbackpressurebehavior.md
-  - docs/models/components/outputdatasetcompression.md
-  - docs/models/components/outputdatasetextrahttpheader.md
-  - docs/models/components/outputdatasetfailedrequestloggingmode.md
-  - docs/models/components/outputdatasetmode.md
-  - docs/models/components/outputdatasetpqcontrols.md
-  - docs/models/components/outputdatasetqueuefullbehavior.md
-  - docs/models/components/outputdatasetresponseretrysetting.md
-  - docs/models/components/outputdatasetseverity.md
-  - docs/models/components/outputdatasettimeoutretrysettings.md
-  - docs/models/components/outputdatasettype.md
-  - docs/models/components/outputdefault.md
-  - docs/models/components/outputdefaulttype.md
-  - docs/models/components/outputdevnull.md
-  - docs/models/components/outputdevnulltype.md
-  - docs/models/components/outputdiskspool.md
-  - docs/models/components/outputdiskspoolcompression.md
-  - docs/models/components/outputdiskspooltype.md
-  - docs/models/components/outputdls3.md
-  - docs/models/components/outputdls3authenticationmethod.md
-  - docs/models/components/outputdls3backpressurebehavior.md
-  - docs/models/components/outputdls3compression.md
-  - docs/models/components/outputdls3compressionlevel.md
-  - docs/models/components/outputdls3dataformat.md
-  - docs/models/components/outputdls3datapageversion.md
-  - docs/models/components/outputdls3diskspaceprotection.md
-  - docs/models/components/outputdls3keyvaluemetadatum.md
-  - docs/models/components/outputdls3objectacl.md
-  - docs/models/components/outputdls3parquetversion.md
-  - docs/models/components/outputdls3serversideencryptionforuploadedobjects.md
-  - docs/models/components/outputdls3signatureversion.md
-  - docs/models/components/outputdls3storageclass.md
-  - docs/models/components/outputdls3type.md
-  - docs/models/components/outputdynatracehttp.md
-  - docs/models/components/outputdynatracehttpauthenticationtype.md
-  - docs/models/components/outputdynatracehttpbackpressurebehavior.md
-  - docs/models/components/outputdynatracehttpcompression.md
-  - docs/models/components/outputdynatracehttpextrahttpheader.md
-  - docs/models/components/outputdynatracehttpfailedrequestloggingmode.md
-  - docs/models/components/outputdynatracehttpformat.md
-  - docs/models/components/outputdynatracehttpmethod.md
-  - docs/models/components/outputdynatracehttpmode.md
-  - docs/models/components/outputdynatracehttppqcontrols.md
-  - docs/models/components/outputdynatracehttpqueuefullbehavior.md
-  - docs/models/components/outputdynatracehttpresponseretrysetting.md
-  - docs/models/components/outputdynatracehttptimeoutretrysettings.md
-  - docs/models/components/outputdynatracehttptype.md
-  - docs/models/components/outputdynatraceotlp.md
-  - docs/models/components/outputdynatraceotlpbackpressurebehavior.md
-  - docs/models/components/outputdynatraceotlpcompresscompression.md
-  - docs/models/components/outputdynatraceotlpextrahttpheader.md
-  - docs/models/components/outputdynatraceotlpfailedrequestloggingmode.md
-  - docs/models/components/outputdynatraceotlphttpcompresscompression.md
-  - docs/models/components/outputdynatraceotlpmetadatum.md
-  - docs/models/components/outputdynatraceotlpmode.md
-  - docs/models/components/outputdynatraceotlpotlpversion.md
-  - docs/models/components/outputdynatraceotlppqcompresscompression.md
-  - docs/models/components/outputdynatraceotlppqcontrols.md
-  - docs/models/components/outputdynatraceotlpprotocol.md
-  - docs/models/components/outputdynatraceotlpqueuefullbehavior.md
-  - docs/models/components/outputdynatraceotlpresponseretrysetting.md
-  - docs/models/components/outputdynatraceotlptimeoutretrysettings.md
-  - docs/models/components/outputdynatraceotlptype.md
-  - docs/models/components/outputelastic.md
-  - docs/models/components/outputelasticauth.md
-  - docs/models/components/outputelasticauthenticationmethod.md
-  - docs/models/components/outputelasticbackpressurebehavior.md
-  - docs/models/components/outputelasticcloud.md
-  - docs/models/components/outputelasticcloudauth.md
-  - docs/models/components/outputelasticcloudauthenticationmethod.md
-  - docs/models/components/outputelasticcloudbackpressurebehavior.md
-  - docs/models/components/outputelasticcloudcompression.md
-  - docs/models/components/outputelasticcloudextrahttpheader.md
-  - docs/models/components/outputelasticcloudextraparam.md
-  - docs/models/components/outputelasticcloudfailedrequestloggingmode.md
-  - docs/models/components/outputelasticcloudmode.md
-  - docs/models/components/outputelasticcloudpqcontrols.md
-  - docs/models/components/outputelasticcloudqueuefullbehavior.md
-  - docs/models/components/outputelasticcloudresponseretrysetting.md
-  - docs/models/components/outputelasticcloudtimeoutretrysettings.md
-  - docs/models/components/outputelasticcloudtype.md
-  - docs/models/components/outputelasticcompression.md
-  - docs/models/components/outputelasticextrahttpheader.md
-  - docs/models/components/outputelasticextraparam.md
-  - docs/models/components/outputelasticfailedrequestloggingmode.md
-  - docs/models/components/outputelasticmode.md
-  - docs/models/components/outputelasticpqcontrols.md
-  - docs/models/components/outputelasticqueuefullbehavior.md
-  - docs/models/components/outputelasticresponseretrysetting.md
-  - docs/models/components/outputelastictimeoutretrysettings.md
-  - docs/models/components/outputelastictype.md
-  - docs/models/components/outputelasticurl.md
-  - docs/models/components/outputexabeam.md
-  - docs/models/components/outputexabeambackpressurebehavior.md
-  - docs/models/components/outputexabeamdiskspaceprotection.md
-  - docs/models/components/outputexabeamobjectacl.md
-  - docs/models/components/outputexabeamsignatureversion.md
-  - docs/models/components/outputexabeamstorageclass.md
-  - docs/models/components/outputexabeamtype.md
-  - docs/models/components/outputfilesystem.md
-  - docs/models/components/outputfilesystembackpressurebehavior.md
-  - docs/models/components/outputfilesystemcompression.md
-  - docs/models/components/outputfilesystemcompressionlevel.md
-  - docs/models/components/outputfilesystemdataformat.md
-  - docs/models/components/outputfilesystemdatapageversion.md
-  - docs/models/components/outputfilesystemdiskspaceprotection.md
-  - docs/models/components/outputfilesystemkeyvaluemetadatum.md
-  - docs/models/components/outputfilesystemparquetversion.md
-  - docs/models/components/outputfilesystemtype.md
-  - docs/models/components/outputgooglechronicle.md
-  - docs/models/components/outputgooglechronicleapiversion.md
-  - docs/models/components/outputgooglechronicleauthenticationmethod.md
-  - docs/models/components/outputgooglechroniclebackpressurebehavior.md
-  - docs/models/components/outputgooglechroniclecompression.md
-  - docs/models/components/outputgooglechronicleextrahttpheader.md
-  - docs/models/components/outputgooglechroniclefailedrequestloggingmode.md
-  - docs/models/components/outputgooglechroniclemode.md
-  - docs/models/components/outputgooglechroniclepqcontrols.md
-  - docs/models/components/outputgooglechroniclequeuefullbehavior.md
-  - docs/models/components/outputgooglechronicleresponseretrysetting.md
-  - docs/models/components/outputgooglechronicletimeoutretrysettings.md
-  - docs/models/components/outputgooglechronicletype.md
-  - docs/models/components/outputgooglecloudlogging.md
-  - docs/models/components/outputgooglecloudloggingbackpressurebehavior.md
-  - docs/models/components/outputgooglecloudloggingcompression.md
-  - docs/models/components/outputgooglecloudlogginggoogleauthenticationmethod.md
-  - docs/models/components/outputgooglecloudloggingmode.md
-  - docs/models/components/outputgooglecloudloggingpqcontrols.md
-  - docs/models/components/outputgooglecloudloggingqueuefullbehavior.md
-  - docs/models/components/outputgooglecloudloggingtype.md
-  - docs/models/components/outputgooglecloudstorage.md
-  - docs/models/components/outputgooglecloudstorageauthenticationmethod.md
-  - docs/models/components/outputgooglecloudstoragebackpressurebehavior.md
-  - docs/models/components/outputgooglecloudstoragecompression.md
-  - docs/models/components/outputgooglecloudstoragecompressionlevel.md
-  - docs/models/components/outputgooglecloudstoragedataformat.md
-  - docs/models/components/outputgooglecloudstoragedatapageversion.md
-  - docs/models/components/outputgooglecloudstoragediskspaceprotection.md
-  - docs/models/components/outputgooglecloudstoragekeyvaluemetadatum.md
-  - docs/models/components/outputgooglecloudstorageobjectacl.md
-  - docs/models/components/outputgooglecloudstorageparquetversion.md
-  - docs/models/components/outputgooglecloudstoragesignatureversion.md
-  - docs/models/components/outputgooglecloudstoragestorageclass.md
-  - docs/models/components/outputgooglecloudstoragetype.md
-  - docs/models/components/outputgooglepubsub.md
-  - docs/models/components/outputgooglepubsubbackpressurebehavior.md
-  - docs/models/components/outputgooglepubsubcompression.md
-  - docs/models/components/outputgooglepubsubgoogleauthenticationmethod.md
-  - docs/models/components/outputgooglepubsubmode.md
-  - docs/models/components/outputgooglepubsubpqcontrols.md
-  - docs/models/components/outputgooglepubsubqueuefullbehavior.md
-  - docs/models/components/outputgooglepubsubtype.md
-  - docs/models/components/outputgrafanacloud.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior1.md
-  - docs/models/components/outputgrafanacloudbackpressurebehavior2.md
-  - docs/models/components/outputgrafanacloudcompression1.md
-  - docs/models/components/outputgrafanacloudcompression2.md
-  - docs/models/components/outputgrafanacloudextrahttpheader1.md
-  - docs/models/components/outputgrafanacloudextrahttpheader2.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode1.md
-  - docs/models/components/outputgrafanacloudfailedrequestloggingmode2.md
-  - docs/models/components/outputgrafanacloudgrafanacloud1.md
-  - docs/models/components/outputgrafanacloudgrafanacloud2.md
-  - docs/models/components/outputgrafanacloudlabel1.md
-  - docs/models/components/outputgrafanacloudlabel2.md
-  - docs/models/components/outputgrafanacloudlokiauth1.md
-  - docs/models/components/outputgrafanacloudlokiauth2.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudlokiauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudmessageformat1.md
-  - docs/models/components/outputgrafanacloudmessageformat2.md
-  - docs/models/components/outputgrafanacloudmode1.md
-  - docs/models/components/outputgrafanacloudmode2.md
-  - docs/models/components/outputgrafanacloudpqcontrols1.md
-  - docs/models/components/outputgrafanacloudpqcontrols2.md
-  - docs/models/components/outputgrafanacloudprometheusauth1.md
-  - docs/models/components/outputgrafanacloudprometheusauth2.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype1.md
-  - docs/models/components/outputgrafanacloudprometheusauthauthenticationtype2.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior1.md
-  - docs/models/components/outputgrafanacloudqueuefullbehavior2.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting1.md
-  - docs/models/components/outputgrafanacloudresponseretrysetting2.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings1.md
-  - docs/models/components/outputgrafanacloudtimeoutretrysettings2.md
-  - docs/models/components/outputgrafanacloudtype1.md
-  - docs/models/components/outputgrafanacloudtype2.md
-  - docs/models/components/outputgraphite.md
-  - docs/models/components/outputgraphitebackpressurebehavior.md
-  - docs/models/components/outputgraphitecompression.md
-  - docs/models/components/outputgraphitedestinationprotocol.md
-  - docs/models/components/outputgraphitemode.md
-  - docs/models/components/outputgraphitepqcontrols.md
-  - docs/models/components/outputgraphitequeuefullbehavior.md
-  - docs/models/components/outputgraphitetype.md
-  - docs/models/components/outputhoneycomb.md
-  - docs/models/components/outputhoneycombauthenticationmethod.md
-  - docs/models/components/outputhoneycombbackpressurebehavior.md
-  - docs/models/components/outputhoneycombcompression.md
-  - docs/models/components/outputhoneycombextrahttpheader.md
-  - docs/models/components/outputhoneycombfailedrequestloggingmode.md
-  - docs/models/components/outputhoneycombmode.md
-  - docs/models/components/outputhoneycombpqcontrols.md
-  - docs/models/components/outputhoneycombqueuefullbehavior.md
-  - docs/models/components/outputhoneycombresponseretrysetting.md
-  - docs/models/components/outputhoneycombtimeoutretrysettings.md
-  - docs/models/components/outputhoneycombtype.md
-  - docs/models/components/outputhumiohec.md
-  - docs/models/components/outputhumiohecauthenticationmethod.md
-  - docs/models/components/outputhumiohecbackpressurebehavior.md
-  - docs/models/components/outputhumioheccompression.md
-  - docs/models/components/outputhumiohecextrahttpheader.md
-  - docs/models/components/outputhumiohecfailedrequestloggingmode.md
-  - docs/models/components/outputhumiohecmode.md
-  - docs/models/components/outputhumiohecpqcontrols.md
-  - docs/models/components/outputhumiohecqueuefullbehavior.md
-  - docs/models/components/outputhumiohecrequestformat.md
-  - docs/models/components/outputhumiohecresponseretrysetting.md
-  - docs/models/components/outputhumiohectimeoutretrysettings.md
-  - docs/models/components/outputhumiohectype.md
-  - docs/models/components/outputinfluxdb.md
-  - docs/models/components/outputinfluxdbauthenticationtype.md
-  - docs/models/components/outputinfluxdbbackpressurebehavior.md
-  - docs/models/components/outputinfluxdbcompression.md
-  - docs/models/components/outputinfluxdbextrahttpheader.md
-  - docs/models/components/outputinfluxdbfailedrequestloggingmode.md
-  - docs/models/components/outputinfluxdbmode.md
-  - docs/models/components/outputinfluxdboauthheader.md
-  - docs/models/components/outputinfluxdboauthparam.md
-  - docs/models/components/outputinfluxdbpqcontrols.md
-  - docs/models/components/outputinfluxdbqueuefullbehavior.md
-  - docs/models/components/outputinfluxdbresponseretrysetting.md
-  - docs/models/components/outputinfluxdbtimeoutretrysettings.md
-  - docs/models/components/outputinfluxdbtype.md
-  - docs/models/components/outputkafka.md
-  - docs/models/components/outputkafkaacknowledgments.md
-  - docs/models/components/outputkafkaauth.md
-  - docs/models/components/outputkafkaauthentication.md
-  - docs/models/components/outputkafkabackpressurebehavior.md
-  - docs/models/components/outputkafkacompression.md
-  - docs/models/components/outputkafkakafkaschemaregistryauthentication.md
-  - docs/models/components/outputkafkakafkaschemaregistrymaximumtlsversion.md
-  - docs/models/components/outputkafkakafkaschemaregistryminimumtlsversion.md
-  - docs/models/components/outputkafkakafkaschemaregistrytlssettingsclientside.md
-  - docs/models/components/outputkafkamaximumtlsversion.md
-  - docs/models/components/outputkafkaminimumtlsversion.md
-  - docs/models/components/outputkafkamode.md
-  - docs/models/components/outputkafkapqcompresscompression.md
-  - docs/models/components/outputkafkapqcontrols.md
-  - docs/models/components/outputkafkaqueuefullbehavior.md
-  - docs/models/components/outputkafkarecorddataformat.md
-  - docs/models/components/outputkafkasaslmechanism.md
-  - docs/models/components/outputkafkatlssettingsclientside.md
-  - docs/models/components/outputkafkatype.md
-  - docs/models/components/outputkinesis.md
-  - docs/models/components/outputkinesisauthenticationmethod.md
-  - docs/models/components/outputkinesisbackpressurebehavior.md
-  - docs/models/components/outputkinesiscompression.md
-  - docs/models/components/outputkinesismode.md
-  - docs/models/components/outputkinesispqcompresscompression.md
-  - docs/models/components/outputkinesispqcontrols.md
-  - docs/models/components/outputkinesisqueuefullbehavior.md
-  - docs/models/components/outputkinesissignatureversion.md
-  - docs/models/components/outputkinesistype.md
-  - docs/models/components/outputloki.md
-  - docs/models/components/outputlokiauthenticationtype.md
-  - docs/models/components/outputlokibackpressurebehavior.md
-  - docs/models/components/outputlokicompression.md
-  - docs/models/components/outputlokiextrahttpheader.md
-  - docs/models/components/outputlokifailedrequestloggingmode.md
-  - docs/models/components/outputlokilabel.md
-  - docs/models/components/outputlokimessageformat.md
-  - docs/models/components/outputlokimode.md
-  - docs/models/components/outputlokipqcontrols.md
-  - docs/models/components/outputlokiqueuefullbehavior.md
-  - docs/models/components/outputlokiresponseretrysetting.md
-  - docs/models/components/outputlokitimeoutretrysettings.md
-  - docs/models/components/outputlokitype.md
-  - docs/models/components/outputminio.md
-  - docs/models/components/outputminioauthenticationmethod.md
-  - docs/models/components/outputminiobackpressurebehavior.md
-  - docs/models/components/outputminiocompression.md
-  - docs/models/components/outputminiocompressionlevel.md
-  - docs/models/components/outputminiodataformat.md
-  - docs/models/components/outputminiodatapageversion.md
-  - docs/models/components/outputminiodiskspaceprotection.md
-  - docs/models/components/outputminiokeyvaluemetadatum.md
-  - docs/models/components/outputminioobjectacl.md
-  - docs/models/components/outputminioparquetversion.md
-  - docs/models/components/outputminiosignatureversion.md
-  - docs/models/components/outputminiostorageclass.md
-  - docs/models/components/outputminiotype.md
   - docs/models/components/outputmode.md
-  - docs/models/components/outputmsk.md
-  - docs/models/components/outputmskacknowledgments.md
-  - docs/models/components/outputmskauth.md
-  - docs/models/components/outputmskauthenticationmethod.md
-  - docs/models/components/outputmskbackpressurebehavior.md
-  - docs/models/components/outputmskcompression.md
-  - docs/models/components/outputmskkafkaschemaregistryauthentication.md
-  - docs/models/components/outputmskkafkaschemaregistrymaximumtlsversion.md
-  - docs/models/components/outputmskkafkaschemaregistryminimumtlsversion.md
-  - docs/models/components/outputmskkafkaschemaregistrytlssettingsclientside.md
-  - docs/models/components/outputmskmaximumtlsversion.md
-  - docs/models/components/outputmskminimumtlsversion.md
-  - docs/models/components/outputmskmode.md
-  - docs/models/components/outputmskpqcompresscompression.md
-  - docs/models/components/outputmskpqcontrols.md
-  - docs/models/components/outputmskqueuefullbehavior.md
-  - docs/models/components/outputmskrecorddataformat.md
-  - docs/models/components/outputmsksignatureversion.md
-  - docs/models/components/outputmsktlssettingsclientside.md
-  - docs/models/components/outputmsktype.md
-  - docs/models/components/outputnetflow.md
-  - docs/models/components/outputnetflowhost.md
-  - docs/models/components/outputnetflowtype.md
-  - docs/models/components/outputnewrelic.md
-  - docs/models/components/outputnewrelicauthenticationmethod.md
-  - docs/models/components/outputnewrelicbackpressurebehavior.md
-  - docs/models/components/outputnewreliccompression.md
-  - docs/models/components/outputnewrelicevents.md
-  - docs/models/components/outputnewreliceventsauthenticationmethod.md
-  - docs/models/components/outputnewreliceventsbackpressurebehavior.md
-  - docs/models/components/outputnewreliceventscompression.md
-  - docs/models/components/outputnewreliceventsextrahttpheader.md
-  - docs/models/components/outputnewreliceventsfailedrequestloggingmode.md
-  - docs/models/components/outputnewreliceventsmode.md
-  - docs/models/components/outputnewreliceventspqcontrols.md
-  - docs/models/components/outputnewreliceventsqueuefullbehavior.md
-  - docs/models/components/outputnewreliceventsregion.md
-  - docs/models/components/outputnewreliceventsresponseretrysetting.md
-  - docs/models/components/outputnewreliceventstimeoutretrysettings.md
-  - docs/models/components/outputnewreliceventstype.md
-  - docs/models/components/outputnewrelicextrahttpheader.md
-  - docs/models/components/outputnewrelicfailedrequestloggingmode.md
-  - docs/models/components/outputnewrelicmetadatum.md
-  - docs/models/components/outputnewrelicmode.md
-  - docs/models/components/outputnewrelicpqcontrols.md
-  - docs/models/components/outputnewrelicqueuefullbehavior.md
-  - docs/models/components/outputnewrelicregion.md
-  - docs/models/components/outputnewrelicresponseretrysetting.md
-  - docs/models/components/outputnewrelictimeoutretrysettings.md
-  - docs/models/components/outputnewrelictype.md
-  - docs/models/components/outputopentelemetry.md
-  - docs/models/components/outputopentelemetryauthenticationtype.md
-  - docs/models/components/outputopentelemetrybackpressurebehavior.md
-  - docs/models/components/outputopentelemetrycompresscompression.md
-  - docs/models/components/outputopentelemetryextrahttpheader.md
-  - docs/models/components/outputopentelemetryfailedrequestloggingmode.md
-  - docs/models/components/outputopentelemetryhttpcompresscompression.md
-  - docs/models/components/outputopentelemetrymaximumtlsversion.md
-  - docs/models/components/outputopentelemetrymetadatum.md
-  - docs/models/components/outputopentelemetryminimumtlsversion.md
-  - docs/models/components/outputopentelemetrymode.md
-  - docs/models/components/outputopentelemetryoauthheader.md
-  - docs/models/components/outputopentelemetryoauthparam.md
-  - docs/models/components/outputopentelemetryotlpversion.md
-  - docs/models/components/outputopentelemetrypqcompresscompression.md
-  - docs/models/components/outputopentelemetrypqcontrols.md
-  - docs/models/components/outputopentelemetryprotocol.md
-  - docs/models/components/outputopentelemetryqueuefullbehavior.md
-  - docs/models/components/outputopentelemetryresponseretrysetting.md
-  - docs/models/components/outputopentelemetrytimeoutretrysettings.md
-  - docs/models/components/outputopentelemetrytlssettingsclientside.md
-  - docs/models/components/outputopentelemetrytype.md
-  - docs/models/components/outputprometheus.md
-  - docs/models/components/outputprometheusauthenticationtype.md
-  - docs/models/components/outputprometheusbackpressurebehavior.md
-  - docs/models/components/outputprometheuscompression.md
-  - docs/models/components/outputprometheusextrahttpheader.md
-  - docs/models/components/outputprometheusfailedrequestloggingmode.md
-  - docs/models/components/outputprometheusmode.md
-  - docs/models/components/outputprometheusoauthheader.md
-  - docs/models/components/outputprometheusoauthparam.md
-  - docs/models/components/outputprometheuspqcontrols.md
-  - docs/models/components/outputprometheusqueuefullbehavior.md
-  - docs/models/components/outputprometheusresponseretrysetting.md
-  - docs/models/components/outputprometheustimeoutretrysettings.md
-  - docs/models/components/outputprometheustype.md
-  - docs/models/components/outputring.md
-  - docs/models/components/outputringbackpressurebehavior.md
-  - docs/models/components/outputringdatacompressionformat.md
-  - docs/models/components/outputringdataformat.md
-  - docs/models/components/outputringtype.md
-  - docs/models/components/outputrouter.md
-  - docs/models/components/outputrouterrule.md
-  - docs/models/components/outputroutertype.md
-  - docs/models/components/outputs3.md
-  - docs/models/components/outputs3authenticationmethod.md
-  - docs/models/components/outputs3backpressurebehavior.md
-  - docs/models/components/outputs3compression.md
-  - docs/models/components/outputs3compressionlevel.md
-  - docs/models/components/outputs3dataformat.md
-  - docs/models/components/outputs3datapageversion.md
-  - docs/models/components/outputs3diskspaceprotection.md
-  - docs/models/components/outputs3keyvaluemetadatum.md
-  - docs/models/components/outputs3objectacl.md
-  - docs/models/components/outputs3parquetversion.md
-  - docs/models/components/outputs3serversideencryptionforuploadedobjects.md
-  - docs/models/components/outputs3signatureversion.md
-  - docs/models/components/outputs3storageclass.md
-  - docs/models/components/outputs3type.md
   - docs/models/components/outputsamplesresponse.md
-  - docs/models/components/outputsecuritylake.md
-  - docs/models/components/outputsecuritylakeauthenticationmethod.md
-  - docs/models/components/outputsecuritylakebackpressurebehavior.md
-  - docs/models/components/outputsecuritylakedatapageversion.md
-  - docs/models/components/outputsecuritylakediskspaceprotection.md
-  - docs/models/components/outputsecuritylakekeyvaluemetadatum.md
-  - docs/models/components/outputsecuritylakeobjectacl.md
-  - docs/models/components/outputsecuritylakeparquetversion.md
-  - docs/models/components/outputsecuritylakeserversideencryptionforuploadedobjects.md
-  - docs/models/components/outputsecuritylakesignatureversion.md
-  - docs/models/components/outputsecuritylakestorageclass.md
-  - docs/models/components/outputsecuritylaketype.md
-  - docs/models/components/outputsentinel.md
-  - docs/models/components/outputsentinelbackpressurebehavior.md
-  - docs/models/components/outputsentinelcompression.md
-  - docs/models/components/outputsentinelextrahttpheader.md
-  - docs/models/components/outputsentinelfailedrequestloggingmode.md
-  - docs/models/components/outputsentinelformat.md
-  - docs/models/components/outputsentinelmode.md
-  - docs/models/components/outputsentineloneaisiem.md
-  - docs/models/components/outputsentineloneaisiemauthenticationmethod.md
-  - docs/models/components/outputsentineloneaisiembackpressurebehavior.md
-  - docs/models/components/outputsentineloneaisiemcompression.md
-  - docs/models/components/outputsentineloneaisiemextrahttpheader.md
-  - docs/models/components/outputsentineloneaisiemfailedrequestloggingmode.md
-  - docs/models/components/outputsentineloneaisiemmode.md
-  - docs/models/components/outputsentineloneaisiempqcontrols.md
-  - docs/models/components/outputsentineloneaisiemqueuefullbehavior.md
-  - docs/models/components/outputsentineloneaisiemregion.md
-  - docs/models/components/outputsentineloneaisiemresponseretrysetting.md
-  - docs/models/components/outputsentineloneaisiemtimeoutretrysettings.md
-  - docs/models/components/outputsentineloneaisiemtype.md
-  - docs/models/components/outputsentinelpqcontrols.md
-  - docs/models/components/outputsentinelqueuefullbehavior.md
-  - docs/models/components/outputsentinelresponseretrysetting.md
-  - docs/models/components/outputsentineltimeoutretrysettings.md
-  - docs/models/components/outputsentineltype.md
-  - docs/models/components/outputservicenow.md
-  - docs/models/components/outputservicenowbackpressurebehavior.md
-  - docs/models/components/outputservicenowcompresscompression.md
-  - docs/models/components/outputservicenowextrahttpheader.md
-  - docs/models/components/outputservicenowfailedrequestloggingmode.md
-  - docs/models/components/outputservicenowhttpcompresscompression.md
-  - docs/models/components/outputservicenowmaximumtlsversion.md
-  - docs/models/components/outputservicenowmetadatum.md
-  - docs/models/components/outputservicenowminimumtlsversion.md
-  - docs/models/components/outputservicenowmode.md
-  - docs/models/components/outputservicenowotlpversion.md
-  - docs/models/components/outputservicenowpqcompresscompression.md
-  - docs/models/components/outputservicenowpqcontrols.md
-  - docs/models/components/outputservicenowprotocol.md
-  - docs/models/components/outputservicenowqueuefullbehavior.md
-  - docs/models/components/outputservicenowresponseretrysetting.md
-  - docs/models/components/outputservicenowtimeoutretrysettings.md
-  - docs/models/components/outputservicenowtlssettingsclientside.md
-  - docs/models/components/outputservicenowtype.md
-  - docs/models/components/outputsignalfx.md
-  - docs/models/components/outputsignalfxauthenticationmethod.md
-  - docs/models/components/outputsignalfxbackpressurebehavior.md
-  - docs/models/components/outputsignalfxcompression.md
-  - docs/models/components/outputsignalfxextrahttpheader.md
-  - docs/models/components/outputsignalfxfailedrequestloggingmode.md
-  - docs/models/components/outputsignalfxmode.md
-  - docs/models/components/outputsignalfxpqcontrols.md
-  - docs/models/components/outputsignalfxqueuefullbehavior.md
-  - docs/models/components/outputsignalfxresponseretrysetting.md
-  - docs/models/components/outputsignalfxtimeoutretrysettings.md
-  - docs/models/components/outputsignalfxtype.md
-  - docs/models/components/outputsnmp.md
-  - docs/models/components/outputsnmphost.md
-  - docs/models/components/outputsnmptype.md
-  - docs/models/components/outputsns.md
-  - docs/models/components/outputsnsauthenticationmethod.md
-  - docs/models/components/outputsnsbackpressurebehavior.md
-  - docs/models/components/outputsnscompression.md
-  - docs/models/components/outputsnsmode.md
-  - docs/models/components/outputsnspqcontrols.md
-  - docs/models/components/outputsnsqueuefullbehavior.md
-  - docs/models/components/outputsnssignatureversion.md
-  - docs/models/components/outputsnstype.md
-  - docs/models/components/outputsplunk.md
-  - docs/models/components/outputsplunkauthenticationmethod.md
-  - docs/models/components/outputsplunkbackpressurebehavior.md
-  - docs/models/components/outputsplunkcompresscompression.md
-  - docs/models/components/outputsplunkhec.md
-  - docs/models/components/outputsplunkhecauthenticationmethod.md
-  - docs/models/components/outputsplunkhecbackpressurebehavior.md
-  - docs/models/components/outputsplunkheccompression.md
-  - docs/models/components/outputsplunkhecextrahttpheader.md
-  - docs/models/components/outputsplunkhecfailedrequestloggingmode.md
-  - docs/models/components/outputsplunkhecmode.md
-  - docs/models/components/outputsplunkhecpqcontrols.md
-  - docs/models/components/outputsplunkhecqueuefullbehavior.md
-  - docs/models/components/outputsplunkhecresponseretrysetting.md
-  - docs/models/components/outputsplunkhectimeoutretrysettings.md
-  - docs/models/components/outputsplunkhectype.md
-  - docs/models/components/outputsplunkhecurl.md
-  - docs/models/components/outputsplunklb.md
-  - docs/models/components/outputsplunklbauthenticationmethod.md
-  - docs/models/components/outputsplunklbauthtoken.md
-  - docs/models/components/outputsplunklbbackpressurebehavior.md
-  - docs/models/components/outputsplunklbcompresscompression.md
-  - docs/models/components/outputsplunklbhost.md
-  - docs/models/components/outputsplunklbmaximumtlsversion.md
-  - docs/models/components/outputsplunklbmaxs2sversion.md
-  - docs/models/components/outputsplunklbminimumtlsversion.md
-  - docs/models/components/outputsplunklbmode.md
-  - docs/models/components/outputsplunklbnestedfieldserialization.md
-  - docs/models/components/outputsplunklbpqcompresscompression.md
-  - docs/models/components/outputsplunklbpqcontrols.md
-  - docs/models/components/outputsplunklbqueuefullbehavior.md
-  - docs/models/components/outputsplunklbtls.md
-  - docs/models/components/outputsplunklbtlssettingsclientside.md
-  - docs/models/components/outputsplunklbtype.md
-  - docs/models/components/outputsplunkmaximumtlsversion.md
-  - docs/models/components/outputsplunkmaxs2sversion.md
-  - docs/models/components/outputsplunkminimumtlsversion.md
-  - docs/models/components/outputsplunkmode.md
-  - docs/models/components/outputsplunknestedfieldserialization.md
-  - docs/models/components/outputsplunkpqcompresscompression.md
-  - docs/models/components/outputsplunkpqcontrols.md
-  - docs/models/components/outputsplunkqueuefullbehavior.md
-  - docs/models/components/outputsplunktlssettingsclientside.md
-  - docs/models/components/outputsplunktype.md
-  - docs/models/components/outputsqs.md
-  - docs/models/components/outputsqsauthenticationmethod.md
-  - docs/models/components/outputsqsbackpressurebehavior.md
-  - docs/models/components/outputsqscompression.md
-  - docs/models/components/outputsqsmode.md
-  - docs/models/components/outputsqspqcontrols.md
-  - docs/models/components/outputsqsqueuefullbehavior.md
-  - docs/models/components/outputsqsqueuetype.md
-  - docs/models/components/outputsqssignatureversion.md
-  - docs/models/components/outputsqstype.md
-  - docs/models/components/outputstatsd.md
-  - docs/models/components/outputstatsdbackpressurebehavior.md
-  - docs/models/components/outputstatsdcompression.md
-  - docs/models/components/outputstatsddestinationprotocol.md
-  - docs/models/components/outputstatsdext.md
-  - docs/models/components/outputstatsdextbackpressurebehavior.md
-  - docs/models/components/outputstatsdextcompression.md
-  - docs/models/components/outputstatsdextdestinationprotocol.md
-  - docs/models/components/outputstatsdextmode.md
-  - docs/models/components/outputstatsdextpqcontrols.md
-  - docs/models/components/outputstatsdextqueuefullbehavior.md
-  - docs/models/components/outputstatsdexttype.md
-  - docs/models/components/outputstatsdmode.md
-  - docs/models/components/outputstatsdpqcontrols.md
-  - docs/models/components/outputstatsdqueuefullbehavior.md
-  - docs/models/components/outputstatsdtype.md
-  - docs/models/components/outputsumologic.md
-  - docs/models/components/outputsumologicbackpressurebehavior.md
-  - docs/models/components/outputsumologiccompression.md
-  - docs/models/components/outputsumologicdataformat.md
-  - docs/models/components/outputsumologicextrahttpheader.md
-  - docs/models/components/outputsumologicfailedrequestloggingmode.md
-  - docs/models/components/outputsumologicmode.md
-  - docs/models/components/outputsumologicpqcontrols.md
-  - docs/models/components/outputsumologicqueuefullbehavior.md
-  - docs/models/components/outputsumologicresponseretrysetting.md
-  - docs/models/components/outputsumologictimeoutretrysettings.md
-  - docs/models/components/outputsumologictype.md
-  - docs/models/components/outputsyslog.md
-  - docs/models/components/outputsyslogbackpressurebehavior.md
-  - docs/models/components/outputsyslogcompression.md
-  - docs/models/components/outputsysloghost.md
-  - docs/models/components/outputsyslogmaximumtlsversion.md
-  - docs/models/components/outputsyslogmessageformat.md
-  - docs/models/components/outputsyslogminimumtlsversion.md
-  - docs/models/components/outputsyslogmode.md
-  - docs/models/components/outputsyslogpqcontrols.md
-  - docs/models/components/outputsyslogprotocol.md
-  - docs/models/components/outputsyslogqueuefullbehavior.md
-  - docs/models/components/outputsyslogseverity.md
-  - docs/models/components/outputsyslogtls.md
-  - docs/models/components/outputsyslogtlssettingsclientside.md
-  - docs/models/components/outputsyslogtype.md
-  - docs/models/components/outputtcpjson.md
-  - docs/models/components/outputtcpjsonauthenticationmethod.md
-  - docs/models/components/outputtcpjsonbackpressurebehavior.md
-  - docs/models/components/outputtcpjsoncompression.md
-  - docs/models/components/outputtcpjsonhost.md
-  - docs/models/components/outputtcpjsonmaximumtlsversion.md
-  - docs/models/components/outputtcpjsonminimumtlsversion.md
-  - docs/models/components/outputtcpjsonmode.md
-  - docs/models/components/outputtcpjsonpqcompresscompression.md
-  - docs/models/components/outputtcpjsonpqcontrols.md
-  - docs/models/components/outputtcpjsonqueuefullbehavior.md
-  - docs/models/components/outputtcpjsontls.md
-  - docs/models/components/outputtcpjsontlssettingsclientside.md
-  - docs/models/components/outputtcpjsontype.md
   - docs/models/components/outputtestrequest.md
   - docs/models/components/outputtestresponse.md
-  - docs/models/components/outputwavefront.md
-  - docs/models/components/outputwavefrontauthenticationmethod.md
-  - docs/models/components/outputwavefrontbackpressurebehavior.md
-  - docs/models/components/outputwavefrontcompression.md
-  - docs/models/components/outputwavefrontextrahttpheader.md
-  - docs/models/components/outputwavefrontfailedrequestloggingmode.md
-  - docs/models/components/outputwavefrontmode.md
-  - docs/models/components/outputwavefrontpqcontrols.md
-  - docs/models/components/outputwavefrontqueuefullbehavior.md
-  - docs/models/components/outputwavefrontresponseretrysetting.md
-  - docs/models/components/outputwavefronttimeoutretrysettings.md
-  - docs/models/components/outputwavefronttype.md
-  - docs/models/components/outputwebhook.md
-  - docs/models/components/outputwebhookauthenticationtype.md
-  - docs/models/components/outputwebhookbackpressurebehavior.md
-  - docs/models/components/outputwebhookcompression.md
-  - docs/models/components/outputwebhookextrahttpheader.md
-  - docs/models/components/outputwebhookfailedrequestloggingmode.md
-  - docs/models/components/outputwebhookformat.md
-  - docs/models/components/outputwebhookmaximumtlsversion.md
-  - docs/models/components/outputwebhookmethod.md
-  - docs/models/components/outputwebhookminimumtlsversion.md
-  - docs/models/components/outputwebhookmode.md
-  - docs/models/components/outputwebhookoauthheader.md
-  - docs/models/components/outputwebhookoauthparam.md
-  - docs/models/components/outputwebhookpqcontrols.md
-  - docs/models/components/outputwebhookqueuefullbehavior.md
-  - docs/models/components/outputwebhookresponseretrysetting.md
-  - docs/models/components/outputwebhooktimeoutretrysettings.md
-  - docs/models/components/outputwebhooktlssettingsclientside.md
-  - docs/models/components/outputwebhooktype.md
-  - docs/models/components/outputwebhookurl.md
-  - docs/models/components/outputxsiam.md
-  - docs/models/components/outputxsiamauthenticationmethod.md
-  - docs/models/components/outputxsiambackpressurebehavior.md
-  - docs/models/components/outputxsiamcompression.md
-  - docs/models/components/outputxsiamextrahttpheader.md
-  - docs/models/components/outputxsiamfailedrequestloggingmode.md
-  - docs/models/components/outputxsiammode.md
-  - docs/models/components/outputxsiampqcontrols.md
-  - docs/models/components/outputxsiamqueuefullbehavior.md
-  - docs/models/components/outputxsiamresponseretrysetting.md
-  - docs/models/components/outputxsiamtimeoutretrysettings.md
-  - docs/models/components/outputxsiamtype.md
-  - docs/models/components/outputxsiamurl.md
   - docs/models/components/packinfo.md
   - docs/models/components/packinfotags.md
   - docs/models/components/packinstallinfo.md
@@ -2048,12 +1145,10 @@ generatedFiles:
   - docs/models/components/packrequestbodytags2.md
   - docs/models/components/packrequestbodyunion.md
   - docs/models/components/packupgraderequest.md
-  - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
-  - docs/models/components/prefixoptional.md
   - docs/models/components/productscore.md
   - docs/models/components/prometheusauthoauthheader1.md
   - docs/models/components/prometheusauthoauthheader2.md
@@ -2063,11 +1158,9 @@ generatedFiles:
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
   - docs/models/components/remote.md
+  - docs/models/components/remoteenum.md
   - docs/models/components/renamed.md
-  - docs/models/components/reportlevel.md
-  - docs/models/components/reportmethod.md
   - docs/models/components/resourcepolicy.md
-  - docs/models/components/resourcetypelabel.md
   - docs/models/components/role.md
   - docs/models/components/routeconf.md
   - docs/models/components/routes.md
@@ -2110,9 +1203,6 @@ generatedFiles:
   - docs/models/components/schemeclientoauth.md
   - docs/models/components/scrapeprotocolprotocol.md
   - docs/models/components/security.md
-  - docs/models/components/sendeventsas.md
-  - docs/models/components/sendlogsas.md
-  - docs/models/components/serversideencryption.md
   - docs/models/components/services.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
@@ -2125,10 +1215,7 @@ generatedFiles:
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
-  - docs/models/components/telemetrytype.md
   - docs/models/components/timerange.md
-  - docs/models/components/timestampformat.md
-  - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
   - docs/models/components/useraccesscontrollist.md
@@ -2136,7 +1223,6 @@ generatedFiles:
   - docs/models/components/v3user.md
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
-  - docs/models/components/writeaction.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductresponsebody.md
@@ -2148,8 +1234,6 @@ generatedFiles:
   - docs/models/operations/createinputhectokenbyidresponsebody.md
   - docs/models/operations/createinputresponse.md
   - docs/models/operations/createinputresponsebody.md
-  - docs/models/operations/createoutputresponse.md
-  - docs/models/operations/createoutputresponsebody.md
   - docs/models/operations/createoutputtestbyidrequest.md
   - docs/models/operations/createoutputtestbyidresponse.md
   - docs/models/operations/createoutputtestbyidresponsebody.md
@@ -2180,9 +1264,6 @@ generatedFiles:
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteinputbyidresponsebody.md
-  - docs/models/operations/deleteoutputbyidrequest.md
-  - docs/models/operations/deleteoutputbyidresponse.md
-  - docs/models/operations/deleteoutputbyidresponsebody.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
   - docs/models/operations/deleteoutputpqbyidresponse.md
   - docs/models/operations/deleteoutputpqbyidresponsebody.md
@@ -2217,9 +1298,6 @@ generatedFiles:
   - docs/models/operations/getmasterworkerentryrequest.md
   - docs/models/operations/getmasterworkerentryresponse.md
   - docs/models/operations/getmasterworkerentryresponsebody.md
-  - docs/models/operations/getoutputbyidrequest.md
-  - docs/models/operations/getoutputbyidresponse.md
-  - docs/models/operations/getoutputbyidresponsebody.md
   - docs/models/operations/getoutputpqbyidrequest.md
   - docs/models/operations/getoutputpqbyidresponse.md
   - docs/models/operations/getoutputpqbyidresponsebody.md
@@ -2272,8 +1350,6 @@ generatedFiles:
   - docs/models/operations/listmasterworkerentryrequest.md
   - docs/models/operations/listmasterworkerentryresponse.md
   - docs/models/operations/listmasterworkerentryresponsebody.md
-  - docs/models/operations/listoutputresponse.md
-  - docs/models/operations/listoutputresponsebody.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listpipelineresponsebody.md
   - docs/models/operations/listroutesresponse.md
@@ -2295,9 +1371,6 @@ generatedFiles:
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponsebody.md
-  - docs/models/operations/updateoutputbyidrequest.md
-  - docs/models/operations/updateoutputbyidresponse.md
-  - docs/models/operations/updateoutputbyidresponsebody.md
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksbyidresponsebody.md
@@ -2308,12 +1381,9 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
   - docs/sdks/acl/README.md
-  - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
-  - docs/sdks/criblcontrolplane/README.md
-  - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
@@ -2330,7 +1400,6 @@ generatedFiles:
   - docs/sdks/summaries/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
-  - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - files.go
   - go.mod
@@ -2534,7 +1603,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2716,7 +1785,7 @@ examples:
     speakeasy-default-get-version-info:
       responses:
         "200":
-          application/json: {"count": 716855, "items": [{"remote": true, "versioning": false}]}
+          application/json: {"count": 716855, "items": [{"remote": "false", "versioning": false}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionPush:
@@ -2779,7 +1848,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 219852, "items": ["<value 1>", "<value 2>"]}
+          application/json: {"count": 219852, "items": [{}, {"key": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   createCriblLakeDatasetByLakeId:
@@ -2843,7 +1912,7 @@ examples:
           mode: "worker"
       responses:
         "200":
-          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "pipelines": 6352.87, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
+          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "packs": 798.01, "pipelines": 6352.87, "quickConnects": 3649.04, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
         "500":
           application/json: {"message": "<value>"}
   createPacks:
@@ -2852,7 +1921,7 @@ examples:
         application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Myah14", "author": "<value>", "description": "premeditation coincide although", "source": "<value>", "tags": {"dataType": [], "domain": [], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": false}
       responses:
         "200":
-          application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 182030, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   getPacks:
@@ -2862,7 +1931,7 @@ examples:
           with: "<value>"
       responses:
         "200":
-          application/json: {"count": 77148, "items": [{"author": "<value>", "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
+          application/json: {"count": 77148, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacks:
@@ -3000,7 +2069,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 248535, "items": [{"author": "<value>", "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 248535, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacksById:
@@ -3016,7 +2085,7 @@ examples:
         application/json: {"allowCustomFunctions": true, "minor": "<value>", "source": "<value>", "spec": "<value>"}
       responses:
         "200":
-          application/json: {"count": 338042, "items": [{"author": "<value>", "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
+          application/json: {"count": 338042, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteGroupsById:
@@ -3053,7 +2122,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "env": {"key": "<value>", "key1": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3240,7 +2309,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+          application/json: {"count": 163235, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
@@ -3308,4 +2377,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputDatabricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputDatabricks]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputDatabricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputDatabricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputDatabricks]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[outputDatabricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputDatabricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats` **Added**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Env` **Added**\n* `CriblControlPlane.Destinations.Delete()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Destinations.Create()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n"

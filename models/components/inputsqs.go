@@ -65,7 +65,9 @@ func (i *InputSqsConnection) GetOutput() string {
 type InputSqsMode string
 
 const (
-	InputSqsModeSmart  InputSqsMode = "smart"
+	// InputSqsModeSmart Smart
+	InputSqsModeSmart InputSqsMode = "smart"
+	// InputSqsModeAlways Always On
 	InputSqsModeAlways InputSqsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSqsMode) ToPointer() *InputSqsMode {
 type InputSqsCompression string
 
 const (
+	// InputSqsCompressionNone None
 	InputSqsCompressionNone InputSqsCompression = "none"
+	// InputSqsCompressionGzip Gzip
 	InputSqsCompressionGzip InputSqsCompression = "gzip"
 )
 
@@ -188,8 +192,10 @@ func (i *InputSqsPq) GetPqControls() *InputSqsPqControls {
 type InputSqsQueueType string
 
 const (
+	// InputSqsQueueTypeStandard Standard
 	InputSqsQueueTypeStandard InputSqsQueueType = "standard"
-	InputSqsQueueTypeFifo     InputSqsQueueType = "fifo"
+	// InputSqsQueueTypeFifo FIFO
+	InputSqsQueueTypeFifo InputSqsQueueType = "fifo"
 )
 
 func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
@@ -200,8 +206,11 @@ func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
 type InputSqsAuthenticationMethod string
 
 const (
-	InputSqsAuthenticationMethodAuto   InputSqsAuthenticationMethod = "auto"
+	// InputSqsAuthenticationMethodAuto Auto
+	InputSqsAuthenticationMethodAuto InputSqsAuthenticationMethod = "auto"
+	// InputSqsAuthenticationMethodManual Manual
 	InputSqsAuthenticationMethodManual InputSqsAuthenticationMethod = "manual"
+	// InputSqsAuthenticationMethodSecret Secret Key pair
 	InputSqsAuthenticationMethodSecret InputSqsAuthenticationMethod = "secret"
 )
 
@@ -273,7 +282,7 @@ type InputSqs struct {
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
-	QueueType *InputSqsQueueType `default:"standard" json:"queueType"`
+	QueueType InputSqsQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// Create queue if it does not exist
@@ -320,7 +329,7 @@ func (i InputSqs) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
@@ -403,9 +412,9 @@ func (i *InputSqs) GetQueueName() string {
 	return i.QueueName
 }
 
-func (i *InputSqs) GetQueueType() *InputSqsQueueType {
+func (i *InputSqs) GetQueueType() InputSqsQueueType {
 	if i == nil {
-		return nil
+		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }

@@ -65,7 +65,9 @@ func (i *InputSystemStateConnection) GetOutput() string {
 type InputSystemStateMode string
 
 const (
-	InputSystemStateModeSmart  InputSystemStateMode = "smart"
+	// InputSystemStateModeSmart Smart
+	InputSystemStateModeSmart InputSystemStateMode = "smart"
+	// InputSystemStateModeAlways Always On
 	InputSystemStateModeAlways InputSystemStateMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
 type InputSystemStateCompression string
 
 const (
+	// InputSystemStateCompressionNone None
 	InputSystemStateCompressionNone InputSystemStateCompression = "none"
+	// InputSystemStateCompressionGzip Gzip
 	InputSystemStateCompressionGzip InputSystemStateCompression = "gzip"
 )
 

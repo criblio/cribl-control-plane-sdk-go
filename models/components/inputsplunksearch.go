@@ -65,7 +65,9 @@ func (i *InputSplunkSearchConnection) GetOutput() string {
 type InputSplunkSearchMode string
 
 const (
-	InputSplunkSearchModeSmart  InputSplunkSearchMode = "smart"
+	// InputSplunkSearchModeSmart Smart
+	InputSplunkSearchModeSmart InputSplunkSearchMode = "smart"
+	// InputSplunkSearchModeAlways Always On
 	InputSplunkSearchModeAlways InputSplunkSearchMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
 type InputSplunkSearchCompression string
 
 const (
+	// InputSplunkSearchCompressionNone None
 	InputSplunkSearchCompressionNone InputSplunkSearchCompression = "none"
+	// InputSplunkSearchCompressionGzip Gzip
 	InputSplunkSearchCompressionGzip InputSplunkSearchCompression = "gzip"
 )
 
@@ -307,9 +311,12 @@ func (i *InputSplunkSearchMetadatum) GetValue() string {
 type InputSplunkSearchRetryType string
 
 const (
-	InputSplunkSearchRetryTypeNone    InputSplunkSearchRetryType = "none"
+	// InputSplunkSearchRetryTypeNone Disabled
+	InputSplunkSearchRetryTypeNone InputSplunkSearchRetryType = "none"
+	// InputSplunkSearchRetryTypeBackoff Backoff
 	InputSplunkSearchRetryTypeBackoff InputSplunkSearchRetryType = "backoff"
-	InputSplunkSearchRetryTypeStatic  InputSplunkSearchRetryType = "static"
+	// InputSplunkSearchRetryTypeStatic Static
+	InputSplunkSearchRetryTypeStatic InputSplunkSearchRetryType = "static"
 )
 
 func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {

@@ -65,7 +65,9 @@ func (i *InputGooglePubsubConnection) GetOutput() string {
 type InputGooglePubsubMode string
 
 const (
-	InputGooglePubsubModeSmart  InputGooglePubsubMode = "smart"
+	// InputGooglePubsubModeSmart Smart
+	InputGooglePubsubModeSmart InputGooglePubsubMode = "smart"
+	// InputGooglePubsubModeAlways Always On
 	InputGooglePubsubModeAlways InputGooglePubsubMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputGooglePubsubMode) ToPointer() *InputGooglePubsubMode {
 type InputGooglePubsubCompression string
 
 const (
+	// InputGooglePubsubCompressionNone None
 	InputGooglePubsubCompressionNone InputGooglePubsubCompression = "none"
+	// InputGooglePubsubCompressionGzip Gzip
 	InputGooglePubsubCompressionGzip InputGooglePubsubCompression = "gzip"
 )
 
@@ -188,8 +192,11 @@ func (i *InputGooglePubsubPq) GetPqControls() *InputGooglePubsubPqControls {
 type InputGooglePubsubGoogleAuthenticationMethod string
 
 const (
-	InputGooglePubsubGoogleAuthenticationMethodAuto   InputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// InputGooglePubsubGoogleAuthenticationMethodAuto Auto
+	InputGooglePubsubGoogleAuthenticationMethodAuto InputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// InputGooglePubsubGoogleAuthenticationMethodManual Manual
 	InputGooglePubsubGoogleAuthenticationMethodManual InputGooglePubsubGoogleAuthenticationMethod = "manual"
+	// InputGooglePubsubGoogleAuthenticationMethodSecret Secret
 	InputGooglePubsubGoogleAuthenticationMethodSecret InputGooglePubsubGoogleAuthenticationMethod = "secret"
 )
 

@@ -65,7 +65,9 @@ func (i *InputModelDrivenTelemetryConnection) GetOutput() string {
 type InputModelDrivenTelemetryMode string
 
 const (
-	InputModelDrivenTelemetryModeSmart  InputModelDrivenTelemetryMode = "smart"
+	// InputModelDrivenTelemetryModeSmart Smart
+	InputModelDrivenTelemetryModeSmart InputModelDrivenTelemetryMode = "smart"
+	// InputModelDrivenTelemetryModeAlways Always On
 	InputModelDrivenTelemetryModeAlways InputModelDrivenTelemetryMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMod
 type InputModelDrivenTelemetryCompression string
 
 const (
+	// InputModelDrivenTelemetryCompressionNone None
 	InputModelDrivenTelemetryCompressionNone InputModelDrivenTelemetryCompression = "none"
+	// InputModelDrivenTelemetryCompressionGzip Gzip
 	InputModelDrivenTelemetryCompressionGzip InputModelDrivenTelemetryCompression = "gzip"
 )
 

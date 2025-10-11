@@ -65,7 +65,9 @@ func (i *InputOpenTelemetryConnection) GetOutput() string {
 type InputOpenTelemetryMode string
 
 const (
-	InputOpenTelemetryModeSmart  InputOpenTelemetryMode = "smart"
+	// InputOpenTelemetryModeSmart Smart
+	InputOpenTelemetryModeSmart InputOpenTelemetryMode = "smart"
+	// InputOpenTelemetryModeAlways Always On
 	InputOpenTelemetryModeAlways InputOpenTelemetryMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputOpenTelemetryMode) ToPointer() *InputOpenTelemetryMode {
 type InputOpenTelemetryCompression string
 
 const (
+	// InputOpenTelemetryCompressionNone None
 	InputOpenTelemetryCompressionNone InputOpenTelemetryCompression = "none"
+	// InputOpenTelemetryCompressionGzip Gzip
 	InputOpenTelemetryCompressionGzip InputOpenTelemetryCompression = "gzip"
 )
 
@@ -322,7 +326,9 @@ func (i *InputOpenTelemetryTLSSettingsServerSide) GetMaxVersion() *InputOpenTele
 type InputOpenTelemetryProtocol string
 
 const (
+	// InputOpenTelemetryProtocolGrpc gRPC
 	InputOpenTelemetryProtocolGrpc InputOpenTelemetryProtocol = "grpc"
+	// InputOpenTelemetryProtocolHTTP HTTP
 	InputOpenTelemetryProtocolHTTP InputOpenTelemetryProtocol = "http"
 )
 
@@ -334,8 +340,10 @@ func (e InputOpenTelemetryProtocol) ToPointer() *InputOpenTelemetryProtocol {
 type InputOpenTelemetryOTLPVersion string
 
 const (
+	// InputOpenTelemetryOTLPVersionZeroDot10Dot0 0.10.0
 	InputOpenTelemetryOTLPVersionZeroDot10Dot0 InputOpenTelemetryOTLPVersion = "0.10.0"
-	InputOpenTelemetryOTLPVersionOneDot3Dot1   InputOpenTelemetryOTLPVersion = "1.3.1"
+	// InputOpenTelemetryOTLPVersionOneDot3Dot1 1.3.1
+	InputOpenTelemetryOTLPVersionOneDot3Dot1 InputOpenTelemetryOTLPVersion = "1.3.1"
 )
 
 func (e InputOpenTelemetryOTLPVersion) ToPointer() *InputOpenTelemetryOTLPVersion {

@@ -65,7 +65,9 @@ func (i *InputRawUDPConnection) GetOutput() string {
 type InputRawUDPMode string
 
 const (
-	InputRawUDPModeSmart  InputRawUDPMode = "smart"
+	// InputRawUDPModeSmart Smart
+	InputRawUDPModeSmart InputRawUDPMode = "smart"
+	// InputRawUDPModeAlways Always On
 	InputRawUDPModeAlways InputRawUDPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputRawUDPMode) ToPointer() *InputRawUDPMode {
 type InputRawUDPCompression string
 
 const (
+	// InputRawUDPCompressionNone None
 	InputRawUDPCompressionNone InputRawUDPCompression = "none"
+	// InputRawUDPCompressionGzip Gzip
 	InputRawUDPCompressionGzip InputRawUDPCompression = "gzip"
 )
 

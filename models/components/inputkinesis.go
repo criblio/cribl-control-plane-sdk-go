@@ -65,7 +65,9 @@ func (i *InputKinesisConnection) GetOutput() string {
 type InputKinesisMode string
 
 const (
-	InputKinesisModeSmart  InputKinesisMode = "smart"
+	// InputKinesisModeSmart Smart
+	InputKinesisModeSmart InputKinesisMode = "smart"
+	// InputKinesisModeAlways Always On
 	InputKinesisModeAlways InputKinesisMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKinesisMode) ToPointer() *InputKinesisMode {
 type InputKinesisCompression string
 
 const (
+	// InputKinesisCompressionNone None
 	InputKinesisCompressionNone InputKinesisCompression = "none"
+	// InputKinesisCompressionGzip Gzip
 	InputKinesisCompressionGzip InputKinesisCompression = "gzip"
 )
 
@@ -188,8 +192,10 @@ func (i *InputKinesisPq) GetPqControls() *InputKinesisPqControls {
 type ShardIteratorStart string
 
 const (
+	// ShardIteratorStartTrimHorizon Earliest record
 	ShardIteratorStartTrimHorizon ShardIteratorStart = "TRIM_HORIZON"
-	ShardIteratorStartLatest      ShardIteratorStart = "LATEST"
+	// ShardIteratorStartLatest Latest record
+	ShardIteratorStartLatest ShardIteratorStart = "LATEST"
 )
 
 func (e ShardIteratorStart) ToPointer() *ShardIteratorStart {
@@ -200,10 +206,14 @@ func (e ShardIteratorStart) ToPointer() *ShardIteratorStart {
 type InputKinesisRecordDataFormat string
 
 const (
-	InputKinesisRecordDataFormatCribl      InputKinesisRecordDataFormat = "cribl"
-	InputKinesisRecordDataFormatNdjson     InputKinesisRecordDataFormat = "ndjson"
+	// InputKinesisRecordDataFormatCribl Cribl
+	InputKinesisRecordDataFormatCribl InputKinesisRecordDataFormat = "cribl"
+	// InputKinesisRecordDataFormatNdjson Newline JSON
+	InputKinesisRecordDataFormatNdjson InputKinesisRecordDataFormat = "ndjson"
+	// InputKinesisRecordDataFormatCloudwatch Cloudwatch Logs
 	InputKinesisRecordDataFormatCloudwatch InputKinesisRecordDataFormat = "cloudwatch"
-	InputKinesisRecordDataFormatLine       InputKinesisRecordDataFormat = "line"
+	// InputKinesisRecordDataFormatLine Event per line
+	InputKinesisRecordDataFormatLine InputKinesisRecordDataFormat = "line"
 )
 
 func (e InputKinesisRecordDataFormat) ToPointer() *InputKinesisRecordDataFormat {
@@ -214,8 +224,10 @@ func (e InputKinesisRecordDataFormat) ToPointer() *InputKinesisRecordDataFormat 
 type ShardLoadBalancing string
 
 const (
+	// ShardLoadBalancingConsistentHashing Consistent Hashing
 	ShardLoadBalancingConsistentHashing ShardLoadBalancing = "ConsistentHashing"
-	ShardLoadBalancingRoundRobin        ShardLoadBalancing = "RoundRobin"
+	// ShardLoadBalancingRoundRobin Round Robin
+	ShardLoadBalancingRoundRobin ShardLoadBalancing = "RoundRobin"
 )
 
 func (e ShardLoadBalancing) ToPointer() *ShardLoadBalancing {
@@ -226,8 +238,11 @@ func (e ShardLoadBalancing) ToPointer() *ShardLoadBalancing {
 type InputKinesisAuthenticationMethod string
 
 const (
-	InputKinesisAuthenticationMethodAuto   InputKinesisAuthenticationMethod = "auto"
+	// InputKinesisAuthenticationMethodAuto Auto
+	InputKinesisAuthenticationMethodAuto InputKinesisAuthenticationMethod = "auto"
+	// InputKinesisAuthenticationMethodManual Manual
 	InputKinesisAuthenticationMethodManual InputKinesisAuthenticationMethod = "manual"
+	// InputKinesisAuthenticationMethodSecret Secret Key pair
 	InputKinesisAuthenticationMethodSecret InputKinesisAuthenticationMethod = "secret"
 )
 

@@ -3,11 +3,13 @@
 package components
 
 type DistributedSummaryGroups struct {
-	Count        float64 `json:"count"`
-	Destinations float64 `json:"destinations"`
-	Pipelines    float64 `json:"pipelines"`
-	Routes       float64 `json:"routes"`
-	Sources      float64 `json:"sources"`
+	Count         float64 `json:"count"`
+	Destinations  float64 `json:"destinations"`
+	Packs         float64 `json:"packs"`
+	Pipelines     float64 `json:"pipelines"`
+	QuickConnects float64 `json:"quickConnects"`
+	Routes        float64 `json:"routes"`
+	Sources       float64 `json:"sources"`
 }
 
 func (d *DistributedSummaryGroups) GetCount() float64 {
@@ -24,11 +26,25 @@ func (d *DistributedSummaryGroups) GetDestinations() float64 {
 	return d.Destinations
 }
 
+func (d *DistributedSummaryGroups) GetPacks() float64 {
+	if d == nil {
+		return 0.0
+	}
+	return d.Packs
+}
+
 func (d *DistributedSummaryGroups) GetPipelines() float64 {
 	if d == nil {
 		return 0.0
 	}
 	return d.Pipelines
+}
+
+func (d *DistributedSummaryGroups) GetQuickConnects() float64 {
+	if d == nil {
+		return 0.0
+	}
+	return d.QuickConnects
 }
 
 func (d *DistributedSummaryGroups) GetRoutes() float64 {

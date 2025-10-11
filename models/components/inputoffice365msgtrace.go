@@ -65,7 +65,9 @@ func (i *InputOffice365MsgTraceConnection) GetOutput() string {
 type InputOffice365MsgTraceMode string
 
 const (
-	InputOffice365MsgTraceModeSmart  InputOffice365MsgTraceMode = "smart"
+	// InputOffice365MsgTraceModeSmart Smart
+	InputOffice365MsgTraceModeSmart InputOffice365MsgTraceMode = "smart"
+	// InputOffice365MsgTraceModeAlways Always On
 	InputOffice365MsgTraceModeAlways InputOffice365MsgTraceMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputOffice365MsgTraceMode) ToPointer() *InputOffice365MsgTraceMode {
 type InputOffice365MsgTraceCompression string
 
 const (
+	// InputOffice365MsgTraceCompressionNone None
 	InputOffice365MsgTraceCompressionNone InputOffice365MsgTraceCompression = "none"
+	// InputOffice365MsgTraceCompressionGzip Gzip
 	InputOffice365MsgTraceCompressionGzip InputOffice365MsgTraceCompression = "gzip"
 )
 
@@ -249,9 +253,12 @@ func (i *InputOffice365MsgTraceMetadatum) GetValue() string {
 type InputOffice365MsgTraceRetryType string
 
 const (
-	InputOffice365MsgTraceRetryTypeNone    InputOffice365MsgTraceRetryType = "none"
+	// InputOffice365MsgTraceRetryTypeNone Disabled
+	InputOffice365MsgTraceRetryTypeNone InputOffice365MsgTraceRetryType = "none"
+	// InputOffice365MsgTraceRetryTypeBackoff Backoff
 	InputOffice365MsgTraceRetryTypeBackoff InputOffice365MsgTraceRetryType = "backoff"
-	InputOffice365MsgTraceRetryTypeStatic  InputOffice365MsgTraceRetryType = "static"
+	// InputOffice365MsgTraceRetryTypeStatic Static
+	InputOffice365MsgTraceRetryTypeStatic InputOffice365MsgTraceRetryType = "static"
 )
 
 func (e InputOffice365MsgTraceRetryType) ToPointer() *InputOffice365MsgTraceRetryType {
@@ -348,10 +355,14 @@ func (i *InputOffice365MsgTraceRetryRules) GetRetryConnectReset() *bool {
 type InputOffice365MsgTraceSubscriptionPlan string
 
 const (
+	// InputOffice365MsgTraceSubscriptionPlanEnterpriseGcc Office 365 Enterprise
 	InputOffice365MsgTraceSubscriptionPlanEnterpriseGcc InputOffice365MsgTraceSubscriptionPlan = "enterprise_gcc"
-	InputOffice365MsgTraceSubscriptionPlanGcc           InputOffice365MsgTraceSubscriptionPlan = "gcc"
-	InputOffice365MsgTraceSubscriptionPlanGccHigh       InputOffice365MsgTraceSubscriptionPlan = "gcc_high"
-	InputOffice365MsgTraceSubscriptionPlanDod           InputOffice365MsgTraceSubscriptionPlan = "dod"
+	// InputOffice365MsgTraceSubscriptionPlanGcc Office 365 GCC
+	InputOffice365MsgTraceSubscriptionPlanGcc InputOffice365MsgTraceSubscriptionPlan = "gcc"
+	// InputOffice365MsgTraceSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365MsgTraceSubscriptionPlanGccHigh InputOffice365MsgTraceSubscriptionPlan = "gcc_high"
+	// InputOffice365MsgTraceSubscriptionPlanDod Office 365 DoD
+	InputOffice365MsgTraceSubscriptionPlanDod InputOffice365MsgTraceSubscriptionPlan = "dod"
 )
 
 func (e InputOffice365MsgTraceSubscriptionPlan) ToPointer() *InputOffice365MsgTraceSubscriptionPlan {
