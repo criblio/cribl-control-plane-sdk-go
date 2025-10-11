@@ -65,7 +65,9 @@ func (i *InputDatadogAgentConnection) GetOutput() string {
 type InputDatadogAgentMode string
 
 const (
-	InputDatadogAgentModeSmart  InputDatadogAgentMode = "smart"
+	// InputDatadogAgentModeSmart Smart
+	InputDatadogAgentModeSmart InputDatadogAgentMode = "smart"
+	// InputDatadogAgentModeAlways Always On
 	InputDatadogAgentModeAlways InputDatadogAgentMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputDatadogAgentMode) ToPointer() *InputDatadogAgentMode {
 type InputDatadogAgentCompression string
 
 const (
+	// InputDatadogAgentCompressionNone None
 	InputDatadogAgentCompressionNone InputDatadogAgentCompression = "none"
+	// InputDatadogAgentCompressionGzip Gzip
 	InputDatadogAgentCompressionGzip InputDatadogAgentCompression = "gzip"
 )
 

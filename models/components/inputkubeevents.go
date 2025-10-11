@@ -65,7 +65,9 @@ func (i *InputKubeEventsConnection) GetOutput() string {
 type InputKubeEventsMode string
 
 const (
-	InputKubeEventsModeSmart  InputKubeEventsMode = "smart"
+	// InputKubeEventsModeSmart Smart
+	InputKubeEventsModeSmart InputKubeEventsMode = "smart"
+	// InputKubeEventsModeAlways Always On
 	InputKubeEventsModeAlways InputKubeEventsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKubeEventsMode) ToPointer() *InputKubeEventsMode {
 type InputKubeEventsCompression string
 
 const (
+	// InputKubeEventsCompressionNone None
 	InputKubeEventsCompressionNone InputKubeEventsCompression = "none"
+	// InputKubeEventsCompressionGzip Gzip
 	InputKubeEventsCompressionGzip InputKubeEventsCompression = "gzip"
 )
 

@@ -65,7 +65,9 @@ func (i *InputDatagenConnection) GetOutput() string {
 type InputDatagenMode string
 
 const (
-	InputDatagenModeSmart  InputDatagenMode = "smart"
+	// InputDatagenModeSmart Smart
+	InputDatagenModeSmart InputDatagenMode = "smart"
+	// InputDatagenModeAlways Always On
 	InputDatagenModeAlways InputDatagenMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputDatagenMode) ToPointer() *InputDatagenMode {
 type InputDatagenCompression string
 
 const (
+	// InputDatagenCompressionNone None
 	InputDatagenCompressionNone InputDatagenCompression = "none"
+	// InputDatagenCompressionGzip Gzip
 	InputDatagenCompressionGzip InputDatagenCompression = "gzip"
 )
 

@@ -65,7 +65,9 @@ func (i *InputFileConnection) GetOutput() string {
 type InputFilePqMode string
 
 const (
-	InputFilePqModeSmart  InputFilePqMode = "smart"
+	// InputFilePqModeSmart Smart
+	InputFilePqModeSmart InputFilePqMode = "smart"
+	// InputFilePqModeAlways Always On
 	InputFilePqModeAlways InputFilePqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputFilePqMode) ToPointer() *InputFilePqMode {
 type InputFileCompression string
 
 const (
+	// InputFileCompressionNone None
 	InputFileCompressionNone InputFileCompression = "none"
+	// InputFileCompressionGzip Gzip
 	InputFileCompressionGzip InputFileCompression = "gzip"
 )
 
@@ -188,7 +192,9 @@ func (i *InputFilePq) GetPqControls() *InputFilePqControls {
 type InputFileMode string
 
 const (
-	InputFileModeAuto   InputFileMode = "auto"
+	// InputFileModeAuto Auto
+	InputFileModeAuto InputFileMode = "auto"
+	// InputFileModeManual Manual
 	InputFileModeManual InputFileMode = "manual"
 )
 

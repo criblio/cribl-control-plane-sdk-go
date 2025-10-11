@@ -65,7 +65,9 @@ func (i *InputKubeMetricsConnection) GetOutput() string {
 type InputKubeMetricsMode string
 
 const (
-	InputKubeMetricsModeSmart  InputKubeMetricsMode = "smart"
+	// InputKubeMetricsModeSmart Smart
+	InputKubeMetricsModeSmart InputKubeMetricsMode = "smart"
+	// InputKubeMetricsModeAlways Always On
 	InputKubeMetricsModeAlways InputKubeMetricsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKubeMetricsMode) ToPointer() *InputKubeMetricsMode {
 type InputKubeMetricsCompression string
 
 const (
+	// InputKubeMetricsCompressionNone None
 	InputKubeMetricsCompressionNone InputKubeMetricsCompression = "none"
+	// InputKubeMetricsCompressionGzip Gzip
 	InputKubeMetricsCompressionGzip InputKubeMetricsCompression = "gzip"
 )
 

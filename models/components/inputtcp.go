@@ -65,7 +65,9 @@ func (i *InputTCPConnection) GetOutput() string {
 type InputTCPMode string
 
 const (
-	InputTCPModeSmart  InputTCPMode = "smart"
+	// InputTCPModeSmart Smart
+	InputTCPModeSmart InputTCPMode = "smart"
+	// InputTCPModeAlways Always On
 	InputTCPModeAlways InputTCPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputTCPMode) ToPointer() *InputTCPMode {
 type InputTCPCompression string
 
 const (
+	// InputTCPCompressionNone None
 	InputTCPCompressionNone InputTCPCompression = "none"
+	// InputTCPCompressionGzip Gzip
 	InputTCPCompressionGzip InputTCPCompression = "gzip"
 )
 

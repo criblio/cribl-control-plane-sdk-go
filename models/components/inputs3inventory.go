@@ -65,7 +65,9 @@ func (i *InputS3InventoryConnection) GetOutput() string {
 type InputS3InventoryMode string
 
 const (
-	InputS3InventoryModeSmart  InputS3InventoryMode = "smart"
+	// InputS3InventoryModeSmart Smart
+	InputS3InventoryModeSmart InputS3InventoryMode = "smart"
+	// InputS3InventoryModeAlways Always On
 	InputS3InventoryModeAlways InputS3InventoryMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputS3InventoryMode) ToPointer() *InputS3InventoryMode {
 type InputS3InventoryCompression string
 
 const (
+	// InputS3InventoryCompressionNone None
 	InputS3InventoryCompressionNone InputS3InventoryCompression = "none"
+	// InputS3InventoryCompressionGzip Gzip
 	InputS3InventoryCompressionGzip InputS3InventoryCompression = "gzip"
 )
 
@@ -188,8 +192,11 @@ func (i *InputS3InventoryPq) GetPqControls() *InputS3InventoryPqControls {
 type InputS3InventoryAuthenticationMethod string
 
 const (
-	InputS3InventoryAuthenticationMethodAuto   InputS3InventoryAuthenticationMethod = "auto"
+	// InputS3InventoryAuthenticationMethodAuto Auto
+	InputS3InventoryAuthenticationMethodAuto InputS3InventoryAuthenticationMethod = "auto"
+	// InputS3InventoryAuthenticationMethodManual Manual
 	InputS3InventoryAuthenticationMethodManual InputS3InventoryAuthenticationMethod = "manual"
+	// InputS3InventoryAuthenticationMethodSecret Secret Key pair
 	InputS3InventoryAuthenticationMethodSecret InputS3InventoryAuthenticationMethod = "secret"
 )
 

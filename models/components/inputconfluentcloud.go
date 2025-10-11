@@ -65,7 +65,9 @@ func (i *InputConfluentCloudConnection) GetOutput() string {
 type InputConfluentCloudMode string
 
 const (
-	InputConfluentCloudModeSmart  InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeSmart Smart
+	InputConfluentCloudModeSmart InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeAlways Always On
 	InputConfluentCloudModeAlways InputConfluentCloudMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputConfluentCloudMode) ToPointer() *InputConfluentCloudMode {
 type InputConfluentCloudCompression string
 
 const (
+	// InputConfluentCloudCompressionNone None
 	InputConfluentCloudCompressionNone InputConfluentCloudCompression = "none"
+	// InputConfluentCloudCompressionGzip Gzip
 	InputConfluentCloudCompressionGzip InputConfluentCloudCompression = "gzip"
 )
 
@@ -550,10 +554,14 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetTLS() *InputCo
 type InputConfluentCloudSASLMechanism string
 
 const (
-	InputConfluentCloudSASLMechanismPlain       InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismPlain PLAIN
+	InputConfluentCloudSASLMechanismPlain InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismScramSha256 SCRAM-SHA-256
 	InputConfluentCloudSASLMechanismScramSha256 InputConfluentCloudSASLMechanism = "scram-sha-256"
+	// InputConfluentCloudSASLMechanismScramSha512 SCRAM-SHA-512
 	InputConfluentCloudSASLMechanismScramSha512 InputConfluentCloudSASLMechanism = "scram-sha-512"
-	InputConfluentCloudSASLMechanismKerberos    InputConfluentCloudSASLMechanism = "kerberos"
+	// InputConfluentCloudSASLMechanismKerberos GSSAPI/Kerberos
+	InputConfluentCloudSASLMechanismKerberos InputConfluentCloudSASLMechanism = "kerberos"
 )
 
 func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMechanism {

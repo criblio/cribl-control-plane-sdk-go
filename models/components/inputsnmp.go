@@ -65,7 +65,9 @@ func (i *InputSnmpConnection) GetOutput() string {
 type InputSnmpMode string
 
 const (
-	InputSnmpModeSmart  InputSnmpMode = "smart"
+	// InputSnmpModeSmart Smart
+	InputSnmpModeSmart InputSnmpMode = "smart"
+	// InputSnmpModeAlways Always On
 	InputSnmpModeAlways InputSnmpMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSnmpMode) ToPointer() *InputSnmpMode {
 type InputSnmpCompression string
 
 const (
+	// InputSnmpCompressionNone None
 	InputSnmpCompressionNone InputSnmpCompression = "none"
+	// InputSnmpCompressionGzip Gzip
 	InputSnmpCompressionGzip InputSnmpCompression = "gzip"
 )
 
@@ -187,12 +191,19 @@ func (i *InputSnmpPq) GetPqControls() *InputSnmpPqControls {
 type AuthenticationProtocol string
 
 const (
-	AuthenticationProtocolNone   AuthenticationProtocol = "none"
-	AuthenticationProtocolMd5    AuthenticationProtocol = "md5"
-	AuthenticationProtocolSha    AuthenticationProtocol = "sha"
+	// AuthenticationProtocolNone None
+	AuthenticationProtocolNone AuthenticationProtocol = "none"
+	// AuthenticationProtocolMd5 MD5
+	AuthenticationProtocolMd5 AuthenticationProtocol = "md5"
+	// AuthenticationProtocolSha SHA1
+	AuthenticationProtocolSha AuthenticationProtocol = "sha"
+	// AuthenticationProtocolSha224 SHA224
 	AuthenticationProtocolSha224 AuthenticationProtocol = "sha224"
+	// AuthenticationProtocolSha256 SHA256
 	AuthenticationProtocolSha256 AuthenticationProtocol = "sha256"
+	// AuthenticationProtocolSha384 SHA384
 	AuthenticationProtocolSha384 AuthenticationProtocol = "sha384"
+	// AuthenticationProtocolSha512 SHA512
 	AuthenticationProtocolSha512 AuthenticationProtocol = "sha512"
 )
 

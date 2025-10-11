@@ -65,7 +65,9 @@ func (i *InputSplunkConnection) GetOutput() string {
 type InputSplunkMode string
 
 const (
-	InputSplunkModeSmart  InputSplunkMode = "smart"
+	// InputSplunkModeSmart Smart
+	InputSplunkModeSmart InputSplunkMode = "smart"
+	// InputSplunkModeAlways Always On
 	InputSplunkModeAlways InputSplunkMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSplunkMode) ToPointer() *InputSplunkMode {
 type InputSplunkPqCompression string
 
 const (
+	// InputSplunkPqCompressionNone None
 	InputSplunkPqCompressionNone InputSplunkPqCompression = "none"
+	// InputSplunkPqCompressionGzip Gzip
 	InputSplunkPqCompressionGzip InputSplunkPqCompression = "gzip"
 )
 
@@ -384,7 +388,9 @@ func (i *InputSplunkAuthToken) GetDescription() *string {
 type InputSplunkMaxS2SVersion string
 
 const (
+	// InputSplunkMaxS2SVersionV3 v3
 	InputSplunkMaxS2SVersionV3 InputSplunkMaxS2SVersion = "v3"
+	// InputSplunkMaxS2SVersionV4 v4
 	InputSplunkMaxS2SVersionV4 InputSplunkMaxS2SVersion = "v4"
 )
 
@@ -396,9 +402,12 @@ func (e InputSplunkMaxS2SVersion) ToPointer() *InputSplunkMaxS2SVersion {
 type InputSplunkCompression string
 
 const (
+	// InputSplunkCompressionDisabled Disabled
 	InputSplunkCompressionDisabled InputSplunkCompression = "disabled"
-	InputSplunkCompressionAuto     InputSplunkCompression = "auto"
-	InputSplunkCompressionAlways   InputSplunkCompression = "always"
+	// InputSplunkCompressionAuto Automatic
+	InputSplunkCompressionAuto InputSplunkCompression = "auto"
+	// InputSplunkCompressionAlways Always
+	InputSplunkCompressionAlways InputSplunkCompression = "always"
 )
 
 func (e InputSplunkCompression) ToPointer() *InputSplunkCompression {

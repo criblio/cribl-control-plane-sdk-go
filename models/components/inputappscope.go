@@ -65,7 +65,9 @@ func (i *InputAppscopeConnection) GetOutput() string {
 type InputAppscopeMode string
 
 const (
-	InputAppscopeModeSmart  InputAppscopeMode = "smart"
+	// InputAppscopeModeSmart Smart
+	InputAppscopeModeSmart InputAppscopeMode = "smart"
+	// InputAppscopeModeAlways Always On
 	InputAppscopeModeAlways InputAppscopeMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputAppscopeMode) ToPointer() *InputAppscopeMode {
 type InputAppscopeCompression string
 
 const (
+	// InputAppscopeCompressionNone None
 	InputAppscopeCompressionNone InputAppscopeCompression = "none"
+	// InputAppscopeCompressionGzip Gzip
 	InputAppscopeCompressionGzip InputAppscopeCompression = "gzip"
 )
 
