@@ -147,7 +147,7 @@ type OutputSqs struct {
 	// The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created). Defaults to Standard.
-	QueueType *OutputSqsQueueType `default:"standard" json:"queueType"`
+	QueueType OutputSqsQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
@@ -209,7 +209,7 @@ func (o OutputSqs) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
@@ -264,9 +264,9 @@ func (o *OutputSqs) GetQueueName() string {
 	return o.QueueName
 }
 
-func (o *OutputSqs) GetQueueType() *OutputSqsQueueType {
+func (o *OutputSqs) GetQueueType() OutputSqsQueueType {
 	if o == nil {
-		return nil
+		return OutputSqsQueueType("")
 	}
 	return o.QueueType
 }

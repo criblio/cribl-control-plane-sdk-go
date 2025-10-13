@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 3e4881b4057fbb6524188ccdc34a991b
-  docVersion: 4.14.1-alpha.1759348021885-ce0ae185
-  speakeasyVersion: 1.634.1
-  generationVersion: 2.721.0
-  releaseVersion: 0.1.0-alpha.3
-  configChecksum: 6addd74218b92c038130307a5dfdcbfe
+  docChecksum: 3164fed83164519108036c787db77406
+  docVersion: 4.14.1-alpha.1760352614113-66cf8b7e
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.2.0-alpha.1
+  configChecksum: 36c3db28ee08609ff89f2270e08f27e8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -22,11 +22,11 @@ features:
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.3
-    groups: 2.81.2
+    groups: 2.81.3
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
-    nullables: 0.2.0
-    oauth2ClientCredentials: 0.4.0
+    nullables: 0.2.1
+    oauth2ClientCredentials: 1.1.0
     openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
@@ -52,6 +52,7 @@ generatedFiles:
   - /models/components/configgrouplookups.go
   - /models/components/criblevent.go
   - /models/components/cribllakedataset.go
+  - /models/components/cribllakedatasetupdate.go
   - /models/components/currentbranchresult.go
   - /models/components/datasetmetadata.go
   - /models/components/datasetmetadataruninfo.go
@@ -155,6 +156,7 @@ generatedFiles:
   - /models/components/outputazuredataexplorer.go
   - /models/components/outputazureeventhub.go
   - /models/components/outputazurelogs.go
+  - /models/components/outputchronicle.go
   - /models/components/outputclickhouse.go
   - /models/components/outputcloudwatch.go
   - /models/components/outputconfluentcloud.go
@@ -352,8 +354,9 @@ generatedFiles:
   - docs/models/components/criblevent.md
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
+  - docs/models/components/cribllakedatasetupdate.md
+  - docs/models/components/cribllakedatasetupdateformat.md
   - docs/models/components/currentbranchresult.md
-  - docs/models/components/customlabel.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
   - docs/models/components/datasetmetadataruninfo.md
@@ -1282,6 +1285,19 @@ generatedFiles:
   - docs/models/components/outputazurelogsresponseretrysetting.md
   - docs/models/components/outputazurelogstimeoutretrysettings.md
   - docs/models/components/outputazurelogstype.md
+  - docs/models/components/outputchronicle.md
+  - docs/models/components/outputchronicleauthenticationmethod.md
+  - docs/models/components/outputchroniclebackpressurebehavior.md
+  - docs/models/components/outputchroniclecompression.md
+  - docs/models/components/outputchroniclecustomlabel.md
+  - docs/models/components/outputchronicleextrahttpheader.md
+  - docs/models/components/outputchroniclefailedrequestloggingmode.md
+  - docs/models/components/outputchroniclemode.md
+  - docs/models/components/outputchroniclepqcontrols.md
+  - docs/models/components/outputchroniclequeuefullbehavior.md
+  - docs/models/components/outputchronicleresponseretrysetting.md
+  - docs/models/components/outputchronicletimeoutretrysettings.md
+  - docs/models/components/outputchronicletype.md
   - docs/models/components/outputclickhouse.md
   - docs/models/components/outputclickhouseauthenticationtype.md
   - docs/models/components/outputclickhousebackpressurebehavior.md
@@ -1509,6 +1525,7 @@ generatedFiles:
   - docs/models/components/outputgooglechronicleauthenticationmethod.md
   - docs/models/components/outputgooglechroniclebackpressurebehavior.md
   - docs/models/components/outputgooglechroniclecompression.md
+  - docs/models/components/outputgooglechroniclecustomlabel.md
   - docs/models/components/outputgooglechronicleextrahttpheader.md
   - docs/models/components/outputgooglechroniclefailedrequestloggingmode.md
   - docs/models/components/outputgooglechroniclemode.md
@@ -2310,11 +2327,9 @@ generatedFiles:
   - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/operations/updateroutesbyidresponsebody.md
   - docs/sdks/acl/README.md
-  - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
-  - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -2332,7 +2347,6 @@ generatedFiles:
   - docs/sdks/summaries/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
-  - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - files.go
   - go.mod
@@ -3310,4 +3324,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n  *  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[outputGoogleCloudLogging].SanitizeLogNames` **Added**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Cribl.SocksEnabled` **Added**\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.LakeDatasets.Update()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputSqs].QueueType` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputSqs].QueueType` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"

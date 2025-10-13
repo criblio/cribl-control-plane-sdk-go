@@ -725,6 +725,13 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var inputSqs InputSqs = InputSqs{}
+	if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err == nil {
+		u.InputSqs = &inputSqs
+		u.Type = InputUnionTypeInputSqs
+		return nil
+	}
+
 	var inputJournalFiles InputJournalFiles = InputJournalFiles{}
 	if err := utils.UnmarshalJSON(data, &inputJournalFiles, "", true, nil); err == nil {
 		u.InputJournalFiles = &inputJournalFiles
@@ -876,13 +883,6 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &inputS3Inventory, "", true, nil); err == nil {
 		u.InputS3Inventory = &inputS3Inventory
 		u.Type = InputUnionTypeInputS3Inventory
-		return nil
-	}
-
-	var inputSqs InputSqs = InputSqs{}
-	if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err == nil {
-		u.InputSqs = &inputSqs
-		u.Type = InputUnionTypeInputSqs
 		return nil
 	}
 
