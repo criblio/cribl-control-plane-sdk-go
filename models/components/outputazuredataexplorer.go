@@ -34,7 +34,9 @@ func (e *OutputAzureDataExplorerType) UnmarshalJSON(data []byte) error {
 type IngestionMode string
 
 const (
-	IngestionModeBatching  IngestionMode = "batching"
+	// IngestionModeBatching Batching
+	IngestionModeBatching IngestionMode = "batching"
+	// IngestionModeStreaming Streaming
 	IngestionModeStreaming IngestionMode = "streaming"
 )
 
@@ -59,9 +61,12 @@ func (e MicrosoftEntraIDAuthenticationEndpoint) ToPointer() *MicrosoftEntraIDAut
 type OutputAzureDataExplorerAuthenticationMethod string
 
 const (
-	OutputAzureDataExplorerAuthenticationMethodClientSecret     OutputAzureDataExplorerAuthenticationMethod = "clientSecret"
+	// OutputAzureDataExplorerAuthenticationMethodClientSecret Client secret
+	OutputAzureDataExplorerAuthenticationMethodClientSecret OutputAzureDataExplorerAuthenticationMethod = "clientSecret"
+	// OutputAzureDataExplorerAuthenticationMethodClientTextSecret Client secret (text secret)
 	OutputAzureDataExplorerAuthenticationMethodClientTextSecret OutputAzureDataExplorerAuthenticationMethod = "clientTextSecret"
-	OutputAzureDataExplorerAuthenticationMethodCertificate      OutputAzureDataExplorerAuthenticationMethod = "certificate"
+	// OutputAzureDataExplorerAuthenticationMethodCertificate Certificate
+	OutputAzureDataExplorerAuthenticationMethodCertificate OutputAzureDataExplorerAuthenticationMethod = "certificate"
 )
 
 func (e OutputAzureDataExplorerAuthenticationMethod) ToPointer() *OutputAzureDataExplorerAuthenticationMethod {
@@ -95,8 +100,11 @@ func (o *OutputAzureDataExplorerCertificate) GetCertificateName() *string {
 type OutputAzureDataExplorerBackpressureBehavior string
 
 const (
+	// OutputAzureDataExplorerBackpressureBehaviorBlock Block
 	OutputAzureDataExplorerBackpressureBehaviorBlock OutputAzureDataExplorerBackpressureBehavior = "block"
-	OutputAzureDataExplorerBackpressureBehaviorDrop  OutputAzureDataExplorerBackpressureBehavior = "drop"
+	// OutputAzureDataExplorerBackpressureBehaviorDrop Drop
+	OutputAzureDataExplorerBackpressureBehaviorDrop OutputAzureDataExplorerBackpressureBehavior = "drop"
+	// OutputAzureDataExplorerBackpressureBehaviorQueue Persistent Queue
 	OutputAzureDataExplorerBackpressureBehaviorQueue OutputAzureDataExplorerBackpressureBehavior = "queue"
 )
 
@@ -108,8 +116,11 @@ func (e OutputAzureDataExplorerBackpressureBehavior) ToPointer() *OutputAzureDat
 type OutputAzureDataExplorerDataFormat string
 
 const (
-	OutputAzureDataExplorerDataFormatJSON    OutputAzureDataExplorerDataFormat = "json"
-	OutputAzureDataExplorerDataFormatRaw     OutputAzureDataExplorerDataFormat = "raw"
+	// OutputAzureDataExplorerDataFormatJSON JSON
+	OutputAzureDataExplorerDataFormatJSON OutputAzureDataExplorerDataFormat = "json"
+	// OutputAzureDataExplorerDataFormatRaw Raw
+	OutputAzureDataExplorerDataFormatRaw OutputAzureDataExplorerDataFormat = "raw"
+	// OutputAzureDataExplorerDataFormatParquet Parquet
 	OutputAzureDataExplorerDataFormatParquet OutputAzureDataExplorerDataFormat = "parquet"
 )
 
@@ -121,8 +132,10 @@ func (e OutputAzureDataExplorerDataFormat) ToPointer() *OutputAzureDataExplorerD
 type OutputAzureDataExplorerDiskSpaceProtection string
 
 const (
+	// OutputAzureDataExplorerDiskSpaceProtectionBlock Block
 	OutputAzureDataExplorerDiskSpaceProtectionBlock OutputAzureDataExplorerDiskSpaceProtection = "block"
-	OutputAzureDataExplorerDiskSpaceProtectionDrop  OutputAzureDataExplorerDiskSpaceProtection = "drop"
+	// OutputAzureDataExplorerDiskSpaceProtectionDrop Drop
+	OutputAzureDataExplorerDiskSpaceProtectionDrop OutputAzureDataExplorerDiskSpaceProtection = "drop"
 )
 
 func (e OutputAzureDataExplorerDiskSpaceProtection) ToPointer() *OutputAzureDataExplorerDiskSpaceProtection {
@@ -132,7 +145,9 @@ func (e OutputAzureDataExplorerDiskSpaceProtection) ToPointer() *OutputAzureData
 type PrefixOptional string
 
 const (
-	PrefixOptionalDropBy   PrefixOptional = "dropBy"
+	// PrefixOptionalDropBy drop-by
+	PrefixOptionalDropBy PrefixOptional = "dropBy"
+	// PrefixOptionalIngestBy ingest-by
 	PrefixOptionalIngestBy PrefixOptional = "ingestBy"
 )
 
@@ -196,8 +211,11 @@ func (i *IngestIfNotExist) GetValue() string {
 type ReportLevel string
 
 const (
-	ReportLevelFailuresOnly         ReportLevel = "failuresOnly"
-	ReportLevelDoNotReport          ReportLevel = "doNotReport"
+	// ReportLevelFailuresOnly FailuresOnly
+	ReportLevelFailuresOnly ReportLevel = "failuresOnly"
+	// ReportLevelDoNotReport DoNotReport
+	ReportLevelDoNotReport ReportLevel = "doNotReport"
+	// ReportLevelFailuresAndSuccesses FailuresAndSuccesses
 	ReportLevelFailuresAndSuccesses ReportLevel = "failuresAndSuccesses"
 )
 
@@ -209,8 +227,11 @@ func (e ReportLevel) ToPointer() *ReportLevel {
 type ReportMethod string
 
 const (
-	ReportMethodQueue         ReportMethod = "queue"
-	ReportMethodTable         ReportMethod = "table"
+	// ReportMethodQueue Queue
+	ReportMethodQueue ReportMethod = "queue"
+	// ReportMethodTable Table
+	ReportMethodTable ReportMethod = "table"
+	// ReportMethodQueueAndTable QueueAndTable
 	ReportMethodQueueAndTable ReportMethod = "queueAndTable"
 )
 
@@ -363,7 +384,9 @@ func (e OutputAzureDataExplorerCompressCompression) ToPointer() *OutputAzureData
 type OutputAzureDataExplorerPqCompressCompression string
 
 const (
+	// OutputAzureDataExplorerPqCompressCompressionNone None
 	OutputAzureDataExplorerPqCompressCompressionNone OutputAzureDataExplorerPqCompressCompression = "none"
+	// OutputAzureDataExplorerPqCompressCompressionGzip Gzip
 	OutputAzureDataExplorerPqCompressCompressionGzip OutputAzureDataExplorerPqCompressCompression = "gzip"
 )
 
@@ -375,8 +398,10 @@ func (e OutputAzureDataExplorerPqCompressCompression) ToPointer() *OutputAzureDa
 type OutputAzureDataExplorerQueueFullBehavior string
 
 const (
+	// OutputAzureDataExplorerQueueFullBehaviorBlock Block
 	OutputAzureDataExplorerQueueFullBehaviorBlock OutputAzureDataExplorerQueueFullBehavior = "block"
-	OutputAzureDataExplorerQueueFullBehaviorDrop  OutputAzureDataExplorerQueueFullBehavior = "drop"
+	// OutputAzureDataExplorerQueueFullBehaviorDrop Drop new data
+	OutputAzureDataExplorerQueueFullBehaviorDrop OutputAzureDataExplorerQueueFullBehavior = "drop"
 )
 
 func (e OutputAzureDataExplorerQueueFullBehavior) ToPointer() *OutputAzureDataExplorerQueueFullBehavior {
@@ -387,9 +412,12 @@ func (e OutputAzureDataExplorerQueueFullBehavior) ToPointer() *OutputAzureDataEx
 type OutputAzureDataExplorerMode string
 
 const (
-	OutputAzureDataExplorerModeError        OutputAzureDataExplorerMode = "error"
+	// OutputAzureDataExplorerModeError Error
+	OutputAzureDataExplorerModeError OutputAzureDataExplorerMode = "error"
+	// OutputAzureDataExplorerModeBackpressure Backpressure
 	OutputAzureDataExplorerModeBackpressure OutputAzureDataExplorerMode = "backpressure"
-	OutputAzureDataExplorerModeAlways       OutputAzureDataExplorerMode = "always"
+	// OutputAzureDataExplorerModeAlways Always On
+	OutputAzureDataExplorerModeAlways OutputAzureDataExplorerMode = "always"
 )
 
 func (e OutputAzureDataExplorerMode) ToPointer() *OutputAzureDataExplorerMode {

@@ -35,8 +35,11 @@ func (e *OutputDatabricksType) UnmarshalJSON(data []byte) error {
 type OutputDatabricksDataFormat string
 
 const (
-	OutputDatabricksDataFormatJSON    OutputDatabricksDataFormat = "json"
-	OutputDatabricksDataFormatRaw     OutputDatabricksDataFormat = "raw"
+	// OutputDatabricksDataFormatJSON JSON
+	OutputDatabricksDataFormatJSON OutputDatabricksDataFormat = "json"
+	// OutputDatabricksDataFormatRaw Raw
+	OutputDatabricksDataFormatRaw OutputDatabricksDataFormat = "raw"
+	// OutputDatabricksDataFormatParquet Parquet
 	OutputDatabricksDataFormatParquet OutputDatabricksDataFormat = "parquet"
 )
 
@@ -48,8 +51,10 @@ func (e OutputDatabricksDataFormat) ToPointer() *OutputDatabricksDataFormat {
 type OutputDatabricksBackpressureBehavior string
 
 const (
+	// OutputDatabricksBackpressureBehaviorBlock Block
 	OutputDatabricksBackpressureBehaviorBlock OutputDatabricksBackpressureBehavior = "block"
-	OutputDatabricksBackpressureBehaviorDrop  OutputDatabricksBackpressureBehavior = "drop"
+	// OutputDatabricksBackpressureBehaviorDrop Drop
+	OutputDatabricksBackpressureBehaviorDrop OutputDatabricksBackpressureBehavior = "drop"
 )
 
 func (e OutputDatabricksBackpressureBehavior) ToPointer() *OutputDatabricksBackpressureBehavior {
@@ -60,8 +65,10 @@ func (e OutputDatabricksBackpressureBehavior) ToPointer() *OutputDatabricksBackp
 type OutputDatabricksDiskSpaceProtection string
 
 const (
+	// OutputDatabricksDiskSpaceProtectionBlock Block
 	OutputDatabricksDiskSpaceProtectionBlock OutputDatabricksDiskSpaceProtection = "block"
-	OutputDatabricksDiskSpaceProtectionDrop  OutputDatabricksDiskSpaceProtection = "drop"
+	// OutputDatabricksDiskSpaceProtectionDrop Drop
+	OutputDatabricksDiskSpaceProtectionDrop OutputDatabricksDiskSpaceProtection = "drop"
 )
 
 func (e OutputDatabricksDiskSpaceProtection) ToPointer() *OutputDatabricksDiskSpaceProtection {
@@ -72,7 +79,9 @@ func (e OutputDatabricksDiskSpaceProtection) ToPointer() *OutputDatabricksDiskSp
 type OutputDatabricksAuthenticationMethod string
 
 const (
+	// OutputDatabricksAuthenticationMethodManual Manual
 	OutputDatabricksAuthenticationMethodManual OutputDatabricksAuthenticationMethod = "manual"
+	// OutputDatabricksAuthenticationMethodSecret Secret Key pair
 	OutputDatabricksAuthenticationMethodSecret OutputDatabricksAuthenticationMethod = "secret"
 )
 

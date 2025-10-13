@@ -35,8 +35,10 @@ func (e *OutputLokiType) UnmarshalJSON(data []byte) error {
 type OutputLokiMessageFormat string
 
 const (
+	// OutputLokiMessageFormatProtobuf Protobuf
 	OutputLokiMessageFormatProtobuf OutputLokiMessageFormat = "protobuf"
-	OutputLokiMessageFormatJSON     OutputLokiMessageFormat = "json"
+	// OutputLokiMessageFormatJSON JSON
+	OutputLokiMessageFormatJSON OutputLokiMessageFormat = "json"
 )
 
 func (e OutputLokiMessageFormat) ToPointer() *OutputLokiMessageFormat {
@@ -76,10 +78,15 @@ func (o *OutputLokiLabel) GetValue() string {
 type OutputLokiAuthenticationType string
 
 const (
-	OutputLokiAuthenticationTypeNone              OutputLokiAuthenticationType = "none"
-	OutputLokiAuthenticationTypeToken             OutputLokiAuthenticationType = "token"
-	OutputLokiAuthenticationTypeTextSecret        OutputLokiAuthenticationType = "textSecret"
-	OutputLokiAuthenticationTypeBasic             OutputLokiAuthenticationType = "basic"
+	// OutputLokiAuthenticationTypeNone None
+	OutputLokiAuthenticationTypeNone OutputLokiAuthenticationType = "none"
+	// OutputLokiAuthenticationTypeToken Auth token
+	OutputLokiAuthenticationTypeToken OutputLokiAuthenticationType = "token"
+	// OutputLokiAuthenticationTypeTextSecret Auth token (text secret)
+	OutputLokiAuthenticationTypeTextSecret OutputLokiAuthenticationType = "textSecret"
+	// OutputLokiAuthenticationTypeBasic Basic
+	OutputLokiAuthenticationTypeBasic OutputLokiAuthenticationType = "basic"
+	// OutputLokiAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	OutputLokiAuthenticationTypeCredentialsSecret OutputLokiAuthenticationType = "credentialsSecret"
 )
 
@@ -121,9 +128,12 @@ func (o *OutputLokiExtraHTTPHeader) GetValue() string {
 type OutputLokiFailedRequestLoggingMode string
 
 const (
-	OutputLokiFailedRequestLoggingModePayload           OutputLokiFailedRequestLoggingMode = "payload"
+	// OutputLokiFailedRequestLoggingModePayload Payload
+	OutputLokiFailedRequestLoggingModePayload OutputLokiFailedRequestLoggingMode = "payload"
+	// OutputLokiFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputLokiFailedRequestLoggingModePayloadAndHeaders OutputLokiFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputLokiFailedRequestLoggingModeNone              OutputLokiFailedRequestLoggingMode = "none"
+	// OutputLokiFailedRequestLoggingModeNone None
+	OutputLokiFailedRequestLoggingModeNone OutputLokiFailedRequestLoggingMode = "none"
 )
 
 func (e OutputLokiFailedRequestLoggingMode) ToPointer() *OutputLokiFailedRequestLoggingMode {
@@ -233,8 +243,11 @@ func (o *OutputLokiTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputLokiBackpressureBehavior string
 
 const (
+	// OutputLokiBackpressureBehaviorBlock Block
 	OutputLokiBackpressureBehaviorBlock OutputLokiBackpressureBehavior = "block"
-	OutputLokiBackpressureBehaviorDrop  OutputLokiBackpressureBehavior = "drop"
+	// OutputLokiBackpressureBehaviorDrop Drop
+	OutputLokiBackpressureBehaviorDrop OutputLokiBackpressureBehavior = "drop"
+	// OutputLokiBackpressureBehaviorQueue Persistent Queue
 	OutputLokiBackpressureBehaviorQueue OutputLokiBackpressureBehavior = "queue"
 )
 
@@ -246,7 +259,9 @@ func (e OutputLokiBackpressureBehavior) ToPointer() *OutputLokiBackpressureBehav
 type OutputLokiCompression string
 
 const (
+	// OutputLokiCompressionNone None
 	OutputLokiCompressionNone OutputLokiCompression = "none"
+	// OutputLokiCompressionGzip Gzip
 	OutputLokiCompressionGzip OutputLokiCompression = "gzip"
 )
 
@@ -258,8 +273,10 @@ func (e OutputLokiCompression) ToPointer() *OutputLokiCompression {
 type OutputLokiQueueFullBehavior string
 
 const (
+	// OutputLokiQueueFullBehaviorBlock Block
 	OutputLokiQueueFullBehaviorBlock OutputLokiQueueFullBehavior = "block"
-	OutputLokiQueueFullBehaviorDrop  OutputLokiQueueFullBehavior = "drop"
+	// OutputLokiQueueFullBehaviorDrop Drop new data
+	OutputLokiQueueFullBehaviorDrop OutputLokiQueueFullBehavior = "drop"
 )
 
 func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
@@ -270,9 +287,12 @@ func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
 type OutputLokiMode string
 
 const (
-	OutputLokiModeError        OutputLokiMode = "error"
+	// OutputLokiModeError Error
+	OutputLokiModeError OutputLokiMode = "error"
+	// OutputLokiModeBackpressure Backpressure
 	OutputLokiModeBackpressure OutputLokiMode = "backpressure"
-	OutputLokiModeAlways       OutputLokiMode = "always"
+	// OutputLokiModeAlways Always On
+	OutputLokiModeAlways OutputLokiMode = "always"
 )
 
 func (e OutputLokiMode) ToPointer() *OutputLokiMode {

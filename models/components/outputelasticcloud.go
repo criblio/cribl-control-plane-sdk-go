@@ -65,9 +65,12 @@ func (o *OutputElasticCloudExtraHTTPHeader) GetValue() string {
 type OutputElasticCloudFailedRequestLoggingMode string
 
 const (
-	OutputElasticCloudFailedRequestLoggingModePayload           OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayload Payload
+	OutputElasticCloudFailedRequestLoggingModePayload OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders OutputElasticCloudFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticCloudFailedRequestLoggingModeNone              OutputElasticCloudFailedRequestLoggingMode = "none"
+	// OutputElasticCloudFailedRequestLoggingModeNone None
+	OutputElasticCloudFailedRequestLoggingModeNone OutputElasticCloudFailedRequestLoggingMode = "none"
 )
 
 func (e OutputElasticCloudFailedRequestLoggingMode) ToPointer() *OutputElasticCloudFailedRequestLoggingMode {
@@ -252,8 +255,11 @@ func (o *OutputElasticCloudTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputElasticCloudBackpressureBehavior string
 
 const (
+	// OutputElasticCloudBackpressureBehaviorBlock Block
 	OutputElasticCloudBackpressureBehaviorBlock OutputElasticCloudBackpressureBehavior = "block"
-	OutputElasticCloudBackpressureBehaviorDrop  OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorDrop Drop
+	OutputElasticCloudBackpressureBehaviorDrop OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorQueue Persistent Queue
 	OutputElasticCloudBackpressureBehaviorQueue OutputElasticCloudBackpressureBehavior = "queue"
 )
 
@@ -265,7 +271,9 @@ func (e OutputElasticCloudBackpressureBehavior) ToPointer() *OutputElasticCloudB
 type OutputElasticCloudCompression string
 
 const (
+	// OutputElasticCloudCompressionNone None
 	OutputElasticCloudCompressionNone OutputElasticCloudCompression = "none"
+	// OutputElasticCloudCompressionGzip Gzip
 	OutputElasticCloudCompressionGzip OutputElasticCloudCompression = "gzip"
 )
 
@@ -277,8 +285,10 @@ func (e OutputElasticCloudCompression) ToPointer() *OutputElasticCloudCompressio
 type OutputElasticCloudQueueFullBehavior string
 
 const (
+	// OutputElasticCloudQueueFullBehaviorBlock Block
 	OutputElasticCloudQueueFullBehaviorBlock OutputElasticCloudQueueFullBehavior = "block"
-	OutputElasticCloudQueueFullBehaviorDrop  OutputElasticCloudQueueFullBehavior = "drop"
+	// OutputElasticCloudQueueFullBehaviorDrop Drop new data
+	OutputElasticCloudQueueFullBehaviorDrop OutputElasticCloudQueueFullBehavior = "drop"
 )
 
 func (e OutputElasticCloudQueueFullBehavior) ToPointer() *OutputElasticCloudQueueFullBehavior {
@@ -289,9 +299,12 @@ func (e OutputElasticCloudQueueFullBehavior) ToPointer() *OutputElasticCloudQueu
 type OutputElasticCloudMode string
 
 const (
-	OutputElasticCloudModeError        OutputElasticCloudMode = "error"
+	// OutputElasticCloudModeError Error
+	OutputElasticCloudModeError OutputElasticCloudMode = "error"
+	// OutputElasticCloudModeBackpressure Backpressure
 	OutputElasticCloudModeBackpressure OutputElasticCloudMode = "backpressure"
-	OutputElasticCloudModeAlways       OutputElasticCloudMode = "always"
+	// OutputElasticCloudModeAlways Always On
+	OutputElasticCloudModeAlways OutputElasticCloudMode = "always"
 )
 
 func (e OutputElasticCloudMode) ToPointer() *OutputElasticCloudMode {

@@ -65,9 +65,12 @@ func (o *OutputAzureLogsExtraHTTPHeader) GetValue() string {
 type OutputAzureLogsFailedRequestLoggingMode string
 
 const (
-	OutputAzureLogsFailedRequestLoggingModePayload           OutputAzureLogsFailedRequestLoggingMode = "payload"
+	// OutputAzureLogsFailedRequestLoggingModePayload Payload
+	OutputAzureLogsFailedRequestLoggingModePayload OutputAzureLogsFailedRequestLoggingMode = "payload"
+	// OutputAzureLogsFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputAzureLogsFailedRequestLoggingModePayloadAndHeaders OutputAzureLogsFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputAzureLogsFailedRequestLoggingModeNone              OutputAzureLogsFailedRequestLoggingMode = "none"
+	// OutputAzureLogsFailedRequestLoggingModeNone None
+	OutputAzureLogsFailedRequestLoggingModeNone OutputAzureLogsFailedRequestLoggingMode = "none"
 )
 
 func (e OutputAzureLogsFailedRequestLoggingMode) ToPointer() *OutputAzureLogsFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputAzureLogsTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputAzureLogsBackpressureBehavior string
 
 const (
+	// OutputAzureLogsBackpressureBehaviorBlock Block
 	OutputAzureLogsBackpressureBehaviorBlock OutputAzureLogsBackpressureBehavior = "block"
-	OutputAzureLogsBackpressureBehaviorDrop  OutputAzureLogsBackpressureBehavior = "drop"
+	// OutputAzureLogsBackpressureBehaviorDrop Drop
+	OutputAzureLogsBackpressureBehaviorDrop OutputAzureLogsBackpressureBehavior = "drop"
+	// OutputAzureLogsBackpressureBehaviorQueue Persistent Queue
 	OutputAzureLogsBackpressureBehaviorQueue OutputAzureLogsBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputAzureLogsAuthenticationMethod) ToPointer() *OutputAzureLogsAuthent
 type OutputAzureLogsCompression string
 
 const (
+	// OutputAzureLogsCompressionNone None
 	OutputAzureLogsCompressionNone OutputAzureLogsCompression = "none"
+	// OutputAzureLogsCompressionGzip Gzip
 	OutputAzureLogsCompressionGzip OutputAzureLogsCompression = "gzip"
 )
 
@@ -214,8 +222,10 @@ func (e OutputAzureLogsCompression) ToPointer() *OutputAzureLogsCompression {
 type OutputAzureLogsQueueFullBehavior string
 
 const (
+	// OutputAzureLogsQueueFullBehaviorBlock Block
 	OutputAzureLogsQueueFullBehaviorBlock OutputAzureLogsQueueFullBehavior = "block"
-	OutputAzureLogsQueueFullBehaviorDrop  OutputAzureLogsQueueFullBehavior = "drop"
+	// OutputAzureLogsQueueFullBehaviorDrop Drop new data
+	OutputAzureLogsQueueFullBehaviorDrop OutputAzureLogsQueueFullBehavior = "drop"
 )
 
 func (e OutputAzureLogsQueueFullBehavior) ToPointer() *OutputAzureLogsQueueFullBehavior {
@@ -226,9 +236,12 @@ func (e OutputAzureLogsQueueFullBehavior) ToPointer() *OutputAzureLogsQueueFullB
 type OutputAzureLogsMode string
 
 const (
-	OutputAzureLogsModeError        OutputAzureLogsMode = "error"
+	// OutputAzureLogsModeError Error
+	OutputAzureLogsModeError OutputAzureLogsMode = "error"
+	// OutputAzureLogsModeBackpressure Backpressure
 	OutputAzureLogsModeBackpressure OutputAzureLogsMode = "backpressure"
-	OutputAzureLogsModeAlways       OutputAzureLogsMode = "always"
+	// OutputAzureLogsModeAlways Always On
+	OutputAzureLogsModeAlways OutputAzureLogsMode = "always"
 )
 
 func (e OutputAzureLogsMode) ToPointer() *OutputAzureLogsMode {

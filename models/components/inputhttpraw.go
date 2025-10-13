@@ -65,7 +65,9 @@ func (i *InputHTTPRawConnection) GetOutput() string {
 type InputHTTPRawMode string
 
 const (
-	InputHTTPRawModeSmart  InputHTTPRawMode = "smart"
+	// InputHTTPRawModeSmart Smart
+	InputHTTPRawModeSmart InputHTTPRawMode = "smart"
+	// InputHTTPRawModeAlways Always On
 	InputHTTPRawModeAlways InputHTTPRawMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputHTTPRawMode) ToPointer() *InputHTTPRawMode {
 type InputHTTPRawCompression string
 
 const (
+	// InputHTTPRawCompressionNone None
 	InputHTTPRawCompressionNone InputHTTPRawCompression = "none"
+	// InputHTTPRawCompressionGzip Gzip
 	InputHTTPRawCompressionGzip InputHTTPRawCompression = "gzip"
 )
 

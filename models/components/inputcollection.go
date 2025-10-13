@@ -65,7 +65,9 @@ func (i *InputCollectionConnection) GetOutput() string {
 type InputCollectionMode string
 
 const (
-	InputCollectionModeSmart  InputCollectionMode = "smart"
+	// InputCollectionModeSmart Smart
+	InputCollectionModeSmart InputCollectionMode = "smart"
+	// InputCollectionModeAlways Always On
 	InputCollectionModeAlways InputCollectionMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCollectionMode) ToPointer() *InputCollectionMode {
 type InputCollectionCompression string
 
 const (
+	// InputCollectionCompressionNone None
 	InputCollectionCompressionNone InputCollectionCompression = "none"
+	// InputCollectionCompressionGzip Gzip
 	InputCollectionCompressionGzip InputCollectionCompression = "gzip"
 )
 

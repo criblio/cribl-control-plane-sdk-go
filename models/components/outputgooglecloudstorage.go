@@ -46,8 +46,11 @@ func (e OutputGoogleCloudStorageSignatureVersion) ToPointer() *OutputGoogleCloud
 type OutputGoogleCloudStorageAuthenticationMethod string
 
 const (
-	OutputGoogleCloudStorageAuthenticationMethodAuto   OutputGoogleCloudStorageAuthenticationMethod = "auto"
+	// OutputGoogleCloudStorageAuthenticationMethodAuto auto
+	OutputGoogleCloudStorageAuthenticationMethodAuto OutputGoogleCloudStorageAuthenticationMethod = "auto"
+	// OutputGoogleCloudStorageAuthenticationMethodManual manual
 	OutputGoogleCloudStorageAuthenticationMethodManual OutputGoogleCloudStorageAuthenticationMethod = "manual"
+	// OutputGoogleCloudStorageAuthenticationMethodSecret Secret Key pair
 	OutputGoogleCloudStorageAuthenticationMethodSecret OutputGoogleCloudStorageAuthenticationMethod = "secret"
 )
 
@@ -59,12 +62,18 @@ func (e OutputGoogleCloudStorageAuthenticationMethod) ToPointer() *OutputGoogleC
 type OutputGoogleCloudStorageObjectACL string
 
 const (
-	OutputGoogleCloudStorageObjectACLPrivate                OutputGoogleCloudStorageObjectACL = "private"
-	OutputGoogleCloudStorageObjectACLBucketOwnerRead        OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
+	// OutputGoogleCloudStorageObjectACLPrivate private
+	OutputGoogleCloudStorageObjectACLPrivate OutputGoogleCloudStorageObjectACL = "private"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerRead bucket-owner-read
+	OutputGoogleCloudStorageObjectACLBucketOwnerRead OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerFullControl bucket-owner-full-control
 	OutputGoogleCloudStorageObjectACLBucketOwnerFullControl OutputGoogleCloudStorageObjectACL = "bucket-owner-full-control"
-	OutputGoogleCloudStorageObjectACLProjectPrivate         OutputGoogleCloudStorageObjectACL = "project-private"
-	OutputGoogleCloudStorageObjectACLAuthenticatedRead      OutputGoogleCloudStorageObjectACL = "authenticated-read"
-	OutputGoogleCloudStorageObjectACLPublicRead             OutputGoogleCloudStorageObjectACL = "public-read"
+	// OutputGoogleCloudStorageObjectACLProjectPrivate project-private
+	OutputGoogleCloudStorageObjectACLProjectPrivate OutputGoogleCloudStorageObjectACL = "project-private"
+	// OutputGoogleCloudStorageObjectACLAuthenticatedRead authenticated-read
+	OutputGoogleCloudStorageObjectACLAuthenticatedRead OutputGoogleCloudStorageObjectACL = "authenticated-read"
+	// OutputGoogleCloudStorageObjectACLPublicRead public-read
+	OutputGoogleCloudStorageObjectACLPublicRead OutputGoogleCloudStorageObjectACL = "public-read"
 )
 
 func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorageObjectACL {
@@ -75,10 +84,14 @@ func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorage
 type OutputGoogleCloudStorageStorageClass string
 
 const (
+	// OutputGoogleCloudStorageStorageClassStandard Standard Storage
 	OutputGoogleCloudStorageStorageClassStandard OutputGoogleCloudStorageStorageClass = "STANDARD"
+	// OutputGoogleCloudStorageStorageClassNearline Nearline Storage
 	OutputGoogleCloudStorageStorageClassNearline OutputGoogleCloudStorageStorageClass = "NEARLINE"
+	// OutputGoogleCloudStorageStorageClassColdline Coldline Storage
 	OutputGoogleCloudStorageStorageClassColdline OutputGoogleCloudStorageStorageClass = "COLDLINE"
-	OutputGoogleCloudStorageStorageClassArchive  OutputGoogleCloudStorageStorageClass = "ARCHIVE"
+	// OutputGoogleCloudStorageStorageClassArchive Archive Storage
+	OutputGoogleCloudStorageStorageClassArchive OutputGoogleCloudStorageStorageClass = "ARCHIVE"
 )
 
 func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStorageStorageClass {
@@ -89,8 +102,11 @@ func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStor
 type OutputGoogleCloudStorageDataFormat string
 
 const (
-	OutputGoogleCloudStorageDataFormatJSON    OutputGoogleCloudStorageDataFormat = "json"
-	OutputGoogleCloudStorageDataFormatRaw     OutputGoogleCloudStorageDataFormat = "raw"
+	// OutputGoogleCloudStorageDataFormatJSON JSON
+	OutputGoogleCloudStorageDataFormatJSON OutputGoogleCloudStorageDataFormat = "json"
+	// OutputGoogleCloudStorageDataFormatRaw Raw
+	OutputGoogleCloudStorageDataFormatRaw OutputGoogleCloudStorageDataFormat = "raw"
+	// OutputGoogleCloudStorageDataFormatParquet Parquet
 	OutputGoogleCloudStorageDataFormatParquet OutputGoogleCloudStorageDataFormat = "parquet"
 )
 
@@ -102,8 +118,10 @@ func (e OutputGoogleCloudStorageDataFormat) ToPointer() *OutputGoogleCloudStorag
 type OutputGoogleCloudStorageBackpressureBehavior string
 
 const (
+	// OutputGoogleCloudStorageBackpressureBehaviorBlock Block
 	OutputGoogleCloudStorageBackpressureBehaviorBlock OutputGoogleCloudStorageBackpressureBehavior = "block"
-	OutputGoogleCloudStorageBackpressureBehaviorDrop  OutputGoogleCloudStorageBackpressureBehavior = "drop"
+	// OutputGoogleCloudStorageBackpressureBehaviorDrop Drop
+	OutputGoogleCloudStorageBackpressureBehaviorDrop OutputGoogleCloudStorageBackpressureBehavior = "drop"
 )
 
 func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleCloudStorageBackpressureBehavior {
@@ -114,8 +132,10 @@ func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleC
 type OutputGoogleCloudStorageDiskSpaceProtection string
 
 const (
+	// OutputGoogleCloudStorageDiskSpaceProtectionBlock Block
 	OutputGoogleCloudStorageDiskSpaceProtectionBlock OutputGoogleCloudStorageDiskSpaceProtection = "block"
-	OutputGoogleCloudStorageDiskSpaceProtectionDrop  OutputGoogleCloudStorageDiskSpaceProtection = "drop"
+	// OutputGoogleCloudStorageDiskSpaceProtectionDrop Drop
+	OutputGoogleCloudStorageDiskSpaceProtectionDrop OutputGoogleCloudStorageDiskSpaceProtection = "drop"
 )
 
 func (e OutputGoogleCloudStorageDiskSpaceProtection) ToPointer() *OutputGoogleCloudStorageDiskSpaceProtection {
@@ -138,8 +158,11 @@ func (e OutputGoogleCloudStorageCompression) ToPointer() *OutputGoogleCloudStora
 type OutputGoogleCloudStorageCompressionLevel string
 
 const (
-	OutputGoogleCloudStorageCompressionLevelBestSpeed       OutputGoogleCloudStorageCompressionLevel = "best_speed"
-	OutputGoogleCloudStorageCompressionLevelNormal          OutputGoogleCloudStorageCompressionLevel = "normal"
+	// OutputGoogleCloudStorageCompressionLevelBestSpeed Best Speed
+	OutputGoogleCloudStorageCompressionLevelBestSpeed OutputGoogleCloudStorageCompressionLevel = "best_speed"
+	// OutputGoogleCloudStorageCompressionLevelNormal Normal
+	OutputGoogleCloudStorageCompressionLevelNormal OutputGoogleCloudStorageCompressionLevel = "normal"
+	// OutputGoogleCloudStorageCompressionLevelBestCompression Best Compression
 	OutputGoogleCloudStorageCompressionLevelBestCompression OutputGoogleCloudStorageCompressionLevel = "best_compression"
 )
 
@@ -151,8 +174,11 @@ func (e OutputGoogleCloudStorageCompressionLevel) ToPointer() *OutputGoogleCloud
 type OutputGoogleCloudStorageParquetVersion string
 
 const (
+	// OutputGoogleCloudStorageParquetVersionParquet10 1.0
 	OutputGoogleCloudStorageParquetVersionParquet10 OutputGoogleCloudStorageParquetVersion = "PARQUET_1_0"
+	// OutputGoogleCloudStorageParquetVersionParquet24 2.4
 	OutputGoogleCloudStorageParquetVersionParquet24 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_4"
+	// OutputGoogleCloudStorageParquetVersionParquet26 2.6
 	OutputGoogleCloudStorageParquetVersionParquet26 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_6"
 )
 
@@ -164,7 +190,9 @@ func (e OutputGoogleCloudStorageParquetVersion) ToPointer() *OutputGoogleCloudSt
 type OutputGoogleCloudStorageDataPageVersion string
 
 const (
+	// OutputGoogleCloudStorageDataPageVersionDataPageV1 V1
 	OutputGoogleCloudStorageDataPageVersionDataPageV1 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V1"
+	// OutputGoogleCloudStorageDataPageVersionDataPageV2 V2
 	OutputGoogleCloudStorageDataPageVersionDataPageV2 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V2"
 )
 

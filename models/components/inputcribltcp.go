@@ -65,7 +65,9 @@ func (i *InputCriblTCPConnection) GetOutput() string {
 type InputCriblTCPMode string
 
 const (
-	InputCriblTCPModeSmart  InputCriblTCPMode = "smart"
+	// InputCriblTCPModeSmart Smart
+	InputCriblTCPModeSmart InputCriblTCPMode = "smart"
+	// InputCriblTCPModeAlways Always On
 	InputCriblTCPModeAlways InputCriblTCPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblTCPMode) ToPointer() *InputCriblTCPMode {
 type InputCriblTCPCompression string
 
 const (
+	// InputCriblTCPCompressionNone None
 	InputCriblTCPCompressionNone InputCriblTCPCompression = "none"
+	// InputCriblTCPCompressionGzip Gzip
 	InputCriblTCPCompressionGzip InputCriblTCPCompression = "gzip"
 )
 

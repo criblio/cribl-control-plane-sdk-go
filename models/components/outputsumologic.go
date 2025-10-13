@@ -35,8 +35,10 @@ func (e *OutputSumoLogicType) UnmarshalJSON(data []byte) error {
 type OutputSumoLogicDataFormat string
 
 const (
+	// OutputSumoLogicDataFormatJSON JSON
 	OutputSumoLogicDataFormatJSON OutputSumoLogicDataFormat = "json"
-	OutputSumoLogicDataFormatRaw  OutputSumoLogicDataFormat = "raw"
+	// OutputSumoLogicDataFormatRaw Raw
+	OutputSumoLogicDataFormatRaw OutputSumoLogicDataFormat = "raw"
 )
 
 func (e OutputSumoLogicDataFormat) ToPointer() *OutputSumoLogicDataFormat {
@@ -77,9 +79,12 @@ func (o *OutputSumoLogicExtraHTTPHeader) GetValue() string {
 type OutputSumoLogicFailedRequestLoggingMode string
 
 const (
-	OutputSumoLogicFailedRequestLoggingModePayload           OutputSumoLogicFailedRequestLoggingMode = "payload"
+	// OutputSumoLogicFailedRequestLoggingModePayload Payload
+	OutputSumoLogicFailedRequestLoggingModePayload OutputSumoLogicFailedRequestLoggingMode = "payload"
+	// OutputSumoLogicFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSumoLogicFailedRequestLoggingModePayloadAndHeaders OutputSumoLogicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSumoLogicFailedRequestLoggingModeNone              OutputSumoLogicFailedRequestLoggingMode = "none"
+	// OutputSumoLogicFailedRequestLoggingModeNone None
+	OutputSumoLogicFailedRequestLoggingModeNone OutputSumoLogicFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSumoLogicFailedRequestLoggingMode) ToPointer() *OutputSumoLogicFailedRequestLoggingMode {
@@ -189,8 +194,11 @@ func (o *OutputSumoLogicTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSumoLogicBackpressureBehavior string
 
 const (
+	// OutputSumoLogicBackpressureBehaviorBlock Block
 	OutputSumoLogicBackpressureBehaviorBlock OutputSumoLogicBackpressureBehavior = "block"
-	OutputSumoLogicBackpressureBehaviorDrop  OutputSumoLogicBackpressureBehavior = "drop"
+	// OutputSumoLogicBackpressureBehaviorDrop Drop
+	OutputSumoLogicBackpressureBehaviorDrop OutputSumoLogicBackpressureBehavior = "drop"
+	// OutputSumoLogicBackpressureBehaviorQueue Persistent Queue
 	OutputSumoLogicBackpressureBehaviorQueue OutputSumoLogicBackpressureBehavior = "queue"
 )
 
@@ -202,7 +210,9 @@ func (e OutputSumoLogicBackpressureBehavior) ToPointer() *OutputSumoLogicBackpre
 type OutputSumoLogicCompression string
 
 const (
+	// OutputSumoLogicCompressionNone None
 	OutputSumoLogicCompressionNone OutputSumoLogicCompression = "none"
+	// OutputSumoLogicCompressionGzip Gzip
 	OutputSumoLogicCompressionGzip OutputSumoLogicCompression = "gzip"
 )
 
@@ -214,8 +224,10 @@ func (e OutputSumoLogicCompression) ToPointer() *OutputSumoLogicCompression {
 type OutputSumoLogicQueueFullBehavior string
 
 const (
+	// OutputSumoLogicQueueFullBehaviorBlock Block
 	OutputSumoLogicQueueFullBehaviorBlock OutputSumoLogicQueueFullBehavior = "block"
-	OutputSumoLogicQueueFullBehaviorDrop  OutputSumoLogicQueueFullBehavior = "drop"
+	// OutputSumoLogicQueueFullBehaviorDrop Drop new data
+	OutputSumoLogicQueueFullBehaviorDrop OutputSumoLogicQueueFullBehavior = "drop"
 )
 
 func (e OutputSumoLogicQueueFullBehavior) ToPointer() *OutputSumoLogicQueueFullBehavior {
@@ -226,9 +238,12 @@ func (e OutputSumoLogicQueueFullBehavior) ToPointer() *OutputSumoLogicQueueFullB
 type OutputSumoLogicMode string
 
 const (
-	OutputSumoLogicModeError        OutputSumoLogicMode = "error"
+	// OutputSumoLogicModeError Error
+	OutputSumoLogicModeError OutputSumoLogicMode = "error"
+	// OutputSumoLogicModeBackpressure Backpressure
 	OutputSumoLogicModeBackpressure OutputSumoLogicMode = "backpressure"
-	OutputSumoLogicModeAlways       OutputSumoLogicMode = "always"
+	// OutputSumoLogicModeAlways Always On
+	OutputSumoLogicModeAlways OutputSumoLogicMode = "always"
 )
 
 func (e OutputSumoLogicMode) ToPointer() *OutputSumoLogicMode {

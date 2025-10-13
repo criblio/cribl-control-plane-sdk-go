@@ -77,9 +77,12 @@ func (o *OutputSignalfxExtraHTTPHeader) GetValue() string {
 type OutputSignalfxFailedRequestLoggingMode string
 
 const (
-	OutputSignalfxFailedRequestLoggingModePayload           OutputSignalfxFailedRequestLoggingMode = "payload"
+	// OutputSignalfxFailedRequestLoggingModePayload Payload
+	OutputSignalfxFailedRequestLoggingModePayload OutputSignalfxFailedRequestLoggingMode = "payload"
+	// OutputSignalfxFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSignalfxFailedRequestLoggingModePayloadAndHeaders OutputSignalfxFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSignalfxFailedRequestLoggingModeNone              OutputSignalfxFailedRequestLoggingMode = "none"
+	// OutputSignalfxFailedRequestLoggingModeNone None
+	OutputSignalfxFailedRequestLoggingModeNone OutputSignalfxFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSignalfxFailedRequestLoggingMode) ToPointer() *OutputSignalfxFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputSignalfxTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSignalfxBackpressureBehavior string
 
 const (
+	// OutputSignalfxBackpressureBehaviorBlock Block
 	OutputSignalfxBackpressureBehaviorBlock OutputSignalfxBackpressureBehavior = "block"
-	OutputSignalfxBackpressureBehaviorDrop  OutputSignalfxBackpressureBehavior = "drop"
+	// OutputSignalfxBackpressureBehaviorDrop Drop
+	OutputSignalfxBackpressureBehaviorDrop OutputSignalfxBackpressureBehavior = "drop"
+	// OutputSignalfxBackpressureBehaviorQueue Persistent Queue
 	OutputSignalfxBackpressureBehaviorQueue OutputSignalfxBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputSignalfxBackpressureBehavior) ToPointer() *OutputSignalfxBackpress
 type OutputSignalfxCompression string
 
 const (
+	// OutputSignalfxCompressionNone None
 	OutputSignalfxCompressionNone OutputSignalfxCompression = "none"
+	// OutputSignalfxCompressionGzip Gzip
 	OutputSignalfxCompressionGzip OutputSignalfxCompression = "gzip"
 )
 
@@ -214,8 +222,10 @@ func (e OutputSignalfxCompression) ToPointer() *OutputSignalfxCompression {
 type OutputSignalfxQueueFullBehavior string
 
 const (
+	// OutputSignalfxQueueFullBehaviorBlock Block
 	OutputSignalfxQueueFullBehaviorBlock OutputSignalfxQueueFullBehavior = "block"
-	OutputSignalfxQueueFullBehaviorDrop  OutputSignalfxQueueFullBehavior = "drop"
+	// OutputSignalfxQueueFullBehaviorDrop Drop new data
+	OutputSignalfxQueueFullBehaviorDrop OutputSignalfxQueueFullBehavior = "drop"
 )
 
 func (e OutputSignalfxQueueFullBehavior) ToPointer() *OutputSignalfxQueueFullBehavior {
@@ -226,9 +236,12 @@ func (e OutputSignalfxQueueFullBehavior) ToPointer() *OutputSignalfxQueueFullBeh
 type OutputSignalfxMode string
 
 const (
-	OutputSignalfxModeError        OutputSignalfxMode = "error"
+	// OutputSignalfxModeError Error
+	OutputSignalfxModeError OutputSignalfxMode = "error"
+	// OutputSignalfxModeBackpressure Backpressure
 	OutputSignalfxModeBackpressure OutputSignalfxMode = "backpressure"
-	OutputSignalfxModeAlways       OutputSignalfxMode = "always"
+	// OutputSignalfxModeAlways Always On
+	OutputSignalfxModeAlways OutputSignalfxMode = "always"
 )
 
 func (e OutputSignalfxMode) ToPointer() *OutputSignalfxMode {

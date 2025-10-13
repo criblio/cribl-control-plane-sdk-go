@@ -35,8 +35,11 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 type OutputSnsAuthenticationMethod string
 
 const (
-	OutputSnsAuthenticationMethodAuto   OutputSnsAuthenticationMethod = "auto"
+	// OutputSnsAuthenticationMethodAuto Auto
+	OutputSnsAuthenticationMethodAuto OutputSnsAuthenticationMethod = "auto"
+	// OutputSnsAuthenticationMethodManual Manual
 	OutputSnsAuthenticationMethodManual OutputSnsAuthenticationMethod = "manual"
+	// OutputSnsAuthenticationMethodSecret Secret Key pair
 	OutputSnsAuthenticationMethodSecret OutputSnsAuthenticationMethod = "secret"
 )
 
@@ -60,8 +63,11 @@ func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
 type OutputSnsBackpressureBehavior string
 
 const (
+	// OutputSnsBackpressureBehaviorBlock Block
 	OutputSnsBackpressureBehaviorBlock OutputSnsBackpressureBehavior = "block"
-	OutputSnsBackpressureBehaviorDrop  OutputSnsBackpressureBehavior = "drop"
+	// OutputSnsBackpressureBehaviorDrop Drop
+	OutputSnsBackpressureBehaviorDrop OutputSnsBackpressureBehavior = "drop"
+	// OutputSnsBackpressureBehaviorQueue Persistent Queue
 	OutputSnsBackpressureBehaviorQueue OutputSnsBackpressureBehavior = "queue"
 )
 
@@ -73,7 +79,9 @@ func (e OutputSnsBackpressureBehavior) ToPointer() *OutputSnsBackpressureBehavio
 type OutputSnsCompression string
 
 const (
+	// OutputSnsCompressionNone None
 	OutputSnsCompressionNone OutputSnsCompression = "none"
+	// OutputSnsCompressionGzip Gzip
 	OutputSnsCompressionGzip OutputSnsCompression = "gzip"
 )
 
@@ -85,8 +93,10 @@ func (e OutputSnsCompression) ToPointer() *OutputSnsCompression {
 type OutputSnsQueueFullBehavior string
 
 const (
+	// OutputSnsQueueFullBehaviorBlock Block
 	OutputSnsQueueFullBehaviorBlock OutputSnsQueueFullBehavior = "block"
-	OutputSnsQueueFullBehaviorDrop  OutputSnsQueueFullBehavior = "drop"
+	// OutputSnsQueueFullBehaviorDrop Drop new data
+	OutputSnsQueueFullBehaviorDrop OutputSnsQueueFullBehavior = "drop"
 )
 
 func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
@@ -97,9 +107,12 @@ func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
 type OutputSnsMode string
 
 const (
-	OutputSnsModeError        OutputSnsMode = "error"
+	// OutputSnsModeError Error
+	OutputSnsModeError OutputSnsMode = "error"
+	// OutputSnsModeBackpressure Backpressure
 	OutputSnsModeBackpressure OutputSnsMode = "backpressure"
-	OutputSnsModeAlways       OutputSnsMode = "always"
+	// OutputSnsModeAlways Always On
+	OutputSnsModeAlways OutputSnsMode = "always"
 )
 
 func (e OutputSnsMode) ToPointer() *OutputSnsMode {

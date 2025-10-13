@@ -65,7 +65,9 @@ func (i *InputCriblLakeHTTPConnection) GetOutput() string {
 type InputCriblLakeHTTPMode string
 
 const (
-	InputCriblLakeHTTPModeSmart  InputCriblLakeHTTPMode = "smart"
+	// InputCriblLakeHTTPModeSmart Smart
+	InputCriblLakeHTTPModeSmart InputCriblLakeHTTPMode = "smart"
+	// InputCriblLakeHTTPModeAlways Always On
 	InputCriblLakeHTTPModeAlways InputCriblLakeHTTPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblLakeHTTPMode) ToPointer() *InputCriblLakeHTTPMode {
 type InputCriblLakeHTTPCompression string
 
 const (
+	// InputCriblLakeHTTPCompressionNone None
 	InputCriblLakeHTTPCompressionNone InputCriblLakeHTTPCompression = "none"
+	// InputCriblLakeHTTPCompressionGzip Gzip
 	InputCriblLakeHTTPCompressionGzip InputCriblLakeHTTPCompression = "gzip"
 )
 

@@ -163,7 +163,9 @@ func (o *OutputCriblHTTPTLSSettingsClientSide) GetMaxVersion() *OutputCriblHTTPM
 type OutputCriblHTTPCompression string
 
 const (
+	// OutputCriblHTTPCompressionNone None
 	OutputCriblHTTPCompressionNone OutputCriblHTTPCompression = "none"
+	// OutputCriblHTTPCompressionGzip Gzip
 	OutputCriblHTTPCompressionGzip OutputCriblHTTPCompression = "gzip"
 )
 
@@ -205,9 +207,12 @@ func (o *OutputCriblHTTPExtraHTTPHeader) GetValue() string {
 type OutputCriblHTTPFailedRequestLoggingMode string
 
 const (
-	OutputCriblHTTPFailedRequestLoggingModePayload           OutputCriblHTTPFailedRequestLoggingMode = "payload"
+	// OutputCriblHTTPFailedRequestLoggingModePayload Payload
+	OutputCriblHTTPFailedRequestLoggingModePayload OutputCriblHTTPFailedRequestLoggingMode = "payload"
+	// OutputCriblHTTPFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputCriblHTTPFailedRequestLoggingModePayloadAndHeaders OutputCriblHTTPFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputCriblHTTPFailedRequestLoggingModeNone              OutputCriblHTTPFailedRequestLoggingMode = "none"
+	// OutputCriblHTTPFailedRequestLoggingModeNone None
+	OutputCriblHTTPFailedRequestLoggingModeNone OutputCriblHTTPFailedRequestLoggingMode = "none"
 )
 
 func (e OutputCriblHTTPFailedRequestLoggingMode) ToPointer() *OutputCriblHTTPFailedRequestLoggingMode {
@@ -317,8 +322,11 @@ func (o *OutputCriblHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputCriblHTTPBackpressureBehavior string
 
 const (
+	// OutputCriblHTTPBackpressureBehaviorBlock Block
 	OutputCriblHTTPBackpressureBehaviorBlock OutputCriblHTTPBackpressureBehavior = "block"
-	OutputCriblHTTPBackpressureBehaviorDrop  OutputCriblHTTPBackpressureBehavior = "drop"
+	// OutputCriblHTTPBackpressureBehaviorDrop Drop
+	OutputCriblHTTPBackpressureBehaviorDrop OutputCriblHTTPBackpressureBehavior = "drop"
+	// OutputCriblHTTPBackpressureBehaviorQueue Persistent Queue
 	OutputCriblHTTPBackpressureBehaviorQueue OutputCriblHTTPBackpressureBehavior = "queue"
 )
 
@@ -362,7 +370,9 @@ func (o *OutputCriblHTTPURL) GetWeight() *float64 {
 type OutputCriblHTTPPqCompressCompression string
 
 const (
+	// OutputCriblHTTPPqCompressCompressionNone None
 	OutputCriblHTTPPqCompressCompressionNone OutputCriblHTTPPqCompressCompression = "none"
+	// OutputCriblHTTPPqCompressCompressionGzip Gzip
 	OutputCriblHTTPPqCompressCompressionGzip OutputCriblHTTPPqCompressCompression = "gzip"
 )
 
@@ -374,8 +384,10 @@ func (e OutputCriblHTTPPqCompressCompression) ToPointer() *OutputCriblHTTPPqComp
 type OutputCriblHTTPQueueFullBehavior string
 
 const (
+	// OutputCriblHTTPQueueFullBehaviorBlock Block
 	OutputCriblHTTPQueueFullBehaviorBlock OutputCriblHTTPQueueFullBehavior = "block"
-	OutputCriblHTTPQueueFullBehaviorDrop  OutputCriblHTTPQueueFullBehavior = "drop"
+	// OutputCriblHTTPQueueFullBehaviorDrop Drop new data
+	OutputCriblHTTPQueueFullBehaviorDrop OutputCriblHTTPQueueFullBehavior = "drop"
 )
 
 func (e OutputCriblHTTPQueueFullBehavior) ToPointer() *OutputCriblHTTPQueueFullBehavior {
@@ -386,9 +398,12 @@ func (e OutputCriblHTTPQueueFullBehavior) ToPointer() *OutputCriblHTTPQueueFullB
 type OutputCriblHTTPMode string
 
 const (
-	OutputCriblHTTPModeError        OutputCriblHTTPMode = "error"
+	// OutputCriblHTTPModeError Error
+	OutputCriblHTTPModeError OutputCriblHTTPMode = "error"
+	// OutputCriblHTTPModeBackpressure Backpressure
 	OutputCriblHTTPModeBackpressure OutputCriblHTTPMode = "backpressure"
-	OutputCriblHTTPModeAlways       OutputCriblHTTPMode = "always"
+	// OutputCriblHTTPModeAlways Always On
+	OutputCriblHTTPModeAlways OutputCriblHTTPMode = "always"
 )
 
 func (e OutputCriblHTTPMode) ToPointer() *OutputCriblHTTPMode {

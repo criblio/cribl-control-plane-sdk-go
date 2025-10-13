@@ -65,7 +65,9 @@ func (i *InputCriblConnection) GetOutput() string {
 type InputCriblMode string
 
 const (
-	InputCriblModeSmart  InputCriblMode = "smart"
+	// InputCriblModeSmart Smart
+	InputCriblModeSmart InputCriblMode = "smart"
+	// InputCriblModeAlways Always On
 	InputCriblModeAlways InputCriblMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblMode) ToPointer() *InputCriblMode {
 type InputCriblCompression string
 
 const (
+	// InputCriblCompressionNone None
 	InputCriblCompressionNone InputCriblCompression = "none"
+	// InputCriblCompressionGzip Gzip
 	InputCriblCompressionGzip InputCriblCompression = "gzip"
 )
 

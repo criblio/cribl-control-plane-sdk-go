@@ -163,8 +163,11 @@ func (o *OutputConfluentCloudTLSSettingsClientSide) GetMaxVersion() *OutputConfl
 type OutputConfluentCloudAcknowledgments int64
 
 const (
-	OutputConfluentCloudAcknowledgmentsOne    OutputConfluentCloudAcknowledgments = 1
-	OutputConfluentCloudAcknowledgmentsZero   OutputConfluentCloudAcknowledgments = 0
+	// OutputConfluentCloudAcknowledgmentsOne Leader
+	OutputConfluentCloudAcknowledgmentsOne OutputConfluentCloudAcknowledgments = 1
+	// OutputConfluentCloudAcknowledgmentsZero None
+	OutputConfluentCloudAcknowledgmentsZero OutputConfluentCloudAcknowledgments = 0
+	// OutputConfluentCloudAcknowledgmentsMinus1 All
 	OutputConfluentCloudAcknowledgmentsMinus1 OutputConfluentCloudAcknowledgments = -1
 )
 
@@ -176,8 +179,11 @@ func (e OutputConfluentCloudAcknowledgments) ToPointer() *OutputConfluentCloudAc
 type OutputConfluentCloudRecordDataFormat string
 
 const (
-	OutputConfluentCloudRecordDataFormatJSON     OutputConfluentCloudRecordDataFormat = "json"
-	OutputConfluentCloudRecordDataFormatRaw      OutputConfluentCloudRecordDataFormat = "raw"
+	// OutputConfluentCloudRecordDataFormatJSON JSON
+	OutputConfluentCloudRecordDataFormatJSON OutputConfluentCloudRecordDataFormat = "json"
+	// OutputConfluentCloudRecordDataFormatRaw Field _raw
+	OutputConfluentCloudRecordDataFormatRaw OutputConfluentCloudRecordDataFormat = "raw"
+	// OutputConfluentCloudRecordDataFormatProtobuf Protobuf
 	OutputConfluentCloudRecordDataFormatProtobuf OutputConfluentCloudRecordDataFormat = "protobuf"
 )
 
@@ -189,10 +195,14 @@ func (e OutputConfluentCloudRecordDataFormat) ToPointer() *OutputConfluentCloudR
 type OutputConfluentCloudCompression string
 
 const (
-	OutputConfluentCloudCompressionNone   OutputConfluentCloudCompression = "none"
-	OutputConfluentCloudCompressionGzip   OutputConfluentCloudCompression = "gzip"
+	// OutputConfluentCloudCompressionNone None
+	OutputConfluentCloudCompressionNone OutputConfluentCloudCompression = "none"
+	// OutputConfluentCloudCompressionGzip Gzip
+	OutputConfluentCloudCompressionGzip OutputConfluentCloudCompression = "gzip"
+	// OutputConfluentCloudCompressionSnappy Snappy
 	OutputConfluentCloudCompressionSnappy OutputConfluentCloudCompression = "snappy"
-	OutputConfluentCloudCompressionLz4    OutputConfluentCloudCompression = "lz4"
+	// OutputConfluentCloudCompressionLz4 LZ4
+	OutputConfluentCloudCompressionLz4 OutputConfluentCloudCompression = "lz4"
 )
 
 func (e OutputConfluentCloudCompression) ToPointer() *OutputConfluentCloudCompression {
@@ -455,10 +465,14 @@ func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetDefaultValueS
 type OutputConfluentCloudSASLMechanism string
 
 const (
-	OutputConfluentCloudSASLMechanismPlain       OutputConfluentCloudSASLMechanism = "plain"
+	// OutputConfluentCloudSASLMechanismPlain PLAIN
+	OutputConfluentCloudSASLMechanismPlain OutputConfluentCloudSASLMechanism = "plain"
+	// OutputConfluentCloudSASLMechanismScramSha256 SCRAM-SHA-256
 	OutputConfluentCloudSASLMechanismScramSha256 OutputConfluentCloudSASLMechanism = "scram-sha-256"
+	// OutputConfluentCloudSASLMechanismScramSha512 SCRAM-SHA-512
 	OutputConfluentCloudSASLMechanismScramSha512 OutputConfluentCloudSASLMechanism = "scram-sha-512"
-	OutputConfluentCloudSASLMechanismKerberos    OutputConfluentCloudSASLMechanism = "kerberos"
+	// OutputConfluentCloudSASLMechanismKerberos GSSAPI/Kerberos
+	OutputConfluentCloudSASLMechanismKerberos OutputConfluentCloudSASLMechanism = "kerberos"
 )
 
 func (e OutputConfluentCloudSASLMechanism) ToPointer() *OutputConfluentCloudSASLMechanism {
@@ -509,8 +523,11 @@ func (o *OutputConfluentCloudAuthentication) GetOauthEnabled() *bool {
 type OutputConfluentCloudBackpressureBehavior string
 
 const (
+	// OutputConfluentCloudBackpressureBehaviorBlock Block
 	OutputConfluentCloudBackpressureBehaviorBlock OutputConfluentCloudBackpressureBehavior = "block"
-	OutputConfluentCloudBackpressureBehaviorDrop  OutputConfluentCloudBackpressureBehavior = "drop"
+	// OutputConfluentCloudBackpressureBehaviorDrop Drop
+	OutputConfluentCloudBackpressureBehaviorDrop OutputConfluentCloudBackpressureBehavior = "drop"
+	// OutputConfluentCloudBackpressureBehaviorQueue Persistent Queue
 	OutputConfluentCloudBackpressureBehaviorQueue OutputConfluentCloudBackpressureBehavior = "queue"
 )
 
@@ -522,7 +539,9 @@ func (e OutputConfluentCloudBackpressureBehavior) ToPointer() *OutputConfluentCl
 type OutputConfluentCloudPqCompressCompression string
 
 const (
+	// OutputConfluentCloudPqCompressCompressionNone None
 	OutputConfluentCloudPqCompressCompressionNone OutputConfluentCloudPqCompressCompression = "none"
+	// OutputConfluentCloudPqCompressCompressionGzip Gzip
 	OutputConfluentCloudPqCompressCompressionGzip OutputConfluentCloudPqCompressCompression = "gzip"
 )
 
@@ -534,8 +553,10 @@ func (e OutputConfluentCloudPqCompressCompression) ToPointer() *OutputConfluentC
 type OutputConfluentCloudQueueFullBehavior string
 
 const (
+	// OutputConfluentCloudQueueFullBehaviorBlock Block
 	OutputConfluentCloudQueueFullBehaviorBlock OutputConfluentCloudQueueFullBehavior = "block"
-	OutputConfluentCloudQueueFullBehaviorDrop  OutputConfluentCloudQueueFullBehavior = "drop"
+	// OutputConfluentCloudQueueFullBehaviorDrop Drop new data
+	OutputConfluentCloudQueueFullBehaviorDrop OutputConfluentCloudQueueFullBehavior = "drop"
 )
 
 func (e OutputConfluentCloudQueueFullBehavior) ToPointer() *OutputConfluentCloudQueueFullBehavior {
@@ -546,9 +567,12 @@ func (e OutputConfluentCloudQueueFullBehavior) ToPointer() *OutputConfluentCloud
 type OutputConfluentCloudMode string
 
 const (
-	OutputConfluentCloudModeError        OutputConfluentCloudMode = "error"
+	// OutputConfluentCloudModeError Error
+	OutputConfluentCloudModeError OutputConfluentCloudMode = "error"
+	// OutputConfluentCloudModeBackpressure Backpressure
 	OutputConfluentCloudModeBackpressure OutputConfluentCloudMode = "backpressure"
-	OutputConfluentCloudModeAlways       OutputConfluentCloudMode = "always"
+	// OutputConfluentCloudModeAlways Always On
+	OutputConfluentCloudModeAlways OutputConfluentCloudMode = "always"
 )
 
 func (e OutputConfluentCloudMode) ToPointer() *OutputConfluentCloudMode {

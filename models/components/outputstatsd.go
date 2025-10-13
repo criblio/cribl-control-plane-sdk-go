@@ -35,7 +35,9 @@ func (e *OutputStatsdType) UnmarshalJSON(data []byte) error {
 type OutputStatsdDestinationProtocol string
 
 const (
+	// OutputStatsdDestinationProtocolUDP UDP
 	OutputStatsdDestinationProtocolUDP OutputStatsdDestinationProtocol = "udp"
+	// OutputStatsdDestinationProtocolTCP TCP
 	OutputStatsdDestinationProtocolTCP OutputStatsdDestinationProtocol = "tcp"
 )
 
@@ -47,8 +49,11 @@ func (e OutputStatsdDestinationProtocol) ToPointer() *OutputStatsdDestinationPro
 type OutputStatsdBackpressureBehavior string
 
 const (
+	// OutputStatsdBackpressureBehaviorBlock Block
 	OutputStatsdBackpressureBehaviorBlock OutputStatsdBackpressureBehavior = "block"
-	OutputStatsdBackpressureBehaviorDrop  OutputStatsdBackpressureBehavior = "drop"
+	// OutputStatsdBackpressureBehaviorDrop Drop
+	OutputStatsdBackpressureBehaviorDrop OutputStatsdBackpressureBehavior = "drop"
+	// OutputStatsdBackpressureBehaviorQueue Persistent Queue
 	OutputStatsdBackpressureBehaviorQueue OutputStatsdBackpressureBehavior = "queue"
 )
 
@@ -60,7 +65,9 @@ func (e OutputStatsdBackpressureBehavior) ToPointer() *OutputStatsdBackpressureB
 type OutputStatsdCompression string
 
 const (
+	// OutputStatsdCompressionNone None
 	OutputStatsdCompressionNone OutputStatsdCompression = "none"
+	// OutputStatsdCompressionGzip Gzip
 	OutputStatsdCompressionGzip OutputStatsdCompression = "gzip"
 )
 
@@ -72,8 +79,10 @@ func (e OutputStatsdCompression) ToPointer() *OutputStatsdCompression {
 type OutputStatsdQueueFullBehavior string
 
 const (
+	// OutputStatsdQueueFullBehaviorBlock Block
 	OutputStatsdQueueFullBehaviorBlock OutputStatsdQueueFullBehavior = "block"
-	OutputStatsdQueueFullBehaviorDrop  OutputStatsdQueueFullBehavior = "drop"
+	// OutputStatsdQueueFullBehaviorDrop Drop new data
+	OutputStatsdQueueFullBehaviorDrop OutputStatsdQueueFullBehavior = "drop"
 )
 
 func (e OutputStatsdQueueFullBehavior) ToPointer() *OutputStatsdQueueFullBehavior {
@@ -84,9 +93,12 @@ func (e OutputStatsdQueueFullBehavior) ToPointer() *OutputStatsdQueueFullBehavio
 type OutputStatsdMode string
 
 const (
-	OutputStatsdModeError        OutputStatsdMode = "error"
+	// OutputStatsdModeError Error
+	OutputStatsdModeError OutputStatsdMode = "error"
+	// OutputStatsdModeBackpressure Backpressure
 	OutputStatsdModeBackpressure OutputStatsdMode = "backpressure"
-	OutputStatsdModeAlways       OutputStatsdMode = "always"
+	// OutputStatsdModeAlways Always On
+	OutputStatsdModeAlways OutputStatsdMode = "always"
 )
 
 func (e OutputStatsdMode) ToPointer() *OutputStatsdMode {

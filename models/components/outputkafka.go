@@ -35,8 +35,11 @@ func (e *OutputKafkaType) UnmarshalJSON(data []byte) error {
 type OutputKafkaAcknowledgments int64
 
 const (
-	OutputKafkaAcknowledgmentsOne    OutputKafkaAcknowledgments = 1
-	OutputKafkaAcknowledgmentsZero   OutputKafkaAcknowledgments = 0
+	// OutputKafkaAcknowledgmentsOne Leader
+	OutputKafkaAcknowledgmentsOne OutputKafkaAcknowledgments = 1
+	// OutputKafkaAcknowledgmentsZero None
+	OutputKafkaAcknowledgmentsZero OutputKafkaAcknowledgments = 0
+	// OutputKafkaAcknowledgmentsMinus1 All
 	OutputKafkaAcknowledgmentsMinus1 OutputKafkaAcknowledgments = -1
 )
 
@@ -48,8 +51,11 @@ func (e OutputKafkaAcknowledgments) ToPointer() *OutputKafkaAcknowledgments {
 type OutputKafkaRecordDataFormat string
 
 const (
-	OutputKafkaRecordDataFormatJSON     OutputKafkaRecordDataFormat = "json"
-	OutputKafkaRecordDataFormatRaw      OutputKafkaRecordDataFormat = "raw"
+	// OutputKafkaRecordDataFormatJSON JSON
+	OutputKafkaRecordDataFormatJSON OutputKafkaRecordDataFormat = "json"
+	// OutputKafkaRecordDataFormatRaw Field _raw
+	OutputKafkaRecordDataFormatRaw OutputKafkaRecordDataFormat = "raw"
+	// OutputKafkaRecordDataFormatProtobuf Protobuf
 	OutputKafkaRecordDataFormatProtobuf OutputKafkaRecordDataFormat = "protobuf"
 )
 
@@ -61,10 +67,14 @@ func (e OutputKafkaRecordDataFormat) ToPointer() *OutputKafkaRecordDataFormat {
 type OutputKafkaCompression string
 
 const (
-	OutputKafkaCompressionNone   OutputKafkaCompression = "none"
-	OutputKafkaCompressionGzip   OutputKafkaCompression = "gzip"
+	// OutputKafkaCompressionNone None
+	OutputKafkaCompressionNone OutputKafkaCompression = "none"
+	// OutputKafkaCompressionGzip Gzip
+	OutputKafkaCompressionGzip OutputKafkaCompression = "gzip"
+	// OutputKafkaCompressionSnappy Snappy
 	OutputKafkaCompressionSnappy OutputKafkaCompression = "snappy"
-	OutputKafkaCompressionLz4    OutputKafkaCompression = "lz4"
+	// OutputKafkaCompressionLz4 LZ4
+	OutputKafkaCompressionLz4 OutputKafkaCompression = "lz4"
 )
 
 func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {
@@ -327,10 +337,14 @@ func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID()
 type OutputKafkaSASLMechanism string
 
 const (
-	OutputKafkaSASLMechanismPlain       OutputKafkaSASLMechanism = "plain"
+	// OutputKafkaSASLMechanismPlain PLAIN
+	OutputKafkaSASLMechanismPlain OutputKafkaSASLMechanism = "plain"
+	// OutputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	OutputKafkaSASLMechanismScramSha256 OutputKafkaSASLMechanism = "scram-sha-256"
+	// OutputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	OutputKafkaSASLMechanismScramSha512 OutputKafkaSASLMechanism = "scram-sha-512"
-	OutputKafkaSASLMechanismKerberos    OutputKafkaSASLMechanism = "kerberos"
+	// OutputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	OutputKafkaSASLMechanismKerberos OutputKafkaSASLMechanism = "kerberos"
 )
 
 func (e OutputKafkaSASLMechanism) ToPointer() *OutputKafkaSASLMechanism {
@@ -509,8 +523,11 @@ func (o *OutputKafkaTLSSettingsClientSide) GetMaxVersion() *OutputKafkaMaximumTL
 type OutputKafkaBackpressureBehavior string
 
 const (
+	// OutputKafkaBackpressureBehaviorBlock Block
 	OutputKafkaBackpressureBehaviorBlock OutputKafkaBackpressureBehavior = "block"
-	OutputKafkaBackpressureBehaviorDrop  OutputKafkaBackpressureBehavior = "drop"
+	// OutputKafkaBackpressureBehaviorDrop Drop
+	OutputKafkaBackpressureBehaviorDrop OutputKafkaBackpressureBehavior = "drop"
+	// OutputKafkaBackpressureBehaviorQueue Persistent Queue
 	OutputKafkaBackpressureBehaviorQueue OutputKafkaBackpressureBehavior = "queue"
 )
 
@@ -522,7 +539,9 @@ func (e OutputKafkaBackpressureBehavior) ToPointer() *OutputKafkaBackpressureBeh
 type OutputKafkaPqCompressCompression string
 
 const (
+	// OutputKafkaPqCompressCompressionNone None
 	OutputKafkaPqCompressCompressionNone OutputKafkaPqCompressCompression = "none"
+	// OutputKafkaPqCompressCompressionGzip Gzip
 	OutputKafkaPqCompressCompressionGzip OutputKafkaPqCompressCompression = "gzip"
 )
 
@@ -534,8 +553,10 @@ func (e OutputKafkaPqCompressCompression) ToPointer() *OutputKafkaPqCompressComp
 type OutputKafkaQueueFullBehavior string
 
 const (
+	// OutputKafkaQueueFullBehaviorBlock Block
 	OutputKafkaQueueFullBehaviorBlock OutputKafkaQueueFullBehavior = "block"
-	OutputKafkaQueueFullBehaviorDrop  OutputKafkaQueueFullBehavior = "drop"
+	// OutputKafkaQueueFullBehaviorDrop Drop new data
+	OutputKafkaQueueFullBehaviorDrop OutputKafkaQueueFullBehavior = "drop"
 )
 
 func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior {
@@ -546,9 +567,12 @@ func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior 
 type OutputKafkaMode string
 
 const (
-	OutputKafkaModeError        OutputKafkaMode = "error"
+	// OutputKafkaModeError Error
+	OutputKafkaModeError OutputKafkaMode = "error"
+	// OutputKafkaModeBackpressure Backpressure
 	OutputKafkaModeBackpressure OutputKafkaMode = "backpressure"
-	OutputKafkaModeAlways       OutputKafkaMode = "always"
+	// OutputKafkaModeAlways Always On
+	OutputKafkaModeAlways OutputKafkaMode = "always"
 )
 
 func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {

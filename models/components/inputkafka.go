@@ -65,7 +65,9 @@ func (i *InputKafkaConnection) GetOutput() string {
 type InputKafkaMode string
 
 const (
-	InputKafkaModeSmart  InputKafkaMode = "smart"
+	// InputKafkaModeSmart Smart
+	InputKafkaModeSmart InputKafkaMode = "smart"
+	// InputKafkaModeAlways Always On
 	InputKafkaModeAlways InputKafkaMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKafkaMode) ToPointer() *InputKafkaMode {
 type InputKafkaCompression string
 
 const (
+	// InputKafkaCompressionNone None
 	InputKafkaCompressionNone InputKafkaCompression = "none"
+	// InputKafkaCompressionGzip Gzip
 	InputKafkaCompressionGzip InputKafkaCompression = "gzip"
 )
 
@@ -422,10 +426,14 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetTLS() *InputKafkaKafkaS
 type InputKafkaSASLMechanism string
 
 const (
-	InputKafkaSASLMechanismPlain       InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismPlain PLAIN
+	InputKafkaSASLMechanismPlain InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	InputKafkaSASLMechanismScramSha256 InputKafkaSASLMechanism = "scram-sha-256"
+	// InputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	InputKafkaSASLMechanismScramSha512 InputKafkaSASLMechanism = "scram-sha-512"
-	InputKafkaSASLMechanismKerberos    InputKafkaSASLMechanism = "kerberos"
+	// InputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	InputKafkaSASLMechanismKerberos InputKafkaSASLMechanism = "kerberos"
 )
 
 func (e InputKafkaSASLMechanism) ToPointer() *InputKafkaSASLMechanism {

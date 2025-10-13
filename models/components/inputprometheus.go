@@ -65,7 +65,9 @@ func (i *InputPrometheusConnection) GetOutput() string {
 type InputPrometheusMode string
 
 const (
-	InputPrometheusModeSmart  InputPrometheusMode = "smart"
+	// InputPrometheusModeSmart Smart
+	InputPrometheusModeSmart InputPrometheusMode = "smart"
+	// InputPrometheusModeAlways Always On
 	InputPrometheusModeAlways InputPrometheusMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputPrometheusMode) ToPointer() *InputPrometheusMode {
 type InputPrometheusCompression string
 
 const (
+	// InputPrometheusCompressionNone None
 	InputPrometheusCompressionNone InputPrometheusCompression = "none"
+	// InputPrometheusCompressionGzip Gzip
 	InputPrometheusCompressionGzip InputPrometheusCompression = "gzip"
 )
 
@@ -188,9 +192,12 @@ func (i *InputPrometheusPq) GetPqControls() *InputPrometheusPqControls {
 type InputPrometheusDiscoveryType string
 
 const (
+	// InputPrometheusDiscoveryTypeStatic Static
 	InputPrometheusDiscoveryTypeStatic InputPrometheusDiscoveryType = "static"
-	InputPrometheusDiscoveryTypeDNS    InputPrometheusDiscoveryType = "dns"
-	InputPrometheusDiscoveryTypeEc2    InputPrometheusDiscoveryType = "ec2"
+	// InputPrometheusDiscoveryTypeDNS DNS
+	InputPrometheusDiscoveryTypeDNS InputPrometheusDiscoveryType = "dns"
+	// InputPrometheusDiscoveryTypeEc2 AWS EC2
+	InputPrometheusDiscoveryTypeEc2 InputPrometheusDiscoveryType = "ec2"
 )
 
 func (e InputPrometheusDiscoveryType) ToPointer() *InputPrometheusDiscoveryType {
@@ -315,8 +322,11 @@ func (i *InputPrometheusSearchFilter) GetValues() []string {
 type InputPrometheusAwsAuthenticationMethodAuthenticationMethod string
 
 const (
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto   InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
+	InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
 	InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
 	InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
 )
 
