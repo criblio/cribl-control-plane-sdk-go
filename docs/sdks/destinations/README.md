@@ -25,9 +25,9 @@ package main
 
 import(
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -81,9 +81,9 @@ package main
 
 import(
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
+    res, err := s.Destinations.Create(ctx, components.CreateOutputElasticCloud(
         components.OutputElasticCloud{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.OutputElasticCloudTypeElasticCloud,
@@ -181,9 +181,9 @@ package main
 
 import(
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -238,9 +238,9 @@ package main
 
 import(
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -254,7 +254,7 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputOutputSignalfx(
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSignalfx(
         components.OutputSignalfx{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.OutputSignalfxTypeSignalfx,
@@ -330,9 +330,9 @@ package main
 
 import(
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
 

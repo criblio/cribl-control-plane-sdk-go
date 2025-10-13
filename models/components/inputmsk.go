@@ -65,7 +65,9 @@ func (i *InputMskConnection) GetOutput() string {
 type InputMskMode string
 
 const (
-	InputMskModeSmart  InputMskMode = "smart"
+	// InputMskModeSmart Smart
+	InputMskModeSmart InputMskMode = "smart"
+	// InputMskModeAlways Always On
 	InputMskModeAlways InputMskMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputMskMode) ToPointer() *InputMskMode {
 type InputMskCompression string
 
 const (
+	// InputMskCompressionNone None
 	InputMskCompressionNone InputMskCompression = "none"
+	// InputMskCompressionGzip Gzip
 	InputMskCompressionGzip InputMskCompression = "gzip"
 )
 
@@ -454,8 +458,11 @@ func (i *InputMskKafkaSchemaRegistryAuthentication) GetTLS() *InputMskKafkaSchem
 type InputMskAuthenticationMethod string
 
 const (
-	InputMskAuthenticationMethodAuto   InputMskAuthenticationMethod = "auto"
+	// InputMskAuthenticationMethodAuto Auto
+	InputMskAuthenticationMethodAuto InputMskAuthenticationMethod = "auto"
+	// InputMskAuthenticationMethodManual Manual
 	InputMskAuthenticationMethodManual InputMskAuthenticationMethod = "manual"
+	// InputMskAuthenticationMethodSecret Secret Key pair
 	InputMskAuthenticationMethodSecret InputMskAuthenticationMethod = "secret"
 )
 

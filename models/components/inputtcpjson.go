@@ -65,7 +65,9 @@ func (i *InputTcpjsonConnection) GetOutput() string {
 type InputTcpjsonMode string
 
 const (
-	InputTcpjsonModeSmart  InputTcpjsonMode = "smart"
+	// InputTcpjsonModeSmart Smart
+	InputTcpjsonModeSmart InputTcpjsonMode = "smart"
+	// InputTcpjsonModeAlways Always On
 	InputTcpjsonModeAlways InputTcpjsonMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputTcpjsonMode) ToPointer() *InputTcpjsonMode {
 type InputTcpjsonCompression string
 
 const (
+	// InputTcpjsonCompressionNone None
 	InputTcpjsonCompressionNone InputTcpjsonCompression = "none"
+	// InputTcpjsonCompressionGzip Gzip
 	InputTcpjsonCompressionGzip InputTcpjsonCompression = "gzip"
 )
 

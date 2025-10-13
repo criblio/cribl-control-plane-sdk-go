@@ -38,20 +38,21 @@ func (p *PackInfoTags) GetTechnology() []string {
 }
 
 type PackInfo struct {
-	Author              *string        `json:"author,omitempty"`
-	Description         *string        `json:"description,omitempty"`
-	DisplayName         *string        `json:"displayName,omitempty"`
-	Exports             []string       `json:"exports,omitempty"`
-	ID                  string         `json:"id"`
-	Inputs              *float64       `json:"inputs,omitempty"`
-	IsDisabled          *bool          `json:"isDisabled,omitempty"`
-	MinLogStreamVersion *string        `json:"minLogStreamVersion,omitempty"`
-	Outputs             *float64       `json:"outputs,omitempty"`
-	Settings            map[string]any `json:"settings,omitempty"`
-	Source              string         `json:"source"`
-	Spec                *string        `json:"spec,omitempty"`
-	Tags                *PackInfoTags  `json:"tags,omitempty"`
-	Version             *string        `json:"version,omitempty"`
+	Author              *string           `json:"author,omitempty"`
+	Dependencies        map[string]string `json:"dependencies,omitempty"`
+	Description         *string           `json:"description,omitempty"`
+	DisplayName         *string           `json:"displayName,omitempty"`
+	Exports             []string          `json:"exports,omitempty"`
+	ID                  string            `json:"id"`
+	Inputs              *float64          `json:"inputs,omitempty"`
+	IsDisabled          *bool             `json:"isDisabled,omitempty"`
+	MinLogStreamVersion *string           `json:"minLogStreamVersion,omitempty"`
+	Outputs             *float64          `json:"outputs,omitempty"`
+	Settings            map[string]any    `json:"settings,omitempty"`
+	Source              string            `json:"source"`
+	Spec                *string           `json:"spec,omitempty"`
+	Tags                *PackInfoTags     `json:"tags,omitempty"`
+	Version             *string           `json:"version,omitempty"`
 }
 
 func (p *PackInfo) GetAuthor() *string {
@@ -59,6 +60,13 @@ func (p *PackInfo) GetAuthor() *string {
 		return nil
 	}
 	return p.Author
+}
+
+func (p *PackInfo) GetDependencies() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.Dependencies
 }
 
 func (p *PackInfo) GetDescription() *string {

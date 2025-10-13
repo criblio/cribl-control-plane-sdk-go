@@ -35,8 +35,11 @@ func (e *OutputKinesisType) UnmarshalJSON(data []byte) error {
 type OutputKinesisAuthenticationMethod string
 
 const (
-	OutputKinesisAuthenticationMethodAuto   OutputKinesisAuthenticationMethod = "auto"
+	// OutputKinesisAuthenticationMethodAuto Auto
+	OutputKinesisAuthenticationMethodAuto OutputKinesisAuthenticationMethod = "auto"
+	// OutputKinesisAuthenticationMethodManual Manual
 	OutputKinesisAuthenticationMethodManual OutputKinesisAuthenticationMethod = "manual"
+	// OutputKinesisAuthenticationMethodSecret Secret Key pair
 	OutputKinesisAuthenticationMethodSecret OutputKinesisAuthenticationMethod = "secret"
 )
 
@@ -60,7 +63,9 @@ func (e OutputKinesisSignatureVersion) ToPointer() *OutputKinesisSignatureVersio
 type OutputKinesisCompression string
 
 const (
+	// OutputKinesisCompressionNone None
 	OutputKinesisCompressionNone OutputKinesisCompression = "none"
+	// OutputKinesisCompressionGzip Gzip
 	OutputKinesisCompressionGzip OutputKinesisCompression = "gzip"
 )
 
@@ -72,8 +77,11 @@ func (e OutputKinesisCompression) ToPointer() *OutputKinesisCompression {
 type OutputKinesisBackpressureBehavior string
 
 const (
+	// OutputKinesisBackpressureBehaviorBlock Block
 	OutputKinesisBackpressureBehaviorBlock OutputKinesisBackpressureBehavior = "block"
-	OutputKinesisBackpressureBehaviorDrop  OutputKinesisBackpressureBehavior = "drop"
+	// OutputKinesisBackpressureBehaviorDrop Drop
+	OutputKinesisBackpressureBehaviorDrop OutputKinesisBackpressureBehavior = "drop"
+	// OutputKinesisBackpressureBehaviorQueue Persistent Queue
 	OutputKinesisBackpressureBehaviorQueue OutputKinesisBackpressureBehavior = "queue"
 )
 
@@ -85,7 +93,9 @@ func (e OutputKinesisBackpressureBehavior) ToPointer() *OutputKinesisBackpressur
 type OutputKinesisPqCompressCompression string
 
 const (
+	// OutputKinesisPqCompressCompressionNone None
 	OutputKinesisPqCompressCompressionNone OutputKinesisPqCompressCompression = "none"
+	// OutputKinesisPqCompressCompressionGzip Gzip
 	OutputKinesisPqCompressCompressionGzip OutputKinesisPqCompressCompression = "gzip"
 )
 
@@ -97,8 +107,10 @@ func (e OutputKinesisPqCompressCompression) ToPointer() *OutputKinesisPqCompress
 type OutputKinesisQueueFullBehavior string
 
 const (
+	// OutputKinesisQueueFullBehaviorBlock Block
 	OutputKinesisQueueFullBehaviorBlock OutputKinesisQueueFullBehavior = "block"
-	OutputKinesisQueueFullBehaviorDrop  OutputKinesisQueueFullBehavior = "drop"
+	// OutputKinesisQueueFullBehaviorDrop Drop new data
+	OutputKinesisQueueFullBehaviorDrop OutputKinesisQueueFullBehavior = "drop"
 )
 
 func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehavior {
@@ -109,9 +121,12 @@ func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehav
 type OutputKinesisMode string
 
 const (
-	OutputKinesisModeError        OutputKinesisMode = "error"
+	// OutputKinesisModeError Error
+	OutputKinesisModeError OutputKinesisMode = "error"
+	// OutputKinesisModeBackpressure Backpressure
 	OutputKinesisModeBackpressure OutputKinesisMode = "backpressure"
-	OutputKinesisModeAlways       OutputKinesisMode = "always"
+	// OutputKinesisModeAlways Always On
+	OutputKinesisModeAlways OutputKinesisMode = "always"
 )
 
 func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {

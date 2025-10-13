@@ -48,10 +48,14 @@ func (e OutputWebhookMethod) ToPointer() *OutputWebhookMethod {
 type OutputWebhookFormat string
 
 const (
-	OutputWebhookFormatNdjson    OutputWebhookFormat = "ndjson"
+	// OutputWebhookFormatNdjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormatNdjson OutputWebhookFormat = "ndjson"
+	// OutputWebhookFormatJSONArray JSON Array
 	OutputWebhookFormatJSONArray OutputWebhookFormat = "json_array"
-	OutputWebhookFormatCustom    OutputWebhookFormat = "custom"
-	OutputWebhookFormatAdvanced  OutputWebhookFormat = "advanced"
+	// OutputWebhookFormatCustom Custom
+	OutputWebhookFormatCustom OutputWebhookFormat = "custom"
+	// OutputWebhookFormatAdvanced Advanced
+	OutputWebhookFormatAdvanced OutputWebhookFormat = "advanced"
 )
 
 func (e OutputWebhookFormat) ToPointer() *OutputWebhookFormat {
@@ -92,9 +96,12 @@ func (o *OutputWebhookExtraHTTPHeader) GetValue() string {
 type OutputWebhookFailedRequestLoggingMode string
 
 const (
-	OutputWebhookFailedRequestLoggingModePayload           OutputWebhookFailedRequestLoggingMode = "payload"
+	// OutputWebhookFailedRequestLoggingModePayload Payload
+	OutputWebhookFailedRequestLoggingModePayload OutputWebhookFailedRequestLoggingMode = "payload"
+	// OutputWebhookFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputWebhookFailedRequestLoggingModePayloadAndHeaders OutputWebhookFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputWebhookFailedRequestLoggingModeNone              OutputWebhookFailedRequestLoggingMode = "none"
+	// OutputWebhookFailedRequestLoggingModeNone None
+	OutputWebhookFailedRequestLoggingModeNone OutputWebhookFailedRequestLoggingMode = "none"
 )
 
 func (e OutputWebhookFailedRequestLoggingMode) ToPointer() *OutputWebhookFailedRequestLoggingMode {
@@ -204,8 +211,11 @@ func (o *OutputWebhookTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputWebhookBackpressureBehavior string
 
 const (
+	// OutputWebhookBackpressureBehaviorBlock Block
 	OutputWebhookBackpressureBehaviorBlock OutputWebhookBackpressureBehavior = "block"
-	OutputWebhookBackpressureBehaviorDrop  OutputWebhookBackpressureBehavior = "drop"
+	// OutputWebhookBackpressureBehaviorDrop Drop
+	OutputWebhookBackpressureBehaviorDrop OutputWebhookBackpressureBehavior = "drop"
+	// OutputWebhookBackpressureBehaviorQueue Persistent Queue
 	OutputWebhookBackpressureBehaviorQueue OutputWebhookBackpressureBehavior = "queue"
 )
 
@@ -217,12 +227,18 @@ func (e OutputWebhookBackpressureBehavior) ToPointer() *OutputWebhookBackpressur
 type OutputWebhookAuthenticationType string
 
 const (
-	OutputWebhookAuthenticationTypeNone              OutputWebhookAuthenticationType = "none"
-	OutputWebhookAuthenticationTypeBasic             OutputWebhookAuthenticationType = "basic"
+	// OutputWebhookAuthenticationTypeNone None
+	OutputWebhookAuthenticationTypeNone OutputWebhookAuthenticationType = "none"
+	// OutputWebhookAuthenticationTypeBasic Basic
+	OutputWebhookAuthenticationTypeBasic OutputWebhookAuthenticationType = "basic"
+	// OutputWebhookAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	OutputWebhookAuthenticationTypeCredentialsSecret OutputWebhookAuthenticationType = "credentialsSecret"
-	OutputWebhookAuthenticationTypeToken             OutputWebhookAuthenticationType = "token"
-	OutputWebhookAuthenticationTypeTextSecret        OutputWebhookAuthenticationType = "textSecret"
-	OutputWebhookAuthenticationTypeOauth             OutputWebhookAuthenticationType = "oauth"
+	// OutputWebhookAuthenticationTypeToken Token
+	OutputWebhookAuthenticationTypeToken OutputWebhookAuthenticationType = "token"
+	// OutputWebhookAuthenticationTypeTextSecret Token (text secret)
+	OutputWebhookAuthenticationTypeTextSecret OutputWebhookAuthenticationType = "textSecret"
+	// OutputWebhookAuthenticationTypeOauth OAuth
+	OutputWebhookAuthenticationTypeOauth OutputWebhookAuthenticationType = "oauth"
 )
 
 func (e OutputWebhookAuthenticationType) ToPointer() *OutputWebhookAuthenticationType {
@@ -351,7 +367,9 @@ func (o *OutputWebhookTLSSettingsClientSide) GetMaxVersion() *OutputWebhookMaxim
 type OutputWebhookCompression string
 
 const (
+	// OutputWebhookCompressionNone None
 	OutputWebhookCompressionNone OutputWebhookCompression = "none"
+	// OutputWebhookCompressionGzip Gzip
 	OutputWebhookCompressionGzip OutputWebhookCompression = "gzip"
 )
 
@@ -363,8 +381,10 @@ func (e OutputWebhookCompression) ToPointer() *OutputWebhookCompression {
 type OutputWebhookQueueFullBehavior string
 
 const (
+	// OutputWebhookQueueFullBehaviorBlock Block
 	OutputWebhookQueueFullBehaviorBlock OutputWebhookQueueFullBehavior = "block"
-	OutputWebhookQueueFullBehaviorDrop  OutputWebhookQueueFullBehavior = "drop"
+	// OutputWebhookQueueFullBehaviorDrop Drop new data
+	OutputWebhookQueueFullBehaviorDrop OutputWebhookQueueFullBehavior = "drop"
 )
 
 func (e OutputWebhookQueueFullBehavior) ToPointer() *OutputWebhookQueueFullBehavior {
@@ -375,9 +395,12 @@ func (e OutputWebhookQueueFullBehavior) ToPointer() *OutputWebhookQueueFullBehav
 type OutputWebhookMode string
 
 const (
-	OutputWebhookModeError        OutputWebhookMode = "error"
+	// OutputWebhookModeError Error
+	OutputWebhookModeError OutputWebhookMode = "error"
+	// OutputWebhookModeBackpressure Backpressure
 	OutputWebhookModeBackpressure OutputWebhookMode = "backpressure"
-	OutputWebhookModeAlways       OutputWebhookMode = "always"
+	// OutputWebhookModeAlways Always On
+	OutputWebhookModeAlways OutputWebhookMode = "always"
 )
 
 func (e OutputWebhookMode) ToPointer() *OutputWebhookMode {

@@ -65,9 +65,12 @@ func (o *OutputPrometheusExtraHTTPHeader) GetValue() string {
 type OutputPrometheusFailedRequestLoggingMode string
 
 const (
-	OutputPrometheusFailedRequestLoggingModePayload           OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayload Payload
+	OutputPrometheusFailedRequestLoggingModePayload OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputPrometheusFailedRequestLoggingModePayloadAndHeaders OutputPrometheusFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputPrometheusFailedRequestLoggingModeNone              OutputPrometheusFailedRequestLoggingMode = "none"
+	// OutputPrometheusFailedRequestLoggingModeNone None
+	OutputPrometheusFailedRequestLoggingModeNone OutputPrometheusFailedRequestLoggingMode = "none"
 )
 
 func (e OutputPrometheusFailedRequestLoggingMode) ToPointer() *OutputPrometheusFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputPrometheusTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputPrometheusBackpressureBehavior string
 
 const (
+	// OutputPrometheusBackpressureBehaviorBlock Block
 	OutputPrometheusBackpressureBehaviorBlock OutputPrometheusBackpressureBehavior = "block"
-	OutputPrometheusBackpressureBehaviorDrop  OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorDrop Drop
+	OutputPrometheusBackpressureBehaviorDrop OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorQueue Persistent Queue
 	OutputPrometheusBackpressureBehaviorQueue OutputPrometheusBackpressureBehavior = "queue"
 )
 
@@ -206,7 +212,9 @@ func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthent
 type OutputPrometheusCompression string
 
 const (
+	// OutputPrometheusCompressionNone None
 	OutputPrometheusCompressionNone OutputPrometheusCompression = "none"
+	// OutputPrometheusCompressionGzip Gzip
 	OutputPrometheusCompressionGzip OutputPrometheusCompression = "gzip"
 )
 
@@ -218,8 +226,10 @@ func (e OutputPrometheusCompression) ToPointer() *OutputPrometheusCompression {
 type OutputPrometheusQueueFullBehavior string
 
 const (
+	// OutputPrometheusQueueFullBehaviorBlock Block
 	OutputPrometheusQueueFullBehaviorBlock OutputPrometheusQueueFullBehavior = "block"
-	OutputPrometheusQueueFullBehaviorDrop  OutputPrometheusQueueFullBehavior = "drop"
+	// OutputPrometheusQueueFullBehaviorDrop Drop new data
+	OutputPrometheusQueueFullBehaviorDrop OutputPrometheusQueueFullBehavior = "drop"
 )
 
 func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFullBehavior {
@@ -230,9 +240,12 @@ func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFul
 type OutputPrometheusMode string
 
 const (
-	OutputPrometheusModeError        OutputPrometheusMode = "error"
+	// OutputPrometheusModeError Error
+	OutputPrometheusModeError OutputPrometheusMode = "error"
+	// OutputPrometheusModeBackpressure Backpressure
 	OutputPrometheusModeBackpressure OutputPrometheusMode = "backpressure"
-	OutputPrometheusModeAlways       OutputPrometheusMode = "always"
+	// OutputPrometheusModeAlways Always On
+	OutputPrometheusModeAlways OutputPrometheusMode = "always"
 )
 
 func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {

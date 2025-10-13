@@ -65,7 +65,9 @@ func (i *InputFirehoseConnection) GetOutput() string {
 type InputFirehoseMode string
 
 const (
-	InputFirehoseModeSmart  InputFirehoseMode = "smart"
+	// InputFirehoseModeSmart Smart
+	InputFirehoseModeSmart InputFirehoseMode = "smart"
+	// InputFirehoseModeAlways Always On
 	InputFirehoseModeAlways InputFirehoseMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputFirehoseMode) ToPointer() *InputFirehoseMode {
 type InputFirehoseCompression string
 
 const (
+	// InputFirehoseCompressionNone None
 	InputFirehoseCompressionNone InputFirehoseCompression = "none"
+	// InputFirehoseCompressionGzip Gzip
 	InputFirehoseCompressionGzip InputFirehoseCompression = "gzip"
 )
 

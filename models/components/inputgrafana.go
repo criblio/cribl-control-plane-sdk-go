@@ -66,7 +66,9 @@ func (i *InputGrafanaConnection2) GetOutput() string {
 type InputGrafanaMode2 string
 
 const (
-	InputGrafanaMode2Smart  InputGrafanaMode2 = "smart"
+	// InputGrafanaMode2Smart Smart
+	InputGrafanaMode2Smart InputGrafanaMode2 = "smart"
+	// InputGrafanaMode2Always Always On
 	InputGrafanaMode2Always InputGrafanaMode2 = "always"
 )
 
@@ -78,7 +80,9 @@ func (e InputGrafanaMode2) ToPointer() *InputGrafanaMode2 {
 type InputGrafanaCompression2 string
 
 const (
+	// InputGrafanaCompression2None None
 	InputGrafanaCompression2None InputGrafanaCompression2 = "none"
+	// InputGrafanaCompression2Gzip Gzip
 	InputGrafanaCompression2Gzip InputGrafanaCompression2 = "gzip"
 )
 
@@ -1120,7 +1124,9 @@ func (i *InputGrafanaConnection1) GetOutput() string {
 type InputGrafanaMode1 string
 
 const (
-	InputGrafanaMode1Smart  InputGrafanaMode1 = "smart"
+	// InputGrafanaMode1Smart Smart
+	InputGrafanaMode1Smart InputGrafanaMode1 = "smart"
+	// InputGrafanaMode1Always Always On
 	InputGrafanaMode1Always InputGrafanaMode1 = "always"
 )
 
@@ -1132,7 +1138,9 @@ func (e InputGrafanaMode1) ToPointer() *InputGrafanaMode1 {
 type InputGrafanaCompression1 string
 
 const (
+	// InputGrafanaCompression1None None
 	InputGrafanaCompression1None InputGrafanaCompression1 = "none"
+	// InputGrafanaCompression1Gzip Gzip
 	InputGrafanaCompression1Gzip InputGrafanaCompression1 = "gzip"
 )
 

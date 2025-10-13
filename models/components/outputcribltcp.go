@@ -35,7 +35,9 @@ func (e *OutputCriblTCPType) UnmarshalJSON(data []byte) error {
 type OutputCriblTCPCompression string
 
 const (
+	// OutputCriblTCPCompressionNone None
 	OutputCriblTCPCompressionNone OutputCriblTCPCompression = "none"
+	// OutputCriblTCPCompressionGzip Gzip
 	OutputCriblTCPCompressionGzip OutputCriblTCPCompression = "gzip"
 )
 
@@ -175,8 +177,11 @@ func (o *OutputCriblTCPTLSSettingsClientSide) GetMaxVersion() *OutputCriblTCPMax
 type OutputCriblTCPBackpressureBehavior string
 
 const (
+	// OutputCriblTCPBackpressureBehaviorBlock Block
 	OutputCriblTCPBackpressureBehaviorBlock OutputCriblTCPBackpressureBehavior = "block"
-	OutputCriblTCPBackpressureBehaviorDrop  OutputCriblTCPBackpressureBehavior = "drop"
+	// OutputCriblTCPBackpressureBehaviorDrop Drop
+	OutputCriblTCPBackpressureBehaviorDrop OutputCriblTCPBackpressureBehavior = "drop"
+	// OutputCriblTCPBackpressureBehaviorQueue Persistent Queue
 	OutputCriblTCPBackpressureBehaviorQueue OutputCriblTCPBackpressureBehavior = "queue"
 )
 
@@ -259,7 +264,9 @@ func (o *OutputCriblTCPHost) GetWeight() *float64 {
 type OutputCriblTCPPqCompressCompression string
 
 const (
+	// OutputCriblTCPPqCompressCompressionNone None
 	OutputCriblTCPPqCompressCompressionNone OutputCriblTCPPqCompressCompression = "none"
+	// OutputCriblTCPPqCompressCompressionGzip Gzip
 	OutputCriblTCPPqCompressCompressionGzip OutputCriblTCPPqCompressCompression = "gzip"
 )
 
@@ -271,8 +278,10 @@ func (e OutputCriblTCPPqCompressCompression) ToPointer() *OutputCriblTCPPqCompre
 type OutputCriblTCPQueueFullBehavior string
 
 const (
+	// OutputCriblTCPQueueFullBehaviorBlock Block
 	OutputCriblTCPQueueFullBehaviorBlock OutputCriblTCPQueueFullBehavior = "block"
-	OutputCriblTCPQueueFullBehaviorDrop  OutputCriblTCPQueueFullBehavior = "drop"
+	// OutputCriblTCPQueueFullBehaviorDrop Drop new data
+	OutputCriblTCPQueueFullBehaviorDrop OutputCriblTCPQueueFullBehavior = "drop"
 )
 
 func (e OutputCriblTCPQueueFullBehavior) ToPointer() *OutputCriblTCPQueueFullBehavior {
@@ -283,9 +292,12 @@ func (e OutputCriblTCPQueueFullBehavior) ToPointer() *OutputCriblTCPQueueFullBeh
 type OutputCriblTCPMode string
 
 const (
-	OutputCriblTCPModeError        OutputCriblTCPMode = "error"
+	// OutputCriblTCPModeError Error
+	OutputCriblTCPModeError OutputCriblTCPMode = "error"
+	// OutputCriblTCPModeBackpressure Backpressure
 	OutputCriblTCPModeBackpressure OutputCriblTCPMode = "backpressure"
-	OutputCriblTCPModeAlways       OutputCriblTCPMode = "always"
+	// OutputCriblTCPModeAlways Always On
+	OutputCriblTCPModeAlways OutputCriblTCPMode = "always"
 )
 
 func (e OutputCriblTCPMode) ToPointer() *OutputCriblTCPMode {

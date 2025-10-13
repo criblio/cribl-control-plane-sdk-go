@@ -35,7 +35,9 @@ func (e *OutputDatadogType) UnmarshalJSON(data []byte) error {
 type SendLogsAs string
 
 const (
+	// SendLogsAsText text/plain
 	SendLogsAsText SendLogsAs = "text"
+	// SendLogsAsJSON application/json
 	SendLogsAsJSON SendLogsAs = "json"
 )
 
@@ -47,14 +49,22 @@ func (e SendLogsAs) ToPointer() *SendLogsAs {
 type OutputDatadogSeverity string
 
 const (
+	// OutputDatadogSeverityEmergency emergency
 	OutputDatadogSeverityEmergency OutputDatadogSeverity = "emergency"
-	OutputDatadogSeverityAlert     OutputDatadogSeverity = "alert"
-	OutputDatadogSeverityCritical  OutputDatadogSeverity = "critical"
-	OutputDatadogSeverityError     OutputDatadogSeverity = "error"
-	OutputDatadogSeverityWarning   OutputDatadogSeverity = "warning"
-	OutputDatadogSeverityNotice    OutputDatadogSeverity = "notice"
-	OutputDatadogSeverityInfo      OutputDatadogSeverity = "info"
-	OutputDatadogSeverityDebug     OutputDatadogSeverity = "debug"
+	// OutputDatadogSeverityAlert alert
+	OutputDatadogSeverityAlert OutputDatadogSeverity = "alert"
+	// OutputDatadogSeverityCritical critical
+	OutputDatadogSeverityCritical OutputDatadogSeverity = "critical"
+	// OutputDatadogSeverityError error
+	OutputDatadogSeverityError OutputDatadogSeverity = "error"
+	// OutputDatadogSeverityWarning warning
+	OutputDatadogSeverityWarning OutputDatadogSeverity = "warning"
+	// OutputDatadogSeverityNotice notice
+	OutputDatadogSeverityNotice OutputDatadogSeverity = "notice"
+	// OutputDatadogSeverityInfo info
+	OutputDatadogSeverityInfo OutputDatadogSeverity = "info"
+	// OutputDatadogSeverityDebug debug
+	OutputDatadogSeverityDebug OutputDatadogSeverity = "debug"
 )
 
 func (e OutputDatadogSeverity) ToPointer() *OutputDatadogSeverity {
@@ -65,12 +75,19 @@ func (e OutputDatadogSeverity) ToPointer() *OutputDatadogSeverity {
 type DatadogSite string
 
 const (
-	DatadogSiteUs     DatadogSite = "us"
-	DatadogSiteUs3    DatadogSite = "us3"
-	DatadogSiteUs5    DatadogSite = "us5"
-	DatadogSiteEu     DatadogSite = "eu"
-	DatadogSiteFed1   DatadogSite = "fed1"
-	DatadogSiteAp1    DatadogSite = "ap1"
+	// DatadogSiteUs US
+	DatadogSiteUs DatadogSite = "us"
+	// DatadogSiteUs3 US3
+	DatadogSiteUs3 DatadogSite = "us3"
+	// DatadogSiteUs5 US5
+	DatadogSiteUs5 DatadogSite = "us5"
+	// DatadogSiteEu Europe
+	DatadogSiteEu DatadogSite = "eu"
+	// DatadogSiteFed1 US1-FED
+	DatadogSiteFed1 DatadogSite = "fed1"
+	// DatadogSiteAp1 AP1
+	DatadogSiteAp1 DatadogSite = "ap1"
+	// DatadogSiteCustom Custom
 	DatadogSiteCustom DatadogSite = "custom"
 )
 
@@ -112,9 +129,12 @@ func (o *OutputDatadogExtraHTTPHeader) GetValue() string {
 type OutputDatadogFailedRequestLoggingMode string
 
 const (
-	OutputDatadogFailedRequestLoggingModePayload           OutputDatadogFailedRequestLoggingMode = "payload"
+	// OutputDatadogFailedRequestLoggingModePayload Payload
+	OutputDatadogFailedRequestLoggingModePayload OutputDatadogFailedRequestLoggingMode = "payload"
+	// OutputDatadogFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDatadogFailedRequestLoggingModePayloadAndHeaders OutputDatadogFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatadogFailedRequestLoggingModeNone              OutputDatadogFailedRequestLoggingMode = "none"
+	// OutputDatadogFailedRequestLoggingModeNone None
+	OutputDatadogFailedRequestLoggingModeNone OutputDatadogFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDatadogFailedRequestLoggingMode) ToPointer() *OutputDatadogFailedRequestLoggingMode {
@@ -224,8 +244,11 @@ func (o *OutputDatadogTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDatadogBackpressureBehavior string
 
 const (
+	// OutputDatadogBackpressureBehaviorBlock Block
 	OutputDatadogBackpressureBehaviorBlock OutputDatadogBackpressureBehavior = "block"
-	OutputDatadogBackpressureBehaviorDrop  OutputDatadogBackpressureBehavior = "drop"
+	// OutputDatadogBackpressureBehaviorDrop Drop
+	OutputDatadogBackpressureBehaviorDrop OutputDatadogBackpressureBehavior = "drop"
+	// OutputDatadogBackpressureBehaviorQueue Persistent Queue
 	OutputDatadogBackpressureBehaviorQueue OutputDatadogBackpressureBehavior = "queue"
 )
 
@@ -249,7 +272,9 @@ func (e OutputDatadogAuthenticationMethod) ToPointer() *OutputDatadogAuthenticat
 type OutputDatadogCompression string
 
 const (
+	// OutputDatadogCompressionNone None
 	OutputDatadogCompressionNone OutputDatadogCompression = "none"
+	// OutputDatadogCompressionGzip Gzip
 	OutputDatadogCompressionGzip OutputDatadogCompression = "gzip"
 )
 
@@ -261,8 +286,10 @@ func (e OutputDatadogCompression) ToPointer() *OutputDatadogCompression {
 type OutputDatadogQueueFullBehavior string
 
 const (
+	// OutputDatadogQueueFullBehaviorBlock Block
 	OutputDatadogQueueFullBehaviorBlock OutputDatadogQueueFullBehavior = "block"
-	OutputDatadogQueueFullBehaviorDrop  OutputDatadogQueueFullBehavior = "drop"
+	// OutputDatadogQueueFullBehaviorDrop Drop new data
+	OutputDatadogQueueFullBehaviorDrop OutputDatadogQueueFullBehavior = "drop"
 )
 
 func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehavior {
@@ -273,9 +300,12 @@ func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehav
 type OutputDatadogMode string
 
 const (
-	OutputDatadogModeError        OutputDatadogMode = "error"
+	// OutputDatadogModeError Error
+	OutputDatadogModeError OutputDatadogMode = "error"
+	// OutputDatadogModeBackpressure Backpressure
 	OutputDatadogModeBackpressure OutputDatadogMode = "backpressure"
-	OutputDatadogModeAlways       OutputDatadogMode = "always"
+	// OutputDatadogModeAlways Always On
+	OutputDatadogModeAlways OutputDatadogMode = "always"
 )
 
 func (e OutputDatadogMode) ToPointer() *OutputDatadogMode {

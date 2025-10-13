@@ -65,9 +65,12 @@ func (o *OutputSentinelExtraHTTPHeader) GetValue() string {
 type OutputSentinelFailedRequestLoggingMode string
 
 const (
-	OutputSentinelFailedRequestLoggingModePayload           OutputSentinelFailedRequestLoggingMode = "payload"
+	// OutputSentinelFailedRequestLoggingModePayload Payload
+	OutputSentinelFailedRequestLoggingModePayload OutputSentinelFailedRequestLoggingMode = "payload"
+	// OutputSentinelFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSentinelFailedRequestLoggingModePayloadAndHeaders OutputSentinelFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSentinelFailedRequestLoggingModeNone              OutputSentinelFailedRequestLoggingMode = "none"
+	// OutputSentinelFailedRequestLoggingModeNone None
+	OutputSentinelFailedRequestLoggingModeNone OutputSentinelFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSentinelFailedRequestLoggingMode) ToPointer() *OutputSentinelFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputSentinelTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSentinelBackpressureBehavior string
 
 const (
+	// OutputSentinelBackpressureBehaviorBlock Block
 	OutputSentinelBackpressureBehaviorBlock OutputSentinelBackpressureBehavior = "block"
-	OutputSentinelBackpressureBehaviorDrop  OutputSentinelBackpressureBehavior = "drop"
+	// OutputSentinelBackpressureBehaviorDrop Drop
+	OutputSentinelBackpressureBehaviorDrop OutputSentinelBackpressureBehavior = "drop"
+	// OutputSentinelBackpressureBehaviorQueue Persistent Queue
 	OutputSentinelBackpressureBehaviorQueue OutputSentinelBackpressureBehavior = "queue"
 )
 
@@ -200,8 +206,10 @@ func (e AuthType) ToPointer() *AuthType {
 type EndpointConfiguration string
 
 const (
+	// EndpointConfigurationURL URL
 	EndpointConfigurationURL EndpointConfiguration = "url"
-	EndpointConfigurationID  EndpointConfiguration = "ID"
+	// EndpointConfigurationID ID
+	EndpointConfigurationID EndpointConfiguration = "ID"
 )
 
 func (e EndpointConfiguration) ToPointer() *EndpointConfiguration {
@@ -225,7 +233,9 @@ func (e OutputSentinelFormat) ToPointer() *OutputSentinelFormat {
 type OutputSentinelCompression string
 
 const (
+	// OutputSentinelCompressionNone None
 	OutputSentinelCompressionNone OutputSentinelCompression = "none"
+	// OutputSentinelCompressionGzip Gzip
 	OutputSentinelCompressionGzip OutputSentinelCompression = "gzip"
 )
 
@@ -237,8 +247,10 @@ func (e OutputSentinelCompression) ToPointer() *OutputSentinelCompression {
 type OutputSentinelQueueFullBehavior string
 
 const (
+	// OutputSentinelQueueFullBehaviorBlock Block
 	OutputSentinelQueueFullBehaviorBlock OutputSentinelQueueFullBehavior = "block"
-	OutputSentinelQueueFullBehaviorDrop  OutputSentinelQueueFullBehavior = "drop"
+	// OutputSentinelQueueFullBehaviorDrop Drop new data
+	OutputSentinelQueueFullBehaviorDrop OutputSentinelQueueFullBehavior = "drop"
 )
 
 func (e OutputSentinelQueueFullBehavior) ToPointer() *OutputSentinelQueueFullBehavior {
@@ -249,9 +261,12 @@ func (e OutputSentinelQueueFullBehavior) ToPointer() *OutputSentinelQueueFullBeh
 type OutputSentinelMode string
 
 const (
-	OutputSentinelModeError        OutputSentinelMode = "error"
+	// OutputSentinelModeError Error
+	OutputSentinelModeError OutputSentinelMode = "error"
+	// OutputSentinelModeBackpressure Backpressure
 	OutputSentinelModeBackpressure OutputSentinelMode = "backpressure"
-	OutputSentinelModeAlways       OutputSentinelMode = "always"
+	// OutputSentinelModeAlways Always On
+	OutputSentinelModeAlways OutputSentinelMode = "always"
 )
 
 func (e OutputSentinelMode) ToPointer() *OutputSentinelMode {

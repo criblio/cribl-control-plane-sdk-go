@@ -58,8 +58,10 @@ func (e OutputRingDataCompressionFormat) ToPointer() *OutputRingDataCompressionF
 type OutputRingBackpressureBehavior string
 
 const (
+	// OutputRingBackpressureBehaviorBlock Block
 	OutputRingBackpressureBehaviorBlock OutputRingBackpressureBehavior = "block"
-	OutputRingBackpressureBehaviorDrop  OutputRingBackpressureBehavior = "drop"
+	// OutputRingBackpressureBehaviorDrop Drop
+	OutputRingBackpressureBehaviorDrop OutputRingBackpressureBehavior = "drop"
 )
 
 func (e OutputRingBackpressureBehavior) ToPointer() *OutputRingBackpressureBehavior {
