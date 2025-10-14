@@ -514,7 +514,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 }
 
 // Upload a Pack file
-// Upload a Pack file for import. Returns a source identifier that must be used in the subsequent import POST request to complete the pack installation.
+// Upload a Pack file. Returns a source identifier that can be used to install the pack via the install a Pack endpoint.
 func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, opts ...operations.Option) (*operations.UpdatePacksResponse, error) {
 	request := operations.UpdatePacksRequest{
 		Filename:    filename,

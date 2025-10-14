@@ -6,7 +6,7 @@ type PackInfoTags struct {
 	DataType   []string `json:"dataType"`
 	Domain     []string `json:"domain,omitempty"`
 	Streamtags []string `json:"streamtags,omitempty"`
-	Technology []string `json:"technology"`
+	Technology []string `json:"technology,omitempty"`
 }
 
 func (p *PackInfoTags) GetDataType() []string {
@@ -32,7 +32,7 @@ func (p *PackInfoTags) GetStreamtags() []string {
 
 func (p *PackInfoTags) GetTechnology() []string {
 	if p == nil {
-		return []string{}
+		return nil
 	}
 	return p.Technology
 }
