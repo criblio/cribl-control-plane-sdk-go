@@ -35,83 +35,43 @@ func (e *OutputAzureEventhubType) UnmarshalJSON(data []byte) error {
 type OutputAzureEventhubAcknowledgments int64
 
 const (
-	OutputAzureEventhubAcknowledgmentsOne    OutputAzureEventhubAcknowledgments = 1
-	OutputAzureEventhubAcknowledgmentsZero   OutputAzureEventhubAcknowledgments = 0
+	// OutputAzureEventhubAcknowledgmentsOne Leader
+	OutputAzureEventhubAcknowledgmentsOne OutputAzureEventhubAcknowledgments = 1
+	// OutputAzureEventhubAcknowledgmentsZero None
+	OutputAzureEventhubAcknowledgmentsZero OutputAzureEventhubAcknowledgments = 0
+	// OutputAzureEventhubAcknowledgmentsMinus1 All
 	OutputAzureEventhubAcknowledgmentsMinus1 OutputAzureEventhubAcknowledgments = -1
 )
 
 func (e OutputAzureEventhubAcknowledgments) ToPointer() *OutputAzureEventhubAcknowledgments {
 	return &e
 }
-func (e *OutputAzureEventhubAcknowledgments) UnmarshalJSON(data []byte) error {
-	var v int64
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 1:
-		fallthrough
-	case 0:
-		fallthrough
-	case -1:
-		*e = OutputAzureEventhubAcknowledgments(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubAcknowledgments: %v", v)
-	}
-}
 
 // OutputAzureEventhubRecordDataFormat - Format to use to serialize events before writing to the Event Hubs Kafka brokers
 type OutputAzureEventhubRecordDataFormat string
 
 const (
+	// OutputAzureEventhubRecordDataFormatJSON JSON
 	OutputAzureEventhubRecordDataFormatJSON OutputAzureEventhubRecordDataFormat = "json"
-	OutputAzureEventhubRecordDataFormatRaw  OutputAzureEventhubRecordDataFormat = "raw"
+	// OutputAzureEventhubRecordDataFormatRaw Field _raw
+	OutputAzureEventhubRecordDataFormatRaw OutputAzureEventhubRecordDataFormat = "raw"
 )
 
 func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRecordDataFormat {
 	return &e
 }
-func (e *OutputAzureEventhubRecordDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		*e = OutputAzureEventhubRecordDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubRecordDataFormat: %v", v)
-	}
-}
 
 type OutputAzureEventhubSASLMechanism string
 
 const (
-	OutputAzureEventhubSASLMechanismPlain       OutputAzureEventhubSASLMechanism = "plain"
+	// OutputAzureEventhubSASLMechanismPlain PLAIN
+	OutputAzureEventhubSASLMechanismPlain OutputAzureEventhubSASLMechanism = "plain"
+	// OutputAzureEventhubSASLMechanismOauthbearer OAUTHBEARER
 	OutputAzureEventhubSASLMechanismOauthbearer OutputAzureEventhubSASLMechanism = "oauthbearer"
 )
 
 func (e OutputAzureEventhubSASLMechanism) ToPointer() *OutputAzureEventhubSASLMechanism {
 	return &e
-}
-func (e *OutputAzureEventhubSASLMechanism) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "plain":
-		fallthrough
-	case "oauthbearer":
-		*e = OutputAzureEventhubSASLMechanism(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubSASLMechanism: %v", v)
-	}
 }
 
 // OutputAzureEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
@@ -180,114 +140,60 @@ func (o *OutputAzureEventhubTLSSettingsClientSide) GetRejectUnauthorized() *bool
 type OutputAzureEventhubBackpressureBehavior string
 
 const (
+	// OutputAzureEventhubBackpressureBehaviorBlock Block
 	OutputAzureEventhubBackpressureBehaviorBlock OutputAzureEventhubBackpressureBehavior = "block"
-	OutputAzureEventhubBackpressureBehaviorDrop  OutputAzureEventhubBackpressureBehavior = "drop"
+	// OutputAzureEventhubBackpressureBehaviorDrop Drop
+	OutputAzureEventhubBackpressureBehaviorDrop OutputAzureEventhubBackpressureBehavior = "drop"
+	// OutputAzureEventhubBackpressureBehaviorQueue Persistent Queue
 	OutputAzureEventhubBackpressureBehaviorQueue OutputAzureEventhubBackpressureBehavior = "queue"
 )
 
 func (e OutputAzureEventhubBackpressureBehavior) ToPointer() *OutputAzureEventhubBackpressureBehavior {
 	return &e
 }
-func (e *OutputAzureEventhubBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputAzureEventhubBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputAzureEventhubCompression - Codec to use to compress the persisted data
 type OutputAzureEventhubCompression string
 
 const (
+	// OutputAzureEventhubCompressionNone None
 	OutputAzureEventhubCompressionNone OutputAzureEventhubCompression = "none"
+	// OutputAzureEventhubCompressionGzip Gzip
 	OutputAzureEventhubCompressionGzip OutputAzureEventhubCompression = "gzip"
 )
 
 func (e OutputAzureEventhubCompression) ToPointer() *OutputAzureEventhubCompression {
 	return &e
 }
-func (e *OutputAzureEventhubCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputAzureEventhubCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubCompression: %v", v)
-	}
-}
 
 // OutputAzureEventhubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputAzureEventhubQueueFullBehavior string
 
 const (
+	// OutputAzureEventhubQueueFullBehaviorBlock Block
 	OutputAzureEventhubQueueFullBehaviorBlock OutputAzureEventhubQueueFullBehavior = "block"
-	OutputAzureEventhubQueueFullBehaviorDrop  OutputAzureEventhubQueueFullBehavior = "drop"
+	// OutputAzureEventhubQueueFullBehaviorDrop Drop new data
+	OutputAzureEventhubQueueFullBehaviorDrop OutputAzureEventhubQueueFullBehavior = "drop"
 )
 
 func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQueueFullBehavior {
 	return &e
-}
-func (e *OutputAzureEventhubQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputAzureEventhubQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputAzureEventhubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputAzureEventhubMode string
 
 const (
-	OutputAzureEventhubModeError        OutputAzureEventhubMode = "error"
+	// OutputAzureEventhubModeError Error
+	OutputAzureEventhubModeError OutputAzureEventhubMode = "error"
+	// OutputAzureEventhubModeBackpressure Backpressure
 	OutputAzureEventhubModeBackpressure OutputAzureEventhubMode = "backpressure"
-	OutputAzureEventhubModeAlways       OutputAzureEventhubMode = "always"
+	// OutputAzureEventhubModeAlways Always On
+	OutputAzureEventhubModeAlways OutputAzureEventhubMode = "always"
 )
 
 func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {
 	return &e
-}
-func (e *OutputAzureEventhubMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputAzureEventhubMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureEventhubMode: %v", v)
-	}
 }
 
 type OutputAzureEventhubPqControls struct {

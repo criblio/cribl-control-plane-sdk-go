@@ -3,10 +3,11 @@
 package components
 
 type JobInfo struct {
-	Args   RunnableJob `json:"args"`
-	ID     string      `json:"id"`
-	Keep   *bool       `json:"keep,omitempty"`
-	Status JobStatus   `json:"status"`
+	Args   RunnableJob        `json:"args"`
+	ID     string             `json:"id"`
+	Keep   *bool              `json:"keep,omitempty"`
+	Stats  map[string]float64 `json:"stats"`
+	Status JobStatus          `json:"status"`
 }
 
 func (j *JobInfo) GetArgs() RunnableJob {
@@ -28,6 +29,13 @@ func (j *JobInfo) GetKeep() *bool {
 		return nil
 	}
 	return j.Keep
+}
+
+func (j *JobInfo) GetStats() map[string]float64 {
+	if j == nil {
+		return map[string]float64{}
+	}
+	return j.Stats
 }
 
 func (j *JobInfo) GetStatus() JobStatus {

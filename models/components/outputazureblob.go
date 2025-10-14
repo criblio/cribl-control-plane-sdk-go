@@ -35,84 +35,44 @@ func (e *OutputAzureBlobType) UnmarshalJSON(data []byte) error {
 type OutputAzureBlobDataFormat string
 
 const (
-	OutputAzureBlobDataFormatJSON    OutputAzureBlobDataFormat = "json"
-	OutputAzureBlobDataFormatRaw     OutputAzureBlobDataFormat = "raw"
+	// OutputAzureBlobDataFormatJSON JSON
+	OutputAzureBlobDataFormatJSON OutputAzureBlobDataFormat = "json"
+	// OutputAzureBlobDataFormatRaw Raw
+	OutputAzureBlobDataFormatRaw OutputAzureBlobDataFormat = "raw"
+	// OutputAzureBlobDataFormatParquet Parquet
 	OutputAzureBlobDataFormatParquet OutputAzureBlobDataFormat = "parquet"
 )
 
 func (e OutputAzureBlobDataFormat) ToPointer() *OutputAzureBlobDataFormat {
 	return &e
 }
-func (e *OutputAzureBlobDataFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "raw":
-		fallthrough
-	case "parquet":
-		*e = OutputAzureBlobDataFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobDataFormat: %v", v)
-	}
-}
 
 // OutputAzureBlobBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputAzureBlobBackpressureBehavior string
 
 const (
+	// OutputAzureBlobBackpressureBehaviorBlock Block
 	OutputAzureBlobBackpressureBehaviorBlock OutputAzureBlobBackpressureBehavior = "block"
-	OutputAzureBlobBackpressureBehaviorDrop  OutputAzureBlobBackpressureBehavior = "drop"
+	// OutputAzureBlobBackpressureBehaviorDrop Drop
+	OutputAzureBlobBackpressureBehaviorDrop OutputAzureBlobBackpressureBehavior = "drop"
 )
 
 func (e OutputAzureBlobBackpressureBehavior) ToPointer() *OutputAzureBlobBackpressureBehavior {
 	return &e
-}
-func (e *OutputAzureBlobBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputAzureBlobBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputAzureBlobDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputAzureBlobDiskSpaceProtection string
 
 const (
+	// OutputAzureBlobDiskSpaceProtectionBlock Block
 	OutputAzureBlobDiskSpaceProtectionBlock OutputAzureBlobDiskSpaceProtection = "block"
-	OutputAzureBlobDiskSpaceProtectionDrop  OutputAzureBlobDiskSpaceProtection = "drop"
+	// OutputAzureBlobDiskSpaceProtectionDrop Drop
+	OutputAzureBlobDiskSpaceProtectionDrop OutputAzureBlobDiskSpaceProtection = "drop"
 )
 
 func (e OutputAzureBlobDiskSpaceProtection) ToPointer() *OutputAzureBlobDiskSpaceProtection {
 	return &e
-}
-func (e *OutputAzureBlobDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputAzureBlobDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobDiskSpaceProtection: %v", v)
-	}
 }
 
 type OutputAzureBlobAuthenticationMethod string
@@ -127,59 +87,24 @@ const (
 func (e OutputAzureBlobAuthenticationMethod) ToPointer() *OutputAzureBlobAuthenticationMethod {
 	return &e
 }
-func (e *OutputAzureBlobAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "clientSecret":
-		fallthrough
-	case "clientCert":
-		*e = OutputAzureBlobAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobAuthenticationMethod: %v", v)
-	}
-}
 
 type BlobAccessTier string
 
 const (
+	// BlobAccessTierInferred Default account access tier
 	BlobAccessTierInferred BlobAccessTier = "Inferred"
-	BlobAccessTierHot      BlobAccessTier = "Hot"
-	BlobAccessTierCool     BlobAccessTier = "Cool"
-	BlobAccessTierCold     BlobAccessTier = "Cold"
-	BlobAccessTierArchive  BlobAccessTier = "Archive"
+	// BlobAccessTierHot Hot tier
+	BlobAccessTierHot BlobAccessTier = "Hot"
+	// BlobAccessTierCool Cool tier
+	BlobAccessTierCool BlobAccessTier = "Cool"
+	// BlobAccessTierCold Cold tier
+	BlobAccessTierCold BlobAccessTier = "Cold"
+	// BlobAccessTierArchive Archive tier
+	BlobAccessTierArchive BlobAccessTier = "Archive"
 )
 
 func (e BlobAccessTier) ToPointer() *BlobAccessTier {
 	return &e
-}
-func (e *BlobAccessTier) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "Inferred":
-		fallthrough
-	case "Hot":
-		fallthrough
-	case "Cool":
-		fallthrough
-	case "Cold":
-		fallthrough
-	case "Archive":
-		*e = BlobAccessTier(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BlobAccessTier: %v", v)
-	}
 }
 
 // OutputAzureBlobCompression - Data compression format to apply to HTTP content before it is delivered
@@ -193,107 +118,51 @@ const (
 func (e OutputAzureBlobCompression) ToPointer() *OutputAzureBlobCompression {
 	return &e
 }
-func (e *OutputAzureBlobCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputAzureBlobCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobCompression: %v", v)
-	}
-}
 
 // OutputAzureBlobCompressionLevel - Compression level to apply before moving files to final destination
 type OutputAzureBlobCompressionLevel string
 
 const (
-	OutputAzureBlobCompressionLevelBestSpeed       OutputAzureBlobCompressionLevel = "best_speed"
-	OutputAzureBlobCompressionLevelNormal          OutputAzureBlobCompressionLevel = "normal"
+	// OutputAzureBlobCompressionLevelBestSpeed Best Speed
+	OutputAzureBlobCompressionLevelBestSpeed OutputAzureBlobCompressionLevel = "best_speed"
+	// OutputAzureBlobCompressionLevelNormal Normal
+	OutputAzureBlobCompressionLevelNormal OutputAzureBlobCompressionLevel = "normal"
+	// OutputAzureBlobCompressionLevelBestCompression Best Compression
 	OutputAzureBlobCompressionLevelBestCompression OutputAzureBlobCompressionLevel = "best_compression"
 )
 
 func (e OutputAzureBlobCompressionLevel) ToPointer() *OutputAzureBlobCompressionLevel {
 	return &e
 }
-func (e *OutputAzureBlobCompressionLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "best_speed":
-		fallthrough
-	case "normal":
-		fallthrough
-	case "best_compression":
-		*e = OutputAzureBlobCompressionLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobCompressionLevel: %v", v)
-	}
-}
 
 // OutputAzureBlobParquetVersion - Determines which data types are supported and how they are represented
 type OutputAzureBlobParquetVersion string
 
 const (
+	// OutputAzureBlobParquetVersionParquet10 1.0
 	OutputAzureBlobParquetVersionParquet10 OutputAzureBlobParquetVersion = "PARQUET_1_0"
+	// OutputAzureBlobParquetVersionParquet24 2.4
 	OutputAzureBlobParquetVersionParquet24 OutputAzureBlobParquetVersion = "PARQUET_2_4"
+	// OutputAzureBlobParquetVersionParquet26 2.6
 	OutputAzureBlobParquetVersionParquet26 OutputAzureBlobParquetVersion = "PARQUET_2_6"
 )
 
 func (e OutputAzureBlobParquetVersion) ToPointer() *OutputAzureBlobParquetVersion {
 	return &e
 }
-func (e *OutputAzureBlobParquetVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "PARQUET_1_0":
-		fallthrough
-	case "PARQUET_2_4":
-		fallthrough
-	case "PARQUET_2_6":
-		*e = OutputAzureBlobParquetVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobParquetVersion: %v", v)
-	}
-}
 
 // OutputAzureBlobDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputAzureBlobDataPageVersion string
 
 const (
+	// OutputAzureBlobDataPageVersionDataPageV1 V1
 	OutputAzureBlobDataPageVersionDataPageV1 OutputAzureBlobDataPageVersion = "DATA_PAGE_V1"
+	// OutputAzureBlobDataPageVersionDataPageV2 V2
 	OutputAzureBlobDataPageVersionDataPageV2 OutputAzureBlobDataPageVersion = "DATA_PAGE_V2"
 )
 
 func (e OutputAzureBlobDataPageVersion) ToPointer() *OutputAzureBlobDataPageVersion {
 	return &e
-}
-func (e *OutputAzureBlobDataPageVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "DATA_PAGE_V1":
-		fallthrough
-	case "DATA_PAGE_V2":
-		*e = OutputAzureBlobDataPageVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobDataPageVersion: %v", v)
-	}
 }
 
 type OutputAzureBlobKeyValueMetadatum struct {

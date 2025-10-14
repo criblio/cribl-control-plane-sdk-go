@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type RbacResource string
 
 const (
@@ -21,29 +16,4 @@ const (
 
 func (e RbacResource) ToPointer() *RbacResource {
 	return &e
-}
-func (e *RbacResource) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "groups":
-		fallthrough
-	case "datasets":
-		fallthrough
-	case "dataset-providers":
-		fallthrough
-	case "projects":
-		fallthrough
-	case "dashboards":
-		fallthrough
-	case "macros":
-		fallthrough
-	case "notebooks":
-		*e = RbacResource(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RbacResource: %v", v)
-	}
 }

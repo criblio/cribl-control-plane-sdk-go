@@ -65,30 +65,16 @@ func (o *OutputElasticCloudExtraHTTPHeader) GetValue() string {
 type OutputElasticCloudFailedRequestLoggingMode string
 
 const (
-	OutputElasticCloudFailedRequestLoggingModePayload           OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayload Payload
+	OutputElasticCloudFailedRequestLoggingModePayload OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders OutputElasticCloudFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticCloudFailedRequestLoggingModeNone              OutputElasticCloudFailedRequestLoggingMode = "none"
+	// OutputElasticCloudFailedRequestLoggingModeNone None
+	OutputElasticCloudFailedRequestLoggingModeNone OutputElasticCloudFailedRequestLoggingMode = "none"
 )
 
 func (e OutputElasticCloudFailedRequestLoggingMode) ToPointer() *OutputElasticCloudFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputElasticCloudFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputElasticCloudFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputElasticCloudExtraParam struct {
@@ -133,25 +119,6 @@ const (
 
 func (e OutputElasticCloudAuthenticationMethod) ToPointer() *OutputElasticCloudAuthenticationMethod {
 	return &e
-}
-func (e *OutputElasticCloudAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "manualAPIKey":
-		fallthrough
-	case "textSecret":
-		*e = OutputElasticCloudAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudAuthenticationMethod: %v", v)
-	}
 }
 
 type OutputElasticCloudAuth struct {
@@ -288,114 +255,60 @@ func (o *OutputElasticCloudTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputElasticCloudBackpressureBehavior string
 
 const (
+	// OutputElasticCloudBackpressureBehaviorBlock Block
 	OutputElasticCloudBackpressureBehaviorBlock OutputElasticCloudBackpressureBehavior = "block"
-	OutputElasticCloudBackpressureBehaviorDrop  OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorDrop Drop
+	OutputElasticCloudBackpressureBehaviorDrop OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorQueue Persistent Queue
 	OutputElasticCloudBackpressureBehaviorQueue OutputElasticCloudBackpressureBehavior = "queue"
 )
 
 func (e OutputElasticCloudBackpressureBehavior) ToPointer() *OutputElasticCloudBackpressureBehavior {
 	return &e
 }
-func (e *OutputElasticCloudBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputElasticCloudBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputElasticCloudCompression - Codec to use to compress the persisted data
 type OutputElasticCloudCompression string
 
 const (
+	// OutputElasticCloudCompressionNone None
 	OutputElasticCloudCompressionNone OutputElasticCloudCompression = "none"
+	// OutputElasticCloudCompressionGzip Gzip
 	OutputElasticCloudCompressionGzip OutputElasticCloudCompression = "gzip"
 )
 
 func (e OutputElasticCloudCompression) ToPointer() *OutputElasticCloudCompression {
 	return &e
 }
-func (e *OutputElasticCloudCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputElasticCloudCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudCompression: %v", v)
-	}
-}
 
 // OutputElasticCloudQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputElasticCloudQueueFullBehavior string
 
 const (
+	// OutputElasticCloudQueueFullBehaviorBlock Block
 	OutputElasticCloudQueueFullBehaviorBlock OutputElasticCloudQueueFullBehavior = "block"
-	OutputElasticCloudQueueFullBehaviorDrop  OutputElasticCloudQueueFullBehavior = "drop"
+	// OutputElasticCloudQueueFullBehaviorDrop Drop new data
+	OutputElasticCloudQueueFullBehaviorDrop OutputElasticCloudQueueFullBehavior = "drop"
 )
 
 func (e OutputElasticCloudQueueFullBehavior) ToPointer() *OutputElasticCloudQueueFullBehavior {
 	return &e
-}
-func (e *OutputElasticCloudQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputElasticCloudQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputElasticCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputElasticCloudMode string
 
 const (
-	OutputElasticCloudModeError        OutputElasticCloudMode = "error"
+	// OutputElasticCloudModeError Error
+	OutputElasticCloudModeError OutputElasticCloudMode = "error"
+	// OutputElasticCloudModeBackpressure Backpressure
 	OutputElasticCloudModeBackpressure OutputElasticCloudMode = "backpressure"
-	OutputElasticCloudModeAlways       OutputElasticCloudMode = "always"
+	// OutputElasticCloudModeAlways Always On
+	OutputElasticCloudModeAlways OutputElasticCloudMode = "always"
 )
 
 func (e OutputElasticCloudMode) ToPointer() *OutputElasticCloudMode {
 	return &e
-}
-func (e *OutputElasticCloudMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputElasticCloudMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticCloudMode: %v", v)
-	}
 }
 
 type OutputElasticCloudPqControls struct {

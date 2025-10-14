@@ -65,54 +65,28 @@ func (i *InputKafkaConnection) GetOutput() string {
 type InputKafkaMode string
 
 const (
-	InputKafkaModeSmart  InputKafkaMode = "smart"
+	// InputKafkaModeSmart Smart
+	InputKafkaModeSmart InputKafkaMode = "smart"
+	// InputKafkaModeAlways Always On
 	InputKafkaModeAlways InputKafkaMode = "always"
 )
 
 func (e InputKafkaMode) ToPointer() *InputKafkaMode {
 	return &e
 }
-func (e *InputKafkaMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputKafkaMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaMode: %v", v)
-	}
-}
 
 // InputKafkaCompression - Codec to use to compress the persisted data
 type InputKafkaCompression string
 
 const (
+	// InputKafkaCompressionNone None
 	InputKafkaCompressionNone InputKafkaCompression = "none"
+	// InputKafkaCompressionGzip Gzip
 	InputKafkaCompressionGzip InputKafkaCompression = "gzip"
 )
 
 func (e InputKafkaCompression) ToPointer() *InputKafkaCompression {
 	return &e
-}
-func (e *InputKafkaCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKafkaCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaCompression: %v", v)
-	}
 }
 
 type InputKafkaPqControls struct {
@@ -214,33 +188,6 @@ func (i *InputKafkaPq) GetPqControls() *InputKafkaPqControls {
 	return i.PqControls
 }
 
-// InputKafkaSchemaType - The schema format used to encode and decode event data
-type InputKafkaSchemaType string
-
-const (
-	InputKafkaSchemaTypeAvro InputKafkaSchemaType = "avro"
-	InputKafkaSchemaTypeJSON InputKafkaSchemaType = "json"
-)
-
-func (e InputKafkaSchemaType) ToPointer() *InputKafkaSchemaType {
-	return &e
-}
-func (e *InputKafkaSchemaType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "avro":
-		fallthrough
-	case "json":
-		*e = InputKafkaSchemaType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaSchemaType: %v", v)
-	}
-}
-
 // InputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type InputKafkaAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -285,25 +232,6 @@ const (
 func (e InputKafkaKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *InputKafkaKafkaSchemaRegistryMinimumTLSVersion {
 	return &e
 }
-func (e *InputKafkaKafkaSchemaRegistryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputKafkaKafkaSchemaRegistryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaKafkaSchemaRegistryMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputKafkaKafkaSchemaRegistryMaximumTLSVersion string
 
@@ -316,25 +244,6 @@ const (
 
 func (e InputKafkaKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputKafkaKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
-}
-func (e *InputKafkaKafkaSchemaRegistryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputKafkaKafkaSchemaRegistryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaKafkaSchemaRegistryMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputKafkaKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -443,8 +352,6 @@ type InputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -479,13 +386,6 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *st
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *InputKafkaSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -526,33 +426,18 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetTLS() *InputKafkaKafkaS
 type InputKafkaSASLMechanism string
 
 const (
-	InputKafkaSASLMechanismPlain       InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismPlain PLAIN
+	InputKafkaSASLMechanismPlain InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	InputKafkaSASLMechanismScramSha256 InputKafkaSASLMechanism = "scram-sha-256"
+	// InputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	InputKafkaSASLMechanismScramSha512 InputKafkaSASLMechanism = "scram-sha-512"
-	InputKafkaSASLMechanismKerberos    InputKafkaSASLMechanism = "kerberos"
+	// InputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	InputKafkaSASLMechanismKerberos InputKafkaSASLMechanism = "kerberos"
 )
 
 func (e InputKafkaSASLMechanism) ToPointer() *InputKafkaSASLMechanism {
 	return &e
-}
-func (e *InputKafkaSASLMechanism) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "plain":
-		fallthrough
-	case "scram-sha-256":
-		fallthrough
-	case "scram-sha-512":
-		fallthrough
-	case "kerberos":
-		*e = InputKafkaSASLMechanism(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaSASLMechanism: %v", v)
-	}
 }
 
 // InputKafkaAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
@@ -607,25 +492,6 @@ const (
 func (e InputKafkaMinimumTLSVersion) ToPointer() *InputKafkaMinimumTLSVersion {
 	return &e
 }
-func (e *InputKafkaMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputKafkaMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputKafkaMaximumTLSVersion string
 
@@ -638,25 +504,6 @@ const (
 
 func (e InputKafkaMaximumTLSVersion) ToPointer() *InputKafkaMaximumTLSVersion {
 	return &e
-}
-func (e *InputKafkaMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputKafkaMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputKafkaTLSSettingsClientSide struct {

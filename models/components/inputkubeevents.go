@@ -65,54 +65,28 @@ func (i *InputKubeEventsConnection) GetOutput() string {
 type InputKubeEventsMode string
 
 const (
-	InputKubeEventsModeSmart  InputKubeEventsMode = "smart"
+	// InputKubeEventsModeSmart Smart
+	InputKubeEventsModeSmart InputKubeEventsMode = "smart"
+	// InputKubeEventsModeAlways Always On
 	InputKubeEventsModeAlways InputKubeEventsMode = "always"
 )
 
 func (e InputKubeEventsMode) ToPointer() *InputKubeEventsMode {
 	return &e
 }
-func (e *InputKubeEventsMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputKubeEventsMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeEventsMode: %v", v)
-	}
-}
 
 // InputKubeEventsCompression - Codec to use to compress the persisted data
 type InputKubeEventsCompression string
 
 const (
+	// InputKubeEventsCompressionNone None
 	InputKubeEventsCompressionNone InputKubeEventsCompression = "none"
+	// InputKubeEventsCompressionGzip Gzip
 	InputKubeEventsCompressionGzip InputKubeEventsCompression = "gzip"
 )
 
 func (e InputKubeEventsCompression) ToPointer() *InputKubeEventsCompression {
 	return &e
-}
-func (e *InputKubeEventsCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputKubeEventsCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKubeEventsCompression: %v", v)
-	}
 }
 
 type InputKubeEventsPqControls struct {

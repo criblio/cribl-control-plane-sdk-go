@@ -65,30 +65,16 @@ func (o *OutputHoneycombExtraHTTPHeader) GetValue() string {
 type OutputHoneycombFailedRequestLoggingMode string
 
 const (
-	OutputHoneycombFailedRequestLoggingModePayload           OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayload Payload
+	OutputHoneycombFailedRequestLoggingModePayload OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputHoneycombFailedRequestLoggingModePayloadAndHeaders OutputHoneycombFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputHoneycombFailedRequestLoggingModeNone              OutputHoneycombFailedRequestLoggingMode = "none"
+	// OutputHoneycombFailedRequestLoggingModeNone None
+	OutputHoneycombFailedRequestLoggingModeNone OutputHoneycombFailedRequestLoggingMode = "none"
 )
 
 func (e OutputHoneycombFailedRequestLoggingMode) ToPointer() *OutputHoneycombFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputHoneycombFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputHoneycombFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombFailedRequestLoggingMode: %v", v)
-	}
 }
 
 type OutputHoneycombResponseRetrySetting struct {
@@ -194,30 +180,16 @@ func (o *OutputHoneycombTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputHoneycombBackpressureBehavior string
 
 const (
+	// OutputHoneycombBackpressureBehaviorBlock Block
 	OutputHoneycombBackpressureBehaviorBlock OutputHoneycombBackpressureBehavior = "block"
-	OutputHoneycombBackpressureBehaviorDrop  OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorDrop Drop
+	OutputHoneycombBackpressureBehaviorDrop OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorQueue Persistent Queue
 	OutputHoneycombBackpressureBehaviorQueue OutputHoneycombBackpressureBehavior = "queue"
 )
 
 func (e OutputHoneycombBackpressureBehavior) ToPointer() *OutputHoneycombBackpressureBehavior {
 	return &e
-}
-func (e *OutputHoneycombBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputHoneycombBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputHoneycombAuthenticationMethod - Enter API key directly, or select a stored secret
@@ -231,104 +203,49 @@ const (
 func (e OutputHoneycombAuthenticationMethod) ToPointer() *OutputHoneycombAuthenticationMethod {
 	return &e
 }
-func (e *OutputHoneycombAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputHoneycombAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputHoneycombCompression - Codec to use to compress the persisted data
 type OutputHoneycombCompression string
 
 const (
+	// OutputHoneycombCompressionNone None
 	OutputHoneycombCompressionNone OutputHoneycombCompression = "none"
+	// OutputHoneycombCompressionGzip Gzip
 	OutputHoneycombCompressionGzip OutputHoneycombCompression = "gzip"
 )
 
 func (e OutputHoneycombCompression) ToPointer() *OutputHoneycombCompression {
 	return &e
 }
-func (e *OutputHoneycombCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputHoneycombCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombCompression: %v", v)
-	}
-}
 
 // OutputHoneycombQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputHoneycombQueueFullBehavior string
 
 const (
+	// OutputHoneycombQueueFullBehaviorBlock Block
 	OutputHoneycombQueueFullBehaviorBlock OutputHoneycombQueueFullBehavior = "block"
-	OutputHoneycombQueueFullBehaviorDrop  OutputHoneycombQueueFullBehavior = "drop"
+	// OutputHoneycombQueueFullBehaviorDrop Drop new data
+	OutputHoneycombQueueFullBehaviorDrop OutputHoneycombQueueFullBehavior = "drop"
 )
 
 func (e OutputHoneycombQueueFullBehavior) ToPointer() *OutputHoneycombQueueFullBehavior {
 	return &e
-}
-func (e *OutputHoneycombQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputHoneycombQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputHoneycombMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputHoneycombMode string
 
 const (
-	OutputHoneycombModeError        OutputHoneycombMode = "error"
+	// OutputHoneycombModeError Error
+	OutputHoneycombModeError OutputHoneycombMode = "error"
+	// OutputHoneycombModeBackpressure Backpressure
 	OutputHoneycombModeBackpressure OutputHoneycombMode = "backpressure"
-	OutputHoneycombModeAlways       OutputHoneycombMode = "always"
+	// OutputHoneycombModeAlways Always On
+	OutputHoneycombModeAlways OutputHoneycombMode = "always"
 )
 
 func (e OutputHoneycombMode) ToPointer() *OutputHoneycombMode {
 	return &e
-}
-func (e *OutputHoneycombMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputHoneycombMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputHoneycombMode: %v", v)
-	}
 }
 
 type OutputHoneycombPqControls struct {
