@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 181bb44c06fd63ce996c23dd0a660f5e
-  docVersion: 4.15.0-alpha.1760439369062-366c2353
+  docChecksum: 6a9833956a1790cfabfb6ad9ac3251fd
+  docVersion: 4.15.0-alpha.1760451417353-c4fefd9b
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.1
-  configChecksum: 572b651b443d028dd70c3ba28129e884
+  releaseVersion: 0.1.1-rc.2
+  configChecksum: 8b1ea39097ad8bd9c1c2d78144b4683b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3331,4 +3331,10 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Versions.Commits.Push()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Health.Get()`:  `response.status[default]` **Added** **Breaking** :warning:\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.LakeDatasets.Update()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Upload()`: **Added**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats` **Added**\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Update()`:  `response.Items.[].Tags.Technology` **Changed**
