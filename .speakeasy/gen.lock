@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.1-alpha.1760352614113-66cf8b7e
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-alpha.1
-  configChecksum: 36c3db28ee08609ff89f2270e08f27e8
+  releaseVersion: 0.2.0-alpha.2
+  configChecksum: cc114260bb72badb10a2bf2b92bdf0f3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3324,4 +3324,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.LakeDatasets.Update()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[inputSqs].QueueType` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[inputSqs].QueueType` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[inputSqs].QueueType` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
