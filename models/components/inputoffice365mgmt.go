@@ -65,54 +65,28 @@ func (i *InputOffice365MgmtConnection) GetOutput() string {
 type InputOffice365MgmtMode string
 
 const (
-	InputOffice365MgmtModeSmart  InputOffice365MgmtMode = "smart"
+	// InputOffice365MgmtModeSmart Smart
+	InputOffice365MgmtModeSmart InputOffice365MgmtMode = "smart"
+	// InputOffice365MgmtModeAlways Always On
 	InputOffice365MgmtModeAlways InputOffice365MgmtMode = "always"
 )
 
 func (e InputOffice365MgmtMode) ToPointer() *InputOffice365MgmtMode {
 	return &e
 }
-func (e *InputOffice365MgmtMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputOffice365MgmtMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtMode: %v", v)
-	}
-}
 
 // InputOffice365MgmtCompression - Codec to use to compress the persisted data
 type InputOffice365MgmtCompression string
 
 const (
+	// InputOffice365MgmtCompressionNone None
 	InputOffice365MgmtCompressionNone InputOffice365MgmtCompression = "none"
+	// InputOffice365MgmtCompressionGzip Gzip
 	InputOffice365MgmtCompressionGzip InputOffice365MgmtCompression = "gzip"
 )
 
 func (e InputOffice365MgmtCompression) ToPointer() *InputOffice365MgmtCompression {
 	return &e
-}
-func (e *InputOffice365MgmtCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputOffice365MgmtCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtCompression: %v", v)
-	}
 }
 
 type InputOffice365MgmtPqControls struct {
@@ -218,33 +192,18 @@ func (i *InputOffice365MgmtPq) GetPqControls() *InputOffice365MgmtPqControls {
 type InputOffice365MgmtSubscriptionPlan string
 
 const (
+	// InputOffice365MgmtSubscriptionPlanEnterpriseGcc Office 365 Enterprise
 	InputOffice365MgmtSubscriptionPlanEnterpriseGcc InputOffice365MgmtSubscriptionPlan = "enterprise_gcc"
-	InputOffice365MgmtSubscriptionPlanGcc           InputOffice365MgmtSubscriptionPlan = "gcc"
-	InputOffice365MgmtSubscriptionPlanGccHigh       InputOffice365MgmtSubscriptionPlan = "gcc_high"
-	InputOffice365MgmtSubscriptionPlanDod           InputOffice365MgmtSubscriptionPlan = "dod"
+	// InputOffice365MgmtSubscriptionPlanGcc Office 365 GCC
+	InputOffice365MgmtSubscriptionPlanGcc InputOffice365MgmtSubscriptionPlan = "gcc"
+	// InputOffice365MgmtSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365MgmtSubscriptionPlanGccHigh InputOffice365MgmtSubscriptionPlan = "gcc_high"
+	// InputOffice365MgmtSubscriptionPlanDod Office 365 DoD
+	InputOffice365MgmtSubscriptionPlanDod InputOffice365MgmtSubscriptionPlan = "dod"
 )
 
 func (e InputOffice365MgmtSubscriptionPlan) ToPointer() *InputOffice365MgmtSubscriptionPlan {
 	return &e
-}
-func (e *InputOffice365MgmtSubscriptionPlan) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "enterprise_gcc":
-		fallthrough
-	case "gcc":
-		fallthrough
-	case "gcc_high":
-		fallthrough
-	case "dod":
-		*e = InputOffice365MgmtSubscriptionPlan(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtSubscriptionPlan: %v", v)
-	}
 }
 
 type InputOffice365MgmtMetadatum struct {
@@ -290,25 +249,6 @@ const (
 
 func (e InputOffice365MgmtLogLevel) ToPointer() *InputOffice365MgmtLogLevel {
 	return &e
-}
-func (e *InputOffice365MgmtLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		*e = InputOffice365MgmtLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtLogLevel: %v", v)
-	}
 }
 
 type InputOffice365MgmtContentConfig struct {
@@ -372,30 +312,16 @@ func (i *InputOffice365MgmtContentConfig) GetEnabled() *bool {
 type InputOffice365MgmtRetryType string
 
 const (
-	InputOffice365MgmtRetryTypeNone    InputOffice365MgmtRetryType = "none"
+	// InputOffice365MgmtRetryTypeNone Disabled
+	InputOffice365MgmtRetryTypeNone InputOffice365MgmtRetryType = "none"
+	// InputOffice365MgmtRetryTypeBackoff Backoff
 	InputOffice365MgmtRetryTypeBackoff InputOffice365MgmtRetryType = "backoff"
-	InputOffice365MgmtRetryTypeStatic  InputOffice365MgmtRetryType = "static"
+	// InputOffice365MgmtRetryTypeStatic Static
+	InputOffice365MgmtRetryTypeStatic InputOffice365MgmtRetryType = "static"
 )
 
 func (e InputOffice365MgmtRetryType) ToPointer() *InputOffice365MgmtRetryType {
 	return &e
-}
-func (e *InputOffice365MgmtRetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "backoff":
-		fallthrough
-	case "static":
-		*e = InputOffice365MgmtRetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtRetryType: %v", v)
-	}
 }
 
 type InputOffice365MgmtRetryRules struct {
@@ -494,21 +420,6 @@ const (
 
 func (e InputOffice365MgmtAuthenticationMethod) ToPointer() *InputOffice365MgmtAuthenticationMethod {
 	return &e
-}
-func (e *InputOffice365MgmtAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = InputOffice365MgmtAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOffice365MgmtAuthenticationMethod: %v", v)
-	}
 }
 
 type InputOffice365Mgmt struct {

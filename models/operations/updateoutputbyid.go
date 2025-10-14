@@ -27,6 +27,270 @@ func (u *UpdateOutputByIDRequest) GetOutput() components.Output {
 	return u.Output
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputDefault() *components.OutputDefault {
+	return u.GetOutput().OutputDefault
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputWebhook() *components.OutputWebhook {
+	return u.GetOutput().OutputWebhook
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSentinel() *components.OutputSentinel {
+	return u.GetOutput().OutputSentinel
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDevnull() *components.OutputDevnull {
+	return u.GetOutput().OutputDevnull
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSyslog() *components.OutputSyslog {
+	return u.GetOutput().OutputSyslog
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSplunk() *components.OutputSplunk {
+	return u.GetOutput().OutputSplunk
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSplunkLb() *components.OutputSplunkLb {
+	return u.GetOutput().OutputSplunkLb
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSplunkHec() *components.OutputSplunkHec {
+	return u.GetOutput().OutputSplunkHec
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputTcpjson() *components.OutputTcpjson {
+	return u.GetOutput().OutputTcpjson
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputWavefront() *components.OutputWavefront {
+	return u.GetOutput().OutputWavefront
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSignalfx() *components.OutputSignalfx {
+	return u.GetOutput().OutputSignalfx
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputFilesystem() *components.OutputFilesystem {
+	return u.GetOutput().OutputFilesystem
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputS3() *components.OutputS3 {
+	return u.GetOutput().OutputS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAzureBlob() *components.OutputAzureBlob {
+	return u.GetOutput().OutputAzureBlob
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAzureDataExplorer() *components.OutputAzureDataExplorer {
+	return u.GetOutput().OutputAzureDataExplorer
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAzureLogs() *components.OutputAzureLogs {
+	return u.GetOutput().OutputAzureLogs
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputKinesis() *components.OutputKinesis {
+	return u.GetOutput().OutputKinesis
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputHoneycomb() *components.OutputHoneycomb {
+	return u.GetOutput().OutputHoneycomb
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAzureEventhub() *components.OutputAzureEventhub {
+	return u.GetOutput().OutputAzureEventhub
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGoogleChronicle() *components.OutputGoogleChronicle {
+	return u.GetOutput().OutputGoogleChronicle
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGoogleCloudStorage() *components.OutputGoogleCloudStorage {
+	return u.GetOutput().OutputGoogleCloudStorage
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGoogleCloudLogging() *components.OutputGoogleCloudLogging {
+	return u.GetOutput().OutputGoogleCloudLogging
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGooglePubsub() *components.OutputGooglePubsub {
+	return u.GetOutput().OutputGooglePubsub
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputExabeam() *components.OutputExabeam {
+	return u.GetOutput().OutputExabeam
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputKafka() *components.OutputKafka {
+	return u.GetOutput().OutputKafka
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputConfluentCloud() *components.OutputConfluentCloud {
+	return u.GetOutput().OutputConfluentCloud
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputMsk() *components.OutputMsk {
+	return u.GetOutput().OutputMsk
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputElastic() *components.OutputElastic {
+	return u.GetOutput().OutputElastic
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputElasticCloud() *components.OutputElasticCloud {
+	return u.GetOutput().OutputElasticCloud
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputNewrelic() *components.OutputNewrelic {
+	return u.GetOutput().OutputNewrelic
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputNewrelicEvents() *components.OutputNewrelicEvents {
+	return u.GetOutput().OutputNewrelicEvents
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputInfluxdb() *components.OutputInfluxdb {
+	return u.GetOutput().OutputInfluxdb
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCloudwatch() *components.OutputCloudwatch {
+	return u.GetOutput().OutputCloudwatch
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputMinio() *components.OutputMinio {
+	return u.GetOutput().OutputMinio
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputStatsd() *components.OutputStatsd {
+	return u.GetOutput().OutputStatsd
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputStatsdExt() *components.OutputStatsdExt {
+	return u.GetOutput().OutputStatsdExt
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGraphite() *components.OutputGraphite {
+	return u.GetOutput().OutputGraphite
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputRouter() *components.OutputRouter {
+	return u.GetOutput().OutputRouter
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSns() *components.OutputSns {
+	return u.GetOutput().OutputSns
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSqs() *components.OutputSqs {
+	return u.GetOutput().OutputSqs
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSnmp() *components.OutputSnmp {
+	return u.GetOutput().OutputSnmp
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSumoLogic() *components.OutputSumoLogic {
+	return u.GetOutput().OutputSumoLogic
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDatadog() *components.OutputDatadog {
+	return u.GetOutput().OutputDatadog
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputGrafanaCloud() *components.OutputGrafanaCloud {
+	return u.GetOutput().OutputGrafanaCloud
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputLoki() *components.OutputLoki {
+	return u.GetOutput().OutputLoki
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputPrometheus() *components.OutputPrometheus {
+	return u.GetOutput().OutputPrometheus
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputRing() *components.OutputRing {
+	return u.GetOutput().OutputRing
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputOpenTelemetry() *components.OutputOpenTelemetry {
+	return u.GetOutput().OutputOpenTelemetry
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputServiceNow() *components.OutputServiceNow {
+	return u.GetOutput().OutputServiceNow
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDataset() *components.OutputDataset {
+	return u.GetOutput().OutputDataset
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCriblTCP() *components.OutputCriblTCP {
+	return u.GetOutput().OutputCriblTCP
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCriblHTTP() *components.OutputCriblHTTP {
+	return u.GetOutput().OutputCriblHTTP
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputHumioHec() *components.OutputHumioHec {
+	return u.GetOutput().OutputHumioHec
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCrowdstrikeNextGenSiem() *components.OutputCrowdstrikeNextGenSiem {
+	return u.GetOutput().OutputCrowdstrikeNextGenSiem
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDlS3() *components.OutputDlS3 {
+	return u.GetOutput().OutputDlS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSecurityLake() *components.OutputSecurityLake {
+	return u.GetOutput().OutputSecurityLake
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCriblLake() *components.OutputCriblLake {
+	return u.GetOutput().OutputCriblLake
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDiskSpool() *components.OutputDiskSpool {
+	return u.GetOutput().OutputDiskSpool
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputClickHouse() *components.OutputClickHouse {
+	return u.GetOutput().OutputClickHouse
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputXsiam() *components.OutputXsiam {
+	return u.GetOutput().OutputXsiam
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputNetflow() *components.OutputNetflow {
+	return u.GetOutput().OutputNetflow
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDynatraceHTTP() *components.OutputDynatraceHTTP {
+	return u.GetOutput().OutputDynatraceHTTP
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDynatraceOtlp() *components.OutputDynatraceOtlp {
+	return u.GetOutput().OutputDynatraceOtlp
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputSentinelOneAiSiem() *components.OutputSentinelOneAiSiem {
+	return u.GetOutput().OutputSentinelOneAiSiem
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputChronicle() *components.OutputChronicle {
+	return u.GetOutput().OutputChronicle
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDatabricks() *components.OutputDatabricks {
+	return u.GetOutput().OutputDatabricks
+}
+
 // UpdateOutputByIDResponseBody - a list of Destination objects
 type UpdateOutputByIDResponseBody struct {
 	// number of items present in the items array

@@ -19,23 +19,6 @@ const (
 func (e RunnableJobExecutorJobType) ToPointer() *RunnableJobExecutorJobType {
 	return &e
 }
-func (e *RunnableJobExecutorJobType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "collection":
-		fallthrough
-	case "executor":
-		fallthrough
-	case "scheduledSearch":
-		*e = RunnableJobExecutorJobType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobExecutorJobType: %v", v)
-	}
-}
 
 type RunnableJobExecutorType string
 
@@ -402,27 +385,6 @@ const (
 
 func (e RunnableJobExecutorLogLevel) ToPointer() *RunnableJobExecutorLogLevel {
 	return &e
-}
-func (e *RunnableJobExecutorLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = RunnableJobExecutorLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobExecutorLogLevel: %v", v)
-	}
 }
 
 type RunnableJobExecutorRun struct {

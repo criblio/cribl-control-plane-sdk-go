@@ -9,9 +9,9 @@
 remote := components.CreateRemoteStr(string{/* values here */})
 ```
 
-### 
+### RemoteEnum
 
 ```go
-remote := components.CreateRemoteBoolean(bool{/* values here */})
+remote := components.CreateRemoteRemoteEnum(components.RemoteEnum{/* values here */})
 ```
 

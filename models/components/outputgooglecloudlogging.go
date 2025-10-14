@@ -34,60 +34,32 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 type LogLocationType string
 
 const (
-	LogLocationTypeProject        LogLocationType = "project"
-	LogLocationTypeOrganization   LogLocationType = "organization"
+	// LogLocationTypeProject Project
+	LogLocationTypeProject LogLocationType = "project"
+	// LogLocationTypeOrganization Organization
+	LogLocationTypeOrganization LogLocationType = "organization"
+	// LogLocationTypeBillingAccount Billing Account
 	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	LogLocationTypeFolder         LogLocationType = "folder"
+	// LogLocationTypeFolder Folder
+	LogLocationTypeFolder LogLocationType = "folder"
 )
 
 func (e LogLocationType) ToPointer() *LogLocationType {
 	return &e
-}
-func (e *LogLocationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "project":
-		fallthrough
-	case "organization":
-		fallthrough
-	case "billingAccount":
-		fallthrough
-	case "folder":
-		*e = LogLocationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for LogLocationType: %v", v)
-	}
 }
 
 // PayloadFormat - Format to use when sending payload. Defaults to Text.
 type PayloadFormat string
 
 const (
+	// PayloadFormatText Text
 	PayloadFormatText PayloadFormat = "text"
+	// PayloadFormatJSON JSON
 	PayloadFormatJSON PayloadFormat = "json"
 )
 
 func (e PayloadFormat) ToPointer() *PayloadFormat {
 	return &e
-}
-func (e *PayloadFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "text":
-		fallthrough
-	case "json":
-		*e = PayloadFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for PayloadFormat: %v", v)
-	}
 }
 
 type LogLabel struct {
@@ -158,144 +130,76 @@ func (r *ResourceTypeLabel) GetValueExpression() string {
 type OutputGoogleCloudLoggingGoogleAuthenticationMethod string
 
 const (
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto   OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto Auto
+	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodManual Manual
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodManual OutputGoogleCloudLoggingGoogleAuthenticationMethod = "manual"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret Secret
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret OutputGoogleCloudLoggingGoogleAuthenticationMethod = "secret"
 )
 
 func (e OutputGoogleCloudLoggingGoogleAuthenticationMethod) ToPointer() *OutputGoogleCloudLoggingGoogleAuthenticationMethod {
 	return &e
 }
-func (e *OutputGoogleCloudLoggingGoogleAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputGoogleCloudLoggingGoogleAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingGoogleAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputGoogleCloudLoggingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGoogleCloudLoggingBackpressureBehavior string
 
 const (
+	// OutputGoogleCloudLoggingBackpressureBehaviorBlock Block
 	OutputGoogleCloudLoggingBackpressureBehaviorBlock OutputGoogleCloudLoggingBackpressureBehavior = "block"
-	OutputGoogleCloudLoggingBackpressureBehaviorDrop  OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorDrop Drop
+	OutputGoogleCloudLoggingBackpressureBehaviorDrop OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorQueue Persistent Queue
 	OutputGoogleCloudLoggingBackpressureBehaviorQueue OutputGoogleCloudLoggingBackpressureBehavior = "queue"
 )
 
 func (e OutputGoogleCloudLoggingBackpressureBehavior) ToPointer() *OutputGoogleCloudLoggingBackpressureBehavior {
 	return &e
 }
-func (e *OutputGoogleCloudLoggingBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGoogleCloudLoggingBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputGoogleCloudLoggingCompression - Codec to use to compress the persisted data
 type OutputGoogleCloudLoggingCompression string
 
 const (
+	// OutputGoogleCloudLoggingCompressionNone None
 	OutputGoogleCloudLoggingCompressionNone OutputGoogleCloudLoggingCompression = "none"
+	// OutputGoogleCloudLoggingCompressionGzip Gzip
 	OutputGoogleCloudLoggingCompressionGzip OutputGoogleCloudLoggingCompression = "gzip"
 )
 
 func (e OutputGoogleCloudLoggingCompression) ToPointer() *OutputGoogleCloudLoggingCompression {
 	return &e
 }
-func (e *OutputGoogleCloudLoggingCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGoogleCloudLoggingCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingCompression: %v", v)
-	}
-}
 
 // OutputGoogleCloudLoggingQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGoogleCloudLoggingQueueFullBehavior string
 
 const (
+	// OutputGoogleCloudLoggingQueueFullBehaviorBlock Block
 	OutputGoogleCloudLoggingQueueFullBehaviorBlock OutputGoogleCloudLoggingQueueFullBehavior = "block"
-	OutputGoogleCloudLoggingQueueFullBehaviorDrop  OutputGoogleCloudLoggingQueueFullBehavior = "drop"
+	// OutputGoogleCloudLoggingQueueFullBehaviorDrop Drop new data
+	OutputGoogleCloudLoggingQueueFullBehaviorDrop OutputGoogleCloudLoggingQueueFullBehavior = "drop"
 )
 
 func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleCloudLoggingQueueFullBehavior {
 	return &e
-}
-func (e *OutputGoogleCloudLoggingQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGoogleCloudLoggingQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputGoogleCloudLoggingMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGoogleCloudLoggingMode string
 
 const (
-	OutputGoogleCloudLoggingModeError        OutputGoogleCloudLoggingMode = "error"
+	// OutputGoogleCloudLoggingModeError Error
+	OutputGoogleCloudLoggingModeError OutputGoogleCloudLoggingMode = "error"
+	// OutputGoogleCloudLoggingModeBackpressure Backpressure
 	OutputGoogleCloudLoggingModeBackpressure OutputGoogleCloudLoggingMode = "backpressure"
-	OutputGoogleCloudLoggingModeAlways       OutputGoogleCloudLoggingMode = "always"
+	// OutputGoogleCloudLoggingModeAlways Always On
+	OutputGoogleCloudLoggingModeAlways OutputGoogleCloudLoggingMode = "always"
 )
 
 func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode {
 	return &e
-}
-func (e *OutputGoogleCloudLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGoogleCloudLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingMode: %v", v)
-	}
 }
 
 type OutputGoogleCloudLoggingPqControls struct {
@@ -325,8 +229,9 @@ type OutputGoogleCloudLogging struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags      []string        `json:"streamtags,omitempty"`
 	LogLocationType LogLocationType `json:"logLocationType"`
-	// JavaScript expression to compute the value of the log name.
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
 	// Format to use when sending payload. Defaults to Text.
 	PayloadFormat *PayloadFormat `default:"text" json:"payloadFormat"`
 	// Labels to apply to the log entry
@@ -420,7 +325,7 @@ type OutputGoogleCloudLogging struct {
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
-	// JavaScript expression to compute the value of the folder ID with which log entries should be associated.
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
 	PayloadExpression *string `json:"payloadExpression,omitempty"`
@@ -504,6 +409,13 @@ func (o *OutputGoogleCloudLogging) GetLogNameExpression() string {
 		return ""
 	}
 	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
 }
 
 func (o *OutputGoogleCloudLogging) GetPayloadFormat() *PayloadFormat {

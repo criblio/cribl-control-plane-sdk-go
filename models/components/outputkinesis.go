@@ -35,30 +35,16 @@ func (e *OutputKinesisType) UnmarshalJSON(data []byte) error {
 type OutputKinesisAuthenticationMethod string
 
 const (
-	OutputKinesisAuthenticationMethodAuto   OutputKinesisAuthenticationMethod = "auto"
+	// OutputKinesisAuthenticationMethodAuto Auto
+	OutputKinesisAuthenticationMethodAuto OutputKinesisAuthenticationMethod = "auto"
+	// OutputKinesisAuthenticationMethodManual Manual
 	OutputKinesisAuthenticationMethodManual OutputKinesisAuthenticationMethod = "manual"
+	// OutputKinesisAuthenticationMethodSecret Secret Key pair
 	OutputKinesisAuthenticationMethodSecret OutputKinesisAuthenticationMethod = "secret"
 )
 
 func (e OutputKinesisAuthenticationMethod) ToPointer() *OutputKinesisAuthenticationMethod {
 	return &e
-}
-func (e *OutputKinesisAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputKinesisAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisAuthenticationMethod: %v", v)
-	}
 }
 
 // OutputKinesisSignatureVersion - Signature version to use for signing Kinesis stream requests
@@ -72,161 +58,79 @@ const (
 func (e OutputKinesisSignatureVersion) ToPointer() *OutputKinesisSignatureVersion {
 	return &e
 }
-func (e *OutputKinesisSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputKinesisSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisSignatureVersion: %v", v)
-	}
-}
 
 // OutputKinesisCompression - Compression type to use for records
 type OutputKinesisCompression string
 
 const (
+	// OutputKinesisCompressionNone None
 	OutputKinesisCompressionNone OutputKinesisCompression = "none"
+	// OutputKinesisCompressionGzip Gzip
 	OutputKinesisCompressionGzip OutputKinesisCompression = "gzip"
 )
 
 func (e OutputKinesisCompression) ToPointer() *OutputKinesisCompression {
 	return &e
 }
-func (e *OutputKinesisCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputKinesisCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisCompression: %v", v)
-	}
-}
 
 // OutputKinesisBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputKinesisBackpressureBehavior string
 
 const (
+	// OutputKinesisBackpressureBehaviorBlock Block
 	OutputKinesisBackpressureBehaviorBlock OutputKinesisBackpressureBehavior = "block"
-	OutputKinesisBackpressureBehaviorDrop  OutputKinesisBackpressureBehavior = "drop"
+	// OutputKinesisBackpressureBehaviorDrop Drop
+	OutputKinesisBackpressureBehaviorDrop OutputKinesisBackpressureBehavior = "drop"
+	// OutputKinesisBackpressureBehaviorQueue Persistent Queue
 	OutputKinesisBackpressureBehaviorQueue OutputKinesisBackpressureBehavior = "queue"
 )
 
 func (e OutputKinesisBackpressureBehavior) ToPointer() *OutputKinesisBackpressureBehavior {
 	return &e
 }
-func (e *OutputKinesisBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputKinesisBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputKinesisPqCompressCompression - Codec to use to compress the persisted data
 type OutputKinesisPqCompressCompression string
 
 const (
+	// OutputKinesisPqCompressCompressionNone None
 	OutputKinesisPqCompressCompressionNone OutputKinesisPqCompressCompression = "none"
+	// OutputKinesisPqCompressCompressionGzip Gzip
 	OutputKinesisPqCompressCompressionGzip OutputKinesisPqCompressCompression = "gzip"
 )
 
 func (e OutputKinesisPqCompressCompression) ToPointer() *OutputKinesisPqCompressCompression {
 	return &e
 }
-func (e *OutputKinesisPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputKinesisPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisPqCompressCompression: %v", v)
-	}
-}
 
 // OutputKinesisQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputKinesisQueueFullBehavior string
 
 const (
+	// OutputKinesisQueueFullBehaviorBlock Block
 	OutputKinesisQueueFullBehaviorBlock OutputKinesisQueueFullBehavior = "block"
-	OutputKinesisQueueFullBehaviorDrop  OutputKinesisQueueFullBehavior = "drop"
+	// OutputKinesisQueueFullBehaviorDrop Drop new data
+	OutputKinesisQueueFullBehaviorDrop OutputKinesisQueueFullBehavior = "drop"
 )
 
 func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehavior {
 	return &e
-}
-func (e *OutputKinesisQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputKinesisQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputKinesisMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputKinesisMode string
 
 const (
-	OutputKinesisModeError        OutputKinesisMode = "error"
+	// OutputKinesisModeError Error
+	OutputKinesisModeError OutputKinesisMode = "error"
+	// OutputKinesisModeBackpressure Backpressure
 	OutputKinesisModeBackpressure OutputKinesisMode = "backpressure"
-	OutputKinesisModeAlways       OutputKinesisMode = "always"
+	// OutputKinesisModeAlways Always On
+	OutputKinesisModeAlways OutputKinesisMode = "always"
 )
 
 func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {
 	return &e
-}
-func (e *OutputKinesisMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputKinesisMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisMode: %v", v)
-	}
 }
 
 type OutputKinesisPqControls struct {
