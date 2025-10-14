@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a3ddd76d19682d8ef44871a3afb238c9
-  docVersion: 4.15.0-alpha.1760137873808-498c0e83
+  docChecksum: 2752f659b3044a4b69db70deeeceff93
+  docVersion: 4.15.0-alpha.1760439571529-8891ea6f
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.1
-  configChecksum: e2a8166dc985abaa88ac88bffc17b71a
+  releaseVersion: 0.2.0-beta.2
+  configChecksum: 207f6c50066410f45b60170c0cfbb5b2
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -51,6 +51,7 @@ generatedFiles:
   - /models/components/configgrouplookups.go
   - /models/components/criblevent.go
   - /models/components/cribllakedataset.go
+  - /models/components/cribllakedatasetupdate.go
   - /models/components/currentbranchresult.go
   - /models/components/datasetmetadata.go
   - /models/components/datasetmetadataruninfo.go
@@ -351,6 +352,8 @@ generatedFiles:
   - docs/models/components/criblevent.md
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
+  - docs/models/components/cribllakedatasetupdate.md
+  - docs/models/components/cribllakedatasetupdateformat.md
   - docs/models/components/currentbranchresult.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
@@ -3320,4 +3323,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats` **Added**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Env` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[].Dependencies` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Configs.Get()`:  `response.Items.[].Remote` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.LakeDatasets.Update()`:  `request` **Changed** **Breaking** :warning:
