@@ -35,141 +35,74 @@ func (e *OutputGraphiteType) UnmarshalJSON(data []byte) error {
 type OutputGraphiteDestinationProtocol string
 
 const (
+	// OutputGraphiteDestinationProtocolUDP UDP
 	OutputGraphiteDestinationProtocolUDP OutputGraphiteDestinationProtocol = "udp"
+	// OutputGraphiteDestinationProtocolTCP TCP
 	OutputGraphiteDestinationProtocolTCP OutputGraphiteDestinationProtocol = "tcp"
 )
 
 func (e OutputGraphiteDestinationProtocol) ToPointer() *OutputGraphiteDestinationProtocol {
 	return &e
 }
-func (e *OutputGraphiteDestinationProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "udp":
-		fallthrough
-	case "tcp":
-		*e = OutputGraphiteDestinationProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGraphiteDestinationProtocol: %v", v)
-	}
-}
 
 // OutputGraphiteBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGraphiteBackpressureBehavior string
 
 const (
+	// OutputGraphiteBackpressureBehaviorBlock Block
 	OutputGraphiteBackpressureBehaviorBlock OutputGraphiteBackpressureBehavior = "block"
-	OutputGraphiteBackpressureBehaviorDrop  OutputGraphiteBackpressureBehavior = "drop"
+	// OutputGraphiteBackpressureBehaviorDrop Drop
+	OutputGraphiteBackpressureBehaviorDrop OutputGraphiteBackpressureBehavior = "drop"
+	// OutputGraphiteBackpressureBehaviorQueue Persistent Queue
 	OutputGraphiteBackpressureBehaviorQueue OutputGraphiteBackpressureBehavior = "queue"
 )
 
 func (e OutputGraphiteBackpressureBehavior) ToPointer() *OutputGraphiteBackpressureBehavior {
 	return &e
 }
-func (e *OutputGraphiteBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGraphiteBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGraphiteBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputGraphiteCompression - Codec to use to compress the persisted data
 type OutputGraphiteCompression string
 
 const (
+	// OutputGraphiteCompressionNone None
 	OutputGraphiteCompressionNone OutputGraphiteCompression = "none"
+	// OutputGraphiteCompressionGzip Gzip
 	OutputGraphiteCompressionGzip OutputGraphiteCompression = "gzip"
 )
 
 func (e OutputGraphiteCompression) ToPointer() *OutputGraphiteCompression {
 	return &e
 }
-func (e *OutputGraphiteCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGraphiteCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGraphiteCompression: %v", v)
-	}
-}
 
 // OutputGraphiteQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGraphiteQueueFullBehavior string
 
 const (
+	// OutputGraphiteQueueFullBehaviorBlock Block
 	OutputGraphiteQueueFullBehaviorBlock OutputGraphiteQueueFullBehavior = "block"
-	OutputGraphiteQueueFullBehaviorDrop  OutputGraphiteQueueFullBehavior = "drop"
+	// OutputGraphiteQueueFullBehaviorDrop Drop new data
+	OutputGraphiteQueueFullBehaviorDrop OutputGraphiteQueueFullBehavior = "drop"
 )
 
 func (e OutputGraphiteQueueFullBehavior) ToPointer() *OutputGraphiteQueueFullBehavior {
 	return &e
-}
-func (e *OutputGraphiteQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGraphiteQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGraphiteQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputGraphiteMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGraphiteMode string
 
 const (
-	OutputGraphiteModeError        OutputGraphiteMode = "error"
+	// OutputGraphiteModeError Error
+	OutputGraphiteModeError OutputGraphiteMode = "error"
+	// OutputGraphiteModeBackpressure Backpressure
 	OutputGraphiteModeBackpressure OutputGraphiteMode = "backpressure"
-	OutputGraphiteModeAlways       OutputGraphiteMode = "always"
+	// OutputGraphiteModeAlways Always On
+	OutputGraphiteModeAlways OutputGraphiteMode = "always"
 )
 
 func (e OutputGraphiteMode) ToPointer() *OutputGraphiteMode {
 	return &e
-}
-func (e *OutputGraphiteMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGraphiteMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGraphiteMode: %v", v)
-	}
 }
 
 type OutputGraphitePqControls struct {

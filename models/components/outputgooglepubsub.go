@@ -35,144 +35,76 @@ func (e *OutputGooglePubsubType) UnmarshalJSON(data []byte) error {
 type OutputGooglePubsubGoogleAuthenticationMethod string
 
 const (
-	OutputGooglePubsubGoogleAuthenticationMethodAuto   OutputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// OutputGooglePubsubGoogleAuthenticationMethodAuto Auto
+	OutputGooglePubsubGoogleAuthenticationMethodAuto OutputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// OutputGooglePubsubGoogleAuthenticationMethodManual Manual
 	OutputGooglePubsubGoogleAuthenticationMethodManual OutputGooglePubsubGoogleAuthenticationMethod = "manual"
+	// OutputGooglePubsubGoogleAuthenticationMethodSecret Secret
 	OutputGooglePubsubGoogleAuthenticationMethodSecret OutputGooglePubsubGoogleAuthenticationMethod = "secret"
 )
 
 func (e OutputGooglePubsubGoogleAuthenticationMethod) ToPointer() *OutputGooglePubsubGoogleAuthenticationMethod {
 	return &e
 }
-func (e *OutputGooglePubsubGoogleAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputGooglePubsubGoogleAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubGoogleAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputGooglePubsubBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGooglePubsubBackpressureBehavior string
 
 const (
+	// OutputGooglePubsubBackpressureBehaviorBlock Block
 	OutputGooglePubsubBackpressureBehaviorBlock OutputGooglePubsubBackpressureBehavior = "block"
-	OutputGooglePubsubBackpressureBehaviorDrop  OutputGooglePubsubBackpressureBehavior = "drop"
+	// OutputGooglePubsubBackpressureBehaviorDrop Drop
+	OutputGooglePubsubBackpressureBehaviorDrop OutputGooglePubsubBackpressureBehavior = "drop"
+	// OutputGooglePubsubBackpressureBehaviorQueue Persistent Queue
 	OutputGooglePubsubBackpressureBehaviorQueue OutputGooglePubsubBackpressureBehavior = "queue"
 )
 
 func (e OutputGooglePubsubBackpressureBehavior) ToPointer() *OutputGooglePubsubBackpressureBehavior {
 	return &e
 }
-func (e *OutputGooglePubsubBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGooglePubsubBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputGooglePubsubCompression - Codec to use to compress the persisted data
 type OutputGooglePubsubCompression string
 
 const (
+	// OutputGooglePubsubCompressionNone None
 	OutputGooglePubsubCompressionNone OutputGooglePubsubCompression = "none"
+	// OutputGooglePubsubCompressionGzip Gzip
 	OutputGooglePubsubCompressionGzip OutputGooglePubsubCompression = "gzip"
 )
 
 func (e OutputGooglePubsubCompression) ToPointer() *OutputGooglePubsubCompression {
 	return &e
 }
-func (e *OutputGooglePubsubCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGooglePubsubCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubCompression: %v", v)
-	}
-}
 
 // OutputGooglePubsubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGooglePubsubQueueFullBehavior string
 
 const (
+	// OutputGooglePubsubQueueFullBehaviorBlock Block
 	OutputGooglePubsubQueueFullBehaviorBlock OutputGooglePubsubQueueFullBehavior = "block"
-	OutputGooglePubsubQueueFullBehaviorDrop  OutputGooglePubsubQueueFullBehavior = "drop"
+	// OutputGooglePubsubQueueFullBehaviorDrop Drop new data
+	OutputGooglePubsubQueueFullBehaviorDrop OutputGooglePubsubQueueFullBehavior = "drop"
 )
 
 func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueueFullBehavior {
 	return &e
-}
-func (e *OutputGooglePubsubQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGooglePubsubQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputGooglePubsubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGooglePubsubMode string
 
 const (
-	OutputGooglePubsubModeError        OutputGooglePubsubMode = "error"
+	// OutputGooglePubsubModeError Error
+	OutputGooglePubsubModeError OutputGooglePubsubMode = "error"
+	// OutputGooglePubsubModeBackpressure Backpressure
 	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
-	OutputGooglePubsubModeAlways       OutputGooglePubsubMode = "always"
+	// OutputGooglePubsubModeAlways Always On
+	OutputGooglePubsubModeAlways OutputGooglePubsubMode = "always"
 )
 
 func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {
 	return &e
-}
-func (e *OutputGooglePubsubMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGooglePubsubMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubMode: %v", v)
-	}
 }
 
 type OutputGooglePubsubPqControls struct {

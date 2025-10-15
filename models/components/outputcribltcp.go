@@ -35,27 +35,14 @@ func (e *OutputCriblTCPType) UnmarshalJSON(data []byte) error {
 type OutputCriblTCPCompression string
 
 const (
+	// OutputCriblTCPCompressionNone None
 	OutputCriblTCPCompressionNone OutputCriblTCPCompression = "none"
+	// OutputCriblTCPCompressionGzip Gzip
 	OutputCriblTCPCompressionGzip OutputCriblTCPCompression = "gzip"
 )
 
 func (e OutputCriblTCPCompression) ToPointer() *OutputCriblTCPCompression {
 	return &e
-}
-func (e *OutputCriblTCPCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputCriblTCPCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPCompression: %v", v)
-	}
 }
 
 type OutputCriblTCPMinimumTLSVersion string
@@ -70,25 +57,6 @@ const (
 func (e OutputCriblTCPMinimumTLSVersion) ToPointer() *OutputCriblTCPMinimumTLSVersion {
 	return &e
 }
-func (e *OutputCriblTCPMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputCriblTCPMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputCriblTCPMaximumTLSVersion string
 
@@ -101,25 +69,6 @@ const (
 
 func (e OutputCriblTCPMaximumTLSVersion) ToPointer() *OutputCriblTCPMaximumTLSVersion {
 	return &e
-}
-func (e *OutputCriblTCPMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputCriblTCPMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputCriblTCPTLSSettingsClientSide struct {
@@ -228,30 +177,16 @@ func (o *OutputCriblTCPTLSSettingsClientSide) GetMaxVersion() *OutputCriblTCPMax
 type OutputCriblTCPBackpressureBehavior string
 
 const (
+	// OutputCriblTCPBackpressureBehaviorBlock Block
 	OutputCriblTCPBackpressureBehaviorBlock OutputCriblTCPBackpressureBehavior = "block"
-	OutputCriblTCPBackpressureBehaviorDrop  OutputCriblTCPBackpressureBehavior = "drop"
+	// OutputCriblTCPBackpressureBehaviorDrop Drop
+	OutputCriblTCPBackpressureBehaviorDrop OutputCriblTCPBackpressureBehavior = "drop"
+	// OutputCriblTCPBackpressureBehaviorQueue Persistent Queue
 	OutputCriblTCPBackpressureBehaviorQueue OutputCriblTCPBackpressureBehavior = "queue"
 )
 
 func (e OutputCriblTCPBackpressureBehavior) ToPointer() *OutputCriblTCPBackpressureBehavior {
 	return &e
-}
-func (e *OutputCriblTCPBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputCriblTCPBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputCriblTCPTLS - Whether to inherit TLS configs from group setting or disable TLS
@@ -264,21 +199,6 @@ const (
 
 func (e OutputCriblTCPTLS) ToPointer() *OutputCriblTCPTLS {
 	return &e
-}
-func (e *OutputCriblTCPTLS) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "inherit":
-		fallthrough
-	case "off":
-		*e = OutputCriblTCPTLS(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPTLS: %v", v)
-	}
 }
 
 type OutputCriblTCPHost struct {
@@ -344,84 +264,44 @@ func (o *OutputCriblTCPHost) GetWeight() *float64 {
 type OutputCriblTCPPqCompressCompression string
 
 const (
+	// OutputCriblTCPPqCompressCompressionNone None
 	OutputCriblTCPPqCompressCompressionNone OutputCriblTCPPqCompressCompression = "none"
+	// OutputCriblTCPPqCompressCompressionGzip Gzip
 	OutputCriblTCPPqCompressCompressionGzip OutputCriblTCPPqCompressCompression = "gzip"
 )
 
 func (e OutputCriblTCPPqCompressCompression) ToPointer() *OutputCriblTCPPqCompressCompression {
 	return &e
 }
-func (e *OutputCriblTCPPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputCriblTCPPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPPqCompressCompression: %v", v)
-	}
-}
 
 // OutputCriblTCPQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputCriblTCPQueueFullBehavior string
 
 const (
+	// OutputCriblTCPQueueFullBehaviorBlock Block
 	OutputCriblTCPQueueFullBehaviorBlock OutputCriblTCPQueueFullBehavior = "block"
-	OutputCriblTCPQueueFullBehaviorDrop  OutputCriblTCPQueueFullBehavior = "drop"
+	// OutputCriblTCPQueueFullBehaviorDrop Drop new data
+	OutputCriblTCPQueueFullBehaviorDrop OutputCriblTCPQueueFullBehavior = "drop"
 )
 
 func (e OutputCriblTCPQueueFullBehavior) ToPointer() *OutputCriblTCPQueueFullBehavior {
 	return &e
-}
-func (e *OutputCriblTCPQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputCriblTCPQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputCriblTCPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputCriblTCPMode string
 
 const (
-	OutputCriblTCPModeError        OutputCriblTCPMode = "error"
+	// OutputCriblTCPModeError Error
+	OutputCriblTCPModeError OutputCriblTCPMode = "error"
+	// OutputCriblTCPModeBackpressure Backpressure
 	OutputCriblTCPModeBackpressure OutputCriblTCPMode = "backpressure"
-	OutputCriblTCPModeAlways       OutputCriblTCPMode = "always"
+	// OutputCriblTCPModeAlways Always On
+	OutputCriblTCPModeAlways OutputCriblTCPMode = "always"
 )
 
 func (e OutputCriblTCPMode) ToPointer() *OutputCriblTCPMode {
 	return &e
-}
-func (e *OutputCriblTCPMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputCriblTCPMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPMode: %v", v)
-	}
 }
 
 type OutputCriblTCPPqControls struct {

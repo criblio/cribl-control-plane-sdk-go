@@ -35,30 +35,16 @@ func (e *OutputSecurityLakeType) UnmarshalJSON(data []byte) error {
 type OutputSecurityLakeAuthenticationMethod string
 
 const (
-	OutputSecurityLakeAuthenticationMethodAuto   OutputSecurityLakeAuthenticationMethod = "auto"
+	// OutputSecurityLakeAuthenticationMethodAuto Auto
+	OutputSecurityLakeAuthenticationMethodAuto OutputSecurityLakeAuthenticationMethod = "auto"
+	// OutputSecurityLakeAuthenticationMethodManual Manual
 	OutputSecurityLakeAuthenticationMethodManual OutputSecurityLakeAuthenticationMethod = "manual"
+	// OutputSecurityLakeAuthenticationMethodSecret Secret Key pair
 	OutputSecurityLakeAuthenticationMethodSecret OutputSecurityLakeAuthenticationMethod = "secret"
 )
 
 func (e OutputSecurityLakeAuthenticationMethod) ToPointer() *OutputSecurityLakeAuthenticationMethod {
 	return &e
-}
-func (e *OutputSecurityLakeAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto":
-		fallthrough
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputSecurityLakeAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeAuthenticationMethod: %v", v)
-	}
 }
 
 // OutputSecurityLakeSignatureVersion - Signature version to use for signing Amazon Security Lake requests
@@ -72,244 +58,126 @@ const (
 func (e OutputSecurityLakeSignatureVersion) ToPointer() *OutputSecurityLakeSignatureVersion {
 	return &e
 }
-func (e *OutputSecurityLakeSignatureVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v2":
-		fallthrough
-	case "v4":
-		*e = OutputSecurityLakeSignatureVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeSignatureVersion: %v", v)
-	}
-}
 
 // OutputSecurityLakeObjectACL - Object ACL to assign to uploaded objects
 type OutputSecurityLakeObjectACL string
 
 const (
-	OutputSecurityLakeObjectACLPrivate                OutputSecurityLakeObjectACL = "private"
-	OutputSecurityLakeObjectACLPublicRead             OutputSecurityLakeObjectACL = "public-read"
-	OutputSecurityLakeObjectACLPublicReadWrite        OutputSecurityLakeObjectACL = "public-read-write"
-	OutputSecurityLakeObjectACLAuthenticatedRead      OutputSecurityLakeObjectACL = "authenticated-read"
-	OutputSecurityLakeObjectACLAwsExecRead            OutputSecurityLakeObjectACL = "aws-exec-read"
-	OutputSecurityLakeObjectACLBucketOwnerRead        OutputSecurityLakeObjectACL = "bucket-owner-read"
+	// OutputSecurityLakeObjectACLPrivate Private
+	OutputSecurityLakeObjectACLPrivate OutputSecurityLakeObjectACL = "private"
+	// OutputSecurityLakeObjectACLPublicRead Public Read Only
+	OutputSecurityLakeObjectACLPublicRead OutputSecurityLakeObjectACL = "public-read"
+	// OutputSecurityLakeObjectACLPublicReadWrite Public Read/Write
+	OutputSecurityLakeObjectACLPublicReadWrite OutputSecurityLakeObjectACL = "public-read-write"
+	// OutputSecurityLakeObjectACLAuthenticatedRead Authenticated Read Only
+	OutputSecurityLakeObjectACLAuthenticatedRead OutputSecurityLakeObjectACL = "authenticated-read"
+	// OutputSecurityLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputSecurityLakeObjectACLAwsExecRead OutputSecurityLakeObjectACL = "aws-exec-read"
+	// OutputSecurityLakeObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputSecurityLakeObjectACLBucketOwnerRead OutputSecurityLakeObjectACL = "bucket-owner-read"
+	// OutputSecurityLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputSecurityLakeObjectACLBucketOwnerFullControl OutputSecurityLakeObjectACL = "bucket-owner-full-control"
 )
 
 func (e OutputSecurityLakeObjectACL) ToPointer() *OutputSecurityLakeObjectACL {
 	return &e
 }
-func (e *OutputSecurityLakeObjectACL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "private":
-		fallthrough
-	case "public-read":
-		fallthrough
-	case "public-read-write":
-		fallthrough
-	case "authenticated-read":
-		fallthrough
-	case "aws-exec-read":
-		fallthrough
-	case "bucket-owner-read":
-		fallthrough
-	case "bucket-owner-full-control":
-		*e = OutputSecurityLakeObjectACL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeObjectACL: %v", v)
-	}
-}
 
 // OutputSecurityLakeStorageClass - Storage class to select for uploaded objects
 type OutputSecurityLakeStorageClass string
 
 const (
-	OutputSecurityLakeStorageClassStandard           OutputSecurityLakeStorageClass = "STANDARD"
-	OutputSecurityLakeStorageClassReducedRedundancy  OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputSecurityLakeStorageClassStandardIa         OutputSecurityLakeStorageClass = "STANDARD_IA"
-	OutputSecurityLakeStorageClassOnezoneIa          OutputSecurityLakeStorageClass = "ONEZONE_IA"
+	// OutputSecurityLakeStorageClassStandard Standard
+	OutputSecurityLakeStorageClassStandard OutputSecurityLakeStorageClass = "STANDARD"
+	// OutputSecurityLakeStorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputSecurityLakeStorageClassReducedRedundancy OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
+	// OutputSecurityLakeStorageClassStandardIa Standard, Infrequent Access
+	OutputSecurityLakeStorageClassStandardIa OutputSecurityLakeStorageClass = "STANDARD_IA"
+	// OutputSecurityLakeStorageClassOnezoneIa One Zone, Infrequent Access
+	OutputSecurityLakeStorageClassOnezoneIa OutputSecurityLakeStorageClass = "ONEZONE_IA"
+	// OutputSecurityLakeStorageClassIntelligentTiering Intelligent Tiering
 	OutputSecurityLakeStorageClassIntelligentTiering OutputSecurityLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputSecurityLakeStorageClassGlacier            OutputSecurityLakeStorageClass = "GLACIER"
-	OutputSecurityLakeStorageClassGlacierIr          OutputSecurityLakeStorageClass = "GLACIER_IR"
-	OutputSecurityLakeStorageClassDeepArchive        OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
+	// OutputSecurityLakeStorageClassGlacier Glacier Flexible Retrieval
+	OutputSecurityLakeStorageClassGlacier OutputSecurityLakeStorageClass = "GLACIER"
+	// OutputSecurityLakeStorageClassGlacierIr Glacier Instant Retrieval
+	OutputSecurityLakeStorageClassGlacierIr OutputSecurityLakeStorageClass = "GLACIER_IR"
+	// OutputSecurityLakeStorageClassDeepArchive Glacier Deep Archive
+	OutputSecurityLakeStorageClassDeepArchive OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageClass {
 	return &e
 }
-func (e *OutputSecurityLakeStorageClass) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "STANDARD":
-		fallthrough
-	case "REDUCED_REDUNDANCY":
-		fallthrough
-	case "STANDARD_IA":
-		fallthrough
-	case "ONEZONE_IA":
-		fallthrough
-	case "INTELLIGENT_TIERING":
-		fallthrough
-	case "GLACIER":
-		fallthrough
-	case "GLACIER_IR":
-		fallthrough
-	case "DEEP_ARCHIVE":
-		*e = OutputSecurityLakeStorageClass(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeStorageClass: %v", v)
-	}
-}
 
 type OutputSecurityLakeServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 OutputSecurityLakeServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms OutputSecurityLakeServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
 func (e OutputSecurityLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
 	return &e
 }
-func (e *OutputSecurityLakeServerSideEncryptionForUploadedObjects) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "AES256":
-		fallthrough
-	case "aws:kms":
-		*e = OutputSecurityLakeServerSideEncryptionForUploadedObjects(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeServerSideEncryptionForUploadedObjects: %v", v)
-	}
-}
 
 // OutputSecurityLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputSecurityLakeBackpressureBehavior string
 
 const (
+	// OutputSecurityLakeBackpressureBehaviorBlock Block
 	OutputSecurityLakeBackpressureBehaviorBlock OutputSecurityLakeBackpressureBehavior = "block"
-	OutputSecurityLakeBackpressureBehaviorDrop  OutputSecurityLakeBackpressureBehavior = "drop"
+	// OutputSecurityLakeBackpressureBehaviorDrop Drop
+	OutputSecurityLakeBackpressureBehaviorDrop OutputSecurityLakeBackpressureBehavior = "drop"
 )
 
 func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeBackpressureBehavior {
 	return &e
-}
-func (e *OutputSecurityLakeBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSecurityLakeBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputSecurityLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputSecurityLakeDiskSpaceProtection string
 
 const (
+	// OutputSecurityLakeDiskSpaceProtectionBlock Block
 	OutputSecurityLakeDiskSpaceProtectionBlock OutputSecurityLakeDiskSpaceProtection = "block"
-	OutputSecurityLakeDiskSpaceProtectionDrop  OutputSecurityLakeDiskSpaceProtection = "drop"
+	// OutputSecurityLakeDiskSpaceProtectionDrop Drop
+	OutputSecurityLakeDiskSpaceProtectionDrop OutputSecurityLakeDiskSpaceProtection = "drop"
 )
 
 func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDiskSpaceProtection {
 	return &e
-}
-func (e *OutputSecurityLakeDiskSpaceProtection) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSecurityLakeDiskSpaceProtection(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeDiskSpaceProtection: %v", v)
-	}
 }
 
 // OutputSecurityLakeParquetVersion - Determines which data types are supported and how they are represented
 type OutputSecurityLakeParquetVersion string
 
 const (
+	// OutputSecurityLakeParquetVersionParquet10 1.0
 	OutputSecurityLakeParquetVersionParquet10 OutputSecurityLakeParquetVersion = "PARQUET_1_0"
+	// OutputSecurityLakeParquetVersionParquet24 2.4
 	OutputSecurityLakeParquetVersionParquet24 OutputSecurityLakeParquetVersion = "PARQUET_2_4"
+	// OutputSecurityLakeParquetVersionParquet26 2.6
 	OutputSecurityLakeParquetVersionParquet26 OutputSecurityLakeParquetVersion = "PARQUET_2_6"
 )
 
 func (e OutputSecurityLakeParquetVersion) ToPointer() *OutputSecurityLakeParquetVersion {
 	return &e
 }
-func (e *OutputSecurityLakeParquetVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "PARQUET_1_0":
-		fallthrough
-	case "PARQUET_2_4":
-		fallthrough
-	case "PARQUET_2_6":
-		*e = OutputSecurityLakeParquetVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeParquetVersion: %v", v)
-	}
-}
 
 // OutputSecurityLakeDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputSecurityLakeDataPageVersion string
 
 const (
+	// OutputSecurityLakeDataPageVersionDataPageV1 V1
 	OutputSecurityLakeDataPageVersionDataPageV1 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V1"
+	// OutputSecurityLakeDataPageVersionDataPageV2 V2
 	OutputSecurityLakeDataPageVersionDataPageV2 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V2"
 )
 
 func (e OutputSecurityLakeDataPageVersion) ToPointer() *OutputSecurityLakeDataPageVersion {
 	return &e
-}
-func (e *OutputSecurityLakeDataPageVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "DATA_PAGE_V1":
-		fallthrough
-	case "DATA_PAGE_V2":
-		*e = OutputSecurityLakeDataPageVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeDataPageVersion: %v", v)
-	}
 }
 
 type OutputSecurityLakeKeyValueMetadatum struct {

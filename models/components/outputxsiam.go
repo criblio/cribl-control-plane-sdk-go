@@ -65,30 +65,16 @@ func (o *OutputXsiamExtraHTTPHeader) GetValue() string {
 type OutputXsiamFailedRequestLoggingMode string
 
 const (
-	OutputXsiamFailedRequestLoggingModePayload           OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayload Payload
+	OutputXsiamFailedRequestLoggingModePayload OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputXsiamFailedRequestLoggingModePayloadAndHeaders OutputXsiamFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputXsiamFailedRequestLoggingModeNone              OutputXsiamFailedRequestLoggingMode = "none"
+	// OutputXsiamFailedRequestLoggingModeNone None
+	OutputXsiamFailedRequestLoggingModeNone OutputXsiamFailedRequestLoggingMode = "none"
 )
 
 func (e OutputXsiamFailedRequestLoggingMode) ToPointer() *OutputXsiamFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputXsiamFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputXsiamFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamFailedRequestLoggingMode: %v", v)
-	}
 }
 
 // OutputXsiamAuthenticationMethod - Enter a token directly, or provide a secret referencing a token
@@ -101,21 +87,6 @@ const (
 
 func (e OutputXsiamAuthenticationMethod) ToPointer() *OutputXsiamAuthenticationMethod {
 	return &e
-}
-func (e *OutputXsiamAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "token":
-		fallthrough
-	case "secret":
-		*e = OutputXsiamAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamAuthenticationMethod: %v", v)
-	}
 }
 
 type OutputXsiamResponseRetrySetting struct {
@@ -221,30 +192,16 @@ func (o *OutputXsiamTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputXsiamBackpressureBehavior string
 
 const (
+	// OutputXsiamBackpressureBehaviorBlock Block
 	OutputXsiamBackpressureBehaviorBlock OutputXsiamBackpressureBehavior = "block"
-	OutputXsiamBackpressureBehaviorDrop  OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorDrop Drop
+	OutputXsiamBackpressureBehaviorDrop OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorQueue Persistent Queue
 	OutputXsiamBackpressureBehaviorQueue OutputXsiamBackpressureBehavior = "queue"
 )
 
 func (e OutputXsiamBackpressureBehavior) ToPointer() *OutputXsiamBackpressureBehavior {
 	return &e
-}
-func (e *OutputXsiamBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputXsiamBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputXsiamURL struct {
@@ -282,84 +239,44 @@ func (o *OutputXsiamURL) GetWeight() *float64 {
 type OutputXsiamCompression string
 
 const (
+	// OutputXsiamCompressionNone None
 	OutputXsiamCompressionNone OutputXsiamCompression = "none"
+	// OutputXsiamCompressionGzip Gzip
 	OutputXsiamCompressionGzip OutputXsiamCompression = "gzip"
 )
 
 func (e OutputXsiamCompression) ToPointer() *OutputXsiamCompression {
 	return &e
 }
-func (e *OutputXsiamCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputXsiamCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamCompression: %v", v)
-	}
-}
 
 // OutputXsiamQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputXsiamQueueFullBehavior string
 
 const (
+	// OutputXsiamQueueFullBehaviorBlock Block
 	OutputXsiamQueueFullBehaviorBlock OutputXsiamQueueFullBehavior = "block"
-	OutputXsiamQueueFullBehaviorDrop  OutputXsiamQueueFullBehavior = "drop"
+	// OutputXsiamQueueFullBehaviorDrop Drop new data
+	OutputXsiamQueueFullBehaviorDrop OutputXsiamQueueFullBehavior = "drop"
 )
 
 func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior {
 	return &e
-}
-func (e *OutputXsiamQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputXsiamQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputXsiamMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputXsiamMode string
 
 const (
-	OutputXsiamModeError        OutputXsiamMode = "error"
+	// OutputXsiamModeError Error
+	OutputXsiamModeError OutputXsiamMode = "error"
+	// OutputXsiamModeBackpressure Backpressure
 	OutputXsiamModeBackpressure OutputXsiamMode = "backpressure"
-	OutputXsiamModeAlways       OutputXsiamMode = "always"
+	// OutputXsiamModeAlways Always On
+	OutputXsiamModeAlways OutputXsiamMode = "always"
 )
 
 func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
 	return &e
-}
-func (e *OutputXsiamMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputXsiamMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputXsiamMode: %v", v)
-	}
 }
 
 type OutputXsiamPqControls struct {

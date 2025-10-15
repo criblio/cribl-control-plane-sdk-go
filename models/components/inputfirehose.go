@@ -65,54 +65,28 @@ func (i *InputFirehoseConnection) GetOutput() string {
 type InputFirehoseMode string
 
 const (
-	InputFirehoseModeSmart  InputFirehoseMode = "smart"
+	// InputFirehoseModeSmart Smart
+	InputFirehoseModeSmart InputFirehoseMode = "smart"
+	// InputFirehoseModeAlways Always On
 	InputFirehoseModeAlways InputFirehoseMode = "always"
 )
 
 func (e InputFirehoseMode) ToPointer() *InputFirehoseMode {
 	return &e
 }
-func (e *InputFirehoseMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputFirehoseMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFirehoseMode: %v", v)
-	}
-}
 
 // InputFirehoseCompression - Codec to use to compress the persisted data
 type InputFirehoseCompression string
 
 const (
+	// InputFirehoseCompressionNone None
 	InputFirehoseCompressionNone InputFirehoseCompression = "none"
+	// InputFirehoseCompressionGzip Gzip
 	InputFirehoseCompressionGzip InputFirehoseCompression = "gzip"
 )
 
 func (e InputFirehoseCompression) ToPointer() *InputFirehoseCompression {
 	return &e
-}
-func (e *InputFirehoseCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputFirehoseCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFirehoseCompression: %v", v)
-	}
 }
 
 type InputFirehosePqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputFirehoseMinimumTLSVersion) ToPointer() *InputFirehoseMinimumTLSVersion {
 	return &e
 }
-func (e *InputFirehoseMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputFirehoseMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFirehoseMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputFirehoseMaximumTLSVersion string
 
@@ -257,25 +212,6 @@ const (
 
 func (e InputFirehoseMaximumTLSVersion) ToPointer() *InputFirehoseMaximumTLSVersion {
 	return &e
-}
-func (e *InputFirehoseMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputFirehoseMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFirehoseMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputFirehoseTLSSettingsServerSide struct {
