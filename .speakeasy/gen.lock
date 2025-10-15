@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2752f659b3044a4b69db70deeeceff93
-  docVersion: 4.15.0-alpha.1760439571529-8891ea6f
+  docChecksum: 983797f74c4ab5bbaa842873f437946d
+  docVersion: 4.15.0-alpha.1760486888592-e1e43793
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.2
-  configChecksum: 207f6c50066410f45b60170c0cfbb5b2
+  releaseVersion: 0.2.0-beta.3
+  configChecksum: 33a24a90cd744d99fbf0f459983b068c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3325,4 +3325,8 @@ generatedTests:
   updateGroupsById: "2025-08-01T19:57:10Z"
 releaseNotes: |
   ## Go SDK Changes Detected:
-  * `CriblControlPlane.LakeDatasets.Update()`:  `request` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags.Technology` **Changed**
+  * `CriblControlPlane.Packs.Update()`:  `response.Items.[].Tags.Technology` **Changed**
