@@ -8,16 +8,26 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type RemoteEnum string
+
+const (
+	RemoteEnumFalse RemoteEnum = "false"
+)
+
+func (e RemoteEnum) ToPointer() *RemoteEnum {
+	return &e
+}
+
 type RemoteType string
 
 const (
-	RemoteTypeStr     RemoteType = "str"
-	RemoteTypeBoolean RemoteType = "boolean"
+	RemoteTypeStr        RemoteType = "str"
+	RemoteTypeRemoteEnum RemoteType = "remote_enum"
 )
 
 type Remote struct {
-	Str     *string `queryParam:"inline,name=remote"`
-	Boolean *bool   `queryParam:"inline,name=remote"`
+	Str        *string     `queryParam:"inline,name=remote"`
+	RemoteEnum *RemoteEnum `queryParam:"inline,name=remote"`
 
 	Type RemoteType
 }
@@ -31,12 +41,12 @@ func CreateRemoteStr(str string) Remote {
 	}
 }
 
-func CreateRemoteBoolean(boolean bool) Remote {
-	typ := RemoteTypeBoolean
+func CreateRemoteRemoteEnum(remoteEnum RemoteEnum) Remote {
+	typ := RemoteTypeRemoteEnum
 
 	return Remote{
-		Boolean: &boolean,
-		Type:    typ,
+		RemoteEnum: &remoteEnum,
+		Type:       typ,
 	}
 }
 
@@ -49,10 +59,10 @@ func (u *Remote) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
-		u.Boolean = &boolean
-		u.Type = RemoteTypeBoolean
+	var remoteEnum RemoteEnum = RemoteEnum("")
+	if err := utils.UnmarshalJSON(data, &remoteEnum, "", true, nil); err == nil {
+		u.RemoteEnum = &remoteEnum
+		u.Type = RemoteTypeRemoteEnum
 		return nil
 	}
 
@@ -64,8 +74,8 @@ func (u Remote) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	if u.Boolean != nil {
-		return utils.MarshalJSON(u.Boolean, "", true)
+	if u.RemoteEnum != nil {
+		return utils.MarshalJSON(u.RemoteEnum, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Remote: all fields are null")

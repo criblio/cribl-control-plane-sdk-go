@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type ScanMode string
 
 const (
@@ -16,21 +11,6 @@ const (
 
 func (e ScanMode) ToPointer() *ScanMode {
 	return &e
-}
-func (e *ScanMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "detailed":
-		fallthrough
-	case "quick":
-		*e = ScanMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ScanMode: %v", v)
-	}
 }
 
 type DatasetMetadata struct {

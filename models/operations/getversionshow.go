@@ -45,11 +45,11 @@ func (g *GetVersionShowRequest) GetDiffLineLimit() *float64 {
 	return g.DiffLineLimit
 }
 
-// GetVersionShowResponseBody - a list of any objects
+// GetVersionShowResponseBody - a list of GitShowResult objects
 type GetVersionShowResponseBody struct {
 	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
+	Count *int64                     `json:"count,omitempty"`
+	Items []components.GitShowResult `json:"items,omitempty"`
 }
 
 func (g *GetVersionShowResponseBody) GetCount() *int64 {
@@ -59,7 +59,7 @@ func (g *GetVersionShowResponseBody) GetCount() *int64 {
 	return g.Count
 }
 
-func (g *GetVersionShowResponseBody) GetItems() []map[string]any {
+func (g *GetVersionShowResponseBody) GetItems() []components.GitShowResult {
 	if g == nil {
 		return nil
 	}
@@ -68,7 +68,7 @@ func (g *GetVersionShowResponseBody) GetItems() []map[string]any {
 
 type GetVersionShowResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of any objects
+	// a list of GitShowResult objects
 	Object *GetVersionShowResponseBody
 }
 

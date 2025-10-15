@@ -65,54 +65,28 @@ func (i *InputModelDrivenTelemetryConnection) GetOutput() string {
 type InputModelDrivenTelemetryMode string
 
 const (
-	InputModelDrivenTelemetryModeSmart  InputModelDrivenTelemetryMode = "smart"
+	// InputModelDrivenTelemetryModeSmart Smart
+	InputModelDrivenTelemetryModeSmart InputModelDrivenTelemetryMode = "smart"
+	// InputModelDrivenTelemetryModeAlways Always On
 	InputModelDrivenTelemetryModeAlways InputModelDrivenTelemetryMode = "always"
 )
 
 func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMode {
 	return &e
 }
-func (e *InputModelDrivenTelemetryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputModelDrivenTelemetryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMode: %v", v)
-	}
-}
 
 // InputModelDrivenTelemetryCompression - Codec to use to compress the persisted data
 type InputModelDrivenTelemetryCompression string
 
 const (
+	// InputModelDrivenTelemetryCompressionNone None
 	InputModelDrivenTelemetryCompressionNone InputModelDrivenTelemetryCompression = "none"
+	// InputModelDrivenTelemetryCompressionGzip Gzip
 	InputModelDrivenTelemetryCompressionGzip InputModelDrivenTelemetryCompression = "gzip"
 )
 
 func (e InputModelDrivenTelemetryCompression) ToPointer() *InputModelDrivenTelemetryCompression {
 	return &e
-}
-func (e *InputModelDrivenTelemetryCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputModelDrivenTelemetryCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryCompression: %v", v)
-	}
 }
 
 type InputModelDrivenTelemetryPqControls struct {
@@ -226,25 +200,6 @@ const (
 func (e InputModelDrivenTelemetryMinimumTLSVersion) ToPointer() *InputModelDrivenTelemetryMinimumTLSVersion {
 	return &e
 }
-func (e *InputModelDrivenTelemetryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputModelDrivenTelemetryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputModelDrivenTelemetryMaximumTLSVersion string
 
@@ -258,25 +213,6 @@ const (
 func (e InputModelDrivenTelemetryMaximumTLSVersion) ToPointer() *InputModelDrivenTelemetryMaximumTLSVersion {
 	return &e
 }
-func (e *InputModelDrivenTelemetryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputModelDrivenTelemetryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryMaximumTLSVersion: %v", v)
-	}
-}
 
 type InputModelDrivenTelemetryTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -284,6 +220,8 @@ type InputModelDrivenTelemetryTLSSettingsServerSide struct {
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
 	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
@@ -326,6 +264,13 @@ func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPrivKeyPath() *strin
 		return nil
 	}
 	return i.PrivKeyPath
+}
+
+func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
 }
 
 func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCertPath() *string {

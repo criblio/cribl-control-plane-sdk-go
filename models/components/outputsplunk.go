@@ -35,27 +35,14 @@ func (e *OutputSplunkType) UnmarshalJSON(data []byte) error {
 type OutputSplunkNestedFieldSerialization string
 
 const (
+	// OutputSplunkNestedFieldSerializationJSON JSON
 	OutputSplunkNestedFieldSerializationJSON OutputSplunkNestedFieldSerialization = "json"
+	// OutputSplunkNestedFieldSerializationNone None
 	OutputSplunkNestedFieldSerializationNone OutputSplunkNestedFieldSerialization = "none"
 )
 
 func (e OutputSplunkNestedFieldSerialization) ToPointer() *OutputSplunkNestedFieldSerialization {
 	return &e
-}
-func (e *OutputSplunkNestedFieldSerialization) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "none":
-		*e = OutputSplunkNestedFieldSerialization(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkNestedFieldSerialization: %v", v)
-	}
 }
 
 type OutputSplunkMinimumTLSVersion string
@@ -70,25 +57,6 @@ const (
 func (e OutputSplunkMinimumTLSVersion) ToPointer() *OutputSplunkMinimumTLSVersion {
 	return &e
 }
-func (e *OutputSplunkMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputSplunkMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputSplunkMaximumTLSVersion string
 
@@ -101,25 +69,6 @@ const (
 
 func (e OutputSplunkMaximumTLSVersion) ToPointer() *OutputSplunkMaximumTLSVersion {
 	return &e
-}
-func (e *OutputSplunkMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputSplunkMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputSplunkTLSSettingsClientSide struct {
@@ -235,50 +184,21 @@ const (
 func (e OutputSplunkMaxS2SVersion) ToPointer() *OutputSplunkMaxS2SVersion {
 	return &e
 }
-func (e *OutputSplunkMaxS2SVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v3":
-		fallthrough
-	case "v4":
-		*e = OutputSplunkMaxS2SVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkMaxS2SVersion: %v", v)
-	}
-}
 
 // OutputSplunkBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputSplunkBackpressureBehavior string
 
 const (
+	// OutputSplunkBackpressureBehaviorBlock Block
 	OutputSplunkBackpressureBehaviorBlock OutputSplunkBackpressureBehavior = "block"
-	OutputSplunkBackpressureBehaviorDrop  OutputSplunkBackpressureBehavior = "drop"
+	// OutputSplunkBackpressureBehaviorDrop Drop
+	OutputSplunkBackpressureBehaviorDrop OutputSplunkBackpressureBehavior = "drop"
+	// OutputSplunkBackpressureBehaviorQueue Persistent Queue
 	OutputSplunkBackpressureBehaviorQueue OutputSplunkBackpressureBehavior = "queue"
 )
 
 func (e OutputSplunkBackpressureBehavior) ToPointer() *OutputSplunkBackpressureBehavior {
 	return &e
-}
-func (e *OutputSplunkBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSplunkBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkBackpressureBehavior: %v", v)
-	}
 }
 
 // OutputSplunkAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -292,134 +212,65 @@ const (
 func (e OutputSplunkAuthenticationMethod) ToPointer() *OutputSplunkAuthenticationMethod {
 	return &e
 }
-func (e *OutputSplunkAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputSplunkAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputSplunkCompressCompression - Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
 type OutputSplunkCompressCompression string
 
 const (
+	// OutputSplunkCompressCompressionDisabled Disabled
 	OutputSplunkCompressCompressionDisabled OutputSplunkCompressCompression = "disabled"
-	OutputSplunkCompressCompressionAuto     OutputSplunkCompressCompression = "auto"
-	OutputSplunkCompressCompressionAlways   OutputSplunkCompressCompression = "always"
+	// OutputSplunkCompressCompressionAuto Automatic
+	OutputSplunkCompressCompressionAuto OutputSplunkCompressCompression = "auto"
+	// OutputSplunkCompressCompressionAlways Always
+	OutputSplunkCompressCompressionAlways OutputSplunkCompressCompression = "always"
 )
 
 func (e OutputSplunkCompressCompression) ToPointer() *OutputSplunkCompressCompression {
 	return &e
-}
-func (e *OutputSplunkCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "disabled":
-		fallthrough
-	case "auto":
-		fallthrough
-	case "always":
-		*e = OutputSplunkCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkCompressCompression: %v", v)
-	}
 }
 
 // OutputSplunkPqCompressCompression - Codec to use to compress the persisted data
 type OutputSplunkPqCompressCompression string
 
 const (
+	// OutputSplunkPqCompressCompressionNone None
 	OutputSplunkPqCompressCompressionNone OutputSplunkPqCompressCompression = "none"
+	// OutputSplunkPqCompressCompressionGzip Gzip
 	OutputSplunkPqCompressCompressionGzip OutputSplunkPqCompressCompression = "gzip"
 )
 
 func (e OutputSplunkPqCompressCompression) ToPointer() *OutputSplunkPqCompressCompression {
 	return &e
 }
-func (e *OutputSplunkPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSplunkPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkPqCompressCompression: %v", v)
-	}
-}
 
 // OutputSplunkQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSplunkQueueFullBehavior string
 
 const (
+	// OutputSplunkQueueFullBehaviorBlock Block
 	OutputSplunkQueueFullBehaviorBlock OutputSplunkQueueFullBehavior = "block"
-	OutputSplunkQueueFullBehaviorDrop  OutputSplunkQueueFullBehavior = "drop"
+	// OutputSplunkQueueFullBehaviorDrop Drop new data
+	OutputSplunkQueueFullBehaviorDrop OutputSplunkQueueFullBehavior = "drop"
 )
 
 func (e OutputSplunkQueueFullBehavior) ToPointer() *OutputSplunkQueueFullBehavior {
 	return &e
-}
-func (e *OutputSplunkQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSplunkQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputSplunkMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSplunkMode string
 
 const (
-	OutputSplunkModeError        OutputSplunkMode = "error"
+	// OutputSplunkModeError Error
+	OutputSplunkModeError OutputSplunkMode = "error"
+	// OutputSplunkModeBackpressure Backpressure
 	OutputSplunkModeBackpressure OutputSplunkMode = "backpressure"
-	OutputSplunkModeAlways       OutputSplunkMode = "always"
+	// OutputSplunkModeAlways Always On
+	OutputSplunkModeAlways OutputSplunkMode = "always"
 )
 
 func (e OutputSplunkMode) ToPointer() *OutputSplunkMode {
 	return &e
-}
-func (e *OutputSplunkMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSplunkMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkMode: %v", v)
-	}
 }
 
 type OutputSplunkPqControls struct {

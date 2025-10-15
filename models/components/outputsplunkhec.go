@@ -65,30 +65,16 @@ func (o *OutputSplunkHecExtraHTTPHeader) GetValue() string {
 type OutputSplunkHecFailedRequestLoggingMode string
 
 const (
-	OutputSplunkHecFailedRequestLoggingModePayload           OutputSplunkHecFailedRequestLoggingMode = "payload"
+	// OutputSplunkHecFailedRequestLoggingModePayload Payload
+	OutputSplunkHecFailedRequestLoggingModePayload OutputSplunkHecFailedRequestLoggingMode = "payload"
+	// OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders OutputSplunkHecFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSplunkHecFailedRequestLoggingModeNone              OutputSplunkHecFailedRequestLoggingMode = "none"
+	// OutputSplunkHecFailedRequestLoggingModeNone None
+	OutputSplunkHecFailedRequestLoggingModeNone OutputSplunkHecFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSplunkHecFailedRequestLoggingMode) ToPointer() *OutputSplunkHecFailedRequestLoggingMode {
 	return &e
-}
-func (e *OutputSplunkHecFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputSplunkHecFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecFailedRequestLoggingMode: %v", v)
-	}
 }
 
 // OutputSplunkHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -101,21 +87,6 @@ const (
 
 func (e OutputSplunkHecAuthenticationMethod) ToPointer() *OutputSplunkHecAuthenticationMethod {
 	return &e
-}
-func (e *OutputSplunkHecAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputSplunkHecAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecAuthenticationMethod: %v", v)
-	}
 }
 
 type OutputSplunkHecResponseRetrySetting struct {
@@ -221,30 +192,16 @@ func (o *OutputSplunkHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSplunkHecBackpressureBehavior string
 
 const (
+	// OutputSplunkHecBackpressureBehaviorBlock Block
 	OutputSplunkHecBackpressureBehaviorBlock OutputSplunkHecBackpressureBehavior = "block"
-	OutputSplunkHecBackpressureBehaviorDrop  OutputSplunkHecBackpressureBehavior = "drop"
+	// OutputSplunkHecBackpressureBehaviorDrop Drop
+	OutputSplunkHecBackpressureBehaviorDrop OutputSplunkHecBackpressureBehavior = "drop"
+	// OutputSplunkHecBackpressureBehaviorQueue Persistent Queue
 	OutputSplunkHecBackpressureBehaviorQueue OutputSplunkHecBackpressureBehavior = "queue"
 )
 
 func (e OutputSplunkHecBackpressureBehavior) ToPointer() *OutputSplunkHecBackpressureBehavior {
 	return &e
-}
-func (e *OutputSplunkHecBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputSplunkHecBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputSplunkHecURL struct {
@@ -283,84 +240,44 @@ func (o *OutputSplunkHecURL) GetWeight() *float64 {
 type OutputSplunkHecCompression string
 
 const (
+	// OutputSplunkHecCompressionNone None
 	OutputSplunkHecCompressionNone OutputSplunkHecCompression = "none"
+	// OutputSplunkHecCompressionGzip Gzip
 	OutputSplunkHecCompressionGzip OutputSplunkHecCompression = "gzip"
 )
 
 func (e OutputSplunkHecCompression) ToPointer() *OutputSplunkHecCompression {
 	return &e
 }
-func (e *OutputSplunkHecCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputSplunkHecCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecCompression: %v", v)
-	}
-}
 
 // OutputSplunkHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSplunkHecQueueFullBehavior string
 
 const (
+	// OutputSplunkHecQueueFullBehaviorBlock Block
 	OutputSplunkHecQueueFullBehaviorBlock OutputSplunkHecQueueFullBehavior = "block"
-	OutputSplunkHecQueueFullBehaviorDrop  OutputSplunkHecQueueFullBehavior = "drop"
+	// OutputSplunkHecQueueFullBehaviorDrop Drop new data
+	OutputSplunkHecQueueFullBehaviorDrop OutputSplunkHecQueueFullBehavior = "drop"
 )
 
 func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
 	return &e
-}
-func (e *OutputSplunkHecQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputSplunkHecQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputSplunkHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSplunkHecMode string
 
 const (
-	OutputSplunkHecModeError        OutputSplunkHecMode = "error"
+	// OutputSplunkHecModeError Error
+	OutputSplunkHecModeError OutputSplunkHecMode = "error"
+	// OutputSplunkHecModeBackpressure Backpressure
 	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
-	OutputSplunkHecModeAlways       OutputSplunkHecMode = "always"
+	// OutputSplunkHecModeAlways Always On
+	OutputSplunkHecModeAlways OutputSplunkHecMode = "always"
 )
 
 func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
 	return &e
-}
-func (e *OutputSplunkHecMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputSplunkHecMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecMode: %v", v)
-	}
 }
 
 type OutputSplunkHecPqControls struct {
