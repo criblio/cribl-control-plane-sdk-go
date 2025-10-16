@@ -514,7 +514,7 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 }
 
 // Upload a Pack file
-// Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
+// Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
 func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, opts ...operations.Option) (*operations.UpdatePacksResponse, error) {
 	request := operations.UpdatePacksRequest{
 		Filename:    filename,
