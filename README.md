@@ -276,8 +276,9 @@ func main() {
 
 ### [Packs](docs/sdks/packs/README.md)
 
-* [Install](docs/sdks/packs/README.md#install) - Create or install a Pack
+* [Install](docs/sdks/packs/README.md#install) - Install a Pack
 * [List](docs/sdks/packs/README.md#list) - List all Packs
+* [Upload](docs/sdks/packs/README.md#upload) - Upload a Pack file
 * [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
