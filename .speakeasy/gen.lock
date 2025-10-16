@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f0436d64c919795f51be04910839f5de
+  docChecksum: 3ce8e7e8d6960ec2415b14c009e61a4d
   docVersion: 4.15.0-alpha.1760607052180-31a53a17
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.5
-  configChecksum: b9ec2995a02330f9f5bab3ce351e1fc4
+  releaseVersion: 0.1.1-rc.6
+  configChecksum: f13264aa2294287459a33e3edc2d7852
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -2414,7 +2414,7 @@ examples:
         application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
       responses:
         "200":
-          application/json: {"token": "<value>"}
+          application/json: {"token": "<value>", "forcePasswordChange": false}
   listInput:
     speakeasy-default-list-input:
       responses:
@@ -3371,3 +3371,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.Auth.Tokens.Get()`:  `response.ForcePasswordChange` **Added**
