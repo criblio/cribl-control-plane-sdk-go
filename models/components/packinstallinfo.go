@@ -3,7 +3,7 @@
 package components
 
 type PackInstallInfoTags struct {
-	DataType   []string `json:"dataType"`
+	DataType   []string `json:"dataType,omitempty"`
 	Domain     []string `json:"domain,omitempty"`
 	Streamtags []string `json:"streamtags,omitempty"`
 	Technology []string `json:"technology,omitempty"`
@@ -11,7 +11,7 @@ type PackInstallInfoTags struct {
 
 func (p *PackInstallInfoTags) GetDataType() []string {
 	if p == nil {
-		return []string{}
+		return nil
 	}
 	return p.DataType
 }

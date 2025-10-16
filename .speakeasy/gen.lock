@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 55f2c1b59f274948fdc572a79f59dcc1
-  docVersion: 4.15.0-alpha.1760486888592-e1e43793
+  docChecksum: a36d607d60e776a4c9cc735310b933ee
+  docVersion: 4.15.0-alpha.1760569726872-c3466a59
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.4
-  configChecksum: 9ae26daff457f60f75d2a32234bf3c8f
+  releaseVersion: 0.2.0-beta.5
+  configChecksum: d826d87bf8882a0e1b52d8f135d62c61
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -32,6 +32,7 @@ features:
     retries: 2.84.2
     sdkHooks: 0.2.0
     unions: 2.86.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -240,6 +241,7 @@ generatedFiles:
   - /models/components/security.go
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
+  - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
   - /models/operations/createconfiggroupbyproduct.go
@@ -301,6 +303,7 @@ generatedFiles:
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
   - /models/operations/updateoutputbyid.go
+  - /models/operations/updatepacks.go
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
@@ -2149,6 +2152,7 @@ generatedFiles:
   - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/uploadpackresponse.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
@@ -2319,6 +2323,8 @@ generatedFiles:
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksbyidresponsebody.md
+  - docs/models/operations/updatepacksrequest.md
+  - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updatepipelinebyidresponsebody.md
@@ -2885,9 +2891,11 @@ examples:
       parameters:
         query:
           filename: "example.file"
+      requestBody:
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   getGroupsConfigVersionById:
@@ -3323,3 +3331,11 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.Packs.Upload()`: **Added**
+  * `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags.DataType` **Changed**
+  * `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags.DataType` **Changed**
+  * `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags.DataType` **Changed**
+  * `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags.DataType` **Changed**
+  * `CriblControlPlane.Packs.Update()`:  `response.Items.[].Tags.DataType` **Changed**
