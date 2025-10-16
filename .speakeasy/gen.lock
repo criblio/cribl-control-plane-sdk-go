@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 3ce8e7e8d6960ec2415b14c009e61a4d
-  docVersion: 4.15.0-alpha.1760607052180-31a53a17
+  docChecksum: 43a7f22a60efdf139b617415b96b28d2
+  docVersion: 4.15.0-alpha.1760636051511-e9367475
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.6
-  configChecksum: f13264aa2294287459a33e3edc2d7852
+  releaseVersion: 0.1.1-rc.7
+  configChecksum: 018ef15df071d0d54f33f055848c3e67
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3373,4 +3373,4 @@ generatedTests:
   updateGroupsById: "2025-08-01T19:57:10Z"
 releaseNotes: |
   ## Go SDK Changes Detected:
-  * `CriblControlPlane.Auth.Tokens.Get()`:  `response.ForcePasswordChange` **Added**
+  * `CriblControlPlane.Auth.Tokens.Get()`:  `response.ForcePasswordChange` **Changed**

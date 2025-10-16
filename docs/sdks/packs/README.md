@@ -48,30 +48,23 @@ func main() {
             Spec: criblcontrolplanesdkgo.Pointer("<value>"),
             Version: criblcontrolplanesdkgo.Pointer("<value>"),
             MinLogStreamVersion: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisplayName: criblcontrolplanesdkgo.Pointer("June30"),
+            DisplayName: criblcontrolplanesdkgo.Pointer("Myah14"),
             Author: criblcontrolplanesdkgo.Pointer("<value>"),
-            Description: criblcontrolplanesdkgo.Pointer("and banish crossly abacus"),
-            Source: criblcontrolplanesdkgo.Pointer("https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl"),
+            Description: criblcontrolplanesdkgo.Pointer("premeditation coincide although"),
+            Source: criblcontrolplanesdkgo.Pointer("<value>"),
             Tags: &components.PackRequestBodyTags1{
-                DataType: []string{
-                    "double",
-                    "boolean",
-                },
-                Domain: []string{
-                    "delectable-transom.com",
-                    "radiant-sightseeing.info",
-                },
+                DataType: []string{},
+                Domain: []string{},
                 Technology: []string{
                     "<value 1>",
                 },
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
-                    "<value 3>",
                 },
             },
-            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(true),
-            Force: criblcontrolplanesdkgo.Pointer(true),
+            AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
+            Force: criblcontrolplanesdkgo.Pointer(false),
         },
     ))
     if err != nil {
@@ -161,7 +154,7 @@ func main() {
 
 ## Upload
 
-Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
+Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
 
 ### Example Usage
 
