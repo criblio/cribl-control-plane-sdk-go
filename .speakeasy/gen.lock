@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a36d607d60e776a4c9cc735310b933ee
-  docVersion: 4.15.0-alpha.1760569726872-c3466a59
+  docChecksum: 059a018b0f15f27cb7b208a2ca9338b0
+  docVersion: 4.15.0-alpha.1760742316222-ce9b582f
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.5
-  configChecksum: d826d87bf8882a0e1b52d8f135d62c61
+  releaseVersion: 0.2.0-beta.6
+  configChecksum: 50d3fb3be35fa3effdf7d4afcb6ccf3f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -2414,7 +2414,7 @@ examples:
         application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
       responses:
         "200":
-          application/json: {"token": "<value>"}
+          application/json: {"token": "<value>", "forcePasswordChange": false}
   listInput:
     speakeasy-default-list-input:
       responses:
@@ -3333,9 +3333,4 @@ generatedTests:
   updateGroupsById: "2025-08-01T19:57:10Z"
 releaseNotes: |
   ## Go SDK Changes Detected:
-  * `CriblControlPlane.Packs.Upload()`: **Added**
-  * `CriblControlPlane.Packs.Install()`:  `response.Items.[].Tags.DataType` **Changed**
-  * `CriblControlPlane.Packs.List()`:  `response.Items.[].Tags.DataType` **Changed**
-  * `CriblControlPlane.Packs.Delete()`:  `response.Items.[].Tags.DataType` **Changed**
-  * `CriblControlPlane.Packs.Get()`:  `response.Items.[].Tags.DataType` **Changed**
-  * `CriblControlPlane.Packs.Update()`:  `response.Items.[].Tags.DataType` **Changed**
+  * `CriblControlPlane.Auth.Tokens.Get()`:  `response.ForcePasswordChange` **Added**
