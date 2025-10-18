@@ -22,6 +22,7 @@ Complementary API reference documentation is available at https://docs.cribl.io/
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [Json Streaming](#json-streaming)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Custom HTTP Client](#custom-http-client)
@@ -285,8 +286,9 @@ func main() {
 
 ### [Packs](docs/sdks/packs/README.md)
 
-* [Install](docs/sdks/packs/README.md#install) - Create or install a Pack
+* [Install](docs/sdks/packs/README.md#install) - Install a Pack
 * [List](docs/sdks/packs/README.md#list) - List all Packs
+* [Upload](docs/sdks/packs/README.md#upload) - Upload a Pack file
 * [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
@@ -305,6 +307,19 @@ func main() {
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [Update](docs/sdks/routes/README.md#update) - Update a Route
 * [Append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+
+#### [Search.Jobs.Results](docs/sdks/results/README.md)
+
+* [Get](docs/sdks/results/README.md#get) - List search results, when lower/upper bound is provided, offset is relative to the time range.
+* [Poll](docs/sdks/results/README.md#poll) - List search results
+
+#### [Search.Jobs.Statuses](docs/sdks/jobsstatuses/README.md)
+
+* [Get](docs/sdks/jobsstatuses/README.md#get) - Get job status
+
+#### [Search.Queries](docs/sdks/queries/README.md)
+
+* [Create](docs/sdks/queries/README.md#create) - Runs the query and returns the results
 
 ### [Sources](docs/sdks/sources/README.md)
 
@@ -343,12 +358,66 @@ func main() {
 
 * [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
-#### [Versions.Statuses](docs/sdks/statuses/README.md)
+#### [Versions.Statuses](docs/sdks/versionsstatuses/README.md)
 
-* [Get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
+* [Get](docs/sdks/versionsstatuses/README.md#get) - Get the status of the current working tree
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Json Streaming [jsonl] -->
+## Json Streaming
+
+Json Streaming ([jsonl][jsonl-format] / [x-ndjson][x-ndjson]) content type can be used to stream content from certain operations. These operations expose the stream that can be consumed using a `for` loop in Go. The loop will terminate when the server no longer has any events to send and closes the underlying connection.
+
+Here's an example of consuming a JSONL stream:
+
+```go
+package main
+
+import (
+	"context"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := criblcontrolplanesdkgo.New(
+		"https://api.example.com",
+		criblcontrolplanesdkgo.WithSecurity(components.Security{
+			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+		}),
+	)
+
+	res, err := s.Search.Jobs.Results.Get(ctx, operations.GetSearchJobsResultsByIDRequest{
+		ID:         "<id>",
+		Limit:      criblcontrolplanesdkgo.Pointer[float64](9933.5),
+		Offset:     criblcontrolplanesdkgo.Pointer[float64](9757.07),
+		LowerBound: criblcontrolplanesdkgo.Pointer[float64](6377.21),
+		UpperBound: criblcontrolplanesdkgo.Pointer[float64](1238.19),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.SearchJobResults != nil {
+		for res.SearchJobResults.Next() {
+			event, _ := res.SearchJobResults.Value()
+			log.Print(event)
+			// Handle the event
+		}
+	}
+}
+
+```
+
+[jsonl-format]: https://jsonlines.org/
+[x-ndjson]: https://github.com/ndjson/ndjson-spec
+<!-- End Json Streaming [jsonl] -->
 
 <!-- Start Retries [retries] -->
 ## Retries

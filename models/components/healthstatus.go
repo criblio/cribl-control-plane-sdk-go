@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type Role string
 
 const (
@@ -17,55 +12,23 @@ const (
 func (e Role) ToPointer() *Role {
 	return &e
 }
-func (e *Role) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "primary":
-		fallthrough
-	case "standby":
-		*e = Role(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Role: %v", v)
-	}
-}
 
-type Status string
+type HealthStatusStatus string
 
 const (
-	StatusHealthy      Status = "healthy"
-	StatusShuttingDown Status = "shutting down"
-	StatusStandby      Status = "standby"
+	HealthStatusStatusHealthy      HealthStatusStatus = "healthy"
+	HealthStatusStatusShuttingDown HealthStatusStatus = "shutting down"
+	HealthStatusStatusStandby      HealthStatusStatus = "standby"
 )
 
-func (e Status) ToPointer() *Status {
+func (e HealthStatusStatus) ToPointer() *HealthStatusStatus {
 	return &e
-}
-func (e *Status) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "healthy":
-		fallthrough
-	case "shutting down":
-		fallthrough
-	case "standby":
-		*e = Status(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Status: %v", v)
-	}
 }
 
 type HealthStatus struct {
-	Role      *Role   `json:"role,omitempty"`
-	Status    Status  `json:"status"`
-	StartTime float64 `json:"startTime"`
+	Role      *Role              `json:"role,omitempty"`
+	Status    HealthStatusStatus `json:"status"`
+	StartTime float64            `json:"startTime"`
 }
 
 func (h *HealthStatus) GetRole() *Role {
@@ -75,9 +38,9 @@ func (h *HealthStatus) GetRole() *Role {
 	return h.Role
 }
 
-func (h *HealthStatus) GetStatus() Status {
+func (h *HealthStatus) GetStatus() HealthStatusStatus {
 	if h == nil {
-		return Status("")
+		return HealthStatusStatus("")
 	}
 	return h.Status
 }

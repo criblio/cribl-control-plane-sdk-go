@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.15.0-alpha.1760789748127-6493b6f5
+  version: 4.15.0-alpha.1760790547109-e85ff476
   contact:
     name: Support
     url: https://portal.support.cribl.io
@@ -44540,7 +44540,7 @@ paths:
       operationId: getSearchQuery
       tags:
         - query
-      x-speakeasy-group: search.query
+      x-speakeasy-group: search.queries
       x-speakeasy-name-override: create
       summary: Runs the query and returns the results
       description: Runs the query and returns the results

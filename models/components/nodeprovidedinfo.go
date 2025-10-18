@@ -12,11 +12,12 @@ type NodeProvidedInfoTags struct {
 }
 
 type NodeProvidedInfoAws struct {
-	Enabled bool                  `json:"enabled"`
-	Region  string                `json:"region"`
-	Tags    *NodeProvidedInfoTags `json:"tags,omitempty"`
-	Type    string                `json:"type"`
-	Zone    string                `json:"zone"`
+	Enabled    bool                  `json:"enabled"`
+	InstanceID string                `json:"instanceId"`
+	Region     string                `json:"region"`
+	Tags       *NodeProvidedInfoTags `json:"tags,omitempty"`
+	Type       string                `json:"type"`
+	Zone       string                `json:"zone"`
 }
 
 func (n *NodeProvidedInfoAws) GetEnabled() bool {
@@ -24,6 +25,13 @@ func (n *NodeProvidedInfoAws) GetEnabled() bool {
 		return false
 	}
 	return n.Enabled
+}
+
+func (n *NodeProvidedInfoAws) GetInstanceID() string {
+	if n == nil {
+		return ""
+	}
+	return n.InstanceID
 }
 
 func (n *NodeProvidedInfoAws) GetRegion() string {
@@ -296,6 +304,7 @@ type NodeProvidedInfo struct {
 	ConnIP         *string                 `json:"conn_ip,omitempty"`
 	Cpus           float64                 `json:"cpus"`
 	Cribl          HBCriblInfo             `json:"cribl"`
+	Env            map[string]string       `json:"env"`
 	FreeDiskSpace  float64                 `json:"freeDiskSpace"`
 	HostOs         *NodeProvidedInfoHostOs `json:"hostOs,omitempty"`
 	Hostname       string                  `json:"hostname"`
@@ -344,6 +353,13 @@ func (n *NodeProvidedInfo) GetCribl() HBCriblInfo {
 		return HBCriblInfo{}
 	}
 	return n.Cribl
+}
+
+func (n *NodeProvidedInfo) GetEnv() map[string]string {
+	if n == nil {
+		return map[string]string{}
+	}
+	return n.Env
 }
 
 func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {

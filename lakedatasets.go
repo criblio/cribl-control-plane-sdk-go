@@ -990,11 +990,11 @@ func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts .
 
 // Update a Lake Dataset
 // Update the specified Lake Dataset in the specified Lake.
-func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, criblLakeDataset components.CriblLakeDataset, opts ...operations.Option) (*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse, error) {
+func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, criblLakeDatasetUpdate components.CriblLakeDatasetUpdate, opts ...operations.Option) (*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.UpdateCriblLakeDatasetByLakeIDAndIDRequest{
-		LakeID:           lakeID,
-		ID:               id,
-		CriblLakeDataset: criblLakeDataset,
+		LakeID:                 lakeID,
+		ID:                     id,
+		CriblLakeDatasetUpdate: criblLakeDatasetUpdate,
 	}
 
 	o := operations.Options{}
@@ -1029,7 +1029,7 @@ func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, cri
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CriblLakeDataset", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CriblLakeDatasetUpdate", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

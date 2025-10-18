@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type CloudProvider string
 
 const (
@@ -16,19 +11,4 @@ const (
 
 func (e CloudProvider) ToPointer() *CloudProvider {
 	return &e
-}
-func (e *CloudProvider) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "aws":
-		fallthrough
-	case "azure":
-		*e = CloudProvider(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CloudProvider: %v", v)
-	}
 }

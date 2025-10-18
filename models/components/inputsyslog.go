@@ -66,54 +66,28 @@ func (i *InputSyslogConnection2) GetOutput() string {
 type InputSyslogMode2 string
 
 const (
-	InputSyslogMode2Smart  InputSyslogMode2 = "smart"
+	// InputSyslogMode2Smart Smart
+	InputSyslogMode2Smart InputSyslogMode2 = "smart"
+	// InputSyslogMode2Always Always On
 	InputSyslogMode2Always InputSyslogMode2 = "always"
 )
 
 func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 	return &e
 }
-func (e *InputSyslogMode2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSyslogMode2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMode2: %v", v)
-	}
-}
 
 // InputSyslogCompression2 - Codec to use to compress the persisted data
 type InputSyslogCompression2 string
 
 const (
+	// InputSyslogCompression2None None
 	InputSyslogCompression2None InputSyslogCompression2 = "none"
+	// InputSyslogCompression2Gzip Gzip
 	InputSyslogCompression2Gzip InputSyslogCompression2 = "gzip"
 )
 
 func (e InputSyslogCompression2) ToPointer() *InputSyslogCompression2 {
 	return &e
-}
-func (e *InputSyslogCompression2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSyslogCompression2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogCompression2: %v", v)
-	}
 }
 
 type InputSyslogPqControls2 struct {
@@ -227,25 +201,6 @@ const (
 func (e InputSyslogMinimumTLSVersion2) ToPointer() *InputSyslogMinimumTLSVersion2 {
 	return &e
 }
-func (e *InputSyslogMinimumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMinimumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMinimumTLSVersion2: %v", v)
-	}
-}
 
 type InputSyslogMaximumTLSVersion2 string
 
@@ -258,25 +213,6 @@ const (
 
 func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion2 {
 	return &e
-}
-func (e *InputSyslogMaximumTLSVersion2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMaximumTLSVersion2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMaximumTLSVersion2: %v", v)
-	}
 }
 
 type InputSyslogTLSSettingsServerSide2 struct {
@@ -781,54 +717,28 @@ func (i *InputSyslogConnection1) GetOutput() string {
 type InputSyslogMode1 string
 
 const (
-	InputSyslogMode1Smart  InputSyslogMode1 = "smart"
+	// InputSyslogMode1Smart Smart
+	InputSyslogMode1Smart InputSyslogMode1 = "smart"
+	// InputSyslogMode1Always Always On
 	InputSyslogMode1Always InputSyslogMode1 = "always"
 )
 
 func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 	return &e
 }
-func (e *InputSyslogMode1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputSyslogMode1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMode1: %v", v)
-	}
-}
 
 // InputSyslogCompression1 - Codec to use to compress the persisted data
 type InputSyslogCompression1 string
 
 const (
+	// InputSyslogCompression1None None
 	InputSyslogCompression1None InputSyslogCompression1 = "none"
+	// InputSyslogCompression1Gzip Gzip
 	InputSyslogCompression1Gzip InputSyslogCompression1 = "gzip"
 )
 
 func (e InputSyslogCompression1) ToPointer() *InputSyslogCompression1 {
 	return &e
-}
-func (e *InputSyslogCompression1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputSyslogCompression1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogCompression1: %v", v)
-	}
 }
 
 type InputSyslogPqControls1 struct {
@@ -942,25 +852,6 @@ const (
 func (e InputSyslogMinimumTLSVersion1) ToPointer() *InputSyslogMinimumTLSVersion1 {
 	return &e
 }
-func (e *InputSyslogMinimumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMinimumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMinimumTLSVersion1: %v", v)
-	}
-}
 
 type InputSyslogMaximumTLSVersion1 string
 
@@ -973,25 +864,6 @@ const (
 
 func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion1 {
 	return &e
-}
-func (e *InputSyslogMaximumTLSVersion1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputSyslogMaximumTLSVersion1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogMaximumTLSVersion1: %v", v)
-	}
 }
 
 type InputSyslogTLSSettingsServerSide1 struct {

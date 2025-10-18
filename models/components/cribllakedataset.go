@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type CriblLakeDatasetFormat string
 
 const (
@@ -17,23 +12,6 @@ const (
 
 func (e CriblLakeDatasetFormat) ToPointer() *CriblLakeDatasetFormat {
 	return &e
-}
-func (e *CriblLakeDatasetFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "json":
-		fallthrough
-	case "ddss":
-		fallthrough
-	case "parquet":
-		*e = CriblLakeDatasetFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CriblLakeDatasetFormat: %v", v)
-	}
 }
 
 type CriblLakeDataset struct {
