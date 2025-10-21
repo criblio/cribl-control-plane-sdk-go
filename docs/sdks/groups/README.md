@@ -108,7 +108,7 @@ func main() {
         ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](393.49),
         Description: criblcontrolplanesdkgo.Pointer("ack before fondly scent because gee without where exactly"),
-        EstimatedIngestRate: components.EstimatedIngestRateFiveThousandOneHundredAndTwenty.ToPointer(),
+        EstimatedIngest: components.EstimatedIngestRate60MbPerSec.ToPointer(),
         Git: &components.Git{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](5255.51),
@@ -273,7 +273,7 @@ func main() {
         ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7451.49),
         Description: criblcontrolplanesdkgo.Pointer("verbally feminize harmful prance really"),
-        EstimatedIngestRate: components.EstimatedIngestRateThirteenThousandThreeHundredAndTwelve.ToPointer(),
+        EstimatedIngest: components.EstimatedIngestRate156MbPerSec.ToPointer(),
         Git: &components.Git{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](4475.22),
