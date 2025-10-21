@@ -78,14 +78,14 @@ func main() {
 	// Create the Worker Group
 	awsProvider := components.CloudProviderAws
 	group := components.ConfigGroup{
-		ID:                  WORKER_GROUP_ID,
-		Name:                criblcontrolplanesdkgo.String("my-aws-worker-group"),
-		OnPrem:              criblcontrolplanesdkgo.Bool(false),
-		WorkerRemoteAccess:  criblcontrolplanesdkgo.Bool(true),
-		Provisioned:         criblcontrolplanesdkgo.Bool(false),
-		IsFleet:             criblcontrolplanesdkgo.Bool(false),
-		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: components.EstimatedIngestRateTwoThousandAndFortyEight.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+		ID:                 WORKER_GROUP_ID,
+		Name:               criblcontrolplanesdkgo.String("my-aws-worker-group"),
+		OnPrem:             criblcontrolplanesdkgo.Bool(false),
+		WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
+		Provisioned:        criblcontrolplanesdkgo.Bool(false),
+		IsFleet:            criblcontrolplanesdkgo.Bool(false),
+		IsSearch:           criblcontrolplanesdkgo.Bool(false),
+		EstimatedIngest:    components.EstimatedIngestRate24MbPerSec.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
 		Cloud: &components.ConfigGroupCloud{
 			Provider: &awsProvider,
 			Region:   "us-east-1",
@@ -104,7 +104,7 @@ func main() {
 	fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 
 	// Scale and provision the Worker Group
-	group.EstimatedIngestRate = components.EstimatedIngestRateFourThousandAndNinetySix.ToPointer() // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+	group.EstimatedIngest = components.EstimatedIngestRate48MbPerSec.ToPointer() // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
 	group.Provisioned = criblcontrolplanesdkgo.Bool(true)
 
 	updateResponse, err := client.Groups.Update(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, group)
