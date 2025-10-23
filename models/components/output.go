@@ -75,6 +75,7 @@ const (
 	OutputTypeOutputDynatraceHTTP          OutputType = "OutputDynatraceHttp"
 	OutputTypeOutputDynatraceOtlp          OutputType = "OutputDynatraceOtlp"
 	OutputTypeOutputSentinelOneAiSiem      OutputType = "OutputSentinelOneAiSiem"
+	OutputTypeOutputChronicle              OutputType = "OutputChronicle"
 )
 
 type Output struct {
@@ -142,6 +143,7 @@ type Output struct {
 	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline,name=Output"`
 	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline,name=Output"`
 	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline,name=Output"`
+	OutputChronicle              *OutputChronicle              `queryParam:"inline,name=Output"`
 
 	Type OutputType
 }
@@ -722,6 +724,15 @@ func CreateOutputOutputSentinelOneAiSiem(outputSentinelOneAiSiem OutputSentinelO
 	}
 }
 
+func CreateOutputOutputChronicle(outputChronicle OutputChronicle) Output {
+	typ := OutputTypeOutputChronicle
+
+	return Output{
+		OutputChronicle: &outputChronicle,
+		Type:            typ,
+	}
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	var outputAzureDataExplorer OutputAzureDataExplorer = OutputAzureDataExplorer{}
@@ -735,6 +746,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputSecurityLake, "", true, nil); err == nil {
 		u.OutputSecurityLake = &outputSecurityLake
 		u.Type = OutputTypeOutputSecurityLake
+		return nil
+	}
+
+	var outputChronicle OutputChronicle = OutputChronicle{}
+	if err := utils.UnmarshalJSON(data, &outputChronicle, "", true, nil); err == nil {
+		u.OutputChronicle = &outputChronicle
+		u.Type = OutputTypeOutputChronicle
 		return nil
 	}
 
@@ -843,6 +861,13 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var outputSqs OutputSqs = OutputSqs{}
+	if err := utils.UnmarshalJSON(data, &outputSqs, "", true, nil); err == nil {
+		u.OutputSqs = &outputSqs
+		u.Type = OutputTypeOutputSqs
+		return nil
+	}
+
 	var outputDefault OutputDefault = OutputDefault{}
 	if err := utils.UnmarshalJSON(data, &outputDefault, "", true, nil); err == nil {
 		u.OutputDefault = &outputDefault
@@ -938,13 +963,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &outputRouter, "", true, nil); err == nil {
 		u.OutputRouter = &outputRouter
 		u.Type = OutputTypeOutputRouter
-		return nil
-	}
-
-	var outputSqs OutputSqs = OutputSqs{}
-	if err := utils.UnmarshalJSON(data, &outputSqs, "", true, nil); err == nil {
-		u.OutputSqs = &outputSqs
-		u.Type = OutputTypeOutputSqs
 		return nil
 	}
 
@@ -1430,6 +1448,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSentinelOneAiSiem != nil {
 		return utils.MarshalJSON(u.OutputSentinelOneAiSiem, "", true)
+	}
+
+	if u.OutputChronicle != nil {
+		return utils.MarshalJSON(u.OutputChronicle, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

@@ -42,21 +42,6 @@ const (
 func (e OutputTcpjsonCompression) ToPointer() *OutputTcpjsonCompression {
 	return &e
 }
-func (e *OutputTcpjsonCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputTcpjsonCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonCompression: %v", v)
-	}
-}
 
 type OutputTcpjsonMinimumTLSVersion string
 
@@ -70,25 +55,6 @@ const (
 func (e OutputTcpjsonMinimumTLSVersion) ToPointer() *OutputTcpjsonMinimumTLSVersion {
 	return &e
 }
-func (e *OutputTcpjsonMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputTcpjsonMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputTcpjsonMaximumTLSVersion string
 
@@ -101,25 +67,6 @@ const (
 
 func (e OutputTcpjsonMaximumTLSVersion) ToPointer() *OutputTcpjsonMaximumTLSVersion {
 	return &e
-}
-func (e *OutputTcpjsonMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputTcpjsonMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputTcpjsonTLSSettingsClientSide struct {
@@ -236,23 +183,6 @@ const (
 func (e OutputTcpjsonBackpressureBehavior) ToPointer() *OutputTcpjsonBackpressureBehavior {
 	return &e
 }
-func (e *OutputTcpjsonBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputTcpjsonBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputTcpjsonAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputTcpjsonAuthenticationMethod string
@@ -265,21 +195,6 @@ const (
 func (e OutputTcpjsonAuthenticationMethod) ToPointer() *OutputTcpjsonAuthenticationMethod {
 	return &e
 }
-func (e *OutputTcpjsonAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		*e = OutputTcpjsonAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonAuthenticationMethod: %v", v)
-	}
-}
 
 // OutputTcpjsonTLS - Whether to inherit TLS configs from group setting or disable TLS
 type OutputTcpjsonTLS string
@@ -291,21 +206,6 @@ const (
 
 func (e OutputTcpjsonTLS) ToPointer() *OutputTcpjsonTLS {
 	return &e
-}
-func (e *OutputTcpjsonTLS) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "inherit":
-		fallthrough
-	case "off":
-		*e = OutputTcpjsonTLS(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonTLS: %v", v)
-	}
 }
 
 type OutputTcpjsonHost struct {
@@ -378,21 +278,6 @@ const (
 func (e OutputTcpjsonPqCompressCompression) ToPointer() *OutputTcpjsonPqCompressCompression {
 	return &e
 }
-func (e *OutputTcpjsonPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputTcpjsonPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonPqCompressCompression: %v", v)
-	}
-}
 
 // OutputTcpjsonQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputTcpjsonQueueFullBehavior string
@@ -404,21 +289,6 @@ const (
 
 func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehavior {
 	return &e
-}
-func (e *OutputTcpjsonQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputTcpjsonQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputTcpjsonMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -432,23 +302,6 @@ const (
 
 func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {
 	return &e
-}
-func (e *OutputTcpjsonMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputTcpjsonMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonMode: %v", v)
-	}
 }
 
 type OutputTcpjsonPqControls struct {

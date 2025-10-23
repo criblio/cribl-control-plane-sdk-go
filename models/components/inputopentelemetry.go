@@ -72,21 +72,6 @@ const (
 func (e InputOpenTelemetryMode) ToPointer() *InputOpenTelemetryMode {
 	return &e
 }
-func (e *InputOpenTelemetryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputOpenTelemetryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryMode: %v", v)
-	}
-}
 
 // InputOpenTelemetryCompression - Codec to use to compress the persisted data
 type InputOpenTelemetryCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputOpenTelemetryCompression) ToPointer() *InputOpenTelemetryCompression {
 	return &e
-}
-func (e *InputOpenTelemetryCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputOpenTelemetryCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryCompression: %v", v)
-	}
 }
 
 type InputOpenTelemetryPqControls struct {
@@ -226,25 +196,6 @@ const (
 func (e InputOpenTelemetryMinimumTLSVersion) ToPointer() *InputOpenTelemetryMinimumTLSVersion {
 	return &e
 }
-func (e *InputOpenTelemetryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputOpenTelemetryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputOpenTelemetryMaximumTLSVersion string
 
@@ -257,25 +208,6 @@ const (
 
 func (e InputOpenTelemetryMaximumTLSVersion) ToPointer() *InputOpenTelemetryMaximumTLSVersion {
 	return &e
-}
-func (e *InputOpenTelemetryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputOpenTelemetryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryMaximumTLSVersion: %v", v)
-	}
 }
 
 type InputOpenTelemetryTLSSettingsServerSide struct {
@@ -397,21 +329,6 @@ const (
 func (e InputOpenTelemetryProtocol) ToPointer() *InputOpenTelemetryProtocol {
 	return &e
 }
-func (e *InputOpenTelemetryProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "grpc":
-		fallthrough
-	case "http":
-		*e = InputOpenTelemetryProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryProtocol: %v", v)
-	}
-}
 
 // InputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when interpreting received data
 type InputOpenTelemetryOTLPVersion string
@@ -423,21 +340,6 @@ const (
 
 func (e InputOpenTelemetryOTLPVersion) ToPointer() *InputOpenTelemetryOTLPVersion {
 	return &e
-}
-func (e *InputOpenTelemetryOTLPVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "0.10.0":
-		fallthrough
-	case "1.3.1":
-		*e = InputOpenTelemetryOTLPVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryOTLPVersion: %v", v)
-	}
 }
 
 // InputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
@@ -454,29 +356,6 @@ const (
 
 func (e InputOpenTelemetryAuthenticationType) ToPointer() *InputOpenTelemetryAuthenticationType {
 	return &e
-}
-func (e *InputOpenTelemetryAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = InputOpenTelemetryAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputOpenTelemetryAuthenticationType: %v", v)
-	}
 }
 
 type InputOpenTelemetryMetadatum struct {

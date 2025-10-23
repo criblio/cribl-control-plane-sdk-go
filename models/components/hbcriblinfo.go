@@ -57,6 +57,7 @@ type HBCriblInfo struct {
 	LookupVersions    *LookupVersions `json:"lookupVersions,omitempty"`
 	Master            *HBLeaderInfo   `json:"master,omitempty"`
 	Pid               *float64        `json:"pid,omitempty"`
+	SocksEnabled      *bool           `json:"socksEnabled,omitempty"`
 	StartTime         float64         `json:"startTime"`
 	Tags              []string        `json:"tags"`
 	Version           *string         `json:"version,omitempty"`
@@ -137,6 +138,13 @@ func (h *HBCriblInfo) GetPid() *float64 {
 		return nil
 	}
 	return h.Pid
+}
+
+func (h *HBCriblInfo) GetSocksEnabled() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.SocksEnabled
 }
 
 func (h *HBCriblInfo) GetStartTime() float64 {
