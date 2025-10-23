@@ -208,7 +208,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `filename`                                               | *string*                                                 | :heavy_check_mark:                                       | Filename of the Pack file to upload.                     |
-| `requestBody`                                            | *any*                                                    | :heavy_check_mark:                                       | Binary file content                                      |
+| `requestBody`                                            | *any*                                                    | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

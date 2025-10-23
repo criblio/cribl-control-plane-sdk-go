@@ -2,31 +2,31 @@
 
 package components
 
-// EstimatedIngest - Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
-type EstimatedIngest int64
+// EstimatedIngestRate - Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+type EstimatedIngestRate int64
 
 const (
-	// EstimatedIngestRate12MbPerSec 12 MB/sec
-	EstimatedIngestRate12MbPerSec EstimatedIngest = 1024
-	// EstimatedIngestRate24MbPerSec 24 MB/sec
-	EstimatedIngestRate24MbPerSec EstimatedIngest = 2048
-	// EstimatedIngestRate36MbPerSec 36 MB/sec
-	EstimatedIngestRate36MbPerSec EstimatedIngest = 3072
-	// EstimatedIngestRate48MbPerSec 48 MB/sec
-	EstimatedIngestRate48MbPerSec EstimatedIngest = 4096
-	// EstimatedIngestRate60MbPerSec 60 MB/sec
-	EstimatedIngestRate60MbPerSec EstimatedIngest = 5120
-	// EstimatedIngestRate84MbPerSec 84 MB/sec
-	EstimatedIngestRate84MbPerSec EstimatedIngest = 7168
-	// EstimatedIngestRate120MbPerSec 120 MB/sec
-	EstimatedIngestRate120MbPerSec EstimatedIngest = 10240
-	// EstimatedIngestRate156MbPerSec 156 MB/sec
-	EstimatedIngestRate156MbPerSec EstimatedIngest = 13312
-	// EstimatedIngestRate180MbPerSec 180 MB/sec
-	EstimatedIngestRate180MbPerSec EstimatedIngest = 15360
+	// EstimatedIngestRateRate12MbPerSec 12 MB/sec
+	EstimatedIngestRateRate12MbPerSec EstimatedIngestRate = 1024
+	// EstimatedIngestRateRate24MbPerSec 24 MB/sec
+	EstimatedIngestRateRate24MbPerSec EstimatedIngestRate = 2048
+	// EstimatedIngestRateRate36MbPerSec 36 MB/sec
+	EstimatedIngestRateRate36MbPerSec EstimatedIngestRate = 3072
+	// EstimatedIngestRateRate48MbPerSec 48 MB/sec
+	EstimatedIngestRateRate48MbPerSec EstimatedIngestRate = 4096
+	// EstimatedIngestRateRate60MbPerSec 60 MB/sec
+	EstimatedIngestRateRate60MbPerSec EstimatedIngestRate = 5120
+	// EstimatedIngestRateRate84MbPerSec 84 MB/sec
+	EstimatedIngestRateRate84MbPerSec EstimatedIngestRate = 7168
+	// EstimatedIngestRateRate120MbPerSec 120 MB/sec
+	EstimatedIngestRateRate120MbPerSec EstimatedIngestRate = 10240
+	// EstimatedIngestRateRate156MbPerSec 156 MB/sec
+	EstimatedIngestRateRate156MbPerSec EstimatedIngestRate = 13312
+	// EstimatedIngestRateRate180MbPerSec 180 MB/sec
+	EstimatedIngestRateRate180MbPerSec EstimatedIngestRate = 15360
 )
 
-func (e EstimatedIngest) ToPointer() *EstimatedIngest {
+func (e EstimatedIngestRate) ToPointer() *EstimatedIngestRate {
 	return &e
 }
 
@@ -73,7 +73,7 @@ type ConfigGroup struct {
 	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitempty"`
 	Description          *string           `json:"description,omitempty"`
 	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
-	EstimatedIngest         *EstimatedIngest     `json:"estimatedIngestRate,omitempty"`
+	EstimatedIngestRate     *EstimatedIngestRate `json:"estimatedIngestRate,omitempty"`
 	Git                     *Git                 `json:"git,omitempty"`
 	ID                      string               `json:"id"`
 	IncompatibleWorkerCount *float64             `json:"incompatibleWorkerCount,omitempty"`
@@ -121,11 +121,11 @@ func (c *ConfigGroup) GetDescription() *string {
 	return c.Description
 }
 
-func (c *ConfigGroup) GetEstimatedIngest() *EstimatedIngest {
+func (c *ConfigGroup) GetEstimatedIngestRate() *EstimatedIngestRate {
 	if c == nil {
 		return nil
 	}
-	return c.EstimatedIngest
+	return c.EstimatedIngestRate
 }
 
 func (c *ConfigGroup) GetGit() *Git {

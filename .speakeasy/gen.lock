@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: b0f99a1dfc700a2b32b34eeeeef487c4
-  docVersion: 4.15.0-alpha.1761042093526-c9108b5e
+  docChecksum: 35503ffb91958739470a3a4a304c8300
+  docVersion: 4.15.0-alpha.1761174335818-8b3b1a8b
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.7
-  configChecksum: f586968c0388e052191e1c7c25b852de
+  releaseVersion: 0.2.0-beta.8
+  configChecksum: cdbe0e99341d4d247591f14a7ff058ec
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -381,7 +381,7 @@ generatedFiles:
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
   - docs/models/components/error.md
-  - docs/models/components/estimatedingest.md
+  - docs/models/components/estimatedingestrate.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md

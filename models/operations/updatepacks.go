@@ -9,7 +9,6 @@ import (
 type UpdatePacksRequest struct {
 	// Filename of the Pack file to upload.
 	Filename string `queryParam:"style=form,explode=true,name=filename"`
-	// Binary file content
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
 	RequestBody any `request:"mediaType=application/octet-stream"`
 }

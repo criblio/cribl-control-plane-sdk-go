@@ -26,7 +26,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 go:
-  version: 0.2.0-beta.7
+  version: 0.2.0-beta.8
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: true
   baseErrorName: CriblControlPlaneError
