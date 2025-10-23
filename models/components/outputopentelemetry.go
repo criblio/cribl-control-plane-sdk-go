@@ -42,21 +42,6 @@ const (
 func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
 	return &e
 }
-func (e *OutputOpenTelemetryProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "grpc":
-		fallthrough
-	case "http":
-		*e = OutputOpenTelemetryProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryProtocol: %v", v)
-	}
-}
 
 // OutputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
 type OutputOpenTelemetryOTLPVersion string
@@ -68,21 +53,6 @@ const (
 
 func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVersion {
 	return &e
-}
-func (e *OutputOpenTelemetryOTLPVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "0.10.0":
-		fallthrough
-	case "1.3.1":
-		*e = OutputOpenTelemetryOTLPVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryOTLPVersion: %v", v)
-	}
 }
 
 // OutputOpenTelemetryCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -97,23 +67,6 @@ const (
 func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetryCompressCompression {
 	return &e
 }
-func (e *OutputOpenTelemetryCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "deflate":
-		fallthrough
-	case "gzip":
-		*e = OutputOpenTelemetryCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryCompressCompression: %v", v)
-	}
-}
 
 // OutputOpenTelemetryHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputOpenTelemetryHTTPCompressCompression string
@@ -125,21 +78,6 @@ const (
 
 func (e OutputOpenTelemetryHTTPCompressCompression) ToPointer() *OutputOpenTelemetryHTTPCompressCompression {
 	return &e
-}
-func (e *OutputOpenTelemetryHTTPCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputOpenTelemetryHTTPCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryHTTPCompressCompression: %v", v)
-	}
 }
 
 // OutputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
@@ -156,29 +94,6 @@ const (
 
 func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
 	return &e
-}
-func (e *OutputOpenTelemetryAuthenticationType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "basic":
-		fallthrough
-	case "credentialsSecret":
-		fallthrough
-	case "token":
-		fallthrough
-	case "textSecret":
-		fallthrough
-	case "oauth":
-		*e = OutputOpenTelemetryAuthenticationType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryAuthenticationType: %v", v)
-	}
 }
 
 type OutputOpenTelemetryMetadatum struct {
@@ -223,23 +138,6 @@ const (
 func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTelemetryFailedRequestLoggingMode {
 	return &e
 }
-func (e *OutputOpenTelemetryFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputOpenTelemetryFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryFailedRequestLoggingMode: %v", v)
-	}
-}
 
 // OutputOpenTelemetryBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputOpenTelemetryBackpressureBehavior string
@@ -252,23 +150,6 @@ const (
 
 func (e OutputOpenTelemetryBackpressureBehavior) ToPointer() *OutputOpenTelemetryBackpressureBehavior {
 	return &e
-}
-func (e *OutputOpenTelemetryBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputOpenTelemetryBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryBackpressureBehavior: %v", v)
-	}
 }
 
 type OutputOpenTelemetryOauthParam struct {
@@ -476,25 +357,6 @@ const (
 func (e OutputOpenTelemetryMinimumTLSVersion) ToPointer() *OutputOpenTelemetryMinimumTLSVersion {
 	return &e
 }
-func (e *OutputOpenTelemetryMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputOpenTelemetryMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryMinimumTLSVersion: %v", v)
-	}
-}
 
 type OutputOpenTelemetryMaximumTLSVersion string
 
@@ -507,25 +369,6 @@ const (
 
 func (e OutputOpenTelemetryMaximumTLSVersion) ToPointer() *OutputOpenTelemetryMaximumTLSVersion {
 	return &e
-}
-func (e *OutputOpenTelemetryMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = OutputOpenTelemetryMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryMaximumTLSVersion: %v", v)
-	}
 }
 
 type OutputOpenTelemetryTLSSettingsClientSide struct {
@@ -632,21 +475,6 @@ const (
 func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemetryPqCompressCompression {
 	return &e
 }
-func (e *OutputOpenTelemetryPqCompressCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputOpenTelemetryPqCompressCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryPqCompressCompression: %v", v)
-	}
-}
 
 // OutputOpenTelemetryQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputOpenTelemetryQueueFullBehavior string
@@ -658,21 +486,6 @@ const (
 
 func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
 	return &e
-}
-func (e *OutputOpenTelemetryQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputOpenTelemetryQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -686,23 +499,6 @@ const (
 
 func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
 	return &e
-}
-func (e *OutputOpenTelemetryMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputOpenTelemetryMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryMode: %v", v)
-	}
 }
 
 type OutputOpenTelemetryPqControls struct {

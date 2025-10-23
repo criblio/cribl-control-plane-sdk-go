@@ -41,21 +41,6 @@ const (
 func (e OutputGoogleChronicleAPIVersion) ToPointer() *OutputGoogleChronicleAPIVersion {
 	return &e
 }
-func (e *OutputGoogleChronicleAPIVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "v1":
-		fallthrough
-	case "v2":
-		*e = OutputGoogleChronicleAPIVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleAPIVersion: %v", v)
-	}
-}
 
 type OutputGoogleChronicleAuthenticationMethod string
 
@@ -68,25 +53,6 @@ const (
 
 func (e OutputGoogleChronicleAuthenticationMethod) ToPointer() *OutputGoogleChronicleAuthenticationMethod {
 	return &e
-}
-func (e *OutputGoogleChronicleAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "manual":
-		fallthrough
-	case "secret":
-		fallthrough
-	case "serviceAccount":
-		fallthrough
-	case "serviceAccountSecret":
-		*e = OutputGoogleChronicleAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleAuthenticationMethod: %v", v)
-	}
 }
 
 type OutputGoogleChronicleResponseRetrySetting struct {
@@ -198,21 +164,6 @@ const (
 func (e SendEventsAs) ToPointer() *SendEventsAs {
 	return &e
 }
-func (e *SendEventsAs) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "unstructured":
-		fallthrough
-	case "udm":
-		*e = SendEventsAs(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for SendEventsAs: %v", v)
-	}
-}
 
 type OutputGoogleChronicleExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
@@ -256,23 +207,6 @@ const (
 func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogleChronicleFailedRequestLoggingMode {
 	return &e
 }
-func (e *OutputGoogleChronicleFailedRequestLoggingMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "payload":
-		fallthrough
-	case "payloadAndHeaders":
-		fallthrough
-	case "none":
-		*e = OutputGoogleChronicleFailedRequestLoggingMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleFailedRequestLoggingMode: %v", v)
-	}
-}
 
 // OutputGoogleChronicleBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGoogleChronicleBackpressureBehavior string
@@ -285,23 +219,6 @@ const (
 
 func (e OutputGoogleChronicleBackpressureBehavior) ToPointer() *OutputGoogleChronicleBackpressureBehavior {
 	return &e
-}
-func (e *OutputGoogleChronicleBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputGoogleChronicleBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleBackpressureBehavior: %v", v)
-	}
 }
 
 type ExtraLogType struct {
@@ -334,34 +251,34 @@ func (e *ExtraLogType) GetDescription() *string {
 	return e.Description
 }
 
-type CustomLabel struct {
+type OutputGoogleChronicleCustomLabel struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 }
 
-func (c CustomLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputGoogleChronicleCustomLabel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *CustomLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "value"}); err != nil {
+func (o *OutputGoogleChronicleCustomLabel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"key", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CustomLabel) GetKey() string {
-	if c == nil {
+func (o *OutputGoogleChronicleCustomLabel) GetKey() string {
+	if o == nil {
 		return ""
 	}
-	return c.Key
+	return o.Key
 }
 
-func (c *CustomLabel) GetValue() string {
-	if c == nil {
+func (o *OutputGoogleChronicleCustomLabel) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return c.Value
+	return o.Value
 }
 
 // OutputGoogleChronicleCompression - Codec to use to compress the persisted data
@@ -375,21 +292,6 @@ const (
 func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleCompression {
 	return &e
 }
-func (e *OutputGoogleChronicleCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputGoogleChronicleCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleCompression: %v", v)
-	}
-}
 
 // OutputGoogleChronicleQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGoogleChronicleQueueFullBehavior string
@@ -401,21 +303,6 @@ const (
 
 func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
 	return &e
-}
-func (e *OutputGoogleChronicleQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputGoogleChronicleQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleQueueFullBehavior: %v", v)
-	}
 }
 
 // OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -429,23 +316,6 @@ const (
 
 func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
 	return &e
-}
-func (e *OutputGoogleChronicleMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputGoogleChronicleMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleMode: %v", v)
-	}
 }
 
 type OutputGoogleChroniclePqControls struct {
@@ -524,7 +394,7 @@ type OutputGoogleChronicle struct {
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitempty"`
 	// Custom labels to be added to every batch
-	CustomLabels []CustomLabel `json:"customLabels,omitempty"`
+	CustomLabels []OutputGoogleChronicleCustomLabel `json:"customLabels,omitempty"`
 	// Organization's API key in Google SecOps
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -783,7 +653,7 @@ func (o *OutputGoogleChronicle) GetNamespace() *string {
 	return o.Namespace
 }
 
-func (o *OutputGoogleChronicle) GetCustomLabels() []CustomLabel {
+func (o *OutputGoogleChronicle) GetCustomLabels() []OutputGoogleChronicleCustomLabel {
 	if o == nil {
 		return nil
 	}

@@ -387,3 +387,9 @@ output := components.CreateOutputOutputDynatraceOtlp(components.OutputDynatraceO
 output := components.CreateOutputOutputSentinelOneAiSiem(components.OutputSentinelOneAiSiem{/* values here */})
 ```
 
+### OutputChronicle
+
+```go
+output := components.CreateOutputOutputChronicle(components.OutputChronicle{/* values here */})
+```
+

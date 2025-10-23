@@ -11,8 +11,8 @@ type UpdateCriblLakeDatasetByLakeIDAndIDRequest struct {
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 	// The <code>id</code> of the Lake Dataset to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// CriblLakeDataset object
-	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`
+	// CriblLakeDatasetUpdate object
+	CriblLakeDatasetUpdate components.CriblLakeDatasetUpdate `request:"mediaType=application/json"`
 }
 
 func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
@@ -29,11 +29,11 @@ func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDataset() components.CriblLakeDataset {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDatasetUpdate() components.CriblLakeDatasetUpdate {
 	if u == nil {
-		return components.CriblLakeDataset{}
+		return components.CriblLakeDatasetUpdate{}
 	}
-	return u.CriblLakeDataset
+	return u.CriblLakeDatasetUpdate
 }
 
 // UpdateCriblLakeDatasetByLakeIDAndIDResponseBody - a list of CriblLakeDataset objects
