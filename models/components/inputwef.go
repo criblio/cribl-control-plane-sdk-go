@@ -72,21 +72,6 @@ const (
 func (e InputWefMode) ToPointer() *InputWefMode {
 	return &e
 }
-func (e *InputWefMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "smart":
-		fallthrough
-	case "always":
-		*e = InputWefMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefMode: %v", v)
-	}
-}
 
 // InputWefCompression - Codec to use to compress the persisted data
 type InputWefCompression string
@@ -98,21 +83,6 @@ const (
 
 func (e InputWefCompression) ToPointer() *InputWefCompression {
 	return &e
-}
-func (e *InputWefCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = InputWefCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefCompression: %v", v)
-	}
 }
 
 type InputWefPqControls struct {
@@ -225,21 +195,6 @@ const (
 func (e InputWefAuthenticationMethod) ToPointer() *InputWefAuthenticationMethod {
 	return &e
 }
-func (e *InputWefAuthenticationMethod) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "clientCert":
-		fallthrough
-	case "kerberos":
-		*e = InputWefAuthenticationMethod(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefAuthenticationMethod: %v", v)
-	}
-}
 
 type InputWefMinimumTLSVersion string
 
@@ -253,25 +208,6 @@ const (
 func (e InputWefMinimumTLSVersion) ToPointer() *InputWefMinimumTLSVersion {
 	return &e
 }
-func (e *InputWefMinimumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputWefMinimumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefMinimumTLSVersion: %v", v)
-	}
-}
 
 type InputWefMaximumTLSVersion string
 
@@ -284,25 +220,6 @@ const (
 
 func (e InputWefMaximumTLSVersion) ToPointer() *InputWefMaximumTLSVersion {
 	return &e
-}
-func (e *InputWefMaximumTLSVersion) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "TLSv1":
-		fallthrough
-	case "TLSv1.1":
-		fallthrough
-	case "TLSv1.2":
-		fallthrough
-	case "TLSv1.3":
-		*e = InputWefMaximumTLSVersion(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefMaximumTLSVersion: %v", v)
-	}
 }
 
 type MTLSSettings struct {
@@ -461,21 +378,6 @@ const (
 func (e InputWefFormat) ToPointer() *InputWefFormat {
 	return &e
 }
-func (e *InputWefFormat) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "Raw":
-		fallthrough
-	case "RenderedText":
-		*e = InputWefFormat(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputWefFormat: %v", v)
-	}
-}
 
 type QueryBuilderMode string
 
@@ -486,21 +388,6 @@ const (
 
 func (e QueryBuilderMode) ToPointer() *QueryBuilderMode {
 	return &e
-}
-func (e *QueryBuilderMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "simple":
-		fallthrough
-	case "xml":
-		*e = QueryBuilderMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for QueryBuilderMode: %v", v)
-	}
 }
 
 type SubscriptionMetadatum struct {

@@ -2,11 +2,6 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 type WorkerTypes string
 
 const (
@@ -16,19 +11,4 @@ const (
 
 func (e WorkerTypes) ToPointer() *WorkerTypes {
 	return &e
-}
-func (e *WorkerTypes) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "worker":
-		fallthrough
-	case "managed-edge":
-		*e = WorkerTypes(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for WorkerTypes: %v", v)
-	}
 }

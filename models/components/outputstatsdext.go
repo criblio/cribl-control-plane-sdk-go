@@ -42,21 +42,6 @@ const (
 func (e OutputStatsdExtDestinationProtocol) ToPointer() *OutputStatsdExtDestinationProtocol {
 	return &e
 }
-func (e *OutputStatsdExtDestinationProtocol) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "udp":
-		fallthrough
-	case "tcp":
-		*e = OutputStatsdExtDestinationProtocol(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputStatsdExtDestinationProtocol: %v", v)
-	}
-}
 
 // OutputStatsdExtBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputStatsdExtBackpressureBehavior string
@@ -70,23 +55,6 @@ const (
 func (e OutputStatsdExtBackpressureBehavior) ToPointer() *OutputStatsdExtBackpressureBehavior {
 	return &e
 }
-func (e *OutputStatsdExtBackpressureBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		fallthrough
-	case "queue":
-		*e = OutputStatsdExtBackpressureBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputStatsdExtBackpressureBehavior: %v", v)
-	}
-}
 
 // OutputStatsdExtCompression - Codec to use to compress the persisted data
 type OutputStatsdExtCompression string
@@ -98,21 +66,6 @@ const (
 
 func (e OutputStatsdExtCompression) ToPointer() *OutputStatsdExtCompression {
 	return &e
-}
-func (e *OutputStatsdExtCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "none":
-		fallthrough
-	case "gzip":
-		*e = OutputStatsdExtCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputStatsdExtCompression: %v", v)
-	}
 }
 
 // OutputStatsdExtQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -126,21 +79,6 @@ const (
 func (e OutputStatsdExtQueueFullBehavior) ToPointer() *OutputStatsdExtQueueFullBehavior {
 	return &e
 }
-func (e *OutputStatsdExtQueueFullBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "block":
-		fallthrough
-	case "drop":
-		*e = OutputStatsdExtQueueFullBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputStatsdExtQueueFullBehavior: %v", v)
-	}
-}
 
 // OutputStatsdExtMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputStatsdExtMode string
@@ -153,23 +91,6 @@ const (
 
 func (e OutputStatsdExtMode) ToPointer() *OutputStatsdExtMode {
 	return &e
-}
-func (e *OutputStatsdExtMode) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "backpressure":
-		fallthrough
-	case "always":
-		*e = OutputStatsdExtMode(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputStatsdExtMode: %v", v)
-	}
 }
 
 type OutputStatsdExtPqControls struct {

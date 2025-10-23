@@ -316,7 +316,7 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDataset{
+    res, err := s.LakeDatasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
         AcceleratedFields: []string{
             "<value 1>",
             "<value 2>",
@@ -337,9 +337,9 @@ func main() {
         },
         DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](836.59),
         Description: criblcontrolplanesdkgo.Pointer("highlight phew ponder but winding"),
-        Format: components.CriblLakeDatasetFormatJSON.ToPointer(),
+        Format: components.CriblLakeDatasetUpdateFormatJSON.ToPointer(),
         HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
-        ID: "<id>",
+        ID: criblcontrolplanesdkgo.Pointer("<id>"),
         RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](602.09),
         SearchConfig: &components.LakeDatasetSearchConfig{
             Datatypes: []string{
@@ -375,13 +375,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
-| `lakeID`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake that contains the Lake Dataset to update.  |
-| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake Dataset to update.                         |
-| `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object                                                    |
-| `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
+| `lakeID`                                                                               | *string*                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake that contains the Lake Dataset to update.              |
+| `id`                                                                                   | *string*                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake Dataset to update.                                     |
+| `criblLakeDatasetUpdate`                                                               | [components.CriblLakeDatasetUpdate](../../models/components/cribllakedatasetupdate.md) | :heavy_check_mark:                                                                     | CriblLakeDatasetUpdate object                                                          |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response
 
