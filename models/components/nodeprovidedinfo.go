@@ -314,6 +314,7 @@ type NodeProvidedInfo struct {
 	Metadata       *HeartbeatMetadata      `json:"metadata,omitempty"`
 	Node           string                  `json:"node"`
 	Os             *Os                     `json:"os,omitempty"`
+	Outpost        *OutpostNodeInfo        `json:"outpost,omitempty"`
 	Platform       string                  `json:"platform"`
 	Release        string                  `json:"release"`
 	TotalDiskSpace float64                 `json:"totalDiskSpace"`
@@ -423,6 +424,13 @@ func (n *NodeProvidedInfo) GetOs() *Os {
 		return nil
 	}
 	return n.Os
+}
+
+func (n *NodeProvidedInfo) GetOutpost() *OutpostNodeInfo {
+	if n == nil {
+		return nil
+	}
+	return n.Outpost
 }
 
 func (n *NodeProvidedInfo) GetPlatform() string {
