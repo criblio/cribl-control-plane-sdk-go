@@ -65,7 +65,9 @@ func (i *InputEventhubConnection) GetOutput() string {
 type InputEventhubMode string
 
 const (
-	InputEventhubModeSmart  InputEventhubMode = "smart"
+	// InputEventhubModeSmart Smart
+	InputEventhubModeSmart InputEventhubMode = "smart"
+	// InputEventhubModeAlways Always On
 	InputEventhubModeAlways InputEventhubMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputEventhubMode) ToPointer() *InputEventhubMode {
 type InputEventhubCompression string
 
 const (
+	// InputEventhubCompressionNone None
 	InputEventhubCompressionNone InputEventhubCompression = "none"
+	// InputEventhubCompressionGzip Gzip
 	InputEventhubCompressionGzip InputEventhubCompression = "gzip"
 )
 
@@ -187,7 +191,9 @@ func (i *InputEventhubPq) GetPqControls() *InputEventhubPqControls {
 type InputEventhubSASLMechanism string
 
 const (
-	InputEventhubSASLMechanismPlain       InputEventhubSASLMechanism = "plain"
+	// InputEventhubSASLMechanismPlain PLAIN
+	InputEventhubSASLMechanismPlain InputEventhubSASLMechanism = "plain"
+	// InputEventhubSASLMechanismOauthbearer OAUTHBEARER
 	InputEventhubSASLMechanismOauthbearer InputEventhubSASLMechanism = "oauthbearer"
 )
 

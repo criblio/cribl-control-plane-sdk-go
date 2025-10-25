@@ -65,7 +65,9 @@ func (i *InputWizWebhookConnection) GetOutput() string {
 type InputWizWebhookMode string
 
 const (
-	InputWizWebhookModeSmart  InputWizWebhookMode = "smart"
+	// InputWizWebhookModeSmart Smart
+	InputWizWebhookModeSmart InputWizWebhookMode = "smart"
+	// InputWizWebhookModeAlways Always On
 	InputWizWebhookModeAlways InputWizWebhookMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWizWebhookMode) ToPointer() *InputWizWebhookMode {
 type InputWizWebhookCompression string
 
 const (
+	// InputWizWebhookCompressionNone None
 	InputWizWebhookCompressionNone InputWizWebhookCompression = "none"
+	// InputWizWebhookCompressionGzip Gzip
 	InputWizWebhookCompressionGzip InputWizWebhookCompression = "gzip"
 )
 

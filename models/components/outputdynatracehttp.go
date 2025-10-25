@@ -78,9 +78,12 @@ func (o *OutputDynatraceHTTPExtraHTTPHeader) GetValue() string {
 type OutputDynatraceHTTPFailedRequestLoggingMode string
 
 const (
-	OutputDynatraceHTTPFailedRequestLoggingModePayload           OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayload Payload
+	OutputDynatraceHTTPFailedRequestLoggingModePayload OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders OutputDynatraceHTTPFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDynatraceHTTPFailedRequestLoggingModeNone              OutputDynatraceHTTPFailedRequestLoggingMode = "none"
+	// OutputDynatraceHTTPFailedRequestLoggingModeNone None
+	OutputDynatraceHTTPFailedRequestLoggingModeNone OutputDynatraceHTTPFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDynatraceHTTPFailedRequestLoggingMode) ToPointer() *OutputDynatraceHTTPFailedRequestLoggingMode {
@@ -190,8 +193,11 @@ func (o *OutputDynatraceHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDynatraceHTTPBackpressureBehavior string
 
 const (
+	// OutputDynatraceHTTPBackpressureBehaviorBlock Block
 	OutputDynatraceHTTPBackpressureBehaviorBlock OutputDynatraceHTTPBackpressureBehavior = "block"
-	OutputDynatraceHTTPBackpressureBehaviorDrop  OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorDrop Drop
+	OutputDynatraceHTTPBackpressureBehaviorDrop OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorQueue Persistent Queue
 	OutputDynatraceHTTPBackpressureBehaviorQueue OutputDynatraceHTTPBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputDynatraceHTTPBackpressureBehavior) ToPointer() *OutputDynatraceHTT
 type OutputDynatraceHTTPAuthenticationType string
 
 const (
-	OutputDynatraceHTTPAuthenticationTypeToken      OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeToken Auth token
+	OutputDynatraceHTTPAuthenticationTypeToken OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeTextSecret Token (text secret)
 	OutputDynatraceHTTPAuthenticationTypeTextSecret OutputDynatraceHTTPAuthenticationType = "textSecret"
 )
 
@@ -214,7 +222,9 @@ func (e OutputDynatraceHTTPAuthenticationType) ToPointer() *OutputDynatraceHTTPA
 type OutputDynatraceHTTPFormat string
 
 const (
+	// OutputDynatraceHTTPFormatJSONArray JSON
 	OutputDynatraceHTTPFormatJSONArray OutputDynatraceHTTPFormat = "json_array"
+	// OutputDynatraceHTTPFormatPlaintext Plaintext
 	OutputDynatraceHTTPFormatPlaintext OutputDynatraceHTTPFormat = "plaintext"
 )
 
@@ -225,9 +235,12 @@ func (e OutputDynatraceHTTPFormat) ToPointer() *OutputDynatraceHTTPFormat {
 type Endpoint string
 
 const (
-	EndpointCloud      Endpoint = "cloud"
+	// EndpointCloud Cloud
+	EndpointCloud Endpoint = "cloud"
+	// EndpointActiveGate ActiveGate
 	EndpointActiveGate Endpoint = "activeGate"
-	EndpointManual     Endpoint = "manual"
+	// EndpointManual Manual
+	EndpointManual Endpoint = "manual"
 )
 
 func (e Endpoint) ToPointer() *Endpoint {
@@ -237,7 +250,9 @@ func (e Endpoint) ToPointer() *Endpoint {
 type TelemetryType string
 
 const (
-	TelemetryTypeLogs    TelemetryType = "logs"
+	// TelemetryTypeLogs Logs
+	TelemetryTypeLogs TelemetryType = "logs"
+	// TelemetryTypeMetrics Metrics
 	TelemetryTypeMetrics TelemetryType = "metrics"
 )
 
@@ -249,7 +264,9 @@ func (e TelemetryType) ToPointer() *TelemetryType {
 type OutputDynatraceHTTPCompression string
 
 const (
+	// OutputDynatraceHTTPCompressionNone None
 	OutputDynatraceHTTPCompressionNone OutputDynatraceHTTPCompression = "none"
+	// OutputDynatraceHTTPCompressionGzip Gzip
 	OutputDynatraceHTTPCompressionGzip OutputDynatraceHTTPCompression = "gzip"
 )
 
@@ -261,8 +278,10 @@ func (e OutputDynatraceHTTPCompression) ToPointer() *OutputDynatraceHTTPCompress
 type OutputDynatraceHTTPQueueFullBehavior string
 
 const (
+	// OutputDynatraceHTTPQueueFullBehaviorBlock Block
 	OutputDynatraceHTTPQueueFullBehaviorBlock OutputDynatraceHTTPQueueFullBehavior = "block"
-	OutputDynatraceHTTPQueueFullBehaviorDrop  OutputDynatraceHTTPQueueFullBehavior = "drop"
+	// OutputDynatraceHTTPQueueFullBehaviorDrop Drop new data
+	OutputDynatraceHTTPQueueFullBehaviorDrop OutputDynatraceHTTPQueueFullBehavior = "drop"
 )
 
 func (e OutputDynatraceHTTPQueueFullBehavior) ToPointer() *OutputDynatraceHTTPQueueFullBehavior {
@@ -273,9 +292,12 @@ func (e OutputDynatraceHTTPQueueFullBehavior) ToPointer() *OutputDynatraceHTTPQu
 type OutputDynatraceHTTPMode string
 
 const (
-	OutputDynatraceHTTPModeError        OutputDynatraceHTTPMode = "error"
+	// OutputDynatraceHTTPModeError Error
+	OutputDynatraceHTTPModeError OutputDynatraceHTTPMode = "error"
+	// OutputDynatraceHTTPModeBackpressure Backpressure
 	OutputDynatraceHTTPModeBackpressure OutputDynatraceHTTPMode = "backpressure"
-	OutputDynatraceHTTPModeAlways       OutputDynatraceHTTPMode = "always"
+	// OutputDynatraceHTTPModeAlways Always On
+	OutputDynatraceHTTPModeAlways OutputDynatraceHTTPMode = "always"
 )
 
 func (e OutputDynatraceHTTPMode) ToPointer() *OutputDynatraceHTTPMode {

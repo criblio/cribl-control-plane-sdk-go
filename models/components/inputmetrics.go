@@ -65,7 +65,9 @@ func (i *InputMetricsConnection) GetOutput() string {
 type InputMetricsMode string
 
 const (
-	InputMetricsModeSmart  InputMetricsMode = "smart"
+	// InputMetricsModeSmart Smart
+	InputMetricsModeSmart InputMetricsMode = "smart"
+	// InputMetricsModeAlways Always On
 	InputMetricsModeAlways InputMetricsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputMetricsMode) ToPointer() *InputMetricsMode {
 type InputMetricsCompression string
 
 const (
+	// InputMetricsCompressionNone None
 	InputMetricsCompressionNone InputMetricsCompression = "none"
+	// InputMetricsCompressionGzip Gzip
 	InputMetricsCompressionGzip InputMetricsCompression = "gzip"
 )
 

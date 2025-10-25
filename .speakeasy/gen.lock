@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 694b3139fa2fcf580ac96918588dce70
-  docVersion: 4.14.1-68918e2c
+  docChecksum: 6ed2ce0859219fe330059228061d3f6e
+  docVersion: 4.15.0-alpha.1761420802292-a60a4283
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0
-  configChecksum: 84747186a2a782b5d085d643ebc07d97
+  releaseVersion: 0.2.0-rc.2
+  configChecksum: 1eddb860aae78f43264c48cbb732578a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -17,6 +17,7 @@ features:
     core: 3.11.1
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
+    enums: 2.82.0
     envVarSecurityUsage: 0.3.2
     flattening: 2.81.1
     globalSecurity: 2.82.12
@@ -32,6 +33,7 @@ features:
     retries: 2.84.2
     sdkHooks: 0.2.0
     unions: 2.86.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -40,7 +42,6 @@ generatedFiles:
   - /models/apierrors/error.go
   - /models/apierrors/healthstatuserror.go
   - /models/components/addhectokenrequest.go
-  - /models/components/appmode.go
   - /models/components/authtoken.go
   - /models/components/branchinfo.go
   - /models/components/cacheconnection.go
@@ -144,6 +145,7 @@ generatedFiles:
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
   - /models/components/lookupversions.go
+  - /models/components/mappingruleset.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -151,6 +153,7 @@ generatedFiles:
   - /models/components/nodeskippedupgradestatus.go
   - /models/components/nodeupgradestate.go
   - /models/components/nodeupgradestatus.go
+  - /models/components/outpostnodeinfo.go
   - /models/components/output.go
   - /models/components/outputazureblob.go
   - /models/components/outputazuredataexplorer.go
@@ -164,6 +167,7 @@ generatedFiles:
   - /models/components/outputcribllake.go
   - /models/components/outputcribltcp.go
   - /models/components/outputcrowdstrikenextgensiem.go
+  - /models/components/outputdatabricks.go
   - /models/components/outputdatadog.go
   - /models/components/outputdataset.go
   - /models/components/outputdefault.go
@@ -229,10 +233,10 @@ generatedFiles:
   - /models/components/productscore.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
-  - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
+  - /models/components/rulesetid.go
   - /models/components/runnablejob.go
   - /models/components/runnablejobcollection.go
   - /models/components/runnablejobexecutor.go
@@ -241,8 +245,11 @@ generatedFiles:
   - /models/components/security.go
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
+  - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createadminproductsmappingsactivatebyproduct.go
+  - /models/operations/createadminproductsmappingsbyproduct.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
@@ -256,6 +263,7 @@ generatedFiles:
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
   - /models/operations/createversionundo.go
+  - /models/operations/deleteadminproductsmappingsbyproductandid.go
   - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deleteinputbyid.go
@@ -263,6 +271,8 @@ generatedFiles:
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
+  - /models/operations/getadminproductsmappingsbyproduct.go
+  - /models/operations/getadminproductsmappingsbyproductandid.go
   - /models/operations/getconfiggroupaclbyproductandid.go
   - /models/operations/getconfiggroupaclteamsbyproductandid.go
   - /models/operations/getconfiggroupbyproductandid.go
@@ -296,12 +306,14 @@ generatedFiles:
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
   - /models/operations/login.go
+  - /models/operations/updateadminproductsmappingsbyproductandid.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
   - /models/operations/updateoutputbyid.go
+  - /models/operations/updatepacks.go
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
@@ -315,12 +327,12 @@ generatedFiles:
   - destinations.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthstatuserror.md
+  - docs/models/components/add.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
-  - docs/models/components/appmode.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
@@ -342,7 +354,6 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
-  - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
@@ -366,6 +377,7 @@ generatedFiles:
   - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/difffiles.md
   - docs/models/components/disksandfilesystems.md
+  - docs/models/components/distmode.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
@@ -378,6 +390,7 @@ generatedFiles:
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
   - docs/models/components/error.md
+  - docs/models/components/estimatedingestrate.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
@@ -387,6 +400,8 @@ generatedFiles:
   - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
+  - docs/models/components/function.md
+  - docs/models/components/functionconf.md
   - docs/models/components/functionspecificconfigs.md
   - docs/models/components/git.md
   - docs/models/components/gitcommitparams.md
@@ -416,6 +431,7 @@ generatedFiles:
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/id.md
   - docs/models/components/indexerdiscoveryconfigs.md
   - docs/models/components/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/components/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
@@ -472,7 +488,6 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudpq.md
   - docs/models/components/inputconfluentcloudpqcontrols.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
-  - docs/models/components/inputconfluentcloudschematype.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
   - docs/models/components/inputconfluentcloudtype.md
   - docs/models/components/inputcribl.md
@@ -721,7 +736,6 @@ generatedFiles:
   - docs/models/components/inputkafkapq.md
   - docs/models/components/inputkafkapqcontrols.md
   - docs/models/components/inputkafkasaslmechanism.md
-  - docs/models/components/inputkafkaschematype.md
   - docs/models/components/inputkafkatlssettingsclientside.md
   - docs/models/components/inputkafkatype.md
   - docs/models/components/inputkinesis.md
@@ -817,7 +831,6 @@ generatedFiles:
   - docs/models/components/inputmskmode.md
   - docs/models/components/inputmskpq.md
   - docs/models/components/inputmskpqcontrols.md
-  - docs/models/components/inputmskschematype.md
   - docs/models/components/inputmsksignatureversion.md
   - docs/models/components/inputmsktlssettingsclientside.md
   - docs/models/components/inputmsktype.md
@@ -1212,6 +1225,8 @@ generatedFiles:
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
+  - docs/models/components/mappingruleset.md
+  - docs/models/components/mappingrulesetconf.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -1234,6 +1249,7 @@ generatedFiles:
   - docs/models/components/nodeupgradestatus.md
   - docs/models/components/oldmode.md
   - docs/models/components/os.md
+  - docs/models/components/outpostnodeinfo.md
   - docs/models/components/output.md
   - docs/models/components/outputazureblob.md
   - docs/models/components/outputazureblobauthenticationmethod.md
@@ -1342,7 +1358,6 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudqueuefullbehavior.md
   - docs/models/components/outputconfluentcloudrecorddataformat.md
   - docs/models/components/outputconfluentcloudsaslmechanism.md
-  - docs/models/components/outputconfluentcloudschematype.md
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
@@ -1396,6 +1411,16 @@ generatedFiles:
   - docs/models/components/outputcrowdstrikenextgensiemresponseretrysetting.md
   - docs/models/components/outputcrowdstrikenextgensiemtimeoutretrysettings.md
   - docs/models/components/outputcrowdstrikenextgensiemtype.md
+  - docs/models/components/outputdatabricks.md
+  - docs/models/components/outputdatabricksbackpressurebehavior.md
+  - docs/models/components/outputdatabrickscompression.md
+  - docs/models/components/outputdatabrickscompressionlevel.md
+  - docs/models/components/outputdatabricksdataformat.md
+  - docs/models/components/outputdatabricksdatapageversion.md
+  - docs/models/components/outputdatabricksdiskspaceprotection.md
+  - docs/models/components/outputdatabrickskeyvaluemetadatum.md
+  - docs/models/components/outputdatabricksparquetversion.md
+  - docs/models/components/outputdatabrickstype.md
   - docs/models/components/outputdatadog.md
   - docs/models/components/outputdatadogauthenticationmethod.md
   - docs/models/components/outputdatadogbackpressurebehavior.md
@@ -1664,7 +1689,6 @@ generatedFiles:
   - docs/models/components/outputkafkaqueuefullbehavior.md
   - docs/models/components/outputkafkarecorddataformat.md
   - docs/models/components/outputkafkasaslmechanism.md
-  - docs/models/components/outputkafkaschematype.md
   - docs/models/components/outputkafkatlssettingsclientside.md
   - docs/models/components/outputkafkatype.md
   - docs/models/components/outputkinesis.md
@@ -1723,7 +1747,6 @@ generatedFiles:
   - docs/models/components/outputmskpqcontrols.md
   - docs/models/components/outputmskqueuefullbehavior.md
   - docs/models/components/outputmskrecorddataformat.md
-  - docs/models/components/outputmskschematype.md
   - docs/models/components/outputmsksignatureversion.md
   - docs/models/components/outputmsktlssettingsclientside.md
   - docs/models/components/outputmsktype.md
@@ -2067,6 +2090,7 @@ generatedFiles:
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
+  - docs/models/components/pipelineconf.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
@@ -2087,11 +2111,11 @@ generatedFiles:
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
   - docs/models/components/role.md
-  - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
+  - docs/models/components/rulesetid.md
   - docs/models/components/runnablejob.md
   - docs/models/components/runnablejobcollection.md
   - docs/models/components/runnablejobcollectioninput.md
@@ -2150,12 +2174,19 @@ generatedFiles:
   - docs/models/components/timestampprecision.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/uploadpackresponse.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponsebody.md
+  - docs/models/operations/createadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductresponsebody.md
@@ -2190,6 +2221,9 @@ generatedFiles:
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
@@ -2211,6 +2245,12 @@ generatedFiles:
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/deletepipelinebyidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
@@ -2299,6 +2339,9 @@ generatedFiles:
   - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/loginresponse.md
   - docs/models/operations/option.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
@@ -2320,6 +2363,8 @@ generatedFiles:
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksbyidresponsebody.md
+  - docs/models/operations/updatepacksrequest.md
+  - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updatepipelinebyidresponsebody.md
@@ -2336,6 +2381,7 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
+  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2371,6 +2417,7 @@ generatedFiles:
   - internal/utils/security.go
   - internal/utils/utils.go
   - lakedatasets.go
+  - mappings.go
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
@@ -2409,7 +2456,7 @@ examples:
         application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
       responses:
         "200":
-          application/json: {"token": "<value>"}
+          application/json: {"token": "<value>", "forcePasswordChange": false}
   listInput:
     speakeasy-default-list-input:
       responses:
@@ -2550,7 +2597,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2795,7 +2842,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 219852, "items": ["<value 1>", "<value 2>"]}
+          application/json: {"count": 219852, "items": [{}, {"key": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   createCriblLakeDatasetByLakeId:
@@ -2859,7 +2906,7 @@ examples:
           mode: "worker"
       responses:
         "200":
-          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "pipelines": 6352.87, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
+          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "packs": 798.01, "pipelines": 6352.87, "quickConnects": 3649.04, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
         "500":
           application/json: {"message": "<value>"}
   createPacks:
@@ -2871,6 +2918,46 @@ examples:
           application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
+    PackInstallExamplesPackDispensary:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "June30", "author": "<value>", "description": "and banish crossly abacus", "source": "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": true, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesEmptyPack:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Amely_Gusikowski", "author": "<value>", "description": "crowded that truly sideboard ample yahoo gracious enraged", "source": "<value>", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesUploadedFile:
+      requestBody:
+        application/json: {"id": "cribl-search-missing-logs-", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesURL:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Lavon.Russel", "author": "<value>", "description": "ferociously haunting meh into instantly", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": false}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesGitRepository:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Jennyfer.Bogan", "author": "<value>", "description": "ack that sparkling if blah bourgeoisie or phooey", "source": "git+https://github.com/criblio/cribl_ocsf_postprocessing", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
   getPacks:
     speakeasy-default-get-packs:
       parameters:
@@ -2878,7 +2965,7 @@ examples:
           with: "<value>"
       responses:
         "200":
-          application/json: {"count": 77148, "items": [{"author": "<value>", "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
+          application/json: {"count": 77148, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacks:
@@ -2886,9 +2973,11 @@ examples:
       parameters:
         query:
           filename: "example.file"
+      requestBody:
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   getGroupsConfigVersionById:
@@ -3016,7 +3105,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 248535, "items": [{"author": "<value>", "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 248535, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacksById:
@@ -3033,6 +3122,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 338042, "items": [{"author": "<value>", "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackUpgradeExamplesUpgradeFromURL:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"allowCustomFunctions": true, "minor": "<value>", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "spec": "<value>"}
+      responses:
+        "200":
+          application/json: {"count": 645237, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "description": "gosh but pretend fooey whose along", "displayName": "Angelita_Cummerata", "exports": ["<value 1>"], "id": "<id>", "inputs": 8287.99, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5016.43, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["smallint", "binary", "real"], "domain": ["terrible-nudge.name", "knotty-collaboration.info"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteGroupsById:
@@ -3069,7 +3169,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "env": {"key": "<value>", "key1": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "outpost": {"guid": "<id>", "host": "intelligent-license.info"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3091,7 +3191,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 5993.3, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
+          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 10240, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   createConfigGroupByProduct:
@@ -3100,10 +3200,10 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 346.37, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
       responses:
         "200":
-          application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 7643.22, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
+          application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   getConfigGroupByProductAndId:
@@ -3116,7 +3216,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 3832.46, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
+          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupByProductAndId:
@@ -3126,10 +3226,10 @@ examples:
           product: "stream"
           id: "<id>"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 6748.35, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
       responses:
         "200":
-          application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 3702.49, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
+          application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   deleteConfigGroupByProductAndId:
@@ -3140,7 +3240,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 9667.42, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
+          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 15360, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupDeployByProductAndId:
@@ -3153,7 +3253,7 @@ examples:
         application/json: {"lookups": [{"context": "<value>", "lookups": []}], "version": "<value>"}
       responses:
         "200":
-          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 6207.5, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
+          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   getConfigGroupConfigVersionByProductAndId:
@@ -3256,7 +3356,154 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+          application/json: {"count": 163235, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createAdminProductsMappingsActivateByProduct:
+    MappingRulesetActivateExamplesActivate:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "default"}
+      responses:
+        "200":
+          application/json: {"count": 845678, "items": [{"id": "<id>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createAdminProductsMappingsByProduct:
+    MappingRulesetCreateExamplesOSBasedMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "os-based-mapping", "conf": {"functions": [{"id": "eval", "filter": "platform === \"linux\"", "description": "Map Linux Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'linux_fleet'"}]}}, {"id": "eval", "filter": "platform === \"win32\"", "description": "Map Windows Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'windows_fleet'"}]}}, {"id": "eval", "filter": "platform === \"darwin\"", "description": "Map macOS Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'macos_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping for unmapped nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesTagBasedMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "tag-based-mapping", "conf": {"functions": [{"id": "eval", "filter": "cribl.tags.includes(\"WinLaptop\")", "description": "Map Windows Laptop Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'laptop_fleet'"}]}}, {"id": "eval", "filter": "cribl.tags.includes(\"Production\")", "description": "Map Production Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'production_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesOutpostBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "outpost-mapping", "conf": {"functions": [{"id": "eval", "filter": "outpost.host === \"5ab6c676be6a\"", "description": "Map Edge Nodes from Outpost A", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'outpost_a_fleet'"}]}}, {"id": "eval", "filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"", "description": "Map Edge Nodes from Outpost B by GUID", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'outpost_b_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesComplexMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"id": "eval", "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'high_perf_fleet'"}]}}, {"id": "eval", "filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")", "description": "Map Linux nodes with high memory for database workloads", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'database_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesAWSEC2InstanceMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "aws-ec2-mapping", "conf": {"functions": [{"id": "eval", "filter": "aws?.tags?.Environment === \"Production\"", "description": "Map Production EC2 instances", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'aws_prod_fleet'"}]}}, {"id": "eval", "filter": "aws?.tags?.Team === \"DevOps\"", "description": "Map DevOps team EC2 instances", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'devops_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesContainerBasedMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "container-mapping", "conf": {"functions": [{"id": "eval", "filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4", "description": "Map containerized nodes on high-CPU Linux hosts", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'container_high_cpu_fleet'"}]}}, {"id": "eval", "filter": "hostOs?.id", "description": "Map all containerized Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'container_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping for non-containerized nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesDefaultRuleset:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "simple-default-mappings", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Simple default Mapping Ruleset", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProduct:
+    speakeasy-default-get-admin-products-mappings-by-product:
+      parameters:
+        path:
+          product: "edge"
+      responses:
+        "200":
+          application/json: {"count": 775631, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default'"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteAdminProductsMappingsByProductAndId:
+    speakeasy-default-delete-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 142793, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": []}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProductAndId:
+    speakeasy-default-get-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 205466, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": false, "conf": {"add": []}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateAdminProductsMappingsByProductAndId:
+    MappingRulesetUpdateExamplesUpdateComplexRule:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"id": "eval", "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'high_perf_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 23011, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": []}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetUpdateExamplesEnableDisabledRule:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "default", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 23011, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": []}}]}, "active": true}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
@@ -3324,3 +3571,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Upload()`: **Added**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Auth.Tokens.Get()`:  `response.ForcePasswordChange` **Added**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Mappings.Update()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Get()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Delete()`: **Added**\n* `CriblControlPlane.Groups.Mappings.List()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Create()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Activate()`: **Added**\n"

@@ -35,6 +35,7 @@ func (e *OutputServiceNowType) UnmarshalJSON(data []byte) error {
 type OutputServiceNowOTLPVersion string
 
 const (
+	// OutputServiceNowOTLPVersionOneDot3Dot1 1.3.1
 	OutputServiceNowOTLPVersionOneDot3Dot1 OutputServiceNowOTLPVersion = "1.3.1"
 )
 
@@ -46,7 +47,9 @@ func (e OutputServiceNowOTLPVersion) ToPointer() *OutputServiceNowOTLPVersion {
 type OutputServiceNowProtocol string
 
 const (
+	// OutputServiceNowProtocolGrpc gRPC
 	OutputServiceNowProtocolGrpc OutputServiceNowProtocol = "grpc"
+	// OutputServiceNowProtocolHTTP HTTP
 	OutputServiceNowProtocolHTTP OutputServiceNowProtocol = "http"
 )
 
@@ -58,9 +61,12 @@ func (e OutputServiceNowProtocol) ToPointer() *OutputServiceNowProtocol {
 type OutputServiceNowCompressCompression string
 
 const (
-	OutputServiceNowCompressCompressionNone    OutputServiceNowCompressCompression = "none"
+	// OutputServiceNowCompressCompressionNone None
+	OutputServiceNowCompressCompressionNone OutputServiceNowCompressCompression = "none"
+	// OutputServiceNowCompressCompressionDeflate Deflate
 	OutputServiceNowCompressCompressionDeflate OutputServiceNowCompressCompression = "deflate"
-	OutputServiceNowCompressCompressionGzip    OutputServiceNowCompressCompression = "gzip"
+	// OutputServiceNowCompressCompressionGzip Gzip
+	OutputServiceNowCompressCompressionGzip OutputServiceNowCompressCompression = "gzip"
 )
 
 func (e OutputServiceNowCompressCompression) ToPointer() *OutputServiceNowCompressCompression {
@@ -71,7 +77,9 @@ func (e OutputServiceNowCompressCompression) ToPointer() *OutputServiceNowCompre
 type OutputServiceNowHTTPCompressCompression string
 
 const (
+	// OutputServiceNowHTTPCompressCompressionNone None
 	OutputServiceNowHTTPCompressCompressionNone OutputServiceNowHTTPCompressCompression = "none"
+	// OutputServiceNowHTTPCompressCompressionGzip Gzip
 	OutputServiceNowHTTPCompressCompressionGzip OutputServiceNowHTTPCompressCompression = "gzip"
 )
 
@@ -113,9 +121,12 @@ func (o *OutputServiceNowMetadatum) GetValue() string {
 type OutputServiceNowFailedRequestLoggingMode string
 
 const (
-	OutputServiceNowFailedRequestLoggingModePayload           OutputServiceNowFailedRequestLoggingMode = "payload"
+	// OutputServiceNowFailedRequestLoggingModePayload Payload
+	OutputServiceNowFailedRequestLoggingModePayload OutputServiceNowFailedRequestLoggingMode = "payload"
+	// OutputServiceNowFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputServiceNowFailedRequestLoggingModePayloadAndHeaders OutputServiceNowFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputServiceNowFailedRequestLoggingModeNone              OutputServiceNowFailedRequestLoggingMode = "none"
+	// OutputServiceNowFailedRequestLoggingModeNone None
+	OutputServiceNowFailedRequestLoggingModeNone OutputServiceNowFailedRequestLoggingMode = "none"
 )
 
 func (e OutputServiceNowFailedRequestLoggingMode) ToPointer() *OutputServiceNowFailedRequestLoggingMode {
@@ -126,8 +137,11 @@ func (e OutputServiceNowFailedRequestLoggingMode) ToPointer() *OutputServiceNowF
 type OutputServiceNowBackpressureBehavior string
 
 const (
+	// OutputServiceNowBackpressureBehaviorBlock Block
 	OutputServiceNowBackpressureBehaviorBlock OutputServiceNowBackpressureBehavior = "block"
-	OutputServiceNowBackpressureBehaviorDrop  OutputServiceNowBackpressureBehavior = "drop"
+	// OutputServiceNowBackpressureBehaviorDrop Drop
+	OutputServiceNowBackpressureBehaviorDrop OutputServiceNowBackpressureBehavior = "drop"
+	// OutputServiceNowBackpressureBehaviorQueue Persistent Queue
 	OutputServiceNowBackpressureBehaviorQueue OutputServiceNowBackpressureBehavior = "queue"
 )
 
@@ -387,7 +401,9 @@ func (o *OutputServiceNowTLSSettingsClientSide) GetMaxVersion() *OutputServiceNo
 type OutputServiceNowPqCompressCompression string
 
 const (
+	// OutputServiceNowPqCompressCompressionNone None
 	OutputServiceNowPqCompressCompressionNone OutputServiceNowPqCompressCompression = "none"
+	// OutputServiceNowPqCompressCompressionGzip Gzip
 	OutputServiceNowPqCompressCompressionGzip OutputServiceNowPqCompressCompression = "gzip"
 )
 
@@ -399,8 +415,10 @@ func (e OutputServiceNowPqCompressCompression) ToPointer() *OutputServiceNowPqCo
 type OutputServiceNowQueueFullBehavior string
 
 const (
+	// OutputServiceNowQueueFullBehaviorBlock Block
 	OutputServiceNowQueueFullBehaviorBlock OutputServiceNowQueueFullBehavior = "block"
-	OutputServiceNowQueueFullBehaviorDrop  OutputServiceNowQueueFullBehavior = "drop"
+	// OutputServiceNowQueueFullBehaviorDrop Drop new data
+	OutputServiceNowQueueFullBehaviorDrop OutputServiceNowQueueFullBehavior = "drop"
 )
 
 func (e OutputServiceNowQueueFullBehavior) ToPointer() *OutputServiceNowQueueFullBehavior {
@@ -411,9 +429,12 @@ func (e OutputServiceNowQueueFullBehavior) ToPointer() *OutputServiceNowQueueFul
 type OutputServiceNowMode string
 
 const (
-	OutputServiceNowModeError        OutputServiceNowMode = "error"
+	// OutputServiceNowModeError Error
+	OutputServiceNowModeError OutputServiceNowMode = "error"
+	// OutputServiceNowModeBackpressure Backpressure
 	OutputServiceNowModeBackpressure OutputServiceNowMode = "backpressure"
-	OutputServiceNowModeAlways       OutputServiceNowMode = "always"
+	// OutputServiceNowModeAlways Always On
+	OutputServiceNowModeAlways OutputServiceNowMode = "always"
 )
 
 func (e OutputServiceNowMode) ToPointer() *OutputServiceNowMode {

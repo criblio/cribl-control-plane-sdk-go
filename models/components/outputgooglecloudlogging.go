@@ -34,10 +34,14 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 type LogLocationType string
 
 const (
-	LogLocationTypeProject        LogLocationType = "project"
-	LogLocationTypeOrganization   LogLocationType = "organization"
+	// LogLocationTypeProject Project
+	LogLocationTypeProject LogLocationType = "project"
+	// LogLocationTypeOrganization Organization
+	LogLocationTypeOrganization LogLocationType = "organization"
+	// LogLocationTypeBillingAccount Billing Account
 	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	LogLocationTypeFolder         LogLocationType = "folder"
+	// LogLocationTypeFolder Folder
+	LogLocationTypeFolder LogLocationType = "folder"
 )
 
 func (e LogLocationType) ToPointer() *LogLocationType {
@@ -48,7 +52,9 @@ func (e LogLocationType) ToPointer() *LogLocationType {
 type PayloadFormat string
 
 const (
+	// PayloadFormatText Text
 	PayloadFormatText PayloadFormat = "text"
+	// PayloadFormatJSON JSON
 	PayloadFormatJSON PayloadFormat = "json"
 )
 
@@ -124,8 +130,11 @@ func (r *ResourceTypeLabel) GetValueExpression() string {
 type OutputGoogleCloudLoggingGoogleAuthenticationMethod string
 
 const (
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto   OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto Auto
+	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodManual Manual
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodManual OutputGoogleCloudLoggingGoogleAuthenticationMethod = "manual"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret Secret
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret OutputGoogleCloudLoggingGoogleAuthenticationMethod = "secret"
 )
 
@@ -137,8 +146,11 @@ func (e OutputGoogleCloudLoggingGoogleAuthenticationMethod) ToPointer() *OutputG
 type OutputGoogleCloudLoggingBackpressureBehavior string
 
 const (
+	// OutputGoogleCloudLoggingBackpressureBehaviorBlock Block
 	OutputGoogleCloudLoggingBackpressureBehaviorBlock OutputGoogleCloudLoggingBackpressureBehavior = "block"
-	OutputGoogleCloudLoggingBackpressureBehaviorDrop  OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorDrop Drop
+	OutputGoogleCloudLoggingBackpressureBehaviorDrop OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorQueue Persistent Queue
 	OutputGoogleCloudLoggingBackpressureBehaviorQueue OutputGoogleCloudLoggingBackpressureBehavior = "queue"
 )
 
@@ -150,7 +162,9 @@ func (e OutputGoogleCloudLoggingBackpressureBehavior) ToPointer() *OutputGoogleC
 type OutputGoogleCloudLoggingCompression string
 
 const (
+	// OutputGoogleCloudLoggingCompressionNone None
 	OutputGoogleCloudLoggingCompressionNone OutputGoogleCloudLoggingCompression = "none"
+	// OutputGoogleCloudLoggingCompressionGzip Gzip
 	OutputGoogleCloudLoggingCompressionGzip OutputGoogleCloudLoggingCompression = "gzip"
 )
 
@@ -162,8 +176,10 @@ func (e OutputGoogleCloudLoggingCompression) ToPointer() *OutputGoogleCloudLoggi
 type OutputGoogleCloudLoggingQueueFullBehavior string
 
 const (
+	// OutputGoogleCloudLoggingQueueFullBehaviorBlock Block
 	OutputGoogleCloudLoggingQueueFullBehaviorBlock OutputGoogleCloudLoggingQueueFullBehavior = "block"
-	OutputGoogleCloudLoggingQueueFullBehaviorDrop  OutputGoogleCloudLoggingQueueFullBehavior = "drop"
+	// OutputGoogleCloudLoggingQueueFullBehaviorDrop Drop new data
+	OutputGoogleCloudLoggingQueueFullBehaviorDrop OutputGoogleCloudLoggingQueueFullBehavior = "drop"
 )
 
 func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleCloudLoggingQueueFullBehavior {
@@ -174,9 +190,12 @@ func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleClou
 type OutputGoogleCloudLoggingMode string
 
 const (
-	OutputGoogleCloudLoggingModeError        OutputGoogleCloudLoggingMode = "error"
+	// OutputGoogleCloudLoggingModeError Error
+	OutputGoogleCloudLoggingModeError OutputGoogleCloudLoggingMode = "error"
+	// OutputGoogleCloudLoggingModeBackpressure Backpressure
 	OutputGoogleCloudLoggingModeBackpressure OutputGoogleCloudLoggingMode = "backpressure"
-	OutputGoogleCloudLoggingModeAlways       OutputGoogleCloudLoggingMode = "always"
+	// OutputGoogleCloudLoggingModeAlways Always On
+	OutputGoogleCloudLoggingModeAlways OutputGoogleCloudLoggingMode = "always"
 )
 
 func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode {

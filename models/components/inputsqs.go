@@ -65,7 +65,9 @@ func (i *InputSqsConnection) GetOutput() string {
 type InputSqsMode string
 
 const (
-	InputSqsModeSmart  InputSqsMode = "smart"
+	// InputSqsModeSmart Smart
+	InputSqsModeSmart InputSqsMode = "smart"
+	// InputSqsModeAlways Always On
 	InputSqsModeAlways InputSqsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSqsMode) ToPointer() *InputSqsMode {
 type InputSqsCompression string
 
 const (
+	// InputSqsCompressionNone None
 	InputSqsCompressionNone InputSqsCompression = "none"
+	// InputSqsCompressionGzip Gzip
 	InputSqsCompressionGzip InputSqsCompression = "gzip"
 )
 
@@ -188,8 +192,10 @@ func (i *InputSqsPq) GetPqControls() *InputSqsPqControls {
 type InputSqsQueueType string
 
 const (
+	// InputSqsQueueTypeStandard Standard
 	InputSqsQueueTypeStandard InputSqsQueueType = "standard"
-	InputSqsQueueTypeFifo     InputSqsQueueType = "fifo"
+	// InputSqsQueueTypeFifo FIFO
+	InputSqsQueueTypeFifo InputSqsQueueType = "fifo"
 )
 
 func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
@@ -200,8 +206,11 @@ func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
 type InputSqsAuthenticationMethod string
 
 const (
-	InputSqsAuthenticationMethodAuto   InputSqsAuthenticationMethod = "auto"
+	// InputSqsAuthenticationMethodAuto Auto
+	InputSqsAuthenticationMethodAuto InputSqsAuthenticationMethod = "auto"
+	// InputSqsAuthenticationMethodManual Manual
 	InputSqsAuthenticationMethodManual InputSqsAuthenticationMethod = "manual"
+	// InputSqsAuthenticationMethodSecret Secret Key pair
 	InputSqsAuthenticationMethodSecret InputSqsAuthenticationMethod = "secret"
 )
 

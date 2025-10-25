@@ -35,7 +35,9 @@ func (e *OutputOpenTelemetryType) UnmarshalJSON(data []byte) error {
 type OutputOpenTelemetryProtocol string
 
 const (
+	// OutputOpenTelemetryProtocolGrpc gRPC
 	OutputOpenTelemetryProtocolGrpc OutputOpenTelemetryProtocol = "grpc"
+	// OutputOpenTelemetryProtocolHTTP HTTP
 	OutputOpenTelemetryProtocolHTTP OutputOpenTelemetryProtocol = "http"
 )
 
@@ -47,8 +49,10 @@ func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
 type OutputOpenTelemetryOTLPVersion string
 
 const (
+	// OutputOpenTelemetryOTLPVersionZeroDot10Dot0 0.10.0
 	OutputOpenTelemetryOTLPVersionZeroDot10Dot0 OutputOpenTelemetryOTLPVersion = "0.10.0"
-	OutputOpenTelemetryOTLPVersionOneDot3Dot1   OutputOpenTelemetryOTLPVersion = "1.3.1"
+	// OutputOpenTelemetryOTLPVersionOneDot3Dot1 1.3.1
+	OutputOpenTelemetryOTLPVersionOneDot3Dot1 OutputOpenTelemetryOTLPVersion = "1.3.1"
 )
 
 func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVersion {
@@ -59,9 +63,12 @@ func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVers
 type OutputOpenTelemetryCompressCompression string
 
 const (
-	OutputOpenTelemetryCompressCompressionNone    OutputOpenTelemetryCompressCompression = "none"
+	// OutputOpenTelemetryCompressCompressionNone None
+	OutputOpenTelemetryCompressCompressionNone OutputOpenTelemetryCompressCompression = "none"
+	// OutputOpenTelemetryCompressCompressionDeflate Deflate
 	OutputOpenTelemetryCompressCompressionDeflate OutputOpenTelemetryCompressCompression = "deflate"
-	OutputOpenTelemetryCompressCompressionGzip    OutputOpenTelemetryCompressCompression = "gzip"
+	// OutputOpenTelemetryCompressCompressionGzip Gzip
+	OutputOpenTelemetryCompressCompressionGzip OutputOpenTelemetryCompressCompression = "gzip"
 )
 
 func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetryCompressCompression {
@@ -72,7 +79,9 @@ func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetry
 type OutputOpenTelemetryHTTPCompressCompression string
 
 const (
+	// OutputOpenTelemetryHTTPCompressCompressionNone None
 	OutputOpenTelemetryHTTPCompressCompressionNone OutputOpenTelemetryHTTPCompressCompression = "none"
+	// OutputOpenTelemetryHTTPCompressCompressionGzip Gzip
 	OutputOpenTelemetryHTTPCompressCompressionGzip OutputOpenTelemetryHTTPCompressCompression = "gzip"
 )
 
@@ -130,9 +139,12 @@ func (o *OutputOpenTelemetryMetadatum) GetValue() string {
 type OutputOpenTelemetryFailedRequestLoggingMode string
 
 const (
-	OutputOpenTelemetryFailedRequestLoggingModePayload           OutputOpenTelemetryFailedRequestLoggingMode = "payload"
+	// OutputOpenTelemetryFailedRequestLoggingModePayload Payload
+	OutputOpenTelemetryFailedRequestLoggingModePayload OutputOpenTelemetryFailedRequestLoggingMode = "payload"
+	// OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders OutputOpenTelemetryFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputOpenTelemetryFailedRequestLoggingModeNone              OutputOpenTelemetryFailedRequestLoggingMode = "none"
+	// OutputOpenTelemetryFailedRequestLoggingModeNone None
+	OutputOpenTelemetryFailedRequestLoggingModeNone OutputOpenTelemetryFailedRequestLoggingMode = "none"
 )
 
 func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTelemetryFailedRequestLoggingMode {
@@ -143,8 +155,11 @@ func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTele
 type OutputOpenTelemetryBackpressureBehavior string
 
 const (
+	// OutputOpenTelemetryBackpressureBehaviorBlock Block
 	OutputOpenTelemetryBackpressureBehaviorBlock OutputOpenTelemetryBackpressureBehavior = "block"
-	OutputOpenTelemetryBackpressureBehaviorDrop  OutputOpenTelemetryBackpressureBehavior = "drop"
+	// OutputOpenTelemetryBackpressureBehaviorDrop Drop
+	OutputOpenTelemetryBackpressureBehaviorDrop OutputOpenTelemetryBackpressureBehavior = "drop"
+	// OutputOpenTelemetryBackpressureBehaviorQueue Persistent Queue
 	OutputOpenTelemetryBackpressureBehaviorQueue OutputOpenTelemetryBackpressureBehavior = "queue"
 )
 
@@ -468,7 +483,9 @@ func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMaxVersion() *OutputOpenTe
 type OutputOpenTelemetryPqCompressCompression string
 
 const (
+	// OutputOpenTelemetryPqCompressCompressionNone None
 	OutputOpenTelemetryPqCompressCompressionNone OutputOpenTelemetryPqCompressCompression = "none"
+	// OutputOpenTelemetryPqCompressCompressionGzip Gzip
 	OutputOpenTelemetryPqCompressCompressionGzip OutputOpenTelemetryPqCompressCompression = "gzip"
 )
 
@@ -480,8 +497,10 @@ func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemet
 type OutputOpenTelemetryQueueFullBehavior string
 
 const (
+	// OutputOpenTelemetryQueueFullBehaviorBlock Block
 	OutputOpenTelemetryQueueFullBehaviorBlock OutputOpenTelemetryQueueFullBehavior = "block"
-	OutputOpenTelemetryQueueFullBehaviorDrop  OutputOpenTelemetryQueueFullBehavior = "drop"
+	// OutputOpenTelemetryQueueFullBehaviorDrop Drop new data
+	OutputOpenTelemetryQueueFullBehaviorDrop OutputOpenTelemetryQueueFullBehavior = "drop"
 )
 
 func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
@@ -492,9 +511,12 @@ func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQu
 type OutputOpenTelemetryMode string
 
 const (
-	OutputOpenTelemetryModeError        OutputOpenTelemetryMode = "error"
+	// OutputOpenTelemetryModeError Error
+	OutputOpenTelemetryModeError OutputOpenTelemetryMode = "error"
+	// OutputOpenTelemetryModeBackpressure Backpressure
 	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
-	OutputOpenTelemetryModeAlways       OutputOpenTelemetryMode = "always"
+	// OutputOpenTelemetryModeAlways Always On
+	OutputOpenTelemetryModeAlways OutputOpenTelemetryMode = "always"
 )
 
 func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {

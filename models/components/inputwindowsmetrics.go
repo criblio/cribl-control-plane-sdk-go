@@ -65,7 +65,9 @@ func (i *InputWindowsMetricsConnection) GetOutput() string {
 type InputWindowsMetricsPqMode string
 
 const (
-	InputWindowsMetricsPqModeSmart  InputWindowsMetricsPqMode = "smart"
+	// InputWindowsMetricsPqModeSmart Smart
+	InputWindowsMetricsPqModeSmart InputWindowsMetricsPqMode = "smart"
+	// InputWindowsMetricsPqModeAlways Always On
 	InputWindowsMetricsPqModeAlways InputWindowsMetricsPqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
 type InputWindowsMetricsCompression string
 
 const (
+	// InputWindowsMetricsCompressionNone None
 	InputWindowsMetricsCompressionNone InputWindowsMetricsCompression = "none"
+	// InputWindowsMetricsCompressionGzip Gzip
 	InputWindowsMetricsCompressionGzip InputWindowsMetricsCompression = "gzip"
 )
 
@@ -188,9 +192,13 @@ func (i *InputWindowsMetricsPq) GetPqControls() *InputWindowsMetricsPqControls {
 type InputWindowsMetricsHostMode string
 
 const (
-	InputWindowsMetricsHostModeBasic    InputWindowsMetricsHostMode = "basic"
-	InputWindowsMetricsHostModeAll      InputWindowsMetricsHostMode = "all"
-	InputWindowsMetricsHostModeCustom   InputWindowsMetricsHostMode = "custom"
+	// InputWindowsMetricsHostModeBasic Basic
+	InputWindowsMetricsHostModeBasic InputWindowsMetricsHostMode = "basic"
+	// InputWindowsMetricsHostModeAll All
+	InputWindowsMetricsHostModeAll InputWindowsMetricsHostMode = "all"
+	// InputWindowsMetricsHostModeCustom Custom
+	InputWindowsMetricsHostModeCustom InputWindowsMetricsHostMode = "custom"
+	// InputWindowsMetricsHostModeDisabled Disabled
 	InputWindowsMetricsHostModeDisabled InputWindowsMetricsHostMode = "disabled"
 )
 
@@ -202,9 +210,13 @@ func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
 type InputWindowsMetricsSystemMode string
 
 const (
-	InputWindowsMetricsSystemModeBasic    InputWindowsMetricsSystemMode = "basic"
-	InputWindowsMetricsSystemModeAll      InputWindowsMetricsSystemMode = "all"
-	InputWindowsMetricsSystemModeCustom   InputWindowsMetricsSystemMode = "custom"
+	// InputWindowsMetricsSystemModeBasic Basic
+	InputWindowsMetricsSystemModeBasic InputWindowsMetricsSystemMode = "basic"
+	// InputWindowsMetricsSystemModeAll All
+	InputWindowsMetricsSystemModeAll InputWindowsMetricsSystemMode = "all"
+	// InputWindowsMetricsSystemModeCustom Custom
+	InputWindowsMetricsSystemModeCustom InputWindowsMetricsSystemMode = "custom"
+	// InputWindowsMetricsSystemModeDisabled Disabled
 	InputWindowsMetricsSystemModeDisabled InputWindowsMetricsSystemMode = "disabled"
 )
 
@@ -248,9 +260,13 @@ func (i *InputWindowsMetricsSystem) GetDetail() *bool {
 type InputWindowsMetricsCPUMode string
 
 const (
-	InputWindowsMetricsCPUModeBasic    InputWindowsMetricsCPUMode = "basic"
-	InputWindowsMetricsCPUModeAll      InputWindowsMetricsCPUMode = "all"
-	InputWindowsMetricsCPUModeCustom   InputWindowsMetricsCPUMode = "custom"
+	// InputWindowsMetricsCPUModeBasic Basic
+	InputWindowsMetricsCPUModeBasic InputWindowsMetricsCPUMode = "basic"
+	// InputWindowsMetricsCPUModeAll All
+	InputWindowsMetricsCPUModeAll InputWindowsMetricsCPUMode = "all"
+	// InputWindowsMetricsCPUModeCustom Custom
+	InputWindowsMetricsCPUModeCustom InputWindowsMetricsCPUMode = "custom"
+	// InputWindowsMetricsCPUModeDisabled Disabled
 	InputWindowsMetricsCPUModeDisabled InputWindowsMetricsCPUMode = "disabled"
 )
 
@@ -312,9 +328,13 @@ func (i *InputWindowsMetricsCPU) GetTime() *bool {
 type InputWindowsMetricsMemoryMode string
 
 const (
-	InputWindowsMetricsMemoryModeBasic    InputWindowsMetricsMemoryMode = "basic"
-	InputWindowsMetricsMemoryModeAll      InputWindowsMetricsMemoryMode = "all"
-	InputWindowsMetricsMemoryModeCustom   InputWindowsMetricsMemoryMode = "custom"
+	// InputWindowsMetricsMemoryModeBasic Basic
+	InputWindowsMetricsMemoryModeBasic InputWindowsMetricsMemoryMode = "basic"
+	// InputWindowsMetricsMemoryModeAll All
+	InputWindowsMetricsMemoryModeAll InputWindowsMetricsMemoryMode = "all"
+	// InputWindowsMetricsMemoryModeCustom Custom
+	InputWindowsMetricsMemoryModeCustom InputWindowsMetricsMemoryMode = "custom"
+	// InputWindowsMetricsMemoryModeDisabled Disabled
 	InputWindowsMetricsMemoryModeDisabled InputWindowsMetricsMemoryMode = "disabled"
 )
 
@@ -358,9 +378,13 @@ func (i *InputWindowsMetricsMemory) GetDetail() *bool {
 type InputWindowsMetricsNetworkMode string
 
 const (
-	InputWindowsMetricsNetworkModeBasic    InputWindowsMetricsNetworkMode = "basic"
-	InputWindowsMetricsNetworkModeAll      InputWindowsMetricsNetworkMode = "all"
-	InputWindowsMetricsNetworkModeCustom   InputWindowsMetricsNetworkMode = "custom"
+	// InputWindowsMetricsNetworkModeBasic Basic
+	InputWindowsMetricsNetworkModeBasic InputWindowsMetricsNetworkMode = "basic"
+	// InputWindowsMetricsNetworkModeAll All
+	InputWindowsMetricsNetworkModeAll InputWindowsMetricsNetworkMode = "all"
+	// InputWindowsMetricsNetworkModeCustom Custom
+	InputWindowsMetricsNetworkModeCustom InputWindowsMetricsNetworkMode = "custom"
+	// InputWindowsMetricsNetworkModeDisabled Disabled
 	InputWindowsMetricsNetworkModeDisabled InputWindowsMetricsNetworkMode = "disabled"
 )
 
@@ -422,9 +446,13 @@ func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
 type InputWindowsMetricsDiskMode string
 
 const (
-	InputWindowsMetricsDiskModeBasic    InputWindowsMetricsDiskMode = "basic"
-	InputWindowsMetricsDiskModeAll      InputWindowsMetricsDiskMode = "all"
-	InputWindowsMetricsDiskModeCustom   InputWindowsMetricsDiskMode = "custom"
+	// InputWindowsMetricsDiskModeBasic Basic
+	InputWindowsMetricsDiskModeBasic InputWindowsMetricsDiskMode = "basic"
+	// InputWindowsMetricsDiskModeAll All
+	InputWindowsMetricsDiskModeAll InputWindowsMetricsDiskMode = "all"
+	// InputWindowsMetricsDiskModeCustom Custom
+	InputWindowsMetricsDiskModeCustom InputWindowsMetricsDiskMode = "custom"
+	// InputWindowsMetricsDiskModeDisabled Disabled
 	InputWindowsMetricsDiskModeDisabled InputWindowsMetricsDiskMode = "disabled"
 )
 

@@ -65,7 +65,9 @@ func (i *InputSystemMetricsConnection) GetOutput() string {
 type InputSystemMetricsPqMode string
 
 const (
-	InputSystemMetricsPqModeSmart  InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeSmart Smart
+	InputSystemMetricsPqModeSmart InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeAlways Always On
 	InputSystemMetricsPqModeAlways InputSystemMetricsPqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
 type InputSystemMetricsCompression string
 
 const (
+	// InputSystemMetricsCompressionNone None
 	InputSystemMetricsCompressionNone InputSystemMetricsCompression = "none"
+	// InputSystemMetricsCompressionGzip Gzip
 	InputSystemMetricsCompressionGzip InputSystemMetricsCompression = "gzip"
 )
 
@@ -188,9 +192,13 @@ func (i *InputSystemMetricsPq) GetPqControls() *InputSystemMetricsPqControls {
 type InputSystemMetricsHostMode string
 
 const (
-	InputSystemMetricsHostModeBasic    InputSystemMetricsHostMode = "basic"
-	InputSystemMetricsHostModeAll      InputSystemMetricsHostMode = "all"
-	InputSystemMetricsHostModeCustom   InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeBasic Basic
+	InputSystemMetricsHostModeBasic InputSystemMetricsHostMode = "basic"
+	// InputSystemMetricsHostModeAll All
+	InputSystemMetricsHostModeAll InputSystemMetricsHostMode = "all"
+	// InputSystemMetricsHostModeCustom Custom
+	InputSystemMetricsHostModeCustom InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeDisabled Disabled
 	InputSystemMetricsHostModeDisabled InputSystemMetricsHostMode = "disabled"
 )
 
@@ -202,9 +210,13 @@ func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
 type InputSystemMetricsSystemMode string
 
 const (
-	InputSystemMetricsSystemModeBasic    InputSystemMetricsSystemMode = "basic"
-	InputSystemMetricsSystemModeAll      InputSystemMetricsSystemMode = "all"
-	InputSystemMetricsSystemModeCustom   InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeBasic Basic
+	InputSystemMetricsSystemModeBasic InputSystemMetricsSystemMode = "basic"
+	// InputSystemMetricsSystemModeAll All
+	InputSystemMetricsSystemModeAll InputSystemMetricsSystemMode = "all"
+	// InputSystemMetricsSystemModeCustom Custom
+	InputSystemMetricsSystemModeCustom InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeDisabled Disabled
 	InputSystemMetricsSystemModeDisabled InputSystemMetricsSystemMode = "disabled"
 )
 
@@ -248,9 +260,13 @@ func (i *InputSystemMetricsSystem) GetProcesses() *bool {
 type InputSystemMetricsCPUMode string
 
 const (
-	InputSystemMetricsCPUModeBasic    InputSystemMetricsCPUMode = "basic"
-	InputSystemMetricsCPUModeAll      InputSystemMetricsCPUMode = "all"
-	InputSystemMetricsCPUModeCustom   InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeBasic Basic
+	InputSystemMetricsCPUModeBasic InputSystemMetricsCPUMode = "basic"
+	// InputSystemMetricsCPUModeAll All
+	InputSystemMetricsCPUModeAll InputSystemMetricsCPUMode = "all"
+	// InputSystemMetricsCPUModeCustom Custom
+	InputSystemMetricsCPUModeCustom InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeDisabled Disabled
 	InputSystemMetricsCPUModeDisabled InputSystemMetricsCPUMode = "disabled"
 )
 
@@ -312,9 +328,13 @@ func (i *InputSystemMetricsCPU) GetTime() *bool {
 type InputSystemMetricsMemoryMode string
 
 const (
-	InputSystemMetricsMemoryModeBasic    InputSystemMetricsMemoryMode = "basic"
-	InputSystemMetricsMemoryModeAll      InputSystemMetricsMemoryMode = "all"
-	InputSystemMetricsMemoryModeCustom   InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeBasic Basic
+	InputSystemMetricsMemoryModeBasic InputSystemMetricsMemoryMode = "basic"
+	// InputSystemMetricsMemoryModeAll All
+	InputSystemMetricsMemoryModeAll InputSystemMetricsMemoryMode = "all"
+	// InputSystemMetricsMemoryModeCustom Custom
+	InputSystemMetricsMemoryModeCustom InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeDisabled Disabled
 	InputSystemMetricsMemoryModeDisabled InputSystemMetricsMemoryMode = "disabled"
 )
 
@@ -358,9 +378,13 @@ func (i *InputSystemMetricsMemory) GetDetail() *bool {
 type InputSystemMetricsNetworkMode string
 
 const (
-	InputSystemMetricsNetworkModeBasic    InputSystemMetricsNetworkMode = "basic"
-	InputSystemMetricsNetworkModeAll      InputSystemMetricsNetworkMode = "all"
-	InputSystemMetricsNetworkModeCustom   InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeBasic Basic
+	InputSystemMetricsNetworkModeBasic InputSystemMetricsNetworkMode = "basic"
+	// InputSystemMetricsNetworkModeAll All
+	InputSystemMetricsNetworkModeAll InputSystemMetricsNetworkMode = "all"
+	// InputSystemMetricsNetworkModeCustom Custom
+	InputSystemMetricsNetworkModeCustom InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeDisabled Disabled
 	InputSystemMetricsNetworkModeDisabled InputSystemMetricsNetworkMode = "disabled"
 )
 
@@ -422,9 +446,13 @@ func (i *InputSystemMetricsNetwork) GetDetail() *bool {
 type InputSystemMetricsDiskMode string
 
 const (
-	InputSystemMetricsDiskModeBasic    InputSystemMetricsDiskMode = "basic"
-	InputSystemMetricsDiskModeAll      InputSystemMetricsDiskMode = "all"
-	InputSystemMetricsDiskModeCustom   InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeBasic Basic
+	InputSystemMetricsDiskModeBasic InputSystemMetricsDiskMode = "basic"
+	// InputSystemMetricsDiskModeAll All
+	InputSystemMetricsDiskModeAll InputSystemMetricsDiskMode = "all"
+	// InputSystemMetricsDiskModeCustom Custom
+	InputSystemMetricsDiskModeCustom InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeDisabled Disabled
 	InputSystemMetricsDiskModeDisabled InputSystemMetricsDiskMode = "disabled"
 )
 
@@ -650,9 +678,13 @@ func (i *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
 type ContainerMode string
 
 const (
-	ContainerModeBasic    ContainerMode = "basic"
-	ContainerModeAll      ContainerMode = "all"
-	ContainerModeCustom   ContainerMode = "custom"
+	// ContainerModeBasic Basic
+	ContainerModeBasic ContainerMode = "basic"
+	// ContainerModeAll All
+	ContainerModeAll ContainerMode = "all"
+	// ContainerModeCustom Custom
+	ContainerModeCustom ContainerMode = "custom"
+	// ContainerModeDisabled Disabled
 	ContainerModeDisabled ContainerMode = "disabled"
 )
 

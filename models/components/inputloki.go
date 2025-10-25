@@ -65,7 +65,9 @@ func (i *InputLokiConnection) GetOutput() string {
 type InputLokiMode string
 
 const (
-	InputLokiModeSmart  InputLokiMode = "smart"
+	// InputLokiModeSmart Smart
+	InputLokiModeSmart InputLokiMode = "smart"
+	// InputLokiModeAlways Always On
 	InputLokiModeAlways InputLokiMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputLokiMode) ToPointer() *InputLokiMode {
 type InputLokiCompression string
 
 const (
+	// InputLokiCompressionNone None
 	InputLokiCompressionNone InputLokiCompression = "none"
+	// InputLokiCompressionGzip Gzip
 	InputLokiCompressionGzip InputLokiCompression = "gzip"
 )
 

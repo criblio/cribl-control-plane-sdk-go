@@ -99,7 +99,7 @@ func main() {
 
     res, err := s.Pipelines.Create(ctx, components.Pipeline{
         ID: "<id>",
-        Conf: components.Conf{
+        Conf: components.PipelineConf{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](905091),
             Description: criblcontrolplanesdkgo.Pointer("next tightly positively"),
             Streamtags: []string{
@@ -239,7 +239,7 @@ func main() {
 
     res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
         ID: "<id>",
-        Conf: components.Conf{
+        Conf: components.PipelineConf{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](430119),
             Description: criblcontrolplanesdkgo.Pointer("reflecting for productive extroverted instead upwardly"),
             Streamtags: []string{

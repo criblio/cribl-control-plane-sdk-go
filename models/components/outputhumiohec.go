@@ -65,9 +65,12 @@ func (o *OutputHumioHecExtraHTTPHeader) GetValue() string {
 type OutputHumioHecFailedRequestLoggingMode string
 
 const (
-	OutputHumioHecFailedRequestLoggingModePayload           OutputHumioHecFailedRequestLoggingMode = "payload"
+	// OutputHumioHecFailedRequestLoggingModePayload Payload
+	OutputHumioHecFailedRequestLoggingModePayload OutputHumioHecFailedRequestLoggingMode = "payload"
+	// OutputHumioHecFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputHumioHecFailedRequestLoggingModePayloadAndHeaders OutputHumioHecFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputHumioHecFailedRequestLoggingModeNone              OutputHumioHecFailedRequestLoggingMode = "none"
+	// OutputHumioHecFailedRequestLoggingModeNone None
+	OutputHumioHecFailedRequestLoggingModeNone OutputHumioHecFailedRequestLoggingMode = "none"
 )
 
 func (e OutputHumioHecFailedRequestLoggingMode) ToPointer() *OutputHumioHecFailedRequestLoggingMode {
@@ -78,8 +81,10 @@ func (e OutputHumioHecFailedRequestLoggingMode) ToPointer() *OutputHumioHecFaile
 type OutputHumioHecRequestFormat string
 
 const (
+	// OutputHumioHecRequestFormatJSON JSON
 	OutputHumioHecRequestFormatJSON OutputHumioHecRequestFormat = "JSON"
-	OutputHumioHecRequestFormatRaw  OutputHumioHecRequestFormat = "raw"
+	// OutputHumioHecRequestFormatRaw Raw
+	OutputHumioHecRequestFormatRaw OutputHumioHecRequestFormat = "raw"
 )
 
 func (e OutputHumioHecRequestFormat) ToPointer() *OutputHumioHecRequestFormat {
@@ -201,8 +206,11 @@ func (o *OutputHumioHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputHumioHecBackpressureBehavior string
 
 const (
+	// OutputHumioHecBackpressureBehaviorBlock Block
 	OutputHumioHecBackpressureBehaviorBlock OutputHumioHecBackpressureBehavior = "block"
-	OutputHumioHecBackpressureBehaviorDrop  OutputHumioHecBackpressureBehavior = "drop"
+	// OutputHumioHecBackpressureBehaviorDrop Drop
+	OutputHumioHecBackpressureBehaviorDrop OutputHumioHecBackpressureBehavior = "drop"
+	// OutputHumioHecBackpressureBehaviorQueue Persistent Queue
 	OutputHumioHecBackpressureBehaviorQueue OutputHumioHecBackpressureBehavior = "queue"
 )
 
@@ -214,7 +222,9 @@ func (e OutputHumioHecBackpressureBehavior) ToPointer() *OutputHumioHecBackpress
 type OutputHumioHecCompression string
 
 const (
+	// OutputHumioHecCompressionNone None
 	OutputHumioHecCompressionNone OutputHumioHecCompression = "none"
+	// OutputHumioHecCompressionGzip Gzip
 	OutputHumioHecCompressionGzip OutputHumioHecCompression = "gzip"
 )
 
@@ -226,8 +236,10 @@ func (e OutputHumioHecCompression) ToPointer() *OutputHumioHecCompression {
 type OutputHumioHecQueueFullBehavior string
 
 const (
+	// OutputHumioHecQueueFullBehaviorBlock Block
 	OutputHumioHecQueueFullBehaviorBlock OutputHumioHecQueueFullBehavior = "block"
-	OutputHumioHecQueueFullBehaviorDrop  OutputHumioHecQueueFullBehavior = "drop"
+	// OutputHumioHecQueueFullBehaviorDrop Drop new data
+	OutputHumioHecQueueFullBehaviorDrop OutputHumioHecQueueFullBehavior = "drop"
 )
 
 func (e OutputHumioHecQueueFullBehavior) ToPointer() *OutputHumioHecQueueFullBehavior {
@@ -238,9 +250,12 @@ func (e OutputHumioHecQueueFullBehavior) ToPointer() *OutputHumioHecQueueFullBeh
 type OutputHumioHecMode string
 
 const (
-	OutputHumioHecModeError        OutputHumioHecMode = "error"
+	// OutputHumioHecModeError Error
+	OutputHumioHecModeError OutputHumioHecMode = "error"
+	// OutputHumioHecModeBackpressure Backpressure
 	OutputHumioHecModeBackpressure OutputHumioHecMode = "backpressure"
-	OutputHumioHecModeAlways       OutputHumioHecMode = "always"
+	// OutputHumioHecModeAlways Always On
+	OutputHumioHecModeAlways OutputHumioHecMode = "always"
 )
 
 func (e OutputHumioHecMode) ToPointer() *OutputHumioHecMode {

@@ -65,9 +65,12 @@ func (o *OutputElasticExtraHTTPHeader) GetValue() string {
 type OutputElasticFailedRequestLoggingMode string
 
 const (
-	OutputElasticFailedRequestLoggingModePayload           OutputElasticFailedRequestLoggingMode = "payload"
+	// OutputElasticFailedRequestLoggingModePayload Payload
+	OutputElasticFailedRequestLoggingModePayload OutputElasticFailedRequestLoggingMode = "payload"
+	// OutputElasticFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputElasticFailedRequestLoggingModePayloadAndHeaders OutputElasticFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticFailedRequestLoggingModeNone              OutputElasticFailedRequestLoggingMode = "none"
+	// OutputElasticFailedRequestLoggingModeNone None
+	OutputElasticFailedRequestLoggingModeNone OutputElasticFailedRequestLoggingMode = "none"
 )
 
 func (e OutputElasticFailedRequestLoggingMode) ToPointer() *OutputElasticFailedRequestLoggingMode {
@@ -252,8 +255,11 @@ func (o *OutputElasticAuth) GetAuthType() *OutputElasticAuthenticationMethod {
 type ElasticVersion string
 
 const (
-	ElasticVersionAuto  ElasticVersion = "auto"
-	ElasticVersionSix   ElasticVersion = "6"
+	// ElasticVersionAuto Auto
+	ElasticVersionAuto ElasticVersion = "auto"
+	// ElasticVersionSix 6.x
+	ElasticVersionSix ElasticVersion = "6"
+	// ElasticVersionSeven 7.x
 	ElasticVersionSeven ElasticVersion = "7"
 )
 
@@ -265,7 +271,9 @@ func (e ElasticVersion) ToPointer() *ElasticVersion {
 type WriteAction string
 
 const (
-	WriteActionIndex  WriteAction = "index"
+	// WriteActionIndex Index
+	WriteActionIndex WriteAction = "index"
+	// WriteActionCreate Create
 	WriteActionCreate WriteAction = "create"
 )
 
@@ -277,8 +285,11 @@ func (e WriteAction) ToPointer() *WriteAction {
 type OutputElasticBackpressureBehavior string
 
 const (
+	// OutputElasticBackpressureBehaviorBlock Block
 	OutputElasticBackpressureBehaviorBlock OutputElasticBackpressureBehavior = "block"
-	OutputElasticBackpressureBehaviorDrop  OutputElasticBackpressureBehavior = "drop"
+	// OutputElasticBackpressureBehaviorDrop Drop
+	OutputElasticBackpressureBehaviorDrop OutputElasticBackpressureBehavior = "drop"
+	// OutputElasticBackpressureBehaviorQueue Persistent Queue
 	OutputElasticBackpressureBehaviorQueue OutputElasticBackpressureBehavior = "queue"
 )
 
@@ -322,7 +333,9 @@ func (o *OutputElasticURL) GetWeight() *float64 {
 type OutputElasticCompression string
 
 const (
+	// OutputElasticCompressionNone None
 	OutputElasticCompressionNone OutputElasticCompression = "none"
+	// OutputElasticCompressionGzip Gzip
 	OutputElasticCompressionGzip OutputElasticCompression = "gzip"
 )
 
@@ -334,8 +347,10 @@ func (e OutputElasticCompression) ToPointer() *OutputElasticCompression {
 type OutputElasticQueueFullBehavior string
 
 const (
+	// OutputElasticQueueFullBehaviorBlock Block
 	OutputElasticQueueFullBehaviorBlock OutputElasticQueueFullBehavior = "block"
-	OutputElasticQueueFullBehaviorDrop  OutputElasticQueueFullBehavior = "drop"
+	// OutputElasticQueueFullBehaviorDrop Drop new data
+	OutputElasticQueueFullBehaviorDrop OutputElasticQueueFullBehavior = "drop"
 )
 
 func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehavior {
@@ -346,9 +361,12 @@ func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehav
 type OutputElasticMode string
 
 const (
-	OutputElasticModeError        OutputElasticMode = "error"
+	// OutputElasticModeError Error
+	OutputElasticModeError OutputElasticMode = "error"
+	// OutputElasticModeBackpressure Backpressure
 	OutputElasticModeBackpressure OutputElasticMode = "backpressure"
-	OutputElasticModeAlways       OutputElasticMode = "always"
+	// OutputElasticModeAlways Always On
+	OutputElasticModeAlways OutputElasticMode = "always"
 )
 
 func (e OutputElasticMode) ToPointer() *OutputElasticMode {
