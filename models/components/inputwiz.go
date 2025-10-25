@@ -65,7 +65,9 @@ func (i *InputWizConnection) GetOutput() string {
 type InputWizMode string
 
 const (
-	InputWizModeSmart  InputWizMode = "smart"
+	// InputWizModeSmart Smart
+	InputWizModeSmart InputWizMode = "smart"
+	// InputWizModeAlways Always On
 	InputWizModeAlways InputWizMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWizMode) ToPointer() *InputWizMode {
 type InputWizCompression string
 
 const (
+	// InputWizCompressionNone None
 	InputWizCompressionNone InputWizCompression = "none"
+	// InputWizCompressionGzip Gzip
 	InputWizCompressionGzip InputWizCompression = "gzip"
 )
 
@@ -258,9 +262,12 @@ func (i *InputWizMetadatum) GetValue() string {
 type InputWizRetryType string
 
 const (
-	InputWizRetryTypeNone    InputWizRetryType = "none"
+	// InputWizRetryTypeNone Disabled
+	InputWizRetryTypeNone InputWizRetryType = "none"
+	// InputWizRetryTypeBackoff Backoff
 	InputWizRetryTypeBackoff InputWizRetryType = "backoff"
-	InputWizRetryTypeStatic  InputWizRetryType = "static"
+	// InputWizRetryTypeStatic Static
+	InputWizRetryTypeStatic InputWizRetryType = "static"
 )
 
 func (e InputWizRetryType) ToPointer() *InputWizRetryType {

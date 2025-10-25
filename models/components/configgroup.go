@@ -2,6 +2,34 @@
 
 package components
 
+// EstimatedIngestRate - Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+type EstimatedIngestRate int64
+
+const (
+	// EstimatedIngestRateRate12MbPerSec 12 MB/sec
+	EstimatedIngestRateRate12MbPerSec EstimatedIngestRate = 1024
+	// EstimatedIngestRateRate24MbPerSec 24 MB/sec
+	EstimatedIngestRateRate24MbPerSec EstimatedIngestRate = 2048
+	// EstimatedIngestRateRate36MbPerSec 36 MB/sec
+	EstimatedIngestRateRate36MbPerSec EstimatedIngestRate = 3072
+	// EstimatedIngestRateRate48MbPerSec 48 MB/sec
+	EstimatedIngestRateRate48MbPerSec EstimatedIngestRate = 4096
+	// EstimatedIngestRateRate60MbPerSec 60 MB/sec
+	EstimatedIngestRateRate60MbPerSec EstimatedIngestRate = 5120
+	// EstimatedIngestRateRate84MbPerSec 84 MB/sec
+	EstimatedIngestRateRate84MbPerSec EstimatedIngestRate = 7168
+	// EstimatedIngestRateRate120MbPerSec 120 MB/sec
+	EstimatedIngestRateRate120MbPerSec EstimatedIngestRate = 10240
+	// EstimatedIngestRateRate156MbPerSec 156 MB/sec
+	EstimatedIngestRateRate156MbPerSec EstimatedIngestRate = 13312
+	// EstimatedIngestRateRate180MbPerSec 180 MB/sec
+	EstimatedIngestRateRate180MbPerSec EstimatedIngestRate = 15360
+)
+
+func (e EstimatedIngestRate) ToPointer() *EstimatedIngestRate {
+	return &e
+}
+
 type Git struct {
 	Commit       *string  `json:"commit,omitempty"`
 	LocalChanges *float64 `json:"localChanges,omitempty"`
@@ -40,11 +68,12 @@ func (e ConfigGroupType) ToPointer() *ConfigGroupType {
 }
 
 type ConfigGroup struct {
-	Cloud                   *ConfigGroupCloud    `json:"cloud,omitempty"`
-	ConfigVersion           *string              `json:"configVersion,omitempty"`
-	DeployingWorkerCount    *float64             `json:"deployingWorkerCount,omitempty"`
-	Description             *string              `json:"description,omitempty"`
-	EstimatedIngestRate     *float64             `json:"estimatedIngestRate,omitempty"`
+	Cloud                *ConfigGroupCloud `json:"cloud,omitempty"`
+	ConfigVersion        *string           `json:"configVersion,omitempty"`
+	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitempty"`
+	Description          *string           `json:"description,omitempty"`
+	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+	EstimatedIngestRate     *EstimatedIngestRate `json:"estimatedIngestRate,omitempty"`
 	Git                     *Git                 `json:"git,omitempty"`
 	ID                      string               `json:"id"`
 	IncompatibleWorkerCount *float64             `json:"incompatibleWorkerCount,omitempty"`
@@ -92,7 +121,7 @@ func (c *ConfigGroup) GetDescription() *string {
 	return c.Description
 }
 
-func (c *ConfigGroup) GetEstimatedIngestRate() *float64 {
+func (c *ConfigGroup) GetEstimatedIngestRate() *EstimatedIngestRate {
 	if c == nil {
 		return nil
 	}

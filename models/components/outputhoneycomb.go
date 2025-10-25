@@ -65,9 +65,12 @@ func (o *OutputHoneycombExtraHTTPHeader) GetValue() string {
 type OutputHoneycombFailedRequestLoggingMode string
 
 const (
-	OutputHoneycombFailedRequestLoggingModePayload           OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayload Payload
+	OutputHoneycombFailedRequestLoggingModePayload OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputHoneycombFailedRequestLoggingModePayloadAndHeaders OutputHoneycombFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputHoneycombFailedRequestLoggingModeNone              OutputHoneycombFailedRequestLoggingMode = "none"
+	// OutputHoneycombFailedRequestLoggingModeNone None
+	OutputHoneycombFailedRequestLoggingModeNone OutputHoneycombFailedRequestLoggingMode = "none"
 )
 
 func (e OutputHoneycombFailedRequestLoggingMode) ToPointer() *OutputHoneycombFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputHoneycombTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputHoneycombBackpressureBehavior string
 
 const (
+	// OutputHoneycombBackpressureBehaviorBlock Block
 	OutputHoneycombBackpressureBehaviorBlock OutputHoneycombBackpressureBehavior = "block"
-	OutputHoneycombBackpressureBehaviorDrop  OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorDrop Drop
+	OutputHoneycombBackpressureBehaviorDrop OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorQueue Persistent Queue
 	OutputHoneycombBackpressureBehaviorQueue OutputHoneycombBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputHoneycombAuthenticationMethod) ToPointer() *OutputHoneycombAuthent
 type OutputHoneycombCompression string
 
 const (
+	// OutputHoneycombCompressionNone None
 	OutputHoneycombCompressionNone OutputHoneycombCompression = "none"
+	// OutputHoneycombCompressionGzip Gzip
 	OutputHoneycombCompressionGzip OutputHoneycombCompression = "gzip"
 )
 
@@ -214,8 +222,10 @@ func (e OutputHoneycombCompression) ToPointer() *OutputHoneycombCompression {
 type OutputHoneycombQueueFullBehavior string
 
 const (
+	// OutputHoneycombQueueFullBehaviorBlock Block
 	OutputHoneycombQueueFullBehaviorBlock OutputHoneycombQueueFullBehavior = "block"
-	OutputHoneycombQueueFullBehaviorDrop  OutputHoneycombQueueFullBehavior = "drop"
+	// OutputHoneycombQueueFullBehaviorDrop Drop new data
+	OutputHoneycombQueueFullBehaviorDrop OutputHoneycombQueueFullBehavior = "drop"
 )
 
 func (e OutputHoneycombQueueFullBehavior) ToPointer() *OutputHoneycombQueueFullBehavior {
@@ -226,9 +236,12 @@ func (e OutputHoneycombQueueFullBehavior) ToPointer() *OutputHoneycombQueueFullB
 type OutputHoneycombMode string
 
 const (
-	OutputHoneycombModeError        OutputHoneycombMode = "error"
+	// OutputHoneycombModeError Error
+	OutputHoneycombModeError OutputHoneycombMode = "error"
+	// OutputHoneycombModeBackpressure Backpressure
 	OutputHoneycombModeBackpressure OutputHoneycombMode = "backpressure"
-	OutputHoneycombModeAlways       OutputHoneycombMode = "always"
+	// OutputHoneycombModeAlways Always On
+	OutputHoneycombModeAlways OutputHoneycombMode = "always"
 )
 
 func (e OutputHoneycombMode) ToPointer() *OutputHoneycombMode {

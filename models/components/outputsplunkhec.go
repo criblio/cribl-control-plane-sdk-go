@@ -65,9 +65,12 @@ func (o *OutputSplunkHecExtraHTTPHeader) GetValue() string {
 type OutputSplunkHecFailedRequestLoggingMode string
 
 const (
-	OutputSplunkHecFailedRequestLoggingModePayload           OutputSplunkHecFailedRequestLoggingMode = "payload"
+	// OutputSplunkHecFailedRequestLoggingModePayload Payload
+	OutputSplunkHecFailedRequestLoggingModePayload OutputSplunkHecFailedRequestLoggingMode = "payload"
+	// OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders OutputSplunkHecFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSplunkHecFailedRequestLoggingModeNone              OutputSplunkHecFailedRequestLoggingMode = "none"
+	// OutputSplunkHecFailedRequestLoggingModeNone None
+	OutputSplunkHecFailedRequestLoggingModeNone OutputSplunkHecFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSplunkHecFailedRequestLoggingMode) ToPointer() *OutputSplunkHecFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputSplunkHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSplunkHecBackpressureBehavior string
 
 const (
+	// OutputSplunkHecBackpressureBehaviorBlock Block
 	OutputSplunkHecBackpressureBehaviorBlock OutputSplunkHecBackpressureBehavior = "block"
-	OutputSplunkHecBackpressureBehaviorDrop  OutputSplunkHecBackpressureBehavior = "drop"
+	// OutputSplunkHecBackpressureBehaviorDrop Drop
+	OutputSplunkHecBackpressureBehaviorDrop OutputSplunkHecBackpressureBehavior = "drop"
+	// OutputSplunkHecBackpressureBehaviorQueue Persistent Queue
 	OutputSplunkHecBackpressureBehaviorQueue OutputSplunkHecBackpressureBehavior = "queue"
 )
 
@@ -234,7 +240,9 @@ func (o *OutputSplunkHecURL) GetWeight() *float64 {
 type OutputSplunkHecCompression string
 
 const (
+	// OutputSplunkHecCompressionNone None
 	OutputSplunkHecCompressionNone OutputSplunkHecCompression = "none"
+	// OutputSplunkHecCompressionGzip Gzip
 	OutputSplunkHecCompressionGzip OutputSplunkHecCompression = "gzip"
 )
 
@@ -246,8 +254,10 @@ func (e OutputSplunkHecCompression) ToPointer() *OutputSplunkHecCompression {
 type OutputSplunkHecQueueFullBehavior string
 
 const (
+	// OutputSplunkHecQueueFullBehaviorBlock Block
 	OutputSplunkHecQueueFullBehaviorBlock OutputSplunkHecQueueFullBehavior = "block"
-	OutputSplunkHecQueueFullBehaviorDrop  OutputSplunkHecQueueFullBehavior = "drop"
+	// OutputSplunkHecQueueFullBehaviorDrop Drop new data
+	OutputSplunkHecQueueFullBehaviorDrop OutputSplunkHecQueueFullBehavior = "drop"
 )
 
 func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
@@ -258,9 +268,12 @@ func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullB
 type OutputSplunkHecMode string
 
 const (
-	OutputSplunkHecModeError        OutputSplunkHecMode = "error"
+	// OutputSplunkHecModeError Error
+	OutputSplunkHecModeError OutputSplunkHecMode = "error"
+	// OutputSplunkHecModeBackpressure Backpressure
 	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
-	OutputSplunkHecModeAlways       OutputSplunkHecMode = "always"
+	// OutputSplunkHecModeAlways Always On
+	OutputSplunkHecModeAlways OutputSplunkHecMode = "always"
 )
 
 func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {

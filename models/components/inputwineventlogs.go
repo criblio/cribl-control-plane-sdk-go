@@ -65,7 +65,9 @@ func (i *InputWinEventLogsConnection) GetOutput() string {
 type InputWinEventLogsMode string
 
 const (
-	InputWinEventLogsModeSmart  InputWinEventLogsMode = "smart"
+	// InputWinEventLogsModeSmart Smart
+	InputWinEventLogsModeSmart InputWinEventLogsMode = "smart"
+	// InputWinEventLogsModeAlways Always On
 	InputWinEventLogsModeAlways InputWinEventLogsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWinEventLogsMode) ToPointer() *InputWinEventLogsMode {
 type InputWinEventLogsCompression string
 
 const (
+	// InputWinEventLogsCompressionNone None
 	InputWinEventLogsCompressionNone InputWinEventLogsCompression = "none"
+	// InputWinEventLogsCompressionGzip Gzip
 	InputWinEventLogsCompressionGzip InputWinEventLogsCompression = "gzip"
 )
 
@@ -188,7 +192,9 @@ func (i *InputWinEventLogsPq) GetPqControls() *InputWinEventLogsPqControls {
 type ReadMode string
 
 const (
+	// ReadModeOldest Entire log
 	ReadModeOldest ReadMode = "oldest"
+	// ReadModeNewest From last entry
 	ReadModeNewest ReadMode = "newest"
 )
 
@@ -200,8 +206,10 @@ func (e ReadMode) ToPointer() *ReadMode {
 type EventFormat string
 
 const (
+	// EventFormatJSON JSON
 	EventFormatJSON EventFormat = "json"
-	EventFormatXML  EventFormat = "xml"
+	// EventFormatXML XML
+	EventFormatXML EventFormat = "xml"
 )
 
 func (e EventFormat) ToPointer() *EventFormat {

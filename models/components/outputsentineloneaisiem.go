@@ -94,9 +94,12 @@ func (o *OutputSentinelOneAiSiemExtraHTTPHeader) GetValue() string {
 type OutputSentinelOneAiSiemFailedRequestLoggingMode string
 
 const (
-	OutputSentinelOneAiSiemFailedRequestLoggingModePayload           OutputSentinelOneAiSiemFailedRequestLoggingMode = "payload"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModePayload Payload
+	OutputSentinelOneAiSiemFailedRequestLoggingModePayload OutputSentinelOneAiSiemFailedRequestLoggingMode = "payload"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSentinelOneAiSiemFailedRequestLoggingModePayloadAndHeaders OutputSentinelOneAiSiemFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSentinelOneAiSiemFailedRequestLoggingModeNone              OutputSentinelOneAiSiemFailedRequestLoggingMode = "none"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModeNone None
+	OutputSentinelOneAiSiemFailedRequestLoggingModeNone OutputSentinelOneAiSiemFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSentinelOneAiSiemFailedRequestLoggingMode) ToPointer() *OutputSentinelOneAiSiemFailedRequestLoggingMode {
@@ -218,8 +221,11 @@ func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSentinelOneAiSiemBackpressureBehavior string
 
 const (
+	// OutputSentinelOneAiSiemBackpressureBehaviorBlock Block
 	OutputSentinelOneAiSiemBackpressureBehaviorBlock OutputSentinelOneAiSiemBackpressureBehavior = "block"
-	OutputSentinelOneAiSiemBackpressureBehaviorDrop  OutputSentinelOneAiSiemBackpressureBehavior = "drop"
+	// OutputSentinelOneAiSiemBackpressureBehaviorDrop Drop
+	OutputSentinelOneAiSiemBackpressureBehaviorDrop OutputSentinelOneAiSiemBackpressureBehavior = "drop"
+	// OutputSentinelOneAiSiemBackpressureBehaviorQueue Persistent Queue
 	OutputSentinelOneAiSiemBackpressureBehaviorQueue OutputSentinelOneAiSiemBackpressureBehavior = "queue"
 )
 
@@ -231,7 +237,9 @@ func (e OutputSentinelOneAiSiemBackpressureBehavior) ToPointer() *OutputSentinel
 type OutputSentinelOneAiSiemCompression string
 
 const (
+	// OutputSentinelOneAiSiemCompressionNone None
 	OutputSentinelOneAiSiemCompressionNone OutputSentinelOneAiSiemCompression = "none"
+	// OutputSentinelOneAiSiemCompressionGzip Gzip
 	OutputSentinelOneAiSiemCompressionGzip OutputSentinelOneAiSiemCompression = "gzip"
 )
 
@@ -243,8 +251,10 @@ func (e OutputSentinelOneAiSiemCompression) ToPointer() *OutputSentinelOneAiSiem
 type OutputSentinelOneAiSiemQueueFullBehavior string
 
 const (
+	// OutputSentinelOneAiSiemQueueFullBehaviorBlock Block
 	OutputSentinelOneAiSiemQueueFullBehaviorBlock OutputSentinelOneAiSiemQueueFullBehavior = "block"
-	OutputSentinelOneAiSiemQueueFullBehaviorDrop  OutputSentinelOneAiSiemQueueFullBehavior = "drop"
+	// OutputSentinelOneAiSiemQueueFullBehaviorDrop Drop new data
+	OutputSentinelOneAiSiemQueueFullBehaviorDrop OutputSentinelOneAiSiemQueueFullBehavior = "drop"
 )
 
 func (e OutputSentinelOneAiSiemQueueFullBehavior) ToPointer() *OutputSentinelOneAiSiemQueueFullBehavior {
@@ -255,9 +265,12 @@ func (e OutputSentinelOneAiSiemQueueFullBehavior) ToPointer() *OutputSentinelOne
 type OutputSentinelOneAiSiemMode string
 
 const (
-	OutputSentinelOneAiSiemModeError        OutputSentinelOneAiSiemMode = "error"
+	// OutputSentinelOneAiSiemModeError Error
+	OutputSentinelOneAiSiemModeError OutputSentinelOneAiSiemMode = "error"
+	// OutputSentinelOneAiSiemModeBackpressure Backpressure
 	OutputSentinelOneAiSiemModeBackpressure OutputSentinelOneAiSiemMode = "backpressure"
-	OutputSentinelOneAiSiemModeAlways       OutputSentinelOneAiSiemMode = "always"
+	// OutputSentinelOneAiSiemModeAlways Always On
+	OutputSentinelOneAiSiemModeAlways OutputSentinelOneAiSiemMode = "always"
 )
 
 func (e OutputSentinelOneAiSiemMode) ToPointer() *OutputSentinelOneAiSiemMode {

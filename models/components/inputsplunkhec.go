@@ -65,7 +65,9 @@ func (i *InputSplunkHecConnection) GetOutput() string {
 type InputSplunkHecMode string
 
 const (
-	InputSplunkHecModeSmart  InputSplunkHecMode = "smart"
+	// InputSplunkHecModeSmart Smart
+	InputSplunkHecModeSmart InputSplunkHecMode = "smart"
+	// InputSplunkHecModeAlways Always On
 	InputSplunkHecModeAlways InputSplunkHecMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
 type InputSplunkHecCompression string
 
 const (
+	// InputSplunkHecCompressionNone None
 	InputSplunkHecCompressionNone InputSplunkHecCompression = "none"
+	// InputSplunkHecCompressionGzip Gzip
 	InputSplunkHecCompressionGzip InputSplunkHecCompression = "gzip"
 )
 

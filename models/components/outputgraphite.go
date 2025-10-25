@@ -35,7 +35,9 @@ func (e *OutputGraphiteType) UnmarshalJSON(data []byte) error {
 type OutputGraphiteDestinationProtocol string
 
 const (
+	// OutputGraphiteDestinationProtocolUDP UDP
 	OutputGraphiteDestinationProtocolUDP OutputGraphiteDestinationProtocol = "udp"
+	// OutputGraphiteDestinationProtocolTCP TCP
 	OutputGraphiteDestinationProtocolTCP OutputGraphiteDestinationProtocol = "tcp"
 )
 
@@ -47,8 +49,11 @@ func (e OutputGraphiteDestinationProtocol) ToPointer() *OutputGraphiteDestinatio
 type OutputGraphiteBackpressureBehavior string
 
 const (
+	// OutputGraphiteBackpressureBehaviorBlock Block
 	OutputGraphiteBackpressureBehaviorBlock OutputGraphiteBackpressureBehavior = "block"
-	OutputGraphiteBackpressureBehaviorDrop  OutputGraphiteBackpressureBehavior = "drop"
+	// OutputGraphiteBackpressureBehaviorDrop Drop
+	OutputGraphiteBackpressureBehaviorDrop OutputGraphiteBackpressureBehavior = "drop"
+	// OutputGraphiteBackpressureBehaviorQueue Persistent Queue
 	OutputGraphiteBackpressureBehaviorQueue OutputGraphiteBackpressureBehavior = "queue"
 )
 
@@ -60,7 +65,9 @@ func (e OutputGraphiteBackpressureBehavior) ToPointer() *OutputGraphiteBackpress
 type OutputGraphiteCompression string
 
 const (
+	// OutputGraphiteCompressionNone None
 	OutputGraphiteCompressionNone OutputGraphiteCompression = "none"
+	// OutputGraphiteCompressionGzip Gzip
 	OutputGraphiteCompressionGzip OutputGraphiteCompression = "gzip"
 )
 
@@ -72,8 +79,10 @@ func (e OutputGraphiteCompression) ToPointer() *OutputGraphiteCompression {
 type OutputGraphiteQueueFullBehavior string
 
 const (
+	// OutputGraphiteQueueFullBehaviorBlock Block
 	OutputGraphiteQueueFullBehaviorBlock OutputGraphiteQueueFullBehavior = "block"
-	OutputGraphiteQueueFullBehaviorDrop  OutputGraphiteQueueFullBehavior = "drop"
+	// OutputGraphiteQueueFullBehaviorDrop Drop new data
+	OutputGraphiteQueueFullBehaviorDrop OutputGraphiteQueueFullBehavior = "drop"
 )
 
 func (e OutputGraphiteQueueFullBehavior) ToPointer() *OutputGraphiteQueueFullBehavior {
@@ -84,9 +93,12 @@ func (e OutputGraphiteQueueFullBehavior) ToPointer() *OutputGraphiteQueueFullBeh
 type OutputGraphiteMode string
 
 const (
-	OutputGraphiteModeError        OutputGraphiteMode = "error"
+	// OutputGraphiteModeError Error
+	OutputGraphiteModeError OutputGraphiteMode = "error"
+	// OutputGraphiteModeBackpressure Backpressure
 	OutputGraphiteModeBackpressure OutputGraphiteMode = "backpressure"
-	OutputGraphiteModeAlways       OutputGraphiteMode = "always"
+	// OutputGraphiteModeAlways Always On
+	OutputGraphiteModeAlways OutputGraphiteMode = "always"
 )
 
 func (e OutputGraphiteMode) ToPointer() *OutputGraphiteMode {

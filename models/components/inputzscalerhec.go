@@ -65,7 +65,9 @@ func (i *InputZscalerHecConnection) GetOutput() string {
 type InputZscalerHecMode string
 
 const (
-	InputZscalerHecModeSmart  InputZscalerHecMode = "smart"
+	// InputZscalerHecModeSmart Smart
+	InputZscalerHecModeSmart InputZscalerHecMode = "smart"
+	// InputZscalerHecModeAlways Always On
 	InputZscalerHecModeAlways InputZscalerHecMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputZscalerHecMode) ToPointer() *InputZscalerHecMode {
 type InputZscalerHecCompression string
 
 const (
+	// InputZscalerHecCompressionNone None
 	InputZscalerHecCompressionNone InputZscalerHecCompression = "none"
+	// InputZscalerHecCompressionGzip Gzip
 	InputZscalerHecCompressionGzip InputZscalerHecCompression = "gzip"
 )
 

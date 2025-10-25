@@ -65,7 +65,9 @@ func (i *InputHTTPConnection) GetOutput() string {
 type InputHTTPMode string
 
 const (
-	InputHTTPModeSmart  InputHTTPMode = "smart"
+	// InputHTTPModeSmart Smart
+	InputHTTPModeSmart InputHTTPMode = "smart"
+	// InputHTTPModeAlways Always On
 	InputHTTPModeAlways InputHTTPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputHTTPMode) ToPointer() *InputHTTPMode {
 type InputHTTPCompression string
 
 const (
+	// InputHTTPCompressionNone None
 	InputHTTPCompressionNone InputHTTPCompression = "none"
+	// InputHTTPCompressionGzip Gzip
 	InputHTTPCompressionGzip InputHTTPCompression = "gzip"
 )
 

@@ -65,7 +65,9 @@ func (i *InputEdgePrometheusConnection) GetOutput() string {
 type InputEdgePrometheusMode string
 
 const (
-	InputEdgePrometheusModeSmart  InputEdgePrometheusMode = "smart"
+	// InputEdgePrometheusModeSmart Smart
+	InputEdgePrometheusModeSmart InputEdgePrometheusMode = "smart"
+	// InputEdgePrometheusModeAlways Always On
 	InputEdgePrometheusModeAlways InputEdgePrometheusMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputEdgePrometheusMode) ToPointer() *InputEdgePrometheusMode {
 type InputEdgePrometheusPqCompression string
 
 const (
+	// InputEdgePrometheusPqCompressionNone None
 	InputEdgePrometheusPqCompressionNone InputEdgePrometheusPqCompression = "none"
+	// InputEdgePrometheusPqCompressionGzip Gzip
 	InputEdgePrometheusPqCompressionGzip InputEdgePrometheusPqCompression = "gzip"
 )
 
@@ -188,10 +192,15 @@ func (i *InputEdgePrometheusPq) GetPqControls() *InputEdgePrometheusPqControls {
 type InputEdgePrometheusDiscoveryType string
 
 const (
-	InputEdgePrometheusDiscoveryTypeStatic  InputEdgePrometheusDiscoveryType = "static"
-	InputEdgePrometheusDiscoveryTypeDNS     InputEdgePrometheusDiscoveryType = "dns"
-	InputEdgePrometheusDiscoveryTypeEc2     InputEdgePrometheusDiscoveryType = "ec2"
+	// InputEdgePrometheusDiscoveryTypeStatic Static
+	InputEdgePrometheusDiscoveryTypeStatic InputEdgePrometheusDiscoveryType = "static"
+	// InputEdgePrometheusDiscoveryTypeDNS DNS
+	InputEdgePrometheusDiscoveryTypeDNS InputEdgePrometheusDiscoveryType = "dns"
+	// InputEdgePrometheusDiscoveryTypeEc2 AWS EC2
+	InputEdgePrometheusDiscoveryTypeEc2 InputEdgePrometheusDiscoveryType = "ec2"
+	// InputEdgePrometheusDiscoveryTypeK8sNode Kubernetes Node
 	InputEdgePrometheusDiscoveryTypeK8sNode InputEdgePrometheusDiscoveryType = "k8s-node"
+	// InputEdgePrometheusDiscoveryTypeK8sPods Kubernetes Pods
 	InputEdgePrometheusDiscoveryTypeK8sPods InputEdgePrometheusDiscoveryType = "k8s-pods"
 )
 
@@ -437,8 +446,11 @@ func (i *InputEdgePrometheusSearchFilter) GetValues() []string {
 type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod string
 
 const (
-	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto   InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
+	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
 	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
 	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
 )
 

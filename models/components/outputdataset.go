@@ -35,13 +35,20 @@ func (e *OutputDatasetType) UnmarshalJSON(data []byte) error {
 type OutputDatasetSeverity string
 
 const (
-	OutputDatasetSeverityFinest  OutputDatasetSeverity = "finest"
-	OutputDatasetSeverityFiner   OutputDatasetSeverity = "finer"
-	OutputDatasetSeverityFine    OutputDatasetSeverity = "fine"
-	OutputDatasetSeverityInfo    OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityFinest 0 - finest
+	OutputDatasetSeverityFinest OutputDatasetSeverity = "finest"
+	// OutputDatasetSeverityFiner 1 - finer
+	OutputDatasetSeverityFiner OutputDatasetSeverity = "finer"
+	// OutputDatasetSeverityFine 2 - fine
+	OutputDatasetSeverityFine OutputDatasetSeverity = "fine"
+	// OutputDatasetSeverityInfo 3 - info
+	OutputDatasetSeverityInfo OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityWarning 4 - warning
 	OutputDatasetSeverityWarning OutputDatasetSeverity = "warning"
-	OutputDatasetSeverityError   OutputDatasetSeverity = "error"
-	OutputDatasetSeverityFatal   OutputDatasetSeverity = "fatal"
+	// OutputDatasetSeverityError 5 - error
+	OutputDatasetSeverityError OutputDatasetSeverity = "error"
+	// OutputDatasetSeverityFatal 6 - fatal
+	OutputDatasetSeverityFatal OutputDatasetSeverity = "fatal"
 )
 
 func (e OutputDatasetSeverity) ToPointer() *OutputDatasetSeverity {
@@ -151,8 +158,11 @@ func (o *OutputDatasetTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type DataSetSite string
 
 const (
-	DataSetSiteUs     DataSetSite = "us"
-	DataSetSiteEu     DataSetSite = "eu"
+	// DataSetSiteUs US
+	DataSetSiteUs DataSetSite = "us"
+	// DataSetSiteEu Europe
+	DataSetSiteEu DataSetSite = "eu"
+	// DataSetSiteCustom Custom
 	DataSetSiteCustom DataSetSite = "custom"
 )
 
@@ -194,9 +204,12 @@ func (o *OutputDatasetExtraHTTPHeader) GetValue() string {
 type OutputDatasetFailedRequestLoggingMode string
 
 const (
-	OutputDatasetFailedRequestLoggingModePayload           OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayload Payload
+	OutputDatasetFailedRequestLoggingModePayload OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDatasetFailedRequestLoggingModePayloadAndHeaders OutputDatasetFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatasetFailedRequestLoggingModeNone              OutputDatasetFailedRequestLoggingMode = "none"
+	// OutputDatasetFailedRequestLoggingModeNone None
+	OutputDatasetFailedRequestLoggingModeNone OutputDatasetFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedRequestLoggingMode {
@@ -207,8 +220,11 @@ func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedR
 type OutputDatasetBackpressureBehavior string
 
 const (
+	// OutputDatasetBackpressureBehaviorBlock Block
 	OutputDatasetBackpressureBehaviorBlock OutputDatasetBackpressureBehavior = "block"
-	OutputDatasetBackpressureBehaviorDrop  OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorDrop Drop
+	OutputDatasetBackpressureBehaviorDrop OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorQueue Persistent Queue
 	OutputDatasetBackpressureBehaviorQueue OutputDatasetBackpressureBehavior = "queue"
 )
 
@@ -232,7 +248,9 @@ func (e OutputDatasetAuthenticationMethod) ToPointer() *OutputDatasetAuthenticat
 type OutputDatasetCompression string
 
 const (
+	// OutputDatasetCompressionNone None
 	OutputDatasetCompressionNone OutputDatasetCompression = "none"
+	// OutputDatasetCompressionGzip Gzip
 	OutputDatasetCompressionGzip OutputDatasetCompression = "gzip"
 )
 
@@ -244,8 +262,10 @@ func (e OutputDatasetCompression) ToPointer() *OutputDatasetCompression {
 type OutputDatasetQueueFullBehavior string
 
 const (
+	// OutputDatasetQueueFullBehaviorBlock Block
 	OutputDatasetQueueFullBehaviorBlock OutputDatasetQueueFullBehavior = "block"
-	OutputDatasetQueueFullBehaviorDrop  OutputDatasetQueueFullBehavior = "drop"
+	// OutputDatasetQueueFullBehaviorDrop Drop new data
+	OutputDatasetQueueFullBehaviorDrop OutputDatasetQueueFullBehavior = "drop"
 )
 
 func (e OutputDatasetQueueFullBehavior) ToPointer() *OutputDatasetQueueFullBehavior {
@@ -256,9 +276,12 @@ func (e OutputDatasetQueueFullBehavior) ToPointer() *OutputDatasetQueueFullBehav
 type OutputDatasetMode string
 
 const (
-	OutputDatasetModeError        OutputDatasetMode = "error"
+	// OutputDatasetModeError Error
+	OutputDatasetModeError OutputDatasetMode = "error"
+	// OutputDatasetModeBackpressure Backpressure
 	OutputDatasetModeBackpressure OutputDatasetMode = "backpressure"
-	OutputDatasetModeAlways       OutputDatasetMode = "always"
+	// OutputDatasetModeAlways Always On
+	OutputDatasetModeAlways OutputDatasetMode = "always"
 )
 
 func (e OutputDatasetMode) ToPointer() *OutputDatasetMode {

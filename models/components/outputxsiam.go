@@ -65,9 +65,12 @@ func (o *OutputXsiamExtraHTTPHeader) GetValue() string {
 type OutputXsiamFailedRequestLoggingMode string
 
 const (
-	OutputXsiamFailedRequestLoggingModePayload           OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayload Payload
+	OutputXsiamFailedRequestLoggingModePayload OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputXsiamFailedRequestLoggingModePayloadAndHeaders OutputXsiamFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputXsiamFailedRequestLoggingModeNone              OutputXsiamFailedRequestLoggingMode = "none"
+	// OutputXsiamFailedRequestLoggingModeNone None
+	OutputXsiamFailedRequestLoggingModeNone OutputXsiamFailedRequestLoggingMode = "none"
 )
 
 func (e OutputXsiamFailedRequestLoggingMode) ToPointer() *OutputXsiamFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputXsiamTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputXsiamBackpressureBehavior string
 
 const (
+	// OutputXsiamBackpressureBehaviorBlock Block
 	OutputXsiamBackpressureBehaviorBlock OutputXsiamBackpressureBehavior = "block"
-	OutputXsiamBackpressureBehaviorDrop  OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorDrop Drop
+	OutputXsiamBackpressureBehaviorDrop OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorQueue Persistent Queue
 	OutputXsiamBackpressureBehaviorQueue OutputXsiamBackpressureBehavior = "queue"
 )
 
@@ -233,7 +239,9 @@ func (o *OutputXsiamURL) GetWeight() *float64 {
 type OutputXsiamCompression string
 
 const (
+	// OutputXsiamCompressionNone None
 	OutputXsiamCompressionNone OutputXsiamCompression = "none"
+	// OutputXsiamCompressionGzip Gzip
 	OutputXsiamCompressionGzip OutputXsiamCompression = "gzip"
 )
 
@@ -245,8 +253,10 @@ func (e OutputXsiamCompression) ToPointer() *OutputXsiamCompression {
 type OutputXsiamQueueFullBehavior string
 
 const (
+	// OutputXsiamQueueFullBehaviorBlock Block
 	OutputXsiamQueueFullBehaviorBlock OutputXsiamQueueFullBehavior = "block"
-	OutputXsiamQueueFullBehaviorDrop  OutputXsiamQueueFullBehavior = "drop"
+	// OutputXsiamQueueFullBehaviorDrop Drop new data
+	OutputXsiamQueueFullBehaviorDrop OutputXsiamQueueFullBehavior = "drop"
 )
 
 func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior {
@@ -257,9 +267,12 @@ func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior 
 type OutputXsiamMode string
 
 const (
-	OutputXsiamModeError        OutputXsiamMode = "error"
+	// OutputXsiamModeError Error
+	OutputXsiamModeError OutputXsiamMode = "error"
+	// OutputXsiamModeBackpressure Backpressure
 	OutputXsiamModeBackpressure OutputXsiamMode = "backpressure"
-	OutputXsiamModeAlways       OutputXsiamMode = "always"
+	// OutputXsiamModeAlways Always On
+	OutputXsiamModeAlways OutputXsiamMode = "always"
 )
 
 func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
