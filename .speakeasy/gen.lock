@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 9d147d5c7d724ab9d239398180112197
-  docVersion: 4.15.0-alpha.1761347346026-24da0953
-  speakeasyVersion: 1.636.3
-  generationVersion: 2.723.11
-  releaseVersion: 0.3.0-beta.1
-  configChecksum: eb832d6bfc89e5ed360aaff15dcc380f
+  docChecksum: 26e10d0e5f6bab095e2e59e4a2d8c7cc
+  docVersion: 4.15.0-alpha.1761433539778-ea317b70
+  speakeasyVersion: 1.639.3
+  generationVersion: 2.730.5
+  releaseVersion: 0.3.0-beta.2
+  configChecksum: 9b5458a8979422ee9e59961bacda6bd9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.11.1
+    core: 3.12.0
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.86.0
+    unions: 2.87.0
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -3389,4 +3389,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[databricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[databricks]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[databricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[databricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[databricks]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[databricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[databricks]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info.Outpost` **Added**\n"
