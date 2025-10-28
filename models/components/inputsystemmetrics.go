@@ -395,12 +395,14 @@ func (e InputSystemMetricsNetworkMode) ToPointer() *InputSystemMetricsNetworkMod
 type InputSystemMetricsNetwork struct {
 	// Select the level of detail for network metrics
 	Mode *InputSystemMetricsNetworkMode `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -421,6 +423,20 @@ func (i *InputSystemMetricsNetwork) GetMode() *InputSystemMetricsNetworkMode {
 	return i.Mode
 }
 
+func (i *InputSystemMetricsNetwork) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
 func (i *InputSystemMetricsNetwork) GetDevices() []string {
 	if i == nil {
 		return nil
@@ -433,13 +449,6 @@ func (i *InputSystemMetricsNetwork) GetPerInterface() *bool {
 		return nil
 	}
 	return i.PerInterface
-}
-
-func (i *InputSystemMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
 }
 
 // InputSystemMetricsDiskMode - Select the level of detail for disk metrics
@@ -463,6 +472,10 @@ func (e InputSystemMetricsDiskMode) ToPointer() *InputSystemMetricsDiskMode {
 type InputSystemMetricsDisk struct {
 	// Select the level of detail for disk metrics
 	Mode *InputSystemMetricsDiskMode `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
@@ -471,8 +484,6 @@ type InputSystemMetricsDisk struct {
 	Fstypes []string `json:"fstypes,omitempty"`
 	// Generate separate metrics for each device
 	PerDevice *bool `default:"false" json:"perDevice"`
-	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -491,6 +502,20 @@ func (i *InputSystemMetricsDisk) GetMode() *InputSystemMetricsDiskMode {
 		return nil
 	}
 	return i.Mode
+}
+
+func (i *InputSystemMetricsDisk) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsDisk) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
 }
 
 func (i *InputSystemMetricsDisk) GetDevices() []string {
@@ -519,13 +544,6 @@ func (i *InputSystemMetricsDisk) GetPerDevice() *bool {
 		return nil
 	}
 	return i.PerDevice
-}
-
-func (i *InputSystemMetricsDisk) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
 }
 
 type InputSystemMetricsCustom struct {

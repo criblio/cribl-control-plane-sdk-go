@@ -61,6 +61,18 @@ func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRec
 	return &e
 }
 
+// OutputAzureEventhubAuthTypeAuthenticationMethod - Enter password directly, or select a stored secret
+type OutputAzureEventhubAuthTypeAuthenticationMethod string
+
+const (
+	OutputAzureEventhubAuthTypeAuthenticationMethodManual OutputAzureEventhubAuthTypeAuthenticationMethod = "manual"
+	OutputAzureEventhubAuthTypeAuthenticationMethodSecret OutputAzureEventhubAuthTypeAuthenticationMethod = "secret"
+)
+
+func (e OutputAzureEventhubAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubAuthTypeAuthenticationMethod {
+	return &e
+}
+
 type OutputAzureEventhubSASLMechanism string
 
 const (
@@ -74,10 +86,61 @@ func (e OutputAzureEventhubSASLMechanism) ToPointer() *OutputAzureEventhubSASLMe
 	return &e
 }
 
+type OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod string
+
+const (
+	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodManual      OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "manual"
+	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodSecret      OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "secret"
+	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodCertificate OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "certificate"
+)
+
+func (e OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod {
+	return &e
+}
+
+// OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
+type OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint string
+
+const (
+	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
+	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
+	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
+)
+
+func (e OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint {
+	return &e
+}
+
 // OutputAzureEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type OutputAzureEventhubAuthentication struct {
-	Disabled  *bool                             `default:"false" json:"disabled"`
-	Mechanism *OutputAzureEventhubSASLMechanism `default:"plain" json:"mechanism"`
+	Disabled *bool `default:"false" json:"disabled"`
+	// Enter password directly, or select a stored secret
+	AuthType *OutputAzureEventhubAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
+	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
+	Password *string `json:"password,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string                           `json:"textSecret,omitempty"`
+	Mechanism  *OutputAzureEventhubSASLMechanism `default:"plain" json:"mechanism"`
+	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
+	Username             *string                                                      `default:"$ConnectionString" json:"username"`
+	ClientSecretAuthType *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod `default:"manual" json:"clientSecretAuthType"`
+	// client_secret to pass in the OAuth request parameter
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// Select or create a stored certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	CertPath        *string `json:"certPath,omitempty"`
+	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
+	Passphrase      *string `json:"passphrase,omitempty"`
+	// Endpoint used to acquire authentication tokens from Azure
+	OauthEndpoint *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
+	// client_id to pass in the OAuth request parameter
+	ClientID *string `json:"clientId,omitempty"`
+	// Directory ID (tenant identifier) in Azure Active Directory
+	TenantID *string `json:"tenantId,omitempty"`
+	// Scope to pass in the OAuth request parameter
+	Scope *string `json:"scope,omitempty"`
 }
 
 func (o OutputAzureEventhubAuthentication) MarshalJSON() ([]byte, error) {
@@ -98,11 +161,116 @@ func (o *OutputAzureEventhubAuthentication) GetDisabled() *bool {
 	return o.Disabled
 }
 
+func (o *OutputAzureEventhubAuthentication) GetAuthType() *OutputAzureEventhubAuthTypeAuthenticationMethod {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputAzureEventhubAuthentication) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputAzureEventhubAuthentication) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
 func (o *OutputAzureEventhubAuthentication) GetMechanism() *OutputAzureEventhubSASLMechanism {
 	if o == nil {
 		return nil
 	}
 	return o.Mechanism
+}
+
+func (o *OutputAzureEventhubAuthentication) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputAzureEventhubAuthentication) GetClientSecretAuthType() *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod {
+	if o == nil {
+		return nil
+	}
+	return o.ClientSecretAuthType
+}
+
+func (o *OutputAzureEventhubAuthentication) GetClientSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ClientSecret
+}
+
+func (o *OutputAzureEventhubAuthentication) GetClientTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ClientTextSecret
+}
+
+func (o *OutputAzureEventhubAuthentication) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputAzureEventhubAuthentication) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputAzureEventhubAuthentication) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputAzureEventhubAuthentication) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputAzureEventhubAuthentication) GetOauthEndpoint() *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint {
+	if o == nil {
+		return nil
+	}
+	return o.OauthEndpoint
+}
+
+func (o *OutputAzureEventhubAuthentication) GetClientID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ClientID
+}
+
+func (o *OutputAzureEventhubAuthentication) GetTenantID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TenantID
+}
+
+func (o *OutputAzureEventhubAuthentication) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
 }
 
 type OutputAzureEventhubTLSSettingsClientSide struct {
@@ -152,6 +320,22 @@ func (e OutputAzureEventhubBackpressureBehavior) ToPointer() *OutputAzureEventhu
 	return &e
 }
 
+// OutputAzureEventhubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputAzureEventhubMode string
+
+const (
+	// OutputAzureEventhubModeError Error
+	OutputAzureEventhubModeError OutputAzureEventhubMode = "error"
+	// OutputAzureEventhubModeAlways Backpressure
+	OutputAzureEventhubModeAlways OutputAzureEventhubMode = "always"
+	// OutputAzureEventhubModeBackpressure Always On
+	OutputAzureEventhubModeBackpressure OutputAzureEventhubMode = "backpressure"
+)
+
+func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {
+	return &e
+}
+
 // OutputAzureEventhubCompression - Codec to use to compress the persisted data
 type OutputAzureEventhubCompression string
 
@@ -177,22 +361,6 @@ const (
 )
 
 func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQueueFullBehavior {
-	return &e
-}
-
-// OutputAzureEventhubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputAzureEventhubMode string
-
-const (
-	// OutputAzureEventhubModeError Error
-	OutputAzureEventhubModeError OutputAzureEventhubMode = "error"
-	// OutputAzureEventhubModeBackpressure Backpressure
-	OutputAzureEventhubModeBackpressure OutputAzureEventhubMode = "backpressure"
-	// OutputAzureEventhubModeAlways Always On
-	OutputAzureEventhubModeAlways OutputAzureEventhubMode = "always"
-)
-
-func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {
 	return &e
 }
 
@@ -258,6 +426,16 @@ type OutputAzureEventhub struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputAzureEventhubBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                                  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputAzureEventhubMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -268,9 +446,7 @@ type OutputAzureEventhub struct {
 	PqCompress *OutputAzureEventhubCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputAzureEventhubQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputAzureEventhubMode       `default:"error" json:"pqMode"`
-	PqControls *OutputAzureEventhubPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputAzureEventhubPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -459,6 +635,41 @@ func (o *OutputAzureEventhub) GetDescription() *string {
 	return o.Description
 }
 
+func (o *OutputAzureEventhub) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputAzureEventhub) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputAzureEventhub) GetPqMode() *OutputAzureEventhubMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputAzureEventhub) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputAzureEventhub) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputAzureEventhub) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -492,13 +703,6 @@ func (o *OutputAzureEventhub) GetPqOnBackpressure() *OutputAzureEventhubQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputAzureEventhub) GetPqMode() *OutputAzureEventhubMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputAzureEventhub) GetPqControls() *OutputAzureEventhubPqControls {

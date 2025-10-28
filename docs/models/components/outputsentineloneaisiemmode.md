@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                                      | Value                                     |
 | ----------------------------------------- | ----------------------------------------- |
 | `OutputSentinelOneAiSiemModeError`        | error                                     |
-| `OutputSentinelOneAiSiemModeBackpressure` | backpressure                              |
 | `OutputSentinelOneAiSiemModeAlways`       | always                                    |
+| `OutputSentinelOneAiSiemModeBackpressure` | backpressure                              |

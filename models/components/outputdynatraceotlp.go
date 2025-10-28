@@ -290,6 +290,22 @@ func (o *OutputDynatraceOtlpTimeoutRetrySettings) GetMaxBackoff() *float64 {
 	return o.MaxBackoff
 }
 
+// OutputDynatraceOtlpMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDynatraceOtlpMode string
+
+const (
+	// OutputDynatraceOtlpModeError Error
+	OutputDynatraceOtlpModeError OutputDynatraceOtlpMode = "error"
+	// OutputDynatraceOtlpModeAlways Backpressure
+	OutputDynatraceOtlpModeAlways OutputDynatraceOtlpMode = "always"
+	// OutputDynatraceOtlpModeBackpressure Always On
+	OutputDynatraceOtlpModeBackpressure OutputDynatraceOtlpMode = "backpressure"
+)
+
+func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
+	return &e
+}
+
 // OutputDynatraceOtlpPqCompressCompression - Codec to use to compress the persisted data
 type OutputDynatraceOtlpPqCompressCompression string
 
@@ -315,22 +331,6 @@ const (
 )
 
 func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQueueFullBehavior {
-	return &e
-}
-
-// OutputDynatraceOtlpMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputDynatraceOtlpMode string
-
-const (
-	// OutputDynatraceOtlpModeError Error
-	OutputDynatraceOtlpModeError OutputDynatraceOtlpMode = "error"
-	// OutputDynatraceOtlpModeBackpressure Backpressure
-	OutputDynatraceOtlpModeBackpressure OutputDynatraceOtlpMode = "backpressure"
-	// OutputDynatraceOtlpModeAlways Always On
-	OutputDynatraceOtlpModeAlways OutputDynatraceOtlpMode = "always"
-)
-
-func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
 	return &e
 }
 
@@ -417,6 +417,16 @@ type OutputDynatraceOtlp struct {
 	TimeoutRetrySettings  *OutputDynatraceOtlpTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputDynatraceOtlpMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -427,9 +437,7 @@ type OutputDynatraceOtlp struct {
 	PqCompress *OutputDynatraceOtlpPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputDynatraceOtlpQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputDynatraceOtlpMode       `default:"error" json:"pqMode"`
-	PqControls *OutputDynatraceOtlpPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputDynatraceOtlpPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
@@ -688,6 +696,41 @@ func (o *OutputDynatraceOtlp) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
+func (o *OutputDynatraceOtlp) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDynatraceOtlp) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDynatraceOtlp) GetPqMode() *OutputDynatraceOtlpMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDynatraceOtlp) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDynatraceOtlp) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputDynatraceOtlp) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -721,13 +764,6 @@ func (o *OutputDynatraceOtlp) GetPqOnBackpressure() *OutputDynatraceOtlpQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputDynatraceOtlp) GetPqMode() *OutputDynatraceOtlpMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputDynatraceOtlp) GetPqControls() *OutputDynatraceOtlpPqControls {
