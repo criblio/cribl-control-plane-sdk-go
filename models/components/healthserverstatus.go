@@ -5,8 +5,8 @@ package components
 type Role string
 
 const (
-	RolePrimary Role = "primary"
 	RoleStandby Role = "standby"
+	RolePrimary Role = "primary"
 )
 
 func (e Role) ToPointer() *Role {
@@ -16,8 +16,8 @@ func (e Role) ToPointer() *Role {
 type Status string
 
 const (
-	StatusHealthy      Status = "healthy"
 	StatusShuttingDown Status = "shutting down"
+	StatusHealthy      Status = "healthy"
 	StatusStandby      Status = "standby"
 )
 
@@ -25,29 +25,29 @@ func (e Status) ToPointer() *Status {
 	return &e
 }
 
-type HealthStatus struct {
+type HealthServerStatus struct {
 	Role      *Role   `json:"role,omitempty"`
-	Status    Status  `json:"status"`
 	StartTime float64 `json:"startTime"`
+	Status    Status  `json:"status"`
 }
 
-func (h *HealthStatus) GetRole() *Role {
+func (h *HealthServerStatus) GetRole() *Role {
 	if h == nil {
 		return nil
 	}
 	return h.Role
 }
 
-func (h *HealthStatus) GetStatus() Status {
-	if h == nil {
-		return Status("")
-	}
-	return h.Status
-}
-
-func (h *HealthStatus) GetStartTime() float64 {
+func (h *HealthServerStatus) GetStartTime() float64 {
 	if h == nil {
 		return 0.0
 	}
 	return h.StartTime
+}
+
+func (h *HealthServerStatus) GetStatus() Status {
+	if h == nil {
+		return Status("")
+	}
+	return h.Status
 }

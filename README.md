@@ -296,7 +296,7 @@ func main() {
 * [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [Update](docs/sdks/routes/README.md#update) - Update a Route
-* [Append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+* [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
 
