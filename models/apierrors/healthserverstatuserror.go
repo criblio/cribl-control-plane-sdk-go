@@ -7,16 +7,16 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type HealthStatusError struct {
+type HealthServerStatusError struct {
 	Role      *components.Role        `json:"role,omitempty"`
-	Status    components.Status       `json:"status"`
 	StartTime float64                 `json:"startTime"`
+	Status    components.Status       `json:"status"`
 	HTTPMeta  components.HTTPMetadata `json:"-"`
 }
 
-var _ error = &HealthStatusError{}
+var _ error = &HealthServerStatusError{}
 
-func (e *HealthStatusError) Error() string {
+func (e *HealthServerStatusError) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
 }

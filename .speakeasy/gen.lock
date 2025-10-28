@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 26e10d0e5f6bab095e2e59e4a2d8c7cc
-  docVersion: 4.15.0-alpha.1761433539778-ea317b70
+  docChecksum: 880def652e799eed9b092cf41ce68b2a
+  docVersion: 4.15.0-alpha.1761606328595-4d5d0f38
   speakeasyVersion: 1.639.3
   generationVersion: 2.730.5
-  releaseVersion: 0.3.0-beta.2
-  configChecksum: 9b5458a8979422ee9e59961bacda6bd9
+  releaseVersion: 0.3.0-beta.3
+  configChecksum: 8813b52655402c5519bdd0f6cd510650
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -40,7 +40,7 @@ generatedFiles:
   - .devcontainer/setup.sh
   - .gitattributes
   - /models/apierrors/error.go
-  - /models/apierrors/healthstatuserror.go
+  - /models/apierrors/healthserverstatuserror.go
   - /models/components/addhectokenrequest.go
   - /models/components/authtoken.go
   - /models/components/branchinfo.go
@@ -61,7 +61,6 @@ generatedFiles:
   - /models/components/deployrequestlookups.go
   - /models/components/difffiles.go
   - /models/components/distributedsummary.go
-  - /models/components/error.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitcountresult.go
@@ -74,9 +73,10 @@ generatedFiles:
   - /models/components/gitrevertresult.go
   - /models/components/gitshowresult.go
   - /models/components/gitstatusresult.go
+  - /models/components/groupcreaterequest.go
   - /models/components/hbcriblinfo.go
   - /models/components/hbleaderinfo.go
-  - /models/components/healthstatus.go
+  - /models/components/healthserverstatus.go
   - /models/components/heartbeatmetadata.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
@@ -246,6 +246,7 @@ generatedFiles:
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
@@ -272,7 +273,7 @@ generatedFiles:
   - /models/operations/getconfiggroupconfigversionbyproductandid.go
   - /models/operations/getcribllakedatasetbylakeid.go
   - /models/operations/getcribllakedatasetbylakeidandid.go
-  - /models/operations/gethealthinfo.go
+  - /models/operations/gethealth.go
   - /models/operations/getinputbyid.go
   - /models/operations/getmasterworkerentry.go
   - /models/operations/getoutputbyid.go
@@ -298,7 +299,6 @@ generatedFiles:
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
-  - /models/operations/login.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
@@ -318,7 +318,7 @@ generatedFiles:
   - criblcontrolplane.go
   - destinations.go
   - docs/models/apierrors/error.md
-  - docs/models/apierrors/healthstatuserror.md
+  - docs/models/apierrors/healthserverstatuserror.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
@@ -349,6 +349,8 @@ generatedFiles:
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
+  - docs/models/components/configgroupestimatedingestrate.md
+  - docs/models/components/configgroupgit.md
   - docs/models/components/configgrouplookups.md
   - docs/models/components/configgrouplookupslookup.md
   - docs/models/components/configgrouptype.md
@@ -381,8 +383,6 @@ generatedFiles:
   - docs/models/components/endpointheader.md
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
-  - docs/models/components/error.md
-  - docs/models/components/estimatedingestrate.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
@@ -393,7 +393,6 @@ generatedFiles:
   - docs/models/components/file.md
   - docs/models/components/firewall.md
   - docs/models/components/functionspecificconfigs.md
-  - docs/models/components/git.md
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
   - docs/models/components/gitcommitsummaryfiles.md
@@ -408,9 +407,13 @@ generatedFiles:
   - docs/models/components/gitrevertresultfiles.md
   - docs/models/components/gitshowresult.md
   - docs/models/components/gitstatusresult.md
+  - docs/models/components/groupcreaterequest.md
+  - docs/models/components/groupcreaterequestestimatedingestrate.md
+  - docs/models/components/groupcreaterequestgit.md
+  - docs/models/components/groupcreaterequesttype.md
   - docs/models/components/hbcriblinfo.md
   - docs/models/components/hbleaderinfo.md
-  - docs/models/components/healthstatus.md
+  - docs/models/components/healthserverstatus.md
   - docs/models/components/heartbeatmetadata.md
   - docs/models/components/heartbeatmetadataaws.md
   - docs/models/components/heartbeatmetadatahostos.md
@@ -2166,6 +2169,7 @@ generatedFiles:
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductresponsebody.md
@@ -2239,7 +2243,7 @@ generatedFiles:
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
-  - docs/models/operations/gethealthinforesponse.md
+  - docs/models/operations/gethealthresponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getinputbyidresponsebody.md
@@ -2307,7 +2311,6 @@ generatedFiles:
   - docs/models/operations/listpipelineresponsebody.md
   - docs/models/operations/listroutesresponse.md
   - docs/models/operations/listroutesresponsebody.md
-  - docs/models/operations/loginresponse.md
   - docs/models/operations/option.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
@@ -3165,7 +3168,7 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 5120, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 5120, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
       responses:
         "200":
           application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
@@ -3324,6 +3327,24 @@ examples:
           application/json: {"count": 163235, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
+  createAuthLogin:
+    speakeasy-default-create-auth-login:
+      requestBody:
+        application/json: {"password": "6j50J9421x29IhO", "username": "Lilly_Weissnat"}
+      responses:
+        "200":
+          application/json: {"forcePasswordChange": true, "token": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  getHealth:
+    speakeasy-default-get-health:
+      responses:
+        "200":
+          application/json: {"role": "standby", "startTime": 1037.51, "status": "healthy"}
+        "420":
+          application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3389,3 +3410,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Auth.Tokens.Get()`: \n  *  `response.ForcePasswordChange` **Changed**\n  *  `error` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.status[default]` **Removed** **Breaking** :warning:\n  *  `error.status[500]` **Added**\n* `CriblControlPlane.Groups.Create()`:  `request` **Changed** **Breaking** :warning:\n"

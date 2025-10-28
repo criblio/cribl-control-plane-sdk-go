@@ -11,11 +11,11 @@ Actions related to REST server health
 
 ## Get
 
-Retrieve health status of the server
+Get the current health status of the server.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getHealthInfo" method="get" path="/health" -->
+<!-- UsageSnippet language="go" operationID="getHealth" method="get" path="/health" -->
 ```go
 package main
 
@@ -36,7 +36,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.HealthStatus != nil {
+    if res.HealthServerStatus != nil {
         // handle response
     }
 }
@@ -51,11 +51,12 @@ func main() {
 
 ### Response
 
-**[*operations.GetHealthInfoResponse](../../models/operations/gethealthinforesponse.md), error**
+**[*operations.GetHealthResponse](../../models/operations/gethealthresponse.md), error**
 
 ### Errors
 
-| Error Type                  | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| apierrors.HealthStatusError | 420                         | application/json            |
-| apierrors.APIError          | 4XX, 5XX                    | \*/\*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| apierrors.HealthServerStatusError | 420                               | application/json                  |
+| apierrors.Error                   | 500                               | application/json                  |
+| apierrors.APIError                | 4XX, 5XX                          | \*/\*                             |

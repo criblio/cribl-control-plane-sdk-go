@@ -26,6 +26,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -108,7 +109,18 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 	fmt.Printf("Creating replica with ID: %s\n", replicaID)
 
 	// Create the replica Worker Group by copying configuration from source
-	replicaGroup := source
+	// Convert ConfigGroup to GroupCreateRequest using JSON marshaling
+	sourceBytes, err := json.Marshal(source)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to marshal source Worker Group: %w", err)
+	}
+
+	var replicaGroup components.GroupCreateRequest
+	if err := json.Unmarshal(sourceBytes, &replicaGroup); err != nil {
+		return nil, fmt.Errorf("Failed to unmarshal replica Worker Group: %w", err)
+	}
+
+	// Override with replica-specific values
 	replicaGroup.ID = replicaID
 	replicaGroup.Name = criblcontrolplanesdkgo.String(replicaName)
 	replicaGroup.Description = criblcontrolplanesdkgo.String(replicaDescription)
