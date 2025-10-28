@@ -35,8 +35,11 @@ func (e *OutputCloudwatchType) UnmarshalJSON(data []byte) error {
 type OutputCloudwatchAuthenticationMethod string
 
 const (
-	OutputCloudwatchAuthenticationMethodAuto   OutputCloudwatchAuthenticationMethod = "auto"
+	// OutputCloudwatchAuthenticationMethodAuto Auto
+	OutputCloudwatchAuthenticationMethodAuto OutputCloudwatchAuthenticationMethod = "auto"
+	// OutputCloudwatchAuthenticationMethodManual Manual
 	OutputCloudwatchAuthenticationMethodManual OutputCloudwatchAuthenticationMethod = "manual"
+	// OutputCloudwatchAuthenticationMethodSecret Secret Key pair
 	OutputCloudwatchAuthenticationMethodSecret OutputCloudwatchAuthenticationMethod = "secret"
 )
 
@@ -48,8 +51,11 @@ func (e OutputCloudwatchAuthenticationMethod) ToPointer() *OutputCloudwatchAuthe
 type OutputCloudwatchBackpressureBehavior string
 
 const (
+	// OutputCloudwatchBackpressureBehaviorBlock Block
 	OutputCloudwatchBackpressureBehaviorBlock OutputCloudwatchBackpressureBehavior = "block"
-	OutputCloudwatchBackpressureBehaviorDrop  OutputCloudwatchBackpressureBehavior = "drop"
+	// OutputCloudwatchBackpressureBehaviorDrop Drop
+	OutputCloudwatchBackpressureBehaviorDrop OutputCloudwatchBackpressureBehavior = "drop"
+	// OutputCloudwatchBackpressureBehaviorQueue Persistent Queue
 	OutputCloudwatchBackpressureBehaviorQueue OutputCloudwatchBackpressureBehavior = "queue"
 )
 
@@ -61,7 +67,9 @@ func (e OutputCloudwatchBackpressureBehavior) ToPointer() *OutputCloudwatchBackp
 type OutputCloudwatchCompression string
 
 const (
+	// OutputCloudwatchCompressionNone None
 	OutputCloudwatchCompressionNone OutputCloudwatchCompression = "none"
+	// OutputCloudwatchCompressionGzip Gzip
 	OutputCloudwatchCompressionGzip OutputCloudwatchCompression = "gzip"
 )
 
@@ -73,8 +81,10 @@ func (e OutputCloudwatchCompression) ToPointer() *OutputCloudwatchCompression {
 type OutputCloudwatchQueueFullBehavior string
 
 const (
+	// OutputCloudwatchQueueFullBehaviorBlock Block
 	OutputCloudwatchQueueFullBehaviorBlock OutputCloudwatchQueueFullBehavior = "block"
-	OutputCloudwatchQueueFullBehaviorDrop  OutputCloudwatchQueueFullBehavior = "drop"
+	// OutputCloudwatchQueueFullBehaviorDrop Drop new data
+	OutputCloudwatchQueueFullBehaviorDrop OutputCloudwatchQueueFullBehavior = "drop"
 )
 
 func (e OutputCloudwatchQueueFullBehavior) ToPointer() *OutputCloudwatchQueueFullBehavior {
@@ -85,9 +95,12 @@ func (e OutputCloudwatchQueueFullBehavior) ToPointer() *OutputCloudwatchQueueFul
 type OutputCloudwatchMode string
 
 const (
-	OutputCloudwatchModeError        OutputCloudwatchMode = "error"
+	// OutputCloudwatchModeError Error
+	OutputCloudwatchModeError OutputCloudwatchMode = "error"
+	// OutputCloudwatchModeBackpressure Backpressure
 	OutputCloudwatchModeBackpressure OutputCloudwatchMode = "backpressure"
-	OutputCloudwatchModeAlways       OutputCloudwatchMode = "always"
+	// OutputCloudwatchModeAlways Always On
+	OutputCloudwatchModeAlways OutputCloudwatchMode = "always"
 )
 
 func (e OutputCloudwatchMode) ToPointer() *OutputCloudwatchMode {

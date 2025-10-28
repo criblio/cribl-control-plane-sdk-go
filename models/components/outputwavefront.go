@@ -77,9 +77,12 @@ func (o *OutputWavefrontExtraHTTPHeader) GetValue() string {
 type OutputWavefrontFailedRequestLoggingMode string
 
 const (
-	OutputWavefrontFailedRequestLoggingModePayload           OutputWavefrontFailedRequestLoggingMode = "payload"
+	// OutputWavefrontFailedRequestLoggingModePayload Payload
+	OutputWavefrontFailedRequestLoggingModePayload OutputWavefrontFailedRequestLoggingMode = "payload"
+	// OutputWavefrontFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputWavefrontFailedRequestLoggingModePayloadAndHeaders OutputWavefrontFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputWavefrontFailedRequestLoggingModeNone              OutputWavefrontFailedRequestLoggingMode = "none"
+	// OutputWavefrontFailedRequestLoggingModeNone None
+	OutputWavefrontFailedRequestLoggingModeNone OutputWavefrontFailedRequestLoggingMode = "none"
 )
 
 func (e OutputWavefrontFailedRequestLoggingMode) ToPointer() *OutputWavefrontFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputWavefrontTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputWavefrontBackpressureBehavior string
 
 const (
+	// OutputWavefrontBackpressureBehaviorBlock Block
 	OutputWavefrontBackpressureBehaviorBlock OutputWavefrontBackpressureBehavior = "block"
-	OutputWavefrontBackpressureBehaviorDrop  OutputWavefrontBackpressureBehavior = "drop"
+	// OutputWavefrontBackpressureBehaviorDrop Drop
+	OutputWavefrontBackpressureBehaviorDrop OutputWavefrontBackpressureBehavior = "drop"
+	// OutputWavefrontBackpressureBehaviorQueue Persistent Queue
 	OutputWavefrontBackpressureBehaviorQueue OutputWavefrontBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputWavefrontBackpressureBehavior) ToPointer() *OutputWavefrontBackpre
 type OutputWavefrontCompression string
 
 const (
+	// OutputWavefrontCompressionNone None
 	OutputWavefrontCompressionNone OutputWavefrontCompression = "none"
+	// OutputWavefrontCompressionGzip Gzip
 	OutputWavefrontCompressionGzip OutputWavefrontCompression = "gzip"
 )
 
@@ -214,8 +222,10 @@ func (e OutputWavefrontCompression) ToPointer() *OutputWavefrontCompression {
 type OutputWavefrontQueueFullBehavior string
 
 const (
+	// OutputWavefrontQueueFullBehaviorBlock Block
 	OutputWavefrontQueueFullBehaviorBlock OutputWavefrontQueueFullBehavior = "block"
-	OutputWavefrontQueueFullBehaviorDrop  OutputWavefrontQueueFullBehavior = "drop"
+	// OutputWavefrontQueueFullBehaviorDrop Drop new data
+	OutputWavefrontQueueFullBehaviorDrop OutputWavefrontQueueFullBehavior = "drop"
 )
 
 func (e OutputWavefrontQueueFullBehavior) ToPointer() *OutputWavefrontQueueFullBehavior {
@@ -226,9 +236,12 @@ func (e OutputWavefrontQueueFullBehavior) ToPointer() *OutputWavefrontQueueFullB
 type OutputWavefrontMode string
 
 const (
-	OutputWavefrontModeError        OutputWavefrontMode = "error"
+	// OutputWavefrontModeError Error
+	OutputWavefrontModeError OutputWavefrontMode = "error"
+	// OutputWavefrontModeBackpressure Backpressure
 	OutputWavefrontModeBackpressure OutputWavefrontMode = "backpressure"
-	OutputWavefrontModeAlways       OutputWavefrontMode = "always"
+	// OutputWavefrontModeAlways Always On
+	OutputWavefrontModeAlways OutputWavefrontMode = "always"
 )
 
 func (e OutputWavefrontMode) ToPointer() *OutputWavefrontMode {

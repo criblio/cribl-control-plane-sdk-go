@@ -35,7 +35,9 @@ func (e *OutputSplunkLbType) UnmarshalJSON(data []byte) error {
 type OutputSplunkLbNestedFieldSerialization string
 
 const (
+	// OutputSplunkLbNestedFieldSerializationJSON JSON
 	OutputSplunkLbNestedFieldSerializationJSON OutputSplunkLbNestedFieldSerialization = "json"
+	// OutputSplunkLbNestedFieldSerializationNone None
 	OutputSplunkLbNestedFieldSerializationNone OutputSplunkLbNestedFieldSerialization = "none"
 )
 
@@ -187,8 +189,11 @@ func (e OutputSplunkLbMaxS2SVersion) ToPointer() *OutputSplunkLbMaxS2SVersion {
 type OutputSplunkLbBackpressureBehavior string
 
 const (
+	// OutputSplunkLbBackpressureBehaviorBlock Block
 	OutputSplunkLbBackpressureBehaviorBlock OutputSplunkLbBackpressureBehavior = "block"
-	OutputSplunkLbBackpressureBehaviorDrop  OutputSplunkLbBackpressureBehavior = "drop"
+	// OutputSplunkLbBackpressureBehaviorDrop Drop
+	OutputSplunkLbBackpressureBehaviorDrop OutputSplunkLbBackpressureBehavior = "drop"
+	// OutputSplunkLbBackpressureBehaviorQueue Persistent Queue
 	OutputSplunkLbBackpressureBehaviorQueue OutputSplunkLbBackpressureBehavior = "queue"
 )
 
@@ -212,9 +217,12 @@ func (e OutputSplunkLbAuthenticationMethod) ToPointer() *OutputSplunkLbAuthentic
 type OutputSplunkLbCompressCompression string
 
 const (
+	// OutputSplunkLbCompressCompressionDisabled Disabled
 	OutputSplunkLbCompressCompressionDisabled OutputSplunkLbCompressCompression = "disabled"
-	OutputSplunkLbCompressCompressionAuto     OutputSplunkLbCompressCompression = "auto"
-	OutputSplunkLbCompressCompressionAlways   OutputSplunkLbCompressCompression = "always"
+	// OutputSplunkLbCompressCompressionAuto Automatic
+	OutputSplunkLbCompressCompressionAuto OutputSplunkLbCompressCompression = "auto"
+	// OutputSplunkLbCompressCompressionAlways Always
+	OutputSplunkLbCompressCompressionAlways OutputSplunkLbCompressCompression = "always"
 )
 
 func (e OutputSplunkLbCompressCompression) ToPointer() *OutputSplunkLbCompressCompression {
@@ -430,7 +438,9 @@ func (o *OutputSplunkLbHost) GetWeight() *float64 {
 type OutputSplunkLbPqCompressCompression string
 
 const (
+	// OutputSplunkLbPqCompressCompressionNone None
 	OutputSplunkLbPqCompressCompressionNone OutputSplunkLbPqCompressCompression = "none"
+	// OutputSplunkLbPqCompressCompressionGzip Gzip
 	OutputSplunkLbPqCompressCompressionGzip OutputSplunkLbPqCompressCompression = "gzip"
 )
 
@@ -442,8 +452,10 @@ func (e OutputSplunkLbPqCompressCompression) ToPointer() *OutputSplunkLbPqCompre
 type OutputSplunkLbQueueFullBehavior string
 
 const (
+	// OutputSplunkLbQueueFullBehaviorBlock Block
 	OutputSplunkLbQueueFullBehaviorBlock OutputSplunkLbQueueFullBehavior = "block"
-	OutputSplunkLbQueueFullBehaviorDrop  OutputSplunkLbQueueFullBehavior = "drop"
+	// OutputSplunkLbQueueFullBehaviorDrop Drop new data
+	OutputSplunkLbQueueFullBehaviorDrop OutputSplunkLbQueueFullBehavior = "drop"
 )
 
 func (e OutputSplunkLbQueueFullBehavior) ToPointer() *OutputSplunkLbQueueFullBehavior {
@@ -454,9 +466,12 @@ func (e OutputSplunkLbQueueFullBehavior) ToPointer() *OutputSplunkLbQueueFullBeh
 type OutputSplunkLbMode string
 
 const (
-	OutputSplunkLbModeError        OutputSplunkLbMode = "error"
+	// OutputSplunkLbModeError Error
+	OutputSplunkLbModeError OutputSplunkLbMode = "error"
+	// OutputSplunkLbModeBackpressure Backpressure
 	OutputSplunkLbModeBackpressure OutputSplunkLbMode = "backpressure"
-	OutputSplunkLbModeAlways       OutputSplunkLbMode = "always"
+	// OutputSplunkLbModeAlways Always On
+	OutputSplunkLbModeAlways OutputSplunkLbMode = "always"
 )
 
 func (e OutputSplunkLbMode) ToPointer() *OutputSplunkLbMode {

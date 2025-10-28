@@ -65,7 +65,9 @@ func (i *InputKafkaConnection) GetOutput() string {
 type InputKafkaMode string
 
 const (
-	InputKafkaModeSmart  InputKafkaMode = "smart"
+	// InputKafkaModeSmart Smart
+	InputKafkaModeSmart InputKafkaMode = "smart"
+	// InputKafkaModeAlways Always On
 	InputKafkaModeAlways InputKafkaMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKafkaMode) ToPointer() *InputKafkaMode {
 type InputKafkaCompression string
 
 const (
+	// InputKafkaCompressionNone None
 	InputKafkaCompressionNone InputKafkaCompression = "none"
+	// InputKafkaCompressionGzip Gzip
 	InputKafkaCompressionGzip InputKafkaCompression = "gzip"
 )
 
@@ -182,18 +186,6 @@ func (i *InputKafkaPq) GetPqControls() *InputKafkaPqControls {
 		return nil
 	}
 	return i.PqControls
-}
-
-// InputKafkaSchemaType - The schema format used to encode and decode event data
-type InputKafkaSchemaType string
-
-const (
-	InputKafkaSchemaTypeAvro InputKafkaSchemaType = "avro"
-	InputKafkaSchemaTypeJSON InputKafkaSchemaType = "json"
-)
-
-func (e InputKafkaSchemaType) ToPointer() *InputKafkaSchemaType {
-	return &e
 }
 
 // InputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -360,8 +352,6 @@ type InputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -396,13 +386,6 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *st
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *InputKafkaSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -443,10 +426,14 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetTLS() *InputKafkaKafkaS
 type InputKafkaSASLMechanism string
 
 const (
-	InputKafkaSASLMechanismPlain       InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismPlain PLAIN
+	InputKafkaSASLMechanismPlain InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	InputKafkaSASLMechanismScramSha256 InputKafkaSASLMechanism = "scram-sha-256"
+	// InputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	InputKafkaSASLMechanismScramSha512 InputKafkaSASLMechanism = "scram-sha-512"
-	InputKafkaSASLMechanismKerberos    InputKafkaSASLMechanism = "kerberos"
+	// InputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	InputKafkaSASLMechanismKerberos InputKafkaSASLMechanism = "kerberos"
 )
 
 func (e InputKafkaSASLMechanism) ToPointer() *InputKafkaSASLMechanism {

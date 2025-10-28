@@ -18,7 +18,7 @@ func (d *DeleteOutputPqByIDRequest) GetID() string {
 	return d.ID
 }
 
-// DeleteOutputPqByIDResponseBody - a list of string objects
+// DeleteOutputPqByIDResponseBody - A list of job ids for the background job that clears the persistent queue
 type DeleteOutputPqByIDResponseBody struct {
 	// number of items present in the items array
 	Count *int64   `json:"count,omitempty"`
@@ -41,7 +41,7 @@ func (d *DeleteOutputPqByIDResponseBody) GetItems() []string {
 
 type DeleteOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of string objects
+	// A list of job ids for the background job that clears the persistent queue
 	Object *DeleteOutputPqByIDResponseBody
 }
 

@@ -35,8 +35,11 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 type OutputNewrelicRegion string
 
 const (
-	OutputNewrelicRegionUs     OutputNewrelicRegion = "US"
-	OutputNewrelicRegionEu     OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionUs US
+	OutputNewrelicRegionUs OutputNewrelicRegion = "US"
+	// OutputNewrelicRegionEu Europe
+	OutputNewrelicRegionEu OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionCustom Custom
 	OutputNewrelicRegionCustom OutputNewrelicRegion = "Custom"
 )
 
@@ -122,9 +125,12 @@ func (o *OutputNewrelicExtraHTTPHeader) GetValue() string {
 type OutputNewrelicFailedRequestLoggingMode string
 
 const (
-	OutputNewrelicFailedRequestLoggingModePayload           OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayload Payload
+	OutputNewrelicFailedRequestLoggingModePayload OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputNewrelicFailedRequestLoggingModePayloadAndHeaders OutputNewrelicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputNewrelicFailedRequestLoggingModeNone              OutputNewrelicFailedRequestLoggingMode = "none"
+	// OutputNewrelicFailedRequestLoggingModeNone None
+	OutputNewrelicFailedRequestLoggingModeNone OutputNewrelicFailedRequestLoggingMode = "none"
 )
 
 func (e OutputNewrelicFailedRequestLoggingMode) ToPointer() *OutputNewrelicFailedRequestLoggingMode {
@@ -234,8 +240,11 @@ func (o *OutputNewrelicTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputNewrelicBackpressureBehavior string
 
 const (
+	// OutputNewrelicBackpressureBehaviorBlock Block
 	OutputNewrelicBackpressureBehaviorBlock OutputNewrelicBackpressureBehavior = "block"
-	OutputNewrelicBackpressureBehaviorDrop  OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorDrop Drop
+	OutputNewrelicBackpressureBehaviorDrop OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorQueue Persistent Queue
 	OutputNewrelicBackpressureBehaviorQueue OutputNewrelicBackpressureBehavior = "queue"
 )
 
@@ -259,7 +268,9 @@ func (e OutputNewrelicAuthenticationMethod) ToPointer() *OutputNewrelicAuthentic
 type OutputNewrelicCompression string
 
 const (
+	// OutputNewrelicCompressionNone None
 	OutputNewrelicCompressionNone OutputNewrelicCompression = "none"
+	// OutputNewrelicCompressionGzip Gzip
 	OutputNewrelicCompressionGzip OutputNewrelicCompression = "gzip"
 )
 
@@ -271,8 +282,10 @@ func (e OutputNewrelicCompression) ToPointer() *OutputNewrelicCompression {
 type OutputNewrelicQueueFullBehavior string
 
 const (
+	// OutputNewrelicQueueFullBehaviorBlock Block
 	OutputNewrelicQueueFullBehaviorBlock OutputNewrelicQueueFullBehavior = "block"
-	OutputNewrelicQueueFullBehaviorDrop  OutputNewrelicQueueFullBehavior = "drop"
+	// OutputNewrelicQueueFullBehaviorDrop Drop new data
+	OutputNewrelicQueueFullBehaviorDrop OutputNewrelicQueueFullBehavior = "drop"
 )
 
 func (e OutputNewrelicQueueFullBehavior) ToPointer() *OutputNewrelicQueueFullBehavior {
@@ -283,9 +296,12 @@ func (e OutputNewrelicQueueFullBehavior) ToPointer() *OutputNewrelicQueueFullBeh
 type OutputNewrelicMode string
 
 const (
-	OutputNewrelicModeError        OutputNewrelicMode = "error"
+	// OutputNewrelicModeError Error
+	OutputNewrelicModeError OutputNewrelicMode = "error"
+	// OutputNewrelicModeBackpressure Backpressure
 	OutputNewrelicModeBackpressure OutputNewrelicMode = "backpressure"
-	OutputNewrelicModeAlways       OutputNewrelicMode = "always"
+	// OutputNewrelicModeAlways Always On
+	OutputNewrelicModeAlways OutputNewrelicMode = "always"
 )
 
 func (e OutputNewrelicMode) ToPointer() *OutputNewrelicMode {

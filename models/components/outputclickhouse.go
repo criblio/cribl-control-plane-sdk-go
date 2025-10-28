@@ -51,8 +51,10 @@ func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthent
 type OutputClickHouseFormat string
 
 const (
+	// OutputClickHouseFormatJSONCompactEachRowWithNames JSONCompactEachRowWithNames
 	OutputClickHouseFormatJSONCompactEachRowWithNames OutputClickHouseFormat = "json-compact-each-row-with-names"
-	OutputClickHouseFormatJSONEachRow                 OutputClickHouseFormat = "json-each-row"
+	// OutputClickHouseFormatJSONEachRow JSONEachRow
+	OutputClickHouseFormatJSONEachRow OutputClickHouseFormat = "json-each-row"
 )
 
 func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
@@ -63,8 +65,10 @@ func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
 type MappingType string
 
 const (
+	// MappingTypeAutomatic Automatic
 	MappingTypeAutomatic MappingType = "automatic"
-	MappingTypeCustom    MappingType = "custom"
+	// MappingTypeCustom Custom
+	MappingTypeCustom MappingType = "custom"
 )
 
 func (e MappingType) ToPointer() *MappingType {
@@ -223,9 +227,12 @@ func (o *OutputClickHouseExtraHTTPHeader) GetValue() string {
 type OutputClickHouseFailedRequestLoggingMode string
 
 const (
-	OutputClickHouseFailedRequestLoggingModePayload           OutputClickHouseFailedRequestLoggingMode = "payload"
+	// OutputClickHouseFailedRequestLoggingModePayload Payload
+	OutputClickHouseFailedRequestLoggingModePayload OutputClickHouseFailedRequestLoggingMode = "payload"
+	// OutputClickHouseFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputClickHouseFailedRequestLoggingModePayloadAndHeaders OutputClickHouseFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputClickHouseFailedRequestLoggingModeNone              OutputClickHouseFailedRequestLoggingMode = "none"
+	// OutputClickHouseFailedRequestLoggingModeNone None
+	OutputClickHouseFailedRequestLoggingModeNone OutputClickHouseFailedRequestLoggingMode = "none"
 )
 
 func (e OutputClickHouseFailedRequestLoggingMode) ToPointer() *OutputClickHouseFailedRequestLoggingMode {
@@ -335,8 +342,11 @@ func (o *OutputClickHouseTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputClickHouseBackpressureBehavior string
 
 const (
+	// OutputClickHouseBackpressureBehaviorBlock Block
 	OutputClickHouseBackpressureBehaviorBlock OutputClickHouseBackpressureBehavior = "block"
-	OutputClickHouseBackpressureBehaviorDrop  OutputClickHouseBackpressureBehavior = "drop"
+	// OutputClickHouseBackpressureBehaviorDrop Drop
+	OutputClickHouseBackpressureBehaviorDrop OutputClickHouseBackpressureBehavior = "drop"
+	// OutputClickHouseBackpressureBehaviorQueue Persistent Queue
 	OutputClickHouseBackpressureBehaviorQueue OutputClickHouseBackpressureBehavior = "queue"
 )
 
@@ -453,7 +463,9 @@ func (c *ColumnMapping) GetColumnValueExpression() string {
 type OutputClickHouseCompression string
 
 const (
+	// OutputClickHouseCompressionNone None
 	OutputClickHouseCompressionNone OutputClickHouseCompression = "none"
+	// OutputClickHouseCompressionGzip Gzip
 	OutputClickHouseCompressionGzip OutputClickHouseCompression = "gzip"
 )
 
@@ -465,8 +477,10 @@ func (e OutputClickHouseCompression) ToPointer() *OutputClickHouseCompression {
 type OutputClickHouseQueueFullBehavior string
 
 const (
+	// OutputClickHouseQueueFullBehaviorBlock Block
 	OutputClickHouseQueueFullBehaviorBlock OutputClickHouseQueueFullBehavior = "block"
-	OutputClickHouseQueueFullBehaviorDrop  OutputClickHouseQueueFullBehavior = "drop"
+	// OutputClickHouseQueueFullBehaviorDrop Drop new data
+	OutputClickHouseQueueFullBehaviorDrop OutputClickHouseQueueFullBehavior = "drop"
 )
 
 func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFullBehavior {
@@ -477,9 +491,12 @@ func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFul
 type OutputClickHouseMode string
 
 const (
-	OutputClickHouseModeError        OutputClickHouseMode = "error"
+	// OutputClickHouseModeError Error
+	OutputClickHouseModeError OutputClickHouseMode = "error"
+	// OutputClickHouseModeBackpressure Backpressure
 	OutputClickHouseModeBackpressure OutputClickHouseMode = "backpressure"
-	OutputClickHouseModeAlways       OutputClickHouseMode = "always"
+	// OutputClickHouseModeAlways Always On
+	OutputClickHouseModeAlways OutputClickHouseMode = "always"
 )
 
 func (e OutputClickHouseMode) ToPointer() *OutputClickHouseMode {

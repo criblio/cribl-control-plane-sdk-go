@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type LoginResponse struct {
+type CreateAuthLoginResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Authentication token
 	AuthToken *components.AuthToken
 }
 
-func (l *LoginResponse) GetHTTPMeta() components.HTTPMetadata {
-	if l == nil {
+func (c *CreateAuthLoginResponse) GetHTTPMeta() components.HTTPMetadata {
+	if c == nil {
 		return components.HTTPMetadata{}
 	}
-	return l.HTTPMeta
+	return c.HTTPMeta
 }
 
-func (l *LoginResponse) GetAuthToken() *components.AuthToken {
-	if l == nil {
+func (c *CreateAuthLoginResponse) GetAuthToken() *components.AuthToken {
+	if c == nil {
 		return nil
 	}
-	return l.AuthToken
+	return c.AuthToken
 }

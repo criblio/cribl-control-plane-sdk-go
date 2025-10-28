@@ -36,8 +36,10 @@ func (e *OutputGrafanaCloudType2) UnmarshalJSON(data []byte) error {
 type OutputGrafanaCloudMessageFormat2 string
 
 const (
+	// OutputGrafanaCloudMessageFormat2Protobuf Protobuf
 	OutputGrafanaCloudMessageFormat2Protobuf OutputGrafanaCloudMessageFormat2 = "protobuf"
-	OutputGrafanaCloudMessageFormat2JSON     OutputGrafanaCloudMessageFormat2 = "json"
+	// OutputGrafanaCloudMessageFormat2JSON JSON
+	OutputGrafanaCloudMessageFormat2JSON OutputGrafanaCloudMessageFormat2 = "json"
 )
 
 func (e OutputGrafanaCloudMessageFormat2) ToPointer() *OutputGrafanaCloudMessageFormat2 {
@@ -77,10 +79,15 @@ func (o *OutputGrafanaCloudLabel2) GetValue() string {
 type OutputGrafanaCloudPrometheusAuthAuthenticationType2 string
 
 const (
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2None              OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "none"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2Token             OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "token"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret        OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "textSecret"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic             OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2None None
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2None OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "none"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2Token Auth token
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2Token OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "token"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret Auth token (text secret)
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "textSecret"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic Basic
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudPrometheusAuthAuthenticationType2CredentialsSecret OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "credentialsSecret"
 )
 
@@ -158,10 +165,15 @@ func (o *OutputGrafanaCloudPrometheusAuth2) GetCredentialsSecret() *string {
 type OutputGrafanaCloudLokiAuthAuthenticationType2 string
 
 const (
-	OutputGrafanaCloudLokiAuthAuthenticationType2None              OutputGrafanaCloudLokiAuthAuthenticationType2 = "none"
-	OutputGrafanaCloudLokiAuthAuthenticationType2Token             OutputGrafanaCloudLokiAuthAuthenticationType2 = "token"
-	OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret        OutputGrafanaCloudLokiAuthAuthenticationType2 = "textSecret"
-	OutputGrafanaCloudLokiAuthAuthenticationType2Basic             OutputGrafanaCloudLokiAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2None None
+	OutputGrafanaCloudLokiAuthAuthenticationType2None OutputGrafanaCloudLokiAuthAuthenticationType2 = "none"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2Token Auth token
+	OutputGrafanaCloudLokiAuthAuthenticationType2Token OutputGrafanaCloudLokiAuthAuthenticationType2 = "token"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret Auth token (text secret)
+	OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret OutputGrafanaCloudLokiAuthAuthenticationType2 = "textSecret"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2Basic Basic
+	OutputGrafanaCloudLokiAuthAuthenticationType2Basic OutputGrafanaCloudLokiAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudLokiAuthAuthenticationType2CredentialsSecret OutputGrafanaCloudLokiAuthAuthenticationType2 = "credentialsSecret"
 )
 
@@ -270,9 +282,12 @@ func (o *OutputGrafanaCloudExtraHTTPHeader2) GetValue() string {
 type OutputGrafanaCloudFailedRequestLoggingMode2 string
 
 const (
-	OutputGrafanaCloudFailedRequestLoggingMode2Payload           OutputGrafanaCloudFailedRequestLoggingMode2 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode2Payload Payload
+	OutputGrafanaCloudFailedRequestLoggingMode2Payload OutputGrafanaCloudFailedRequestLoggingMode2 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode2PayloadAndHeaders Payload + Headers
 	OutputGrafanaCloudFailedRequestLoggingMode2PayloadAndHeaders OutputGrafanaCloudFailedRequestLoggingMode2 = "payloadAndHeaders"
-	OutputGrafanaCloudFailedRequestLoggingMode2None              OutputGrafanaCloudFailedRequestLoggingMode2 = "none"
+	// OutputGrafanaCloudFailedRequestLoggingMode2None None
+	OutputGrafanaCloudFailedRequestLoggingMode2None OutputGrafanaCloudFailedRequestLoggingMode2 = "none"
 )
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode2) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode2 {
@@ -382,8 +397,11 @@ func (o *OutputGrafanaCloudTimeoutRetrySettings2) GetMaxBackoff() *float64 {
 type OutputGrafanaCloudBackpressureBehavior2 string
 
 const (
+	// OutputGrafanaCloudBackpressureBehavior2Block Block
 	OutputGrafanaCloudBackpressureBehavior2Block OutputGrafanaCloudBackpressureBehavior2 = "block"
-	OutputGrafanaCloudBackpressureBehavior2Drop  OutputGrafanaCloudBackpressureBehavior2 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior2Drop Drop
+	OutputGrafanaCloudBackpressureBehavior2Drop OutputGrafanaCloudBackpressureBehavior2 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior2Queue Persistent Queue
 	OutputGrafanaCloudBackpressureBehavior2Queue OutputGrafanaCloudBackpressureBehavior2 = "queue"
 )
 
@@ -395,7 +413,9 @@ func (e OutputGrafanaCloudBackpressureBehavior2) ToPointer() *OutputGrafanaCloud
 type OutputGrafanaCloudCompression2 string
 
 const (
+	// OutputGrafanaCloudCompression2None None
 	OutputGrafanaCloudCompression2None OutputGrafanaCloudCompression2 = "none"
+	// OutputGrafanaCloudCompression2Gzip Gzip
 	OutputGrafanaCloudCompression2Gzip OutputGrafanaCloudCompression2 = "gzip"
 )
 
@@ -407,8 +427,10 @@ func (e OutputGrafanaCloudCompression2) ToPointer() *OutputGrafanaCloudCompressi
 type OutputGrafanaCloudQueueFullBehavior2 string
 
 const (
+	// OutputGrafanaCloudQueueFullBehavior2Block Block
 	OutputGrafanaCloudQueueFullBehavior2Block OutputGrafanaCloudQueueFullBehavior2 = "block"
-	OutputGrafanaCloudQueueFullBehavior2Drop  OutputGrafanaCloudQueueFullBehavior2 = "drop"
+	// OutputGrafanaCloudQueueFullBehavior2Drop Drop new data
+	OutputGrafanaCloudQueueFullBehavior2Drop OutputGrafanaCloudQueueFullBehavior2 = "drop"
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQueueFullBehavior2 {
@@ -419,9 +441,12 @@ func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQue
 type OutputGrafanaCloudMode2 string
 
 const (
-	OutputGrafanaCloudMode2Error        OutputGrafanaCloudMode2 = "error"
+	// OutputGrafanaCloudMode2Error Error
+	OutputGrafanaCloudMode2Error OutputGrafanaCloudMode2 = "error"
+	// OutputGrafanaCloudMode2Backpressure Backpressure
 	OutputGrafanaCloudMode2Backpressure OutputGrafanaCloudMode2 = "backpressure"
-	OutputGrafanaCloudMode2Always       OutputGrafanaCloudMode2 = "always"
+	// OutputGrafanaCloudMode2Always Always On
+	OutputGrafanaCloudMode2Always OutputGrafanaCloudMode2 = "always"
 )
 
 func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
@@ -812,8 +837,10 @@ func (e *OutputGrafanaCloudType1) UnmarshalJSON(data []byte) error {
 type OutputGrafanaCloudMessageFormat1 string
 
 const (
+	// OutputGrafanaCloudMessageFormat1Protobuf Protobuf
 	OutputGrafanaCloudMessageFormat1Protobuf OutputGrafanaCloudMessageFormat1 = "protobuf"
-	OutputGrafanaCloudMessageFormat1JSON     OutputGrafanaCloudMessageFormat1 = "json"
+	// OutputGrafanaCloudMessageFormat1JSON JSON
+	OutputGrafanaCloudMessageFormat1JSON OutputGrafanaCloudMessageFormat1 = "json"
 )
 
 func (e OutputGrafanaCloudMessageFormat1) ToPointer() *OutputGrafanaCloudMessageFormat1 {
@@ -853,10 +880,15 @@ func (o *OutputGrafanaCloudLabel1) GetValue() string {
 type OutputGrafanaCloudPrometheusAuthAuthenticationType1 string
 
 const (
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1None              OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "none"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1Token             OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "token"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret        OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "textSecret"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic             OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1None None
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1None OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "none"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1Token Auth token
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1Token OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "token"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret Auth token (text secret)
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "textSecret"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic Basic
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudPrometheusAuthAuthenticationType1CredentialsSecret OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "credentialsSecret"
 )
 
@@ -934,10 +966,15 @@ func (o *OutputGrafanaCloudPrometheusAuth1) GetCredentialsSecret() *string {
 type OutputGrafanaCloudLokiAuthAuthenticationType1 string
 
 const (
-	OutputGrafanaCloudLokiAuthAuthenticationType1None              OutputGrafanaCloudLokiAuthAuthenticationType1 = "none"
-	OutputGrafanaCloudLokiAuthAuthenticationType1Token             OutputGrafanaCloudLokiAuthAuthenticationType1 = "token"
-	OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret        OutputGrafanaCloudLokiAuthAuthenticationType1 = "textSecret"
-	OutputGrafanaCloudLokiAuthAuthenticationType1Basic             OutputGrafanaCloudLokiAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1None None
+	OutputGrafanaCloudLokiAuthAuthenticationType1None OutputGrafanaCloudLokiAuthAuthenticationType1 = "none"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1Token Auth token
+	OutputGrafanaCloudLokiAuthAuthenticationType1Token OutputGrafanaCloudLokiAuthAuthenticationType1 = "token"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret Auth token (text secret)
+	OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret OutputGrafanaCloudLokiAuthAuthenticationType1 = "textSecret"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1Basic Basic
+	OutputGrafanaCloudLokiAuthAuthenticationType1Basic OutputGrafanaCloudLokiAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudLokiAuthAuthenticationType1CredentialsSecret OutputGrafanaCloudLokiAuthAuthenticationType1 = "credentialsSecret"
 )
 
@@ -1046,9 +1083,12 @@ func (o *OutputGrafanaCloudExtraHTTPHeader1) GetValue() string {
 type OutputGrafanaCloudFailedRequestLoggingMode1 string
 
 const (
-	OutputGrafanaCloudFailedRequestLoggingMode1Payload           OutputGrafanaCloudFailedRequestLoggingMode1 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode1Payload Payload
+	OutputGrafanaCloudFailedRequestLoggingMode1Payload OutputGrafanaCloudFailedRequestLoggingMode1 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode1PayloadAndHeaders Payload + Headers
 	OutputGrafanaCloudFailedRequestLoggingMode1PayloadAndHeaders OutputGrafanaCloudFailedRequestLoggingMode1 = "payloadAndHeaders"
-	OutputGrafanaCloudFailedRequestLoggingMode1None              OutputGrafanaCloudFailedRequestLoggingMode1 = "none"
+	// OutputGrafanaCloudFailedRequestLoggingMode1None None
+	OutputGrafanaCloudFailedRequestLoggingMode1None OutputGrafanaCloudFailedRequestLoggingMode1 = "none"
 )
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode1) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode1 {
@@ -1158,8 +1198,11 @@ func (o *OutputGrafanaCloudTimeoutRetrySettings1) GetMaxBackoff() *float64 {
 type OutputGrafanaCloudBackpressureBehavior1 string
 
 const (
+	// OutputGrafanaCloudBackpressureBehavior1Block Block
 	OutputGrafanaCloudBackpressureBehavior1Block OutputGrafanaCloudBackpressureBehavior1 = "block"
-	OutputGrafanaCloudBackpressureBehavior1Drop  OutputGrafanaCloudBackpressureBehavior1 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior1Drop Drop
+	OutputGrafanaCloudBackpressureBehavior1Drop OutputGrafanaCloudBackpressureBehavior1 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior1Queue Persistent Queue
 	OutputGrafanaCloudBackpressureBehavior1Queue OutputGrafanaCloudBackpressureBehavior1 = "queue"
 )
 
@@ -1171,7 +1214,9 @@ func (e OutputGrafanaCloudBackpressureBehavior1) ToPointer() *OutputGrafanaCloud
 type OutputGrafanaCloudCompression1 string
 
 const (
+	// OutputGrafanaCloudCompression1None None
 	OutputGrafanaCloudCompression1None OutputGrafanaCloudCompression1 = "none"
+	// OutputGrafanaCloudCompression1Gzip Gzip
 	OutputGrafanaCloudCompression1Gzip OutputGrafanaCloudCompression1 = "gzip"
 )
 
@@ -1183,8 +1228,10 @@ func (e OutputGrafanaCloudCompression1) ToPointer() *OutputGrafanaCloudCompressi
 type OutputGrafanaCloudQueueFullBehavior1 string
 
 const (
+	// OutputGrafanaCloudQueueFullBehavior1Block Block
 	OutputGrafanaCloudQueueFullBehavior1Block OutputGrafanaCloudQueueFullBehavior1 = "block"
-	OutputGrafanaCloudQueueFullBehavior1Drop  OutputGrafanaCloudQueueFullBehavior1 = "drop"
+	// OutputGrafanaCloudQueueFullBehavior1Drop Drop new data
+	OutputGrafanaCloudQueueFullBehavior1Drop OutputGrafanaCloudQueueFullBehavior1 = "drop"
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQueueFullBehavior1 {
@@ -1195,9 +1242,12 @@ func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQue
 type OutputGrafanaCloudMode1 string
 
 const (
-	OutputGrafanaCloudMode1Error        OutputGrafanaCloudMode1 = "error"
+	// OutputGrafanaCloudMode1Error Error
+	OutputGrafanaCloudMode1Error OutputGrafanaCloudMode1 = "error"
+	// OutputGrafanaCloudMode1Backpressure Backpressure
 	OutputGrafanaCloudMode1Backpressure OutputGrafanaCloudMode1 = "backpressure"
-	OutputGrafanaCloudMode1Always       OutputGrafanaCloudMode1 = "always"
+	// OutputGrafanaCloudMode1Always Always On
+	OutputGrafanaCloudMode1Always OutputGrafanaCloudMode1 = "always"
 )
 
 func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {

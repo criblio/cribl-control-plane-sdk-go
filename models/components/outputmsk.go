@@ -35,8 +35,11 @@ func (e *OutputMskType) UnmarshalJSON(data []byte) error {
 type OutputMskAcknowledgments int64
 
 const (
-	OutputMskAcknowledgmentsOne    OutputMskAcknowledgments = 1
-	OutputMskAcknowledgmentsZero   OutputMskAcknowledgments = 0
+	// OutputMskAcknowledgmentsOne Leader
+	OutputMskAcknowledgmentsOne OutputMskAcknowledgments = 1
+	// OutputMskAcknowledgmentsZero None
+	OutputMskAcknowledgmentsZero OutputMskAcknowledgments = 0
+	// OutputMskAcknowledgmentsMinus1 All
 	OutputMskAcknowledgmentsMinus1 OutputMskAcknowledgments = -1
 )
 
@@ -48,8 +51,11 @@ func (e OutputMskAcknowledgments) ToPointer() *OutputMskAcknowledgments {
 type OutputMskRecordDataFormat string
 
 const (
-	OutputMskRecordDataFormatJSON     OutputMskRecordDataFormat = "json"
-	OutputMskRecordDataFormatRaw      OutputMskRecordDataFormat = "raw"
+	// OutputMskRecordDataFormatJSON JSON
+	OutputMskRecordDataFormatJSON OutputMskRecordDataFormat = "json"
+	// OutputMskRecordDataFormatRaw Field _raw
+	OutputMskRecordDataFormatRaw OutputMskRecordDataFormat = "raw"
+	// OutputMskRecordDataFormatProtobuf Protobuf
 	OutputMskRecordDataFormatProtobuf OutputMskRecordDataFormat = "protobuf"
 )
 
@@ -61,25 +67,17 @@ func (e OutputMskRecordDataFormat) ToPointer() *OutputMskRecordDataFormat {
 type OutputMskCompression string
 
 const (
-	OutputMskCompressionNone   OutputMskCompression = "none"
-	OutputMskCompressionGzip   OutputMskCompression = "gzip"
+	// OutputMskCompressionNone None
+	OutputMskCompressionNone OutputMskCompression = "none"
+	// OutputMskCompressionGzip Gzip
+	OutputMskCompressionGzip OutputMskCompression = "gzip"
+	// OutputMskCompressionSnappy Snappy
 	OutputMskCompressionSnappy OutputMskCompression = "snappy"
-	OutputMskCompressionLz4    OutputMskCompression = "lz4"
+	// OutputMskCompressionLz4 LZ4
+	OutputMskCompressionLz4 OutputMskCompression = "lz4"
 )
 
 func (e OutputMskCompression) ToPointer() *OutputMskCompression {
-	return &e
-}
-
-// OutputMskSchemaType - The schema format used to encode and decode event data
-type OutputMskSchemaType string
-
-const (
-	OutputMskSchemaTypeAvro OutputMskSchemaType = "avro"
-	OutputMskSchemaTypeJSON OutputMskSchemaType = "json"
-)
-
-func (e OutputMskSchemaType) ToPointer() *OutputMskSchemaType {
 	return &e
 }
 
@@ -247,8 +245,6 @@ type OutputMskKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *OutputMskSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -287,13 +283,6 @@ func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *str
 		return nil
 	}
 	return o.SchemaRegistryURL
-}
-
-func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputMskSchemaType {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaType
 }
 
 func (o *OutputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -349,8 +338,11 @@ func (o *OutputMskKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID() *
 type OutputMskAuthenticationMethod string
 
 const (
-	OutputMskAuthenticationMethodAuto   OutputMskAuthenticationMethod = "auto"
+	// OutputMskAuthenticationMethodAuto Auto
+	OutputMskAuthenticationMethodAuto OutputMskAuthenticationMethod = "auto"
+	// OutputMskAuthenticationMethodManual Manual
 	OutputMskAuthenticationMethodManual OutputMskAuthenticationMethod = "manual"
+	// OutputMskAuthenticationMethodSecret Secret Key pair
 	OutputMskAuthenticationMethodSecret OutputMskAuthenticationMethod = "secret"
 )
 
@@ -502,8 +494,11 @@ func (o *OutputMskTLSSettingsClientSide) GetMaxVersion() *OutputMskMaximumTLSVer
 type OutputMskBackpressureBehavior string
 
 const (
+	// OutputMskBackpressureBehaviorBlock Block
 	OutputMskBackpressureBehaviorBlock OutputMskBackpressureBehavior = "block"
-	OutputMskBackpressureBehaviorDrop  OutputMskBackpressureBehavior = "drop"
+	// OutputMskBackpressureBehaviorDrop Drop
+	OutputMskBackpressureBehaviorDrop OutputMskBackpressureBehavior = "drop"
+	// OutputMskBackpressureBehaviorQueue Persistent Queue
 	OutputMskBackpressureBehaviorQueue OutputMskBackpressureBehavior = "queue"
 )
 
@@ -515,7 +510,9 @@ func (e OutputMskBackpressureBehavior) ToPointer() *OutputMskBackpressureBehavio
 type OutputMskPqCompressCompression string
 
 const (
+	// OutputMskPqCompressCompressionNone None
 	OutputMskPqCompressCompressionNone OutputMskPqCompressCompression = "none"
+	// OutputMskPqCompressCompressionGzip Gzip
 	OutputMskPqCompressCompressionGzip OutputMskPqCompressCompression = "gzip"
 )
 
@@ -527,8 +524,10 @@ func (e OutputMskPqCompressCompression) ToPointer() *OutputMskPqCompressCompress
 type OutputMskQueueFullBehavior string
 
 const (
+	// OutputMskQueueFullBehaviorBlock Block
 	OutputMskQueueFullBehaviorBlock OutputMskQueueFullBehavior = "block"
-	OutputMskQueueFullBehaviorDrop  OutputMskQueueFullBehavior = "drop"
+	// OutputMskQueueFullBehaviorDrop Drop new data
+	OutputMskQueueFullBehaviorDrop OutputMskQueueFullBehavior = "drop"
 )
 
 func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
@@ -539,9 +538,12 @@ func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
 type OutputMskMode string
 
 const (
-	OutputMskModeError        OutputMskMode = "error"
+	// OutputMskModeError Error
+	OutputMskModeError OutputMskMode = "error"
+	// OutputMskModeBackpressure Backpressure
 	OutputMskModeBackpressure OutputMskMode = "backpressure"
-	OutputMskModeAlways       OutputMskMode = "always"
+	// OutputMskModeAlways Always On
+	OutputMskModeAlways OutputMskMode = "always"
 )
 
 func (e OutputMskMode) ToPointer() *OutputMskMode {

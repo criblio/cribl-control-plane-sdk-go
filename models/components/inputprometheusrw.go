@@ -65,7 +65,9 @@ func (i *InputPrometheusRwConnection) GetOutput() string {
 type InputPrometheusRwMode string
 
 const (
-	InputPrometheusRwModeSmart  InputPrometheusRwMode = "smart"
+	// InputPrometheusRwModeSmart Smart
+	InputPrometheusRwModeSmart InputPrometheusRwMode = "smart"
+	// InputPrometheusRwModeAlways Always On
 	InputPrometheusRwModeAlways InputPrometheusRwMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputPrometheusRwMode) ToPointer() *InputPrometheusRwMode {
 type InputPrometheusRwCompression string
 
 const (
+	// InputPrometheusRwCompressionNone None
 	InputPrometheusRwCompressionNone InputPrometheusRwCompression = "none"
+	// InputPrometheusRwCompressionGzip Gzip
 	InputPrometheusRwCompressionGzip InputPrometheusRwCompression = "gzip"
 )
 

@@ -65,7 +65,9 @@ func (i *InputAzureBlobConnection) GetOutput() string {
 type InputAzureBlobMode string
 
 const (
-	InputAzureBlobModeSmart  InputAzureBlobMode = "smart"
+	// InputAzureBlobModeSmart Smart
+	InputAzureBlobModeSmart InputAzureBlobMode = "smart"
+	// InputAzureBlobModeAlways Always On
 	InputAzureBlobModeAlways InputAzureBlobMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputAzureBlobMode) ToPointer() *InputAzureBlobMode {
 type InputAzureBlobCompression string
 
 const (
+	// InputAzureBlobCompressionNone None
 	InputAzureBlobCompressionNone InputAzureBlobCompression = "none"
+	// InputAzureBlobCompressionGzip Gzip
 	InputAzureBlobCompressionGzip InputAzureBlobCompression = "gzip"
 )
 

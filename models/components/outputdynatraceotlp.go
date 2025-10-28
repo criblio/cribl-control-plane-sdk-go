@@ -35,6 +35,7 @@ func (e *OutputDynatraceOtlpType) UnmarshalJSON(data []byte) error {
 type OutputDynatraceOtlpProtocol string
 
 const (
+	// OutputDynatraceOtlpProtocolHTTP HTTP
 	OutputDynatraceOtlpProtocolHTTP OutputDynatraceOtlpProtocol = "http"
 )
 
@@ -46,6 +47,7 @@ func (e OutputDynatraceOtlpProtocol) ToPointer() *OutputDynatraceOtlpProtocol {
 type OutputDynatraceOTLPOTLPVersion string
 
 const (
+	// OutputDynatraceOTLPOTLPVersionOneDot3Dot1 1.3.1
 	OutputDynatraceOTLPOTLPVersionOneDot3Dot1 OutputDynatraceOTLPOTLPVersion = "1.3.1"
 )
 
@@ -57,9 +59,12 @@ func (e OutputDynatraceOTLPOTLPVersion) ToPointer() *OutputDynatraceOTLPOTLPVers
 type OutputDynatraceOtlpCompressCompression string
 
 const (
-	OutputDynatraceOtlpCompressCompressionNone    OutputDynatraceOtlpCompressCompression = "none"
+	// OutputDynatraceOtlpCompressCompressionNone None
+	OutputDynatraceOtlpCompressCompressionNone OutputDynatraceOtlpCompressCompression = "none"
+	// OutputDynatraceOtlpCompressCompressionDeflate Deflate
 	OutputDynatraceOtlpCompressCompressionDeflate OutputDynatraceOtlpCompressCompression = "deflate"
-	OutputDynatraceOtlpCompressCompressionGzip    OutputDynatraceOtlpCompressCompression = "gzip"
+	// OutputDynatraceOtlpCompressCompressionGzip Gzip
+	OutputDynatraceOtlpCompressCompressionGzip OutputDynatraceOtlpCompressCompression = "gzip"
 )
 
 func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlpCompressCompression {
@@ -70,7 +75,9 @@ func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlp
 type OutputDynatraceOtlpHTTPCompressCompression string
 
 const (
+	// OutputDynatraceOtlpHTTPCompressCompressionNone None
 	OutputDynatraceOtlpHTTPCompressCompressionNone OutputDynatraceOtlpHTTPCompressCompression = "none"
+	// OutputDynatraceOtlpHTTPCompressCompressionGzip Gzip
 	OutputDynatraceOtlpHTTPCompressCompressionGzip OutputDynatraceOtlpHTTPCompressCompression = "gzip"
 )
 
@@ -112,9 +119,12 @@ func (o *OutputDynatraceOtlpMetadatum) GetValue() string {
 type OutputDynatraceOtlpFailedRequestLoggingMode string
 
 const (
-	OutputDynatraceOtlpFailedRequestLoggingModePayload           OutputDynatraceOtlpFailedRequestLoggingMode = "payload"
+	// OutputDynatraceOtlpFailedRequestLoggingModePayload Payload
+	OutputDynatraceOtlpFailedRequestLoggingModePayload OutputDynatraceOtlpFailedRequestLoggingMode = "payload"
+	// OutputDynatraceOtlpFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDynatraceOtlpFailedRequestLoggingModePayloadAndHeaders OutputDynatraceOtlpFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDynatraceOtlpFailedRequestLoggingModeNone              OutputDynatraceOtlpFailedRequestLoggingMode = "none"
+	// OutputDynatraceOtlpFailedRequestLoggingModeNone None
+	OutputDynatraceOtlpFailedRequestLoggingModeNone OutputDynatraceOtlpFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatraceOtlpFailedRequestLoggingMode {
@@ -125,8 +135,10 @@ func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatrac
 type EndpointType string
 
 const (
+	// EndpointTypeSaas SaaS
 	EndpointTypeSaas EndpointType = "saas"
-	EndpointTypeAg   EndpointType = "ag"
+	// EndpointTypeAg ActiveGate
+	EndpointTypeAg EndpointType = "ag"
 )
 
 func (e EndpointType) ToPointer() *EndpointType {
@@ -137,8 +149,11 @@ func (e EndpointType) ToPointer() *EndpointType {
 type OutputDynatraceOtlpBackpressureBehavior string
 
 const (
+	// OutputDynatraceOtlpBackpressureBehaviorBlock Block
 	OutputDynatraceOtlpBackpressureBehaviorBlock OutputDynatraceOtlpBackpressureBehavior = "block"
-	OutputDynatraceOtlpBackpressureBehaviorDrop  OutputDynatraceOtlpBackpressureBehavior = "drop"
+	// OutputDynatraceOtlpBackpressureBehaviorDrop Drop
+	OutputDynatraceOtlpBackpressureBehaviorDrop OutputDynatraceOtlpBackpressureBehavior = "drop"
+	// OutputDynatraceOtlpBackpressureBehaviorQueue Persistent Queue
 	OutputDynatraceOtlpBackpressureBehaviorQueue OutputDynatraceOtlpBackpressureBehavior = "queue"
 )
 
@@ -279,7 +294,9 @@ func (o *OutputDynatraceOtlpTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDynatraceOtlpPqCompressCompression string
 
 const (
+	// OutputDynatraceOtlpPqCompressCompressionNone None
 	OutputDynatraceOtlpPqCompressCompressionNone OutputDynatraceOtlpPqCompressCompression = "none"
+	// OutputDynatraceOtlpPqCompressCompressionGzip Gzip
 	OutputDynatraceOtlpPqCompressCompressionGzip OutputDynatraceOtlpPqCompressCompression = "gzip"
 )
 
@@ -291,8 +308,10 @@ func (e OutputDynatraceOtlpPqCompressCompression) ToPointer() *OutputDynatraceOt
 type OutputDynatraceOtlpQueueFullBehavior string
 
 const (
+	// OutputDynatraceOtlpQueueFullBehaviorBlock Block
 	OutputDynatraceOtlpQueueFullBehaviorBlock OutputDynatraceOtlpQueueFullBehavior = "block"
-	OutputDynatraceOtlpQueueFullBehaviorDrop  OutputDynatraceOtlpQueueFullBehavior = "drop"
+	// OutputDynatraceOtlpQueueFullBehaviorDrop Drop new data
+	OutputDynatraceOtlpQueueFullBehaviorDrop OutputDynatraceOtlpQueueFullBehavior = "drop"
 )
 
 func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQueueFullBehavior {
@@ -303,9 +322,12 @@ func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQu
 type OutputDynatraceOtlpMode string
 
 const (
-	OutputDynatraceOtlpModeError        OutputDynatraceOtlpMode = "error"
+	// OutputDynatraceOtlpModeError Error
+	OutputDynatraceOtlpModeError OutputDynatraceOtlpMode = "error"
+	// OutputDynatraceOtlpModeBackpressure Backpressure
 	OutputDynatraceOtlpModeBackpressure OutputDynatraceOtlpMode = "backpressure"
-	OutputDynatraceOtlpModeAlways       OutputDynatraceOtlpMode = "always"
+	// OutputDynatraceOtlpModeAlways Always On
+	OutputDynatraceOtlpModeAlways OutputDynatraceOtlpMode = "always"
 )
 
 func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {

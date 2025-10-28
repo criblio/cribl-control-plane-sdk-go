@@ -33,7 +33,8 @@ func newHealth(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 }
 
 // Get - Retrieve health status of the server
-func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operations.GetHealthInfoResponse, error) {
+// Get the current health status of the server.
+func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operations.GetHealthResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -62,7 +63,7 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getHealthInfo",
+		OperationID:      "getHealth",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   nil,
 	}
@@ -165,7 +166,7 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"420", "4XX", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"420", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -180,7 +181,7 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 		}
 	}
 
-	res := &operations.GetHealthInfoResponse{
+	res := &operations.GetHealthResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -196,12 +197,12 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 				return nil, err
 			}
 
-			var out components.HealthStatus
+			var out components.HealthServerStatus
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.HealthStatus = &out
+			res.HealthServerStatus = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -217,7 +218,32 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 				return nil, err
 			}
 
-			var out apierrors.HealthStatusError
+			var out apierrors.HealthServerStatusError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 500:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -247,26 +273,11 @@ func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operation
 		}
 		return nil, apierrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
 	default:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out components.Error
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			res.Error = &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
 		}
+		return nil, apierrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil

@@ -175,9 +175,12 @@ func (o *OutputChronicleExtraHTTPHeader) GetValue() string {
 type OutputChronicleFailedRequestLoggingMode string
 
 const (
-	OutputChronicleFailedRequestLoggingModePayload           OutputChronicleFailedRequestLoggingMode = "payload"
+	// OutputChronicleFailedRequestLoggingModePayload Payload
+	OutputChronicleFailedRequestLoggingModePayload OutputChronicleFailedRequestLoggingMode = "payload"
+	// OutputChronicleFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputChronicleFailedRequestLoggingModePayloadAndHeaders OutputChronicleFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputChronicleFailedRequestLoggingModeNone              OutputChronicleFailedRequestLoggingMode = "none"
+	// OutputChronicleFailedRequestLoggingModeNone None
+	OutputChronicleFailedRequestLoggingModeNone OutputChronicleFailedRequestLoggingMode = "none"
 )
 
 func (e OutputChronicleFailedRequestLoggingMode) ToPointer() *OutputChronicleFailedRequestLoggingMode {
@@ -188,8 +191,11 @@ func (e OutputChronicleFailedRequestLoggingMode) ToPointer() *OutputChronicleFai
 type OutputChronicleBackpressureBehavior string
 
 const (
+	// OutputChronicleBackpressureBehaviorBlock Block
 	OutputChronicleBackpressureBehaviorBlock OutputChronicleBackpressureBehavior = "block"
-	OutputChronicleBackpressureBehaviorDrop  OutputChronicleBackpressureBehavior = "drop"
+	// OutputChronicleBackpressureBehaviorDrop Drop
+	OutputChronicleBackpressureBehaviorDrop OutputChronicleBackpressureBehavior = "drop"
+	// OutputChronicleBackpressureBehaviorQueue Persistent Queue
 	OutputChronicleBackpressureBehaviorQueue OutputChronicleBackpressureBehavior = "queue"
 )
 
@@ -231,7 +237,9 @@ func (o *OutputChronicleCustomLabel) GetValue() string {
 type OutputChronicleCompression string
 
 const (
+	// OutputChronicleCompressionNone None
 	OutputChronicleCompressionNone OutputChronicleCompression = "none"
+	// OutputChronicleCompressionGzip Gzip
 	OutputChronicleCompressionGzip OutputChronicleCompression = "gzip"
 )
 
@@ -243,8 +251,10 @@ func (e OutputChronicleCompression) ToPointer() *OutputChronicleCompression {
 type OutputChronicleQueueFullBehavior string
 
 const (
+	// OutputChronicleQueueFullBehaviorBlock Block
 	OutputChronicleQueueFullBehaviorBlock OutputChronicleQueueFullBehavior = "block"
-	OutputChronicleQueueFullBehaviorDrop  OutputChronicleQueueFullBehavior = "drop"
+	// OutputChronicleQueueFullBehaviorDrop Drop new data
+	OutputChronicleQueueFullBehaviorDrop OutputChronicleQueueFullBehavior = "drop"
 )
 
 func (e OutputChronicleQueueFullBehavior) ToPointer() *OutputChronicleQueueFullBehavior {
@@ -255,9 +265,12 @@ func (e OutputChronicleQueueFullBehavior) ToPointer() *OutputChronicleQueueFullB
 type OutputChronicleMode string
 
 const (
-	OutputChronicleModeError        OutputChronicleMode = "error"
+	// OutputChronicleModeError Error
+	OutputChronicleModeError OutputChronicleMode = "error"
+	// OutputChronicleModeBackpressure Backpressure
 	OutputChronicleModeBackpressure OutputChronicleMode = "backpressure"
-	OutputChronicleModeAlways       OutputChronicleMode = "always"
+	// OutputChronicleModeAlways Always On
+	OutputChronicleModeAlways OutputChronicleMode = "always"
 )
 
 func (e OutputChronicleMode) ToPointer() *OutputChronicleMode {

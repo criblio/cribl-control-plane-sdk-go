@@ -35,7 +35,9 @@ func (e *OutputTcpjsonType) UnmarshalJSON(data []byte) error {
 type OutputTcpjsonCompression string
 
 const (
+	// OutputTcpjsonCompressionNone None
 	OutputTcpjsonCompressionNone OutputTcpjsonCompression = "none"
+	// OutputTcpjsonCompressionGzip Gzip
 	OutputTcpjsonCompressionGzip OutputTcpjsonCompression = "gzip"
 )
 
@@ -175,8 +177,11 @@ func (o *OutputTcpjsonTLSSettingsClientSide) GetMaxVersion() *OutputTcpjsonMaxim
 type OutputTcpjsonBackpressureBehavior string
 
 const (
+	// OutputTcpjsonBackpressureBehaviorBlock Block
 	OutputTcpjsonBackpressureBehaviorBlock OutputTcpjsonBackpressureBehavior = "block"
-	OutputTcpjsonBackpressureBehaviorDrop  OutputTcpjsonBackpressureBehavior = "drop"
+	// OutputTcpjsonBackpressureBehaviorDrop Drop
+	OutputTcpjsonBackpressureBehaviorDrop OutputTcpjsonBackpressureBehavior = "drop"
+	// OutputTcpjsonBackpressureBehaviorQueue Persistent Queue
 	OutputTcpjsonBackpressureBehaviorQueue OutputTcpjsonBackpressureBehavior = "queue"
 )
 
@@ -271,7 +276,9 @@ func (o *OutputTcpjsonHost) GetWeight() *float64 {
 type OutputTcpjsonPqCompressCompression string
 
 const (
+	// OutputTcpjsonPqCompressCompressionNone None
 	OutputTcpjsonPqCompressCompressionNone OutputTcpjsonPqCompressCompression = "none"
+	// OutputTcpjsonPqCompressCompressionGzip Gzip
 	OutputTcpjsonPqCompressCompressionGzip OutputTcpjsonPqCompressCompression = "gzip"
 )
 
@@ -283,8 +290,10 @@ func (e OutputTcpjsonPqCompressCompression) ToPointer() *OutputTcpjsonPqCompress
 type OutputTcpjsonQueueFullBehavior string
 
 const (
+	// OutputTcpjsonQueueFullBehaviorBlock Block
 	OutputTcpjsonQueueFullBehaviorBlock OutputTcpjsonQueueFullBehavior = "block"
-	OutputTcpjsonQueueFullBehaviorDrop  OutputTcpjsonQueueFullBehavior = "drop"
+	// OutputTcpjsonQueueFullBehaviorDrop Drop new data
+	OutputTcpjsonQueueFullBehaviorDrop OutputTcpjsonQueueFullBehavior = "drop"
 )
 
 func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehavior {
@@ -295,9 +304,12 @@ func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehav
 type OutputTcpjsonMode string
 
 const (
-	OutputTcpjsonModeError        OutputTcpjsonMode = "error"
+	// OutputTcpjsonModeError Error
+	OutputTcpjsonModeError OutputTcpjsonMode = "error"
+	// OutputTcpjsonModeBackpressure Backpressure
 	OutputTcpjsonModeBackpressure OutputTcpjsonMode = "backpressure"
-	OutputTcpjsonModeAlways       OutputTcpjsonMode = "always"
+	// OutputTcpjsonModeAlways Always On
+	OutputTcpjsonModeAlways OutputTcpjsonMode = "always"
 )
 
 func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {

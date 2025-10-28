@@ -65,7 +65,9 @@ func (i *InputS3Connection) GetOutput() string {
 type InputS3Mode string
 
 const (
-	InputS3ModeSmart  InputS3Mode = "smart"
+	// InputS3ModeSmart Smart
+	InputS3ModeSmart InputS3Mode = "smart"
+	// InputS3ModeAlways Always On
 	InputS3ModeAlways InputS3Mode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputS3Mode) ToPointer() *InputS3Mode {
 type InputS3Compression string
 
 const (
+	// InputS3CompressionNone None
 	InputS3CompressionNone InputS3Compression = "none"
+	// InputS3CompressionGzip Gzip
 	InputS3CompressionGzip InputS3Compression = "gzip"
 )
 
@@ -188,8 +192,11 @@ func (i *InputS3Pq) GetPqControls() *InputS3PqControls {
 type InputS3AuthenticationMethod string
 
 const (
-	InputS3AuthenticationMethodAuto   InputS3AuthenticationMethod = "auto"
+	// InputS3AuthenticationMethodAuto Auto
+	InputS3AuthenticationMethodAuto InputS3AuthenticationMethod = "auto"
+	// InputS3AuthenticationMethodManual Manual
 	InputS3AuthenticationMethodManual InputS3AuthenticationMethod = "manual"
+	// InputS3AuthenticationMethodSecret Secret Key pair
 	InputS3AuthenticationMethodSecret InputS3AuthenticationMethod = "secret"
 )
 

@@ -66,7 +66,9 @@ func (i *InputSyslogConnection2) GetOutput() string {
 type InputSyslogMode2 string
 
 const (
-	InputSyslogMode2Smart  InputSyslogMode2 = "smart"
+	// InputSyslogMode2Smart Smart
+	InputSyslogMode2Smart InputSyslogMode2 = "smart"
+	// InputSyslogMode2Always Always On
 	InputSyslogMode2Always InputSyslogMode2 = "always"
 )
 
@@ -78,7 +80,9 @@ func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 type InputSyslogCompression2 string
 
 const (
+	// InputSyslogCompression2None None
 	InputSyslogCompression2None InputSyslogCompression2 = "none"
+	// InputSyslogCompression2Gzip Gzip
 	InputSyslogCompression2Gzip InputSyslogCompression2 = "gzip"
 )
 
@@ -713,7 +717,9 @@ func (i *InputSyslogConnection1) GetOutput() string {
 type InputSyslogMode1 string
 
 const (
-	InputSyslogMode1Smart  InputSyslogMode1 = "smart"
+	// InputSyslogMode1Smart Smart
+	InputSyslogMode1Smart InputSyslogMode1 = "smart"
+	// InputSyslogMode1Always Always On
 	InputSyslogMode1Always InputSyslogMode1 = "always"
 )
 
@@ -725,7 +731,9 @@ func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 type InputSyslogCompression1 string
 
 const (
+	// InputSyslogCompression1None None
 	InputSyslogCompression1None InputSyslogCompression1 = "none"
+	// InputSyslogCompression1Gzip Gzip
 	InputSyslogCompression1Gzip InputSyslogCompression1 = "gzip"
 )
 
