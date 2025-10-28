@@ -67,7 +67,7 @@ func main() {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
-		myWorkerGroup := components.ConfigGroup{
+		myWorkerGroup := components.GroupCreateRequest{
 			ID:          WORKER_GROUP_ID,
 			Description: criblcontrolplanesdkgo.String("My Worker Group"),
 			OnPrem:      criblcontrolplanesdkgo.Bool(true),
