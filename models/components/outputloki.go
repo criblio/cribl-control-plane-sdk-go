@@ -255,6 +255,22 @@ func (e OutputLokiBackpressureBehavior) ToPointer() *OutputLokiBackpressureBehav
 	return &e
 }
 
+// OutputLokiMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputLokiMode string
+
+const (
+	// OutputLokiModeError Error
+	OutputLokiModeError OutputLokiMode = "error"
+	// OutputLokiModeAlways Backpressure
+	OutputLokiModeAlways OutputLokiMode = "always"
+	// OutputLokiModeBackpressure Always On
+	OutputLokiModeBackpressure OutputLokiMode = "backpressure"
+)
+
+func (e OutputLokiMode) ToPointer() *OutputLokiMode {
+	return &e
+}
+
 // OutputLokiCompression - Codec to use to compress the persisted data
 type OutputLokiCompression string
 
@@ -280,22 +296,6 @@ const (
 )
 
 func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
-	return &e
-}
-
-// OutputLokiMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputLokiMode string
-
-const (
-	// OutputLokiModeError Error
-	OutputLokiModeError OutputLokiMode = "error"
-	// OutputLokiModeBackpressure Backpressure
-	OutputLokiModeBackpressure OutputLokiMode = "backpressure"
-	// OutputLokiModeAlways Always On
-	OutputLokiModeAlways OutputLokiMode = "always"
-)
-
-func (e OutputLokiMode) ToPointer() *OutputLokiMode {
 	return &e
 }
 
@@ -380,6 +380,16 @@ type OutputLoki struct {
 	Password *string `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputLokiMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -390,9 +400,7 @@ type OutputLoki struct {
 	PqCompress *OutputLokiCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputLokiQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputLokiMode       `default:"error" json:"pqMode"`
-	PqControls *OutputLokiPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputLokiPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputLoki) MarshalJSON() ([]byte, error) {
@@ -644,6 +652,41 @@ func (o *OutputLoki) GetCredentialsSecret() *string {
 	return o.CredentialsSecret
 }
 
+func (o *OutputLoki) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLoki) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLoki) GetPqMode() *OutputLokiMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLoki) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLoki) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputLoki) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -677,13 +720,6 @@ func (o *OutputLoki) GetPqOnBackpressure() *OutputLokiQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputLoki) GetPqMode() *OutputLokiMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputLoki) GetPqControls() *OutputLokiPqControls {

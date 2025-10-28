@@ -262,10 +262,6 @@ func main() {
 
 * [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
 
-#### [Groups.Mappings](docs/sdks/mappings/README.md)
-
-* [Activate](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
-
 ### [Health](docs/sdks/health/README.md)
 
 * [Get](docs/sdks/health/README.md#get) - Retrieve health status of the server

@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                                       | Value                                      |
 | ------------------------------------------ | ------------------------------------------ |
 | `OutputGoogleCloudLoggingModeError`        | error                                      |
-| `OutputGoogleCloudLoggingModeBackpressure` | backpressure                               |
 | `OutputGoogleCloudLoggingModeAlways`       | always                                     |
+| `OutputGoogleCloudLoggingModeBackpressure` | backpressure                               |
