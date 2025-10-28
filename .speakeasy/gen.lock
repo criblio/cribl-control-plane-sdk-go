@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 880def652e799eed9b092cf41ce68b2a
-  docVersion: 4.15.0-alpha.1761606328595-4d5d0f38
+  docChecksum: a007c4cb667183aae8befae764c565ac
+  docVersion: 4.15.0-alpha.1761655977097-59e6cf2e
   speakeasyVersion: 1.639.3
   generationVersion: 2.730.5
-  releaseVersion: 0.2.1-rc.2
-  configChecksum: c7287ae059508ad4ec7fd50416346b61
+  releaseVersion: 0.2.1-rc.3
+  configChecksum: 301c6305745e64dbeaebbe51bd49b9d5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -235,6 +235,7 @@ generatedFiles:
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
+  - /models/components/rulesetid.go
   - /models/components/runnablejob.go
   - /models/components/runnablejobcollection.go
   - /models/components/runnablejobexecutor.go
@@ -246,6 +247,7 @@ generatedFiles:
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createadminproductsmappingsactivatebyproduct.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
@@ -345,7 +347,6 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
-  - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
@@ -2080,6 +2081,7 @@ generatedFiles:
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
+  - docs/models/components/pipelineconf.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
@@ -2104,6 +2106,7 @@ generatedFiles:
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
+  - docs/models/components/rulesetid.md
   - docs/models/components/runnablejob.md
   - docs/models/components/runnablejobcollection.md
   - docs/models/components/runnablejobcollectioninput.md
@@ -2169,6 +2172,9 @@ generatedFiles:
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponsebody.md
   - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
@@ -2351,6 +2357,7 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
+  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2386,6 +2393,7 @@ generatedFiles:
   - internal/utils/security.go
   - internal/utils/utils.go
   - lakedatasets.go
+  - mappings.go
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
@@ -3345,6 +3353,18 @@ examples:
           application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
         "500":
           application/json: {"message": "<value>"}
+  createAdminProductsMappingsActivateByProduct:
+    MappingRulesetActivateExamplesActivate:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "default"}
+      responses:
+        "200":
+          application/json: {"count": 845678, "items": [{"id": "<id>"}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3410,4 +3430,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.status[default]` **Removed** **Breaking** :warning:\n  *  `error.status[500]` **Added**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Auth.Tokens.Get()`: \n  *  `response.ForcePasswordChange` **Added**\n  *  `error` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Upload()`: **Added**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.Groups.Mappings.Activate()`: **Added**
