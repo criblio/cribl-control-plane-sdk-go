@@ -35,8 +35,11 @@ func (e *OutputGooglePubsubType) UnmarshalJSON(data []byte) error {
 type OutputGooglePubsubGoogleAuthenticationMethod string
 
 const (
-	OutputGooglePubsubGoogleAuthenticationMethodAuto   OutputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// OutputGooglePubsubGoogleAuthenticationMethodAuto Auto
+	OutputGooglePubsubGoogleAuthenticationMethodAuto OutputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// OutputGooglePubsubGoogleAuthenticationMethodManual Manual
 	OutputGooglePubsubGoogleAuthenticationMethodManual OutputGooglePubsubGoogleAuthenticationMethod = "manual"
+	// OutputGooglePubsubGoogleAuthenticationMethodSecret Secret
 	OutputGooglePubsubGoogleAuthenticationMethodSecret OutputGooglePubsubGoogleAuthenticationMethod = "secret"
 )
 
@@ -48,8 +51,11 @@ func (e OutputGooglePubsubGoogleAuthenticationMethod) ToPointer() *OutputGoogleP
 type OutputGooglePubsubBackpressureBehavior string
 
 const (
+	// OutputGooglePubsubBackpressureBehaviorBlock Block
 	OutputGooglePubsubBackpressureBehaviorBlock OutputGooglePubsubBackpressureBehavior = "block"
-	OutputGooglePubsubBackpressureBehaviorDrop  OutputGooglePubsubBackpressureBehavior = "drop"
+	// OutputGooglePubsubBackpressureBehaviorDrop Drop
+	OutputGooglePubsubBackpressureBehaviorDrop OutputGooglePubsubBackpressureBehavior = "drop"
+	// OutputGooglePubsubBackpressureBehaviorQueue Persistent Queue
 	OutputGooglePubsubBackpressureBehaviorQueue OutputGooglePubsubBackpressureBehavior = "queue"
 )
 
@@ -61,7 +67,9 @@ func (e OutputGooglePubsubBackpressureBehavior) ToPointer() *OutputGooglePubsubB
 type OutputGooglePubsubCompression string
 
 const (
+	// OutputGooglePubsubCompressionNone None
 	OutputGooglePubsubCompressionNone OutputGooglePubsubCompression = "none"
+	// OutputGooglePubsubCompressionGzip Gzip
 	OutputGooglePubsubCompressionGzip OutputGooglePubsubCompression = "gzip"
 )
 
@@ -73,8 +81,10 @@ func (e OutputGooglePubsubCompression) ToPointer() *OutputGooglePubsubCompressio
 type OutputGooglePubsubQueueFullBehavior string
 
 const (
+	// OutputGooglePubsubQueueFullBehaviorBlock Block
 	OutputGooglePubsubQueueFullBehaviorBlock OutputGooglePubsubQueueFullBehavior = "block"
-	OutputGooglePubsubQueueFullBehaviorDrop  OutputGooglePubsubQueueFullBehavior = "drop"
+	// OutputGooglePubsubQueueFullBehaviorDrop Drop new data
+	OutputGooglePubsubQueueFullBehaviorDrop OutputGooglePubsubQueueFullBehavior = "drop"
 )
 
 func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueueFullBehavior {
@@ -85,9 +95,12 @@ func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueu
 type OutputGooglePubsubMode string
 
 const (
-	OutputGooglePubsubModeError        OutputGooglePubsubMode = "error"
+	// OutputGooglePubsubModeError Error
+	OutputGooglePubsubModeError OutputGooglePubsubMode = "error"
+	// OutputGooglePubsubModeBackpressure Backpressure
 	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
-	OutputGooglePubsubModeAlways       OutputGooglePubsubMode = "always"
+	// OutputGooglePubsubModeAlways Always On
+	OutputGooglePubsubModeAlways OutputGooglePubsubMode = "always"
 )
 
 func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {

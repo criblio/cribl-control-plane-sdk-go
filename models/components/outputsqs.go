@@ -35,8 +35,10 @@ func (e *OutputSqsType) UnmarshalJSON(data []byte) error {
 type OutputSqsQueueType string
 
 const (
+	// OutputSqsQueueTypeStandard Standard
 	OutputSqsQueueTypeStandard OutputSqsQueueType = "standard"
-	OutputSqsQueueTypeFifo     OutputSqsQueueType = "fifo"
+	// OutputSqsQueueTypeFifo FIFO
+	OutputSqsQueueTypeFifo OutputSqsQueueType = "fifo"
 )
 
 func (e OutputSqsQueueType) ToPointer() *OutputSqsQueueType {
@@ -47,8 +49,11 @@ func (e OutputSqsQueueType) ToPointer() *OutputSqsQueueType {
 type OutputSqsAuthenticationMethod string
 
 const (
-	OutputSqsAuthenticationMethodAuto   OutputSqsAuthenticationMethod = "auto"
+	// OutputSqsAuthenticationMethodAuto Auto
+	OutputSqsAuthenticationMethodAuto OutputSqsAuthenticationMethod = "auto"
+	// OutputSqsAuthenticationMethodManual Manual
 	OutputSqsAuthenticationMethodManual OutputSqsAuthenticationMethod = "manual"
+	// OutputSqsAuthenticationMethodSecret Secret Key pair
 	OutputSqsAuthenticationMethodSecret OutputSqsAuthenticationMethod = "secret"
 )
 
@@ -72,8 +77,11 @@ func (e OutputSqsSignatureVersion) ToPointer() *OutputSqsSignatureVersion {
 type OutputSqsBackpressureBehavior string
 
 const (
+	// OutputSqsBackpressureBehaviorBlock Block
 	OutputSqsBackpressureBehaviorBlock OutputSqsBackpressureBehavior = "block"
-	OutputSqsBackpressureBehaviorDrop  OutputSqsBackpressureBehavior = "drop"
+	// OutputSqsBackpressureBehaviorDrop Drop
+	OutputSqsBackpressureBehaviorDrop OutputSqsBackpressureBehavior = "drop"
+	// OutputSqsBackpressureBehaviorQueue Persistent Queue
 	OutputSqsBackpressureBehaviorQueue OutputSqsBackpressureBehavior = "queue"
 )
 
@@ -85,7 +93,9 @@ func (e OutputSqsBackpressureBehavior) ToPointer() *OutputSqsBackpressureBehavio
 type OutputSqsCompression string
 
 const (
+	// OutputSqsCompressionNone None
 	OutputSqsCompressionNone OutputSqsCompression = "none"
+	// OutputSqsCompressionGzip Gzip
 	OutputSqsCompressionGzip OutputSqsCompression = "gzip"
 )
 
@@ -97,8 +107,10 @@ func (e OutputSqsCompression) ToPointer() *OutputSqsCompression {
 type OutputSqsQueueFullBehavior string
 
 const (
+	// OutputSqsQueueFullBehaviorBlock Block
 	OutputSqsQueueFullBehaviorBlock OutputSqsQueueFullBehavior = "block"
-	OutputSqsQueueFullBehaviorDrop  OutputSqsQueueFullBehavior = "drop"
+	// OutputSqsQueueFullBehaviorDrop Drop new data
+	OutputSqsQueueFullBehaviorDrop OutputSqsQueueFullBehavior = "drop"
 )
 
 func (e OutputSqsQueueFullBehavior) ToPointer() *OutputSqsQueueFullBehavior {
@@ -109,9 +121,12 @@ func (e OutputSqsQueueFullBehavior) ToPointer() *OutputSqsQueueFullBehavior {
 type OutputSqsMode string
 
 const (
-	OutputSqsModeError        OutputSqsMode = "error"
+	// OutputSqsModeError Error
+	OutputSqsModeError OutputSqsMode = "error"
+	// OutputSqsModeBackpressure Backpressure
 	OutputSqsModeBackpressure OutputSqsMode = "backpressure"
-	OutputSqsModeAlways       OutputSqsMode = "always"
+	// OutputSqsModeAlways Always On
+	OutputSqsModeAlways OutputSqsMode = "always"
 )
 
 func (e OutputSqsMode) ToPointer() *OutputSqsMode {

@@ -35,7 +35,9 @@ func (e *OutputSyslogType) UnmarshalJSON(data []byte) error {
 type OutputSyslogProtocol string
 
 const (
+	// OutputSyslogProtocolTCP TCP
 	OutputSyslogProtocolTCP OutputSyslogProtocol = "tcp"
+	// OutputSyslogProtocolUDP UDP
 	OutputSyslogProtocolUDP OutputSyslogProtocol = "udp"
 )
 
@@ -79,13 +81,21 @@ func (e Facility) ToPointer() *Facility {
 type OutputSyslogSeverity int64
 
 const (
-	OutputSyslogSeverityZero  OutputSyslogSeverity = 0
-	OutputSyslogSeverityOne   OutputSyslogSeverity = 1
-	OutputSyslogSeverityTwo   OutputSyslogSeverity = 2
+	// OutputSyslogSeverityZero emergency
+	OutputSyslogSeverityZero OutputSyslogSeverity = 0
+	// OutputSyslogSeverityOne alert
+	OutputSyslogSeverityOne OutputSyslogSeverity = 1
+	// OutputSyslogSeverityTwo critical
+	OutputSyslogSeverityTwo OutputSyslogSeverity = 2
+	// OutputSyslogSeverityThree error
 	OutputSyslogSeverityThree OutputSyslogSeverity = 3
-	OutputSyslogSeverityFour  OutputSyslogSeverity = 4
-	OutputSyslogSeverityFive  OutputSyslogSeverity = 5
-	OutputSyslogSeveritySix   OutputSyslogSeverity = 6
+	// OutputSyslogSeverityFour warning
+	OutputSyslogSeverityFour OutputSyslogSeverity = 4
+	// OutputSyslogSeverityFive notice
+	OutputSyslogSeverityFive OutputSyslogSeverity = 5
+	// OutputSyslogSeveritySix info
+	OutputSyslogSeveritySix OutputSyslogSeverity = 6
+	// OutputSyslogSeveritySeven debug
 	OutputSyslogSeveritySeven OutputSyslogSeverity = 7
 )
 
@@ -97,7 +107,9 @@ func (e OutputSyslogSeverity) ToPointer() *OutputSyslogSeverity {
 type OutputSyslogMessageFormat string
 
 const (
+	// OutputSyslogMessageFormatRfc3164 RFC3164
 	OutputSyslogMessageFormatRfc3164 OutputSyslogMessageFormat = "rfc3164"
+	// OutputSyslogMessageFormatRfc5424 RFC5424
 	OutputSyslogMessageFormatRfc5424 OutputSyslogMessageFormat = "rfc5424"
 )
 
@@ -109,7 +121,9 @@ func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 type TimestampFormat string
 
 const (
-	TimestampFormatSyslog  TimestampFormat = "syslog"
+	// TimestampFormatSyslog Syslog
+	TimestampFormatSyslog TimestampFormat = "syslog"
+	// TimestampFormatIso8601 ISO8601
 	TimestampFormatIso8601 TimestampFormat = "iso8601"
 )
 
@@ -249,8 +263,11 @@ func (o *OutputSyslogTLSSettingsClientSide) GetMaxVersion() *OutputSyslogMaximum
 type OutputSyslogBackpressureBehavior string
 
 const (
+	// OutputSyslogBackpressureBehaviorBlock Block
 	OutputSyslogBackpressureBehaviorBlock OutputSyslogBackpressureBehavior = "block"
-	OutputSyslogBackpressureBehaviorDrop  OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorDrop Drop
+	OutputSyslogBackpressureBehaviorDrop OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorQueue Persistent Queue
 	OutputSyslogBackpressureBehaviorQueue OutputSyslogBackpressureBehavior = "queue"
 )
 
@@ -262,7 +279,9 @@ func (e OutputSyslogBackpressureBehavior) ToPointer() *OutputSyslogBackpressureB
 type OutputSyslogCompression string
 
 const (
+	// OutputSyslogCompressionNone None
 	OutputSyslogCompressionNone OutputSyslogCompression = "none"
+	// OutputSyslogCompressionGzip Gzip
 	OutputSyslogCompressionGzip OutputSyslogCompression = "gzip"
 )
 
@@ -274,8 +293,10 @@ func (e OutputSyslogCompression) ToPointer() *OutputSyslogCompression {
 type OutputSyslogQueueFullBehavior string
 
 const (
+	// OutputSyslogQueueFullBehaviorBlock Block
 	OutputSyslogQueueFullBehaviorBlock OutputSyslogQueueFullBehavior = "block"
-	OutputSyslogQueueFullBehaviorDrop  OutputSyslogQueueFullBehavior = "drop"
+	// OutputSyslogQueueFullBehaviorDrop Drop new data
+	OutputSyslogQueueFullBehaviorDrop OutputSyslogQueueFullBehavior = "drop"
 )
 
 func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavior {
@@ -286,9 +307,12 @@ func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavio
 type OutputSyslogMode string
 
 const (
-	OutputSyslogModeError        OutputSyslogMode = "error"
+	// OutputSyslogModeError Error
+	OutputSyslogModeError OutputSyslogMode = "error"
+	// OutputSyslogModeBackpressure Backpressure
 	OutputSyslogModeBackpressure OutputSyslogMode = "backpressure"
-	OutputSyslogModeAlways       OutputSyslogMode = "always"
+	// OutputSyslogModeAlways Always On
+	OutputSyslogModeAlways OutputSyslogMode = "always"
 )
 
 func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {

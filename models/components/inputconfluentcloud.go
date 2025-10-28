@@ -65,7 +65,9 @@ func (i *InputConfluentCloudConnection) GetOutput() string {
 type InputConfluentCloudMode string
 
 const (
-	InputConfluentCloudModeSmart  InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeSmart Smart
+	InputConfluentCloudModeSmart InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeAlways Always On
 	InputConfluentCloudModeAlways InputConfluentCloudMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputConfluentCloudMode) ToPointer() *InputConfluentCloudMode {
 type InputConfluentCloudCompression string
 
 const (
+	// InputConfluentCloudCompressionNone None
 	InputConfluentCloudCompressionNone InputConfluentCloudCompression = "none"
+	// InputConfluentCloudCompressionGzip Gzip
 	InputConfluentCloudCompressionGzip InputConfluentCloudCompression = "gzip"
 )
 
@@ -312,18 +316,6 @@ func (i *InputConfluentCloudTLSSettingsClientSide) GetMaxVersion() *InputConflue
 	return i.MaxVersion
 }
 
-// InputConfluentCloudSchemaType - The schema format used to encode and decode event data
-type InputConfluentCloudSchemaType string
-
-const (
-	InputConfluentCloudSchemaTypeAvro InputConfluentCloudSchemaType = "avro"
-	InputConfluentCloudSchemaTypeJSON InputConfluentCloudSchemaType = "json"
-)
-
-func (e InputConfluentCloudSchemaType) ToPointer() *InputConfluentCloudSchemaType {
-	return &e
-}
-
 // InputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type InputConfluentCloudAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -488,8 +480,6 @@ type InputConfluentCloudKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputConfluentCloudSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -524,13 +514,6 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaRegistry
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaType() *InputConfluentCloudSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -571,10 +554,14 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetTLS() *InputCo
 type InputConfluentCloudSASLMechanism string
 
 const (
-	InputConfluentCloudSASLMechanismPlain       InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismPlain PLAIN
+	InputConfluentCloudSASLMechanismPlain InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismScramSha256 SCRAM-SHA-256
 	InputConfluentCloudSASLMechanismScramSha256 InputConfluentCloudSASLMechanism = "scram-sha-256"
+	// InputConfluentCloudSASLMechanismScramSha512 SCRAM-SHA-512
 	InputConfluentCloudSASLMechanismScramSha512 InputConfluentCloudSASLMechanism = "scram-sha-512"
-	InputConfluentCloudSASLMechanismKerberos    InputConfluentCloudSASLMechanism = "kerberos"
+	// InputConfluentCloudSASLMechanismKerberos GSSAPI/Kerberos
+	InputConfluentCloudSASLMechanismKerberos InputConfluentCloudSASLMechanism = "kerberos"
 )
 
 func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMechanism {

@@ -35,8 +35,11 @@ func (e *OutputNewrelicEventsType) UnmarshalJSON(data []byte) error {
 type OutputNewrelicEventsRegion string
 
 const (
-	OutputNewrelicEventsRegionUs     OutputNewrelicEventsRegion = "US"
-	OutputNewrelicEventsRegionEu     OutputNewrelicEventsRegion = "EU"
+	// OutputNewrelicEventsRegionUs US
+	OutputNewrelicEventsRegionUs OutputNewrelicEventsRegion = "US"
+	// OutputNewrelicEventsRegionEu Europe
+	OutputNewrelicEventsRegionEu OutputNewrelicEventsRegion = "EU"
+	// OutputNewrelicEventsRegionCustom Custom
 	OutputNewrelicEventsRegionCustom OutputNewrelicEventsRegion = "Custom"
 )
 
@@ -78,9 +81,12 @@ func (o *OutputNewrelicEventsExtraHTTPHeader) GetValue() string {
 type OutputNewrelicEventsFailedRequestLoggingMode string
 
 const (
-	OutputNewrelicEventsFailedRequestLoggingModePayload           OutputNewrelicEventsFailedRequestLoggingMode = "payload"
+	// OutputNewrelicEventsFailedRequestLoggingModePayload Payload
+	OutputNewrelicEventsFailedRequestLoggingModePayload OutputNewrelicEventsFailedRequestLoggingMode = "payload"
+	// OutputNewrelicEventsFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputNewrelicEventsFailedRequestLoggingModePayloadAndHeaders OutputNewrelicEventsFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputNewrelicEventsFailedRequestLoggingModeNone              OutputNewrelicEventsFailedRequestLoggingMode = "none"
+	// OutputNewrelicEventsFailedRequestLoggingModeNone None
+	OutputNewrelicEventsFailedRequestLoggingModeNone OutputNewrelicEventsFailedRequestLoggingMode = "none"
 )
 
 func (e OutputNewrelicEventsFailedRequestLoggingMode) ToPointer() *OutputNewrelicEventsFailedRequestLoggingMode {
@@ -190,8 +196,11 @@ func (o *OutputNewrelicEventsTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputNewrelicEventsBackpressureBehavior string
 
 const (
+	// OutputNewrelicEventsBackpressureBehaviorBlock Block
 	OutputNewrelicEventsBackpressureBehaviorBlock OutputNewrelicEventsBackpressureBehavior = "block"
-	OutputNewrelicEventsBackpressureBehaviorDrop  OutputNewrelicEventsBackpressureBehavior = "drop"
+	// OutputNewrelicEventsBackpressureBehaviorDrop Drop
+	OutputNewrelicEventsBackpressureBehaviorDrop OutputNewrelicEventsBackpressureBehavior = "drop"
+	// OutputNewrelicEventsBackpressureBehaviorQueue Persistent Queue
 	OutputNewrelicEventsBackpressureBehaviorQueue OutputNewrelicEventsBackpressureBehavior = "queue"
 )
 
@@ -215,7 +224,9 @@ func (e OutputNewrelicEventsAuthenticationMethod) ToPointer() *OutputNewrelicEve
 type OutputNewrelicEventsCompression string
 
 const (
+	// OutputNewrelicEventsCompressionNone None
 	OutputNewrelicEventsCompressionNone OutputNewrelicEventsCompression = "none"
+	// OutputNewrelicEventsCompressionGzip Gzip
 	OutputNewrelicEventsCompressionGzip OutputNewrelicEventsCompression = "gzip"
 )
 
@@ -227,8 +238,10 @@ func (e OutputNewrelicEventsCompression) ToPointer() *OutputNewrelicEventsCompre
 type OutputNewrelicEventsQueueFullBehavior string
 
 const (
+	// OutputNewrelicEventsQueueFullBehaviorBlock Block
 	OutputNewrelicEventsQueueFullBehaviorBlock OutputNewrelicEventsQueueFullBehavior = "block"
-	OutputNewrelicEventsQueueFullBehaviorDrop  OutputNewrelicEventsQueueFullBehavior = "drop"
+	// OutputNewrelicEventsQueueFullBehaviorDrop Drop new data
+	OutputNewrelicEventsQueueFullBehaviorDrop OutputNewrelicEventsQueueFullBehavior = "drop"
 )
 
 func (e OutputNewrelicEventsQueueFullBehavior) ToPointer() *OutputNewrelicEventsQueueFullBehavior {
@@ -239,9 +252,12 @@ func (e OutputNewrelicEventsQueueFullBehavior) ToPointer() *OutputNewrelicEvents
 type OutputNewrelicEventsMode string
 
 const (
-	OutputNewrelicEventsModeError        OutputNewrelicEventsMode = "error"
+	// OutputNewrelicEventsModeError Error
+	OutputNewrelicEventsModeError OutputNewrelicEventsMode = "error"
+	// OutputNewrelicEventsModeBackpressure Backpressure
 	OutputNewrelicEventsModeBackpressure OutputNewrelicEventsMode = "backpressure"
-	OutputNewrelicEventsModeAlways       OutputNewrelicEventsMode = "always"
+	// OutputNewrelicEventsModeAlways Always On
+	OutputNewrelicEventsModeAlways OutputNewrelicEventsMode = "always"
 )
 
 func (e OutputNewrelicEventsMode) ToPointer() *OutputNewrelicEventsMode {

@@ -35,7 +35,9 @@ func (e *OutputStatsdExtType) UnmarshalJSON(data []byte) error {
 type OutputStatsdExtDestinationProtocol string
 
 const (
+	// OutputStatsdExtDestinationProtocolUDP UDP
 	OutputStatsdExtDestinationProtocolUDP OutputStatsdExtDestinationProtocol = "udp"
+	// OutputStatsdExtDestinationProtocolTCP TCP
 	OutputStatsdExtDestinationProtocolTCP OutputStatsdExtDestinationProtocol = "tcp"
 )
 
@@ -47,8 +49,11 @@ func (e OutputStatsdExtDestinationProtocol) ToPointer() *OutputStatsdExtDestinat
 type OutputStatsdExtBackpressureBehavior string
 
 const (
+	// OutputStatsdExtBackpressureBehaviorBlock Block
 	OutputStatsdExtBackpressureBehaviorBlock OutputStatsdExtBackpressureBehavior = "block"
-	OutputStatsdExtBackpressureBehaviorDrop  OutputStatsdExtBackpressureBehavior = "drop"
+	// OutputStatsdExtBackpressureBehaviorDrop Drop
+	OutputStatsdExtBackpressureBehaviorDrop OutputStatsdExtBackpressureBehavior = "drop"
+	// OutputStatsdExtBackpressureBehaviorQueue Persistent Queue
 	OutputStatsdExtBackpressureBehaviorQueue OutputStatsdExtBackpressureBehavior = "queue"
 )
 
@@ -60,7 +65,9 @@ func (e OutputStatsdExtBackpressureBehavior) ToPointer() *OutputStatsdExtBackpre
 type OutputStatsdExtCompression string
 
 const (
+	// OutputStatsdExtCompressionNone None
 	OutputStatsdExtCompressionNone OutputStatsdExtCompression = "none"
+	// OutputStatsdExtCompressionGzip Gzip
 	OutputStatsdExtCompressionGzip OutputStatsdExtCompression = "gzip"
 )
 
@@ -72,8 +79,10 @@ func (e OutputStatsdExtCompression) ToPointer() *OutputStatsdExtCompression {
 type OutputStatsdExtQueueFullBehavior string
 
 const (
+	// OutputStatsdExtQueueFullBehaviorBlock Block
 	OutputStatsdExtQueueFullBehaviorBlock OutputStatsdExtQueueFullBehavior = "block"
-	OutputStatsdExtQueueFullBehaviorDrop  OutputStatsdExtQueueFullBehavior = "drop"
+	// OutputStatsdExtQueueFullBehaviorDrop Drop new data
+	OutputStatsdExtQueueFullBehaviorDrop OutputStatsdExtQueueFullBehavior = "drop"
 )
 
 func (e OutputStatsdExtQueueFullBehavior) ToPointer() *OutputStatsdExtQueueFullBehavior {
@@ -84,9 +93,12 @@ func (e OutputStatsdExtQueueFullBehavior) ToPointer() *OutputStatsdExtQueueFullB
 type OutputStatsdExtMode string
 
 const (
-	OutputStatsdExtModeError        OutputStatsdExtMode = "error"
+	// OutputStatsdExtModeError Error
+	OutputStatsdExtModeError OutputStatsdExtMode = "error"
+	// OutputStatsdExtModeBackpressure Backpressure
 	OutputStatsdExtModeBackpressure OutputStatsdExtMode = "backpressure"
-	OutputStatsdExtModeAlways       OutputStatsdExtMode = "always"
+	// OutputStatsdExtModeAlways Always On
+	OutputStatsdExtModeAlways OutputStatsdExtMode = "always"
 )
 
 func (e OutputStatsdExtMode) ToPointer() *OutputStatsdExtMode {

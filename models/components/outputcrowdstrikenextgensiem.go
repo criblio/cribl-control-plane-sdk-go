@@ -65,9 +65,12 @@ func (o *OutputCrowdstrikeNextGenSiemExtraHTTPHeader) GetValue() string {
 type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode string
 
 const (
-	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload           OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payload"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload Payload
+	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payload"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayloadAndHeaders OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone              OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "none"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone None
+	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "none"
 )
 
 func (e OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) ToPointer() *OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode {
@@ -78,8 +81,10 @@ func (e OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) ToPointer() *Outpu
 type OutputCrowdstrikeNextGenSiemRequestFormat string
 
 const (
+	// OutputCrowdstrikeNextGenSiemRequestFormatJSON JSON
 	OutputCrowdstrikeNextGenSiemRequestFormatJSON OutputCrowdstrikeNextGenSiemRequestFormat = "JSON"
-	OutputCrowdstrikeNextGenSiemRequestFormatRaw  OutputCrowdstrikeNextGenSiemRequestFormat = "raw"
+	// OutputCrowdstrikeNextGenSiemRequestFormatRaw Raw
+	OutputCrowdstrikeNextGenSiemRequestFormatRaw OutputCrowdstrikeNextGenSiemRequestFormat = "raw"
 )
 
 func (e OutputCrowdstrikeNextGenSiemRequestFormat) ToPointer() *OutputCrowdstrikeNextGenSiemRequestFormat {
@@ -201,8 +206,11 @@ func (o *OutputCrowdstrikeNextGenSiemTimeoutRetrySettings) GetMaxBackoff() *floa
 type OutputCrowdstrikeNextGenSiemBackpressureBehavior string
 
 const (
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorBlock Block
 	OutputCrowdstrikeNextGenSiemBackpressureBehaviorBlock OutputCrowdstrikeNextGenSiemBackpressureBehavior = "block"
-	OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop  OutputCrowdstrikeNextGenSiemBackpressureBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop Drop
+	OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop OutputCrowdstrikeNextGenSiemBackpressureBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorQueue Persistent Queue
 	OutputCrowdstrikeNextGenSiemBackpressureBehaviorQueue OutputCrowdstrikeNextGenSiemBackpressureBehavior = "queue"
 )
 
@@ -214,7 +222,9 @@ func (e OutputCrowdstrikeNextGenSiemBackpressureBehavior) ToPointer() *OutputCro
 type OutputCrowdstrikeNextGenSiemCompression string
 
 const (
+	// OutputCrowdstrikeNextGenSiemCompressionNone None
 	OutputCrowdstrikeNextGenSiemCompressionNone OutputCrowdstrikeNextGenSiemCompression = "none"
+	// OutputCrowdstrikeNextGenSiemCompressionGzip Gzip
 	OutputCrowdstrikeNextGenSiemCompressionGzip OutputCrowdstrikeNextGenSiemCompression = "gzip"
 )
 
@@ -226,8 +236,10 @@ func (e OutputCrowdstrikeNextGenSiemCompression) ToPointer() *OutputCrowdstrikeN
 type OutputCrowdstrikeNextGenSiemQueueFullBehavior string
 
 const (
+	// OutputCrowdstrikeNextGenSiemQueueFullBehaviorBlock Block
 	OutputCrowdstrikeNextGenSiemQueueFullBehaviorBlock OutputCrowdstrikeNextGenSiemQueueFullBehavior = "block"
-	OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop  OutputCrowdstrikeNextGenSiemQueueFullBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop Drop new data
+	OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop OutputCrowdstrikeNextGenSiemQueueFullBehavior = "drop"
 )
 
 func (e OutputCrowdstrikeNextGenSiemQueueFullBehavior) ToPointer() *OutputCrowdstrikeNextGenSiemQueueFullBehavior {
@@ -238,9 +250,12 @@ func (e OutputCrowdstrikeNextGenSiemQueueFullBehavior) ToPointer() *OutputCrowds
 type OutputCrowdstrikeNextGenSiemMode string
 
 const (
-	OutputCrowdstrikeNextGenSiemModeError        OutputCrowdstrikeNextGenSiemMode = "error"
+	// OutputCrowdstrikeNextGenSiemModeError Error
+	OutputCrowdstrikeNextGenSiemModeError OutputCrowdstrikeNextGenSiemMode = "error"
+	// OutputCrowdstrikeNextGenSiemModeBackpressure Backpressure
 	OutputCrowdstrikeNextGenSiemModeBackpressure OutputCrowdstrikeNextGenSiemMode = "backpressure"
-	OutputCrowdstrikeNextGenSiemModeAlways       OutputCrowdstrikeNextGenSiemMode = "always"
+	// OutputCrowdstrikeNextGenSiemModeAlways Always On
+	OutputCrowdstrikeNextGenSiemModeAlways OutputCrowdstrikeNextGenSiemMode = "always"
 )
 
 func (e OutputCrowdstrikeNextGenSiemMode) ToPointer() *OutputCrowdstrikeNextGenSiemMode {

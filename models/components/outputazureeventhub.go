@@ -35,8 +35,11 @@ func (e *OutputAzureEventhubType) UnmarshalJSON(data []byte) error {
 type OutputAzureEventhubAcknowledgments int64
 
 const (
-	OutputAzureEventhubAcknowledgmentsOne    OutputAzureEventhubAcknowledgments = 1
-	OutputAzureEventhubAcknowledgmentsZero   OutputAzureEventhubAcknowledgments = 0
+	// OutputAzureEventhubAcknowledgmentsOne Leader
+	OutputAzureEventhubAcknowledgmentsOne OutputAzureEventhubAcknowledgments = 1
+	// OutputAzureEventhubAcknowledgmentsZero None
+	OutputAzureEventhubAcknowledgmentsZero OutputAzureEventhubAcknowledgments = 0
+	// OutputAzureEventhubAcknowledgmentsMinus1 All
 	OutputAzureEventhubAcknowledgmentsMinus1 OutputAzureEventhubAcknowledgments = -1
 )
 
@@ -48,8 +51,10 @@ func (e OutputAzureEventhubAcknowledgments) ToPointer() *OutputAzureEventhubAckn
 type OutputAzureEventhubRecordDataFormat string
 
 const (
+	// OutputAzureEventhubRecordDataFormatJSON JSON
 	OutputAzureEventhubRecordDataFormatJSON OutputAzureEventhubRecordDataFormat = "json"
-	OutputAzureEventhubRecordDataFormatRaw  OutputAzureEventhubRecordDataFormat = "raw"
+	// OutputAzureEventhubRecordDataFormatRaw Field _raw
+	OutputAzureEventhubRecordDataFormatRaw OutputAzureEventhubRecordDataFormat = "raw"
 )
 
 func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRecordDataFormat {
@@ -59,7 +64,9 @@ func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRec
 type OutputAzureEventhubSASLMechanism string
 
 const (
-	OutputAzureEventhubSASLMechanismPlain       OutputAzureEventhubSASLMechanism = "plain"
+	// OutputAzureEventhubSASLMechanismPlain PLAIN
+	OutputAzureEventhubSASLMechanismPlain OutputAzureEventhubSASLMechanism = "plain"
+	// OutputAzureEventhubSASLMechanismOauthbearer OAUTHBEARER
 	OutputAzureEventhubSASLMechanismOauthbearer OutputAzureEventhubSASLMechanism = "oauthbearer"
 )
 
@@ -133,8 +140,11 @@ func (o *OutputAzureEventhubTLSSettingsClientSide) GetRejectUnauthorized() *bool
 type OutputAzureEventhubBackpressureBehavior string
 
 const (
+	// OutputAzureEventhubBackpressureBehaviorBlock Block
 	OutputAzureEventhubBackpressureBehaviorBlock OutputAzureEventhubBackpressureBehavior = "block"
-	OutputAzureEventhubBackpressureBehaviorDrop  OutputAzureEventhubBackpressureBehavior = "drop"
+	// OutputAzureEventhubBackpressureBehaviorDrop Drop
+	OutputAzureEventhubBackpressureBehaviorDrop OutputAzureEventhubBackpressureBehavior = "drop"
+	// OutputAzureEventhubBackpressureBehaviorQueue Persistent Queue
 	OutputAzureEventhubBackpressureBehaviorQueue OutputAzureEventhubBackpressureBehavior = "queue"
 )
 
@@ -146,7 +156,9 @@ func (e OutputAzureEventhubBackpressureBehavior) ToPointer() *OutputAzureEventhu
 type OutputAzureEventhubCompression string
 
 const (
+	// OutputAzureEventhubCompressionNone None
 	OutputAzureEventhubCompressionNone OutputAzureEventhubCompression = "none"
+	// OutputAzureEventhubCompressionGzip Gzip
 	OutputAzureEventhubCompressionGzip OutputAzureEventhubCompression = "gzip"
 )
 
@@ -158,8 +170,10 @@ func (e OutputAzureEventhubCompression) ToPointer() *OutputAzureEventhubCompress
 type OutputAzureEventhubQueueFullBehavior string
 
 const (
+	// OutputAzureEventhubQueueFullBehaviorBlock Block
 	OutputAzureEventhubQueueFullBehaviorBlock OutputAzureEventhubQueueFullBehavior = "block"
-	OutputAzureEventhubQueueFullBehaviorDrop  OutputAzureEventhubQueueFullBehavior = "drop"
+	// OutputAzureEventhubQueueFullBehaviorDrop Drop new data
+	OutputAzureEventhubQueueFullBehaviorDrop OutputAzureEventhubQueueFullBehavior = "drop"
 )
 
 func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQueueFullBehavior {
@@ -170,9 +184,12 @@ func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQu
 type OutputAzureEventhubMode string
 
 const (
-	OutputAzureEventhubModeError        OutputAzureEventhubMode = "error"
+	// OutputAzureEventhubModeError Error
+	OutputAzureEventhubModeError OutputAzureEventhubMode = "error"
+	// OutputAzureEventhubModeBackpressure Backpressure
 	OutputAzureEventhubModeBackpressure OutputAzureEventhubMode = "backpressure"
-	OutputAzureEventhubModeAlways       OutputAzureEventhubMode = "always"
+	// OutputAzureEventhubModeAlways Always On
+	OutputAzureEventhubModeAlways OutputAzureEventhubMode = "always"
 )
 
 func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {

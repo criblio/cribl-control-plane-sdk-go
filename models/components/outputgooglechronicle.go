@@ -34,7 +34,9 @@ func (e *OutputGoogleChronicleType) UnmarshalJSON(data []byte) error {
 type OutputGoogleChronicleAPIVersion string
 
 const (
+	// OutputGoogleChronicleAPIVersionV1 V1
 	OutputGoogleChronicleAPIVersionV1 OutputGoogleChronicleAPIVersion = "v1"
+	// OutputGoogleChronicleAPIVersionV2 V2
 	OutputGoogleChronicleAPIVersionV2 OutputGoogleChronicleAPIVersion = "v2"
 )
 
@@ -45,9 +47,13 @@ func (e OutputGoogleChronicleAPIVersion) ToPointer() *OutputGoogleChronicleAPIVe
 type OutputGoogleChronicleAuthenticationMethod string
 
 const (
-	OutputGoogleChronicleAuthenticationMethodManual               OutputGoogleChronicleAuthenticationMethod = "manual"
-	OutputGoogleChronicleAuthenticationMethodSecret               OutputGoogleChronicleAuthenticationMethod = "secret"
-	OutputGoogleChronicleAuthenticationMethodServiceAccount       OutputGoogleChronicleAuthenticationMethod = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethodManual API key
+	OutputGoogleChronicleAuthenticationMethodManual OutputGoogleChronicleAuthenticationMethod = "manual"
+	// OutputGoogleChronicleAuthenticationMethodSecret API key secret
+	OutputGoogleChronicleAuthenticationMethodSecret OutputGoogleChronicleAuthenticationMethod = "secret"
+	// OutputGoogleChronicleAuthenticationMethodServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethodServiceAccount OutputGoogleChronicleAuthenticationMethod = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethodServiceAccountSecret Service account credentials secret
 	OutputGoogleChronicleAuthenticationMethodServiceAccountSecret OutputGoogleChronicleAuthenticationMethod = "serviceAccountSecret"
 )
 
@@ -157,8 +163,10 @@ func (o *OutputGoogleChronicleTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type SendEventsAs string
 
 const (
+	// SendEventsAsUnstructured Unstructured
 	SendEventsAsUnstructured SendEventsAs = "unstructured"
-	SendEventsAsUdm          SendEventsAs = "udm"
+	// SendEventsAsUdm UDM
+	SendEventsAsUdm SendEventsAs = "udm"
 )
 
 func (e SendEventsAs) ToPointer() *SendEventsAs {
@@ -199,9 +207,12 @@ func (o *OutputGoogleChronicleExtraHTTPHeader) GetValue() string {
 type OutputGoogleChronicleFailedRequestLoggingMode string
 
 const (
-	OutputGoogleChronicleFailedRequestLoggingModePayload           OutputGoogleChronicleFailedRequestLoggingMode = "payload"
+	// OutputGoogleChronicleFailedRequestLoggingModePayload Payload
+	OutputGoogleChronicleFailedRequestLoggingModePayload OutputGoogleChronicleFailedRequestLoggingMode = "payload"
+	// OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders OutputGoogleChronicleFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputGoogleChronicleFailedRequestLoggingModeNone              OutputGoogleChronicleFailedRequestLoggingMode = "none"
+	// OutputGoogleChronicleFailedRequestLoggingModeNone None
+	OutputGoogleChronicleFailedRequestLoggingModeNone OutputGoogleChronicleFailedRequestLoggingMode = "none"
 )
 
 func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogleChronicleFailedRequestLoggingMode {
@@ -212,8 +223,11 @@ func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogle
 type OutputGoogleChronicleBackpressureBehavior string
 
 const (
+	// OutputGoogleChronicleBackpressureBehaviorBlock Block
 	OutputGoogleChronicleBackpressureBehaviorBlock OutputGoogleChronicleBackpressureBehavior = "block"
-	OutputGoogleChronicleBackpressureBehaviorDrop  OutputGoogleChronicleBackpressureBehavior = "drop"
+	// OutputGoogleChronicleBackpressureBehaviorDrop Drop
+	OutputGoogleChronicleBackpressureBehaviorDrop OutputGoogleChronicleBackpressureBehavior = "drop"
+	// OutputGoogleChronicleBackpressureBehaviorQueue Persistent Queue
 	OutputGoogleChronicleBackpressureBehaviorQueue OutputGoogleChronicleBackpressureBehavior = "queue"
 )
 
@@ -285,7 +299,9 @@ func (o *OutputGoogleChronicleCustomLabel) GetValue() string {
 type OutputGoogleChronicleCompression string
 
 const (
+	// OutputGoogleChronicleCompressionNone None
 	OutputGoogleChronicleCompressionNone OutputGoogleChronicleCompression = "none"
+	// OutputGoogleChronicleCompressionGzip Gzip
 	OutputGoogleChronicleCompressionGzip OutputGoogleChronicleCompression = "gzip"
 )
 
@@ -297,8 +313,10 @@ func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleComp
 type OutputGoogleChronicleQueueFullBehavior string
 
 const (
+	// OutputGoogleChronicleQueueFullBehaviorBlock Block
 	OutputGoogleChronicleQueueFullBehaviorBlock OutputGoogleChronicleQueueFullBehavior = "block"
-	OutputGoogleChronicleQueueFullBehaviorDrop  OutputGoogleChronicleQueueFullBehavior = "drop"
+	// OutputGoogleChronicleQueueFullBehaviorDrop Drop new data
+	OutputGoogleChronicleQueueFullBehaviorDrop OutputGoogleChronicleQueueFullBehavior = "drop"
 )
 
 func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
@@ -309,9 +327,12 @@ func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronic
 type OutputGoogleChronicleMode string
 
 const (
-	OutputGoogleChronicleModeError        OutputGoogleChronicleMode = "error"
+	// OutputGoogleChronicleModeError Error
+	OutputGoogleChronicleModeError OutputGoogleChronicleMode = "error"
+	// OutputGoogleChronicleModeBackpressure Backpressure
 	OutputGoogleChronicleModeBackpressure OutputGoogleChronicleMode = "backpressure"
-	OutputGoogleChronicleModeAlways       OutputGoogleChronicleMode = "always"
+	// OutputGoogleChronicleModeAlways Always On
+	OutputGoogleChronicleModeAlways OutputGoogleChronicleMode = "always"
 )
 
 func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {

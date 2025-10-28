@@ -611,9 +611,13 @@ func (r *RunnableJobCollectionTimeWarning) UnmarshalJSON(data []byte) error {
 type WhereToCapture int64
 
 const (
-	WhereToCaptureZero  WhereToCapture = 0
-	WhereToCaptureOne   WhereToCapture = 1
-	WhereToCaptureTwo   WhereToCapture = 2
+	// WhereToCaptureZero 1. Before pre-processing Pipeline
+	WhereToCaptureZero WhereToCapture = 0
+	// WhereToCaptureOne 2. Before the Routes
+	WhereToCaptureOne WhereToCapture = 1
+	// WhereToCaptureTwo 3. Before post-processing Pipeline
+	WhereToCaptureTwo WhereToCapture = 2
+	// WhereToCaptureThree 4. Before the Destination
 	WhereToCaptureThree WhereToCapture = 3
 )
 

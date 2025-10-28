@@ -35,12 +35,18 @@ func (e *OutputInfluxdbType) UnmarshalJSON(data []byte) error {
 type TimestampPrecision string
 
 const (
+	// TimestampPrecisionNs Nanoseconds
 	TimestampPrecisionNs TimestampPrecision = "ns"
-	TimestampPrecisionU  TimestampPrecision = "u"
+	// TimestampPrecisionU Microseconds
+	TimestampPrecisionU TimestampPrecision = "u"
+	// TimestampPrecisionMs Milliseconds
 	TimestampPrecisionMs TimestampPrecision = "ms"
-	TimestampPrecisionS  TimestampPrecision = "s"
-	TimestampPrecisionM  TimestampPrecision = "m"
-	TimestampPrecisionH  TimestampPrecision = "h"
+	// TimestampPrecisionS Seconds
+	TimestampPrecisionS TimestampPrecision = "s"
+	// TimestampPrecisionM Minutes
+	TimestampPrecisionM TimestampPrecision = "m"
+	// TimestampPrecisionH Hours
+	TimestampPrecisionH TimestampPrecision = "h"
 )
 
 func (e TimestampPrecision) ToPointer() *TimestampPrecision {
@@ -81,9 +87,12 @@ func (o *OutputInfluxdbExtraHTTPHeader) GetValue() string {
 type OutputInfluxdbFailedRequestLoggingMode string
 
 const (
-	OutputInfluxdbFailedRequestLoggingModePayload           OutputInfluxdbFailedRequestLoggingMode = "payload"
+	// OutputInfluxdbFailedRequestLoggingModePayload Payload
+	OutputInfluxdbFailedRequestLoggingModePayload OutputInfluxdbFailedRequestLoggingMode = "payload"
+	// OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders OutputInfluxdbFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputInfluxdbFailedRequestLoggingModeNone              OutputInfluxdbFailedRequestLoggingMode = "none"
+	// OutputInfluxdbFailedRequestLoggingModeNone None
+	OutputInfluxdbFailedRequestLoggingModeNone OutputInfluxdbFailedRequestLoggingMode = "none"
 )
 
 func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
@@ -193,8 +202,11 @@ func (o *OutputInfluxdbTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputInfluxdbBackpressureBehavior string
 
 const (
+	// OutputInfluxdbBackpressureBehaviorBlock Block
 	OutputInfluxdbBackpressureBehaviorBlock OutputInfluxdbBackpressureBehavior = "block"
-	OutputInfluxdbBackpressureBehaviorDrop  OutputInfluxdbBackpressureBehavior = "drop"
+	// OutputInfluxdbBackpressureBehaviorDrop Drop
+	OutputInfluxdbBackpressureBehaviorDrop OutputInfluxdbBackpressureBehavior = "drop"
+	// OutputInfluxdbBackpressureBehaviorQueue Persistent Queue
 	OutputInfluxdbBackpressureBehaviorQueue OutputInfluxdbBackpressureBehavior = "queue"
 )
 
@@ -222,7 +234,9 @@ func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticat
 type OutputInfluxdbCompression string
 
 const (
+	// OutputInfluxdbCompressionNone None
 	OutputInfluxdbCompressionNone OutputInfluxdbCompression = "none"
+	// OutputInfluxdbCompressionGzip Gzip
 	OutputInfluxdbCompressionGzip OutputInfluxdbCompression = "gzip"
 )
 
@@ -234,8 +248,10 @@ func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
 type OutputInfluxdbQueueFullBehavior string
 
 const (
+	// OutputInfluxdbQueueFullBehaviorBlock Block
 	OutputInfluxdbQueueFullBehaviorBlock OutputInfluxdbQueueFullBehavior = "block"
-	OutputInfluxdbQueueFullBehaviorDrop  OutputInfluxdbQueueFullBehavior = "drop"
+	// OutputInfluxdbQueueFullBehaviorDrop Drop new data
+	OutputInfluxdbQueueFullBehaviorDrop OutputInfluxdbQueueFullBehavior = "drop"
 )
 
 func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
@@ -246,9 +262,12 @@ func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBeh
 type OutputInfluxdbMode string
 
 const (
-	OutputInfluxdbModeError        OutputInfluxdbMode = "error"
+	// OutputInfluxdbModeError Error
+	OutputInfluxdbModeError OutputInfluxdbMode = "error"
+	// OutputInfluxdbModeBackpressure Backpressure
 	OutputInfluxdbModeBackpressure OutputInfluxdbMode = "backpressure"
-	OutputInfluxdbModeAlways       OutputInfluxdbMode = "always"
+	// OutputInfluxdbModeAlways Always On
+	OutputInfluxdbModeAlways OutputInfluxdbMode = "always"
 )
 
 func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {

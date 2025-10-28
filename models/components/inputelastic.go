@@ -65,7 +65,9 @@ func (i *InputElasticConnection) GetOutput() string {
 type InputElasticMode string
 
 const (
-	InputElasticModeSmart  InputElasticMode = "smart"
+	// InputElasticModeSmart Smart
+	InputElasticModeSmart InputElasticMode = "smart"
+	// InputElasticModeAlways Always On
 	InputElasticModeAlways InputElasticMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputElasticMode) ToPointer() *InputElasticMode {
 type InputElasticCompression string
 
 const (
+	// InputElasticCompressionNone None
 	InputElasticCompressionNone InputElasticCompression = "none"
+	// InputElasticCompressionGzip Gzip
 	InputElasticCompressionGzip InputElasticCompression = "gzip"
 )
 
@@ -321,10 +325,14 @@ func (i *InputElasticTLSSettingsServerSide) GetMaxVersion() *InputElasticMaximum
 type InputElasticAuthenticationType string
 
 const (
-	InputElasticAuthenticationTypeNone              InputElasticAuthenticationType = "none"
-	InputElasticAuthenticationTypeBasic             InputElasticAuthenticationType = "basic"
+	// InputElasticAuthenticationTypeNone None
+	InputElasticAuthenticationTypeNone InputElasticAuthenticationType = "none"
+	// InputElasticAuthenticationTypeBasic Basic
+	InputElasticAuthenticationTypeBasic InputElasticAuthenticationType = "basic"
+	// InputElasticAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	InputElasticAuthenticationTypeCredentialsSecret InputElasticAuthenticationType = "credentialsSecret"
-	InputElasticAuthenticationTypeAuthTokens        InputElasticAuthenticationType = "authTokens"
+	// InputElasticAuthenticationTypeAuthTokens Auth Tokens
+	InputElasticAuthenticationTypeAuthTokens InputElasticAuthenticationType = "authTokens"
 )
 
 func (e InputElasticAuthenticationType) ToPointer() *InputElasticAuthenticationType {
@@ -335,9 +343,12 @@ func (e InputElasticAuthenticationType) ToPointer() *InputElasticAuthenticationT
 type InputElasticAPIVersion string
 
 const (
-	InputElasticAPIVersionSixDot8Dot4   InputElasticAPIVersion = "6.8.4"
+	// InputElasticAPIVersionSixDot8Dot4 6.8.4
+	InputElasticAPIVersionSixDot8Dot4 InputElasticAPIVersion = "6.8.4"
+	// InputElasticAPIVersionEightDot3Dot2 8.3.2
 	InputElasticAPIVersionEightDot3Dot2 InputElasticAPIVersion = "8.3.2"
-	InputElasticAPIVersionCustom        InputElasticAPIVersion = "custom"
+	// InputElasticAPIVersionCustom Custom
+	InputElasticAPIVersionCustom InputElasticAPIVersion = "custom"
 )
 
 func (e InputElasticAPIVersion) ToPointer() *InputElasticAPIVersion {
