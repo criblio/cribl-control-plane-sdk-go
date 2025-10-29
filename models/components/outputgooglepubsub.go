@@ -63,22 +63,6 @@ func (e OutputGooglePubsubBackpressureBehavior) ToPointer() *OutputGooglePubsubB
 	return &e
 }
 
-// OutputGooglePubsubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGooglePubsubMode string
-
-const (
-	// OutputGooglePubsubModeError Error
-	OutputGooglePubsubModeError OutputGooglePubsubMode = "error"
-	// OutputGooglePubsubModeAlways Backpressure
-	OutputGooglePubsubModeAlways OutputGooglePubsubMode = "always"
-	// OutputGooglePubsubModeBackpressure Always On
-	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
-)
-
-func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {
-	return &e
-}
-
 // OutputGooglePubsubCompression - Codec to use to compress the persisted data
 type OutputGooglePubsubCompression string
 
@@ -104,6 +88,22 @@ const (
 )
 
 func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueueFullBehavior {
+	return &e
+}
+
+// OutputGooglePubsubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGooglePubsubMode string
+
+const (
+	// OutputGooglePubsubModeError Error
+	OutputGooglePubsubModeError OutputGooglePubsubMode = "error"
+	// OutputGooglePubsubModeBackpressure Backpressure
+	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
+	// OutputGooglePubsubModeAlways Always On
+	OutputGooglePubsubModeAlways OutputGooglePubsubMode = "always"
+)
+
+func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {
 	return &e
 }
 
@@ -162,16 +162,6 @@ type OutputGooglePubsub struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputGooglePubsubBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                                 `json:"description,omitempty"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputGooglePubsubMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -182,7 +172,9 @@ type OutputGooglePubsub struct {
 	PqCompress *OutputGooglePubsubCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGooglePubsubQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGooglePubsubPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputGooglePubsubMode       `default:"error" json:"pqMode"`
+	PqControls *OutputGooglePubsubPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -343,41 +335,6 @@ func (o *OutputGooglePubsub) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputGooglePubsub) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputGooglePubsub) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputGooglePubsub) GetPqMode() *OutputGooglePubsubMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputGooglePubsub) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputGooglePubsub) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputGooglePubsub) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -411,6 +368,13 @@ func (o *OutputGooglePubsub) GetPqOnBackpressure() *OutputGooglePubsubQueueFullB
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsub) GetPqMode() *OutputGooglePubsubMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputGooglePubsub) GetPqControls() *OutputGooglePubsubPqControls {

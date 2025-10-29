@@ -395,14 +395,12 @@ func (e InputWindowsMetricsNetworkMode) ToPointer() *InputWindowsMetricsNetworkM
 type InputWindowsMetricsNetwork struct {
 	// Select the level of details for network metrics
 	Mode *InputWindowsMetricsNetworkMode `default:"basic" json:"mode"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
-	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputWindowsMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -423,20 +421,6 @@ func (i *InputWindowsMetricsNetwork) GetMode() *InputWindowsMetricsNetworkMode {
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
-func (i *InputWindowsMetricsNetwork) GetProtocols() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Protocols
-}
-
 func (i *InputWindowsMetricsNetwork) GetDevices() []string {
 	if i == nil {
 		return nil
@@ -449,6 +433,13 @@ func (i *InputWindowsMetricsNetwork) GetPerInterface() *bool {
 		return nil
 	}
 	return i.PerInterface
+}
+
+func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
 }
 
 // InputWindowsMetricsDiskMode - Select the level of details for disk metrics
@@ -472,12 +463,10 @@ func (e InputWindowsMetricsDiskMode) ToPointer() *InputWindowsMetricsDiskMode {
 type InputWindowsMetricsDisk struct {
 	// Select the level of details for disk metrics
 	Mode *InputWindowsMetricsDiskMode `default:"basic" json:"mode"`
-	// Generate separate metrics for each volume
-	PerVolume *bool `default:"false" json:"perVolume"`
-	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
 	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
 	Volumes []string `json:"volumes,omitempty"`
+	// Generate separate metrics for each volume
+	PerVolume *bool `default:"false" json:"perVolume"`
 }
 
 func (i InputWindowsMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -498,25 +487,18 @@ func (i *InputWindowsMetricsDisk) GetMode() *InputWindowsMetricsDiskMode {
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsDisk) GetPerVolume() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PerVolume
-}
-
-func (i *InputWindowsMetricsDisk) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
 func (i *InputWindowsMetricsDisk) GetVolumes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Volumes
+}
+
+func (i *InputWindowsMetricsDisk) GetPerVolume() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerVolume
 }
 
 type InputWindowsMetricsCustom struct {

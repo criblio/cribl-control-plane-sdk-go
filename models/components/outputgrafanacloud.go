@@ -409,22 +409,6 @@ func (e OutputGrafanaCloudBackpressureBehavior2) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
-// OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGrafanaCloudMode2 string
-
-const (
-	// OutputGrafanaCloudMode2Error Error
-	OutputGrafanaCloudMode2Error OutputGrafanaCloudMode2 = "error"
-	// OutputGrafanaCloudMode2Always Backpressure
-	OutputGrafanaCloudMode2Always OutputGrafanaCloudMode2 = "always"
-	// OutputGrafanaCloudMode2Backpressure Always On
-	OutputGrafanaCloudMode2Backpressure OutputGrafanaCloudMode2 = "backpressure"
-)
-
-func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
-	return &e
-}
-
 // OutputGrafanaCloudCompression2 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression2 string
 
@@ -450,6 +434,22 @@ const (
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQueueFullBehavior2 {
+	return &e
+}
+
+// OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGrafanaCloudMode2 string
+
+const (
+	// OutputGrafanaCloudMode2Error Error
+	OutputGrafanaCloudMode2Error OutputGrafanaCloudMode2 = "error"
+	// OutputGrafanaCloudMode2Backpressure Backpressure
+	OutputGrafanaCloudMode2Backpressure OutputGrafanaCloudMode2 = "backpressure"
+	// OutputGrafanaCloudMode2Always Always On
+	OutputGrafanaCloudMode2Always OutputGrafanaCloudMode2 = "always"
+)
+
+func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
 	return &e
 }
 
@@ -525,16 +525,6 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	Description    *string                                  `json:"description,omitempty"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `default:"true" json:"compress"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputGrafanaCloudMode2 `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -545,7 +535,9 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	PqCompress *OutputGrafanaCloudCompression2 `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGrafanaCloudQueueFullBehavior2 `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGrafanaCloudPqControls2        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputGrafanaCloudMode2       `default:"error" json:"pqMode"`
+	PqControls *OutputGrafanaCloudPqControls2 `json:"pqControls,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -769,41 +761,6 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetCompress() *bool {
 	return o.Compress
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMode() *OutputGrafanaCloudMode2 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -837,6 +794,13 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetPqOnBackpressure() *OutputGrafanaCl
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMode() *OutputGrafanaCloudMode2 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud2) GetPqControls() *OutputGrafanaCloudPqControls2 {
@@ -1246,22 +1210,6 @@ func (e OutputGrafanaCloudBackpressureBehavior1) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
-// OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGrafanaCloudMode1 string
-
-const (
-	// OutputGrafanaCloudMode1Error Error
-	OutputGrafanaCloudMode1Error OutputGrafanaCloudMode1 = "error"
-	// OutputGrafanaCloudMode1Always Backpressure
-	OutputGrafanaCloudMode1Always OutputGrafanaCloudMode1 = "always"
-	// OutputGrafanaCloudMode1Backpressure Always On
-	OutputGrafanaCloudMode1Backpressure OutputGrafanaCloudMode1 = "backpressure"
-)
-
-func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
-	return &e
-}
-
 // OutputGrafanaCloudCompression1 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression1 string
 
@@ -1287,6 +1235,22 @@ const (
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQueueFullBehavior1 {
+	return &e
+}
+
+// OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGrafanaCloudMode1 string
+
+const (
+	// OutputGrafanaCloudMode1Error Error
+	OutputGrafanaCloudMode1Error OutputGrafanaCloudMode1 = "error"
+	// OutputGrafanaCloudMode1Backpressure Backpressure
+	OutputGrafanaCloudMode1Backpressure OutputGrafanaCloudMode1 = "backpressure"
+	// OutputGrafanaCloudMode1Always Always On
+	OutputGrafanaCloudMode1Always OutputGrafanaCloudMode1 = "always"
+)
+
+func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
 	return &e
 }
 
@@ -1362,16 +1326,6 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	Description    *string                                  `json:"description,omitempty"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `default:"true" json:"compress"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputGrafanaCloudMode1 `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -1382,7 +1336,9 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	PqCompress *OutputGrafanaCloudCompression1 `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGrafanaCloudQueueFullBehavior1 `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGrafanaCloudPqControls1        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputGrafanaCloudMode1       `default:"error" json:"pqMode"`
+	PqControls *OutputGrafanaCloudPqControls1 `json:"pqControls,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -1606,41 +1562,6 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetCompress() *bool {
 	return o.Compress
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMode() *OutputGrafanaCloudMode1 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -1674,6 +1595,13 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetPqOnBackpressure() *OutputGrafanaCl
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMode() *OutputGrafanaCloudMode1 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud1) GetPqControls() *OutputGrafanaCloudPqControls1 {

@@ -332,12 +332,6 @@ func (e InputZscalerHecMaximumTLSVersion) ToPointer() *InputZscalerHecMaximumTLS
 
 type InputZscalerHecTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -347,9 +341,13 @@ type InputZscalerHecTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                           `json:"caPath,omitempty"`
-	MinVersion *InputZscalerHecMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputZscalerHecMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath *string `json:"caPath,omitempty"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert        *bool                             `default:"false" json:"requestCert"`
+	RejectUnauthorized any                               `json:"rejectUnauthorized,omitempty"`
+	CommonNameRegex    any                               `json:"commonNameRegex,omitempty"`
+	MinVersion         *InputZscalerHecMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion         *InputZscalerHecMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputZscalerHecTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -368,27 +366,6 @@ func (i *InputZscalerHecTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
-}
-
-func (i *InputZscalerHecTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputZscalerHecTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputZscalerHecTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputZscalerHecTLSSettingsServerSide) GetCertificateName() *string {
@@ -424,6 +401,27 @@ func (i *InputZscalerHecTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
+}
+
+func (i *InputZscalerHecTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputZscalerHecTLSSettingsServerSide) GetRejectUnauthorized() any {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputZscalerHecTLSSettingsServerSide) GetCommonNameRegex() any {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputZscalerHecTLSSettingsServerSide) GetMinVersion() *InputZscalerHecMinimumTLSVersion {

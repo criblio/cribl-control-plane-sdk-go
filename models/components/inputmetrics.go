@@ -216,12 +216,6 @@ func (e InputMetricsMaximumTLSVersion) ToPointer() *InputMetricsMaximumTLSVersio
 
 type InputMetricsTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -231,9 +225,13 @@ type InputMetricsTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                        `json:"caPath,omitempty"`
-	MinVersion *InputMetricsMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputMetricsMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath *string `json:"caPath,omitempty"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert        *bool                          `default:"false" json:"requestCert"`
+	RejectUnauthorized any                            `json:"rejectUnauthorized,omitempty"`
+	CommonNameRegex    any                            `json:"commonNameRegex,omitempty"`
+	MinVersion         *InputMetricsMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion         *InputMetricsMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputMetricsTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -252,27 +250,6 @@ func (i *InputMetricsTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
-}
-
-func (i *InputMetricsTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputMetricsTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputMetricsTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputMetricsTLSSettingsServerSide) GetCertificateName() *string {
@@ -308,6 +285,27 @@ func (i *InputMetricsTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
+}
+
+func (i *InputMetricsTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputMetricsTLSSettingsServerSide) GetRejectUnauthorized() any {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMetricsTLSSettingsServerSide) GetCommonNameRegex() any {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputMetricsTLSSettingsServerSide) GetMinVersion() *InputMetricsMinimumTLSVersion {

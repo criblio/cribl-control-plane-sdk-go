@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                               | Value                              |
 | ---------------------------------- | ---------------------------------- |
 | `OutputPrometheusModeError`        | error                              |
-| `OutputPrometheusModeAlways`       | always                             |
 | `OutputPrometheusModeBackpressure` | backpressure                       |
+| `OutputPrometheusModeAlways`       | always                             |

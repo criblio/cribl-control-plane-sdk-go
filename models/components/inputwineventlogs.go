@@ -282,10 +282,6 @@ type InputWinEventLogs struct {
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
 	Description   *string  `json:"description,omitempty"`
-	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
-	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
 func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
@@ -430,18 +426,4 @@ func (i *InputWinEventLogs) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputWinEventLogs) GetDisableJSONRendering() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableJSONRendering
-}
-
-func (i *InputWinEventLogs) GetDisableXMLRendering() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableXMLRendering
 }

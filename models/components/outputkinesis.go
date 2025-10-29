@@ -89,22 +89,6 @@ func (e OutputKinesisBackpressureBehavior) ToPointer() *OutputKinesisBackpressur
 	return &e
 }
 
-// OutputKinesisMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputKinesisMode string
-
-const (
-	// OutputKinesisModeError Error
-	OutputKinesisModeError OutputKinesisMode = "error"
-	// OutputKinesisModeAlways Backpressure
-	OutputKinesisModeAlways OutputKinesisMode = "always"
-	// OutputKinesisModeBackpressure Always On
-	OutputKinesisModeBackpressure OutputKinesisMode = "backpressure"
-)
-
-func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {
-	return &e
-}
-
 // OutputKinesisPqCompressCompression - Codec to use to compress the persisted data
 type OutputKinesisPqCompressCompression string
 
@@ -130,6 +114,22 @@ const (
 )
 
 func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehavior {
+	return &e
+}
+
+// OutputKinesisMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputKinesisMode string
+
+const (
+	// OutputKinesisModeError Error
+	OutputKinesisModeError OutputKinesisMode = "error"
+	// OutputKinesisModeBackpressure Backpressure
+	OutputKinesisModeBackpressure OutputKinesisMode = "backpressure"
+	// OutputKinesisModeAlways Always On
+	OutputKinesisModeAlways OutputKinesisMode = "always"
+)
+
+func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {
 	return &e
 }
 
@@ -200,18 +200,6 @@ type OutputKinesis struct {
 	AwsAPIKey      *string                            `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Maximum number of records to send in a single request
-	MaxEventsPerFlush *float64 `default:"500" json:"maxEventsPerFlush"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputKinesisMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -222,7 +210,9 @@ type OutputKinesis struct {
 	PqCompress *OutputKinesisPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputKinesisQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputKinesisPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputKinesisMode       `default:"error" json:"pqMode"`
+	PqControls *OutputKinesisPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputKinesis) MarshalJSON() ([]byte, error) {
@@ -432,48 +422,6 @@ func (o *OutputKinesis) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputKinesis) GetMaxEventsPerFlush() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxEventsPerFlush
-}
-
-func (o *OutputKinesis) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputKinesis) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputKinesis) GetPqMode() *OutputKinesisMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputKinesis) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputKinesis) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputKinesis) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -507,6 +455,13 @@ func (o *OutputKinesis) GetPqOnBackpressure() *OutputKinesisQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputKinesis) GetPqMode() *OutputKinesisMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputKinesis) GetPqControls() *OutputKinesisPqControls {

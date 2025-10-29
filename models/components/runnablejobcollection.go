@@ -255,15 +255,14 @@ func (r *RunnableJobCollectionRunSettings) GetMaxTaskSize() *string {
 type RunnableJobCollectionSchedule struct {
 	// Enable to configure scheduling for this Collector
 	Enabled *bool `json:"enabled,omitempty"`
-	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable *bool `default:"true" json:"skippable"`
-	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-	ResumeMissed *bool `default:"false" json:"resumeMissed"`
 	// A cron schedule on which to run this job
 	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                          `default:"1" json:"maxConcurrentRuns"`
-	Run               *RunnableJobCollectionRunSettings `json:"run,omitempty"`
+	MaxConcurrentRuns *float64 `default:"1" json:"maxConcurrentRuns"`
+	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+	Skippable    *bool                             `default:"true" json:"skippable"`
+	ResumeMissed any                               `json:"resumeMissed,omitempty"`
+	Run          *RunnableJobCollectionRunSettings `json:"run,omitempty"`
 }
 
 func (r RunnableJobCollectionSchedule) MarshalJSON() ([]byte, error) {
@@ -284,20 +283,6 @@ func (r *RunnableJobCollectionSchedule) GetEnabled() *bool {
 	return r.Enabled
 }
 
-func (r *RunnableJobCollectionSchedule) GetSkippable() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Skippable
-}
-
-func (r *RunnableJobCollectionSchedule) GetResumeMissed() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.ResumeMissed
-}
-
 func (r *RunnableJobCollectionSchedule) GetCronSchedule() *string {
 	if r == nil {
 		return nil
@@ -310,6 +295,20 @@ func (r *RunnableJobCollectionSchedule) GetMaxConcurrentRuns() *float64 {
 		return nil
 	}
 	return r.MaxConcurrentRuns
+}
+
+func (r *RunnableJobCollectionSchedule) GetSkippable() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Skippable
+}
+
+func (r *RunnableJobCollectionSchedule) GetResumeMissed() any {
+	if r == nil {
+		return nil
+	}
+	return r.ResumeMissed
 }
 
 func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettings {

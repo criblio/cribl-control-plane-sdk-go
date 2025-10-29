@@ -119,13 +119,13 @@ func main() {
             },
             Port: 301.76,
             TLS: &components.InputTCPTLSSettingsServerSide{
-                RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
-                CommonNameRegex: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                RejectUnauthorized: "<value>",
+                CommonNameRegex: "<value>",
                 MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
                 MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
             },
@@ -147,7 +147,6 @@ func main() {
                 },
             },
             Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
-            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {

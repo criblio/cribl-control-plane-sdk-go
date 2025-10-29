@@ -410,22 +410,6 @@ func (e ScrapeProtocolProtocol) ToPointer() *ScrapeProtocolProtocol {
 	return &e
 }
 
-// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod string
-
-const (
-	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
-	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
-	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
-	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
-	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
-	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
-)
-
-func (e InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
-	return &e
-}
-
 type InputEdgePrometheusSearchFilter struct {
 	// Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
 	Name string `json:"Name"`
@@ -456,6 +440,22 @@ func (i *InputEdgePrometheusSearchFilter) GetValues() []string {
 		return []string{}
 	}
 	return i.Values
+}
+
+// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod string
+
+const (
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
+	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
+	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodManual InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
+	InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
+)
+
+func (e InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
+	return &e
 }
 
 // InputEdgePrometheusSignatureVersion - Signature version to use for signing EC2 requests
@@ -535,26 +535,23 @@ type InputEdgePrometheus struct {
 	AuthType    *InputEdgePrometheusAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
 	Description *string                                          `json:"description,omitempty"`
 	Targets     []Target                                         `json:"targets,omitempty"`
-	// DNS Record type to resolve
-	RecordType *InputEdgePrometheusRecordType `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
+	// DNS Record type to resolve
+	RecordType *InputEdgePrometheusRecordType `default:"SRV" json:"recordType"`
 	// Protocol to use when collecting metrics
 	ScrapeProtocol *ScrapeProtocolProtocol `default:"http" json:"scrapeProtocol"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                         `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
 	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	// The port number in the metrics URL for discovered targets.
+	ScrapePort *float64 `default:"9090" json:"scrapePort"`
 	// EC2 Instance Search Filter
 	SearchFilter []InputEdgePrometheusSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                           `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                                         `json:"awsSecretKey,omitempty"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitempty"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -736,25 +733,18 @@ func (i *InputEdgePrometheus) GetTargets() []Target {
 	return i.Targets
 }
 
-func (i *InputEdgePrometheus) GetRecordType() *InputEdgePrometheusRecordType {
-	if i == nil {
-		return nil
-	}
-	return i.RecordType
-}
-
-func (i *InputEdgePrometheus) GetScrapePort() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePort
-}
-
 func (i *InputEdgePrometheus) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
+}
+
+func (i *InputEdgePrometheus) GetRecordType() *InputEdgePrometheusRecordType {
+	if i == nil {
+		return nil
+	}
+	return i.RecordType
 }
 
 func (i *InputEdgePrometheus) GetScrapeProtocol() *ScrapeProtocolProtocol {
@@ -771,27 +761,6 @@ func (i *InputEdgePrometheus) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheus) GetAwsAuthenticationMethod() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputEdgePrometheus) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputEdgePrometheus) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
 func (i *InputEdgePrometheus) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
@@ -799,11 +768,25 @@ func (i *InputEdgePrometheus) GetUsePublicIP() *bool {
 	return i.UsePublicIP
 }
 
+func (i *InputEdgePrometheus) GetScrapePort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapePort
+}
+
 func (i *InputEdgePrometheus) GetSearchFilter() []InputEdgePrometheusSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
+}
+
+func (i *InputEdgePrometheus) GetAwsAuthenticationMethod() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
 }
 
 func (i *InputEdgePrometheus) GetAwsSecretKey() *string {

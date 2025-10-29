@@ -272,22 +272,6 @@ func (o *OutputTcpjsonHost) GetWeight() *float64 {
 	return o.Weight
 }
 
-// OutputTcpjsonMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputTcpjsonMode string
-
-const (
-	// OutputTcpjsonModeError Error
-	OutputTcpjsonModeError OutputTcpjsonMode = "error"
-	// OutputTcpjsonModeAlways Backpressure
-	OutputTcpjsonModeAlways OutputTcpjsonMode = "always"
-	// OutputTcpjsonModeBackpressure Always On
-	OutputTcpjsonModeBackpressure OutputTcpjsonMode = "backpressure"
-)
-
-func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {
-	return &e
-}
-
 // OutputTcpjsonPqCompressCompression - Codec to use to compress the persisted data
 type OutputTcpjsonPqCompressCompression string
 
@@ -313,6 +297,22 @@ const (
 )
 
 func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehavior {
+	return &e
+}
+
+// OutputTcpjsonMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputTcpjsonMode string
+
+const (
+	// OutputTcpjsonModeError Error
+	OutputTcpjsonModeError OutputTcpjsonMode = "error"
+	// OutputTcpjsonModeBackpressure Backpressure
+	OutputTcpjsonModeBackpressure OutputTcpjsonMode = "backpressure"
+	// OutputTcpjsonModeAlways Always On
+	OutputTcpjsonModeAlways OutputTcpjsonMode = "always"
+)
+
+func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {
 	return &e
 }
 
@@ -378,16 +378,6 @@ type OutputTcpjson struct {
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
 	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputTcpjsonMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -398,7 +388,9 @@ type OutputTcpjson struct {
 	PqCompress *OutputTcpjsonPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputTcpjsonQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputTcpjsonPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputTcpjsonMode       `default:"error" json:"pqMode"`
+	PqControls *OutputTcpjsonPqControls `json:"pqControls,omitempty"`
 	// Optional authentication token to include as part of the connection header
 	AuthToken *string `default:"" json:"authToken"`
 	// Select or create a stored text secret
@@ -591,41 +583,6 @@ func (o *OutputTcpjson) GetMaxConcurrentSenders() *float64 {
 	return o.MaxConcurrentSenders
 }
 
-func (o *OutputTcpjson) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputTcpjson) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputTcpjson) GetPqMode() *OutputTcpjsonMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputTcpjson) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputTcpjson) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputTcpjson) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -659,6 +616,13 @@ func (o *OutputTcpjson) GetPqOnBackpressure() *OutputTcpjsonQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputTcpjson) GetPqMode() *OutputTcpjsonMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputTcpjson) GetPqControls() *OutputTcpjsonPqControls {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: c7bb5dd030092b9390cb846f5528f196
-  docVersion: 4.15.0-alpha.1761671994443-6dfb2215
+  docChecksum: 454cfb13dc6b2c0499e33e646366df5b
+  docVersion: 4.15.0-alpha.1761742903037-a6787ef9
   speakeasyVersion: 1.639.3
   generationVersion: 2.730.5
-  releaseVersion: 0.2.1-rc.4
-  configChecksum: 4b7ee70d6914ec8f64f0c8ea0fad72c8
+  releaseVersion: 0.2.1-rc.5
+  configChecksum: 9c69c81f7ae82785c811dd0dcd0ff88f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -145,6 +145,9 @@ generatedFiles:
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
   - /models/components/lookupversions.go
+  - /models/components/mappingruleset.go
+  - /models/components/mappingrulesetevalmappingfunction.go
+  - /models/components/mappingrulesetgenericmappingfunction.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -235,6 +238,7 @@ generatedFiles:
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
+  - /models/components/rulesetid.go
   - /models/components/runnablejob.go
   - /models/components/runnablejobcollection.go
   - /models/components/runnablejobexecutor.go
@@ -246,6 +250,8 @@ generatedFiles:
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createadminproductsmappingsactivatebyproduct.go
+  - /models/operations/createadminproductsmappingsbyproduct.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
@@ -260,6 +266,7 @@ generatedFiles:
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
   - /models/operations/createversionundo.go
+  - /models/operations/deleteadminproductsmappingsbyproductandid.go
   - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deleteinputbyid.go
@@ -267,6 +274,8 @@ generatedFiles:
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
+  - /models/operations/getadminproductsmappingsbyproduct.go
+  - /models/operations/getadminproductsmappingsbyproductandid.go
   - /models/operations/getconfiggroupaclbyproductandid.go
   - /models/operations/getconfiggroupaclteamsbyproductandid.go
   - /models/operations/getconfiggroupbyproductandid.go
@@ -299,6 +308,7 @@ generatedFiles:
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
+  - /models/operations/updateadminproductsmappingsbyproductandid.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
@@ -319,6 +329,7 @@ generatedFiles:
   - destinations.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthserverstatuserror.md
+  - docs/models/components/add.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
@@ -345,7 +356,6 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
-  - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
@@ -392,6 +402,7 @@ generatedFiles:
   - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
+  - docs/models/components/function.md
   - docs/models/components/functionspecificconfigs.md
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
@@ -424,6 +435,7 @@ generatedFiles:
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/id.md
   - docs/models/components/indexerdiscoveryconfigs.md
   - docs/models/components/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/components/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
@@ -467,7 +479,6 @@ generatedFiles:
   - docs/models/components/inputconfluentcloud.md
   - docs/models/components/inputconfluentcloudauth.md
   - docs/models/components/inputconfluentcloudauthentication.md
-  - docs/models/components/inputconfluentcloudauthenticationmethod.md
   - docs/models/components/inputconfluentcloudcompression.md
   - docs/models/components/inputconfluentcloudconnection.md
   - docs/models/components/inputconfluentcloudkafkaschemaregistryauthentication.md
@@ -478,10 +489,8 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudmetadatum.md
   - docs/models/components/inputconfluentcloudminimumtlsversion.md
   - docs/models/components/inputconfluentcloudmode.md
-  - docs/models/components/inputconfluentcloudoauthparam.md
   - docs/models/components/inputconfluentcloudpq.md
   - docs/models/components/inputconfluentcloudpqcontrols.md
-  - docs/models/components/inputconfluentcloudsaslextension.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
   - docs/models/components/inputconfluentcloudtype.md
@@ -603,12 +612,9 @@ generatedFiles:
   - docs/models/components/inputelastictype.md
   - docs/models/components/inputeventhub.md
   - docs/models/components/inputeventhubauthentication.md
-  - docs/models/components/inputeventhubauthtypeauthenticationmethod.md
-  - docs/models/components/inputeventhubclientsecretauthtypeauthenticationmethod.md
   - docs/models/components/inputeventhubcompression.md
   - docs/models/components/inputeventhubconnection.md
   - docs/models/components/inputeventhubmetadatum.md
-  - docs/models/components/inputeventhubmicrosoftentraidauthenticationendpoint.md
   - docs/models/components/inputeventhubmode.md
   - docs/models/components/inputeventhubpq.md
   - docs/models/components/inputeventhubpqcontrols.md
@@ -721,7 +727,6 @@ generatedFiles:
   - docs/models/components/inputkafka.md
   - docs/models/components/inputkafkaauth.md
   - docs/models/components/inputkafkaauthentication.md
-  - docs/models/components/inputkafkaauthenticationmethod.md
   - docs/models/components/inputkafkacompression.md
   - docs/models/components/inputkafkaconnection.md
   - docs/models/components/inputkafkakafkaschemaregistryauthentication.md
@@ -732,10 +737,8 @@ generatedFiles:
   - docs/models/components/inputkafkametadatum.md
   - docs/models/components/inputkafkaminimumtlsversion.md
   - docs/models/components/inputkafkamode.md
-  - docs/models/components/inputkafkaoauthparam.md
   - docs/models/components/inputkafkapq.md
   - docs/models/components/inputkafkapqcontrols.md
-  - docs/models/components/inputkafkasaslextension.md
   - docs/models/components/inputkafkasaslmechanism.md
   - docs/models/components/inputkafkatlssettingsclientside.md
   - docs/models/components/inputkafkatype.md
@@ -1226,11 +1229,17 @@ generatedFiles:
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
+  - docs/models/components/mappingruleset.md
+  - docs/models/components/mappingrulesetconf.md
+  - docs/models/components/mappingrulesetevalmappingfunction.md
+  - docs/models/components/mappingrulesetevalmappingfunctionconf.md
+  - docs/models/components/mappingrulesetgenericmappingfunction.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
   - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
+  - docs/models/components/microsoftentraidauthenticationendpoint.md
   - docs/models/components/mtlssettings.md
   - docs/models/components/nodeactiveupgradestatus.md
   - docs/models/components/nodefailedupgradestatus.md
@@ -1266,14 +1275,9 @@ generatedFiles:
   - docs/models/components/outputazuredataexplorerbackpressurebehavior.md
   - docs/models/components/outputazuredataexplorercertificate.md
   - docs/models/components/outputazuredataexplorercompresscompression.md
-  - docs/models/components/outputazuredataexplorercompressionlevel.md
   - docs/models/components/outputazuredataexplorerdataformat.md
-  - docs/models/components/outputazuredataexplorerdatapageversion.md
   - docs/models/components/outputazuredataexplorerdiskspaceprotection.md
-  - docs/models/components/outputazuredataexplorerkeyvaluemetadatum.md
-  - docs/models/components/outputazuredataexplorermicrosoftentraidauthenticationendpoint.md
   - docs/models/components/outputazuredataexplorermode.md
-  - docs/models/components/outputazuredataexplorerparquetversion.md
   - docs/models/components/outputazuredataexplorerpqcompresscompression.md
   - docs/models/components/outputazuredataexplorerpqcontrols.md
   - docs/models/components/outputazuredataexplorerqueuefullbehavior.md
@@ -1283,11 +1287,8 @@ generatedFiles:
   - docs/models/components/outputazureeventhub.md
   - docs/models/components/outputazureeventhubacknowledgments.md
   - docs/models/components/outputazureeventhubauthentication.md
-  - docs/models/components/outputazureeventhubauthtypeauthenticationmethod.md
   - docs/models/components/outputazureeventhubbackpressurebehavior.md
-  - docs/models/components/outputazureeventhubclientsecretauthtypeauthenticationmethod.md
   - docs/models/components/outputazureeventhubcompression.md
-  - docs/models/components/outputazureeventhubmicrosoftentraidauthenticationendpoint.md
   - docs/models/components/outputazureeventhubmode.md
   - docs/models/components/outputazureeventhubpqcontrols.md
   - docs/models/components/outputazureeventhubqueuefullbehavior.md
@@ -1350,7 +1351,6 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudacknowledgments.md
   - docs/models/components/outputconfluentcloudauth.md
   - docs/models/components/outputconfluentcloudauthentication.md
-  - docs/models/components/outputconfluentcloudauthenticationmethod.md
   - docs/models/components/outputconfluentcloudbackpressurebehavior.md
   - docs/models/components/outputconfluentcloudcompression.md
   - docs/models/components/outputconfluentcloudkafkaschemaregistryauthentication.md
@@ -1360,12 +1360,10 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudmaximumtlsversion.md
   - docs/models/components/outputconfluentcloudminimumtlsversion.md
   - docs/models/components/outputconfluentcloudmode.md
-  - docs/models/components/outputconfluentcloudoauthparam.md
   - docs/models/components/outputconfluentcloudpqcompresscompression.md
   - docs/models/components/outputconfluentcloudpqcontrols.md
   - docs/models/components/outputconfluentcloudqueuefullbehavior.md
   - docs/models/components/outputconfluentcloudrecorddataformat.md
-  - docs/models/components/outputconfluentcloudsaslextension.md
   - docs/models/components/outputconfluentcloudsaslmechanism.md
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
@@ -1684,7 +1682,6 @@ generatedFiles:
   - docs/models/components/outputkafkaacknowledgments.md
   - docs/models/components/outputkafkaauth.md
   - docs/models/components/outputkafkaauthentication.md
-  - docs/models/components/outputkafkaauthenticationmethod.md
   - docs/models/components/outputkafkabackpressurebehavior.md
   - docs/models/components/outputkafkacompression.md
   - docs/models/components/outputkafkakafkaschemaregistryauthentication.md
@@ -1694,12 +1691,10 @@ generatedFiles:
   - docs/models/components/outputkafkamaximumtlsversion.md
   - docs/models/components/outputkafkaminimumtlsversion.md
   - docs/models/components/outputkafkamode.md
-  - docs/models/components/outputkafkaoauthparam.md
   - docs/models/components/outputkafkapqcompresscompression.md
   - docs/models/components/outputkafkapqcontrols.md
   - docs/models/components/outputkafkaqueuefullbehavior.md
   - docs/models/components/outputkafkarecorddataformat.md
-  - docs/models/components/outputkafkasaslextension.md
   - docs/models/components/outputkafkasaslmechanism.md
   - docs/models/components/outputkafkatlssettingsclientside.md
   - docs/models/components/outputkafkatype.md
@@ -2102,6 +2097,7 @@ generatedFiles:
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
+  - docs/models/components/pipelineconf.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
@@ -2126,6 +2122,7 @@ generatedFiles:
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
+  - docs/models/components/rulesetid.md
   - docs/models/components/runnablejob.md
   - docs/models/components/runnablejobcollection.md
   - docs/models/components/runnablejobcollectioninput.md
@@ -2182,7 +2179,6 @@ generatedFiles:
   - docs/models/components/timerange.md
   - docs/models/components/timestampformat.md
   - docs/models/components/timestampprecision.md
-  - docs/models/components/udmtype.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
   - docs/models/components/uploadpackresponse.md
@@ -2192,6 +2188,12 @@ generatedFiles:
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponsebody.md
+  - docs/models/operations/createadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
@@ -2227,6 +2229,9 @@ generatedFiles:
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
@@ -2248,6 +2253,12 @@ generatedFiles:
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/deletepipelinebyidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
@@ -2335,6 +2346,9 @@ generatedFiles:
   - docs/models/operations/listroutesresponse.md
   - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/option.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
@@ -2374,6 +2388,7 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
+  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2409,6 +2424,7 @@ generatedFiles:
   - internal/utils/security.go
   - internal/utils/utils.go
   - lakedatasets.go
+  - mappings.go
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
@@ -2458,7 +2474,7 @@ examples:
   createInput:
     speakeasy-default-create-input:
       requestBody:
-        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authToken": "", "authType": "manual", "textSecret": "<value>"}
+        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authType": "manual"}
       responses:
         "200":
           application/json: {"count": 422422, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 15, "rules": [{"filter": "<value>", "description": "now forenenst circumference as up volunteer"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "hmph blank unless huzzah however"}]}
@@ -2471,7 +2487,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
+          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputById:
@@ -2483,7 +2499,7 @@ examples:
         application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "rules": [{"filter": "<value>", "description": "invite meh corny incidentally down"}], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "gown deployment portray gah mindless carp stabilise"}
       responses:
         "200":
-          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "udpPort": 4793.55, "tcpPort": 9959.95, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>", "<value 2>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "/.*/", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.3", "maxVersion": "TLSv1.2"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 3417.54, "enableLoadBalancing": false, "description": "meh corny incidentally down versus blah", "enableEnhancedProxyHeaderParsing": true}]}
+          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "udpPort": 4793.55, "tcpPort": 9959.95, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>", "<value 2>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "/.*/", "minVersion": "TLSv1.3", "maxVersion": "TLSv1.2"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 3417.54, "enableLoadBalancing": false, "description": "meh corny incidentally down versus blah", "enableEnhancedProxyHeaderParsing": true}]}
         "500":
           application/json: {"message": "<value>"}
   deleteInputById:
@@ -2505,7 +2521,7 @@ examples:
         application/json: {"description": "bah ick stingy", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}], "token": "<value>"}
       responses:
         "200":
-          application/json: {"count": 827610, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8836.4, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>"], "emitTokenMetrics": false, "description": "boohoo uh-huh buzzing"}, {"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8957.05, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>", "<value 2>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>", "<value 3>"], "emitTokenMetrics": false, "description": "beyond and whopping brief zowie icy meanwhile"}]}
+          application/json: {"count": 827610, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8836.4, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>"], "emitTokenMetrics": false, "description": "boohoo uh-huh buzzing"}, {"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8957.05, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>", "<value 2>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>", "<value 3>"], "emitTokenMetrics": false, "description": "beyond and whopping brief zowie icy meanwhile"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputHecTokenByIdAndToken:
@@ -2518,23 +2534,23 @@ examples:
         application/json: {"description": "by bleakly fortunately phew barring", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}]}
       responses:
         "200":
-          application/json: {"count": 116091, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 9953.77, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "bowler reproachfully blossom junior whoa yuck", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>"], "emitTokenMetrics": false, "description": "sermon circulate grouper doing"}]}
+          application/json: {"count": 116091, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 9953.77, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "bowler reproachfully blossom junior whoa yuck", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>"], "emitTokenMetrics": false, "description": "sermon circulate grouper doing"}]}
         "500":
           application/json: {"message": "<value>"}
   listOutput:
     speakeasy-default-list-output:
       responses:
         "200":
-          application/json: {"count": 167668, "items": [{"id": "<id>", "type": "statsd", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "protocol": "udp", "host": "ill-baritone.net", "port": 8125, "mtu": 512, "flushPeriodSec": 1, "dnsResolvePeriodSec": 0, "description": "till advocate impish exotic", "throttleRatePerSec": "0", "connectionTimeout": 10000, "writeTimeout": 60000, "onBackpressure": "block", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
+          application/json: {"count": 167668, "items": [{"id": "<id>", "type": "statsd", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "protocol": "udp", "host": "ill-baritone.net", "port": 8125, "mtu": 512, "flushPeriodSec": 1, "dnsResolvePeriodSec": 0, "description": "till advocate impish exotic", "throttleRatePerSec": "0", "connectionTimeout": 10000, "writeTimeout": 60000, "onBackpressure": "block", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   createOutput:
     speakeasy-default-create-output:
       requestBody:
-        application/json: {"id": "<id>", "type": "elastic_cloud", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "extraParams": [{"name": "<value>", "value": "<value>"}], "auth": {"disabled": false, "username": "Imogene1", "password": "tA9DUjJtHSnXqh9", "authType": "manual", "credentialsSecret": "<value>", "manualAPIKey": "<value>", "textSecret": "<value>"}, "elasticPipeline": "<value>", "includeDocId": true, "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "hourly about into", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+        application/json: {"id": "<id>", "type": "elastic_cloud", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "extraParams": [{"name": "<value>", "value": "<value>"}], "auth": {"disabled": false, "authType": "manual"}, "elasticPipeline": "<value>", "includeDocId": true, "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "hourly about into", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputById:
@@ -2544,7 +2560,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateOutputById:
@@ -2553,10 +2569,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+        application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:
@@ -2566,7 +2582,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputPqById:
@@ -2588,7 +2604,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": false, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": false, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": false, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -3380,6 +3396,141 @@ examples:
           application/json: {"count": 845678, "items": [{"id": "<id>"}]}
         "500":
           application/json: {"message": "<value>"}
+  createAdminProductsMappingsByProduct:
+    MappingRulesetCreateExamplesOSBasedMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "os-based-mapping", "conf": {"functions": [{"id": "eval", "filter": "platform === \"linux\"", "description": "Map Linux Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'linux_fleet'"}]}}, {"id": "eval", "filter": "platform === \"win32\"", "description": "Map Windows Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'windows_fleet'"}]}}, {"id": "eval", "filter": "platform === \"darwin\"", "description": "Map macOS Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'macos_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping for unmapped nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesTagBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "tag-based-mapping", "conf": {"functions": [{"id": "eval", "filter": "cribl.tags.includes(\"WinLaptop\")", "description": "Map Windows Laptop Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'laptop_fleet'"}]}}, {"id": "eval", "filter": "cribl.tags.includes(\"Production\")", "description": "Map Production Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'production_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesOutpostBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "outpost-mapping", "conf": {"functions": [{"id": "eval", "filter": "outpost.host === \"5ab6c676be6a\"", "description": "Map Edge Nodes from Outpost A", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'outpost_a_fleet'"}]}}, {"id": "eval", "filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"", "description": "Map Edge Nodes from Outpost B by GUID", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'outpost_b_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesComplexMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"id": "eval", "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'high_perf_fleet'"}]}}, {"id": "eval", "filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")", "description": "Map Linux nodes with high memory for database workloads", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'database_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesAWSEC2InstanceMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "aws-ec2-mapping", "conf": {"functions": [{"id": "eval", "filter": "aws?.tags?.Environment === \"Production\"", "description": "Map Production EC2 instances", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'aws_prod_fleet'"}]}}, {"id": "eval", "filter": "aws?.tags?.Team === \"DevOps\"", "description": "Map DevOps team EC2 instances", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'devops_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesContainerBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "container-mapping", "conf": {"functions": [{"id": "eval", "filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4", "description": "Map containerized nodes on high-CPU Linux hosts", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'container_high_cpu_fleet'"}]}}, {"id": "eval", "filter": "hostOs?.id", "description": "Map all containerized Edge Nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'container_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping for non-containerized nodes", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesDefaultRuleset:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "simple-default-mappings", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Simple default Mapping Ruleset", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 520274, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProduct:
+    speakeasy-default-get-admin-products-mappings-by-product:
+      parameters:
+        path:
+          product: "edge"
+      responses:
+        "200":
+          application/json: {"count": 775631, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": [{"name": "<value>", "value": "<value>"}]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteAdminProductsMappingsByProductAndId:
+    speakeasy-default-delete-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 142793, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProductAndId:
+    speakeasy-default-get-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 205466, "items": [{"id": "<id>", "conf": {"functions": [{"id": "<id>"}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateAdminProductsMappingsByProductAndId:
+    MappingRulesetUpdateExamplesUpdateComplexRule:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"id": "eval", "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'high_perf_fleet'"}]}}, {"id": "eval", "filter": "!cribl.group", "description": "Default mapping", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 23011, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": true, "final": true, "conf": {"add": [{"name": "<value>", "value": "<value>"}]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetUpdateExamplesEnableDisabledRule:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "default", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": false, "final": true, "conf": {"add": [{"name": "groupId", "value": "'default_fleet'"}]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 23011, "items": [{"id": "<id>", "conf": {"functions": [{"id": "eval", "filter": "!cribl.group", "description": "Default Mappings", "disabled": true, "final": true, "conf": {"add": [{"name": "<value>", "value": "<value>"}]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3445,4 +3596,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Args` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Mappings.Activate()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Args` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Activate()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Delete()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Create()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Update()`: **Added**\n* `CriblControlPlane.Groups.Mappings.Get()`: **Added**\n* `CriblControlPlane.Groups.Mappings.List()`: **Added**\n"

@@ -551,18 +551,6 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetTLS() *InputCo
 	return i.TLS
 }
 
-// InputConfluentCloudAuthenticationMethod - Enter credentials directly, or select a stored secret
-type InputConfluentCloudAuthenticationMethod string
-
-const (
-	InputConfluentCloudAuthenticationMethodManual InputConfluentCloudAuthenticationMethod = "manual"
-	InputConfluentCloudAuthenticationMethodSecret InputConfluentCloudAuthenticationMethod = "secret"
-)
-
-func (e InputConfluentCloudAuthenticationMethod) ToPointer() *InputConfluentCloudAuthenticationMethod {
-	return &e
-}
-
 type InputConfluentCloudSASLMechanism string
 
 const (
@@ -580,95 +568,12 @@ func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMe
 	return &e
 }
 
-type InputConfluentCloudOauthParam struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (i InputConfluentCloudOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputConfluentCloudOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputConfluentCloudOauthParam) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputConfluentCloudOauthParam) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputConfluentCloudSaslExtension struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (i InputConfluentCloudSaslExtension) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputConfluentCloudSaslExtension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputConfluentCloudSaslExtension) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputConfluentCloudSaslExtension) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 // InputConfluentCloudAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type InputConfluentCloudAuthentication struct {
-	Disabled *bool   `default:"true" json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *InputConfluentCloudAuthenticationMethod `default:"manual" json:"authType"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string                           `json:"credentialsSecret,omitempty"`
-	Mechanism         *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
-	// Location of keytab file for authentication principal
-	KeytabLocation *string `json:"keytabLocation,omitempty"`
-	// Authentication principal, such as `kafka_user@example.com`
-	Principal *string `json:"principal,omitempty"`
-	// Kerberos service class for Kafka brokers, such as `kafka`
-	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
+	Disabled  *bool                             `default:"true" json:"disabled"`
+	Mechanism *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
 	// Enable OAuth authentication
 	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
-	// URL of the token endpoint to use for OAuth authentication
-	TokenURL *string `json:"tokenUrl,omitempty"`
-	// Client ID to use for OAuth authentication
-	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []InputConfluentCloudOauthParam `json:"oauthParams,omitempty"`
-	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []InputConfluentCloudSaslExtension `json:"saslExtensions,omitempty"`
 }
 
 func (i InputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -689,34 +594,6 @@ func (i *InputConfluentCloudAuthentication) GetDisabled() *bool {
 	return i.Disabled
 }
 
-func (i *InputConfluentCloudAuthentication) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputConfluentCloudAuthentication) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputConfluentCloudAuthentication) GetAuthType() *InputConfluentCloudAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputConfluentCloudAuthentication) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
-
 func (i *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudSASLMechanism {
 	if i == nil {
 		return nil
@@ -724,74 +601,11 @@ func (i *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudS
 	return i.Mechanism
 }
 
-func (i *InputConfluentCloudAuthentication) GetKeytabLocation() *string {
-	if i == nil {
-		return nil
-	}
-	return i.KeytabLocation
-}
-
-func (i *InputConfluentCloudAuthentication) GetPrincipal() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Principal
-}
-
-func (i *InputConfluentCloudAuthentication) GetBrokerServiceClass() *string {
-	if i == nil {
-		return nil
-	}
-	return i.BrokerServiceClass
-}
-
 func (i *InputConfluentCloudAuthentication) GetOauthEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.OauthEnabled
-}
-
-func (i *InputConfluentCloudAuthentication) GetTokenURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenURL
-}
-
-func (i *InputConfluentCloudAuthentication) GetClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientID
-}
-
-func (i *InputConfluentCloudAuthentication) GetOauthSecretType() *string {
-	if i == nil {
-		return nil
-	}
-	return i.OauthSecretType
-}
-
-func (i *InputConfluentCloudAuthentication) GetClientTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientTextSecret
-}
-
-func (i *InputConfluentCloudAuthentication) GetOauthParams() []InputConfluentCloudOauthParam {
-	if i == nil {
-		return nil
-	}
-	return i.OauthParams
-}
-
-func (i *InputConfluentCloudAuthentication) GetSaslExtensions() []InputConfluentCloudSaslExtension {
-	if i == nil {
-		return nil
-	}
-	return i.SaslExtensions
 }
 
 type InputConfluentCloudMetadatum struct {

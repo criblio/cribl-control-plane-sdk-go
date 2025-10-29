@@ -462,18 +462,6 @@ func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetDefaultValueS
 	return o.DefaultValueSchemaID
 }
 
-// OutputConfluentCloudAuthenticationMethod - Enter credentials directly, or select a stored secret
-type OutputConfluentCloudAuthenticationMethod string
-
-const (
-	OutputConfluentCloudAuthenticationMethodManual OutputConfluentCloudAuthenticationMethod = "manual"
-	OutputConfluentCloudAuthenticationMethodSecret OutputConfluentCloudAuthenticationMethod = "secret"
-)
-
-func (e OutputConfluentCloudAuthenticationMethod) ToPointer() *OutputConfluentCloudAuthenticationMethod {
-	return &e
-}
-
 type OutputConfluentCloudSASLMechanism string
 
 const (
@@ -491,95 +479,12 @@ func (e OutputConfluentCloudSASLMechanism) ToPointer() *OutputConfluentCloudSASL
 	return &e
 }
 
-type OutputConfluentCloudOauthParam struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputConfluentCloudOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputConfluentCloudOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputConfluentCloudSaslExtension struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputConfluentCloudSaslExtension) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudSaslExtension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudSaslExtension) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputConfluentCloudSaslExtension) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
 // OutputConfluentCloudAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type OutputConfluentCloudAuthentication struct {
-	Disabled *bool   `default:"true" json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *OutputConfluentCloudAuthenticationMethod `default:"manual" json:"authType"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string                            `json:"credentialsSecret,omitempty"`
-	Mechanism         *OutputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
-	// Location of keytab file for authentication principal
-	KeytabLocation *string `json:"keytabLocation,omitempty"`
-	// Authentication principal, such as `kafka_user@example.com`
-	Principal *string `json:"principal,omitempty"`
-	// Kerberos service class for Kafka brokers, such as `kafka`
-	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
+	Disabled  *bool                              `default:"true" json:"disabled"`
+	Mechanism *OutputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
 	// Enable OAuth authentication
 	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
-	// URL of the token endpoint to use for OAuth authentication
-	TokenURL *string `json:"tokenUrl,omitempty"`
-	// Client ID to use for OAuth authentication
-	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []OutputConfluentCloudOauthParam `json:"oauthParams,omitempty"`
-	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []OutputConfluentCloudSaslExtension `json:"saslExtensions,omitempty"`
 }
 
 func (o OutputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -600,34 +505,6 @@ func (o *OutputConfluentCloudAuthentication) GetDisabled() *bool {
 	return o.Disabled
 }
 
-func (o *OutputConfluentCloudAuthentication) GetUsername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Username
-}
-
-func (o *OutputConfluentCloudAuthentication) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Password
-}
-
-func (o *OutputConfluentCloudAuthentication) GetAuthType() *OutputConfluentCloudAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputConfluentCloudAuthentication) GetCredentialsSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CredentialsSecret
-}
-
 func (o *OutputConfluentCloudAuthentication) GetMechanism() *OutputConfluentCloudSASLMechanism {
 	if o == nil {
 		return nil
@@ -635,74 +512,11 @@ func (o *OutputConfluentCloudAuthentication) GetMechanism() *OutputConfluentClou
 	return o.Mechanism
 }
 
-func (o *OutputConfluentCloudAuthentication) GetKeytabLocation() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KeytabLocation
-}
-
-func (o *OutputConfluentCloudAuthentication) GetPrincipal() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Principal
-}
-
-func (o *OutputConfluentCloudAuthentication) GetBrokerServiceClass() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BrokerServiceClass
-}
-
 func (o *OutputConfluentCloudAuthentication) GetOauthEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.OauthEnabled
-}
-
-func (o *OutputConfluentCloudAuthentication) GetTokenURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenURL
-}
-
-func (o *OutputConfluentCloudAuthentication) GetClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientID
-}
-
-func (o *OutputConfluentCloudAuthentication) GetOauthSecretType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.OauthSecretType
-}
-
-func (o *OutputConfluentCloudAuthentication) GetClientTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientTextSecret
-}
-
-func (o *OutputConfluentCloudAuthentication) GetOauthParams() []OutputConfluentCloudOauthParam {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputConfluentCloudAuthentication) GetSaslExtensions() []OutputConfluentCloudSaslExtension {
-	if o == nil {
-		return nil
-	}
-	return o.SaslExtensions
 }
 
 // OutputConfluentCloudBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -718,22 +532,6 @@ const (
 )
 
 func (e OutputConfluentCloudBackpressureBehavior) ToPointer() *OutputConfluentCloudBackpressureBehavior {
-	return &e
-}
-
-// OutputConfluentCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputConfluentCloudMode string
-
-const (
-	// OutputConfluentCloudModeError Error
-	OutputConfluentCloudModeError OutputConfluentCloudMode = "error"
-	// OutputConfluentCloudModeAlways Backpressure
-	OutputConfluentCloudModeAlways OutputConfluentCloudMode = "always"
-	// OutputConfluentCloudModeBackpressure Always On
-	OutputConfluentCloudModeBackpressure OutputConfluentCloudMode = "backpressure"
-)
-
-func (e OutputConfluentCloudMode) ToPointer() *OutputConfluentCloudMode {
 	return &e
 }
 
@@ -762,6 +560,22 @@ const (
 )
 
 func (e OutputConfluentCloudQueueFullBehavior) ToPointer() *OutputConfluentCloudQueueFullBehavior {
+	return &e
+}
+
+// OutputConfluentCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputConfluentCloudMode string
+
+const (
+	// OutputConfluentCloudModeError Error
+	OutputConfluentCloudModeError OutputConfluentCloudMode = "error"
+	// OutputConfluentCloudModeBackpressure Backpressure
+	OutputConfluentCloudModeBackpressure OutputConfluentCloudMode = "backpressure"
+	// OutputConfluentCloudModeAlways Always On
+	OutputConfluentCloudModeAlways OutputConfluentCloudMode = "always"
+)
+
+func (e OutputConfluentCloudMode) ToPointer() *OutputConfluentCloudMode {
 	return &e
 }
 
@@ -832,18 +646,6 @@ type OutputConfluentCloud struct {
 	Description    *string                                   `json:"description,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
-	// Select the type of object you want the Protobuf definitions to use for event encoding
-	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputConfluentCloudMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -854,7 +656,9 @@ type OutputConfluentCloud struct {
 	PqCompress *OutputConfluentCloudPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputConfluentCloudQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputConfluentCloudPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputConfluentCloudMode       `default:"error" json:"pqMode"`
+	PqControls *OutputConfluentCloudPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -1064,48 +868,6 @@ func (o *OutputConfluentCloud) GetProtobufLibraryID() *string {
 	return o.ProtobufLibraryID
 }
 
-func (o *OutputConfluentCloud) GetProtobufEncodingID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ProtobufEncodingID
-}
-
-func (o *OutputConfluentCloud) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputConfluentCloud) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputConfluentCloud) GetPqMode() *OutputConfluentCloudMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputConfluentCloud) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputConfluentCloud) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputConfluentCloud) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -1139,6 +901,13 @@ func (o *OutputConfluentCloud) GetPqOnBackpressure() *OutputConfluentCloudQueueF
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputConfluentCloud) GetPqMode() *OutputConfluentCloudMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputConfluentCloud) GetPqControls() *OutputConfluentCloudPqControls {
