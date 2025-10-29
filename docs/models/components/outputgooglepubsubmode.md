@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                                 | Value                                |
 | ------------------------------------ | ------------------------------------ |
 | `OutputGooglePubsubModeError`        | error                                |
-| `OutputGooglePubsubModeAlways`       | always                               |
 | `OutputGooglePubsubModeBackpressure` | backpressure                         |
+| `OutputGooglePubsubModeAlways`       | always                               |

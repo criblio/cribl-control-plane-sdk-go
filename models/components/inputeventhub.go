@@ -188,18 +188,6 @@ func (i *InputEventhubPq) GetPqControls() *InputEventhubPqControls {
 	return i.PqControls
 }
 
-// InputEventhubAuthTypeAuthenticationMethod - Enter password directly, or select a stored secret
-type InputEventhubAuthTypeAuthenticationMethod string
-
-const (
-	InputEventhubAuthTypeAuthenticationMethodManual InputEventhubAuthTypeAuthenticationMethod = "manual"
-	InputEventhubAuthTypeAuthenticationMethodSecret InputEventhubAuthTypeAuthenticationMethod = "secret"
-)
-
-func (e InputEventhubAuthTypeAuthenticationMethod) ToPointer() *InputEventhubAuthTypeAuthenticationMethod {
-	return &e
-}
-
 type InputEventhubSASLMechanism string
 
 const (
@@ -213,61 +201,10 @@ func (e InputEventhubSASLMechanism) ToPointer() *InputEventhubSASLMechanism {
 	return &e
 }
 
-type InputEventhubClientSecretAuthTypeAuthenticationMethod string
-
-const (
-	InputEventhubClientSecretAuthTypeAuthenticationMethodManual      InputEventhubClientSecretAuthTypeAuthenticationMethod = "manual"
-	InputEventhubClientSecretAuthTypeAuthenticationMethodSecret      InputEventhubClientSecretAuthTypeAuthenticationMethod = "secret"
-	InputEventhubClientSecretAuthTypeAuthenticationMethodCertificate InputEventhubClientSecretAuthTypeAuthenticationMethod = "certificate"
-)
-
-func (e InputEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *InputEventhubClientSecretAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// InputEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
-type InputEventhubMicrosoftEntraIDAuthenticationEndpoint string
-
-const (
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
-)
-
-func (e InputEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *InputEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	return &e
-}
-
 // InputEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type InputEventhubAuthentication struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Enter password directly, or select a stored secret
-	AuthType *InputEventhubAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
-	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-	Password *string `json:"password,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string                     `json:"textSecret,omitempty"`
-	Mechanism  *InputEventhubSASLMechanism `default:"plain" json:"mechanism"`
-	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                                                `default:"$ConnectionString" json:"username"`
-	ClientSecretAuthType *InputEventhubClientSecretAuthTypeAuthenticationMethod `default:"manual" json:"clientSecretAuthType"`
-	// client_secret to pass in the OAuth request parameter
-	ClientSecret *string `json:"clientSecret,omitempty"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Select or create a stored certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	CertPath        *string `json:"certPath,omitempty"`
-	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
-	Passphrase      *string `json:"passphrase,omitempty"`
-	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *InputEventhubMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
-	// client_id to pass in the OAuth request parameter
-	ClientID *string `json:"clientId,omitempty"`
-	// Directory ID (tenant identifier) in Azure Active Directory
-	TenantID *string `json:"tenantId,omitempty"`
-	// Scope to pass in the OAuth request parameter
-	Scope *string `json:"scope,omitempty"`
+	Disabled  *bool                       `default:"false" json:"disabled"`
+	Mechanism *InputEventhubSASLMechanism `default:"plain" json:"mechanism"`
 }
 
 func (i InputEventhubAuthentication) MarshalJSON() ([]byte, error) {
@@ -288,116 +225,11 @@ func (i *InputEventhubAuthentication) GetDisabled() *bool {
 	return i.Disabled
 }
 
-func (i *InputEventhubAuthentication) GetAuthType() *InputEventhubAuthTypeAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputEventhubAuthentication) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputEventhubAuthentication) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
 func (i *InputEventhubAuthentication) GetMechanism() *InputEventhubSASLMechanism {
 	if i == nil {
 		return nil
 	}
 	return i.Mechanism
-}
-
-func (i *InputEventhubAuthentication) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputEventhubAuthentication) GetClientSecretAuthType() *InputEventhubClientSecretAuthTypeAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.ClientSecretAuthType
-}
-
-func (i *InputEventhubAuthentication) GetClientSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientSecret
-}
-
-func (i *InputEventhubAuthentication) GetClientTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientTextSecret
-}
-
-func (i *InputEventhubAuthentication) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputEventhubAuthentication) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputEventhubAuthentication) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputEventhubAuthentication) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputEventhubAuthentication) GetOauthEndpoint() *InputEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	if i == nil {
-		return nil
-	}
-	return i.OauthEndpoint
-}
-
-func (i *InputEventhubAuthentication) GetClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientID
-}
-
-func (i *InputEventhubAuthentication) GetTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TenantID
-}
-
-func (i *InputEventhubAuthentication) GetScope() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Scope
 }
 
 type InputEventhubTLSSettingsClientSide struct {

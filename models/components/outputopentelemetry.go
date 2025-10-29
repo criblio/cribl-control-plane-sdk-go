@@ -479,22 +479,6 @@ func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMaxVersion() *OutputOpenTe
 	return o.MaxVersion
 }
 
-// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputOpenTelemetryMode string
-
-const (
-	// OutputOpenTelemetryModeError Error
-	OutputOpenTelemetryModeError OutputOpenTelemetryMode = "error"
-	// OutputOpenTelemetryModeAlways Backpressure
-	OutputOpenTelemetryModeAlways OutputOpenTelemetryMode = "always"
-	// OutputOpenTelemetryModeBackpressure Always On
-	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
-)
-
-func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
-	return &e
-}
-
 // OutputOpenTelemetryPqCompressCompression - Codec to use to compress the persisted data
 type OutputOpenTelemetryPqCompressCompression string
 
@@ -520,6 +504,22 @@ const (
 )
 
 func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
+	return &e
+}
+
+// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputOpenTelemetryMode string
+
+const (
+	// OutputOpenTelemetryModeError Error
+	OutputOpenTelemetryModeError OutputOpenTelemetryMode = "error"
+	// OutputOpenTelemetryModeBackpressure Backpressure
+	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
+	// OutputOpenTelemetryModeAlways Always On
+	OutputOpenTelemetryModeAlways OutputOpenTelemetryMode = "always"
+)
+
+func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
 	return &e
 }
 
@@ -628,16 +628,6 @@ type OutputOpenTelemetry struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                                     `default:"true" json:"responseHonorRetryAfterHeader"`
 	TLS                           *OutputOpenTelemetryTLSSettingsClientSide `json:"tls,omitempty"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputOpenTelemetryMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -648,7 +638,9 @@ type OutputOpenTelemetry struct {
 	PqCompress *OutputOpenTelemetryPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputOpenTelemetryQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputOpenTelemetryPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputOpenTelemetryMode       `default:"error" json:"pqMode"`
+	PqControls *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -991,41 +983,6 @@ func (o *OutputOpenTelemetry) GetTLS() *OutputOpenTelemetryTLSSettingsClientSide
 	return o.TLS
 }
 
-func (o *OutputOpenTelemetry) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputOpenTelemetry) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputOpenTelemetry) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputOpenTelemetry) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputOpenTelemetry) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -1059,6 +1016,13 @@ func (o *OutputOpenTelemetry) GetPqOnBackpressure() *OutputOpenTelemetryQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {

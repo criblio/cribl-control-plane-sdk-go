@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                                  | Value                                 |
 | ------------------------------------- | ------------------------------------- |
 | `OutputGrafanaCloudMode2Error`        | error                                 |
-| `OutputGrafanaCloudMode2Always`       | always                                |
 | `OutputGrafanaCloudMode2Backpressure` | backpressure                          |
+| `OutputGrafanaCloudMode2Always`       | always                                |

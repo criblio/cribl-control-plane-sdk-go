@@ -218,22 +218,6 @@ func (e OutputHumioHecBackpressureBehavior) ToPointer() *OutputHumioHecBackpress
 	return &e
 }
 
-// OutputHumioHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputHumioHecMode string
-
-const (
-	// OutputHumioHecModeError Error
-	OutputHumioHecModeError OutputHumioHecMode = "error"
-	// OutputHumioHecModeAlways Backpressure
-	OutputHumioHecModeAlways OutputHumioHecMode = "always"
-	// OutputHumioHecModeBackpressure Always On
-	OutputHumioHecModeBackpressure OutputHumioHecMode = "backpressure"
-)
-
-func (e OutputHumioHecMode) ToPointer() *OutputHumioHecMode {
-	return &e
-}
-
 // OutputHumioHecCompression - Codec to use to compress the persisted data
 type OutputHumioHecCompression string
 
@@ -259,6 +243,22 @@ const (
 )
 
 func (e OutputHumioHecQueueFullBehavior) ToPointer() *OutputHumioHecQueueFullBehavior {
+	return &e
+}
+
+// OutputHumioHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputHumioHecMode string
+
+const (
+	// OutputHumioHecModeError Error
+	OutputHumioHecModeError OutputHumioHecMode = "error"
+	// OutputHumioHecModeBackpressure Backpressure
+	OutputHumioHecModeBackpressure OutputHumioHecMode = "backpressure"
+	// OutputHumioHecModeAlways Always On
+	OutputHumioHecModeAlways OutputHumioHecMode = "always"
+)
+
+func (e OutputHumioHecMode) ToPointer() *OutputHumioHecMode {
 	return &e
 }
 
@@ -330,16 +330,6 @@ type OutputHumioHec struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputHumioHecMode `default:"error" json:"pqMode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -350,7 +340,9 @@ type OutputHumioHec struct {
 	PqCompress *OutputHumioHecCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputHumioHecQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputHumioHecPqControls        `json:"pqControls,omitempty"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode     *OutputHumioHecMode       `default:"error" json:"pqMode"`
+	PqControls *OutputHumioHecPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputHumioHec) MarshalJSON() ([]byte, error) {
@@ -553,41 +545,6 @@ func (o *OutputHumioHec) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputHumioHec) GetPqStrictOrdering() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.PqStrictOrdering
-}
-
-func (o *OutputHumioHec) GetPqRatePerSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqRatePerSec
-}
-
-func (o *OutputHumioHec) GetPqMode() *OutputHumioHecMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
-func (o *OutputHumioHec) GetPqMaxBufferSize() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBufferSize
-}
-
-func (o *OutputHumioHec) GetPqMaxBackpressureSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMaxBackpressureSec
-}
-
 func (o *OutputHumioHec) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -621,6 +578,13 @@ func (o *OutputHumioHec) GetPqOnBackpressure() *OutputHumioHecQueueFullBehavior 
 		return nil
 	}
 	return o.PqOnBackpressure
+}
+
+func (o *OutputHumioHec) GetPqMode() *OutputHumioHecMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
 }
 
 func (o *OutputHumioHec) GetPqControls() *OutputHumioHecPqControls {

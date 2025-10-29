@@ -128,13 +128,7 @@ func main() {
                     Value: "<value>",
                 },
             },
-            Auth: &components.OutputElasticCloudAuth{
-                Username: criblcontrolplanesdkgo.Pointer("Imogene1"),
-                Password: criblcontrolplanesdkgo.Pointer("tA9DUjJtHSnXqh9"),
-                CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                ManualAPIKey: criblcontrolplanesdkgo.Pointer("<value>"),
-                TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
+            Auth: &components.OutputElasticCloudAuth{},
             ElasticPipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             ResponseRetrySettings: []components.OutputElasticCloudResponseRetrySetting{
                 components.OutputElasticCloudResponseRetrySetting{

@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                              | Value                             |
 | --------------------------------- | --------------------------------- |
 | `OutputWavefrontModeError`        | error                             |
-| `OutputWavefrontModeAlways`       | always                            |
 | `OutputWavefrontModeBackpressure` | backpressure                      |
+| `OutputWavefrontModeAlways`       | always                            |
