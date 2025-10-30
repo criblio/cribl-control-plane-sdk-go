@@ -152,12 +152,12 @@ func main() {
 		},
 	}
 
-	// Convert to components.PipelineConf using JSON marshaling/unmarshaling
+	// Convert to components.Conf using JSON marshaling/unmarshaling
 	confBytes, err := json.Marshal(pipelineConf)
 	if err != nil {
 		log.Printf("Error marshaling Pipeline config: %v", err)
 	} else {
-		var conf components.PipelineConf
+		var conf components.Conf
 		err = json.Unmarshal(confBytes, &conf)
 		if err != nil {
 			log.Printf("Error unmarshaling Pipeline config: %v", err)
