@@ -35,7 +35,7 @@ func (p *PipelineGroups) GetDisabled() *bool {
 	return p.Disabled
 }
 
-type PipelineConf struct {
+type Conf struct {
 	// Time (in ms) to wait for an async function to complete processing of a data item
 	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitempty"`
 	// The output destination for events processed by this Pipeline
@@ -48,62 +48,62 @@ type PipelineConf struct {
 	Groups    map[string]PipelineGroups `json:"groups,omitempty"`
 }
 
-func (p PipelineConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c Conf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *PipelineConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (c *Conf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineConf) GetAsyncFuncTimeout() *int64 {
-	if p == nil {
+func (c *Conf) GetAsyncFuncTimeout() *int64 {
+	if c == nil {
 		return nil
 	}
-	return p.AsyncFuncTimeout
+	return c.AsyncFuncTimeout
 }
 
-func (p *PipelineConf) GetOutput() *string {
-	if p == nil {
+func (c *Conf) GetOutput() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Output
+	return c.Output
 }
 
-func (p *PipelineConf) GetDescription() *string {
-	if p == nil {
+func (c *Conf) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return p.Description
+	return c.Description
 }
 
-func (p *PipelineConf) GetStreamtags() []string {
-	if p == nil {
+func (c *Conf) GetStreamtags() []string {
+	if c == nil {
 		return nil
 	}
-	return p.Streamtags
+	return c.Streamtags
 }
 
-func (p *PipelineConf) GetFunctions() []PipelineFunctionConf {
-	if p == nil {
+func (c *Conf) GetFunctions() []PipelineFunctionConf {
+	if c == nil {
 		return nil
 	}
-	return p.Functions
+	return c.Functions
 }
 
-func (p *PipelineConf) GetGroups() map[string]PipelineGroups {
-	if p == nil {
+func (c *Conf) GetGroups() map[string]PipelineGroups {
+	if c == nil {
 		return nil
 	}
-	return p.Groups
+	return c.Groups
 }
 
 type Pipeline struct {
-	ID   string       `json:"id"`
-	Conf PipelineConf `json:"conf"`
+	ID   string `json:"id"`
+	Conf Conf   `json:"conf"`
 }
 
 func (p *Pipeline) GetID() string {
@@ -113,9 +113,9 @@ func (p *Pipeline) GetID() string {
 	return p.ID
 }
 
-func (p *Pipeline) GetConf() PipelineConf {
+func (p *Pipeline) GetConf() Conf {
 	if p == nil {
-		return PipelineConf{}
+		return Conf{}
 	}
 	return p.Conf
 }
