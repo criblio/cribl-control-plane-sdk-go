@@ -107,11 +107,52 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 
 	fmt.Printf("Creating replica with ID: %s\n", replicaID)
 
-	// Create the replica Worker Group by copying configuration from source
-	replicaGroup := source
-	replicaGroup.ID = replicaID
-	replicaGroup.Name = criblcontrolplanesdkgo.String(replicaName)
-	replicaGroup.Description = criblcontrolplanesdkgo.String(replicaDescription)
+	// Convert ConfigGroup to GroupCreateRequest for Create operation
+	// Note: ConfigVersion is omitted as it's a read-only field
+	var estimatedIngestRate *components.GroupCreateRequestEstimatedIngestRate
+	if source.EstimatedIngestRate != nil {
+		rate := components.GroupCreateRequestEstimatedIngestRate(*source.EstimatedIngestRate)
+		estimatedIngestRate = &rate
+	}
+
+	var git *components.GroupCreateRequestGit
+	if source.Git != nil {
+		git = &components.GroupCreateRequestGit{
+			Commit:       source.Git.Commit,
+			LocalChanges: source.Git.LocalChanges,
+			Log:          source.Git.Log,
+		}
+	}
+
+	var groupType *components.GroupCreateRequestType
+	if source.Type != nil {
+		t := components.GroupCreateRequestType(*source.Type)
+		groupType = &t
+	}
+
+	replicaGroup := components.GroupCreateRequest{
+		Cloud:                source.Cloud,
+		DeployingWorkerCount: source.DeployingWorkerCount,
+		Description:          criblcontrolplanesdkgo.String(replicaDescription),
+		EstimatedIngestRate:  estimatedIngestRate,
+		Git:                  git,
+		ID:                   replicaID,
+		IncompatibleWorkerCount: source.IncompatibleWorkerCount,
+		Inherits:                source.Inherits,
+		IsFleet:                 source.IsFleet,
+		IsSearch:                source.IsSearch,
+		LookupDeployments:       source.LookupDeployments,
+		MaxWorkerAge:            source.MaxWorkerAge,
+		Name:                    criblcontrolplanesdkgo.String(replicaName),
+		OnPrem:                  source.OnPrem,
+		Provisioned:             source.Provisioned,
+		Streamtags:              source.Streamtags,
+		Tags:                    source.Tags,
+		Type:                    groupType,
+		UpgradeVersion:          source.UpgradeVersion,
+		WorkerCount:             source.WorkerCount,
+		WorkerRemoteAccess:      source.WorkerRemoteAccess,
+	}
 
 	// Create the replica Worker Group
 	result, err := client.Groups.Create(ctx, components.ProductsCoreStream, replicaGroup)

@@ -35,6 +35,7 @@ func (e *OutputDynatraceOtlpType) UnmarshalJSON(data []byte) error {
 type OutputDynatraceOtlpProtocol string
 
 const (
+	// OutputDynatraceOtlpProtocolHTTP HTTP
 	OutputDynatraceOtlpProtocolHTTP OutputDynatraceOtlpProtocol = "http"
 )
 
@@ -46,6 +47,7 @@ func (e OutputDynatraceOtlpProtocol) ToPointer() *OutputDynatraceOtlpProtocol {
 type OutputDynatraceOTLPOTLPVersion string
 
 const (
+	// OutputDynatraceOTLPOTLPVersionOneDot3Dot1 1.3.1
 	OutputDynatraceOTLPOTLPVersionOneDot3Dot1 OutputDynatraceOTLPOTLPVersion = "1.3.1"
 )
 
@@ -57,9 +59,12 @@ func (e OutputDynatraceOTLPOTLPVersion) ToPointer() *OutputDynatraceOTLPOTLPVers
 type OutputDynatraceOtlpCompressCompression string
 
 const (
-	OutputDynatraceOtlpCompressCompressionNone    OutputDynatraceOtlpCompressCompression = "none"
+	// OutputDynatraceOtlpCompressCompressionNone None
+	OutputDynatraceOtlpCompressCompressionNone OutputDynatraceOtlpCompressCompression = "none"
+	// OutputDynatraceOtlpCompressCompressionDeflate Deflate
 	OutputDynatraceOtlpCompressCompressionDeflate OutputDynatraceOtlpCompressCompression = "deflate"
-	OutputDynatraceOtlpCompressCompressionGzip    OutputDynatraceOtlpCompressCompression = "gzip"
+	// OutputDynatraceOtlpCompressCompressionGzip Gzip
+	OutputDynatraceOtlpCompressCompressionGzip OutputDynatraceOtlpCompressCompression = "gzip"
 )
 
 func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlpCompressCompression {
@@ -70,7 +75,9 @@ func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlp
 type OutputDynatraceOtlpHTTPCompressCompression string
 
 const (
+	// OutputDynatraceOtlpHTTPCompressCompressionNone None
 	OutputDynatraceOtlpHTTPCompressCompressionNone OutputDynatraceOtlpHTTPCompressCompression = "none"
+	// OutputDynatraceOtlpHTTPCompressCompressionGzip Gzip
 	OutputDynatraceOtlpHTTPCompressCompressionGzip OutputDynatraceOtlpHTTPCompressCompression = "gzip"
 )
 
@@ -112,9 +119,12 @@ func (o *OutputDynatraceOtlpMetadatum) GetValue() string {
 type OutputDynatraceOtlpFailedRequestLoggingMode string
 
 const (
-	OutputDynatraceOtlpFailedRequestLoggingModePayload           OutputDynatraceOtlpFailedRequestLoggingMode = "payload"
+	// OutputDynatraceOtlpFailedRequestLoggingModePayload Payload
+	OutputDynatraceOtlpFailedRequestLoggingModePayload OutputDynatraceOtlpFailedRequestLoggingMode = "payload"
+	// OutputDynatraceOtlpFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDynatraceOtlpFailedRequestLoggingModePayloadAndHeaders OutputDynatraceOtlpFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDynatraceOtlpFailedRequestLoggingModeNone              OutputDynatraceOtlpFailedRequestLoggingMode = "none"
+	// OutputDynatraceOtlpFailedRequestLoggingModeNone None
+	OutputDynatraceOtlpFailedRequestLoggingModeNone OutputDynatraceOtlpFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatraceOtlpFailedRequestLoggingMode {
@@ -125,8 +135,10 @@ func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatrac
 type EndpointType string
 
 const (
+	// EndpointTypeSaas SaaS
 	EndpointTypeSaas EndpointType = "saas"
-	EndpointTypeAg   EndpointType = "ag"
+	// EndpointTypeAg ActiveGate
+	EndpointTypeAg EndpointType = "ag"
 )
 
 func (e EndpointType) ToPointer() *EndpointType {
@@ -137,8 +149,11 @@ func (e EndpointType) ToPointer() *EndpointType {
 type OutputDynatraceOtlpBackpressureBehavior string
 
 const (
+	// OutputDynatraceOtlpBackpressureBehaviorBlock Block
 	OutputDynatraceOtlpBackpressureBehaviorBlock OutputDynatraceOtlpBackpressureBehavior = "block"
-	OutputDynatraceOtlpBackpressureBehaviorDrop  OutputDynatraceOtlpBackpressureBehavior = "drop"
+	// OutputDynatraceOtlpBackpressureBehaviorDrop Drop
+	OutputDynatraceOtlpBackpressureBehaviorDrop OutputDynatraceOtlpBackpressureBehavior = "drop"
+	// OutputDynatraceOtlpBackpressureBehaviorQueue Persistent Queue
 	OutputDynatraceOtlpBackpressureBehaviorQueue OutputDynatraceOtlpBackpressureBehavior = "queue"
 )
 
@@ -275,11 +290,29 @@ func (o *OutputDynatraceOtlpTimeoutRetrySettings) GetMaxBackoff() *float64 {
 	return o.MaxBackoff
 }
 
+// OutputDynatraceOtlpMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDynatraceOtlpMode string
+
+const (
+	// OutputDynatraceOtlpModeError Error
+	OutputDynatraceOtlpModeError OutputDynatraceOtlpMode = "error"
+	// OutputDynatraceOtlpModeAlways Backpressure
+	OutputDynatraceOtlpModeAlways OutputDynatraceOtlpMode = "always"
+	// OutputDynatraceOtlpModeBackpressure Always On
+	OutputDynatraceOtlpModeBackpressure OutputDynatraceOtlpMode = "backpressure"
+)
+
+func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
+	return &e
+}
+
 // OutputDynatraceOtlpPqCompressCompression - Codec to use to compress the persisted data
 type OutputDynatraceOtlpPqCompressCompression string
 
 const (
+	// OutputDynatraceOtlpPqCompressCompressionNone None
 	OutputDynatraceOtlpPqCompressCompressionNone OutputDynatraceOtlpPqCompressCompression = "none"
+	// OutputDynatraceOtlpPqCompressCompressionGzip Gzip
 	OutputDynatraceOtlpPqCompressCompressionGzip OutputDynatraceOtlpPqCompressCompression = "gzip"
 )
 
@@ -291,24 +324,13 @@ func (e OutputDynatraceOtlpPqCompressCompression) ToPointer() *OutputDynatraceOt
 type OutputDynatraceOtlpQueueFullBehavior string
 
 const (
+	// OutputDynatraceOtlpQueueFullBehaviorBlock Block
 	OutputDynatraceOtlpQueueFullBehaviorBlock OutputDynatraceOtlpQueueFullBehavior = "block"
-	OutputDynatraceOtlpQueueFullBehaviorDrop  OutputDynatraceOtlpQueueFullBehavior = "drop"
+	// OutputDynatraceOtlpQueueFullBehaviorDrop Drop new data
+	OutputDynatraceOtlpQueueFullBehaviorDrop OutputDynatraceOtlpQueueFullBehavior = "drop"
 )
 
 func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQueueFullBehavior {
-	return &e
-}
-
-// OutputDynatraceOtlpMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputDynatraceOtlpMode string
-
-const (
-	OutputDynatraceOtlpModeError        OutputDynatraceOtlpMode = "error"
-	OutputDynatraceOtlpModeBackpressure OutputDynatraceOtlpMode = "backpressure"
-	OutputDynatraceOtlpModeAlways       OutputDynatraceOtlpMode = "always"
-)
-
-func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
 	return &e
 }
 
@@ -395,6 +417,16 @@ type OutputDynatraceOtlp struct {
 	TimeoutRetrySettings  *OutputDynatraceOtlpTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputDynatraceOtlpMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -405,9 +437,7 @@ type OutputDynatraceOtlp struct {
 	PqCompress *OutputDynatraceOtlpPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputDynatraceOtlpQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputDynatraceOtlpMode       `default:"error" json:"pqMode"`
-	PqControls *OutputDynatraceOtlpPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputDynatraceOtlpPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
@@ -666,6 +696,41 @@ func (o *OutputDynatraceOtlp) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
+func (o *OutputDynatraceOtlp) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDynatraceOtlp) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDynatraceOtlp) GetPqMode() *OutputDynatraceOtlpMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDynatraceOtlp) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDynatraceOtlp) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputDynatraceOtlp) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -699,13 +764,6 @@ func (o *OutputDynatraceOtlp) GetPqOnBackpressure() *OutputDynatraceOtlpQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputDynatraceOtlp) GetPqMode() *OutputDynatraceOtlpMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputDynatraceOtlp) GetPqControls() *OutputDynatraceOtlpPqControls {

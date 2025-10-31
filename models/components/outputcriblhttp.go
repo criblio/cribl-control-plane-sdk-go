@@ -163,7 +163,9 @@ func (o *OutputCriblHTTPTLSSettingsClientSide) GetMaxVersion() *OutputCriblHTTPM
 type OutputCriblHTTPCompression string
 
 const (
+	// OutputCriblHTTPCompressionNone None
 	OutputCriblHTTPCompressionNone OutputCriblHTTPCompression = "none"
+	// OutputCriblHTTPCompressionGzip Gzip
 	OutputCriblHTTPCompressionGzip OutputCriblHTTPCompression = "gzip"
 )
 
@@ -205,9 +207,12 @@ func (o *OutputCriblHTTPExtraHTTPHeader) GetValue() string {
 type OutputCriblHTTPFailedRequestLoggingMode string
 
 const (
-	OutputCriblHTTPFailedRequestLoggingModePayload           OutputCriblHTTPFailedRequestLoggingMode = "payload"
+	// OutputCriblHTTPFailedRequestLoggingModePayload Payload
+	OutputCriblHTTPFailedRequestLoggingModePayload OutputCriblHTTPFailedRequestLoggingMode = "payload"
+	// OutputCriblHTTPFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputCriblHTTPFailedRequestLoggingModePayloadAndHeaders OutputCriblHTTPFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputCriblHTTPFailedRequestLoggingModeNone              OutputCriblHTTPFailedRequestLoggingMode = "none"
+	// OutputCriblHTTPFailedRequestLoggingModeNone None
+	OutputCriblHTTPFailedRequestLoggingModeNone OutputCriblHTTPFailedRequestLoggingMode = "none"
 )
 
 func (e OutputCriblHTTPFailedRequestLoggingMode) ToPointer() *OutputCriblHTTPFailedRequestLoggingMode {
@@ -317,8 +322,11 @@ func (o *OutputCriblHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputCriblHTTPBackpressureBehavior string
 
 const (
+	// OutputCriblHTTPBackpressureBehaviorBlock Block
 	OutputCriblHTTPBackpressureBehaviorBlock OutputCriblHTTPBackpressureBehavior = "block"
-	OutputCriblHTTPBackpressureBehaviorDrop  OutputCriblHTTPBackpressureBehavior = "drop"
+	// OutputCriblHTTPBackpressureBehaviorDrop Drop
+	OutputCriblHTTPBackpressureBehaviorDrop OutputCriblHTTPBackpressureBehavior = "drop"
+	// OutputCriblHTTPBackpressureBehaviorQueue Persistent Queue
 	OutputCriblHTTPBackpressureBehaviorQueue OutputCriblHTTPBackpressureBehavior = "queue"
 )
 
@@ -358,11 +366,29 @@ func (o *OutputCriblHTTPURL) GetWeight() *float64 {
 	return o.Weight
 }
 
+// OutputCriblHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputCriblHTTPMode string
+
+const (
+	// OutputCriblHTTPModeError Error
+	OutputCriblHTTPModeError OutputCriblHTTPMode = "error"
+	// OutputCriblHTTPModeAlways Backpressure
+	OutputCriblHTTPModeAlways OutputCriblHTTPMode = "always"
+	// OutputCriblHTTPModeBackpressure Always On
+	OutputCriblHTTPModeBackpressure OutputCriblHTTPMode = "backpressure"
+)
+
+func (e OutputCriblHTTPMode) ToPointer() *OutputCriblHTTPMode {
+	return &e
+}
+
 // OutputCriblHTTPPqCompressCompression - Codec to use to compress the persisted data
 type OutputCriblHTTPPqCompressCompression string
 
 const (
+	// OutputCriblHTTPPqCompressCompressionNone None
 	OutputCriblHTTPPqCompressCompressionNone OutputCriblHTTPPqCompressCompression = "none"
+	// OutputCriblHTTPPqCompressCompressionGzip Gzip
 	OutputCriblHTTPPqCompressCompressionGzip OutputCriblHTTPPqCompressCompression = "gzip"
 )
 
@@ -374,24 +400,13 @@ func (e OutputCriblHTTPPqCompressCompression) ToPointer() *OutputCriblHTTPPqComp
 type OutputCriblHTTPQueueFullBehavior string
 
 const (
+	// OutputCriblHTTPQueueFullBehaviorBlock Block
 	OutputCriblHTTPQueueFullBehaviorBlock OutputCriblHTTPQueueFullBehavior = "block"
-	OutputCriblHTTPQueueFullBehaviorDrop  OutputCriblHTTPQueueFullBehavior = "drop"
+	// OutputCriblHTTPQueueFullBehaviorDrop Drop new data
+	OutputCriblHTTPQueueFullBehaviorDrop OutputCriblHTTPQueueFullBehavior = "drop"
 )
 
 func (e OutputCriblHTTPQueueFullBehavior) ToPointer() *OutputCriblHTTPQueueFullBehavior {
-	return &e
-}
-
-// OutputCriblHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputCriblHTTPMode string
-
-const (
-	OutputCriblHTTPModeError        OutputCriblHTTPMode = "error"
-	OutputCriblHTTPModeBackpressure OutputCriblHTTPMode = "backpressure"
-	OutputCriblHTTPModeAlways       OutputCriblHTTPMode = "always"
-)
-
-func (e OutputCriblHTTPMode) ToPointer() *OutputCriblHTTPMode {
 	return &e
 }
 
@@ -469,6 +484,16 @@ type OutputCriblHTTP struct {
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputCriblHTTPMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -479,9 +504,7 @@ type OutputCriblHTTP struct {
 	PqCompress *OutputCriblHTTPPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputCriblHTTPQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputCriblHTTPMode       `default:"error" json:"pqMode"`
-	PqControls *OutputCriblHTTPPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputCriblHTTPPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputCriblHTTP) MarshalJSON() ([]byte, error) {
@@ -712,6 +735,41 @@ func (o *OutputCriblHTTP) GetLoadBalanceStatsPeriodSec() *float64 {
 	return o.LoadBalanceStatsPeriodSec
 }
 
+func (o *OutputCriblHTTP) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCriblHTTP) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCriblHTTP) GetPqMode() *OutputCriblHTTPMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCriblHTTP) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCriblHTTP) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputCriblHTTP) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -745,13 +803,6 @@ func (o *OutputCriblHTTP) GetPqOnBackpressure() *OutputCriblHTTPQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputCriblHTTP) GetPqMode() *OutputCriblHTTPMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputCriblHTTP) GetPqControls() *OutputCriblHTTPPqControls {

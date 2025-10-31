@@ -75,7 +75,7 @@ func main() {
 		fmt.Printf("⚠️ Fleet already exists: %s. Using existing fleet.\n", FLEET_ID)
 	} else {
 		// Create Fleet
-		myFleet := components.ConfigGroup{
+		myFleet := components.GroupCreateRequest{
 			ID:                 FLEET_ID,
 			OnPrem:             criblcontrolplanesdkgo.Bool(true),
 			WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
