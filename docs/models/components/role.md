@@ -5,5 +5,5 @@
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `RolePrimary` | primary       |
 | `RoleStandby` | standby       |
+| `RolePrimary` | primary       |

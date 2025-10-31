@@ -35,8 +35,11 @@ func (e *OutputKafkaType) UnmarshalJSON(data []byte) error {
 type OutputKafkaAcknowledgments int64
 
 const (
-	OutputKafkaAcknowledgmentsOne    OutputKafkaAcknowledgments = 1
-	OutputKafkaAcknowledgmentsZero   OutputKafkaAcknowledgments = 0
+	// OutputKafkaAcknowledgmentsOne Leader
+	OutputKafkaAcknowledgmentsOne OutputKafkaAcknowledgments = 1
+	// OutputKafkaAcknowledgmentsZero None
+	OutputKafkaAcknowledgmentsZero OutputKafkaAcknowledgments = 0
+	// OutputKafkaAcknowledgmentsMinus1 All
 	OutputKafkaAcknowledgmentsMinus1 OutputKafkaAcknowledgments = -1
 )
 
@@ -48,8 +51,11 @@ func (e OutputKafkaAcknowledgments) ToPointer() *OutputKafkaAcknowledgments {
 type OutputKafkaRecordDataFormat string
 
 const (
-	OutputKafkaRecordDataFormatJSON     OutputKafkaRecordDataFormat = "json"
-	OutputKafkaRecordDataFormatRaw      OutputKafkaRecordDataFormat = "raw"
+	// OutputKafkaRecordDataFormatJSON JSON
+	OutputKafkaRecordDataFormatJSON OutputKafkaRecordDataFormat = "json"
+	// OutputKafkaRecordDataFormatRaw Field _raw
+	OutputKafkaRecordDataFormatRaw OutputKafkaRecordDataFormat = "raw"
+	// OutputKafkaRecordDataFormatProtobuf Protobuf
 	OutputKafkaRecordDataFormatProtobuf OutputKafkaRecordDataFormat = "protobuf"
 )
 
@@ -61,25 +67,17 @@ func (e OutputKafkaRecordDataFormat) ToPointer() *OutputKafkaRecordDataFormat {
 type OutputKafkaCompression string
 
 const (
-	OutputKafkaCompressionNone   OutputKafkaCompression = "none"
-	OutputKafkaCompressionGzip   OutputKafkaCompression = "gzip"
+	// OutputKafkaCompressionNone None
+	OutputKafkaCompressionNone OutputKafkaCompression = "none"
+	// OutputKafkaCompressionGzip Gzip
+	OutputKafkaCompressionGzip OutputKafkaCompression = "gzip"
+	// OutputKafkaCompressionSnappy Snappy
 	OutputKafkaCompressionSnappy OutputKafkaCompression = "snappy"
-	OutputKafkaCompressionLz4    OutputKafkaCompression = "lz4"
+	// OutputKafkaCompressionLz4 LZ4
+	OutputKafkaCompressionLz4 OutputKafkaCompression = "lz4"
 )
 
 func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {
-	return &e
-}
-
-// OutputKafkaSchemaType - The schema format used to encode and decode event data
-type OutputKafkaSchemaType string
-
-const (
-	OutputKafkaSchemaTypeAvro OutputKafkaSchemaType = "avro"
-	OutputKafkaSchemaTypeJSON OutputKafkaSchemaType = "json"
-)
-
-func (e OutputKafkaSchemaType) ToPointer() *OutputKafkaSchemaType {
 	return &e
 }
 
@@ -247,8 +245,6 @@ type OutputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *OutputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -287,13 +283,6 @@ func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *s
 		return nil
 	}
 	return o.SchemaRegistryURL
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputKafkaSchemaType {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaType
 }
 
 func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -345,25 +334,124 @@ func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID()
 	return o.DefaultValueSchemaID
 }
 
+// OutputKafkaAuthenticationMethod - Enter credentials directly, or select a stored secret
+type OutputKafkaAuthenticationMethod string
+
+const (
+	OutputKafkaAuthenticationMethodManual OutputKafkaAuthenticationMethod = "manual"
+	OutputKafkaAuthenticationMethodSecret OutputKafkaAuthenticationMethod = "secret"
+)
+
+func (e OutputKafkaAuthenticationMethod) ToPointer() *OutputKafkaAuthenticationMethod {
+	return &e
+}
+
 type OutputKafkaSASLMechanism string
 
 const (
-	OutputKafkaSASLMechanismPlain       OutputKafkaSASLMechanism = "plain"
+	// OutputKafkaSASLMechanismPlain PLAIN
+	OutputKafkaSASLMechanismPlain OutputKafkaSASLMechanism = "plain"
+	// OutputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	OutputKafkaSASLMechanismScramSha256 OutputKafkaSASLMechanism = "scram-sha-256"
+	// OutputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	OutputKafkaSASLMechanismScramSha512 OutputKafkaSASLMechanism = "scram-sha-512"
-	OutputKafkaSASLMechanismKerberos    OutputKafkaSASLMechanism = "kerberos"
+	// OutputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	OutputKafkaSASLMechanismKerberos OutputKafkaSASLMechanism = "kerberos"
 )
 
 func (e OutputKafkaSASLMechanism) ToPointer() *OutputKafkaSASLMechanism {
 	return &e
 }
 
+type OutputKafkaOauthParam struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (o OutputKafkaOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputKafkaOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputKafkaOauthParam) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OutputKafkaOauthParam) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type OutputKafkaSaslExtension struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (o OutputKafkaSaslExtension) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputKafkaSaslExtension) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputKafkaSaslExtension) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OutputKafkaSaslExtension) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 // OutputKafkaAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type OutputKafkaAuthentication struct {
-	Disabled  *bool                     `default:"true" json:"disabled"`
-	Mechanism *OutputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	Disabled *bool   `default:"true" json:"disabled"`
+	Username *string `json:"username,omitempty"`
+	Password *string `json:"password,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *OutputKafkaAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string                   `json:"credentialsSecret,omitempty"`
+	Mechanism         *OutputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	// Location of keytab file for authentication principal
+	KeytabLocation *string `json:"keytabLocation,omitempty"`
+	// Authentication principal, such as `kafka_user@example.com`
+	Principal *string `json:"principal,omitempty"`
+	// Kerberos service class for Kafka brokers, such as `kafka`
+	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
 	// Enable OAuth authentication
 	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
+	// URL of the token endpoint to use for OAuth authentication
+	TokenURL *string `json:"tokenUrl,omitempty"`
+	// Client ID to use for OAuth authentication
+	ClientID        *string `json:"clientId,omitempty"`
+	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// Additional fields to send to the token endpoint, such as scope or audience
+	OauthParams []OutputKafkaOauthParam `json:"oauthParams,omitempty"`
+	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+	SaslExtensions []OutputKafkaSaslExtension `json:"saslExtensions,omitempty"`
 }
 
 func (o OutputKafkaAuthentication) MarshalJSON() ([]byte, error) {
@@ -384,6 +472,34 @@ func (o *OutputKafkaAuthentication) GetDisabled() *bool {
 	return o.Disabled
 }
 
+func (o *OutputKafkaAuthentication) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputKafkaAuthentication) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputKafkaAuthentication) GetAuthType() *OutputKafkaAuthenticationMethod {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputKafkaAuthentication) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
 func (o *OutputKafkaAuthentication) GetMechanism() *OutputKafkaSASLMechanism {
 	if o == nil {
 		return nil
@@ -391,11 +507,74 @@ func (o *OutputKafkaAuthentication) GetMechanism() *OutputKafkaSASLMechanism {
 	return o.Mechanism
 }
 
+func (o *OutputKafkaAuthentication) GetKeytabLocation() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KeytabLocation
+}
+
+func (o *OutputKafkaAuthentication) GetPrincipal() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Principal
+}
+
+func (o *OutputKafkaAuthentication) GetBrokerServiceClass() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BrokerServiceClass
+}
+
 func (o *OutputKafkaAuthentication) GetOauthEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.OauthEnabled
+}
+
+func (o *OutputKafkaAuthentication) GetTokenURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenURL
+}
+
+func (o *OutputKafkaAuthentication) GetClientID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ClientID
+}
+
+func (o *OutputKafkaAuthentication) GetOauthSecretType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OauthSecretType
+}
+
+func (o *OutputKafkaAuthentication) GetClientTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ClientTextSecret
+}
+
+func (o *OutputKafkaAuthentication) GetOauthParams() []OutputKafkaOauthParam {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputKafkaAuthentication) GetSaslExtensions() []OutputKafkaSaslExtension {
+	if o == nil {
+		return nil
+	}
+	return o.SaslExtensions
 }
 
 type OutputKafkaMinimumTLSVersion string
@@ -530,8 +709,11 @@ func (o *OutputKafkaTLSSettingsClientSide) GetMaxVersion() *OutputKafkaMaximumTL
 type OutputKafkaBackpressureBehavior string
 
 const (
+	// OutputKafkaBackpressureBehaviorBlock Block
 	OutputKafkaBackpressureBehaviorBlock OutputKafkaBackpressureBehavior = "block"
-	OutputKafkaBackpressureBehaviorDrop  OutputKafkaBackpressureBehavior = "drop"
+	// OutputKafkaBackpressureBehaviorDrop Drop
+	OutputKafkaBackpressureBehaviorDrop OutputKafkaBackpressureBehavior = "drop"
+	// OutputKafkaBackpressureBehaviorQueue Persistent Queue
 	OutputKafkaBackpressureBehaviorQueue OutputKafkaBackpressureBehavior = "queue"
 )
 
@@ -539,11 +721,29 @@ func (e OutputKafkaBackpressureBehavior) ToPointer() *OutputKafkaBackpressureBeh
 	return &e
 }
 
+// OutputKafkaMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputKafkaMode string
+
+const (
+	// OutputKafkaModeError Error
+	OutputKafkaModeError OutputKafkaMode = "error"
+	// OutputKafkaModeAlways Backpressure
+	OutputKafkaModeAlways OutputKafkaMode = "always"
+	// OutputKafkaModeBackpressure Always On
+	OutputKafkaModeBackpressure OutputKafkaMode = "backpressure"
+)
+
+func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {
+	return &e
+}
+
 // OutputKafkaPqCompressCompression - Codec to use to compress the persisted data
 type OutputKafkaPqCompressCompression string
 
 const (
+	// OutputKafkaPqCompressCompressionNone None
 	OutputKafkaPqCompressCompressionNone OutputKafkaPqCompressCompression = "none"
+	// OutputKafkaPqCompressCompressionGzip Gzip
 	OutputKafkaPqCompressCompressionGzip OutputKafkaPqCompressCompression = "gzip"
 )
 
@@ -555,24 +755,13 @@ func (e OutputKafkaPqCompressCompression) ToPointer() *OutputKafkaPqCompressComp
 type OutputKafkaQueueFullBehavior string
 
 const (
+	// OutputKafkaQueueFullBehaviorBlock Block
 	OutputKafkaQueueFullBehaviorBlock OutputKafkaQueueFullBehavior = "block"
-	OutputKafkaQueueFullBehaviorDrop  OutputKafkaQueueFullBehavior = "drop"
+	// OutputKafkaQueueFullBehaviorDrop Drop new data
+	OutputKafkaQueueFullBehaviorDrop OutputKafkaQueueFullBehavior = "drop"
 )
 
 func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior {
-	return &e
-}
-
-// OutputKafkaMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputKafkaMode string
-
-const (
-	OutputKafkaModeError        OutputKafkaMode = "error"
-	OutputKafkaModeBackpressure OutputKafkaMode = "backpressure"
-	OutputKafkaModeAlways       OutputKafkaMode = "always"
-)
-
-func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {
 	return &e
 }
 
@@ -643,6 +832,18 @@ type OutputKafka struct {
 	Description    *string                          `json:"description,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	// Select the type of object you want the Protobuf definitions to use for event encoding
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputKafkaMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -653,9 +854,7 @@ type OutputKafka struct {
 	PqCompress *OutputKafkaPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputKafkaQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputKafkaMode       `default:"error" json:"pqMode"`
-	PqControls *OutputKafkaPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputKafkaPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputKafka) MarshalJSON() ([]byte, error) {
@@ -865,6 +1064,48 @@ func (o *OutputKafka) GetProtobufLibraryID() *string {
 	return o.ProtobufLibraryID
 }
 
+func (o *OutputKafka) GetProtobufEncodingID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtobufEncodingID
+}
+
+func (o *OutputKafka) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputKafka) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputKafka) GetPqMode() *OutputKafkaMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputKafka) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputKafka) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputKafka) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -898,13 +1139,6 @@ func (o *OutputKafka) GetPqOnBackpressure() *OutputKafkaQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputKafka) GetPqMode() *OutputKafkaMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputKafka) GetPqControls() *OutputKafkaPqControls {

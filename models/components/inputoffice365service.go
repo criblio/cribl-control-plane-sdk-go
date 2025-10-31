@@ -65,7 +65,9 @@ func (i *InputOffice365ServiceConnection) GetOutput() string {
 type InputOffice365ServiceMode string
 
 const (
-	InputOffice365ServiceModeSmart  InputOffice365ServiceMode = "smart"
+	// InputOffice365ServiceModeSmart Smart
+	InputOffice365ServiceModeSmart InputOffice365ServiceMode = "smart"
+	// InputOffice365ServiceModeAlways Always On
 	InputOffice365ServiceModeAlways InputOffice365ServiceMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputOffice365ServiceMode) ToPointer() *InputOffice365ServiceMode {
 type InputOffice365ServiceCompression string
 
 const (
+	// InputOffice365ServiceCompressionNone None
 	InputOffice365ServiceCompressionNone InputOffice365ServiceCompression = "none"
+	// InputOffice365ServiceCompressionGzip Gzip
 	InputOffice365ServiceCompressionGzip InputOffice365ServiceCompression = "gzip"
 )
 
@@ -188,10 +192,14 @@ func (i *InputOffice365ServicePq) GetPqControls() *InputOffice365ServicePqContro
 type InputOffice365ServiceSubscriptionPlan string
 
 const (
+	// InputOffice365ServiceSubscriptionPlanEnterpriseGcc Office 365 Enterprise
 	InputOffice365ServiceSubscriptionPlanEnterpriseGcc InputOffice365ServiceSubscriptionPlan = "enterprise_gcc"
-	InputOffice365ServiceSubscriptionPlanGcc           InputOffice365ServiceSubscriptionPlan = "gcc"
-	InputOffice365ServiceSubscriptionPlanGccHigh       InputOffice365ServiceSubscriptionPlan = "gcc_high"
-	InputOffice365ServiceSubscriptionPlanDod           InputOffice365ServiceSubscriptionPlan = "dod"
+	// InputOffice365ServiceSubscriptionPlanGcc Office 365 GCC
+	InputOffice365ServiceSubscriptionPlanGcc InputOffice365ServiceSubscriptionPlan = "gcc"
+	// InputOffice365ServiceSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365ServiceSubscriptionPlanGccHigh InputOffice365ServiceSubscriptionPlan = "gcc_high"
+	// InputOffice365ServiceSubscriptionPlanDod Office 365 DoD
+	InputOffice365ServiceSubscriptionPlanDod InputOffice365ServiceSubscriptionPlan = "dod"
 )
 
 func (e InputOffice365ServiceSubscriptionPlan) ToPointer() *InputOffice365ServiceSubscriptionPlan {
@@ -304,9 +312,12 @@ func (i *InputOffice365ServiceContentConfig) GetEnabled() *bool {
 type InputOffice365ServiceRetryType string
 
 const (
-	InputOffice365ServiceRetryTypeNone    InputOffice365ServiceRetryType = "none"
+	// InputOffice365ServiceRetryTypeNone Disabled
+	InputOffice365ServiceRetryTypeNone InputOffice365ServiceRetryType = "none"
+	// InputOffice365ServiceRetryTypeBackoff Backoff
 	InputOffice365ServiceRetryTypeBackoff InputOffice365ServiceRetryType = "backoff"
-	InputOffice365ServiceRetryTypeStatic  InputOffice365ServiceRetryType = "static"
+	// InputOffice365ServiceRetryTypeStatic Static
+	InputOffice365ServiceRetryTypeStatic InputOffice365ServiceRetryType = "static"
 )
 
 func (e InputOffice365ServiceRetryType) ToPointer() *InputOffice365ServiceRetryType {

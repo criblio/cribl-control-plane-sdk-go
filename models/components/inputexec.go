@@ -65,7 +65,9 @@ func (i *InputExecConnection) GetOutput() string {
 type InputExecMode string
 
 const (
-	InputExecModeSmart  InputExecMode = "smart"
+	// InputExecModeSmart Smart
+	InputExecModeSmart InputExecMode = "smart"
+	// InputExecModeAlways Always On
 	InputExecModeAlways InputExecMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputExecMode) ToPointer() *InputExecMode {
 type InputExecCompression string
 
 const (
+	// InputExecCompressionNone None
 	InputExecCompressionNone InputExecCompression = "none"
+	// InputExecCompressionGzip Gzip
 	InputExecCompressionGzip InputExecCompression = "gzip"
 )
 

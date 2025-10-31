@@ -65,7 +65,9 @@ func (i *InputCriblmetricsConnection) GetOutput() string {
 type InputCriblmetricsMode string
 
 const (
-	InputCriblmetricsModeSmart  InputCriblmetricsMode = "smart"
+	// InputCriblmetricsModeSmart Smart
+	InputCriblmetricsModeSmart InputCriblmetricsMode = "smart"
+	// InputCriblmetricsModeAlways Always On
 	InputCriblmetricsModeAlways InputCriblmetricsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblmetricsMode) ToPointer() *InputCriblmetricsMode {
 type InputCriblmetricsCompression string
 
 const (
+	// InputCriblmetricsCompressionNone None
 	InputCriblmetricsCompressionNone InputCriblmetricsCompression = "none"
+	// InputCriblmetricsCompressionGzip Gzip
 	InputCriblmetricsCompressionGzip InputCriblmetricsCompression = "gzip"
 )
 

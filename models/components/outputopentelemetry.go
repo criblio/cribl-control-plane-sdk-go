@@ -35,7 +35,9 @@ func (e *OutputOpenTelemetryType) UnmarshalJSON(data []byte) error {
 type OutputOpenTelemetryProtocol string
 
 const (
+	// OutputOpenTelemetryProtocolGrpc gRPC
 	OutputOpenTelemetryProtocolGrpc OutputOpenTelemetryProtocol = "grpc"
+	// OutputOpenTelemetryProtocolHTTP HTTP
 	OutputOpenTelemetryProtocolHTTP OutputOpenTelemetryProtocol = "http"
 )
 
@@ -47,8 +49,10 @@ func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
 type OutputOpenTelemetryOTLPVersion string
 
 const (
+	// OutputOpenTelemetryOTLPVersionZeroDot10Dot0 0.10.0
 	OutputOpenTelemetryOTLPVersionZeroDot10Dot0 OutputOpenTelemetryOTLPVersion = "0.10.0"
-	OutputOpenTelemetryOTLPVersionOneDot3Dot1   OutputOpenTelemetryOTLPVersion = "1.3.1"
+	// OutputOpenTelemetryOTLPVersionOneDot3Dot1 1.3.1
+	OutputOpenTelemetryOTLPVersionOneDot3Dot1 OutputOpenTelemetryOTLPVersion = "1.3.1"
 )
 
 func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVersion {
@@ -59,9 +63,12 @@ func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVers
 type OutputOpenTelemetryCompressCompression string
 
 const (
-	OutputOpenTelemetryCompressCompressionNone    OutputOpenTelemetryCompressCompression = "none"
+	// OutputOpenTelemetryCompressCompressionNone None
+	OutputOpenTelemetryCompressCompressionNone OutputOpenTelemetryCompressCompression = "none"
+	// OutputOpenTelemetryCompressCompressionDeflate Deflate
 	OutputOpenTelemetryCompressCompressionDeflate OutputOpenTelemetryCompressCompression = "deflate"
-	OutputOpenTelemetryCompressCompressionGzip    OutputOpenTelemetryCompressCompression = "gzip"
+	// OutputOpenTelemetryCompressCompressionGzip Gzip
+	OutputOpenTelemetryCompressCompressionGzip OutputOpenTelemetryCompressCompression = "gzip"
 )
 
 func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetryCompressCompression {
@@ -72,7 +79,9 @@ func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetry
 type OutputOpenTelemetryHTTPCompressCompression string
 
 const (
+	// OutputOpenTelemetryHTTPCompressCompressionNone None
 	OutputOpenTelemetryHTTPCompressCompressionNone OutputOpenTelemetryHTTPCompressCompression = "none"
+	// OutputOpenTelemetryHTTPCompressCompressionGzip Gzip
 	OutputOpenTelemetryHTTPCompressCompressionGzip OutputOpenTelemetryHTTPCompressCompression = "gzip"
 )
 
@@ -130,9 +139,12 @@ func (o *OutputOpenTelemetryMetadatum) GetValue() string {
 type OutputOpenTelemetryFailedRequestLoggingMode string
 
 const (
-	OutputOpenTelemetryFailedRequestLoggingModePayload           OutputOpenTelemetryFailedRequestLoggingMode = "payload"
+	// OutputOpenTelemetryFailedRequestLoggingModePayload Payload
+	OutputOpenTelemetryFailedRequestLoggingModePayload OutputOpenTelemetryFailedRequestLoggingMode = "payload"
+	// OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders OutputOpenTelemetryFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputOpenTelemetryFailedRequestLoggingModeNone              OutputOpenTelemetryFailedRequestLoggingMode = "none"
+	// OutputOpenTelemetryFailedRequestLoggingModeNone None
+	OutputOpenTelemetryFailedRequestLoggingModeNone OutputOpenTelemetryFailedRequestLoggingMode = "none"
 )
 
 func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTelemetryFailedRequestLoggingMode {
@@ -143,8 +155,11 @@ func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTele
 type OutputOpenTelemetryBackpressureBehavior string
 
 const (
+	// OutputOpenTelemetryBackpressureBehaviorBlock Block
 	OutputOpenTelemetryBackpressureBehaviorBlock OutputOpenTelemetryBackpressureBehavior = "block"
-	OutputOpenTelemetryBackpressureBehaviorDrop  OutputOpenTelemetryBackpressureBehavior = "drop"
+	// OutputOpenTelemetryBackpressureBehaviorDrop Drop
+	OutputOpenTelemetryBackpressureBehaviorDrop OutputOpenTelemetryBackpressureBehavior = "drop"
+	// OutputOpenTelemetryBackpressureBehaviorQueue Persistent Queue
 	OutputOpenTelemetryBackpressureBehaviorQueue OutputOpenTelemetryBackpressureBehavior = "queue"
 )
 
@@ -464,11 +479,29 @@ func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMaxVersion() *OutputOpenTe
 	return o.MaxVersion
 }
 
+// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputOpenTelemetryMode string
+
+const (
+	// OutputOpenTelemetryModeError Error
+	OutputOpenTelemetryModeError OutputOpenTelemetryMode = "error"
+	// OutputOpenTelemetryModeAlways Backpressure
+	OutputOpenTelemetryModeAlways OutputOpenTelemetryMode = "always"
+	// OutputOpenTelemetryModeBackpressure Always On
+	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
+)
+
+func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
+	return &e
+}
+
 // OutputOpenTelemetryPqCompressCompression - Codec to use to compress the persisted data
 type OutputOpenTelemetryPqCompressCompression string
 
 const (
+	// OutputOpenTelemetryPqCompressCompressionNone None
 	OutputOpenTelemetryPqCompressCompressionNone OutputOpenTelemetryPqCompressCompression = "none"
+	// OutputOpenTelemetryPqCompressCompressionGzip Gzip
 	OutputOpenTelemetryPqCompressCompressionGzip OutputOpenTelemetryPqCompressCompression = "gzip"
 )
 
@@ -480,24 +513,13 @@ func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemet
 type OutputOpenTelemetryQueueFullBehavior string
 
 const (
+	// OutputOpenTelemetryQueueFullBehaviorBlock Block
 	OutputOpenTelemetryQueueFullBehaviorBlock OutputOpenTelemetryQueueFullBehavior = "block"
-	OutputOpenTelemetryQueueFullBehaviorDrop  OutputOpenTelemetryQueueFullBehavior = "drop"
+	// OutputOpenTelemetryQueueFullBehaviorDrop Drop new data
+	OutputOpenTelemetryQueueFullBehaviorDrop OutputOpenTelemetryQueueFullBehavior = "drop"
 )
 
 func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
-	return &e
-}
-
-// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputOpenTelemetryMode string
-
-const (
-	OutputOpenTelemetryModeError        OutputOpenTelemetryMode = "error"
-	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
-	OutputOpenTelemetryModeAlways       OutputOpenTelemetryMode = "always"
-)
-
-func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
 	return &e
 }
 
@@ -606,6 +628,16 @@ type OutputOpenTelemetry struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                                     `default:"true" json:"responseHonorRetryAfterHeader"`
 	TLS                           *OutputOpenTelemetryTLSSettingsClientSide `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputOpenTelemetryMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -616,9 +648,7 @@ type OutputOpenTelemetry struct {
 	PqCompress *OutputOpenTelemetryPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputOpenTelemetryQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputOpenTelemetryMode       `default:"error" json:"pqMode"`
-	PqControls *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputOpenTelemetryPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -961,6 +991,41 @@ func (o *OutputOpenTelemetry) GetTLS() *OutputOpenTelemetryTLSSettingsClientSide
 	return o.TLS
 }
 
+func (o *OutputOpenTelemetry) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetry) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetry) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetry) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputOpenTelemetry) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -994,13 +1059,6 @@ func (o *OutputOpenTelemetry) GetPqOnBackpressure() *OutputOpenTelemetryQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {

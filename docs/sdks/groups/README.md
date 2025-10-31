@@ -100,16 +100,15 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.ConfigGroup{
+    res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "<value>",
         },
-        ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](393.49),
         Description: criblcontrolplanesdkgo.Pointer("ack before fondly scent because gee without where exactly"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Pointer[float64](346.37),
-        Git: &components.Git{
+        EstimatedIngestRate: components.GroupCreateRequestEstimatedIngestRateRate84MbPerSec.ToPointer(),
+        Git: &components.GroupCreateRequestGit{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](5255.51),
             Log: []components.Commit{
@@ -138,13 +137,14 @@ func main() {
         Name: criblcontrolplanesdkgo.Pointer("<value>"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
+        SourceGroupID: criblcontrolplanesdkgo.Pointer("<id>"),
         Streamtags: []string{
             "<value 1>",
             "<value 2>",
             "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        Type: components.GroupCreateRequestTypeLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         WorkerCount: criblcontrolplanesdkgo.Pointer[float64](3050.1),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(false),
@@ -160,12 +160,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `ctx`                                                               | [context.Context](https://pkg.go.dev/context#Context)               | :heavy_check_mark:                                                  | The context to use for the request.                                 |
-| `product`                                                           | [components.ProductsCore](../../models/components/productscore.md)  | :heavy_check_mark:                                                  | Name of the Cribl product to add the Worker Group or Edge Fleet to. |
-| `configGroup`                                                       | [components.ConfigGroup](../../models/components/configgroup.md)    | :heavy_check_mark:                                                  | ConfigGroup object                                                  |
-| `opts`                                                              | [][operations.Option](../../models/operations/option.md)            | :heavy_minus_sign:                                                  | The options for this request.                                       |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
+| `product`                                                                      | [components.ProductsCore](../../models/components/productscore.md)             | :heavy_check_mark:                                                             | Name of the Cribl product to add the Worker Group or Edge Fleet to.            |
+| `groupCreateRequest`                                                           | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md) | :heavy_check_mark:                                                             | GroupCreateRequest object                                                      |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
 ### Response
 
@@ -273,8 +273,8 @@ func main() {
         ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7451.49),
         Description: criblcontrolplanesdkgo.Pointer("verbally feminize harmful prance really"),
-        EstimatedIngestRate: criblcontrolplanesdkgo.Pointer[float64](6748.35),
-        Git: &components.Git{
+        EstimatedIngestRate: components.ConfigGroupEstimatedIngestRateRate156MbPerSec.ToPointer(),
+        Git: &components.ConfigGroupGit{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](4475.22),
             Log: []components.Commit{
