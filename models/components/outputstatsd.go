@@ -61,6 +61,22 @@ func (e OutputStatsdBackpressureBehavior) ToPointer() *OutputStatsdBackpressureB
 	return &e
 }
 
+// OutputStatsdMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputStatsdMode string
+
+const (
+	// OutputStatsdModeError Error
+	OutputStatsdModeError OutputStatsdMode = "error"
+	// OutputStatsdModeAlways Backpressure
+	OutputStatsdModeAlways OutputStatsdMode = "always"
+	// OutputStatsdModeBackpressure Always On
+	OutputStatsdModeBackpressure OutputStatsdMode = "backpressure"
+)
+
+func (e OutputStatsdMode) ToPointer() *OutputStatsdMode {
+	return &e
+}
+
 // OutputStatsdCompression - Codec to use to compress the persisted data
 type OutputStatsdCompression string
 
@@ -86,22 +102,6 @@ const (
 )
 
 func (e OutputStatsdQueueFullBehavior) ToPointer() *OutputStatsdQueueFullBehavior {
-	return &e
-}
-
-// OutputStatsdMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputStatsdMode string
-
-const (
-	// OutputStatsdModeError Error
-	OutputStatsdModeError OutputStatsdMode = "error"
-	// OutputStatsdModeBackpressure Backpressure
-	OutputStatsdModeBackpressure OutputStatsdMode = "backpressure"
-	// OutputStatsdModeAlways Always On
-	OutputStatsdModeAlways OutputStatsdMode = "always"
-)
-
-func (e OutputStatsdMode) ToPointer() *OutputStatsdMode {
 	return &e
 }
 
@@ -152,6 +152,16 @@ type OutputStatsd struct {
 	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputStatsdBackpressureBehavior `default:"block" json:"onBackpressure"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputStatsdMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -162,9 +172,7 @@ type OutputStatsd struct {
 	PqCompress *OutputStatsdCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputStatsdQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputStatsdMode       `default:"error" json:"pqMode"`
-	PqControls *OutputStatsdPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputStatsdPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputStatsd) MarshalJSON() ([]byte, error) {
@@ -297,6 +305,41 @@ func (o *OutputStatsd) GetOnBackpressure() *OutputStatsdBackpressureBehavior {
 	return o.OnBackpressure
 }
 
+func (o *OutputStatsd) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputStatsd) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputStatsd) GetPqMode() *OutputStatsdMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputStatsd) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputStatsd) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputStatsd) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -330,13 +373,6 @@ func (o *OutputStatsd) GetPqOnBackpressure() *OutputStatsdQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputStatsd) GetPqMode() *OutputStatsdMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputStatsd) GetPqControls() *OutputStatsdPqControls {

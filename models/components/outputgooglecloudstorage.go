@@ -302,6 +302,8 @@ type OutputGoogleCloudStorage struct {
 	CompressionLevel *OutputGoogleCloudStorageCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputGoogleCloudStorageParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -602,6 +604,13 @@ func (o *OutputGoogleCloudStorage) GetAutomaticSchema() *bool {
 		return nil
 	}
 	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorage) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
 }
 
 func (o *OutputGoogleCloudStorage) GetParquetVersion() *OutputGoogleCloudStorageParquetVersion {
