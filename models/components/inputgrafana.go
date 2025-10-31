@@ -217,6 +217,12 @@ func (e InputGrafanaMaximumTLSVersion2) ToPointer() *InputGrafanaMaximumTLSVersi
 
 type InputGrafanaTLSSettingsServerSide2 struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -226,13 +232,9 @@ type InputGrafanaTLSSettingsServerSide2 struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                           `default:"false" json:"requestCert"`
-	RejectUnauthorized any                             `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                             `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputGrafanaMinimumTLSVersion2 `json:"minVersion,omitempty"`
-	MaxVersion         *InputGrafanaMaximumTLSVersion2 `json:"maxVersion,omitempty"`
+	CaPath     *string                         `json:"caPath,omitempty"`
+	MinVersion *InputGrafanaMinimumTLSVersion2 `json:"minVersion,omitempty"`
+	MaxVersion *InputGrafanaMaximumTLSVersion2 `json:"maxVersion,omitempty"`
 }
 
 func (i InputGrafanaTLSSettingsServerSide2) MarshalJSON() ([]byte, error) {
@@ -251,6 +253,27 @@ func (i *InputGrafanaTLSSettingsServerSide2) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputGrafanaTLSSettingsServerSide2) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputGrafanaTLSSettingsServerSide2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputGrafanaTLSSettingsServerSide2) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputGrafanaTLSSettingsServerSide2) GetCertificateName() *string {
@@ -286,27 +309,6 @@ func (i *InputGrafanaTLSSettingsServerSide2) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputGrafanaTLSSettingsServerSide2) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputGrafanaTLSSettingsServerSide2) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputGrafanaTLSSettingsServerSide2) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputGrafanaTLSSettingsServerSide2) GetMinVersion() *InputGrafanaMinimumTLSVersion2 {
@@ -1275,6 +1277,12 @@ func (e InputGrafanaMaximumTLSVersion1) ToPointer() *InputGrafanaMaximumTLSVersi
 
 type InputGrafanaTLSSettingsServerSide1 struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -1284,13 +1292,9 @@ type InputGrafanaTLSSettingsServerSide1 struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                           `default:"false" json:"requestCert"`
-	RejectUnauthorized any                             `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                             `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputGrafanaMinimumTLSVersion1 `json:"minVersion,omitempty"`
-	MaxVersion         *InputGrafanaMaximumTLSVersion1 `json:"maxVersion,omitempty"`
+	CaPath     *string                         `json:"caPath,omitempty"`
+	MinVersion *InputGrafanaMinimumTLSVersion1 `json:"minVersion,omitempty"`
+	MaxVersion *InputGrafanaMaximumTLSVersion1 `json:"maxVersion,omitempty"`
 }
 
 func (i InputGrafanaTLSSettingsServerSide1) MarshalJSON() ([]byte, error) {
@@ -1309,6 +1313,27 @@ func (i *InputGrafanaTLSSettingsServerSide1) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputGrafanaTLSSettingsServerSide1) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputGrafanaTLSSettingsServerSide1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputGrafanaTLSSettingsServerSide1) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputGrafanaTLSSettingsServerSide1) GetCertificateName() *string {
@@ -1344,27 +1369,6 @@ func (i *InputGrafanaTLSSettingsServerSide1) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputGrafanaTLSSettingsServerSide1) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputGrafanaTLSSettingsServerSide1) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputGrafanaTLSSettingsServerSide1) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputGrafanaTLSSettingsServerSide1) GetMinVersion() *InputGrafanaMinimumTLSVersion1 {

@@ -31,6 +31,124 @@ func (e *OutputSplunkHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type OutputSplunkHecMinimumTLSVersion string
+
+const (
+	OutputSplunkHecMinimumTLSVersionTlSv1  OutputSplunkHecMinimumTLSVersion = "TLSv1"
+	OutputSplunkHecMinimumTLSVersionTlSv11 OutputSplunkHecMinimumTLSVersion = "TLSv1.1"
+	OutputSplunkHecMinimumTLSVersionTlSv12 OutputSplunkHecMinimumTLSVersion = "TLSv1.2"
+	OutputSplunkHecMinimumTLSVersionTlSv13 OutputSplunkHecMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputSplunkHecMinimumTLSVersion) ToPointer() *OutputSplunkHecMinimumTLSVersion {
+	return &e
+}
+
+type OutputSplunkHecMaximumTLSVersion string
+
+const (
+	OutputSplunkHecMaximumTLSVersionTlSv1  OutputSplunkHecMaximumTLSVersion = "TLSv1"
+	OutputSplunkHecMaximumTLSVersionTlSv11 OutputSplunkHecMaximumTLSVersion = "TLSv1.1"
+	OutputSplunkHecMaximumTLSVersionTlSv12 OutputSplunkHecMaximumTLSVersion = "TLSv1.2"
+	OutputSplunkHecMaximumTLSVersionTlSv13 OutputSplunkHecMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputSplunkHecMaximumTLSVersion) ToPointer() *OutputSplunkHecMaximumTLSVersion {
+	return &e
+}
+
+type OutputSplunkHecTLSSettingsClientSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+	Servername *string `json:"servername,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+	CaPath *string `json:"caPath,omitempty"`
+	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string                           `json:"passphrase,omitempty"`
+	MinVersion *OutputSplunkHecMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *OutputSplunkHecMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (o OutputSplunkHecTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetCaPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CaPath
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetMinVersion() *OutputSplunkHecMinimumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MinVersion
+}
+
+func (o *OutputSplunkHecTLSSettingsClientSide) GetMaxVersion() *OutputSplunkHecMaximumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MaxVersion
+}
+
 type OutputSplunkHecExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
@@ -236,6 +354,22 @@ func (o *OutputSplunkHecURL) GetWeight() *float64 {
 	return o.Weight
 }
 
+// OutputSplunkHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSplunkHecMode string
+
+const (
+	// OutputSplunkHecModeError Error
+	OutputSplunkHecModeError OutputSplunkHecMode = "error"
+	// OutputSplunkHecModeAlways Backpressure
+	OutputSplunkHecModeAlways OutputSplunkHecMode = "always"
+	// OutputSplunkHecModeBackpressure Always On
+	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
+)
+
+func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
+	return &e
+}
+
 // OutputSplunkHecCompression - Codec to use to compress the persisted data
 type OutputSplunkHecCompression string
 
@@ -261,22 +395,6 @@ const (
 )
 
 func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
-	return &e
-}
-
-// OutputSplunkHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSplunkHecMode string
-
-const (
-	// OutputSplunkHecModeError Error
-	OutputSplunkHecModeError OutputSplunkHecMode = "error"
-	// OutputSplunkHecModeBackpressure Backpressure
-	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
-	// OutputSplunkHecModeAlways Always On
-	OutputSplunkHecModeAlways OutputSplunkHecMode = "always"
-)
-
-func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
 	return &e
 }
 
@@ -311,7 +429,8 @@ type OutputSplunkHec struct {
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `default:"indexQueue" json:"nextQueue"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string `default:"nowhere" json:"tcpRouting"`
+	TCPRouting *string                               `default:"nowhere" json:"tcpRouting"`
+	TLS        *OutputSplunkHecTLSSettingsClientSide `json:"tls,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -361,6 +480,16 @@ type OutputSplunkHec struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputSplunkHecMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -371,9 +500,7 @@ type OutputSplunkHec struct {
 	PqCompress *OutputSplunkHecCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputSplunkHecQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSplunkHecMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSplunkHecPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputSplunkHecPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -448,6 +575,13 @@ func (o *OutputSplunkHec) GetTCPRouting() *string {
 		return nil
 	}
 	return o.TCPRouting
+}
+
+func (o *OutputSplunkHec) GetTLS() *OutputSplunkHecTLSSettingsClientSide {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
 }
 
 func (o *OutputSplunkHec) GetConcurrency() *float64 {
@@ -625,6 +759,41 @@ func (o *OutputSplunkHec) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputSplunkHec) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHec) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHec) GetPqMode() *OutputSplunkHecMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHec) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHec) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputSplunkHec) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -658,13 +827,6 @@ func (o *OutputSplunkHec) GetPqOnBackpressure() *OutputSplunkHecQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputSplunkHec) GetPqMode() *OutputSplunkHecMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputSplunkHec) GetPqControls() *OutputSplunkHecPqControls {

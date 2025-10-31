@@ -261,7 +261,9 @@ type InputFile struct {
 	TailOnly *bool `default:"false" json:"tailOnly"`
 	// Time, in seconds, before an idle file is closed
 	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
-	// The maximum age of files to monitor. Format examples: 60s, 4h, 3d, 1w. Age is relative to file modification time. Leave empty to apply no age filters.
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
 	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
@@ -401,6 +403,13 @@ func (i *InputFile) GetIdleTimeout() *float64 {
 		return nil
 	}
 	return i.IdleTimeout
+}
+
+func (i *InputFile) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
 }
 
 func (i *InputFile) GetMaxAgeDur() *string {
