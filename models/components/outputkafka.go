@@ -75,6 +75,8 @@ const (
 	OutputKafkaCompressionSnappy OutputKafkaCompression = "snappy"
 	// OutputKafkaCompressionLz4 LZ4
 	OutputKafkaCompressionLz4 OutputKafkaCompression = "lz4"
+	// OutputKafkaCompressionZstd ZSTD
+	OutputKafkaCompressionZstd OutputKafkaCompression = "zstd"
 )
 
 func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {

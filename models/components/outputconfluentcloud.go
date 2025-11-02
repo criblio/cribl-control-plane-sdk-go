@@ -203,6 +203,8 @@ const (
 	OutputConfluentCloudCompressionSnappy OutputConfluentCloudCompression = "snappy"
 	// OutputConfluentCloudCompressionLz4 LZ4
 	OutputConfluentCloudCompressionLz4 OutputConfluentCloudCompression = "lz4"
+	// OutputConfluentCloudCompressionZstd ZSTD
+	OutputConfluentCloudCompressionZstd OutputConfluentCloudCompression = "zstd"
 )
 
 func (e OutputConfluentCloudCompression) ToPointer() *OutputConfluentCloudCompression {
