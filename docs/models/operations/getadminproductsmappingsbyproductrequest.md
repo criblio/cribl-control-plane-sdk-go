@@ -1,9 +1,8 @@
-# Pipeline
+# GetAdminProductsMappingsByProductRequest
 
 
 ## Fields
 
 | Field                                                              | Type                                                               | Required                                                           | Description                                                        |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `ID`                                                               | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
-| `Conf`                                                             | [components.PipelineConf](../../models/components/pipelineconf.md) | :heavy_check_mark:                                                 | N/A                                                                |
+| `Product`                                                          | [components.ProductsCore](../../models/components/productscore.md) | :heavy_check_mark:                                                 | Name of the Cribl product to list the Mapping Rulesets for         |

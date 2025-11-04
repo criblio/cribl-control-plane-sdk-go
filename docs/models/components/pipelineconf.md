@@ -1,4 +1,4 @@
-# Conf
+# PipelineConf
 
 
 ## Fields
@@ -9,5 +9,5 @@
 | `Output`                                                                             | **string*                                                                            | :heavy_minus_sign:                                                                   | The output destination for events processed by this Pipeline                         |
 | `Description`                                                                        | **string*                                                                            | :heavy_minus_sign:                                                                   | N/A                                                                                  |
 | `Streamtags`                                                                         | []*string*                                                                           | :heavy_minus_sign:                                                                   | Tags for filtering and grouping in @{product}                                        |
-| `Functions`                                                                          | [][components.PipelineFunctionConf](../../models/components/pipelinefunctionconf.md) | :heavy_minus_sign:                                                                   | List of Functions to pass data through                                               |
 | `Groups`                                                                             | map[string][components.PipelineGroups](../../models/components/pipelinegroups.md)    | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `Functions`                                                                          | [][components.PipelineFunctionConf](../../models/components/pipelinefunctionconf.md) | :heavy_minus_sign:                                                                   | List of Functions to pass data through                                               |

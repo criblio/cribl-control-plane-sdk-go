@@ -2,30 +2,9 @@
 
 package components
 
-// State of the Job
-type State int64
-
-const (
-	StateInitializing State = 0
-	StatePending      State = 1
-	StateRunning      State = 2
-	StatePaused       State = 3
-	StateCancelled    State = 4
-	StateFinished     State = 5
-	StateFailed       State = 6
-	StateOrphaned     State = 7
-	StateUnknown      State = 8
-	StateLength       State = 9
-)
-
-func (e State) ToPointer() *State {
-	return &e
-}
-
 type JobStatus struct {
 	Reason map[string]any `json:"reason,omitempty"`
-	// State of the Job
-	State State `json:"state"`
+	State  map[string]any `json:"state"`
 }
 
 func (j *JobStatus) GetReason() map[string]any {
@@ -35,9 +14,9 @@ func (j *JobStatus) GetReason() map[string]any {
 	return j.Reason
 }
 
-func (j *JobStatus) GetState() State {
+func (j *JobStatus) GetState() map[string]any {
 	if j == nil {
-		return State(0)
+		return map[string]any{}
 	}
 	return j.State
 }
