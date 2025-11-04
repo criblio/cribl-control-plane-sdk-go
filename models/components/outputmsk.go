@@ -75,6 +75,8 @@ const (
 	OutputMskCompressionSnappy OutputMskCompression = "snappy"
 	// OutputMskCompressionLz4 LZ4
 	OutputMskCompressionLz4 OutputMskCompression = "lz4"
+	// OutputMskCompressionZstd ZSTD
+	OutputMskCompressionZstd OutputMskCompression = "zstd"
 )
 
 func (e OutputMskCompression) ToPointer() *OutputMskCompression {

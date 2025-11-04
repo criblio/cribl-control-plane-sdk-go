@@ -192,10 +192,10 @@ func (i *InputFilePq) GetPqControls() *InputFilePqControls {
 type InputFileMode string
 
 const (
-	// InputFileModeAuto Auto
-	InputFileModeAuto InputFileMode = "auto"
 	// InputFileModeManual Manual
 	InputFileModeManual InputFileMode = "manual"
+	// InputFileModeAuto Auto
+	InputFileModeAuto InputFileMode = "auto"
 )
 
 func (e InputFileMode) ToPointer() *InputFileMode {
@@ -252,7 +252,7 @@ type InputFile struct {
 	Connections []InputFileConnection `json:"connections,omitempty"`
 	Pq          *InputFilePq          `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *InputFileMode `default:"auto" json:"mode"`
+	Mode *InputFileMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
