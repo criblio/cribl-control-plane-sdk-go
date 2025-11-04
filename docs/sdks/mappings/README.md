@@ -110,15 +110,11 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Map Linux Edge Nodes"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'linux_fleet'",
                             },
                         },
                         Keep: []string{
@@ -128,6 +124,7 @@ func main() {
                             "<value 1>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
                 components.EvalFunction{
                     Filter: criblcontrolplanesdkgo.Pointer("platform === \"win32\""),
@@ -135,24 +132,24 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Map Windows Edge Nodes"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'windows_fleet'",
                             },
                         },
                         Keep: []string{
                             "<value 1>",
+                            "<value 2>",
                         },
                         Remove: []string{
                             "<value 1>",
+                            "<value 2>",
+                            "<value 3>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
                 components.EvalFunction{
                     Filter: criblcontrolplanesdkgo.Pointer("platform === \"darwin\""),
@@ -160,24 +157,22 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Map macOS Edge Nodes"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'macos_fleet'",
                             },
                         },
                         Keep: []string{
                             "<value 1>",
+                            "<value 2>",
                         },
                         Remove: []string{
                             "<value 1>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
                 components.EvalFunction{
                     Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
@@ -185,24 +180,22 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Default mapping for unmapped nodes"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'default_fleet'",
                             },
                         },
                         Keep: []string{
                             "<value 1>",
+                            "<value 2>",
                         },
                         Remove: []string{
                             "<value 1>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
         },
@@ -448,15 +441,11 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Map high-performance nodes in specific network or DMZ"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'high_perf_fleet'",
                             },
                         },
                         Keep: []string{
@@ -467,6 +456,7 @@ func main() {
                             "<value 2>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
                 components.EvalFunction{
                     Filter: criblcontrolplanesdkgo.Pointer("!cribl.group"),
@@ -474,15 +464,11 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("Default mapping"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(true),
-                    Conf: components.EvalFunctionFunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                    Name: components.NameEval.ToPointer(),
-                    Group: components.GroupStandard.ToPointer(),
-                    Schema: &components.EvalSchema{
+                    Conf: components.EvalSchema{
                         Add: []components.Add{
                             components.Add{
-                                Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                                Value: "<value>",
+                                Name: criblcontrolplanesdkgo.Pointer("groupId"),
+                                Value: "'default_fleet'",
                             },
                         },
                         Keep: []string{
@@ -490,9 +476,9 @@ func main() {
                         },
                         Remove: []string{
                             "<value 1>",
-                            "<value 2>",
                         },
                     },
+                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
         },

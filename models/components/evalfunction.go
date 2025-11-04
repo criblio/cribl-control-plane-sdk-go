@@ -16,29 +16,6 @@ func (e ID) ToPointer() *ID {
 	return &e
 }
 
-type EvalFunctionFunctionSpecificConfigs struct {
-}
-
-type Name string
-
-const (
-	NameEval Name = "Eval"
-)
-
-func (e Name) ToPointer() *Name {
-	return &e
-}
-
-type Group string
-
-const (
-	GroupStandard Group = "Standard"
-)
-
-func (e Group) ToPointer() *Group {
-	return &e
-}
-
 type EvalFunction struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `default:"true" json:"filter"`
@@ -48,13 +25,10 @@ type EvalFunction struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                               `json:"final,omitempty"`
-	Conf  EvalFunctionFunctionSpecificConfigs `json:"conf"`
+	Final *bool      `json:"final,omitempty"`
+	Conf  EvalSchema `json:"conf"`
 	// Group ID
-	GroupID *string     `json:"groupId,omitempty"`
-	Name    *Name       `json:"name,omitempty"`
-	Group   *Group      `json:"group,omitempty"`
-	Schema  *EvalSchema `json:"schema,omitempty"`
+	GroupID *string `json:"groupId,omitempty"`
 }
 
 func (e EvalFunction) MarshalJSON() ([]byte, error) {
@@ -103,9 +77,9 @@ func (e *EvalFunction) GetFinal() *bool {
 	return e.Final
 }
 
-func (e *EvalFunction) GetConf() EvalFunctionFunctionSpecificConfigs {
+func (e *EvalFunction) GetConf() EvalSchema {
 	if e == nil {
-		return EvalFunctionFunctionSpecificConfigs{}
+		return EvalSchema{}
 	}
 	return e.Conf
 }
@@ -115,25 +89,4 @@ func (e *EvalFunction) GetGroupID() *string {
 		return nil
 	}
 	return e.GroupID
-}
-
-func (e *EvalFunction) GetName() *Name {
-	if e == nil {
-		return nil
-	}
-	return e.Name
-}
-
-func (e *EvalFunction) GetGroup() *Group {
-	if e == nil {
-		return nil
-	}
-	return e.Group
-}
-
-func (e *EvalFunction) GetSchema() *EvalSchema {
-	if e == nil {
-		return nil
-	}
-	return e.Schema
 }
