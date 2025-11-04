@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 51419425e4ef1963bfe5444bab3abea8
-  docVersion: 4.15.0-alpha.1761900341964-54de5e31
+  docChecksum: cfc6e1588a0a2c10fa38033a5d73d734
+  docVersion: 4.15.0-alpha.1762249156162-b384ad31
   speakeasyVersion: 1.643.3
   generationVersion: 2.731.9
-  releaseVersion: 0.2.1-rc.7
-  configChecksum: cb29d00791590b4e2523767dccc7cc88
+  releaseVersion: 0.2.1-rc.8
+  configChecksum: c60c7a1adc025024cc9951395f287d3c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -141,6 +141,7 @@ generatedFiles:
   - /models/components/inputzscalerhec.go
   - /models/components/jobinfo.go
   - /models/components/jobstatus.go
+  - /models/components/lakedatasetmetrics.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
@@ -1209,6 +1210,7 @@ generatedFiles:
   - docs/models/components/interfaces.md
   - docs/models/components/jobinfo.md
   - docs/models/components/jobstatus.md
+  - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
   - docs/models/components/lastmetrics.md
@@ -2175,6 +2177,7 @@ generatedFiles:
   - docs/models/components/snmpv3authentication.md
   - docs/models/components/splunkhecmetadata.md
   - docs/models/components/state.md
+  - docs/models/components/stats.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
@@ -2846,10 +2849,10 @@ examples:
         path:
           lakeId: "<id>"
       requestBody:
-        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 8310.58, "description": "pleased toothbrush long brush smooth swiftly rightfully phooey chapel", "format": "ddss", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 456.37, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
+        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 8310.58, "description": "pleased toothbrush long brush smooth swiftly rightfully phooey chapel", "format": "ddss", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 6170.04, "metricsDate": "<value>"}, "retentionPeriodInDays": 456.37, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
       responses:
         "200":
-          application/json: {"count": 428443, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 6211.27, "description": "ick napkin lamp save yearly though barring", "format": "ddss", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 4605.98, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 428443, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 6211.27, "description": "ick napkin lamp save yearly though barring", "format": "ddss", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 6170.04, "metricsDate": "<value>"}, "retentionPeriodInDays": 4605.98, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getCriblLakeDatasetByLakeId:
@@ -2859,7 +2862,7 @@ examples:
           lakeId: "<id>"
       responses:
         "200":
-          application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 31.01, "metricsDate": "<value>"}, "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getSummaryWorkers:
@@ -2931,7 +2934,7 @@ examples:
           application/json: {"message": "<value>"}
     PackInstallExamplesUploadedFile:
       requestBody:
-        application/json: {"id": "cribl-search-missing-logs-", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
+        application/json: {"id": "cribl-search-missing-logs", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
       responses:
         "200":
           application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
@@ -3066,7 +3069,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 954603, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 4670.23, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 4383.9}, "deletionStartedAt": 8741.5, "description": "twine unabashedly within hm whoever duh swift which likewise", "format": "parquet", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 9101.58, "searchConfig": {"datatypes": ["<value 1>", "<value 2>", "<value 3>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 5372.22, "finishedAt": 2530.33, "latestScannedTime": 3122.34, "objectCount": 5459.74}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 954603, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 4670.23, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 4383.9}, "deletionStartedAt": 8741.5, "description": "twine unabashedly within hm whoever duh swift which likewise", "format": "parquet", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 9546.03, "metricsDate": "<value>"}, "retentionPeriodInDays": 9101.58, "searchConfig": {"datatypes": ["<value 1>", "<value 2>", "<value 3>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 5372.22, "finishedAt": 2530.33, "latestScannedTime": 3122.34, "objectCount": 5459.74}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getCriblLakeDatasetByLakeIdAndId:
@@ -3077,7 +3080,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 488520, "items": [{"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "started", "cacheRef": "<value>", "createdAt": 4162.03, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 3505.26}, "deletionStartedAt": 9483.64, "description": "towards as separate yum approximate than napkin over but tame", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 4689.34, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 6809.96, "finishedAt": 8790.42, "latestScannedTime": 5054.03, "objectCount": 6377.75}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 488520, "items": [{"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "started", "cacheRef": "<value>", "createdAt": 4162.03, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 3505.26}, "deletionStartedAt": 9483.64, "description": "towards as separate yum approximate than napkin over but tame", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 4885.2, "metricsDate": "<value>"}, "retentionPeriodInDays": 4689.34, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 6809.96, "finishedAt": 8790.42, "latestScannedTime": 5054.03, "objectCount": 6377.75}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateCriblLakeDatasetByLakeIdAndId:
@@ -3087,10 +3090,10 @@ examples:
           lakeId: "<id>"
           id: "<id>"
       requestBody:
-        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 836.59, "description": "highlight phew ponder but winding", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 602.09, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
+        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 836.59, "description": "highlight phew ponder but winding", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 6237.74, "metricsDate": "<value>"}, "retentionPeriodInDays": 602.09, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
       responses:
         "200":
-          application/json: {"count": 592322, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 9654.8, "description": "murky out cone hm sophisticated whoa frightfully unimpressively since", "format": "ddss", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 6639.66, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 592322, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 9654.8, "description": "murky out cone hm sophisticated whoa frightfully unimpressively since", "format": "ddss", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 6237.74, "metricsDate": "<value>"}, "retentionPeriodInDays": 6639.66, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deletePacksById:
@@ -3201,6 +3204,50 @@ examples:
           application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
+    CreateGroupExamplesCloudWg:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "deployingWorkerCount": 5631.58, "description": "ack resort boohoo", "estimatedIngestRate": 2048, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 7174.43, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4980.41, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesOnPremWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9081.3, "description": "Worker group in customer-managed deployment", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremIanWg", "incompatibleWorkerCount": 7060.3, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremIanWg", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1230.11, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesCloneWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 2591.38, "description": "Worker Group cloned from goatOnPremIanWg with identical configuration", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremDollyWg", "incompatibleWorkerCount": 1660.08, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremDollyWg", "onPrem": true, "provisioned": true, "sourceGroupId": "goatOnPremIanWg", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5075.63, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesEdgeFleet:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9605.18, "description": "Create a new Edge Fleet", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatIanEdgeFleet", "incompatibleWorkerCount": 9429.96, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatIanEdgeFleet", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3096.3, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
   getConfigGroupByProductAndId:
     speakeasy-default-get-config-group-by-product-and-id:
       parameters:
@@ -3225,6 +3272,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    UpdateGroupExamplesScaleCloudWorkerGroup:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "configVersion": "<value>", "deployingWorkerCount": 7786.61, "description": "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 2874.65, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 835.08, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 214805, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6038.43, "description": "pants sugary tricky drat", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5750.42, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   deleteConfigGroupByProductAndId:
@@ -3437,4 +3496,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Auth.Tokens.Get()`: \n  *  `response.ForcePasswordChange` **Added**\n  *  `error` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.status[default]` **Removed** **Breaking** :warning:\n  *  `error.status[500]` **Added**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Upload()`: **Added**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats.{}` **Changed** **Breaking** :warning:\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n"

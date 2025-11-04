@@ -7,7 +7,7 @@ import (
 )
 
 type CreateConfigGroupByProductRequest struct {
-	// Name of the Cribl product to add the Worker Group or Edge Fleet to.
+	// required Name of the Cribl product to add the Worker Group or Edge Fleet to.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// GroupCreateRequest object
 	GroupCreateRequest components.GroupCreateRequest `request:"mediaType=application/json"`
