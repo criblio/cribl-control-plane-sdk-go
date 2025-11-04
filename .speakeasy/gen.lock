@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: cfc6e1588a0a2c10fa38033a5d73d734
-  docVersion: 4.15.0-alpha.1762249156162-b384ad31
+  docChecksum: 6c35362581d2f2f2e14510abff36208b
+  docVersion: 4.15.0-alpha.1762254484658-fcbc6b29
   speakeasyVersion: 1.643.3
   generationVersion: 2.731.9
-  releaseVersion: 0.2.1-rc.8
-  configChecksum: c60c7a1adc025024cc9951395f287d3c
+  releaseVersion: 0.2.1-rc.9
+  configChecksum: 992fb235a6a3a3d85e4cab813d4ed0f6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -61,6 +61,8 @@ generatedFiles:
   - /models/components/deployrequestlookups.go
   - /models/components/difffiles.go
   - /models/components/distributedsummary.go
+  - /models/components/evalfunction.go
+  - /models/components/evalschema.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitcountresult.go
@@ -146,6 +148,7 @@ generatedFiles:
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
   - /models/components/lookupversions.go
+  - /models/components/mappingruleset.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -236,6 +239,7 @@ generatedFiles:
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
+  - /models/components/rulesetid.go
   - /models/components/runnablejob.go
   - /models/components/runnablejobcollection.go
   - /models/components/runnablejobexecutor.go
@@ -247,6 +251,8 @@ generatedFiles:
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createadminproductsmappingsactivatebyproduct.go
+  - /models/operations/createadminproductsmappingsbyproduct.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
@@ -261,6 +267,7 @@ generatedFiles:
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
   - /models/operations/createversionundo.go
+  - /models/operations/deleteadminproductsmappingsbyproductandid.go
   - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deleteinputbyid.go
@@ -268,6 +275,8 @@ generatedFiles:
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
+  - /models/operations/getadminproductsmappingsbyproduct.go
+  - /models/operations/getadminproductsmappingsbyproductandid.go
   - /models/operations/getconfiggroupaclbyproductandid.go
   - /models/operations/getconfiggroupaclteamsbyproductandid.go
   - /models/operations/getconfiggroupbyproductandid.go
@@ -300,6 +309,7 @@ generatedFiles:
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
+  - /models/operations/updateadminproductsmappingsbyproductandid.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
@@ -320,6 +330,7 @@ generatedFiles:
   - destinations.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthserverstatuserror.md
+  - docs/models/components/add.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
@@ -346,7 +357,6 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
-  - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
@@ -384,6 +394,9 @@ generatedFiles:
   - docs/models/components/endpointheader.md
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
+  - docs/models/components/evalfunction.md
+  - docs/models/components/evalfunctionfunctionspecificconfigs.md
+  - docs/models/components/evalschema.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
@@ -393,7 +406,6 @@ generatedFiles:
   - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
-  - docs/models/components/functionspecificconfigs.md
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
   - docs/models/components/gitcommitsummaryfiles.md
@@ -408,6 +420,7 @@ generatedFiles:
   - docs/models/components/gitrevertresultfiles.md
   - docs/models/components/gitshowresult.md
   - docs/models/components/gitstatusresult.md
+  - docs/models/components/group.md
   - docs/models/components/groupcreaterequest.md
   - docs/models/components/groupcreaterequestestimatedingestrate.md
   - docs/models/components/groupcreaterequestgit.md
@@ -425,6 +438,7 @@ generatedFiles:
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/id.md
   - docs/models/components/indexerdiscoveryconfigs.md
   - docs/models/components/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/components/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
@@ -1228,12 +1242,15 @@ generatedFiles:
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
+  - docs/models/components/mappingruleset.md
+  - docs/models/components/mappingrulesetconf.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
   - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
   - docs/models/components/mtlssettings.md
+  - docs/models/components/name.md
   - docs/models/components/nodeactiveupgradestatus.md
   - docs/models/components/nodefailedupgradestatus.md
   - docs/models/components/nodeprovidedinfo.md
@@ -2107,7 +2124,9 @@ generatedFiles:
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
+  - docs/models/components/pipelineconf.md
   - docs/models/components/pipelinefunctionconf.md
+  - docs/models/components/pipelinefunctionconffunctionspecificconfigs.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
@@ -2131,6 +2150,7 @@ generatedFiles:
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
+  - docs/models/components/rulesetid.md
   - docs/models/components/runnablejob.md
   - docs/models/components/runnablejobcollection.md
   - docs/models/components/runnablejobcollectioninput.md
@@ -2176,8 +2196,6 @@ generatedFiles:
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
   - docs/models/components/splunkhecmetadata.md
-  - docs/models/components/state.md
-  - docs/models/components/stats.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
@@ -2199,6 +2217,12 @@ generatedFiles:
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponsebody.md
+  - docs/models/operations/createadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/createadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
@@ -2234,6 +2258,9 @@ generatedFiles:
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/createversionundoresponsebody.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
@@ -2255,6 +2282,12 @@ generatedFiles:
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/deletepipelinebyidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductandidresponsebody.md
+  - docs/models/operations/getadminproductsmappingsbyproductrequest.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponse.md
+  - docs/models/operations/getadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
@@ -2342,6 +2375,9 @@ generatedFiles:
   - docs/models/operations/listroutesresponse.md
   - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/option.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidrequest.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponse.md
+  - docs/models/operations/updateadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
@@ -2381,6 +2417,7 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
+  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2416,6 +2453,7 @@ generatedFiles:
   - internal/utils/security.go
   - internal/utils/utils.go
   - lakedatasets.go
+  - mappings.go
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
@@ -2595,7 +2633,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 4919.76}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 6}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 5811.94}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 8}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 294.06, "key1": 552.2}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 9}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 4919.76}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Virginia"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 5811.94}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Hawaii", "key1": "Kansas", "key2": "Washington"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 294.06, "key1": 552.2}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2665,16 +2703,16 @@ examples:
     speakeasy-default-list-pipeline:
       responses:
         "200":
-          application/json: {"count": 575048, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 138375, "output": "default", "description": "perfectly gosh whup whoa boohoo twin as", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "aha regarding before scaly expense that", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "phew rigidly when", "disabled": false}}}}]}
+          application/json: {"count": 575048, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 138375, "output": "default", "description": "perfectly gosh whup whoa boohoo twin as", "streamtags": ["<value 1>", "<value 2>"], "groups": {"key": {"name": "<value>", "description": "phew rigidly when", "disabled": false}}, "functions": [{"filter": "true", "id": "<id>", "description": "aha regarding before scaly expense that", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
         "500":
           application/json: {"message": "<value>"}
   createPipeline:
     speakeasy-default-create-pipeline:
       requestBody:
-        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}}}
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}
       responses:
         "200":
-          application/json: {"count": 670554, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}}}]}
+          application/json: {"count": 670554, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
         "500":
           application/json: {"message": "<value>"}
   getPipelineById:
@@ -2684,7 +2722,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 558482, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 375182, "output": "default", "description": "except within well-documented finding which deeply", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "functions": [{"filter": "true", "id": "<id>", "description": "among sell um", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "know now hairy about than", "disabled": false}}}}]}
+          application/json: {"count": 558482, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 375182, "output": "default", "description": "except within well-documented finding which deeply", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "groups": {"key": {"name": "<value>", "description": "know now hairy about than", "disabled": false}}, "functions": [{"filter": "true", "id": "<id>", "description": "among sell um", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
         "500":
           application/json: {"message": "<value>"}
   updatePipelineById:
@@ -2693,10 +2731,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}}}
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}
       responses:
         "200":
-          application/json: {"count": 939042, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}}}]}
+          application/json: {"count": 939042, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
         "500":
           application/json: {"message": "<value>"}
   deletePipelineById:
@@ -2706,7 +2744,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 62963, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 117, "output": "default", "description": "resort phew silent whenever gust", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "metal fibre oof feminize how", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "until obsess unto kielbasa", "disabled": true}}}}]}
+          application/json: {"count": 62963, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 117, "output": "default", "description": "resort phew silent whenever gust", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "until obsess unto kielbasa", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "metal fibre oof feminize how", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionBranch:
@@ -3431,6 +3469,153 @@ examples:
           application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
         "500":
           application/json: {"message": "<value>"}
+  createAdminProductsMappingsActivateByProduct:
+    MappingRulesetActivateExamplesActivate:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "default"}
+      responses:
+        "200":
+          application/json: {"count": 845678, "items": [{"id": "<id>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createAdminProductsMappingsByProduct:
+    MappingRulesetCreateExamplesOSBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "os-based-mapping", "conf": {"functions": [{"filter": "platform === \"linux\"", "id": "eval", "description": "Map Linux Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "platform === \"win32\"", "id": "eval", "description": "Map Windows Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "platform === \"darwin\"", "id": "eval", "description": "Map macOS Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping for unmapped nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesTagBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "tag-based-mapping", "conf": {"functions": [{"filter": "cribl.tags.includes(\"WinLaptop\")", "id": "eval", "description": "Map Windows Laptop Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "cribl.tags.includes(\"Production\")", "id": "eval", "description": "Map Production Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesOutpostBasedMapping:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "outpost-mapping", "conf": {"functions": [{"filter": "outpost.host === \"5ab6c676be6a\"", "id": "eval", "description": "Map Edge Nodes from Outpost A", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"", "id": "eval", "description": "Map Edge Nodes from Outpost B by GUID", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesComplexMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "id": "eval", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")", "id": "eval", "description": "Map Linux nodes with high memory for database workloads", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesAWSEC2InstanceMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "aws-ec2-mapping", "conf": {"functions": [{"filter": "aws?.tags?.Environment === \"Production\"", "id": "eval", "description": "Map Production EC2 instances", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "aws?.tags?.Team === \"DevOps\"", "id": "eval", "description": "Map DevOps team EC2 instances", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesContainerBasedMapping:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "container-mapping", "conf": {"functions": [{"filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4", "id": "eval", "description": "Map containerized nodes on high-CPU Linux hosts", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "hostOs?.id", "id": "eval", "description": "Map all containerized Edge Nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping for non-containerized nodes", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetCreateExamplesDefaultRuleset:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"id": "simple-default-mappings", "conf": {"functions": [{"filter": "!cribl.group", "id": "eval", "description": "Simple default Mapping Ruleset", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}
+      responses:
+        "200":
+          application/json: {"count": 507815, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "around once brr", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProduct:
+    speakeasy-default-get-admin-products-mappings-by-product:
+      parameters:
+        path:
+          product: "edge"
+      responses:
+        "200":
+          application/json: {"count": 775631, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "yahoo pfft repossess able sharply", "disabled": true, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>", "<value 2>"], "remove": ["<value 1>", "<value 2>", "<value 3>"]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteAdminProductsMappingsByProductAndId:
+    speakeasy-default-delete-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 142793, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "engender that impact apropos minus before when stool", "disabled": true, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}]}, "active": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getAdminProductsMappingsByProductAndId:
+    speakeasy-default-get-admin-products-mappings-by-product-and-id:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 205466, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "afore what which majestically before from wholly", "disabled": true, "final": false, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateAdminProductsMappingsByProductAndId:
+    MappingRulesetUpdateExamplesUpdateComplexRule:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "complex-mapping", "conf": {"functions": [{"filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")", "id": "eval", "description": "Map high-performance nodes in specific network or DMZ", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}, {"filter": "!cribl.group", "id": "eval", "description": "Default mapping", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 51512, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "forage store rubbery coordinated", "disabled": true, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    MappingRulesetUpdateExamplesEnableDisabledRule:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "default", "conf": {"functions": [{"filter": "!cribl.group", "id": "eval", "description": "Default Mappings", "disabled": false, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}]}, "active": true}
+      responses:
+        "200":
+          application/json: {"count": 51512, "items": [{"id": "<id>", "conf": {"functions": [{"filter": "true", "id": "eval", "description": "forage store rubbery coordinated", "disabled": true, "final": true, "conf": {}, "groupId": "<id>", "name": "Eval", "group": "Standard", "schema": {"add": [{"name": "<value>", "value": "<value>", "disabled": false}], "keep": ["<value 1>"], "remove": ["<value 1>", "<value 2>"]}}]}, "active": false}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -3496,4 +3681,12 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Stats.{}` **Changed** **Breaking** :warning:\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes Detected:
+  * `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Groups.Mappings.Activate()`: **Added**
+  * `CriblControlPlane.Groups.Mappings.Create()`: **Added**
+  * `CriblControlPlane.Groups.Mappings.List()`: **Added**
+  * `CriblControlPlane.Groups.Mappings.Delete()`: **Added**
+  * `CriblControlPlane.Groups.Mappings.Get()`: **Added**
+  * `CriblControlPlane.Groups.Mappings.Update()`: **Added**
