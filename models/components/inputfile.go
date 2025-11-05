@@ -258,7 +258,7 @@ type InputFile struct {
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"false" json:"tailOnly"`
+	TailOnly *bool `default:"true" json:"tailOnly"`
 	// Time, in seconds, before an idle file is closed
 	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
