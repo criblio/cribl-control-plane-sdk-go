@@ -175,7 +175,7 @@ type OutputDatabricks struct {
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Optional path to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myEventsVolumePath-${C.vars.myVar}`
+	// Optional path to prepend to files before uploading.
 	DestPath *string `default:"" json:"destPath"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
@@ -222,8 +222,8 @@ type OutputDatabricks struct {
 	// Name of the events volume in Databricks
 	EventsVolumeName *string `default:"events" json:"eventsVolumeName"`
 	// OAuth client secret for Unity Catalog authentication
-	ClientSecret string  `json:"clientSecret"`
-	Description  *string `json:"description,omitempty"`
+	ClientTextSecret string  `json:"clientTextSecret"`
+	Description      *string `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputDatabricksCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
@@ -263,7 +263,7 @@ func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputDatabricks) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "workspaceId", "clientId", "clientSecret"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "workspaceId", "clientId", "clientTextSecret"}); err != nil {
 		return err
 	}
 	return nil
@@ -472,11 +472,11 @@ func (o *OutputDatabricks) GetEventsVolumeName() *string {
 	return o.EventsVolumeName
 }
 
-func (o *OutputDatabricks) GetClientSecret() string {
+func (o *OutputDatabricks) GetClientTextSecret() string {
 	if o == nil {
 		return ""
 	}
-	return o.ClientSecret
+	return o.ClientTextSecret
 }
 
 func (o *OutputDatabricks) GetDescription() *string {

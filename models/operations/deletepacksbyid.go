@@ -18,31 +18,10 @@ func (d *DeletePacksByIDRequest) GetID() string {
 	return d.ID
 }
 
-// DeletePacksByIDResponseBody - a list of PackInstallInfo objects
-type DeletePacksByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                       `json:"count,omitempty"`
-	Items []components.PackInstallInfo `json:"items,omitempty"`
-}
-
-func (d *DeletePacksByIDResponseBody) GetCount() *int64 {
-	if d == nil {
-		return nil
-	}
-	return d.Count
-}
-
-func (d *DeletePacksByIDResponseBody) GetItems() []components.PackInstallInfo {
-	if d == nil {
-		return nil
-	}
-	return d.Items
-}
-
 type DeletePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of PackInstallInfo objects
-	Object *DeletePacksByIDResponseBody
+	CountedListPackInstallInfo *components.CountedListPackInstallInfo
 }
 
 func (d *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (d *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeletePacksByIDResponse) GetObject() *DeletePacksByIDResponseBody {
+func (d *DeletePacksByIDResponse) GetCountedListPackInstallInfo() *components.CountedListPackInstallInfo {
 	if d == nil {
 		return nil
 	}
-	return d.Object
+	return d.CountedListPackInstallInfo
 }

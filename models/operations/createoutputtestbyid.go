@@ -27,31 +27,10 @@ func (c *CreateOutputTestByIDRequest) GetOutputTestRequest() components.OutputTe
 	return c.OutputTestRequest
 }
 
-// CreateOutputTestByIDResponseBody - a list of OutputTestResponse objects
-type CreateOutputTestByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                          `json:"count,omitempty"`
-	Items []components.OutputTestResponse `json:"items,omitempty"`
-}
-
-func (c *CreateOutputTestByIDResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateOutputTestByIDResponseBody) GetItems() []components.OutputTestResponse {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreateOutputTestByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of OutputTestResponse objects
-	Object *CreateOutputTestByIDResponseBody
+	CountedListOutputTestResponse *components.CountedListOutputTestResponse
 }
 
 func (c *CreateOutputTestByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (c *CreateOutputTestByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateOutputTestByIDResponse) GetObject() *CreateOutputTestByIDResponseBody {
+func (c *CreateOutputTestByIDResponse) GetCountedListOutputTestResponse() *components.CountedListOutputTestResponse {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedListOutputTestResponse
 }

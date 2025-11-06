@@ -203,12 +203,12 @@ func (s *Pq) Clear(ctx context.Context, id string, opts ...operations.Option) (*
 				return nil, err
 			}
 
-			var out operations.DeleteOutputPqByIDResponseBody
+			var out components.CountedListstring
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListstring = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -440,12 +440,12 @@ func (s *Pq) Get(ctx context.Context, id string, opts ...operations.Option) (*op
 				return nil, err
 			}
 
-			var out operations.GetOutputPqByIDResponseBody
+			var out components.CountedListJobInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListJobInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

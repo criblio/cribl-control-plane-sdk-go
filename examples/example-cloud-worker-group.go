@@ -69,9 +69,9 @@ func main() {
 		log.Fatalf("Error checking for existing worker group: %v", err)
 	}
 
-	if getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse.CountedListConfigGroup != nil &&
+		getResponse.CountedListConfigGroup.Items != nil &&
+		len(getResponse.CountedListConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Try different group id.\n", WORKER_GROUP_ID)
 		return
 	}
@@ -98,7 +98,7 @@ func main() {
 		log.Fatalf("Error creating Worker Group: %v", err)
 	}
 
-	if createResponse.Object == nil {
+	if createResponse.CountedListConfigGroup == nil {
 		log.Fatal("No response received when creating Worker Group")
 	}
 
@@ -125,7 +125,7 @@ func main() {
 		log.Fatalf("Error updating Worker Group: %v", err)
 	}
 
-	if updateResponse.Object == nil {
+	if updateResponse.CountedListConfigGroup == nil {
 		log.Fatal("No response received when updating Worker Group")
 	}
 

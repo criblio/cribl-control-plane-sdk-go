@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInput != nil {
         // handle response
     }
 }
@@ -153,7 +153,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInput != nil {
         // handle response
     }
 }
@@ -210,7 +210,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInput != nil {
         // handle response
     }
 }
@@ -300,7 +300,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInput != nil {
         // handle response
     }
 }
@@ -358,7 +358,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInput != nil {
         // handle response
     }
 }

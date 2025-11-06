@@ -50,7 +50,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInputSplunkHec != nil {
         // handle response
     }
 }
@@ -117,7 +117,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListInputSplunkHec != nil {
         // handle response
     }
 }

@@ -18,31 +18,10 @@ func (d *DeleteInputByIDRequest) GetID() string {
 	return d.ID
 }
 
-// DeleteInputByIDResponseBody - a list of Source objects
-type DeleteInputByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64             `json:"count,omitempty"`
-	Items []components.Input `json:"items,omitempty"`
-}
-
-func (d *DeleteInputByIDResponseBody) GetCount() *int64 {
-	if d == nil {
-		return nil
-	}
-	return d.Count
-}
-
-func (d *DeleteInputByIDResponseBody) GetItems() []components.Input {
-	if d == nil {
-		return nil
-	}
-	return d.Items
-}
-
 type DeleteInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	Object *DeleteInputByIDResponseBody
+	CountedListInput *components.CountedListInput
 }
 
 func (d *DeleteInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (d *DeleteInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeleteInputByIDResponse) GetObject() *DeleteInputByIDResponseBody {
+func (d *DeleteInputByIDResponse) GetCountedListInput() *components.CountedListInput {
 	if d == nil {
 		return nil
 	}
-	return d.Object
+	return d.CountedListInput
 }

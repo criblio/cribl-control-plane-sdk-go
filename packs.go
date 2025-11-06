@@ -208,12 +208,12 @@ func (s *Packs) Install(ctx context.Context, request components.PackRequestBodyU
 				return nil, err
 			}
 
-			var out operations.CreatePacksResponseBody
+			var out components.CountedListPackInstallInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListPackInstallInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -449,12 +449,12 @@ func (s *Packs) List(ctx context.Context, with *string, opts ...operations.Optio
 				return nil, err
 			}
 
-			var out operations.GetPacksResponseBody
+			var out components.CountedListPackInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListPackInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -935,12 +935,12 @@ func (s *Packs) Delete(ctx context.Context, id string, opts ...operations.Option
 				return nil, err
 			}
 
-			var out operations.DeletePacksByIDResponseBody
+			var out components.CountedListPackInstallInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListPackInstallInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1172,12 +1172,12 @@ func (s *Packs) Get(ctx context.Context, id string, opts ...operations.Option) (
 				return nil, err
 			}
 
-			var out operations.GetPacksByIDResponseBody
+			var out components.CountedListPackInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListPackInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1417,12 +1417,12 @@ func (s *Packs) Update(ctx context.Context, id string, packUpgradeRequest compon
 				return nil, err
 			}
 
-			var out operations.UpdatePacksByIDResponseBody
+			var out components.CountedListPackInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListPackInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

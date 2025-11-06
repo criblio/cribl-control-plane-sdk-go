@@ -27,31 +27,10 @@ func (c *CreateVersionRevertRequest) GetGitRevertParams() components.GitRevertPa
 	return c.GitRevertParams
 }
 
-// CreateVersionRevertResponseBody - a list of GitRevertResult objects
-type CreateVersionRevertResponseBody struct {
-	// number of items present in the items array
-	Count *int64                       `json:"count,omitempty"`
-	Items []components.GitRevertResult `json:"items,omitempty"`
-}
-
-func (c *CreateVersionRevertResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateVersionRevertResponseBody) GetItems() []components.GitRevertResult {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreateVersionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitRevertResult objects
-	Object *CreateVersionRevertResponseBody
+	CountedListGitRevertResult *components.CountedListGitRevertResult
 }
 
 func (c *CreateVersionRevertResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (c *CreateVersionRevertResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateVersionRevertResponse) GetObject() *CreateVersionRevertResponseBody {
+func (c *CreateVersionRevertResponse) GetCountedListGitRevertResult() *components.CountedListGitRevertResult {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedListGitRevertResult
 }

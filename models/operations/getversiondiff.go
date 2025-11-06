@@ -45,31 +45,10 @@ func (g *GetVersionDiffRequest) GetDiffLineLimit() *float64 {
 	return g.DiffLineLimit
 }
 
-// GetVersionDiffResponseBody - a list of GitDiffResult objects
-type GetVersionDiffResponseBody struct {
-	// number of items present in the items array
-	Count *int64                     `json:"count,omitempty"`
-	Items []components.GitDiffResult `json:"items,omitempty"`
-}
-
-func (g *GetVersionDiffResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetVersionDiffResponseBody) GetItems() []components.GitDiffResult {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetVersionDiffResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitDiffResult objects
-	Object *GetVersionDiffResponseBody
+	CountedListGitDiffResult *components.CountedListGitDiffResult
 }
 
 func (g *GetVersionDiffResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -79,9 +58,9 @@ func (g *GetVersionDiffResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetVersionDiffResponse) GetObject() *GetVersionDiffResponseBody {
+func (g *GetVersionDiffResponse) GetCountedListGitDiffResult() *components.CountedListGitDiffResult {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedListGitDiffResult
 }

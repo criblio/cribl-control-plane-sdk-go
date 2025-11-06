@@ -27,31 +27,10 @@ func (u *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeR
 	return u.PackUpgradeRequest
 }
 
-// UpdatePacksByIDResponseBody - a list of PackInfo objects
-type UpdatePacksByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                `json:"count,omitempty"`
-	Items []components.PackInfo `json:"items,omitempty"`
-}
-
-func (u *UpdatePacksByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdatePacksByIDResponseBody) GetItems() []components.PackInfo {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdatePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of PackInfo objects
-	Object *UpdatePacksByIDResponseBody
+	CountedListPackInfo *components.CountedListPackInfo
 }
 
 func (u *UpdatePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (u *UpdatePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdatePacksByIDResponse) GetObject() *UpdatePacksByIDResponseBody {
+func (u *UpdatePacksByIDResponse) GetCountedListPackInfo() *components.CountedListPackInfo {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedListPackInfo
 }

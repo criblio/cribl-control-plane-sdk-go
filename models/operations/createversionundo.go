@@ -18,31 +18,10 @@ func (c *CreateVersionUndoRequest) GetGroupID() *string {
 	return c.GroupID
 }
 
-// CreateVersionUndoResponseBody - a list of object objects
-type CreateVersionUndoResponseBody struct {
-	// number of items present in the items array
-	Count *int64           `json:"count,omitempty"`
-	Items []map[string]any `json:"items,omitempty"`
-}
-
-func (c *CreateVersionUndoResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateVersionUndoResponseBody) GetItems() []map[string]any {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreateVersionUndoResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of object objects
-	Object *CreateVersionUndoResponseBody
+	CountedListObject *components.CountedListObject
 }
 
 func (c *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (c *CreateVersionUndoResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateVersionUndoResponse) GetObject() *CreateVersionUndoResponseBody {
+func (c *CreateVersionUndoResponse) GetCountedListObject() *components.CountedListObject {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedListObject
 }

@@ -208,12 +208,12 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 				return nil, err
 			}
 
-			var out operations.GetSummaryResponseBody
+			var out components.CountedListDistributedSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListDistributedSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

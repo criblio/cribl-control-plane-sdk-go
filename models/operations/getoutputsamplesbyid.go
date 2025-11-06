@@ -18,31 +18,10 @@ func (g *GetOutputSamplesByIDRequest) GetID() string {
 	return g.ID
 }
 
-// GetOutputSamplesByIDResponseBody - a list of OutputSamplesResponse objects
-type GetOutputSamplesByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                             `json:"count,omitempty"`
-	Items []components.OutputSamplesResponse `json:"items,omitempty"`
-}
-
-func (g *GetOutputSamplesByIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetOutputSamplesByIDResponseBody) GetItems() []components.OutputSamplesResponse {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetOutputSamplesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of OutputSamplesResponse objects
-	Object *GetOutputSamplesByIDResponseBody
+	CountedListOutputSamplesResponse *components.CountedListOutputSamplesResponse
 }
 
 func (g *GetOutputSamplesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetOutputSamplesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputSamplesByIDResponse) GetObject() *GetOutputSamplesByIDResponseBody {
+func (g *GetOutputSamplesByIDResponse) GetCountedListOutputSamplesResponse() *components.CountedListOutputSamplesResponse {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedListOutputSamplesResponse
 }

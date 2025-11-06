@@ -61,9 +61,9 @@ func main() {
 		log.Printf("Worker Group doesn't exist yet, will create: %v", err)
 	}
 
-	if getResponse != nil && getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse != nil && getResponse.CountedListConfigGroup != nil &&
+		getResponse.CountedListConfigGroup.Items != nil &&
+		len(getResponse.CountedListConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
@@ -76,7 +76,7 @@ func main() {
 		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroup)
 		if err != nil {
 			log.Printf("Error creating Worker Group: %v", err)
-		} else if createResponse != nil && createResponse.Object != nil {
+		} else if createResponse != nil && createResponse.CountedListConfigGroup != nil {
 			fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 		}
 	}
@@ -152,12 +152,12 @@ func main() {
 		},
 	}
 
-	// Convert to components.PipelineConf using JSON marshaling/unmarshaling
+	// Convert to components.Conf using JSON marshaling/unmarshaling
 	confBytes, err := json.Marshal(pipelineConf)
 	if err != nil {
 		log.Printf("Error marshaling Pipeline config: %v", err)
 	} else {
-		var conf components.PipelineConf
+		var conf components.Conf
 		err = json.Unmarshal(confBytes, &conf)
 		if err != nil {
 			log.Printf("Error unmarshaling Pipeline config: %v", err)
@@ -180,9 +180,9 @@ func main() {
 	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
-	} else if routesListResponse.Object != nil && routesListResponse.Object.Items != nil && len(routesListResponse.Object.Items) > 0 {
+	} else if routesListResponse.CountedListRoutes != nil && routesListResponse.CountedListRoutes.Items != nil && len(routesListResponse.CountedListRoutes.Items) > 0 {
 		// Get the first Routes configuration
-		existingRoutes := routesListResponse.Object.Items[0]
+		existingRoutes := routesListResponse.CountedListRoutes.Items[0]
 
 		// Create new Route
 		newRoute := components.RoutesRoute{
@@ -226,8 +226,8 @@ func main() {
 	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &workerGroupID)
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
-	} else if commitResponse.Object != nil && commitResponse.Object.Items != nil && len(commitResponse.Object.Items) > 0 {
-		version := commitResponse.Object.Items[0].Commit
+	} else if commitResponse.CountedListGitCommitSummary != nil && commitResponse.CountedListGitCommitSummary.Items != nil && len(commitResponse.CountedListGitCommitSummary.Items) > 0 {
+		version := commitResponse.CountedListGitCommitSummary.Items[0].Commit
 		fmt.Printf("✅ Committed configuration changes to the group: %s, commit ID: %s\n", WORKER_GROUP_ID, version)
 
 		// Deploy the configuration using DeployRequest
