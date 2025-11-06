@@ -18,31 +18,10 @@ func (g *GetMasterWorkerEntryRequest) GetFilterExp() *string {
 	return g.FilterExp
 }
 
-// GetMasterWorkerEntryResponseBody - a list of number objects
-type GetMasterWorkerEntryResponseBody struct {
-	// number of items present in the items array
-	Count *int64    `json:"count,omitempty"`
-	Items []float64 `json:"items,omitempty"`
-}
-
-func (g *GetMasterWorkerEntryResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetMasterWorkerEntryResponseBody) GetItems() []float64 {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetMasterWorkerEntryResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of number objects
-	Object *GetMasterWorkerEntryResponseBody
+	CountedListnumber *components.CountedListnumber
 }
 
 func (g *GetMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetMasterWorkerEntryResponse) GetObject() *GetMasterWorkerEntryResponseBody {
+func (g *GetMasterWorkerEntryResponse) GetCountedListnumber() *components.CountedListnumber {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedListnumber
 }

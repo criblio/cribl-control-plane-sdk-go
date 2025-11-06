@@ -18,31 +18,10 @@ func (g *GetVersionStatusRequest) GetGroupID() *string {
 	return g.GroupID
 }
 
-// GetVersionStatusResponseBody - a list of GitStatusResult objects
-type GetVersionStatusResponseBody struct {
-	// number of items present in the items array
-	Count *int64                       `json:"count,omitempty"`
-	Items []components.GitStatusResult `json:"items,omitempty"`
-}
-
-func (g *GetVersionStatusResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetVersionStatusResponseBody) GetItems() []components.GitStatusResult {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetVersionStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitStatusResult objects
-	Object *GetVersionStatusResponseBody
+	CountedListGitStatusResult *components.CountedListGitStatusResult
 }
 
 func (g *GetVersionStatusResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetVersionStatusResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetVersionStatusResponse) GetObject() *GetVersionStatusResponseBody {
+func (g *GetVersionStatusResponse) GetCountedListGitStatusResult() *components.CountedListGitStatusResult {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedListGitStatusResult
 }

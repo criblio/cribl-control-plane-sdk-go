@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 0a033e4c3732db364ac5b99c13f42b95
-  docVersion: 4.15.0-alpha.1762262142917-f85ad7ee
-  speakeasyVersion: 1.643.3
-  generationVersion: 2.731.9
-  releaseVersion: 0.2.1-rc.10
-  configChecksum: af314af2c095fa6f6cbf30c1f2874c37
+  docChecksum: 7752dd38e72823d7a7c847fe6d88377a
+  docVersion: 4.15.0-alpha.1762455301531-28c2ca8d
+  speakeasyVersion: 1.650.0
+  generationVersion: 2.743.2
+  releaseVersion: 0.2.1-rc.11
+  configChecksum: 55071b0835742c8c65c0431f127d3e28
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.12.1
+    core: 3.13.1
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -22,7 +22,7 @@ features:
     flattening: 2.81.1
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.82.3
+    globalServerURLs: 2.83.0
     groups: 2.81.3
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
@@ -51,6 +51,35 @@ generatedFiles:
   - /models/components/configgroup.go
   - /models/components/configgroupcloud.go
   - /models/components/configgrouplookups.go
+  - /models/components/countedlistbranchinfo.go
+  - /models/components/countedlistconfiggroup.go
+  - /models/components/countedlistcribllakedataset.go
+  - /models/components/countedlistdistributedsummary.go
+  - /models/components/countedlistgitcommitsummary.go
+  - /models/components/countedlistgitcountresult.go
+  - /models/components/countedlistgitdiffresult.go
+  - /models/components/countedlistgitfilesresponse.go
+  - /models/components/countedlistgitinfo.go
+  - /models/components/countedlistgitlogresult.go
+  - /models/components/countedlistgitrevertresult.go
+  - /models/components/countedlistgitshowresult.go
+  - /models/components/countedlistgitstatusresult.go
+  - /models/components/countedlistinput.go
+  - /models/components/countedlistinputsplunkhec.go
+  - /models/components/countedlistjobinfo.go
+  - /models/components/countedlistmasterworkerentry.go
+  - /models/components/countedlistnumber.go
+  - /models/components/countedlistobject.go
+  - /models/components/countedlistoutput.go
+  - /models/components/countedlistoutputsamplesresponse.go
+  - /models/components/countedlistoutputtestresponse.go
+  - /models/components/countedlistpackinfo.go
+  - /models/components/countedlistpackinstallinfo.go
+  - /models/components/countedlistpipeline.go
+  - /models/components/countedlistroutes.go
+  - /models/components/countedliststring.go
+  - /models/components/countedlistteamaccesscontrollist.go
+  - /models/components/countedlistuseraccesscontrollist.go
   - /models/components/criblevent.go
   - /models/components/cribllakedataset.go
   - /models/components/cribllakedatasetupdate.go
@@ -61,8 +90,6 @@ generatedFiles:
   - /models/components/deployrequestlookups.go
   - /models/components/difffiles.go
   - /models/components/distributedsummary.go
-  - /models/components/evalfunction.go
-  - /models/components/evalschema.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitcountresult.go
@@ -148,7 +175,6 @@ generatedFiles:
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
   - /models/components/lookupversions.go
-  - /models/components/mappingruleset.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -239,7 +265,6 @@ generatedFiles:
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
-  - /models/components/rulesetid.go
   - /models/components/runnablejob.go
   - /models/components/runnablejobcollection.go
   - /models/components/runnablejobexecutor.go
@@ -251,8 +276,6 @@ generatedFiles:
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
-  - /models/operations/createadminproductsmappingsactivatebyproduct.go
-  - /models/operations/createadminproductsmappingsbyproduct.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
@@ -267,7 +290,6 @@ generatedFiles:
   - /models/operations/createversionpush.go
   - /models/operations/createversionrevert.go
   - /models/operations/createversionundo.go
-  - /models/operations/deleteadminproductsmappingsbyproductandid.go
   - /models/operations/deleteconfiggroupbyproductandid.go
   - /models/operations/deletecribllakedatasetbylakeidandid.go
   - /models/operations/deleteinputbyid.go
@@ -275,8 +297,6 @@ generatedFiles:
   - /models/operations/deleteoutputpqbyid.go
   - /models/operations/deletepacksbyid.go
   - /models/operations/deletepipelinebyid.go
-  - /models/operations/getadminproductsmappingsbyproduct.go
-  - /models/operations/getadminproductsmappingsbyproductandid.go
   - /models/operations/getconfiggroupaclbyproductandid.go
   - /models/operations/getconfiggroupaclteamsbyproductandid.go
   - /models/operations/getconfiggroupbyproductandid.go
@@ -309,7 +329,6 @@ generatedFiles:
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
-  - /models/operations/updateadminproductsmappingsbyproductandid.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
@@ -330,7 +349,6 @@ generatedFiles:
   - destinations.go
   - docs/models/apierrors/error.md
   - docs/models/apierrors/healthserverstatuserror.md
-  - docs/models/components/add.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
@@ -357,6 +375,7 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
+  - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
@@ -367,6 +386,35 @@ generatedFiles:
   - docs/models/components/configgrouptype.md
   - docs/models/components/container.md
   - docs/models/components/containermode.md
+  - docs/models/components/countedlistbranchinfo.md
+  - docs/models/components/countedlistconfiggroup.md
+  - docs/models/components/countedlistcribllakedataset.md
+  - docs/models/components/countedlistdistributedsummary.md
+  - docs/models/components/countedlistgitcommitsummary.md
+  - docs/models/components/countedlistgitcountresult.md
+  - docs/models/components/countedlistgitdiffresult.md
+  - docs/models/components/countedlistgitfilesresponse.md
+  - docs/models/components/countedlistgitinfo.md
+  - docs/models/components/countedlistgitlogresult.md
+  - docs/models/components/countedlistgitrevertresult.md
+  - docs/models/components/countedlistgitshowresult.md
+  - docs/models/components/countedlistgitstatusresult.md
+  - docs/models/components/countedlistinput.md
+  - docs/models/components/countedlistinputsplunkhec.md
+  - docs/models/components/countedlistjobinfo.md
+  - docs/models/components/countedlistmasterworkerentry.md
+  - docs/models/components/countedlistnumber.md
+  - docs/models/components/countedlistobject.md
+  - docs/models/components/countedlistoutput.md
+  - docs/models/components/countedlistoutputsamplesresponse.md
+  - docs/models/components/countedlistoutputtestresponse.md
+  - docs/models/components/countedlistpackinfo.md
+  - docs/models/components/countedlistpackinstallinfo.md
+  - docs/models/components/countedlistpipeline.md
+  - docs/models/components/countedlistroutes.md
+  - docs/models/components/countedliststring.md
+  - docs/models/components/countedlistteamaccesscontrollist.md
+  - docs/models/components/countedlistuseraccesscontrollist.md
   - docs/models/components/criblevent.md
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
@@ -394,8 +442,6 @@ generatedFiles:
   - docs/models/components/endpointheader.md
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
-  - docs/models/components/evalfunction.md
-  - docs/models/components/evalschema.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
@@ -437,7 +483,6 @@ generatedFiles:
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
-  - docs/models/components/id.md
   - docs/models/components/indexerdiscoveryconfigs.md
   - docs/models/components/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/components/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
@@ -503,6 +548,7 @@ generatedFiles:
   - docs/models/components/inputcriblcompression.md
   - docs/models/components/inputcriblconnection.md
   - docs/models/components/inputcriblhttp.md
+  - docs/models/components/inputcriblhttpauthtoken.md
   - docs/models/components/inputcriblhttpcompression.md
   - docs/models/components/inputcriblhttpconnection.md
   - docs/models/components/inputcriblhttpmaximumtlsversion.md
@@ -539,6 +585,7 @@ generatedFiles:
   - docs/models/components/inputcriblpq.md
   - docs/models/components/inputcriblpqcontrols.md
   - docs/models/components/inputcribltcp.md
+  - docs/models/components/inputcribltcpauthtoken.md
   - docs/models/components/inputcribltcpcompression.md
   - docs/models/components/inputcribltcpconnection.md
   - docs/models/components/inputcribltcpmaximumtlsversion.md
@@ -1241,8 +1288,6 @@ generatedFiles:
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
   - docs/models/components/lookupversions.md
-  - docs/models/components/mappingruleset.md
-  - docs/models/components/mappingrulesetconf.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -1387,6 +1432,7 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
+  - docs/models/components/outputcriblhttpauthtoken.md
   - docs/models/components/outputcriblhttpbackpressurebehavior.md
   - docs/models/components/outputcriblhttpcompression.md
   - docs/models/components/outputcriblhttpextrahttpheader.md
@@ -1412,6 +1458,7 @@ generatedFiles:
   - docs/models/components/outputcribllakestorageclass.md
   - docs/models/components/outputcribllaketype.md
   - docs/models/components/outputcribltcp.md
+  - docs/models/components/outputcribltcpauthtoken.md
   - docs/models/components/outputcribltcpbackpressurebehavior.md
   - docs/models/components/outputcribltcpcompression.md
   - docs/models/components/outputcribltcphost.md
@@ -2122,7 +2169,6 @@ generatedFiles:
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
   - docs/models/components/pipeline.md
-  - docs/models/components/pipelineconf.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
@@ -2147,7 +2193,6 @@ generatedFiles:
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
   - docs/models/components/routesroute.md
-  - docs/models/components/rulesetid.md
   - docs/models/components/runnablejob.md
   - docs/models/components/runnablejobcollection.md
   - docs/models/components/runnablejobcollectioninput.md
@@ -2193,6 +2238,8 @@ generatedFiles:
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
   - docs/models/components/splunkhecmetadata.md
+  - docs/models/components/state.md
+  - docs/models/components/stats.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
@@ -2214,196 +2261,119 @@ generatedFiles:
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
-  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
-  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
-  - docs/models/operations/createadminproductsmappingsactivatebyproductresponsebody.md
-  - docs/models/operations/createadminproductsmappingsbyproductrequest.md
-  - docs/models/operations/createadminproductsmappingsbyproductresponse.md
-  - docs/models/operations/createadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
-  - docs/models/operations/createconfiggroupbyproductresponsebody.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
   - docs/models/operations/createcribllakedatasetbylakeidresponse.md
-  - docs/models/operations/createcribllakedatasetbylakeidresponsebody.md
   - docs/models/operations/createinputhectokenbyidrequest.md
   - docs/models/operations/createinputhectokenbyidresponse.md
-  - docs/models/operations/createinputhectokenbyidresponsebody.md
   - docs/models/operations/createinputresponse.md
-  - docs/models/operations/createinputresponsebody.md
   - docs/models/operations/createoutputresponse.md
-  - docs/models/operations/createoutputresponsebody.md
   - docs/models/operations/createoutputtestbyidrequest.md
   - docs/models/operations/createoutputtestbyidresponse.md
-  - docs/models/operations/createoutputtestbyidresponsebody.md
   - docs/models/operations/createpacksresponse.md
-  - docs/models/operations/createpacksresponsebody.md
   - docs/models/operations/createpipelineresponse.md
-  - docs/models/operations/createpipelineresponsebody.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
-  - docs/models/operations/createroutesappendbyidresponsebody.md
   - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
-  - docs/models/operations/createversioncommitresponsebody.md
   - docs/models/operations/createversionpushresponse.md
-  - docs/models/operations/createversionpushresponsebody.md
   - docs/models/operations/createversionrevertrequest.md
   - docs/models/operations/createversionrevertresponse.md
-  - docs/models/operations/createversionrevertresponsebody.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
-  - docs/models/operations/createversionundoresponsebody.md
-  - docs/models/operations/deleteadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponse.md
-  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
-  - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/deletecribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
-  - docs/models/operations/deleteinputbyidresponsebody.md
   - docs/models/operations/deleteoutputbyidrequest.md
   - docs/models/operations/deleteoutputbyidresponse.md
-  - docs/models/operations/deleteoutputbyidresponsebody.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
   - docs/models/operations/deleteoutputpqbyidresponse.md
-  - docs/models/operations/deleteoutputpqbyidresponsebody.md
   - docs/models/operations/deletepacksbyidrequest.md
   - docs/models/operations/deletepacksbyidresponse.md
-  - docs/models/operations/deletepacksbyidresponsebody.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
-  - docs/models/operations/deletepipelinebyidresponsebody.md
-  - docs/models/operations/getadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/getadminproductsmappingsbyproductandidresponse.md
-  - docs/models/operations/getadminproductsmappingsbyproductandidresponsebody.md
-  - docs/models/operations/getadminproductsmappingsbyproductrequest.md
-  - docs/models/operations/getadminproductsmappingsbyproductresponse.md
-  - docs/models/operations/getadminproductsmappingsbyproductresponsebody.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
   - docs/models/operations/getconfiggroupbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/getcribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
-  - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
   - docs/models/operations/gethealthresponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
-  - docs/models/operations/getinputbyidresponsebody.md
   - docs/models/operations/getmasterworkerentryrequest.md
   - docs/models/operations/getmasterworkerentryresponse.md
-  - docs/models/operations/getmasterworkerentryresponsebody.md
   - docs/models/operations/getoutputbyidrequest.md
   - docs/models/operations/getoutputbyidresponse.md
-  - docs/models/operations/getoutputbyidresponsebody.md
   - docs/models/operations/getoutputpqbyidrequest.md
   - docs/models/operations/getoutputpqbyidresponse.md
-  - docs/models/operations/getoutputpqbyidresponsebody.md
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
-  - docs/models/operations/getoutputsamplesbyidresponsebody.md
   - docs/models/operations/getpacksbyidrequest.md
   - docs/models/operations/getpacksbyidresponse.md
-  - docs/models/operations/getpacksbyidresponsebody.md
   - docs/models/operations/getpacksrequest.md
   - docs/models/operations/getpacksresponse.md
-  - docs/models/operations/getpacksresponsebody.md
   - docs/models/operations/getpipelinebyidrequest.md
   - docs/models/operations/getpipelinebyidresponse.md
-  - docs/models/operations/getpipelinebyidresponsebody.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
-  - docs/models/operations/getroutesbyidresponsebody.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
-  - docs/models/operations/getsummaryresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
-  - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
   - docs/models/operations/getversioncountresponse.md
-  - docs/models/operations/getversioncountresponsebody.md
   - docs/models/operations/getversioncurrentbranchresponse.md
   - docs/models/operations/getversiondiffrequest.md
   - docs/models/operations/getversiondiffresponse.md
-  - docs/models/operations/getversiondiffresponsebody.md
   - docs/models/operations/getversionfilesrequest.md
   - docs/models/operations/getversionfilesresponse.md
-  - docs/models/operations/getversionfilesresponsebody.md
   - docs/models/operations/getversioninforesponse.md
-  - docs/models/operations/getversioninforesponsebody.md
   - docs/models/operations/getversionrequest.md
   - docs/models/operations/getversionresponse.md
-  - docs/models/operations/getversionresponsebody.md
   - docs/models/operations/getversionshowrequest.md
   - docs/models/operations/getversionshowresponse.md
-  - docs/models/operations/getversionshowresponsebody.md
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
-  - docs/models/operations/getversionstatusresponsebody.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
   - docs/models/operations/listconfiggroupbyproductresponse.md
-  - docs/models/operations/listconfiggroupbyproductresponsebody.md
   - docs/models/operations/listinputresponse.md
-  - docs/models/operations/listinputresponsebody.md
   - docs/models/operations/listmasterworkerentryrequest.md
   - docs/models/operations/listmasterworkerentryresponse.md
-  - docs/models/operations/listmasterworkerentryresponsebody.md
   - docs/models/operations/listoutputresponse.md
-  - docs/models/operations/listoutputresponsebody.md
   - docs/models/operations/listpipelineresponse.md
-  - docs/models/operations/listpipelineresponsebody.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/option.md
-  - docs/models/operations/updateadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/updateadminproductsmappingsbyproductandidresponse.md
-  - docs/models/operations/updateadminproductsmappingsbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
-  - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidresponsebody.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/updatecribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
-  - docs/models/operations/updateinputbyidresponsebody.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
-  - docs/models/operations/updateinputhectokenbyidandtokenresponsebody.md
   - docs/models/operations/updateoutputbyidrequest.md
   - docs/models/operations/updateoutputbyidresponse.md
-  - docs/models/operations/updateoutputbyidresponsebody.md
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
-  - docs/models/operations/updatepacksbyidresponsebody.md
   - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
-  - docs/models/operations/updatepipelinebyidresponsebody.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
-  - docs/models/operations/updateroutesbyidresponsebody.md
   - docs/sdks/acl/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
@@ -2414,7 +2384,6 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
-  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2450,7 +2419,6 @@ generatedFiles:
   - internal/utils/security.go
   - internal/utils/utils.go
   - lakedatasets.go
-  - mappings.go
   - models/apierrors/apierror.go
   - models/operations/options.go
   - nodes.go
@@ -2513,7 +2481,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
+          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": [{"tokenSecret": "<value>", "enabled": true, "description": "uncork promptly confound shinny hygienic ack consequently which besides mould"}, {"tokenSecret": "<value>", "enabled": true, "description": "finished middle glimmer between times orange poorly"}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputById:
@@ -2630,7 +2598,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 4919.76}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Virginia"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 5811.94}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Hawaii", "key1": "Kansas", "key2": "Washington"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 294.06, "key1": 552.2}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 4919.76}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 3}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 5811.94}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 9}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 294.06, "key1": 552.2}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 8}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2700,16 +2668,16 @@ examples:
     speakeasy-default-list-pipeline:
       responses:
         "200":
-          application/json: {"count": 575048, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 138375, "output": "default", "description": "perfectly gosh whup whoa boohoo twin as", "streamtags": ["<value 1>", "<value 2>"], "groups": {"key": {"name": "<value>", "description": "phew rigidly when", "disabled": false}}, "functions": [{"filter": "true", "id": "<id>", "description": "aha regarding before scaly expense that", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
+          application/json: {"count": 575048, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 138375, "output": "default", "description": "perfectly gosh whup whoa boohoo twin as", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "aha regarding before scaly expense that", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "phew rigidly when", "disabled": false}}}}]}
         "500":
           application/json: {"message": "<value>"}
   createPipeline:
     speakeasy-default-create-pipeline:
       requestBody:
-        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}}}
       responses:
         "200":
-          application/json: {"count": 670554, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
+          application/json: {"count": 670554, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}}}]}
         "500":
           application/json: {"message": "<value>"}
   getPipelineById:
@@ -2719,7 +2687,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 558482, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 375182, "output": "default", "description": "except within well-documented finding which deeply", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "groups": {"key": {"name": "<value>", "description": "know now hairy about than", "disabled": false}}, "functions": [{"filter": "true", "id": "<id>", "description": "among sell um", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
+          application/json: {"count": 558482, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 375182, "output": "default", "description": "except within well-documented finding which deeply", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "functions": [{"filter": "true", "id": "<id>", "description": "among sell um", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "know now hairy about than", "disabled": false}}}}]}
         "500":
           application/json: {"message": "<value>"}
   updatePipelineById:
@@ -2728,10 +2696,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}
+        application/json: {"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}}}
       responses:
         "200":
-          application/json: {"count": 939042, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
+          application/json: {"count": 939042, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}}}]}
         "500":
           application/json: {"message": "<value>"}
   deletePipelineById:
@@ -2741,7 +2709,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 62963, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 117, "output": "default", "description": "resort phew silent whenever gust", "streamtags": ["<value 1>"], "groups": {"key": {"name": "<value>", "description": "until obsess unto kielbasa", "disabled": true}}, "functions": [{"filter": "true", "id": "<id>", "description": "metal fibre oof feminize how", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}]}}]}
+          application/json: {"count": 62963, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 117, "output": "default", "description": "resort phew silent whenever gust", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "metal fibre oof feminize how", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "until obsess unto kielbasa", "disabled": true}}}}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionBranch:
@@ -3678,4 +3646,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Groups.Mappings.Create()`: \n  *  `request.MappingRuleset.Conf.Functions.[]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].Conf.Functions.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.List()`:  `response.Items.[].Conf.Functions.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Delete()`:  `response.Items.[].Conf.Functions.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Get()`:  `response.Items.[].Conf.Functions.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Update()`: \n  *  `request.MappingRuleset.Conf.Functions.[]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].Conf.Functions.[]` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Create()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Activate()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Update()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Get()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.Delete()`: **Deleted** **Breaking** :warning:\n* `CriblControlPlane.Groups.Mappings.List()`: **Deleted** **Breaking** :warning:\n"

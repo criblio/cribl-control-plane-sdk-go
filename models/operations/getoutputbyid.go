@@ -18,31 +18,10 @@ func (g *GetOutputByIDRequest) GetID() string {
 	return g.ID
 }
 
-// GetOutputByIDResponseBody - a list of Destination objects
-type GetOutputByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Output `json:"items,omitempty"`
-}
-
-func (g *GetOutputByIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetOutputByIDResponseBody) GetItems() []components.Output {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	Object *GetOutputByIDResponseBody
+	CountedListOutput *components.CountedListOutput
 }
 
 func (g *GetOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputByIDResponse) GetObject() *GetOutputByIDResponseBody {
+func (g *GetOutputByIDResponse) GetCountedListOutput() *components.CountedListOutput {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedListOutput
 }

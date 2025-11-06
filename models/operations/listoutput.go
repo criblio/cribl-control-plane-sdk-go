@@ -6,31 +6,10 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// ListOutputResponseBody - a list of Destination objects
-type ListOutputResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Output `json:"items,omitempty"`
-}
-
-func (l *ListOutputResponseBody) GetCount() *int64 {
-	if l == nil {
-		return nil
-	}
-	return l.Count
-}
-
-func (l *ListOutputResponseBody) GetItems() []components.Output {
-	if l == nil {
-		return nil
-	}
-	return l.Items
-}
-
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	Object *ListOutputResponseBody
+	CountedListOutput *components.CountedListOutput
 }
 
 func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -40,9 +19,9 @@ func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListOutputResponse) GetObject() *ListOutputResponseBody {
+func (l *ListOutputResponse) GetCountedListOutput() *components.CountedListOutput {
 	if l == nil {
 		return nil
 	}
-	return l.Object
+	return l.CountedListOutput
 }

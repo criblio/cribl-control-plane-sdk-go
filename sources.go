@@ -204,12 +204,12 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 				return nil, err
 			}
 
-			var out operations.ListInputResponseBody
+			var out components.CountedListInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -444,12 +444,12 @@ func (s *Sources) Create(ctx context.Context, request components.Input, opts ...
 				return nil, err
 			}
 
-			var out operations.CreateInputResponseBody
+			var out components.CountedListInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -681,12 +681,12 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 				return nil, err
 			}
 
-			var out operations.GetInputByIDResponseBody
+			var out components.CountedListInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -926,12 +926,12 @@ func (s *Sources) Update(ctx context.Context, id string, input components.Input,
 				return nil, err
 			}
 
-			var out operations.UpdateInputByIDResponseBody
+			var out components.CountedListInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1163,12 +1163,12 @@ func (s *Sources) Delete(ctx context.Context, id string, opts ...operations.Opti
 				return nil, err
 			}
 
-			var out operations.DeleteInputByIDResponseBody
+			var out components.CountedListInput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListInput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

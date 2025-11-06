@@ -355,6 +355,46 @@ func (i *InputCriblTCPMetadatum) GetValue() string {
 	return i.Value
 }
 
+type InputCriblTCPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string `json:"tokenSecret"`
+	Enabled     *bool  `default:"true" json:"enabled"`
+	// Optional token description
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCriblTCPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblTCPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblTCPAuthToken) GetTokenSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TokenSecret
+}
+
+func (i *InputCriblTCPAuthToken) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputCriblTCPAuthToken) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
 type InputCriblTCP struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -391,8 +431,10 @@ type InputCriblTCP struct {
 	// Fields to add to events from this input
 	Metadata []InputCriblTCPMetadatum `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
-	Description         *string `json:"description,omitempty"`
+	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+	AuthTokens  []InputCriblTCPAuthToken `json:"authTokens,omitempty"`
+	Description *string                  `json:"description,omitempty"`
 }
 
 func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -544,6 +586,13 @@ func (i *InputCriblTCP) GetEnableLoadBalancing() *bool {
 		return nil
 	}
 	return i.EnableLoadBalancing
+}
+
+func (i *InputCriblTCP) GetAuthTokens() []InputCriblTCPAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
 }
 
 func (i *InputCriblTCP) GetDescription() *string {

@@ -18,9 +18,8 @@ import (
 
 // Groups - Actions related to Groups
 type Groups struct {
-	Mappings *Mappings
-	Configs  *GroupsConfigs
-	ACL      *ACL
+	Configs *GroupsConfigs
+	ACL     *ACL
 
 	rootSDK          *CriblControlPlane
 	sdkConfiguration config.SDKConfiguration
@@ -32,7 +31,6 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Mappings:         newMappings(rootSDK, sdkConfig, hooks),
 		Configs:          newGroupsConfigs(rootSDK, sdkConfig, hooks),
 		ACL:              newACL(rootSDK, sdkConfig, hooks),
 	}
@@ -216,12 +214,12 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 				return nil, err
 			}
 
-			var out operations.ListConfigGroupByProductResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -461,12 +459,12 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 				return nil, err
 			}
 
-			var out operations.CreateConfigGroupByProductResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -704,12 +702,12 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupByProductAndIDResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -950,12 +948,12 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupByProductAndIDResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1188,12 +1186,12 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.DeleteConfigGroupByProductAndIDResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1434,12 +1432,12 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupDeployByProductAndIDResponseBody
+			var out components.CountedListConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

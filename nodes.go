@@ -207,12 +207,12 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 				return nil, err
 			}
 
-			var out operations.ListMasterWorkerEntryResponseBody
+			var out components.CountedListMasterWorkerEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListMasterWorkerEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -448,12 +448,12 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetMasterWorkerEntryResponseBody
+			var out components.CountedListnumber
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedListnumber = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

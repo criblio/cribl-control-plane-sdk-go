@@ -36,31 +36,10 @@ func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetDeployRequest() compon
 	return u.DeployRequest
 }
 
-// UpdateConfigGroupDeployByProductAndIDResponseBody - a list of ConfigGroup objects
-type UpdateConfigGroupDeployByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateConfigGroupDeployByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateConfigGroupDeployByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *UpdateConfigGroupDeployByProductAndIDResponseBody
+	CountedListConfigGroup *components.CountedListConfigGroup
 }
 
 func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetHTTPMeta() components
 	return u.HTTPMeta
 }
 
-func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetObject() *UpdateConfigGroupDeployByProductAndIDResponseBody {
+func (u *UpdateConfigGroupDeployByProductAndIDResponse) GetCountedListConfigGroup() *components.CountedListConfigGroup {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedListConfigGroup
 }

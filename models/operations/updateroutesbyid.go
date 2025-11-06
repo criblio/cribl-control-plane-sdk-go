@@ -27,31 +27,10 @@ func (u *UpdateRoutesByIDRequest) GetRoutes() components.Routes {
 	return u.Routes
 }
 
-// UpdateRoutesByIDResponseBody - a list of Routes objects
-type UpdateRoutesByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Routes `json:"items,omitempty"`
-}
-
-func (u *UpdateRoutesByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateRoutesByIDResponseBody) GetItems() []components.Routes {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateRoutesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Routes objects
-	Object *UpdateRoutesByIDResponseBody
+	CountedListRoutes *components.CountedListRoutes
 }
 
 func (u *UpdateRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (u *UpdateRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateRoutesByIDResponse) GetObject() *UpdateRoutesByIDResponseBody {
+func (u *UpdateRoutesByIDResponse) GetCountedListRoutes() *components.CountedListRoutes {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedListRoutes
 }

@@ -2,12 +2,81 @@
 
 package components
 
+import (
+	"errors"
+	"fmt"
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
+type StatsType string
+
+const (
+	StatsTypeNumber      StatsType = "number"
+	StatsTypeMapOfNumber StatsType = "mapOfNumber"
+)
+
+type Stats struct {
+	Number      *float64           `queryParam:"inline,name=stats"`
+	MapOfNumber map[string]float64 `queryParam:"inline,name=stats"`
+
+	Type StatsType
+}
+
+func CreateStatsNumber(number float64) Stats {
+	typ := StatsTypeNumber
+
+	return Stats{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateStatsMapOfNumber(mapOfNumber map[string]float64) Stats {
+	typ := StatsTypeMapOfNumber
+
+	return Stats{
+		MapOfNumber: mapOfNumber,
+		Type:        typ,
+	}
+}
+
+func (u *Stats) UnmarshalJSON(data []byte) error {
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		u.Number = &number
+		u.Type = StatsTypeNumber
+		return nil
+	}
+
+	var mapOfNumber map[string]float64 = map[string]float64{}
+	if err := utils.UnmarshalJSON(data, &mapOfNumber, "", true, nil); err == nil {
+		u.MapOfNumber = mapOfNumber
+		u.Type = StatsTypeMapOfNumber
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Stats", string(data))
+}
+
+func (u Stats) MarshalJSON() ([]byte, error) {
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.MapOfNumber != nil {
+		return utils.MarshalJSON(u.MapOfNumber, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Stats: all fields are null")
+}
+
 type JobInfo struct {
-	Args   RunnableJob        `json:"args"`
-	ID     string             `json:"id"`
-	Keep   *bool              `json:"keep,omitempty"`
-	Stats  map[string]float64 `json:"stats"`
-	Status JobStatus          `json:"status"`
+	Args   RunnableJob      `json:"args"`
+	ID     string           `json:"id"`
+	Keep   *bool            `json:"keep,omitempty"`
+	Stats  map[string]Stats `json:"stats"`
+	Status JobStatus        `json:"status"`
 }
 
 func (j *JobInfo) GetArgs() RunnableJob {
@@ -31,9 +100,9 @@ func (j *JobInfo) GetKeep() *bool {
 	return j.Keep
 }
 
-func (j *JobInfo) GetStats() map[string]float64 {
+func (j *JobInfo) GetStats() map[string]Stats {
 	if j == nil {
-		return map[string]float64{}
+		return map[string]Stats{}
 	}
 	return j.Stats
 }

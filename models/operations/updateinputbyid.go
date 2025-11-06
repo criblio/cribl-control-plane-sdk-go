@@ -263,31 +263,10 @@ func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHe
 	return u.GetInput().InputZscalerHec
 }
 
-// UpdateInputByIDResponseBody - a list of Source objects
-type UpdateInputByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64             `json:"count,omitempty"`
-	Items []components.Input `json:"items,omitempty"`
-}
-
-func (u *UpdateInputByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateInputByIDResponseBody) GetItems() []components.Input {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	Object *UpdateInputByIDResponseBody
+	CountedListInput *components.CountedListInput
 }
 
 func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -297,9 +276,9 @@ func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateInputByIDResponse) GetObject() *UpdateInputByIDResponseBody {
+func (u *UpdateInputByIDResponse) GetCountedListInput() *components.CountedListInput {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedListInput
 }

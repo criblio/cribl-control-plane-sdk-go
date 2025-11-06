@@ -52,7 +52,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListGitCommitSummary != nil {
         // handle response
     }
 }
@@ -110,7 +110,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListGitDiffResult != nil {
         // handle response
     }
 }
@@ -170,7 +170,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListGitLogResult != nil {
         // handle response
     }
 }
@@ -228,7 +228,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListstring != nil {
         // handle response
     }
 }
@@ -288,7 +288,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListGitRevertResult != nil {
         // handle response
     }
 }
@@ -346,7 +346,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListGitShowResult != nil {
         // handle response
     }
 }
@@ -406,7 +406,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedListObject != nil {
         // handle response
     }
 }
