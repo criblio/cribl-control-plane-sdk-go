@@ -64,13 +64,13 @@ func main() {
 		return
 	}
 
-	if response.Object == nil || response.Object.Items == nil {
+	if response.CountedListBranchInfo == nil || response.CountedListBranchInfo.Items == nil {
 		fmt.Println("⚠️ No branches found")
 		return
 	}
 
 	var branches []string
-	for _, branch := range response.Object.Items {
+	for _, branch := range response.CountedListBranchInfo.Items {
 		if branch.ID != "" {
 			branches = append(branches, branch.ID)
 		}
