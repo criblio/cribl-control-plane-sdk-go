@@ -7,7 +7,7 @@ import (
 )
 
 type CreateRoutesAppendByIDRequest struct {
-	// The <code>id</code> of the Routing table to append the Route to. The supported value is <code>default</code>.
+	// The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// RouteDefinitions object
 	RequestBody []components.RouteConf `request:"mediaType=application/json"`

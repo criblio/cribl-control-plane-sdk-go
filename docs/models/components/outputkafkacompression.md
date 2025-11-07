@@ -11,3 +11,4 @@ Codec to use to compress the data before sending to Kafka
 | `OutputKafkaCompressionGzip`   | gzip                           |
 | `OutputKafkaCompressionSnappy` | snappy                         |
 | `OutputKafkaCompressionLz4`    | lz4                            |
+| `OutputKafkaCompressionZstd`   | zstd                           |

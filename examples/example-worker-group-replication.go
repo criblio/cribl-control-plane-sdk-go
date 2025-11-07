@@ -107,11 +107,40 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 
 	fmt.Printf("Creating replica with ID: %s\n", replicaID)
 
-	// Create the replica Worker Group by copying configuration from source
-	replicaGroup := source
-	replicaGroup.ID = replicaID
-	replicaGroup.Name = criblcontrolplanesdkgo.String(replicaName)
-	replicaGroup.Description = criblcontrolplanesdkgo.String(replicaDescription)
+	// Create the replica Worker Group by converting ConfigGroup to GroupCreateRequest
+	replicaGroup := components.GroupCreateRequest{
+		ID:                  replicaID,
+		Name:                criblcontrolplanesdkgo.String(replicaName),
+		Description:         criblcontrolplanesdkgo.String(replicaDescription),
+		OnPrem:              source.OnPrem,
+		WorkerRemoteAccess:  source.WorkerRemoteAccess,
+		Provisioned:         source.Provisioned,
+		IsFleet:             source.IsFleet,
+		IsSearch:            source.IsSearch,
+		Cloud:               source.Cloud,
+		Inherits:            source.Inherits,
+		MaxWorkerAge:        source.MaxWorkerAge,
+		Tags:                source.Tags,
+		Streamtags:          source.Streamtags,
+		WorkerCount:         source.WorkerCount,
+		LookupDeployments:   source.LookupDeployments,
+		DeployingWorkerCount: source.DeployingWorkerCount,
+		IncompatibleWorkerCount: source.IncompatibleWorkerCount,
+		UpgradeVersion:      source.UpgradeVersion,
+	}
+
+	// Convert EstimatedIngestRate if present
+	if source.EstimatedIngestRate != nil {
+		// Convert ConfigGroupEstimatedIngestRate to GroupCreateRequestEstimatedIngestRate
+		rateValue := components.GroupCreateRequestEstimatedIngestRate(*source.EstimatedIngestRate)
+		replicaGroup.EstimatedIngestRate = rateValue.ToPointer()
+	}
+
+	// Convert Type if present
+	if source.Type != nil {
+		typeValue := components.GroupCreateRequestType(*source.Type)
+		replicaGroup.Type = typeValue.ToPointer()
+	}
 
 	// Create the replica Worker Group
 	result, err := client.Groups.Create(ctx, components.ProductsCoreStream, replicaGroup)
