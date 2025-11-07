@@ -65,7 +65,9 @@ func (i *InputElasticConnection) GetOutput() string {
 type InputElasticMode string
 
 const (
-	InputElasticModeSmart  InputElasticMode = "smart"
+	// InputElasticModeSmart Smart
+	InputElasticModeSmart InputElasticMode = "smart"
+	// InputElasticModeAlways Always On
 	InputElasticModeAlways InputElasticMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputElasticMode) ToPointer() *InputElasticMode {
 type InputElasticCompression string
 
 const (
+	// InputElasticCompressionNone None
 	InputElasticCompressionNone InputElasticCompression = "none"
+	// InputElasticCompressionGzip Gzip
 	InputElasticCompressionGzip InputElasticCompression = "gzip"
 )
 
@@ -212,6 +216,12 @@ func (e InputElasticMaximumTLSVersion) ToPointer() *InputElasticMaximumTLSVersio
 
 type InputElasticTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -221,13 +231,9 @@ type InputElasticTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                          `default:"false" json:"requestCert"`
-	RejectUnauthorized any                            `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                            `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputElasticMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputElasticMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                        `json:"caPath,omitempty"`
+	MinVersion *InputElasticMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputElasticMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputElasticTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -246,6 +252,27 @@ func (i *InputElasticTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputElasticTLSSettingsServerSide) GetCertificateName() *string {
@@ -283,27 +310,6 @@ func (i *InputElasticTLSSettingsServerSide) GetCaPath() *string {
 	return i.CaPath
 }
 
-func (i *InputElasticTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputElasticTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputElasticTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
 func (i *InputElasticTLSSettingsServerSide) GetMinVersion() *InputElasticMinimumTLSVersion {
 	if i == nil {
 		return nil
@@ -321,10 +327,14 @@ func (i *InputElasticTLSSettingsServerSide) GetMaxVersion() *InputElasticMaximum
 type InputElasticAuthenticationType string
 
 const (
-	InputElasticAuthenticationTypeNone              InputElasticAuthenticationType = "none"
-	InputElasticAuthenticationTypeBasic             InputElasticAuthenticationType = "basic"
+	// InputElasticAuthenticationTypeNone None
+	InputElasticAuthenticationTypeNone InputElasticAuthenticationType = "none"
+	// InputElasticAuthenticationTypeBasic Basic
+	InputElasticAuthenticationTypeBasic InputElasticAuthenticationType = "basic"
+	// InputElasticAuthenticationTypeCredentialsSecret Basic (credentials secret)
 	InputElasticAuthenticationTypeCredentialsSecret InputElasticAuthenticationType = "credentialsSecret"
-	InputElasticAuthenticationTypeAuthTokens        InputElasticAuthenticationType = "authTokens"
+	// InputElasticAuthenticationTypeAuthTokens Auth Tokens
+	InputElasticAuthenticationTypeAuthTokens InputElasticAuthenticationType = "authTokens"
 )
 
 func (e InputElasticAuthenticationType) ToPointer() *InputElasticAuthenticationType {
@@ -335,9 +345,12 @@ func (e InputElasticAuthenticationType) ToPointer() *InputElasticAuthenticationT
 type InputElasticAPIVersion string
 
 const (
-	InputElasticAPIVersionSixDot8Dot4   InputElasticAPIVersion = "6.8.4"
+	// InputElasticAPIVersionSixDot8Dot4 6.8.4
+	InputElasticAPIVersionSixDot8Dot4 InputElasticAPIVersion = "6.8.4"
+	// InputElasticAPIVersionEightDot3Dot2 8.3.2
 	InputElasticAPIVersionEightDot3Dot2 InputElasticAPIVersion = "8.3.2"
-	InputElasticAPIVersionCustom        InputElasticAPIVersion = "custom"
+	// InputElasticAPIVersionCustom Custom
+	InputElasticAPIVersionCustom InputElasticAPIVersion = "custom"
 )
 
 func (e InputElasticAPIVersion) ToPointer() *InputElasticAPIVersion {
@@ -421,6 +434,12 @@ func (e InputElasticAuthenticationMethod) ToPointer() *InputElasticAuthenticatio
 type InputElasticProxyMode struct {
 	// Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
 	Enabled *bool `default:"false" json:"enabled"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *InputElasticAuthenticationMethod `default:"none" json:"authType"`
+	Username *string                           `json:"username,omitempty"`
+	Password *string                           `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
 	URL *string `json:"url,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
@@ -429,8 +448,6 @@ type InputElasticProxyMode struct {
 	RemoveHeaders []string `json:"removeHeaders,omitempty"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
 	TimeoutSec *float64 `default:"60" json:"timeoutSec"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *InputElasticAuthenticationMethod `default:"none" json:"authType"`
 }
 
 func (i InputElasticProxyMode) MarshalJSON() ([]byte, error) {
@@ -449,6 +466,34 @@ func (i *InputElasticProxyMode) GetEnabled() *bool {
 		return nil
 	}
 	return i.Enabled
+}
+
+func (i *InputElasticProxyMode) GetAuthType() *InputElasticAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputElasticProxyMode) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputElasticProxyMode) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputElasticProxyMode) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
 }
 
 func (i *InputElasticProxyMode) GetURL() *string {
@@ -477,13 +522,6 @@ func (i *InputElasticProxyMode) GetTimeoutSec() *float64 {
 		return nil
 	}
 	return i.TimeoutSec
-}
-
-func (i *InputElasticProxyMode) GetAuthType() *InputElasticAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
 }
 
 type InputElastic struct {

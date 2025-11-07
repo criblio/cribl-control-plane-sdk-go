@@ -78,9 +78,12 @@ func (o *OutputDynatraceHTTPExtraHTTPHeader) GetValue() string {
 type OutputDynatraceHTTPFailedRequestLoggingMode string
 
 const (
-	OutputDynatraceHTTPFailedRequestLoggingModePayload           OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayload Payload
+	OutputDynatraceHTTPFailedRequestLoggingModePayload OutputDynatraceHTTPFailedRequestLoggingMode = "payload"
+	// OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDynatraceHTTPFailedRequestLoggingModePayloadAndHeaders OutputDynatraceHTTPFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDynatraceHTTPFailedRequestLoggingModeNone              OutputDynatraceHTTPFailedRequestLoggingMode = "none"
+	// OutputDynatraceHTTPFailedRequestLoggingModeNone None
+	OutputDynatraceHTTPFailedRequestLoggingModeNone OutputDynatraceHTTPFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDynatraceHTTPFailedRequestLoggingMode) ToPointer() *OutputDynatraceHTTPFailedRequestLoggingMode {
@@ -190,8 +193,11 @@ func (o *OutputDynatraceHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputDynatraceHTTPBackpressureBehavior string
 
 const (
+	// OutputDynatraceHTTPBackpressureBehaviorBlock Block
 	OutputDynatraceHTTPBackpressureBehaviorBlock OutputDynatraceHTTPBackpressureBehavior = "block"
-	OutputDynatraceHTTPBackpressureBehaviorDrop  OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorDrop Drop
+	OutputDynatraceHTTPBackpressureBehaviorDrop OutputDynatraceHTTPBackpressureBehavior = "drop"
+	// OutputDynatraceHTTPBackpressureBehaviorQueue Persistent Queue
 	OutputDynatraceHTTPBackpressureBehaviorQueue OutputDynatraceHTTPBackpressureBehavior = "queue"
 )
 
@@ -202,7 +208,9 @@ func (e OutputDynatraceHTTPBackpressureBehavior) ToPointer() *OutputDynatraceHTT
 type OutputDynatraceHTTPAuthenticationType string
 
 const (
-	OutputDynatraceHTTPAuthenticationTypeToken      OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeToken Auth token
+	OutputDynatraceHTTPAuthenticationTypeToken OutputDynatraceHTTPAuthenticationType = "token"
+	// OutputDynatraceHTTPAuthenticationTypeTextSecret Token (text secret)
 	OutputDynatraceHTTPAuthenticationTypeTextSecret OutputDynatraceHTTPAuthenticationType = "textSecret"
 )
 
@@ -214,7 +222,9 @@ func (e OutputDynatraceHTTPAuthenticationType) ToPointer() *OutputDynatraceHTTPA
 type OutputDynatraceHTTPFormat string
 
 const (
+	// OutputDynatraceHTTPFormatJSONArray JSON
 	OutputDynatraceHTTPFormatJSONArray OutputDynatraceHTTPFormat = "json_array"
+	// OutputDynatraceHTTPFormatPlaintext Plaintext
 	OutputDynatraceHTTPFormatPlaintext OutputDynatraceHTTPFormat = "plaintext"
 )
 
@@ -225,9 +235,12 @@ func (e OutputDynatraceHTTPFormat) ToPointer() *OutputDynatraceHTTPFormat {
 type Endpoint string
 
 const (
-	EndpointCloud      Endpoint = "cloud"
+	// EndpointCloud Cloud
+	EndpointCloud Endpoint = "cloud"
+	// EndpointActiveGate ActiveGate
 	EndpointActiveGate Endpoint = "activeGate"
-	EndpointManual     Endpoint = "manual"
+	// EndpointManual Manual
+	EndpointManual Endpoint = "manual"
 )
 
 func (e Endpoint) ToPointer() *Endpoint {
@@ -237,7 +250,9 @@ func (e Endpoint) ToPointer() *Endpoint {
 type TelemetryType string
 
 const (
-	TelemetryTypeLogs    TelemetryType = "logs"
+	// TelemetryTypeLogs Logs
+	TelemetryTypeLogs TelemetryType = "logs"
+	// TelemetryTypeMetrics Metrics
 	TelemetryTypeMetrics TelemetryType = "metrics"
 )
 
@@ -245,11 +260,29 @@ func (e TelemetryType) ToPointer() *TelemetryType {
 	return &e
 }
 
+// OutputDynatraceHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDynatraceHTTPMode string
+
+const (
+	// OutputDynatraceHTTPModeError Error
+	OutputDynatraceHTTPModeError OutputDynatraceHTTPMode = "error"
+	// OutputDynatraceHTTPModeAlways Backpressure
+	OutputDynatraceHTTPModeAlways OutputDynatraceHTTPMode = "always"
+	// OutputDynatraceHTTPModeBackpressure Always On
+	OutputDynatraceHTTPModeBackpressure OutputDynatraceHTTPMode = "backpressure"
+)
+
+func (e OutputDynatraceHTTPMode) ToPointer() *OutputDynatraceHTTPMode {
+	return &e
+}
+
 // OutputDynatraceHTTPCompression - Codec to use to compress the persisted data
 type OutputDynatraceHTTPCompression string
 
 const (
+	// OutputDynatraceHTTPCompressionNone None
 	OutputDynatraceHTTPCompressionNone OutputDynatraceHTTPCompression = "none"
+	// OutputDynatraceHTTPCompressionGzip Gzip
 	OutputDynatraceHTTPCompressionGzip OutputDynatraceHTTPCompression = "gzip"
 )
 
@@ -261,24 +294,13 @@ func (e OutputDynatraceHTTPCompression) ToPointer() *OutputDynatraceHTTPCompress
 type OutputDynatraceHTTPQueueFullBehavior string
 
 const (
+	// OutputDynatraceHTTPQueueFullBehaviorBlock Block
 	OutputDynatraceHTTPQueueFullBehaviorBlock OutputDynatraceHTTPQueueFullBehavior = "block"
-	OutputDynatraceHTTPQueueFullBehaviorDrop  OutputDynatraceHTTPQueueFullBehavior = "drop"
+	// OutputDynatraceHTTPQueueFullBehaviorDrop Drop new data
+	OutputDynatraceHTTPQueueFullBehaviorDrop OutputDynatraceHTTPQueueFullBehavior = "drop"
 )
 
 func (e OutputDynatraceHTTPQueueFullBehavior) ToPointer() *OutputDynatraceHTTPQueueFullBehavior {
-	return &e
-}
-
-// OutputDynatraceHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputDynatraceHTTPMode string
-
-const (
-	OutputDynatraceHTTPModeError        OutputDynatraceHTTPMode = "error"
-	OutputDynatraceHTTPModeBackpressure OutputDynatraceHTTPMode = "backpressure"
-	OutputDynatraceHTTPModeAlways       OutputDynatraceHTTPMode = "always"
-)
-
-func (e OutputDynatraceHTTPMode) ToPointer() *OutputDynatraceHTTPMode {
 	return &e
 }
 
@@ -351,6 +373,16 @@ type OutputDynatraceHTTP struct {
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputDynatraceHTTPMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -361,9 +393,7 @@ type OutputDynatraceHTTP struct {
 	PqCompress *OutputDynatraceHTTPCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputDynatraceHTTPQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputDynatraceHTTPMode       `default:"error" json:"pqMode"`
-	PqControls *OutputDynatraceHTTPPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputDynatraceHTTPPqControls        `json:"pqControls,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
@@ -590,6 +620,41 @@ func (o *OutputDynatraceHTTP) GetDescription() *string {
 	return o.Description
 }
 
+func (o *OutputDynatraceHTTP) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDynatraceHTTP) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDynatraceHTTP) GetPqMode() *OutputDynatraceHTTPMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDynatraceHTTP) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDynatraceHTTP) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputDynatraceHTTP) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -623,13 +688,6 @@ func (o *OutputDynatraceHTTP) GetPqOnBackpressure() *OutputDynatraceHTTPQueueFul
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputDynatraceHTTP) GetPqMode() *OutputDynatraceHTTPMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputDynatraceHTTP) GetPqControls() *OutputDynatraceHTTPPqControls {

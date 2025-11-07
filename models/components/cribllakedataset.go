@@ -23,6 +23,7 @@ type CriblLakeDataset struct {
 	Format                *CriblLakeDatasetFormat  `json:"format,omitempty"`
 	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitempty"`
 	ID                    string                   `json:"id"`
+	Metrics               *LakeDatasetMetrics      `json:"metrics,omitempty"`
 	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitempty"`
 	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitempty"`
 	StorageLocationID     *string                  `json:"storageLocationId,omitempty"`
@@ -83,6 +84,13 @@ func (c *CriblLakeDataset) GetID() string {
 		return ""
 	}
 	return c.ID
+}
+
+func (c *CriblLakeDataset) GetMetrics() *LakeDatasetMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Metrics
 }
 
 func (c *CriblLakeDataset) GetRetentionPeriodInDays() *float64 {

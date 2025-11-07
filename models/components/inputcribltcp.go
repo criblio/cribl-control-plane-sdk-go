@@ -65,7 +65,9 @@ func (i *InputCriblTCPConnection) GetOutput() string {
 type InputCriblTCPMode string
 
 const (
-	InputCriblTCPModeSmart  InputCriblTCPMode = "smart"
+	// InputCriblTCPModeSmart Smart
+	InputCriblTCPModeSmart InputCriblTCPMode = "smart"
+	// InputCriblTCPModeAlways Always On
 	InputCriblTCPModeAlways InputCriblTCPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblTCPMode) ToPointer() *InputCriblTCPMode {
 type InputCriblTCPCompression string
 
 const (
+	// InputCriblTCPCompressionNone None
 	InputCriblTCPCompressionNone InputCriblTCPCompression = "none"
+	// InputCriblTCPCompressionGzip Gzip
 	InputCriblTCPCompressionGzip InputCriblTCPCompression = "gzip"
 )
 
@@ -212,6 +216,12 @@ func (e InputCriblTCPMaximumTLSVersion) ToPointer() *InputCriblTCPMaximumTLSVers
 
 type InputCriblTCPTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -221,13 +231,9 @@ type InputCriblTCPTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                           `default:"false" json:"requestCert"`
-	RejectUnauthorized any                             `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                             `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputCriblTCPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputCriblTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                         `json:"caPath,omitempty"`
+	MinVersion *InputCriblTCPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputCriblTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputCriblTCPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -246,6 +252,27 @@ func (i *InputCriblTCPTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputCriblTCPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputCriblTCPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputCriblTCPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputCriblTCPTLSSettingsServerSide) GetCertificateName() *string {
@@ -281,27 +308,6 @@ func (i *InputCriblTCPTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputCriblTCPTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputCriblTCPTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputCriblTCPTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputCriblTCPTLSSettingsServerSide) GetMinVersion() *InputCriblTCPMinimumTLSVersion {
@@ -349,6 +355,46 @@ func (i *InputCriblTCPMetadatum) GetValue() string {
 	return i.Value
 }
 
+type InputCriblTCPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string `json:"tokenSecret"`
+	Enabled     *bool  `default:"true" json:"enabled"`
+	// Optional token description
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCriblTCPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblTCPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblTCPAuthToken) GetTokenSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TokenSecret
+}
+
+func (i *InputCriblTCPAuthToken) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputCriblTCPAuthToken) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
 type InputCriblTCP struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -385,8 +431,10 @@ type InputCriblTCP struct {
 	// Fields to add to events from this input
 	Metadata []InputCriblTCPMetadatum `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
-	Description         *string `json:"description,omitempty"`
+	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+	AuthTokens  []InputCriblTCPAuthToken `json:"authTokens,omitempty"`
+	Description *string                  `json:"description,omitempty"`
 }
 
 func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -538,6 +586,13 @@ func (i *InputCriblTCP) GetEnableLoadBalancing() *bool {
 		return nil
 	}
 	return i.EnableLoadBalancing
+}
+
+func (i *InputCriblTCP) GetAuthTokens() []InputCriblTCPAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
 }
 
 func (i *InputCriblTCP) GetDescription() *string {

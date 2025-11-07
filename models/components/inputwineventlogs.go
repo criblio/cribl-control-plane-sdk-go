@@ -65,7 +65,9 @@ func (i *InputWinEventLogsConnection) GetOutput() string {
 type InputWinEventLogsMode string
 
 const (
-	InputWinEventLogsModeSmart  InputWinEventLogsMode = "smart"
+	// InputWinEventLogsModeSmart Smart
+	InputWinEventLogsModeSmart InputWinEventLogsMode = "smart"
+	// InputWinEventLogsModeAlways Always On
 	InputWinEventLogsModeAlways InputWinEventLogsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWinEventLogsMode) ToPointer() *InputWinEventLogsMode {
 type InputWinEventLogsCompression string
 
 const (
+	// InputWinEventLogsCompressionNone None
 	InputWinEventLogsCompressionNone InputWinEventLogsCompression = "none"
+	// InputWinEventLogsCompressionGzip Gzip
 	InputWinEventLogsCompressionGzip InputWinEventLogsCompression = "gzip"
 )
 
@@ -188,7 +192,9 @@ func (i *InputWinEventLogsPq) GetPqControls() *InputWinEventLogsPqControls {
 type ReadMode string
 
 const (
+	// ReadModeOldest Entire log
 	ReadModeOldest ReadMode = "oldest"
+	// ReadModeNewest From last entry
 	ReadModeNewest ReadMode = "newest"
 )
 
@@ -200,8 +206,10 @@ func (e ReadMode) ToPointer() *ReadMode {
 type EventFormat string
 
 const (
+	// EventFormatJSON JSON
 	EventFormatJSON EventFormat = "json"
-	EventFormatXML  EventFormat = "xml"
+	// EventFormatXML XML
+	EventFormatXML EventFormat = "xml"
 )
 
 func (e EventFormat) ToPointer() *EventFormat {
@@ -274,6 +282,10 @@ type InputWinEventLogs struct {
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
 	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
 func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
@@ -418,4 +430,18 @@ func (i *InputWinEventLogs) GetDescription() *string {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputWinEventLogs) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogs) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
 }

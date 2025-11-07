@@ -65,9 +65,12 @@ func (o *OutputCrowdstrikeNextGenSiemExtraHTTPHeader) GetValue() string {
 type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode string
 
 const (
-	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload           OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payload"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload Payload
+	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayload OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payload"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModePayloadAndHeaders OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone              OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "none"
+	// OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone None
+	OutputCrowdstrikeNextGenSiemFailedRequestLoggingModeNone OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = "none"
 )
 
 func (e OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) ToPointer() *OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode {
@@ -78,8 +81,10 @@ func (e OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) ToPointer() *Outpu
 type OutputCrowdstrikeNextGenSiemRequestFormat string
 
 const (
+	// OutputCrowdstrikeNextGenSiemRequestFormatJSON JSON
 	OutputCrowdstrikeNextGenSiemRequestFormatJSON OutputCrowdstrikeNextGenSiemRequestFormat = "JSON"
-	OutputCrowdstrikeNextGenSiemRequestFormatRaw  OutputCrowdstrikeNextGenSiemRequestFormat = "raw"
+	// OutputCrowdstrikeNextGenSiemRequestFormatRaw Raw
+	OutputCrowdstrikeNextGenSiemRequestFormatRaw OutputCrowdstrikeNextGenSiemRequestFormat = "raw"
 )
 
 func (e OutputCrowdstrikeNextGenSiemRequestFormat) ToPointer() *OutputCrowdstrikeNextGenSiemRequestFormat {
@@ -201,8 +206,11 @@ func (o *OutputCrowdstrikeNextGenSiemTimeoutRetrySettings) GetMaxBackoff() *floa
 type OutputCrowdstrikeNextGenSiemBackpressureBehavior string
 
 const (
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorBlock Block
 	OutputCrowdstrikeNextGenSiemBackpressureBehaviorBlock OutputCrowdstrikeNextGenSiemBackpressureBehavior = "block"
-	OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop  OutputCrowdstrikeNextGenSiemBackpressureBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop Drop
+	OutputCrowdstrikeNextGenSiemBackpressureBehaviorDrop OutputCrowdstrikeNextGenSiemBackpressureBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemBackpressureBehaviorQueue Persistent Queue
 	OutputCrowdstrikeNextGenSiemBackpressureBehaviorQueue OutputCrowdstrikeNextGenSiemBackpressureBehavior = "queue"
 )
 
@@ -210,11 +218,29 @@ func (e OutputCrowdstrikeNextGenSiemBackpressureBehavior) ToPointer() *OutputCro
 	return &e
 }
 
+// OutputCrowdstrikeNextGenSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputCrowdstrikeNextGenSiemMode string
+
+const (
+	// OutputCrowdstrikeNextGenSiemModeError Error
+	OutputCrowdstrikeNextGenSiemModeError OutputCrowdstrikeNextGenSiemMode = "error"
+	// OutputCrowdstrikeNextGenSiemModeAlways Backpressure
+	OutputCrowdstrikeNextGenSiemModeAlways OutputCrowdstrikeNextGenSiemMode = "always"
+	// OutputCrowdstrikeNextGenSiemModeBackpressure Always On
+	OutputCrowdstrikeNextGenSiemModeBackpressure OutputCrowdstrikeNextGenSiemMode = "backpressure"
+)
+
+func (e OutputCrowdstrikeNextGenSiemMode) ToPointer() *OutputCrowdstrikeNextGenSiemMode {
+	return &e
+}
+
 // OutputCrowdstrikeNextGenSiemCompression - Codec to use to compress the persisted data
 type OutputCrowdstrikeNextGenSiemCompression string
 
 const (
+	// OutputCrowdstrikeNextGenSiemCompressionNone None
 	OutputCrowdstrikeNextGenSiemCompressionNone OutputCrowdstrikeNextGenSiemCompression = "none"
+	// OutputCrowdstrikeNextGenSiemCompressionGzip Gzip
 	OutputCrowdstrikeNextGenSiemCompressionGzip OutputCrowdstrikeNextGenSiemCompression = "gzip"
 )
 
@@ -226,24 +252,13 @@ func (e OutputCrowdstrikeNextGenSiemCompression) ToPointer() *OutputCrowdstrikeN
 type OutputCrowdstrikeNextGenSiemQueueFullBehavior string
 
 const (
+	// OutputCrowdstrikeNextGenSiemQueueFullBehaviorBlock Block
 	OutputCrowdstrikeNextGenSiemQueueFullBehaviorBlock OutputCrowdstrikeNextGenSiemQueueFullBehavior = "block"
-	OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop  OutputCrowdstrikeNextGenSiemQueueFullBehavior = "drop"
+	// OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop Drop new data
+	OutputCrowdstrikeNextGenSiemQueueFullBehaviorDrop OutputCrowdstrikeNextGenSiemQueueFullBehavior = "drop"
 )
 
 func (e OutputCrowdstrikeNextGenSiemQueueFullBehavior) ToPointer() *OutputCrowdstrikeNextGenSiemQueueFullBehavior {
-	return &e
-}
-
-// OutputCrowdstrikeNextGenSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputCrowdstrikeNextGenSiemMode string
-
-const (
-	OutputCrowdstrikeNextGenSiemModeError        OutputCrowdstrikeNextGenSiemMode = "error"
-	OutputCrowdstrikeNextGenSiemModeBackpressure OutputCrowdstrikeNextGenSiemMode = "backpressure"
-	OutputCrowdstrikeNextGenSiemModeAlways       OutputCrowdstrikeNextGenSiemMode = "always"
-)
-
-func (e OutputCrowdstrikeNextGenSiemMode) ToPointer() *OutputCrowdstrikeNextGenSiemMode {
 	return &e
 }
 
@@ -315,6 +330,16 @@ type OutputCrowdstrikeNextGenSiem struct {
 	Token          *string                                           `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputCrowdstrikeNextGenSiemMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -325,9 +350,7 @@ type OutputCrowdstrikeNextGenSiem struct {
 	PqCompress *OutputCrowdstrikeNextGenSiemCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputCrowdstrikeNextGenSiemQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputCrowdstrikeNextGenSiemMode       `default:"error" json:"pqMode"`
-	PqControls *OutputCrowdstrikeNextGenSiemPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputCrowdstrikeNextGenSiemPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
@@ -530,6 +553,41 @@ func (o *OutputCrowdstrikeNextGenSiem) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputCrowdstrikeNextGenSiem) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCrowdstrikeNextGenSiem) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCrowdstrikeNextGenSiem) GetPqMode() *OutputCrowdstrikeNextGenSiemMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCrowdstrikeNextGenSiem) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCrowdstrikeNextGenSiem) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputCrowdstrikeNextGenSiem) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -563,13 +621,6 @@ func (o *OutputCrowdstrikeNextGenSiem) GetPqOnBackpressure() *OutputCrowdstrikeN
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputCrowdstrikeNextGenSiem) GetPqMode() *OutputCrowdstrikeNextGenSiemMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputCrowdstrikeNextGenSiem) GetPqControls() *OutputCrowdstrikeNextGenSiemPqControls {

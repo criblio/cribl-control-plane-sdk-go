@@ -9,11 +9,11 @@
 
 ## Get
 
-This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="login" method="post" path="/auth/login" -->
+<!-- UsageSnippet language="go" operationID="createAuthLogin" method="post" path="/auth/login" -->
 ```go
 package main
 
@@ -32,8 +32,8 @@ func main() {
     )
 
     res, err := s.Auth.Tokens.Get(ctx, components.LoginInfo{
-        Username: "Nikko.Connelly",
-        Password: "Ljp4BunfMR9hNyM",
+        Password: "6j50J9421x29IhO",
+        Username: "Lilly_Weissnat",
     })
     if err != nil {
         log.Fatal(err)
@@ -54,10 +54,11 @@ func main() {
 
 ### Response
 
-**[*operations.LoginResponse](../../models/operations/loginresponse.md), error**
+**[*operations.CreateAuthLoginResponse](../../models/operations/createauthloginresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
