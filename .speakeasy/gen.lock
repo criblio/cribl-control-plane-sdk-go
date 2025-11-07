@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d5e71c600b11bf9409114d9016fe6d31
-  docVersion: 4.15.0-alpha.1762383805913-2ea53e6b
+  docChecksum: b0acdd299f74d821ae92a67a1ac9090a
+  docVersion: 4.15.0-alpha.1762470395627-b9379d77
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-beta.11
-  configChecksum: 72f936f0f8d3424d443d1d427f7b8298
+  releaseVersion: 0.3.0-beta.12
+  configChecksum: ba7c9910810060cd68bc59d2881a4921
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -490,6 +490,7 @@ generatedFiles:
   - docs/models/components/inputcriblcompression.md
   - docs/models/components/inputcriblconnection.md
   - docs/models/components/inputcriblhttp.md
+  - docs/models/components/inputcriblhttpauthtoken.md
   - docs/models/components/inputcriblhttpcompression.md
   - docs/models/components/inputcriblhttpconnection.md
   - docs/models/components/inputcriblhttpmaximumtlsversion.md
@@ -526,6 +527,7 @@ generatedFiles:
   - docs/models/components/inputcriblpq.md
   - docs/models/components/inputcriblpqcontrols.md
   - docs/models/components/inputcribltcp.md
+  - docs/models/components/inputcribltcpauthtoken.md
   - docs/models/components/inputcribltcpcompression.md
   - docs/models/components/inputcribltcpconnection.md
   - docs/models/components/inputcribltcpmaximumtlsversion.md
@@ -1372,6 +1374,7 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
+  - docs/models/components/outputcriblhttpauthtoken.md
   - docs/models/components/outputcriblhttpbackpressurebehavior.md
   - docs/models/components/outputcriblhttpcompression.md
   - docs/models/components/outputcriblhttpextrahttpheader.md
@@ -1397,6 +1400,7 @@ generatedFiles:
   - docs/models/components/outputcribllakestorageclass.md
   - docs/models/components/outputcribllaketype.md
   - docs/models/components/outputcribltcp.md
+  - docs/models/components/outputcribltcpauthtoken.md
   - docs/models/components/outputcribltcpbackpressurebehavior.md
   - docs/models/components/outputcribltcpcompression.md
   - docs/models/components/outputcribltcphost.md
@@ -2478,7 +2482,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
+          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": [{"tokenSecret": "<value>", "enabled": true, "description": "uncork promptly confound shinny hygienic ack consequently which besides mould"}, {"tokenSecret": "<value>", "enabled": true, "description": "finished middle glimmer between times orange poorly"}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputById:
@@ -3496,3 +3500,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"

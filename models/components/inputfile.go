@@ -257,6 +257,8 @@ type InputFile struct {
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
 	TailOnly *bool `default:"true" json:"tailOnly"`
 	// Time, in seconds, before an idle file is closed
@@ -389,6 +391,13 @@ func (i *InputFile) GetFilenames() []string {
 		return nil
 	}
 	return i.Filenames
+}
+
+func (i *InputFile) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
 }
 
 func (i *InputFile) GetTailOnly() *bool {
