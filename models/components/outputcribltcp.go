@@ -173,6 +173,46 @@ func (o *OutputCriblTCPTLSSettingsClientSide) GetMaxVersion() *OutputCriblTCPMax
 	return o.MaxVersion
 }
 
+type OutputCriblTCPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string `json:"tokenSecret"`
+	Enabled     *bool  `default:"true" json:"enabled"`
+	// Optional token description
+	Description *string `json:"description,omitempty"`
+}
+
+func (o OutputCriblTCPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblTCPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblTCPAuthToken) GetTokenSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenSecret
+}
+
+func (o *OutputCriblTCPAuthToken) GetEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Enabled
+}
+
+func (o *OutputCriblTCPAuthToken) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
 // OutputCriblTCPBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputCriblTCPBackpressureBehavior string
 
@@ -345,6 +385,8 @@ type OutputCriblTCP struct {
 	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+	AuthTokens []OutputCriblTCPAuthToken `json:"authTokens,omitempty"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
@@ -494,6 +536,13 @@ func (o *OutputCriblTCP) GetTokenTTLMinutes() *float64 {
 		return nil
 	}
 	return o.TokenTTLMinutes
+}
+
+func (o *OutputCriblTCP) GetAuthTokens() []OutputCriblTCPAuthToken {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
 }
 
 func (o *OutputCriblTCP) GetExcludeFields() []string {

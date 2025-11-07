@@ -6,3 +6,4 @@
 | Name                               | Value                              |
 | ---------------------------------- | ---------------------------------- |
 | `GroupCreateRequestTypeLakeAccess` | lake_access                        |
+| `GroupCreateRequestTypeRiptide`    | riptide                            |
