@@ -188,6 +188,46 @@ func (i *InputCriblHTTPPq) GetPqControls() *InputCriblHTTPPqControls {
 	return i.PqControls
 }
 
+type InputCriblHTTPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string `json:"tokenSecret"`
+	Enabled     *bool  `default:"true" json:"enabled"`
+	// Optional token description
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCriblHTTPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblHTTPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblHTTPAuthToken) GetTokenSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TokenSecret
+}
+
+func (i *InputCriblHTTPAuthToken) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputCriblHTTPAuthToken) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
 type InputCriblHTTPMinimumTLSVersion string
 
 const (
@@ -377,8 +417,8 @@ type InputCriblHTTP struct {
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                             `json:"authTokens,omitempty"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+	AuthTokens []InputCriblHTTPAuthToken            `json:"authTokens,omitempty"`
 	TLS        *InputCriblHTTPTLSSettingsServerSide `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
@@ -502,7 +542,7 @@ func (i *InputCriblHTTP) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputCriblHTTP) GetAuthTokens() []string {
+func (i *InputCriblHTTP) GetAuthTokens() []InputCriblHTTPAuthToken {
 	if i == nil {
 		return nil
 	}

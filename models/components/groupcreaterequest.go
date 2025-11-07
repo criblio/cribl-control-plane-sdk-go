@@ -61,6 +61,7 @@ type GroupCreateRequestType string
 
 const (
 	GroupCreateRequestTypeLakeAccess GroupCreateRequestType = "lake_access"
+	GroupCreateRequestTypeRiptide    GroupCreateRequestType = "riptide"
 )
 
 func (e GroupCreateRequestType) ToPointer() *GroupCreateRequestType {
