@@ -399,3 +399,9 @@ output := components.CreateOutputChronicle(components.OutputChronicle{/* values 
 output := components.CreateOutputDatabricks(components.OutputDatabricks{/* values here */})
 ```
 
+### OutputMicrosoftFabric
+
+```go
+output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabric{/* values here */})
+```
+

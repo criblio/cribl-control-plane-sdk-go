@@ -291,6 +291,10 @@ func (u *UpdateOutputByIDRequest) GetOutputDatabricks() *components.OutputDatabr
 	return u.GetOutput().OutputDatabricks
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputMicrosoftFabric() *components.OutputMicrosoftFabric {
+	return u.GetOutput().OutputMicrosoftFabric
+}
+
 // UpdateOutputByIDResponseBody - a list of Destination objects
 type UpdateOutputByIDResponseBody struct {
 	// number of items present in the items array

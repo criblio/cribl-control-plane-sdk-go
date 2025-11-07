@@ -78,6 +78,7 @@ const (
 	OutputTypeSentinelOneAiSiem      OutputType = "sentinel_one_ai_siem"
 	OutputTypeChronicle              OutputType = "chronicle"
 	OutputTypeDatabricks             OutputType = "databricks"
+	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 )
 
 type Output struct {
@@ -147,6 +148,7 @@ type Output struct {
 	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline,name=Output"`
 	OutputChronicle              *OutputChronicle              `queryParam:"inline,name=Output"`
 	OutputDatabricks             *OutputDatabricks             `queryParam:"inline,name=Output"`
+	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline,name=Output"`
 
 	Type OutputType
 }
@@ -940,6 +942,18 @@ func CreateOutputDatabricks(databricks OutputDatabricks) Output {
 	}
 }
 
+func CreateOutputMicrosoftFabric(microsoftFabric OutputMicrosoftFabric) Output {
+	typ := OutputTypeMicrosoftFabric
+
+	typStr := OutputMicrosoftFabricType(typ)
+	microsoftFabric.Type = typStr
+
+	return Output{
+		OutputMicrosoftFabric: &microsoftFabric,
+		Type:                  typ,
+	}
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1546,6 +1560,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputDatabricks = outputDatabricks
 		u.Type = OutputTypeDatabricks
 		return nil
+	case "microsoft_fabric":
+		outputMicrosoftFabric := new(OutputMicrosoftFabric)
+		if err := utils.UnmarshalJSON(data, &outputMicrosoftFabric, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == microsoft_fabric) type OutputMicrosoftFabric within Output: %w", string(data), err)
+		}
+
+		u.OutputMicrosoftFabric = outputMicrosoftFabric
+		u.Type = OutputTypeMicrosoftFabric
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
@@ -1814,6 +1837,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputDatabricks != nil {
 		return utils.MarshalJSON(u.OutputDatabricks, "", true)
+	}
+
+	if u.OutputMicrosoftFabric != nil {
+		return utils.MarshalJSON(u.OutputMicrosoftFabric, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

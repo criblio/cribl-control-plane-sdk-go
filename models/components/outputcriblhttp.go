@@ -318,6 +318,45 @@ func (o *OutputCriblHTTPTimeoutRetrySettings) GetMaxBackoff() *float64 {
 	return o.MaxBackoff
 }
 
+type OutputCriblHTTPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string  `json:"tokenSecret"`
+	Enabled     *bool   `default:"true" json:"enabled"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (o OutputCriblHTTPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblHTTPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblHTTPAuthToken) GetTokenSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenSecret
+}
+
+func (o *OutputCriblHTTPAuthToken) GetEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Enabled
+}
+
+func (o *OutputCriblHTTPAuthToken) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
 // OutputCriblHTTPBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputCriblHTTPBackpressureBehavior string
 
@@ -470,6 +509,8 @@ type OutputCriblHTTP struct {
 	TimeoutRetrySettings  *OutputCriblHTTPTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+	AuthTokens []OutputCriblHTTPAuthToken `json:"authTokens,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputCriblHTTPBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                              `json:"description,omitempty"`
@@ -677,6 +718,13 @@ func (o *OutputCriblHTTP) GetResponseHonorRetryAfterHeader() *bool {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputCriblHTTP) GetAuthTokens() []OutputCriblHTTPAuthToken {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
 }
 
 func (o *OutputCriblHTTP) GetOnBackpressure() *OutputCriblHTTPBackpressureBehavior {
