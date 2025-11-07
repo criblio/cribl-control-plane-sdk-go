@@ -47,12 +47,18 @@ func (e OutputExabeamSignatureVersion) ToPointer() *OutputExabeamSignatureVersio
 type OutputExabeamObjectACL string
 
 const (
-	OutputExabeamObjectACLPrivate                OutputExabeamObjectACL = "private"
-	OutputExabeamObjectACLBucketOwnerRead        OutputExabeamObjectACL = "bucket-owner-read"
+	// OutputExabeamObjectACLPrivate private
+	OutputExabeamObjectACLPrivate OutputExabeamObjectACL = "private"
+	// OutputExabeamObjectACLBucketOwnerRead bucket-owner-read
+	OutputExabeamObjectACLBucketOwnerRead OutputExabeamObjectACL = "bucket-owner-read"
+	// OutputExabeamObjectACLBucketOwnerFullControl bucket-owner-full-control
 	OutputExabeamObjectACLBucketOwnerFullControl OutputExabeamObjectACL = "bucket-owner-full-control"
-	OutputExabeamObjectACLProjectPrivate         OutputExabeamObjectACL = "project-private"
-	OutputExabeamObjectACLAuthenticatedRead      OutputExabeamObjectACL = "authenticated-read"
-	OutputExabeamObjectACLPublicRead             OutputExabeamObjectACL = "public-read"
+	// OutputExabeamObjectACLProjectPrivate project-private
+	OutputExabeamObjectACLProjectPrivate OutputExabeamObjectACL = "project-private"
+	// OutputExabeamObjectACLAuthenticatedRead authenticated-read
+	OutputExabeamObjectACLAuthenticatedRead OutputExabeamObjectACL = "authenticated-read"
+	// OutputExabeamObjectACLPublicRead public-read
+	OutputExabeamObjectACLPublicRead OutputExabeamObjectACL = "public-read"
 )
 
 func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
@@ -63,10 +69,14 @@ func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
 type OutputExabeamStorageClass string
 
 const (
+	// OutputExabeamStorageClassStandard Standard Storage
 	OutputExabeamStorageClassStandard OutputExabeamStorageClass = "STANDARD"
+	// OutputExabeamStorageClassNearline Nearline Storage
 	OutputExabeamStorageClassNearline OutputExabeamStorageClass = "NEARLINE"
+	// OutputExabeamStorageClassColdline Coldline Storage
 	OutputExabeamStorageClassColdline OutputExabeamStorageClass = "COLDLINE"
-	OutputExabeamStorageClassArchive  OutputExabeamStorageClass = "ARCHIVE"
+	// OutputExabeamStorageClassArchive Archive Storage
+	OutputExabeamStorageClassArchive OutputExabeamStorageClass = "ARCHIVE"
 )
 
 func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
@@ -77,8 +87,10 @@ func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
 type OutputExabeamBackpressureBehavior string
 
 const (
+	// OutputExabeamBackpressureBehaviorBlock Block
 	OutputExabeamBackpressureBehaviorBlock OutputExabeamBackpressureBehavior = "block"
-	OutputExabeamBackpressureBehaviorDrop  OutputExabeamBackpressureBehavior = "drop"
+	// OutputExabeamBackpressureBehaviorDrop Drop
+	OutputExabeamBackpressureBehaviorDrop OutputExabeamBackpressureBehavior = "drop"
 )
 
 func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressureBehavior {
@@ -89,8 +101,10 @@ func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressur
 type OutputExabeamDiskSpaceProtection string
 
 const (
+	// OutputExabeamDiskSpaceProtectionBlock Block
 	OutputExabeamDiskSpaceProtectionBlock OutputExabeamDiskSpaceProtection = "block"
-	OutputExabeamDiskSpaceProtectionDrop  OutputExabeamDiskSpaceProtection = "drop"
+	// OutputExabeamDiskSpaceProtectionDrop Drop
+	OutputExabeamDiskSpaceProtectionDrop OutputExabeamDiskSpaceProtection = "drop"
 )
 
 func (e OutputExabeamDiskSpaceProtection) ToPointer() *OutputExabeamDiskSpaceProtection {

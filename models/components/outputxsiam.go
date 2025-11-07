@@ -65,9 +65,12 @@ func (o *OutputXsiamExtraHTTPHeader) GetValue() string {
 type OutputXsiamFailedRequestLoggingMode string
 
 const (
-	OutputXsiamFailedRequestLoggingModePayload           OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayload Payload
+	OutputXsiamFailedRequestLoggingModePayload OutputXsiamFailedRequestLoggingMode = "payload"
+	// OutputXsiamFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputXsiamFailedRequestLoggingModePayloadAndHeaders OutputXsiamFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputXsiamFailedRequestLoggingModeNone              OutputXsiamFailedRequestLoggingMode = "none"
+	// OutputXsiamFailedRequestLoggingModeNone None
+	OutputXsiamFailedRequestLoggingModeNone OutputXsiamFailedRequestLoggingMode = "none"
 )
 
 func (e OutputXsiamFailedRequestLoggingMode) ToPointer() *OutputXsiamFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputXsiamTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputXsiamBackpressureBehavior string
 
 const (
+	// OutputXsiamBackpressureBehaviorBlock Block
 	OutputXsiamBackpressureBehaviorBlock OutputXsiamBackpressureBehavior = "block"
-	OutputXsiamBackpressureBehaviorDrop  OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorDrop Drop
+	OutputXsiamBackpressureBehaviorDrop OutputXsiamBackpressureBehavior = "drop"
+	// OutputXsiamBackpressureBehaviorQueue Persistent Queue
 	OutputXsiamBackpressureBehaviorQueue OutputXsiamBackpressureBehavior = "queue"
 )
 
@@ -229,11 +235,29 @@ func (o *OutputXsiamURL) GetWeight() *float64 {
 	return o.Weight
 }
 
+// OutputXsiamMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputXsiamMode string
+
+const (
+	// OutputXsiamModeError Error
+	OutputXsiamModeError OutputXsiamMode = "error"
+	// OutputXsiamModeAlways Backpressure
+	OutputXsiamModeAlways OutputXsiamMode = "always"
+	// OutputXsiamModeBackpressure Always On
+	OutputXsiamModeBackpressure OutputXsiamMode = "backpressure"
+)
+
+func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
+	return &e
+}
+
 // OutputXsiamCompression - Codec to use to compress the persisted data
 type OutputXsiamCompression string
 
 const (
+	// OutputXsiamCompressionNone None
 	OutputXsiamCompressionNone OutputXsiamCompression = "none"
+	// OutputXsiamCompressionGzip Gzip
 	OutputXsiamCompressionGzip OutputXsiamCompression = "gzip"
 )
 
@@ -245,24 +269,13 @@ func (e OutputXsiamCompression) ToPointer() *OutputXsiamCompression {
 type OutputXsiamQueueFullBehavior string
 
 const (
+	// OutputXsiamQueueFullBehaviorBlock Block
 	OutputXsiamQueueFullBehaviorBlock OutputXsiamQueueFullBehavior = "block"
-	OutputXsiamQueueFullBehaviorDrop  OutputXsiamQueueFullBehavior = "drop"
+	// OutputXsiamQueueFullBehaviorDrop Drop new data
+	OutputXsiamQueueFullBehaviorDrop OutputXsiamQueueFullBehavior = "drop"
 )
 
 func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior {
-	return &e
-}
-
-// OutputXsiamMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputXsiamMode string
-
-const (
-	OutputXsiamModeError        OutputXsiamMode = "error"
-	OutputXsiamModeBackpressure OutputXsiamMode = "backpressure"
-	OutputXsiamModeAlways       OutputXsiamMode = "always"
-)
-
-func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
 	return &e
 }
 
@@ -343,6 +356,16 @@ type OutputXsiam struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputXsiamMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -353,9 +376,7 @@ type OutputXsiam struct {
 	PqCompress *OutputXsiamCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputXsiamQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputXsiamMode       `default:"error" json:"pqMode"`
-	PqControls *OutputXsiamPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputXsiamPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputXsiam) MarshalJSON() ([]byte, error) {
@@ -593,6 +614,41 @@ func (o *OutputXsiam) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputXsiam) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiam) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiam) GetPqMode() *OutputXsiamMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiam) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiam) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputXsiam) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -626,13 +682,6 @@ func (o *OutputXsiam) GetPqOnBackpressure() *OutputXsiamQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputXsiam) GetPqMode() *OutputXsiamMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputXsiam) GetPqControls() *OutputXsiamPqControls {

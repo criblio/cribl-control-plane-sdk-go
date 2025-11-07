@@ -65,7 +65,9 @@ func (i *InputOffice365MgmtConnection) GetOutput() string {
 type InputOffice365MgmtMode string
 
 const (
-	InputOffice365MgmtModeSmart  InputOffice365MgmtMode = "smart"
+	// InputOffice365MgmtModeSmart Smart
+	InputOffice365MgmtModeSmart InputOffice365MgmtMode = "smart"
+	// InputOffice365MgmtModeAlways Always On
 	InputOffice365MgmtModeAlways InputOffice365MgmtMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputOffice365MgmtMode) ToPointer() *InputOffice365MgmtMode {
 type InputOffice365MgmtCompression string
 
 const (
+	// InputOffice365MgmtCompressionNone None
 	InputOffice365MgmtCompressionNone InputOffice365MgmtCompression = "none"
+	// InputOffice365MgmtCompressionGzip Gzip
 	InputOffice365MgmtCompressionGzip InputOffice365MgmtCompression = "gzip"
 )
 
@@ -188,10 +192,14 @@ func (i *InputOffice365MgmtPq) GetPqControls() *InputOffice365MgmtPqControls {
 type InputOffice365MgmtSubscriptionPlan string
 
 const (
+	// InputOffice365MgmtSubscriptionPlanEnterpriseGcc Office 365 Enterprise
 	InputOffice365MgmtSubscriptionPlanEnterpriseGcc InputOffice365MgmtSubscriptionPlan = "enterprise_gcc"
-	InputOffice365MgmtSubscriptionPlanGcc           InputOffice365MgmtSubscriptionPlan = "gcc"
-	InputOffice365MgmtSubscriptionPlanGccHigh       InputOffice365MgmtSubscriptionPlan = "gcc_high"
-	InputOffice365MgmtSubscriptionPlanDod           InputOffice365MgmtSubscriptionPlan = "dod"
+	// InputOffice365MgmtSubscriptionPlanGcc Office 365 GCC
+	InputOffice365MgmtSubscriptionPlanGcc InputOffice365MgmtSubscriptionPlan = "gcc"
+	// InputOffice365MgmtSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365MgmtSubscriptionPlanGccHigh InputOffice365MgmtSubscriptionPlan = "gcc_high"
+	// InputOffice365MgmtSubscriptionPlanDod Office 365 DoD
+	InputOffice365MgmtSubscriptionPlanDod InputOffice365MgmtSubscriptionPlan = "dod"
 )
 
 func (e InputOffice365MgmtSubscriptionPlan) ToPointer() *InputOffice365MgmtSubscriptionPlan {
@@ -304,9 +312,12 @@ func (i *InputOffice365MgmtContentConfig) GetEnabled() *bool {
 type InputOffice365MgmtRetryType string
 
 const (
-	InputOffice365MgmtRetryTypeNone    InputOffice365MgmtRetryType = "none"
+	// InputOffice365MgmtRetryTypeNone Disabled
+	InputOffice365MgmtRetryTypeNone InputOffice365MgmtRetryType = "none"
+	// InputOffice365MgmtRetryTypeBackoff Backoff
 	InputOffice365MgmtRetryTypeBackoff InputOffice365MgmtRetryType = "backoff"
-	InputOffice365MgmtRetryTypeStatic  InputOffice365MgmtRetryType = "static"
+	// InputOffice365MgmtRetryTypeStatic Static
+	InputOffice365MgmtRetryTypeStatic InputOffice365MgmtRetryType = "static"
 )
 
 func (e InputOffice365MgmtRetryType) ToPointer() *InputOffice365MgmtRetryType {

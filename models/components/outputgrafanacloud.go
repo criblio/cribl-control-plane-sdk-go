@@ -36,8 +36,10 @@ func (e *OutputGrafanaCloudType2) UnmarshalJSON(data []byte) error {
 type OutputGrafanaCloudMessageFormat2 string
 
 const (
+	// OutputGrafanaCloudMessageFormat2Protobuf Protobuf
 	OutputGrafanaCloudMessageFormat2Protobuf OutputGrafanaCloudMessageFormat2 = "protobuf"
-	OutputGrafanaCloudMessageFormat2JSON     OutputGrafanaCloudMessageFormat2 = "json"
+	// OutputGrafanaCloudMessageFormat2JSON JSON
+	OutputGrafanaCloudMessageFormat2JSON OutputGrafanaCloudMessageFormat2 = "json"
 )
 
 func (e OutputGrafanaCloudMessageFormat2) ToPointer() *OutputGrafanaCloudMessageFormat2 {
@@ -77,10 +79,15 @@ func (o *OutputGrafanaCloudLabel2) GetValue() string {
 type OutputGrafanaCloudPrometheusAuthAuthenticationType2 string
 
 const (
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2None              OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "none"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2Token             OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "token"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret        OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "textSecret"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic             OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2None None
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2None OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "none"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2Token Auth token
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2Token OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "token"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret Auth token (text secret)
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2TextSecret OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "textSecret"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic Basic
+	OutputGrafanaCloudPrometheusAuthAuthenticationType2Basic OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType2CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudPrometheusAuthAuthenticationType2CredentialsSecret OutputGrafanaCloudPrometheusAuthAuthenticationType2 = "credentialsSecret"
 )
 
@@ -158,10 +165,15 @@ func (o *OutputGrafanaCloudPrometheusAuth2) GetCredentialsSecret() *string {
 type OutputGrafanaCloudLokiAuthAuthenticationType2 string
 
 const (
-	OutputGrafanaCloudLokiAuthAuthenticationType2None              OutputGrafanaCloudLokiAuthAuthenticationType2 = "none"
-	OutputGrafanaCloudLokiAuthAuthenticationType2Token             OutputGrafanaCloudLokiAuthAuthenticationType2 = "token"
-	OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret        OutputGrafanaCloudLokiAuthAuthenticationType2 = "textSecret"
-	OutputGrafanaCloudLokiAuthAuthenticationType2Basic             OutputGrafanaCloudLokiAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2None None
+	OutputGrafanaCloudLokiAuthAuthenticationType2None OutputGrafanaCloudLokiAuthAuthenticationType2 = "none"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2Token Auth token
+	OutputGrafanaCloudLokiAuthAuthenticationType2Token OutputGrafanaCloudLokiAuthAuthenticationType2 = "token"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret Auth token (text secret)
+	OutputGrafanaCloudLokiAuthAuthenticationType2TextSecret OutputGrafanaCloudLokiAuthAuthenticationType2 = "textSecret"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2Basic Basic
+	OutputGrafanaCloudLokiAuthAuthenticationType2Basic OutputGrafanaCloudLokiAuthAuthenticationType2 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType2CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudLokiAuthAuthenticationType2CredentialsSecret OutputGrafanaCloudLokiAuthAuthenticationType2 = "credentialsSecret"
 )
 
@@ -270,9 +282,12 @@ func (o *OutputGrafanaCloudExtraHTTPHeader2) GetValue() string {
 type OutputGrafanaCloudFailedRequestLoggingMode2 string
 
 const (
-	OutputGrafanaCloudFailedRequestLoggingMode2Payload           OutputGrafanaCloudFailedRequestLoggingMode2 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode2Payload Payload
+	OutputGrafanaCloudFailedRequestLoggingMode2Payload OutputGrafanaCloudFailedRequestLoggingMode2 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode2PayloadAndHeaders Payload + Headers
 	OutputGrafanaCloudFailedRequestLoggingMode2PayloadAndHeaders OutputGrafanaCloudFailedRequestLoggingMode2 = "payloadAndHeaders"
-	OutputGrafanaCloudFailedRequestLoggingMode2None              OutputGrafanaCloudFailedRequestLoggingMode2 = "none"
+	// OutputGrafanaCloudFailedRequestLoggingMode2None None
+	OutputGrafanaCloudFailedRequestLoggingMode2None OutputGrafanaCloudFailedRequestLoggingMode2 = "none"
 )
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode2) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode2 {
@@ -382,8 +397,11 @@ func (o *OutputGrafanaCloudTimeoutRetrySettings2) GetMaxBackoff() *float64 {
 type OutputGrafanaCloudBackpressureBehavior2 string
 
 const (
+	// OutputGrafanaCloudBackpressureBehavior2Block Block
 	OutputGrafanaCloudBackpressureBehavior2Block OutputGrafanaCloudBackpressureBehavior2 = "block"
-	OutputGrafanaCloudBackpressureBehavior2Drop  OutputGrafanaCloudBackpressureBehavior2 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior2Drop Drop
+	OutputGrafanaCloudBackpressureBehavior2Drop OutputGrafanaCloudBackpressureBehavior2 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior2Queue Persistent Queue
 	OutputGrafanaCloudBackpressureBehavior2Queue OutputGrafanaCloudBackpressureBehavior2 = "queue"
 )
 
@@ -391,11 +409,29 @@ func (e OutputGrafanaCloudBackpressureBehavior2) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
+// OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGrafanaCloudMode2 string
+
+const (
+	// OutputGrafanaCloudMode2Error Error
+	OutputGrafanaCloudMode2Error OutputGrafanaCloudMode2 = "error"
+	// OutputGrafanaCloudMode2Always Backpressure
+	OutputGrafanaCloudMode2Always OutputGrafanaCloudMode2 = "always"
+	// OutputGrafanaCloudMode2Backpressure Always On
+	OutputGrafanaCloudMode2Backpressure OutputGrafanaCloudMode2 = "backpressure"
+)
+
+func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
+	return &e
+}
+
 // OutputGrafanaCloudCompression2 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression2 string
 
 const (
+	// OutputGrafanaCloudCompression2None None
 	OutputGrafanaCloudCompression2None OutputGrafanaCloudCompression2 = "none"
+	// OutputGrafanaCloudCompression2Gzip Gzip
 	OutputGrafanaCloudCompression2Gzip OutputGrafanaCloudCompression2 = "gzip"
 )
 
@@ -407,24 +443,13 @@ func (e OutputGrafanaCloudCompression2) ToPointer() *OutputGrafanaCloudCompressi
 type OutputGrafanaCloudQueueFullBehavior2 string
 
 const (
+	// OutputGrafanaCloudQueueFullBehavior2Block Block
 	OutputGrafanaCloudQueueFullBehavior2Block OutputGrafanaCloudQueueFullBehavior2 = "block"
-	OutputGrafanaCloudQueueFullBehavior2Drop  OutputGrafanaCloudQueueFullBehavior2 = "drop"
+	// OutputGrafanaCloudQueueFullBehavior2Drop Drop new data
+	OutputGrafanaCloudQueueFullBehavior2Drop OutputGrafanaCloudQueueFullBehavior2 = "drop"
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQueueFullBehavior2 {
-	return &e
-}
-
-// OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGrafanaCloudMode2 string
-
-const (
-	OutputGrafanaCloudMode2Error        OutputGrafanaCloudMode2 = "error"
-	OutputGrafanaCloudMode2Backpressure OutputGrafanaCloudMode2 = "backpressure"
-	OutputGrafanaCloudMode2Always       OutputGrafanaCloudMode2 = "always"
-)
-
-func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
 	return &e
 }
 
@@ -500,6 +525,16 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	Description    *string                                  `json:"description,omitempty"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `default:"true" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputGrafanaCloudMode2 `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -510,9 +545,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	PqCompress *OutputGrafanaCloudCompression2 `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGrafanaCloudQueueFullBehavior2 `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGrafanaCloudMode2       `default:"error" json:"pqMode"`
-	PqControls *OutputGrafanaCloudPqControls2 `json:"pqControls,omitempty"`
+	PqControls       *OutputGrafanaCloudPqControls2        `json:"pqControls,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -736,6 +769,41 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetCompress() *bool {
 	return o.Compress
 }
 
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMode() *OutputGrafanaCloudMode2 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -769,13 +837,6 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetPqOnBackpressure() *OutputGrafanaCl
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetPqMode() *OutputGrafanaCloudMode2 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud2) GetPqControls() *OutputGrafanaCloudPqControls2 {
@@ -812,8 +873,10 @@ func (e *OutputGrafanaCloudType1) UnmarshalJSON(data []byte) error {
 type OutputGrafanaCloudMessageFormat1 string
 
 const (
+	// OutputGrafanaCloudMessageFormat1Protobuf Protobuf
 	OutputGrafanaCloudMessageFormat1Protobuf OutputGrafanaCloudMessageFormat1 = "protobuf"
-	OutputGrafanaCloudMessageFormat1JSON     OutputGrafanaCloudMessageFormat1 = "json"
+	// OutputGrafanaCloudMessageFormat1JSON JSON
+	OutputGrafanaCloudMessageFormat1JSON OutputGrafanaCloudMessageFormat1 = "json"
 )
 
 func (e OutputGrafanaCloudMessageFormat1) ToPointer() *OutputGrafanaCloudMessageFormat1 {
@@ -853,10 +916,15 @@ func (o *OutputGrafanaCloudLabel1) GetValue() string {
 type OutputGrafanaCloudPrometheusAuthAuthenticationType1 string
 
 const (
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1None              OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "none"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1Token             OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "token"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret        OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "textSecret"
-	OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic             OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1None None
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1None OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "none"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1Token Auth token
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1Token OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "token"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret Auth token (text secret)
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1TextSecret OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "textSecret"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic Basic
+	OutputGrafanaCloudPrometheusAuthAuthenticationType1Basic OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudPrometheusAuthAuthenticationType1CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudPrometheusAuthAuthenticationType1CredentialsSecret OutputGrafanaCloudPrometheusAuthAuthenticationType1 = "credentialsSecret"
 )
 
@@ -934,10 +1002,15 @@ func (o *OutputGrafanaCloudPrometheusAuth1) GetCredentialsSecret() *string {
 type OutputGrafanaCloudLokiAuthAuthenticationType1 string
 
 const (
-	OutputGrafanaCloudLokiAuthAuthenticationType1None              OutputGrafanaCloudLokiAuthAuthenticationType1 = "none"
-	OutputGrafanaCloudLokiAuthAuthenticationType1Token             OutputGrafanaCloudLokiAuthAuthenticationType1 = "token"
-	OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret        OutputGrafanaCloudLokiAuthAuthenticationType1 = "textSecret"
-	OutputGrafanaCloudLokiAuthAuthenticationType1Basic             OutputGrafanaCloudLokiAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1None None
+	OutputGrafanaCloudLokiAuthAuthenticationType1None OutputGrafanaCloudLokiAuthAuthenticationType1 = "none"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1Token Auth token
+	OutputGrafanaCloudLokiAuthAuthenticationType1Token OutputGrafanaCloudLokiAuthAuthenticationType1 = "token"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret Auth token (text secret)
+	OutputGrafanaCloudLokiAuthAuthenticationType1TextSecret OutputGrafanaCloudLokiAuthAuthenticationType1 = "textSecret"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1Basic Basic
+	OutputGrafanaCloudLokiAuthAuthenticationType1Basic OutputGrafanaCloudLokiAuthAuthenticationType1 = "basic"
+	// OutputGrafanaCloudLokiAuthAuthenticationType1CredentialsSecret Basic (credentials secret)
 	OutputGrafanaCloudLokiAuthAuthenticationType1CredentialsSecret OutputGrafanaCloudLokiAuthAuthenticationType1 = "credentialsSecret"
 )
 
@@ -1046,9 +1119,12 @@ func (o *OutputGrafanaCloudExtraHTTPHeader1) GetValue() string {
 type OutputGrafanaCloudFailedRequestLoggingMode1 string
 
 const (
-	OutputGrafanaCloudFailedRequestLoggingMode1Payload           OutputGrafanaCloudFailedRequestLoggingMode1 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode1Payload Payload
+	OutputGrafanaCloudFailedRequestLoggingMode1Payload OutputGrafanaCloudFailedRequestLoggingMode1 = "payload"
+	// OutputGrafanaCloudFailedRequestLoggingMode1PayloadAndHeaders Payload + Headers
 	OutputGrafanaCloudFailedRequestLoggingMode1PayloadAndHeaders OutputGrafanaCloudFailedRequestLoggingMode1 = "payloadAndHeaders"
-	OutputGrafanaCloudFailedRequestLoggingMode1None              OutputGrafanaCloudFailedRequestLoggingMode1 = "none"
+	// OutputGrafanaCloudFailedRequestLoggingMode1None None
+	OutputGrafanaCloudFailedRequestLoggingMode1None OutputGrafanaCloudFailedRequestLoggingMode1 = "none"
 )
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode1) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode1 {
@@ -1158,8 +1234,11 @@ func (o *OutputGrafanaCloudTimeoutRetrySettings1) GetMaxBackoff() *float64 {
 type OutputGrafanaCloudBackpressureBehavior1 string
 
 const (
+	// OutputGrafanaCloudBackpressureBehavior1Block Block
 	OutputGrafanaCloudBackpressureBehavior1Block OutputGrafanaCloudBackpressureBehavior1 = "block"
-	OutputGrafanaCloudBackpressureBehavior1Drop  OutputGrafanaCloudBackpressureBehavior1 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior1Drop Drop
+	OutputGrafanaCloudBackpressureBehavior1Drop OutputGrafanaCloudBackpressureBehavior1 = "drop"
+	// OutputGrafanaCloudBackpressureBehavior1Queue Persistent Queue
 	OutputGrafanaCloudBackpressureBehavior1Queue OutputGrafanaCloudBackpressureBehavior1 = "queue"
 )
 
@@ -1167,11 +1246,29 @@ func (e OutputGrafanaCloudBackpressureBehavior1) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
+// OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGrafanaCloudMode1 string
+
+const (
+	// OutputGrafanaCloudMode1Error Error
+	OutputGrafanaCloudMode1Error OutputGrafanaCloudMode1 = "error"
+	// OutputGrafanaCloudMode1Always Backpressure
+	OutputGrafanaCloudMode1Always OutputGrafanaCloudMode1 = "always"
+	// OutputGrafanaCloudMode1Backpressure Always On
+	OutputGrafanaCloudMode1Backpressure OutputGrafanaCloudMode1 = "backpressure"
+)
+
+func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
+	return &e
+}
+
 // OutputGrafanaCloudCompression1 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression1 string
 
 const (
+	// OutputGrafanaCloudCompression1None None
 	OutputGrafanaCloudCompression1None OutputGrafanaCloudCompression1 = "none"
+	// OutputGrafanaCloudCompression1Gzip Gzip
 	OutputGrafanaCloudCompression1Gzip OutputGrafanaCloudCompression1 = "gzip"
 )
 
@@ -1183,24 +1280,13 @@ func (e OutputGrafanaCloudCompression1) ToPointer() *OutputGrafanaCloudCompressi
 type OutputGrafanaCloudQueueFullBehavior1 string
 
 const (
+	// OutputGrafanaCloudQueueFullBehavior1Block Block
 	OutputGrafanaCloudQueueFullBehavior1Block OutputGrafanaCloudQueueFullBehavior1 = "block"
-	OutputGrafanaCloudQueueFullBehavior1Drop  OutputGrafanaCloudQueueFullBehavior1 = "drop"
+	// OutputGrafanaCloudQueueFullBehavior1Drop Drop new data
+	OutputGrafanaCloudQueueFullBehavior1Drop OutputGrafanaCloudQueueFullBehavior1 = "drop"
 )
 
 func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQueueFullBehavior1 {
-	return &e
-}
-
-// OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGrafanaCloudMode1 string
-
-const (
-	OutputGrafanaCloudMode1Error        OutputGrafanaCloudMode1 = "error"
-	OutputGrafanaCloudMode1Backpressure OutputGrafanaCloudMode1 = "backpressure"
-	OutputGrafanaCloudMode1Always       OutputGrafanaCloudMode1 = "always"
-)
-
-func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
 	return &e
 }
 
@@ -1276,6 +1362,16 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	Description    *string                                  `json:"description,omitempty"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `default:"true" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputGrafanaCloudMode1 `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -1286,9 +1382,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	PqCompress *OutputGrafanaCloudCompression1 `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGrafanaCloudQueueFullBehavior1 `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGrafanaCloudMode1       `default:"error" json:"pqMode"`
-	PqControls *OutputGrafanaCloudPqControls1 `json:"pqControls,omitempty"`
+	PqControls       *OutputGrafanaCloudPqControls1        `json:"pqControls,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -1512,6 +1606,41 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetCompress() *bool {
 	return o.Compress
 }
 
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMode() *OutputGrafanaCloudMode1 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -1545,13 +1674,6 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetPqOnBackpressure() *OutputGrafanaCl
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetPqMode() *OutputGrafanaCloudMode1 {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputGrafanaCloudGrafanaCloud1) GetPqControls() *OutputGrafanaCloudPqControls1 {

@@ -7,10 +7,10 @@ import (
 )
 
 type CreateConfigGroupByProductRequest struct {
-	// Name of the Cribl product to add the Worker Group or Edge Fleet to.
+	// required Name of the Cribl product to add the Worker Group or Edge Fleet to.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// ConfigGroup object
-	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
+	// GroupCreateRequest object
+	GroupCreateRequest components.GroupCreateRequest `request:"mediaType=application/json"`
 }
 
 func (c *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore {
@@ -20,11 +20,11 @@ func (c *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore
 	return c.Product
 }
 
-func (c *CreateConfigGroupByProductRequest) GetConfigGroup() components.ConfigGroup {
+func (c *CreateConfigGroupByProductRequest) GetGroupCreateRequest() components.GroupCreateRequest {
 	if c == nil {
-		return components.ConfigGroup{}
+		return components.GroupCreateRequest{}
 	}
-	return c.ConfigGroup
+	return c.GroupCreateRequest
 }
 
 // CreateConfigGroupByProductResponseBody - a list of ConfigGroup objects
