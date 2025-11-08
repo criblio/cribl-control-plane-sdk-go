@@ -462,6 +462,8 @@ type OutputSyslog struct {
 	MaxRecordSize *float64 `default:"1500" json:"maxRecordSize"`
 	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
 	UDPDNSResolvePeriodSec *float64 `default:"0" json:"udpDnsResolvePeriodSec"`
+	// Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool `default:"false" json:"enableIpSpoofing"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -704,6 +706,13 @@ func (o *OutputSyslog) GetUDPDNSResolvePeriodSec() *float64 {
 		return nil
 	}
 	return o.UDPDNSResolvePeriodSec
+}
+
+func (o *OutputSyslog) GetEnableIPSpoofing() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableIPSpoofing
 }
 
 func (o *OutputSyslog) GetPqStrictOrdering() *bool {
