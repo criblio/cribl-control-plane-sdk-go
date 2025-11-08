@@ -48,7 +48,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedMasterWorkerEntry != nil {
         // handle response
     }
 }
@@ -105,7 +105,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedNumber != nil {
         // handle response
     }
 }

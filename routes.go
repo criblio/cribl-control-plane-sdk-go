@@ -201,12 +201,12 @@ func (s *Routes) List(ctx context.Context, opts ...operations.Option) (*operatio
 				return nil, err
 			}
 
-			var out operations.ListRoutesResponseBody
+			var out components.CountedRoutes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedRoutes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -438,12 +438,12 @@ func (s *Routes) Get(ctx context.Context, id string, opts ...operations.Option) 
 				return nil, err
 			}
 
-			var out operations.GetRoutesByIDResponseBody
+			var out components.CountedRoutes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedRoutes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -683,12 +683,12 @@ func (s *Routes) Update(ctx context.Context, id string, routes components.Routes
 				return nil, err
 			}
 
-			var out operations.UpdateRoutesByIDResponseBody
+			var out components.CountedRoutes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedRoutes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -928,12 +928,12 @@ func (s *Routes) Append(ctx context.Context, id string, requestBody []components
 				return nil, err
 			}
 
-			var out operations.CreateRoutesAppendByIDResponseBody
+			var out components.CountedRoutes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedRoutes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

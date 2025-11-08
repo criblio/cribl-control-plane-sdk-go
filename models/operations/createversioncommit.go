@@ -27,31 +27,10 @@ func (c *CreateVersionCommitRequest) GetGitCommitParams() components.GitCommitPa
 	return c.GitCommitParams
 }
 
-// CreateVersionCommitResponseBody - a list of GitCommitSummary objects
-type CreateVersionCommitResponseBody struct {
-	// number of items present in the items array
-	Count *int64                        `json:"count,omitempty"`
-	Items []components.GitCommitSummary `json:"items,omitempty"`
-}
-
-func (c *CreateVersionCommitResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateVersionCommitResponseBody) GetItems() []components.GitCommitSummary {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreateVersionCommitResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitCommitSummary objects
-	Object *CreateVersionCommitResponseBody
+	CountedGitCommitSummary *components.CountedGitCommitSummary
 }
 
 func (c *CreateVersionCommitResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (c *CreateVersionCommitResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateVersionCommitResponse) GetObject() *CreateVersionCommitResponseBody {
+func (c *CreateVersionCommitResponse) GetCountedGitCommitSummary() *components.CountedGitCommitSummary {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedGitCommitSummary
 }

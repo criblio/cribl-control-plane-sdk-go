@@ -68,9 +68,9 @@ func main() {
 		log.Fatalf("Error checking for existing worker group: %v", err)
 	}
 
-	if getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse.CountedConfigGroup != nil &&
+		getResponse.CountedConfigGroup.Items != nil &&
+		len(getResponse.CountedConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Try different group id.\n", WORKER_GROUP_ID)
 		return
 	}
@@ -97,7 +97,7 @@ func main() {
 		log.Fatalf("Error creating Worker Group: %v", err)
 	}
 
-	if createResponse.Object == nil {
+	if createResponse.CountedConfigGroup == nil {
 		log.Fatal("No response received when creating Worker Group")
 	}
 
@@ -109,12 +109,12 @@ func main() {
 		log.Fatalf("Error fetching Worker Group for update: %v", err)
 	}
 
-	if getUpdatedResponse.Object == nil || getUpdatedResponse.Object.Items == nil || len(getUpdatedResponse.Object.Items) == 0 {
+	if getUpdatedResponse.CountedConfigGroup == nil || getUpdatedResponse.CountedConfigGroup.Items == nil || len(getUpdatedResponse.CountedConfigGroup.Items) == 0 {
 		log.Fatal("Worker Group not found after creation")
 	}
 
 	// Scale and provision the Worker Group - modify only the fields that need to change
-	updateGroup := getUpdatedResponse.Object.Items[0]
+	updateGroup := getUpdatedResponse.CountedConfigGroup.Items[0]
 	updateGroup.EstimatedIngestRate = components.ConfigGroupEstimatedIngestRateRate48MbPerSec.ToPointer() // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
 	updateGroup.Provisioned = criblcontrolplanesdkgo.Bool(true)
 
@@ -123,7 +123,7 @@ func main() {
 		log.Fatalf("Error updating Worker Group: %v", err)
 	}
 
-	if updateResponse.Object == nil {
+	if updateResponse.CountedConfigGroup == nil {
 		log.Fatal("No response received when updating Worker Group")
 	}
 
