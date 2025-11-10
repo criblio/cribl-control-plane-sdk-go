@@ -3,632 +3,18 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputMskType string
-
-const (
-	InputMskTypeMsk InputMskType = "msk"
-)
-
-func (e InputMskType) ToPointer() *InputMskType {
-	return &e
-}
-func (e *InputMskType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "msk":
-		*e = InputMskType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputMskType: %v", v)
-	}
-}
-
-type InputMskConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputMskConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputMskConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputMskMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputMskMode string
-
-const (
-	InputMskModeSmart  InputMskMode = "smart"
-	InputMskModeAlways InputMskMode = "always"
-)
-
-func (e InputMskMode) ToPointer() *InputMskMode {
-	return &e
-}
-
-// InputMskCompression - Codec to use to compress the persisted data
-type InputMskCompression string
-
-const (
-	InputMskCompressionNone InputMskCompression = "none"
-	InputMskCompressionGzip InputMskCompression = "gzip"
-)
-
-func (e InputMskCompression) ToPointer() *InputMskCompression {
-	return &e
-}
-
-type InputMskPqControls struct {
-}
-
-func (i InputMskPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputMskPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputMskMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputMskCompression `default:"none" json:"compress"`
-	PqControls *InputMskPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputMskPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskPq) GetMode() *InputMskMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputMskPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputMskPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputMskPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputMskPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputMskPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputMskPq) GetCompress() *InputMskCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputMskPq) GetPqControls() *InputMskPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputMskMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputMskMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputMskMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputMskSchemaType - The schema format used to encode and decode event data
-type InputMskSchemaType string
-
-const (
-	InputMskSchemaTypeAvro InputMskSchemaType = "avro"
-	InputMskSchemaTypeJSON InputMskSchemaType = "json"
-)
-
-func (e InputMskSchemaType) ToPointer() *InputMskSchemaType {
-	return &e
-}
-
-// InputMskAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
-type InputMskAuth struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (i InputMskAuth) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskAuth) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMskAuth) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
-
-type InputMskKafkaSchemaRegistryMinimumTLSVersion string
-
-const (
-	InputMskKafkaSchemaRegistryMinimumTLSVersionTlSv1  InputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1"
-	InputMskKafkaSchemaRegistryMinimumTLSVersionTlSv11 InputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.1"
-	InputMskKafkaSchemaRegistryMinimumTLSVersionTlSv12 InputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.2"
-	InputMskKafkaSchemaRegistryMinimumTLSVersionTlSv13 InputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputMskKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *InputMskKafkaSchemaRegistryMinimumTLSVersion {
-	return &e
-}
-
-type InputMskKafkaSchemaRegistryMaximumTLSVersion string
-
-const (
-	InputMskKafkaSchemaRegistryMaximumTLSVersionTlSv1  InputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1"
-	InputMskKafkaSchemaRegistryMaximumTLSVersionTlSv11 InputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.1"
-	InputMskKafkaSchemaRegistryMaximumTLSVersionTlSv12 InputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.2"
-	InputMskKafkaSchemaRegistryMaximumTLSVersionTlSv13 InputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputMskKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputMskKafkaSchemaRegistryMaximumTLSVersion {
-	return &e
-}
-
-type InputMskKafkaSchemaRegistryTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                                       `json:"passphrase,omitempty"`
-	MinVersion *InputMskKafkaSchemaRegistryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputMskKafkaSchemaRegistryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputMskKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetServername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Servername
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetMinVersion() *InputMskKafkaSchemaRegistryMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputMskKafkaSchemaRegistryTLSSettingsClientSide) GetMaxVersion() *InputMskKafkaSchemaRegistryMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputMskKafkaSchemaRegistryAuthentication struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputMskSchemaType `default:"avro" json:"schemaType"`
-	// Maximum time to wait for a Schema Registry connection to complete successfully
-	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
-	// Maximum time to wait for the Schema Registry to respond to a request
-	RequestTimeout *float64 `default:"30000" json:"requestTimeout"`
-	// Maximum number of times to try fetching schemas from the Schema Registry
-	MaxRetries *float64 `default:"1" json:"maxRetries"`
-	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *InputMskAuth                                     `json:"auth,omitempty"`
-	TLS  *InputMskKafkaSchemaRegistryTLSSettingsClientSide `json:"tls,omitempty"`
-}
-
-func (i InputMskKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaRegistryURL
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetSchemaType() *InputMskSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ConnectionTimeout
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetMaxRetries() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRetries
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetAuth() *InputMskAuth {
-	if i == nil {
-		return nil
-	}
-	return i.Auth
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetTLS() *InputMskKafkaSchemaRegistryTLSSettingsClientSide {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-// InputMskAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputMskAuthenticationMethod string
-
-const (
-	InputMskAuthenticationMethodAuto   InputMskAuthenticationMethod = "auto"
-	InputMskAuthenticationMethodManual InputMskAuthenticationMethod = "manual"
-	InputMskAuthenticationMethodSecret InputMskAuthenticationMethod = "secret"
-)
-
-func (e InputMskAuthenticationMethod) ToPointer() *InputMskAuthenticationMethod {
-	return &e
-}
-
-// InputMskSignatureVersion - Signature version to use for signing MSK cluster requests
-type InputMskSignatureVersion string
-
-const (
-	InputMskSignatureVersionV2 InputMskSignatureVersion = "v2"
-	InputMskSignatureVersionV4 InputMskSignatureVersion = "v4"
-)
-
-func (e InputMskSignatureVersion) ToPointer() *InputMskSignatureVersion {
-	return &e
-}
-
-type InputMskMinimumTLSVersion string
-
-const (
-	InputMskMinimumTLSVersionTlSv1  InputMskMinimumTLSVersion = "TLSv1"
-	InputMskMinimumTLSVersionTlSv11 InputMskMinimumTLSVersion = "TLSv1.1"
-	InputMskMinimumTLSVersionTlSv12 InputMskMinimumTLSVersion = "TLSv1.2"
-	InputMskMinimumTLSVersionTlSv13 InputMskMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputMskMinimumTLSVersion) ToPointer() *InputMskMinimumTLSVersion {
-	return &e
-}
-
-type InputMskMaximumTLSVersion string
-
-const (
-	InputMskMaximumTLSVersionTlSv1  InputMskMaximumTLSVersion = "TLSv1"
-	InputMskMaximumTLSVersionTlSv11 InputMskMaximumTLSVersion = "TLSv1.1"
-	InputMskMaximumTLSVersionTlSv12 InputMskMaximumTLSVersion = "TLSv1.2"
-	InputMskMaximumTLSVersionTlSv13 InputMskMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputMskMaximumTLSVersion) ToPointer() *InputMskMaximumTLSVersion {
-	return &e
-}
-
-type InputMskTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                    `json:"passphrase,omitempty"`
-	MinVersion *InputMskMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputMskMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputMskTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMskTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMskTLSSettingsClientSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMskTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputMskTLSSettingsClientSide) GetServername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Servername
-}
-
-func (i *InputMskTLSSettingsClientSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputMskTLSSettingsClientSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputMskTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputMskTLSSettingsClientSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputMskTLSSettingsClientSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputMskTLSSettingsClientSide) GetMinVersion() *InputMskMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputMskTLSSettingsClientSide) GetMaxVersion() *InputMskMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputMsk struct {
+type InputMskMsk7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputMskType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -640,8 +26,8 @@ type InputMsk struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputMskConnection `json:"connections,omitempty"`
-	Pq          *InputMskPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -665,8 +51,1317 @@ type InputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
 	// Fields to add to events from this input
-	Metadata            []InputMskMetadatum                        `json:"metadata,omitempty"`
-	KafkaSchemaRegistry *InputMskKafkaSchemaRegistryAuthentication `json:"kafkaSchemaRegistry,omitempty"`
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	AwsSecretKey              *string  `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+}
+
+func (i InputMskMsk7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk7) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk7) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk7) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk7) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk7) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk7) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk7) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk7) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk7) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk7) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk7) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk7) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk7) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk7) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk7) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk7) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk7) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk7) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk7) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk7) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk7) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk7) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk7) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk7) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk7) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk7) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk7) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk7) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk7) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk7) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk7) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk7) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk7) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk7) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk7) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk7) GetAwsSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsSecret
+}
+
+type InputMskMsk6 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	AwsSecretKey              *string  `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       string   `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputMskMsk6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk6) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk6) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk6) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk6) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk6) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk6) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk6) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk6) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk6) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk6) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk6) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk6) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk6) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk6) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk6) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk6) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk6) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk6) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk6) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk6) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk6) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk6) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk6) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk6) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk6) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk6) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk6) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk6) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk6) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk6) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk6) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk6) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk6) GetAwsAPIKey() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk6) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputMskMsk5 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	AwsSecretKey              *string  `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputMskMsk5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk5) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk5) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk5) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk5) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk5) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk5) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk5) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk5) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk5) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk5) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk5) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk5) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk5) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk5) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk5) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk5) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk5) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk5) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk5) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk5) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk5) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk5) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk5) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk5) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk5) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk5) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk5) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk5) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk5) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk5) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk5) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk5) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk5) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk5) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputMskMsk4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -684,14 +1379,14 @@ type InputMsk struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputMskAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                       `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *InputMskSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -703,8 +1398,8 @@ type InputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                       `default:"3600" json:"durationSeconds"`
-	TLS             *InputMskTLSSettingsClientSide `json:"tls,omitempty"`
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -721,342 +1416,1826 @@ type InputMsk struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputMsk) MarshalJSON() ([]byte, error) {
+func (i InputMskMsk4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
+func (i *InputMskMsk4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "brokers", "topics", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMsk) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputMsk) GetType() InputMskType {
-	if i == nil {
-		return InputMskType("")
-	}
-	return i.Type
-}
-
-func (i *InputMsk) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMsk) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputMsk) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputMsk) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputMsk) GetPqEnabled() *bool {
+func (i *InputMskMsk4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMsk) GetStreamtags() []string {
+func (i *InputMskMsk4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk4) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputMsk) GetConnections() []InputMskConnection {
+func (i *InputMskMsk4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputMsk) GetPq() *InputMskPq {
+func (i *InputMskMsk4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputMsk) GetBrokers() []string {
+func (i *InputMskMsk4) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputMsk) GetTopics() []string {
+func (i *InputMskMsk4) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputMsk) GetGroupID() *string {
+func (i *InputMskMsk4) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputMsk) GetFromBeginning() *bool {
+func (i *InputMskMsk4) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputMsk) GetSessionTimeout() *float64 {
+func (i *InputMskMsk4) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputMsk) GetRebalanceTimeout() *float64 {
+func (i *InputMskMsk4) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputMsk) GetHeartbeatInterval() *float64 {
+func (i *InputMskMsk4) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputMsk) GetMetadata() []InputMskMetadatum {
+func (i *InputMskMsk4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMsk) GetKafkaSchemaRegistry() *InputMskKafkaSchemaRegistryAuthentication {
+func (i *InputMskMsk4) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputMsk) GetConnectionTimeout() *float64 {
+func (i *InputMskMsk4) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputMsk) GetRequestTimeout() *float64 {
+func (i *InputMskMsk4) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputMsk) GetMaxRetries() *float64 {
+func (i *InputMskMsk4) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputMsk) GetMaxBackOff() *float64 {
+func (i *InputMskMsk4) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputMsk) GetInitialBackoff() *float64 {
+func (i *InputMskMsk4) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputMsk) GetBackoffRate() *float64 {
+func (i *InputMskMsk4) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputMsk) GetAuthenticationTimeout() *float64 {
+func (i *InputMskMsk4) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputMsk) GetReauthenticationThreshold() *float64 {
+func (i *InputMskMsk4) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMsk) GetAwsAuthenticationMethod() *InputMskAuthenticationMethod {
+func (i *InputMskMsk4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputMsk) GetAwsSecretKey() *string {
+func (i *InputMskMsk4) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputMsk) GetRegion() string {
+func (i *InputMskMsk4) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputMsk) GetEndpoint() *string {
+func (i *InputMskMsk4) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputMsk) GetSignatureVersion() *InputMskSignatureVersion {
+func (i *InputMskMsk4) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputMsk) GetReuseConnections() *bool {
+func (i *InputMskMsk4) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputMsk) GetRejectUnauthorized() *bool {
+func (i *InputMskMsk4) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputMsk) GetEnableAssumeRole() *bool {
+func (i *InputMskMsk4) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputMsk) GetAssumeRoleArn() *string {
+func (i *InputMskMsk4) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputMsk) GetAssumeRoleExternalID() *string {
+func (i *InputMskMsk4) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputMsk) GetDurationSeconds() *float64 {
+func (i *InputMskMsk4) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputMsk) GetTLS() *InputMskTLSSettingsClientSide {
+func (i *InputMskMsk4) GetTLS() *Tls1Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMsk) GetAutoCommitInterval() *float64 {
+func (i *InputMskMsk4) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputMsk) GetAutoCommitThreshold() *float64 {
+func (i *InputMskMsk4) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputMsk) GetMaxBytesPerPartition() *float64 {
+func (i *InputMskMsk4) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputMsk) GetMaxBytes() *float64 {
+func (i *InputMskMsk4) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputMsk) GetMaxSocketErrors() *float64 {
+func (i *InputMskMsk4) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputMsk) GetDescription() *string {
+func (i *InputMskMsk4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputMsk) GetAwsAPIKey() *string {
+func (i *InputMskMsk4) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputMsk) GetAwsSecret() *string {
+func (i *InputMskMsk4) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
+}
+
+type InputMskMsk3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputMskMsk3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk3) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk3) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk3) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk3) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk3) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk3) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk3) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk3) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk3) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk3) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk3) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk3) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk3) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk3) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk3) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk3) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk3) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk3) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk3) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk3) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk3) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk3) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk3) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk3) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk3) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk3) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk3) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk3) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk3) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk3) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk3) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk3) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputMskMsk2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputMskMsk2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "brokers", "topics", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk2) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk2) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk2) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk2) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk2) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk2) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk2) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk2) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk2) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk2) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk2) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk2) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk2) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk2) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk2) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk2) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk2) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk2) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk2) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk2) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk2) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk2) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk2) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk2) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk2) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk2) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk2) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk2) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk2) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk2) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk2) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk2) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputMskMsk1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeMskOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// Fields to add to events from this input
+	Metadata            []Metadata1Type          `json:"metadata,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the MSK cluster is located
+	Region string `json:"region"`
+	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access MSK
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64  `default:"3600" json:"durationSeconds"`
+	TLS             *Tls1Type `json:"tls,omitempty"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputMskMsk1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMskMsk1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMskMsk1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMskMsk1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMskMsk1) GetType() TypeMskOption {
+	if i == nil {
+		return TypeMskOption("")
+	}
+	return i.Type
+}
+
+func (i *InputMskMsk1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMskMsk1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMskMsk1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMskMsk1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMskMsk1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMskMsk1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskMsk1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskMsk1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputMskMsk1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputMskMsk1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputMskMsk1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputMskMsk1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputMskMsk1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputMskMsk1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputMskMsk1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMskMsk1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputMskMsk1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputMskMsk1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputMskMsk1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputMskMsk1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputMskMsk1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputMskMsk1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputMskMsk1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputMskMsk1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputMskMsk1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputMskMsk1) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputMskMsk1) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputMskMsk1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputMskMsk1) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputMskMsk1) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputMskMsk1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputMskMsk1) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputMskMsk1) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputMskMsk1) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputMskMsk1) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputMskMsk1) GetTLS() *Tls1Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMskMsk1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputMskMsk1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputMskMsk1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputMskMsk1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputMskMsk1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputMskMsk1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMskMsk1) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputMskMsk1) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputMskType string
+
+const (
+	InputMskTypeInputMskMsk1 InputMskType = "InputMsk_Msk_1"
+	InputMskTypeInputMskMsk2 InputMskType = "InputMsk_Msk_2"
+	InputMskTypeInputMskMsk3 InputMskType = "InputMsk_Msk_3"
+	InputMskTypeInputMskMsk4 InputMskType = "InputMsk_Msk_4"
+	InputMskTypeInputMskMsk5 InputMskType = "InputMsk_Msk_5"
+	InputMskTypeInputMskMsk6 InputMskType = "InputMsk_Msk_6"
+	InputMskTypeInputMskMsk7 InputMskType = "InputMsk_Msk_7"
+)
+
+type InputMsk struct {
+	InputMskMsk1 *InputMskMsk1 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk2 *InputMskMsk2 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk3 *InputMskMsk3 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk4 *InputMskMsk4 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk5 *InputMskMsk5 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk6 *InputMskMsk6 `queryParam:"inline,name=InputMsk"`
+	InputMskMsk7 *InputMskMsk7 `queryParam:"inline,name=InputMsk"`
+
+	Type InputMskType
+}
+
+func CreateInputMskInputMskMsk1(inputMskMsk1 InputMskMsk1) InputMsk {
+	typ := InputMskTypeInputMskMsk1
+
+	return InputMsk{
+		InputMskMsk1: &inputMskMsk1,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk2(inputMskMsk2 InputMskMsk2) InputMsk {
+	typ := InputMskTypeInputMskMsk2
+
+	return InputMsk{
+		InputMskMsk2: &inputMskMsk2,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk3(inputMskMsk3 InputMskMsk3) InputMsk {
+	typ := InputMskTypeInputMskMsk3
+
+	return InputMsk{
+		InputMskMsk3: &inputMskMsk3,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk4(inputMskMsk4 InputMskMsk4) InputMsk {
+	typ := InputMskTypeInputMskMsk4
+
+	return InputMsk{
+		InputMskMsk4: &inputMskMsk4,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk5(inputMskMsk5 InputMskMsk5) InputMsk {
+	typ := InputMskTypeInputMskMsk5
+
+	return InputMsk{
+		InputMskMsk5: &inputMskMsk5,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk6(inputMskMsk6 InputMskMsk6) InputMsk {
+	typ := InputMskTypeInputMskMsk6
+
+	return InputMsk{
+		InputMskMsk6: &inputMskMsk6,
+		Type:         typ,
+	}
+}
+
+func CreateInputMskInputMskMsk7(inputMskMsk7 InputMskMsk7) InputMsk {
+	typ := InputMskTypeInputMskMsk7
+
+	return InputMsk{
+		InputMskMsk7: &inputMskMsk7,
+		Type:         typ,
+	}
+}
+
+func (u *InputMsk) UnmarshalJSON(data []byte) error {
+
+	var inputMskMsk2 InputMskMsk2 = InputMskMsk2{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk2, "", true, nil); err == nil {
+		u.InputMskMsk2 = &inputMskMsk2
+		u.Type = InputMskTypeInputMskMsk2
+		return nil
+	}
+
+	var inputMskMsk4 InputMskMsk4 = InputMskMsk4{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk4, "", true, nil); err == nil {
+		u.InputMskMsk4 = &inputMskMsk4
+		u.Type = InputMskTypeInputMskMsk4
+		return nil
+	}
+
+	var inputMskMsk6 InputMskMsk6 = InputMskMsk6{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk6, "", true, nil); err == nil {
+		u.InputMskMsk6 = &inputMskMsk6
+		u.Type = InputMskTypeInputMskMsk6
+		return nil
+	}
+
+	var inputMskMsk7 InputMskMsk7 = InputMskMsk7{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk7, "", true, nil); err == nil {
+		u.InputMskMsk7 = &inputMskMsk7
+		u.Type = InputMskTypeInputMskMsk7
+		return nil
+	}
+
+	var inputMskMsk1 InputMskMsk1 = InputMskMsk1{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk1, "", true, nil); err == nil {
+		u.InputMskMsk1 = &inputMskMsk1
+		u.Type = InputMskTypeInputMskMsk1
+		return nil
+	}
+
+	var inputMskMsk3 InputMskMsk3 = InputMskMsk3{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk3, "", true, nil); err == nil {
+		u.InputMskMsk3 = &inputMskMsk3
+		u.Type = InputMskTypeInputMskMsk3
+		return nil
+	}
+
+	var inputMskMsk5 InputMskMsk5 = InputMskMsk5{}
+	if err := utils.UnmarshalJSON(data, &inputMskMsk5, "", true, nil); err == nil {
+		u.InputMskMsk5 = &inputMskMsk5
+		u.Type = InputMskTypeInputMskMsk5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputMsk", string(data))
+}
+
+func (u InputMsk) MarshalJSON() ([]byte, error) {
+	if u.InputMskMsk1 != nil {
+		return utils.MarshalJSON(u.InputMskMsk1, "", true)
+	}
+
+	if u.InputMskMsk2 != nil {
+		return utils.MarshalJSON(u.InputMskMsk2, "", true)
+	}
+
+	if u.InputMskMsk3 != nil {
+		return utils.MarshalJSON(u.InputMskMsk3, "", true)
+	}
+
+	if u.InputMskMsk4 != nil {
+		return utils.MarshalJSON(u.InputMskMsk4, "", true)
+	}
+
+	if u.InputMskMsk5 != nil {
+		return utils.MarshalJSON(u.InputMskMsk5, "", true)
+	}
+
+	if u.InputMskMsk6 != nil {
+		return utils.MarshalJSON(u.InputMskMsk6, "", true)
+	}
+
+	if u.InputMskMsk7 != nil {
+		return utils.MarshalJSON(u.InputMskMsk7, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputMsk: all fields are null")
 }

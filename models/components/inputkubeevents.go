@@ -4,258 +4,343 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputKubeEventsType string
+type InputKubeEventsType4 string
 
 const (
-	InputKubeEventsTypeKubeEvents InputKubeEventsType = "kube_events"
+	InputKubeEventsType4KubeEvents InputKubeEventsType4 = "kube_events"
 )
 
-func (e InputKubeEventsType) ToPointer() *InputKubeEventsType {
+func (e InputKubeEventsType4) ToPointer() *InputKubeEventsType4 {
 	return &e
 }
-func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
+func (e *InputKubeEventsType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "kube_events":
-		*e = InputKubeEventsType(v)
+		*e = InputKubeEventsType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputKubeEventsType: %v", v)
+		return fmt.Errorf("invalid value for InputKubeEventsType4: %v", v)
 	}
 }
 
-type InputKubeEventsConnection struct {
+type InputKubeEventsKubeEvents4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeEventsType4 `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Filtering on event fields
+	Rules []PodFilterType `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputKubeEventsConnection) MarshalJSON() ([]byte, error) {
+func (i InputKubeEventsKubeEvents4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEventsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+func (i *InputKubeEventsKubeEvents4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEventsConnection) GetPipeline() *string {
+func (i *InputKubeEventsKubeEvents4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeEventsKubeEvents4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsKubeEvents4) GetType() InputKubeEventsType4 {
+	if i == nil {
+		return InputKubeEventsType4("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsKubeEvents4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsKubeEvents4) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeEventsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputKubeEventsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputKubeEventsMode string
-
-const (
-	InputKubeEventsModeSmart  InputKubeEventsMode = "smart"
-	InputKubeEventsModeAlways InputKubeEventsMode = "always"
-)
-
-func (e InputKubeEventsMode) ToPointer() *InputKubeEventsMode {
-	return &e
-}
-
-// InputKubeEventsCompression - Codec to use to compress the persisted data
-type InputKubeEventsCompression string
-
-const (
-	InputKubeEventsCompressionNone InputKubeEventsCompression = "none"
-	InputKubeEventsCompressionGzip InputKubeEventsCompression = "gzip"
-)
-
-func (e InputKubeEventsCompression) ToPointer() *InputKubeEventsCompression {
-	return &e
-}
-
-type InputKubeEventsPqControls struct {
-}
-
-func (i InputKubeEventsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputKubeEventsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputKubeEventsMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputKubeEventsCompression `default:"none" json:"compress"`
-	PqControls *InputKubeEventsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputKubeEventsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKubeEventsPq) GetMode() *InputKubeEventsMode {
+func (i *InputKubeEventsKubeEvents4) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.Mode
+	return i.SendToRoutes
 }
 
-func (i *InputKubeEventsPq) GetMaxBufferSize() *float64 {
+func (i *InputKubeEventsKubeEvents4) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
-	return i.MaxBufferSize
+	return i.Environment
 }
 
-func (i *InputKubeEventsPq) GetCommitFrequency() *float64 {
+func (i *InputKubeEventsKubeEvents4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
-	return i.CommitFrequency
+	return i.Streamtags
 }
 
-func (i *InputKubeEventsPq) GetMaxFileSize() *string {
+func (i *InputKubeEventsKubeEvents4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
-	return i.MaxFileSize
+	return i.Connections
 }
 
-func (i *InputKubeEventsPq) GetMaxSize() *string {
+func (i *InputKubeEventsKubeEvents4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsKubeEvents4) GetRules() []PodFilterType {
 	if i == nil {
 		return nil
 	}
-	return i.MaxSize
+	return i.Rules
 }
 
-func (i *InputKubeEventsPq) GetPath() *string {
+func (i *InputKubeEventsKubeEvents4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
-	return i.Path
+	return i.Metadata
 }
 
-func (i *InputKubeEventsPq) GetCompress() *InputKubeEventsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputKubeEventsPq) GetPqControls() *InputKubeEventsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputKubeEventsRule struct {
-	// JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
-	Filter string `json:"filter"`
-	// Optional description of this rule's purpose
-	Description *string `json:"description,omitempty"`
-}
-
-func (i InputKubeEventsRule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKubeEventsRule) GetFilter() string {
-	if i == nil {
-		return ""
-	}
-	return i.Filter
-}
-
-func (i *InputKubeEventsRule) GetDescription() *string {
+func (i *InputKubeEventsKubeEvents4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputKubeEventsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
+type InputKubeEventsType3 string
+
+const (
+	InputKubeEventsType3KubeEvents InputKubeEventsType3 = "kube_events"
+)
+
+func (e InputKubeEventsType3) ToPointer() *InputKubeEventsType3 {
+	return &e
+}
+func (e *InputKubeEventsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "kube_events":
+		*e = InputKubeEventsType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputKubeEventsType3: %v", v)
+	}
 }
 
-func (i InputKubeEventsMetadatum) MarshalJSON() ([]byte, error) {
+type InputKubeEventsKubeEvents3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeEventsType3 `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Filtering on event fields
+	Rules []PodFilterType `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsKubeEvents3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEventsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+func (i *InputKubeEventsKubeEvents3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEventsMetadatum) GetName() string {
+func (i *InputKubeEventsKubeEvents3) GetPqEnabled() *bool {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Name
+	return i.PqEnabled
 }
 
-func (i *InputKubeEventsMetadatum) GetValue() string {
+func (i *InputKubeEventsKubeEvents3) GetID() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Value
+	return i.ID
 }
 
-type InputKubeEvents struct {
-	// Unique ID for this input
-	ID       *string             `json:"id,omitempty"`
-	Type     InputKubeEventsType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
+func (i *InputKubeEventsKubeEvents3) GetType() InputKubeEventsType3 {
+	if i == nil {
+		return InputKubeEventsType3("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsKubeEvents3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsKubeEvents3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsKubeEvents3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEventsKubeEvents3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeEventsKubeEvents3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeEventsKubeEvents3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsKubeEvents3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsKubeEvents3) GetRules() []PodFilterType {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeEventsKubeEvents3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeEventsKubeEvents3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeEventsType2 string
+
+const (
+	InputKubeEventsType2KubeEvents InputKubeEventsType2 = "kube_events"
+)
+
+func (e InputKubeEventsType2) ToPointer() *InputKubeEventsType2 {
+	return &e
+}
+func (e *InputKubeEventsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "kube_events":
+		*e = InputKubeEventsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputKubeEventsType2: %v", v)
+	}
+}
+
+type InputKubeEventsKubeEvents2 struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeEventsType2 `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -263,113 +348,370 @@ type InputKubeEvents struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputKubeEventsConnection `json:"connections,omitempty"`
-	Pq          *InputKubeEventsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Filtering on event fields
-	Rules []InputKubeEventsRule `json:"rules,omitempty"`
+	Rules []PodFilterType `json:"rules,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputKubeEventsMetadatum `json:"metadata,omitempty"`
-	Description *string                    `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
+func (i InputKubeEventsKubeEvents2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEvents) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputKubeEventsKubeEvents2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEvents) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeEvents) GetType() InputKubeEventsType {
-	if i == nil {
-		return InputKubeEventsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeEvents) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeEvents) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeEvents) GetSendToRoutes() *bool {
+func (i *InputKubeEventsKubeEvents2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeEvents) GetEnvironment() *string {
+func (i *InputKubeEventsKubeEvents2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsKubeEvents2) GetType() InputKubeEventsType2 {
+	if i == nil {
+		return InputKubeEventsType2("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsKubeEvents2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsKubeEvents2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsKubeEvents2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeEvents) GetPqEnabled() *bool {
+func (i *InputKubeEventsKubeEvents2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeEvents) GetStreamtags() []string {
+func (i *InputKubeEventsKubeEvents2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeEvents) GetConnections() []InputKubeEventsConnection {
+func (i *InputKubeEventsKubeEvents2) GetConnections() []ConnectionsType {
 	if i == nil {
-		return nil
+		return []ConnectionsType{}
 	}
 	return i.Connections
 }
 
-func (i *InputKubeEvents) GetPq() *InputKubeEventsPq {
+func (i *InputKubeEventsKubeEvents2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeEvents) GetRules() []InputKubeEventsRule {
+func (i *InputKubeEventsKubeEvents2) GetRules() []PodFilterType {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEvents) GetMetadata() []InputKubeEventsMetadatum {
+func (i *InputKubeEventsKubeEvents2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeEvents) GetDescription() *string {
+func (i *InputKubeEventsKubeEvents2) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKubeEventsType1 string
+
+const (
+	InputKubeEventsType1KubeEvents InputKubeEventsType1 = "kube_events"
+)
+
+func (e InputKubeEventsType1) ToPointer() *InputKubeEventsType1 {
+	return &e
+}
+func (e *InputKubeEventsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "kube_events":
+		*e = InputKubeEventsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputKubeEventsType1: %v", v)
+	}
+}
+
+type InputKubeEventsKubeEvents1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeEventsType1 `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Filtering on event fields
+	Rules []PodFilterType `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsKubeEvents1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsKubeEvents1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsKubeEvents1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEventsKubeEvents1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsKubeEvents1) GetType() InputKubeEventsType1 {
+	if i == nil {
+		return InputKubeEventsType1("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsKubeEvents1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsKubeEvents1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsKubeEvents1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeEventsKubeEvents1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeEventsKubeEvents1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeEventsKubeEvents1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsKubeEvents1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsKubeEvents1) GetRules() []PodFilterType {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeEventsKubeEvents1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeEventsKubeEvents1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeEventsType string
+
+const (
+	InputKubeEventsTypeInputKubeEventsKubeEvents1 InputKubeEventsType = "InputKubeEvents_KubeEvents_1"
+	InputKubeEventsTypeInputKubeEventsKubeEvents2 InputKubeEventsType = "InputKubeEvents_KubeEvents_2"
+	InputKubeEventsTypeInputKubeEventsKubeEvents3 InputKubeEventsType = "InputKubeEvents_KubeEvents_3"
+	InputKubeEventsTypeInputKubeEventsKubeEvents4 InputKubeEventsType = "InputKubeEvents_KubeEvents_4"
+)
+
+type InputKubeEvents struct {
+	InputKubeEventsKubeEvents1 *InputKubeEventsKubeEvents1 `queryParam:"inline,name=InputKubeEvents"`
+	InputKubeEventsKubeEvents2 *InputKubeEventsKubeEvents2 `queryParam:"inline,name=InputKubeEvents"`
+	InputKubeEventsKubeEvents3 *InputKubeEventsKubeEvents3 `queryParam:"inline,name=InputKubeEvents"`
+	InputKubeEventsKubeEvents4 *InputKubeEventsKubeEvents4 `queryParam:"inline,name=InputKubeEvents"`
+
+	Type InputKubeEventsType
+}
+
+func CreateInputKubeEventsInputKubeEventsKubeEvents1(inputKubeEventsKubeEvents1 InputKubeEventsKubeEvents1) InputKubeEvents {
+	typ := InputKubeEventsTypeInputKubeEventsKubeEvents1
+
+	return InputKubeEvents{
+		InputKubeEventsKubeEvents1: &inputKubeEventsKubeEvents1,
+		Type:                       typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsKubeEvents2(inputKubeEventsKubeEvents2 InputKubeEventsKubeEvents2) InputKubeEvents {
+	typ := InputKubeEventsTypeInputKubeEventsKubeEvents2
+
+	return InputKubeEvents{
+		InputKubeEventsKubeEvents2: &inputKubeEventsKubeEvents2,
+		Type:                       typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsKubeEvents3(inputKubeEventsKubeEvents3 InputKubeEventsKubeEvents3) InputKubeEvents {
+	typ := InputKubeEventsTypeInputKubeEventsKubeEvents3
+
+	return InputKubeEvents{
+		InputKubeEventsKubeEvents3: &inputKubeEventsKubeEvents3,
+		Type:                       typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsKubeEvents4(inputKubeEventsKubeEvents4 InputKubeEventsKubeEvents4) InputKubeEvents {
+	typ := InputKubeEventsTypeInputKubeEventsKubeEvents4
+
+	return InputKubeEvents{
+		InputKubeEventsKubeEvents4: &inputKubeEventsKubeEvents4,
+		Type:                       typ,
+	}
+}
+
+func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
+
+	var inputKubeEventsKubeEvents2 InputKubeEventsKubeEvents2 = InputKubeEventsKubeEvents2{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsKubeEvents2, "", true, nil); err == nil {
+		u.InputKubeEventsKubeEvents2 = &inputKubeEventsKubeEvents2
+		u.Type = InputKubeEventsTypeInputKubeEventsKubeEvents2
+		return nil
+	}
+
+	var inputKubeEventsKubeEvents4 InputKubeEventsKubeEvents4 = InputKubeEventsKubeEvents4{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsKubeEvents4, "", true, nil); err == nil {
+		u.InputKubeEventsKubeEvents4 = &inputKubeEventsKubeEvents4
+		u.Type = InputKubeEventsTypeInputKubeEventsKubeEvents4
+		return nil
+	}
+
+	var inputKubeEventsKubeEvents1 InputKubeEventsKubeEvents1 = InputKubeEventsKubeEvents1{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsKubeEvents1, "", true, nil); err == nil {
+		u.InputKubeEventsKubeEvents1 = &inputKubeEventsKubeEvents1
+		u.Type = InputKubeEventsTypeInputKubeEventsKubeEvents1
+		return nil
+	}
+
+	var inputKubeEventsKubeEvents3 InputKubeEventsKubeEvents3 = InputKubeEventsKubeEvents3{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsKubeEvents3, "", true, nil); err == nil {
+		u.InputKubeEventsKubeEvents3 = &inputKubeEventsKubeEvents3
+		u.Type = InputKubeEventsTypeInputKubeEventsKubeEvents3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeEvents", string(data))
+}
+
+func (u InputKubeEvents) MarshalJSON() ([]byte, error) {
+	if u.InputKubeEventsKubeEvents1 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsKubeEvents1, "", true)
+	}
+
+	if u.InputKubeEventsKubeEvents2 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsKubeEvents2, "", true)
+	}
+
+	if u.InputKubeEventsKubeEvents3 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsKubeEvents3, "", true)
+	}
+
+	if u.InputKubeEventsKubeEvents4 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsKubeEvents4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKubeEvents: all fields are null")
 }

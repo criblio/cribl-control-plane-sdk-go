@@ -3,236 +3,29 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputNetflowType string
-
-const (
-	InputNetflowTypeNetflow InputNetflowType = "netflow"
-)
-
-func (e InputNetflowType) ToPointer() *InputNetflowType {
-	return &e
-}
-func (e *InputNetflowType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "netflow":
-		*e = InputNetflowType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowType: %v", v)
-	}
-}
-
-type InputNetflowConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputNetflowConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputNetflowConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputNetflowConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputNetflowConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputNetflowMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputNetflowMode string
-
-const (
-	InputNetflowModeSmart  InputNetflowMode = "smart"
-	InputNetflowModeAlways InputNetflowMode = "always"
-)
-
-func (e InputNetflowMode) ToPointer() *InputNetflowMode {
-	return &e
-}
-
-// InputNetflowCompression - Codec to use to compress the persisted data
-type InputNetflowCompression string
-
-const (
-	InputNetflowCompressionNone InputNetflowCompression = "none"
-	InputNetflowCompressionGzip InputNetflowCompression = "gzip"
-)
-
-func (e InputNetflowCompression) ToPointer() *InputNetflowCompression {
-	return &e
-}
-
-type InputNetflowPqControls struct {
-}
-
-func (i InputNetflowPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputNetflowPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputNetflowPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputNetflowMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputNetflowCompression `default:"none" json:"compress"`
-	PqControls *InputNetflowPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputNetflowPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputNetflowPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputNetflowPq) GetMode() *InputNetflowMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputNetflowPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputNetflowPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputNetflowPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputNetflowPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputNetflowPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputNetflowPq) GetCompress() *InputNetflowCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputNetflowPq) GetPqControls() *InputNetflowPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputNetflowMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputNetflowMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputNetflowMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputNetflowMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputNetflowMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputNetflow struct {
+type InputNetflowNetflow4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string          `json:"id,omitempty"`
-	Type     InputNetflowType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	ID       *string           `json:"id,omitempty"`
+	Type     TypeNetflowOption `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputNetflowConnection `json:"connections,omitempty"`
-	Pq          *InputNetflowPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -254,171 +47,902 @@ type InputNetflow struct {
 	// Accept messages in IPFIX format.
 	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
 	// Fields to add to events from this input
-	Metadata    []InputNetflowMetadatum `json:"metadata,omitempty"`
-	Description *string                 `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputNetflow) MarshalJSON() ([]byte, error) {
+func (i InputNetflowNetflow4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputNetflow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputNetflowNetflow4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflow) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputNetflow) GetType() InputNetflowType {
-	if i == nil {
-		return InputNetflowType("")
-	}
-	return i.Type
-}
-
-func (i *InputNetflow) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputNetflow) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputNetflow) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputNetflow) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputNetflow) GetPqEnabled() *bool {
+func (i *InputNetflowNetflow4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputNetflow) GetStreamtags() []string {
+func (i *InputNetflowNetflow4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowNetflow4) GetType() TypeNetflowOption {
+	if i == nil {
+		return TypeNetflowOption("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowNetflow4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowNetflow4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowNetflow4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputNetflowNetflow4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowNetflow4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputNetflow) GetConnections() []InputNetflowConnection {
+func (i *InputNetflowNetflow4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputNetflow) GetPq() *InputNetflowPq {
+func (i *InputNetflowNetflow4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputNetflow) GetHost() *string {
+func (i *InputNetflowNetflow4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputNetflow) GetPort() *float64 {
+func (i *InputNetflowNetflow4) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputNetflow) GetEnablePassThrough() *bool {
+func (i *InputNetflowNetflow4) GetEnablePassThrough() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnablePassThrough
 }
 
-func (i *InputNetflow) GetIPAllowlistRegex() *string {
+func (i *InputNetflowNetflow4) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputNetflow) GetIPDenylistRegex() *string {
+func (i *InputNetflowNetflow4) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputNetflow) GetUDPSocketRxBufSize() *float64 {
+func (i *InputNetflowNetflow4) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputNetflow) GetTemplateCacheMinutes() *float64 {
+func (i *InputNetflowNetflow4) GetTemplateCacheMinutes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateCacheMinutes
 }
 
-func (i *InputNetflow) GetV5Enabled() *bool {
+func (i *InputNetflowNetflow4) GetV5Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V5Enabled
 }
 
-func (i *InputNetflow) GetV9Enabled() *bool {
+func (i *InputNetflowNetflow4) GetV9Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V9Enabled
 }
 
-func (i *InputNetflow) GetIpfixEnabled() *bool {
+func (i *InputNetflowNetflow4) GetIpfixEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IpfixEnabled
 }
 
-func (i *InputNetflow) GetMetadata() []InputNetflowMetadatum {
+func (i *InputNetflowNetflow4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputNetflow) GetDescription() *string {
+func (i *InputNetflowNetflow4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputNetflowNetflow3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     TypeNetflowOption `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"2055" json:"port"`
+	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	// Accept messages in Netflow V5 format.
+	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	// Accept messages in Netflow V9 format.
+	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	// Accept messages in IPFIX format.
+	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputNetflowNetflow3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowNetflow3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputNetflowNetflow3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputNetflowNetflow3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowNetflow3) GetType() TypeNetflowOption {
+	if i == nil {
+		return TypeNetflowOption("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowNetflow3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowNetflow3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowNetflow3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputNetflowNetflow3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowNetflow3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputNetflowNetflow3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputNetflowNetflow3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputNetflowNetflow3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputNetflowNetflow3) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputNetflowNetflow3) GetEnablePassThrough() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnablePassThrough
+}
+
+func (i *InputNetflowNetflow3) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputNetflowNetflow3) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputNetflowNetflow3) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputNetflowNetflow3) GetTemplateCacheMinutes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCacheMinutes
+}
+
+func (i *InputNetflowNetflow3) GetV5Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V5Enabled
+}
+
+func (i *InputNetflowNetflow3) GetV9Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V9Enabled
+}
+
+func (i *InputNetflowNetflow3) GetIpfixEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IpfixEnabled
+}
+
+func (i *InputNetflowNetflow3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputNetflowNetflow3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputNetflowNetflow2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     TypeNetflowOption `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"2055" json:"port"`
+	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	// Accept messages in Netflow V5 format.
+	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	// Accept messages in Netflow V9 format.
+	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	// Accept messages in IPFIX format.
+	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputNetflowNetflow2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowNetflow2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputNetflowNetflow2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputNetflowNetflow2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowNetflow2) GetType() TypeNetflowOption {
+	if i == nil {
+		return TypeNetflowOption("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowNetflow2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowNetflow2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowNetflow2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowNetflow2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputNetflowNetflow2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputNetflowNetflow2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputNetflowNetflow2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputNetflowNetflow2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputNetflowNetflow2) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputNetflowNetflow2) GetEnablePassThrough() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnablePassThrough
+}
+
+func (i *InputNetflowNetflow2) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputNetflowNetflow2) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputNetflowNetflow2) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputNetflowNetflow2) GetTemplateCacheMinutes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCacheMinutes
+}
+
+func (i *InputNetflowNetflow2) GetV5Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V5Enabled
+}
+
+func (i *InputNetflowNetflow2) GetV9Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V9Enabled
+}
+
+func (i *InputNetflowNetflow2) GetIpfixEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IpfixEnabled
+}
+
+func (i *InputNetflowNetflow2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputNetflowNetflow2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputNetflowNetflow1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     TypeNetflowOption `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"2055" json:"port"`
+	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	// Accept messages in Netflow V5 format.
+	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	// Accept messages in Netflow V9 format.
+	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	// Accept messages in IPFIX format.
+	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputNetflowNetflow1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputNetflowNetflow1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputNetflowNetflow1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputNetflowNetflow1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowNetflow1) GetType() TypeNetflowOption {
+	if i == nil {
+		return TypeNetflowOption("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowNetflow1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowNetflow1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowNetflow1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowNetflow1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputNetflowNetflow1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputNetflowNetflow1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputNetflowNetflow1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputNetflowNetflow1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputNetflowNetflow1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputNetflowNetflow1) GetEnablePassThrough() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnablePassThrough
+}
+
+func (i *InputNetflowNetflow1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputNetflowNetflow1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputNetflowNetflow1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputNetflowNetflow1) GetTemplateCacheMinutes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCacheMinutes
+}
+
+func (i *InputNetflowNetflow1) GetV5Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V5Enabled
+}
+
+func (i *InputNetflowNetflow1) GetV9Enabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.V9Enabled
+}
+
+func (i *InputNetflowNetflow1) GetIpfixEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IpfixEnabled
+}
+
+func (i *InputNetflowNetflow1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputNetflowNetflow1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputNetflowType string
+
+const (
+	InputNetflowTypeInputNetflowNetflow1 InputNetflowType = "InputNetflow_Netflow_1"
+	InputNetflowTypeInputNetflowNetflow2 InputNetflowType = "InputNetflow_Netflow_2"
+	InputNetflowTypeInputNetflowNetflow3 InputNetflowType = "InputNetflow_Netflow_3"
+	InputNetflowTypeInputNetflowNetflow4 InputNetflowType = "InputNetflow_Netflow_4"
+)
+
+type InputNetflow struct {
+	InputNetflowNetflow1 *InputNetflowNetflow1 `queryParam:"inline,name=InputNetflow"`
+	InputNetflowNetflow2 *InputNetflowNetflow2 `queryParam:"inline,name=InputNetflow"`
+	InputNetflowNetflow3 *InputNetflowNetflow3 `queryParam:"inline,name=InputNetflow"`
+	InputNetflowNetflow4 *InputNetflowNetflow4 `queryParam:"inline,name=InputNetflow"`
+
+	Type InputNetflowType
+}
+
+func CreateInputNetflowInputNetflowNetflow1(inputNetflowNetflow1 InputNetflowNetflow1) InputNetflow {
+	typ := InputNetflowTypeInputNetflowNetflow1
+
+	return InputNetflow{
+		InputNetflowNetflow1: &inputNetflowNetflow1,
+		Type:                 typ,
+	}
+}
+
+func CreateInputNetflowInputNetflowNetflow2(inputNetflowNetflow2 InputNetflowNetflow2) InputNetflow {
+	typ := InputNetflowTypeInputNetflowNetflow2
+
+	return InputNetflow{
+		InputNetflowNetflow2: &inputNetflowNetflow2,
+		Type:                 typ,
+	}
+}
+
+func CreateInputNetflowInputNetflowNetflow3(inputNetflowNetflow3 InputNetflowNetflow3) InputNetflow {
+	typ := InputNetflowTypeInputNetflowNetflow3
+
+	return InputNetflow{
+		InputNetflowNetflow3: &inputNetflowNetflow3,
+		Type:                 typ,
+	}
+}
+
+func CreateInputNetflowInputNetflowNetflow4(inputNetflowNetflow4 InputNetflowNetflow4) InputNetflow {
+	typ := InputNetflowTypeInputNetflowNetflow4
+
+	return InputNetflow{
+		InputNetflowNetflow4: &inputNetflowNetflow4,
+		Type:                 typ,
+	}
+}
+
+func (u *InputNetflow) UnmarshalJSON(data []byte) error {
+
+	var inputNetflowNetflow2 InputNetflowNetflow2 = InputNetflowNetflow2{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowNetflow2, "", true, nil); err == nil {
+		u.InputNetflowNetflow2 = &inputNetflowNetflow2
+		u.Type = InputNetflowTypeInputNetflowNetflow2
+		return nil
+	}
+
+	var inputNetflowNetflow4 InputNetflowNetflow4 = InputNetflowNetflow4{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowNetflow4, "", true, nil); err == nil {
+		u.InputNetflowNetflow4 = &inputNetflowNetflow4
+		u.Type = InputNetflowTypeInputNetflowNetflow4
+		return nil
+	}
+
+	var inputNetflowNetflow1 InputNetflowNetflow1 = InputNetflowNetflow1{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowNetflow1, "", true, nil); err == nil {
+		u.InputNetflowNetflow1 = &inputNetflowNetflow1
+		u.Type = InputNetflowTypeInputNetflowNetflow1
+		return nil
+	}
+
+	var inputNetflowNetflow3 InputNetflowNetflow3 = InputNetflowNetflow3{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowNetflow3, "", true, nil); err == nil {
+		u.InputNetflowNetflow3 = &inputNetflowNetflow3
+		u.Type = InputNetflowTypeInputNetflowNetflow3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputNetflow", string(data))
+}
+
+func (u InputNetflow) MarshalJSON() ([]byte, error) {
+	if u.InputNetflowNetflow1 != nil {
+		return utils.MarshalJSON(u.InputNetflowNetflow1, "", true)
+	}
+
+	if u.InputNetflowNetflow2 != nil {
+		return utils.MarshalJSON(u.InputNetflowNetflow2, "", true)
+	}
+
+	if u.InputNetflowNetflow3 != nil {
+		return utils.MarshalJSON(u.InputNetflowNetflow3, "", true)
+	}
+
+	if u.InputNetflowNetflow4 != nil {
+		return utils.MarshalJSON(u.InputNetflowNetflow4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputNetflow: all fields are null")
 }

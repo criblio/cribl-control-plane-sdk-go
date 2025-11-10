@@ -49,7 +49,7 @@ type HBCriblInfo struct {
 	Config            Config          `json:"config"`
 	DeploymentID      *string         `json:"deploymentId,omitempty"`
 	DisableSNIRouting *bool           `json:"disableSNIRouting,omitempty"`
-	DistMode          AppMode         `json:"distMode"`
+	DistMode          DistModeOptions `json:"distMode"`
 	EdgeNodes         *float64        `json:"edgeNodes,omitempty"`
 	Group             string          `json:"group"`
 	GUID              string          `json:"guid"`
@@ -84,9 +84,9 @@ func (h *HBCriblInfo) GetDisableSNIRouting() *bool {
 	return h.DisableSNIRouting
 }
 
-func (h *HBCriblInfo) GetDistMode() AppMode {
+func (h *HBCriblInfo) GetDistMode() DistModeOptions {
 	if h == nil {
-		return AppMode("")
+		return DistModeOptions("")
 	}
 	return h.DistMode
 }

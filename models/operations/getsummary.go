@@ -18,31 +18,10 @@ func (g *GetSummaryRequest) GetMode() *components.WorkerTypes {
 	return g.Mode
 }
 
-// GetSummaryResponseBody - a list of DistributedSummary objects
-type GetSummaryResponseBody struct {
-	// number of items present in the items array
-	Count *int64                          `json:"count,omitempty"`
-	Items []components.DistributedSummary `json:"items,omitempty"`
-}
-
-func (g *GetSummaryResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetSummaryResponseBody) GetItems() []components.DistributedSummary {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetSummaryResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of DistributedSummary objects
-	Object *GetSummaryResponseBody
+	CountedDistributedSummary *components.CountedDistributedSummary
 }
 
 func (g *GetSummaryResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetSummaryResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetSummaryResponse) GetObject() *GetSummaryResponseBody {
+func (g *GetSummaryResponse) GetCountedDistributedSummary() *components.CountedDistributedSummary {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedDistributedSummary
 }

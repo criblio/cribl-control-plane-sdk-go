@@ -4,302 +4,90 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputDatadogType string
+type OutputDatadogType6 string
 
 const (
-	OutputDatadogTypeDatadog OutputDatadogType = "datadog"
+	OutputDatadogType6Datadog OutputDatadogType6 = "datadog"
 )
 
-func (e OutputDatadogType) ToPointer() *OutputDatadogType {
+func (e OutputDatadogType6) ToPointer() *OutputDatadogType6 {
 	return &e
 }
-func (e *OutputDatadogType) UnmarshalJSON(data []byte) error {
+func (e *OutputDatadogType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "datadog":
-		*e = OutputDatadogType(v)
+		*e = OutputDatadogType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputDatadogType: %v", v)
+		return fmt.Errorf("invalid value for OutputDatadogType6: %v", v)
 	}
 }
 
-// SendLogsAs - The content type to use when sending logs
-type SendLogsAs string
+// OutputDatadogSeverity6 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity6 string
 
 const (
-	SendLogsAsText SendLogsAs = "text"
-	SendLogsAsJSON SendLogsAs = "json"
+	// OutputDatadogSeverity6Emergency emergency
+	OutputDatadogSeverity6Emergency OutputDatadogSeverity6 = "emergency"
+	// OutputDatadogSeverity6Alert alert
+	OutputDatadogSeverity6Alert OutputDatadogSeverity6 = "alert"
+	// OutputDatadogSeverity6Critical critical
+	OutputDatadogSeverity6Critical OutputDatadogSeverity6 = "critical"
+	// OutputDatadogSeverity6Error error
+	OutputDatadogSeverity6Error OutputDatadogSeverity6 = "error"
+	// OutputDatadogSeverity6Warning warning
+	OutputDatadogSeverity6Warning OutputDatadogSeverity6 = "warning"
+	// OutputDatadogSeverity6Notice notice
+	OutputDatadogSeverity6Notice OutputDatadogSeverity6 = "notice"
+	// OutputDatadogSeverity6Info info
+	OutputDatadogSeverity6Info OutputDatadogSeverity6 = "info"
+	// OutputDatadogSeverity6Debug debug
+	OutputDatadogSeverity6Debug OutputDatadogSeverity6 = "debug"
 )
 
-func (e SendLogsAs) ToPointer() *SendLogsAs {
+func (e OutputDatadogSeverity6) ToPointer() *OutputDatadogSeverity6 {
 	return &e
 }
 
-// OutputDatadogSeverity - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
-type OutputDatadogSeverity string
+// DatadogSite6 - Datadog site to which events should be sent
+type DatadogSite6 string
 
 const (
-	OutputDatadogSeverityEmergency OutputDatadogSeverity = "emergency"
-	OutputDatadogSeverityAlert     OutputDatadogSeverity = "alert"
-	OutputDatadogSeverityCritical  OutputDatadogSeverity = "critical"
-	OutputDatadogSeverityError     OutputDatadogSeverity = "error"
-	OutputDatadogSeverityWarning   OutputDatadogSeverity = "warning"
-	OutputDatadogSeverityNotice    OutputDatadogSeverity = "notice"
-	OutputDatadogSeverityInfo      OutputDatadogSeverity = "info"
-	OutputDatadogSeverityDebug     OutputDatadogSeverity = "debug"
+	// DatadogSite6Us US
+	DatadogSite6Us DatadogSite6 = "us"
+	// DatadogSite6Us3 US3
+	DatadogSite6Us3 DatadogSite6 = "us3"
+	// DatadogSite6Us5 US5
+	DatadogSite6Us5 DatadogSite6 = "us5"
+	// DatadogSite6Eu Europe
+	DatadogSite6Eu DatadogSite6 = "eu"
+	// DatadogSite6Fed1 US1-FED
+	DatadogSite6Fed1 DatadogSite6 = "fed1"
+	// DatadogSite6Ap1 AP1
+	DatadogSite6Ap1 DatadogSite6 = "ap1"
+	// DatadogSite6Custom Custom
+	DatadogSite6Custom DatadogSite6 = "custom"
 )
 
-func (e OutputDatadogSeverity) ToPointer() *OutputDatadogSeverity {
+func (e DatadogSite6) ToPointer() *DatadogSite6 {
 	return &e
 }
 
-// DatadogSite - Datadog site to which events should be sent
-type DatadogSite string
-
-const (
-	DatadogSiteUs     DatadogSite = "us"
-	DatadogSiteUs3    DatadogSite = "us3"
-	DatadogSiteUs5    DatadogSite = "us5"
-	DatadogSiteEu     DatadogSite = "eu"
-	DatadogSiteFed1   DatadogSite = "fed1"
-	DatadogSiteAp1    DatadogSite = "ap1"
-	DatadogSiteCustom DatadogSite = "custom"
-)
-
-func (e DatadogSite) ToPointer() *DatadogSite {
-	return &e
-}
-
-type OutputDatadogExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputDatadogExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDatadogExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDatadogExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputDatadogExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputDatadogFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputDatadogFailedRequestLoggingMode string
-
-const (
-	OutputDatadogFailedRequestLoggingModePayload           OutputDatadogFailedRequestLoggingMode = "payload"
-	OutputDatadogFailedRequestLoggingModePayloadAndHeaders OutputDatadogFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatadogFailedRequestLoggingModeNone              OutputDatadogFailedRequestLoggingMode = "none"
-)
-
-func (e OutputDatadogFailedRequestLoggingMode) ToPointer() *OutputDatadogFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputDatadogResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputDatadogResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDatadogResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDatadogResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputDatadogResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputDatadogResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputDatadogResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputDatadogTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputDatadogTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDatadogTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDatadogTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputDatadogTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputDatadogTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputDatadogTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputDatadogBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputDatadogBackpressureBehavior string
-
-const (
-	OutputDatadogBackpressureBehaviorBlock OutputDatadogBackpressureBehavior = "block"
-	OutputDatadogBackpressureBehaviorDrop  OutputDatadogBackpressureBehavior = "drop"
-	OutputDatadogBackpressureBehaviorQueue OutputDatadogBackpressureBehavior = "queue"
-)
-
-func (e OutputDatadogBackpressureBehavior) ToPointer() *OutputDatadogBackpressureBehavior {
-	return &e
-}
-
-// OutputDatadogAuthenticationMethod - Enter API key directly, or select a stored secret
-type OutputDatadogAuthenticationMethod string
-
-const (
-	OutputDatadogAuthenticationMethodManual OutputDatadogAuthenticationMethod = "manual"
-	OutputDatadogAuthenticationMethodSecret OutputDatadogAuthenticationMethod = "secret"
-)
-
-func (e OutputDatadogAuthenticationMethod) ToPointer() *OutputDatadogAuthenticationMethod {
-	return &e
-}
-
-// OutputDatadogCompression - Codec to use to compress the persisted data
-type OutputDatadogCompression string
-
-const (
-	OutputDatadogCompressionNone OutputDatadogCompression = "none"
-	OutputDatadogCompressionGzip OutputDatadogCompression = "gzip"
-)
-
-func (e OutputDatadogCompression) ToPointer() *OutputDatadogCompression {
-	return &e
-}
-
-// OutputDatadogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputDatadogQueueFullBehavior string
-
-const (
-	OutputDatadogQueueFullBehaviorBlock OutputDatadogQueueFullBehavior = "block"
-	OutputDatadogQueueFullBehaviorDrop  OutputDatadogQueueFullBehavior = "drop"
-)
-
-func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehavior {
-	return &e
-}
-
-// OutputDatadogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputDatadogMode string
-
-const (
-	OutputDatadogModeError        OutputDatadogMode = "error"
-	OutputDatadogModeBackpressure OutputDatadogMode = "backpressure"
-	OutputDatadogModeAlways       OutputDatadogMode = "always"
-)
-
-func (e OutputDatadogMode) ToPointer() *OutputDatadogMode {
-	return &e
-}
-
-type OutputDatadogPqControls struct {
-}
-
-func (o OutputDatadogPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDatadogPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputDatadog struct {
+type OutputDatadogDatadog6 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
-	Type OutputDatadogType `json:"type"`
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType6 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -308,8 +96,8 @@ type OutputDatadog struct {
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// The content type to use when sending logs
-	ContentType *SendLogsAs `default:"json" json:"contentType"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
 	Message *string `json:"message,omitempty"`
 	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
@@ -325,9 +113,9 @@ type OutputDatadog struct {
 	// Allow API key to be set from the event's '__agent_api_key' field
 	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
 	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
-	Severity *OutputDatadogSeverity `json:"severity,omitempty"`
+	Severity *OutputDatadogSeverity6 `json:"severity,omitempty"`
 	// Datadog site to which events should be sent
-	Site *DatadogSite `default:"us" json:"site"`
+	Site *DatadogSite6 `default:"us" json:"site"`
 	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
 	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
 	// Maximum number of ongoing requests before blocking
@@ -347,26 +135,34 @@ type OutputDatadog struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputDatadogExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputDatadogFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputDatadogResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputDatadogTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputDatadogBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// Enter API key directly, or select a stored secret
-	AuthType *OutputDatadogAuthenticationMethod `default:"manual" json:"authType"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
 	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -374,340 +170,3142 @@ type OutputDatadog struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputDatadogCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputDatadogQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputDatadogMode       `default:"error" json:"pqMode"`
-	PqControls *OutputDatadogPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 	// Organization's API key in Datadog
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret string `json:"textSecret"`
 }
 
-func (o OutputDatadog) MarshalJSON() ([]byte, error) {
+func (o OutputDatadogDatadog6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputDatadog) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputDatadogDatadog6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "textSecret"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputDatadog) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputDatadog) GetType() OutputDatadogType {
-	if o == nil {
-		return OutputDatadogType("")
-	}
-	return o.Type
-}
-
-func (o *OutputDatadog) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputDatadog) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputDatadog) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputDatadog) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputDatadog) GetContentType() *SendLogsAs {
-	if o == nil {
-		return nil
-	}
-	return o.ContentType
-}
-
-func (o *OutputDatadog) GetMessage() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Message
-}
-
-func (o *OutputDatadog) GetSource() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Source
-}
-
-func (o *OutputDatadog) GetHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Host
-}
-
-func (o *OutputDatadog) GetService() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Service
-}
-
-func (o *OutputDatadog) GetTags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Tags
-}
-
-func (o *OutputDatadog) GetBatchByTags() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.BatchByTags
-}
-
-func (o *OutputDatadog) GetAllowAPIKeyFromEvents() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AllowAPIKeyFromEvents
-}
-
-func (o *OutputDatadog) GetSeverity() *OutputDatadogSeverity {
-	if o == nil {
-		return nil
-	}
-	return o.Severity
-}
-
-func (o *OutputDatadog) GetSite() *DatadogSite {
-	if o == nil {
-		return nil
-	}
-	return o.Site
-}
-
-func (o *OutputDatadog) GetSendCountersAsCount() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.SendCountersAsCount
-}
-
-func (o *OutputDatadog) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputDatadog) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputDatadog) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputDatadog) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputDatadog) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputDatadog) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputDatadog) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputDatadog) GetExtraHTTPHeaders() []OutputDatadogExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputDatadog) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputDatadog) GetFailedRequestLoggingMode() *OutputDatadogFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputDatadog) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputDatadog) GetResponseRetrySettings() []OutputDatadogResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputDatadog) GetTimeoutRetrySettings() *OutputDatadogTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputDatadog) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputDatadog) GetOnBackpressure() *OutputDatadogBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputDatadog) GetAuthType() *OutputDatadogAuthenticationMethod {
+func (o *OutputDatadogDatadog6) GetAuthType() *AuthType2Options {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputDatadog) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputDatadogDatadog6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog6) GetType() OutputDatadogType6 {
+	if o == nil {
+		return OutputDatadogType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog6) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog6) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog6) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog6) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog6) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog6) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog6) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog6) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog6) GetSeverity() *OutputDatadogSeverity6 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog6) GetSite() *DatadogSite6 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog6) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog6) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputDatadog) GetDescription() *string {
+func (o *OutputDatadogDatadog6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputDatadog) GetCustomURL() *string {
+func (o *OutputDatadogDatadog6) GetCustomURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomURL
 }
 
-func (o *OutputDatadog) GetPqMaxFileSize() *string {
+func (o *OutputDatadogDatadog6) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputDatadog) GetPqMaxSize() *string {
+func (o *OutputDatadogDatadog6) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputDatadog) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputDatadog) GetPqCompress() *OutputDatadogCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputDatadog) GetPqOnBackpressure() *OutputDatadogQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputDatadog) GetPqMode() *OutputDatadogMode {
+func (o *OutputDatadogDatadog6) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputDatadog) GetPqControls() *OutputDatadogPqControls {
+func (o *OutputDatadogDatadog6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog6) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputDatadog) GetAPIKey() *string {
+func (o *OutputDatadogDatadog6) GetAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.APIKey
 }
 
-func (o *OutputDatadog) GetTextSecret() *string {
+func (o *OutputDatadogDatadog6) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+type OutputDatadogType5 string
+
+const (
+	OutputDatadogType5Datadog OutputDatadogType5 = "datadog"
+)
+
+func (e OutputDatadogType5) ToPointer() *OutputDatadogType5 {
+	return &e
+}
+func (e *OutputDatadogType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog":
+		*e = OutputDatadogType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDatadogType5: %v", v)
+	}
+}
+
+// OutputDatadogSeverity5 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity5 string
+
+const (
+	// OutputDatadogSeverity5Emergency emergency
+	OutputDatadogSeverity5Emergency OutputDatadogSeverity5 = "emergency"
+	// OutputDatadogSeverity5Alert alert
+	OutputDatadogSeverity5Alert OutputDatadogSeverity5 = "alert"
+	// OutputDatadogSeverity5Critical critical
+	OutputDatadogSeverity5Critical OutputDatadogSeverity5 = "critical"
+	// OutputDatadogSeverity5Error error
+	OutputDatadogSeverity5Error OutputDatadogSeverity5 = "error"
+	// OutputDatadogSeverity5Warning warning
+	OutputDatadogSeverity5Warning OutputDatadogSeverity5 = "warning"
+	// OutputDatadogSeverity5Notice notice
+	OutputDatadogSeverity5Notice OutputDatadogSeverity5 = "notice"
+	// OutputDatadogSeverity5Info info
+	OutputDatadogSeverity5Info OutputDatadogSeverity5 = "info"
+	// OutputDatadogSeverity5Debug debug
+	OutputDatadogSeverity5Debug OutputDatadogSeverity5 = "debug"
+)
+
+func (e OutputDatadogSeverity5) ToPointer() *OutputDatadogSeverity5 {
+	return &e
+}
+
+// DatadogSite5 - Datadog site to which events should be sent
+type DatadogSite5 string
+
+const (
+	// DatadogSite5Us US
+	DatadogSite5Us DatadogSite5 = "us"
+	// DatadogSite5Us3 US3
+	DatadogSite5Us3 DatadogSite5 = "us3"
+	// DatadogSite5Us5 US5
+	DatadogSite5Us5 DatadogSite5 = "us5"
+	// DatadogSite5Eu Europe
+	DatadogSite5Eu DatadogSite5 = "eu"
+	// DatadogSite5Fed1 US1-FED
+	DatadogSite5Fed1 DatadogSite5 = "fed1"
+	// DatadogSite5Ap1 AP1
+	DatadogSite5Ap1 DatadogSite5 = "ap1"
+	// DatadogSite5Custom Custom
+	DatadogSite5Custom DatadogSite5 = "custom"
+)
+
+func (e DatadogSite5) ToPointer() *DatadogSite5 {
+	return &e
+}
+
+type OutputDatadogDatadog5 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+	Source *string `json:"source,omitempty"`
+	// Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+	Host *string `json:"host,omitempty"`
+	// Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+	Service *string `json:"service,omitempty"`
+	// List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+	Tags []string `json:"tags,omitempty"`
+	// Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+	BatchByTags *bool `default:"true" json:"batchByTags"`
+	// Allow API key to be set from the event's '__agent_api_key' field
+	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
+	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+	Severity *OutputDatadogSeverity5 `json:"severity,omitempty"`
+	// Datadog site to which events should be sent
+	Site *DatadogSite5 `default:"us" json:"site"`
+	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Organization's API key in Datadog
+	APIKey string `json:"apiKey"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputDatadogDatadog5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogDatadog5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "apiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogDatadog5) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputDatadogDatadog5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog5) GetType() OutputDatadogType5 {
+	if o == nil {
+		return OutputDatadogType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog5) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog5) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog5) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog5) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog5) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog5) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog5) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog5) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog5) GetSeverity() *OutputDatadogSeverity5 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog5) GetSite() *DatadogSite5 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog5) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputDatadogDatadog5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDatadogDatadog5) GetCustomURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomURL
+}
+
+func (o *OutputDatadogDatadog5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDatadogDatadog5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDatadogDatadog5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDatadogDatadog5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputDatadogDatadog5) GetAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.APIKey
+}
+
+func (o *OutputDatadogDatadog5) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
+}
+
+type OutputDatadogType4 string
+
+const (
+	OutputDatadogType4Datadog OutputDatadogType4 = "datadog"
+)
+
+func (e OutputDatadogType4) ToPointer() *OutputDatadogType4 {
+	return &e
+}
+func (e *OutputDatadogType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog":
+		*e = OutputDatadogType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDatadogType4: %v", v)
+	}
+}
+
+// OutputDatadogSeverity4 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity4 string
+
+const (
+	// OutputDatadogSeverity4Emergency emergency
+	OutputDatadogSeverity4Emergency OutputDatadogSeverity4 = "emergency"
+	// OutputDatadogSeverity4Alert alert
+	OutputDatadogSeverity4Alert OutputDatadogSeverity4 = "alert"
+	// OutputDatadogSeverity4Critical critical
+	OutputDatadogSeverity4Critical OutputDatadogSeverity4 = "critical"
+	// OutputDatadogSeverity4Error error
+	OutputDatadogSeverity4Error OutputDatadogSeverity4 = "error"
+	// OutputDatadogSeverity4Warning warning
+	OutputDatadogSeverity4Warning OutputDatadogSeverity4 = "warning"
+	// OutputDatadogSeverity4Notice notice
+	OutputDatadogSeverity4Notice OutputDatadogSeverity4 = "notice"
+	// OutputDatadogSeverity4Info info
+	OutputDatadogSeverity4Info OutputDatadogSeverity4 = "info"
+	// OutputDatadogSeverity4Debug debug
+	OutputDatadogSeverity4Debug OutputDatadogSeverity4 = "debug"
+)
+
+func (e OutputDatadogSeverity4) ToPointer() *OutputDatadogSeverity4 {
+	return &e
+}
+
+// DatadogSite4 - Datadog site to which events should be sent
+type DatadogSite4 string
+
+const (
+	// DatadogSite4Us US
+	DatadogSite4Us DatadogSite4 = "us"
+	// DatadogSite4Us3 US3
+	DatadogSite4Us3 DatadogSite4 = "us3"
+	// DatadogSite4Us5 US5
+	DatadogSite4Us5 DatadogSite4 = "us5"
+	// DatadogSite4Eu Europe
+	DatadogSite4Eu DatadogSite4 = "eu"
+	// DatadogSite4Fed1 US1-FED
+	DatadogSite4Fed1 DatadogSite4 = "fed1"
+	// DatadogSite4Ap1 AP1
+	DatadogSite4Ap1 DatadogSite4 = "ap1"
+	// DatadogSite4Custom Custom
+	DatadogSite4Custom DatadogSite4 = "custom"
+)
+
+func (e DatadogSite4) ToPointer() *DatadogSite4 {
+	return &e
+}
+
+type OutputDatadogDatadog4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+	Source *string `json:"source,omitempty"`
+	// Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+	Host *string `json:"host,omitempty"`
+	// Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+	Service *string `json:"service,omitempty"`
+	// List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+	Tags []string `json:"tags,omitempty"`
+	// Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+	BatchByTags *bool `default:"true" json:"batchByTags"`
+	// Allow API key to be set from the event's '__agent_api_key' field
+	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
+	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+	Severity *OutputDatadogSeverity4 `json:"severity,omitempty"`
+	// Datadog site to which events should be sent
+	Site *DatadogSite4 `default:"us" json:"site"`
+	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+	// Organization's API key in Datadog
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputDatadogDatadog4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogDatadog4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogDatadog4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog4) GetType() OutputDatadogType4 {
+	if o == nil {
+		return OutputDatadogType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog4) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog4) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog4) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog4) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog4) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog4) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog4) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog4) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog4) GetSeverity() *OutputDatadogSeverity4 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog4) GetSite() *DatadogSite4 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog4) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog4) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputDatadogDatadog4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputDatadogDatadog4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDatadogDatadog4) GetCustomURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomURL
+}
+
+func (o *OutputDatadogDatadog4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDatadogDatadog4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDatadogDatadog4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDatadogDatadog4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog4) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+func (o *OutputDatadogDatadog4) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputDatadogDatadog4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputDatadogType3 string
+
+const (
+	OutputDatadogType3Datadog OutputDatadogType3 = "datadog"
+)
+
+func (e OutputDatadogType3) ToPointer() *OutputDatadogType3 {
+	return &e
+}
+func (e *OutputDatadogType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog":
+		*e = OutputDatadogType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDatadogType3: %v", v)
+	}
+}
+
+// OutputDatadogSeverity3 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity3 string
+
+const (
+	// OutputDatadogSeverity3Emergency emergency
+	OutputDatadogSeverity3Emergency OutputDatadogSeverity3 = "emergency"
+	// OutputDatadogSeverity3Alert alert
+	OutputDatadogSeverity3Alert OutputDatadogSeverity3 = "alert"
+	// OutputDatadogSeverity3Critical critical
+	OutputDatadogSeverity3Critical OutputDatadogSeverity3 = "critical"
+	// OutputDatadogSeverity3Error error
+	OutputDatadogSeverity3Error OutputDatadogSeverity3 = "error"
+	// OutputDatadogSeverity3Warning warning
+	OutputDatadogSeverity3Warning OutputDatadogSeverity3 = "warning"
+	// OutputDatadogSeverity3Notice notice
+	OutputDatadogSeverity3Notice OutputDatadogSeverity3 = "notice"
+	// OutputDatadogSeverity3Info info
+	OutputDatadogSeverity3Info OutputDatadogSeverity3 = "info"
+	// OutputDatadogSeverity3Debug debug
+	OutputDatadogSeverity3Debug OutputDatadogSeverity3 = "debug"
+)
+
+func (e OutputDatadogSeverity3) ToPointer() *OutputDatadogSeverity3 {
+	return &e
+}
+
+// DatadogSite3 - Datadog site to which events should be sent
+type DatadogSite3 string
+
+const (
+	// DatadogSite3Us US
+	DatadogSite3Us DatadogSite3 = "us"
+	// DatadogSite3Us3 US3
+	DatadogSite3Us3 DatadogSite3 = "us3"
+	// DatadogSite3Us5 US5
+	DatadogSite3Us5 DatadogSite3 = "us5"
+	// DatadogSite3Eu Europe
+	DatadogSite3Eu DatadogSite3 = "eu"
+	// DatadogSite3Fed1 US1-FED
+	DatadogSite3Fed1 DatadogSite3 = "fed1"
+	// DatadogSite3Ap1 AP1
+	DatadogSite3Ap1 DatadogSite3 = "ap1"
+	// DatadogSite3Custom Custom
+	DatadogSite3Custom DatadogSite3 = "custom"
+)
+
+func (e DatadogSite3) ToPointer() *DatadogSite3 {
+	return &e
+}
+
+type OutputDatadogDatadog3 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+	Source *string `json:"source,omitempty"`
+	// Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+	Host *string `json:"host,omitempty"`
+	// Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+	Service *string `json:"service,omitempty"`
+	// List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+	Tags []string `json:"tags,omitempty"`
+	// Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+	BatchByTags *bool `default:"true" json:"batchByTags"`
+	// Allow API key to be set from the event's '__agent_api_key' field
+	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
+	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+	Severity *OutputDatadogSeverity3 `json:"severity,omitempty"`
+	// Datadog site to which events should be sent
+	Site *DatadogSite3 `default:"us" json:"site"`
+	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Organization's API key in Datadog
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputDatadogDatadog3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogDatadog3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogDatadog3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog3) GetType() OutputDatadogType3 {
+	if o == nil {
+		return OutputDatadogType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog3) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog3) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog3) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog3) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog3) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog3) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog3) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog3) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog3) GetSeverity() *OutputDatadogSeverity3 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog3) GetSite() *DatadogSite3 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog3) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog3) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputDatadogDatadog3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputDatadogDatadog3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDatadogDatadog3) GetCustomURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomURL
+}
+
+func (o *OutputDatadogDatadog3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDatadogDatadog3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDatadogDatadog3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDatadogDatadog3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputDatadogDatadog3) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputDatadogDatadog3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+// DatadogSite2 - Datadog site to which events should be sent
+type DatadogSite2 string
+
+const (
+	// DatadogSite2Us US
+	DatadogSite2Us DatadogSite2 = "us"
+	// DatadogSite2Us3 US3
+	DatadogSite2Us3 DatadogSite2 = "us3"
+	// DatadogSite2Us5 US5
+	DatadogSite2Us5 DatadogSite2 = "us5"
+	// DatadogSite2Eu Europe
+	DatadogSite2Eu DatadogSite2 = "eu"
+	// DatadogSite2Fed1 US1-FED
+	DatadogSite2Fed1 DatadogSite2 = "fed1"
+	// DatadogSite2Ap1 AP1
+	DatadogSite2Ap1 DatadogSite2 = "ap1"
+	// DatadogSite2Custom Custom
+	DatadogSite2Custom DatadogSite2 = "custom"
+)
+
+func (e DatadogSite2) ToPointer() *DatadogSite2 {
+	return &e
+}
+
+type OutputDatadogType2 string
+
+const (
+	OutputDatadogType2Datadog OutputDatadogType2 = "datadog"
+)
+
+func (e OutputDatadogType2) ToPointer() *OutputDatadogType2 {
+	return &e
+}
+func (e *OutputDatadogType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog":
+		*e = OutputDatadogType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDatadogType2: %v", v)
+	}
+}
+
+// OutputDatadogSeverity2 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity2 string
+
+const (
+	// OutputDatadogSeverity2Emergency emergency
+	OutputDatadogSeverity2Emergency OutputDatadogSeverity2 = "emergency"
+	// OutputDatadogSeverity2Alert alert
+	OutputDatadogSeverity2Alert OutputDatadogSeverity2 = "alert"
+	// OutputDatadogSeverity2Critical critical
+	OutputDatadogSeverity2Critical OutputDatadogSeverity2 = "critical"
+	// OutputDatadogSeverity2Error error
+	OutputDatadogSeverity2Error OutputDatadogSeverity2 = "error"
+	// OutputDatadogSeverity2Warning warning
+	OutputDatadogSeverity2Warning OutputDatadogSeverity2 = "warning"
+	// OutputDatadogSeverity2Notice notice
+	OutputDatadogSeverity2Notice OutputDatadogSeverity2 = "notice"
+	// OutputDatadogSeverity2Info info
+	OutputDatadogSeverity2Info OutputDatadogSeverity2 = "info"
+	// OutputDatadogSeverity2Debug debug
+	OutputDatadogSeverity2Debug OutputDatadogSeverity2 = "debug"
+)
+
+func (e OutputDatadogSeverity2) ToPointer() *OutputDatadogSeverity2 {
+	return &e
+}
+
+type OutputDatadogDatadog2 struct {
+	// Datadog site to which events should be sent
+	Site *DatadogSite2 `default:"us" json:"site"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+	Source *string `json:"source,omitempty"`
+	// Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+	Host *string `json:"host,omitempty"`
+	// Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+	Service *string `json:"service,omitempty"`
+	// List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+	Tags []string `json:"tags,omitempty"`
+	// Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+	BatchByTags *bool `default:"true" json:"batchByTags"`
+	// Allow API key to be set from the event's '__agent_api_key' field
+	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
+	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+	Severity *OutputDatadogSeverity2 `json:"severity,omitempty"`
+	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Organization's API key in Datadog
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputDatadogDatadog2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogDatadog2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogDatadog2) GetSite() *DatadogSite2 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog2) GetType() OutputDatadogType2 {
+	if o == nil {
+		return OutputDatadogType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog2) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog2) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog2) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog2) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog2) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog2) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog2) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog2) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog2) GetSeverity() *OutputDatadogSeverity2 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog2) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog2) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputDatadogDatadog2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputDatadogDatadog2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDatadogDatadog2) GetCustomURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomURL
+}
+
+func (o *OutputDatadogDatadog2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDatadogDatadog2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDatadogDatadog2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDatadogDatadog2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputDatadogDatadog2) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputDatadogDatadog2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+// DatadogSite1 - Datadog site to which events should be sent
+type DatadogSite1 string
+
+const (
+	// DatadogSite1Us US
+	DatadogSite1Us DatadogSite1 = "us"
+	// DatadogSite1Us3 US3
+	DatadogSite1Us3 DatadogSite1 = "us3"
+	// DatadogSite1Us5 US5
+	DatadogSite1Us5 DatadogSite1 = "us5"
+	// DatadogSite1Eu Europe
+	DatadogSite1Eu DatadogSite1 = "eu"
+	// DatadogSite1Fed1 US1-FED
+	DatadogSite1Fed1 DatadogSite1 = "fed1"
+	// DatadogSite1Ap1 AP1
+	DatadogSite1Ap1 DatadogSite1 = "ap1"
+	// DatadogSite1Custom Custom
+	DatadogSite1Custom DatadogSite1 = "custom"
+)
+
+func (e DatadogSite1) ToPointer() *DatadogSite1 {
+	return &e
+}
+
+type OutputDatadogType1 string
+
+const (
+	OutputDatadogType1Datadog OutputDatadogType1 = "datadog"
+)
+
+func (e OutputDatadogType1) ToPointer() *OutputDatadogType1 {
+	return &e
+}
+func (e *OutputDatadogType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog":
+		*e = OutputDatadogType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDatadogType1: %v", v)
+	}
+}
+
+// OutputDatadogSeverity1 - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type OutputDatadogSeverity1 string
+
+const (
+	// OutputDatadogSeverity1Emergency emergency
+	OutputDatadogSeverity1Emergency OutputDatadogSeverity1 = "emergency"
+	// OutputDatadogSeverity1Alert alert
+	OutputDatadogSeverity1Alert OutputDatadogSeverity1 = "alert"
+	// OutputDatadogSeverity1Critical critical
+	OutputDatadogSeverity1Critical OutputDatadogSeverity1 = "critical"
+	// OutputDatadogSeverity1Error error
+	OutputDatadogSeverity1Error OutputDatadogSeverity1 = "error"
+	// OutputDatadogSeverity1Warning warning
+	OutputDatadogSeverity1Warning OutputDatadogSeverity1 = "warning"
+	// OutputDatadogSeverity1Notice notice
+	OutputDatadogSeverity1Notice OutputDatadogSeverity1 = "notice"
+	// OutputDatadogSeverity1Info info
+	OutputDatadogSeverity1Info OutputDatadogSeverity1 = "info"
+	// OutputDatadogSeverity1Debug debug
+	OutputDatadogSeverity1Debug OutputDatadogSeverity1 = "debug"
+)
+
+func (e OutputDatadogSeverity1) ToPointer() *OutputDatadogSeverity1 {
+	return &e
+}
+
+type OutputDatadogDatadog1 struct {
+	// Datadog site to which events should be sent
+	Site *DatadogSite1 `default:"us" json:"site"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputDatadogType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Format to use when sending payload. Defaults to Text.
+	ContentType *PayloadFormatOptions `default:"text" json:"contentType"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+	Source *string `json:"source,omitempty"`
+	// Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+	Host *string `json:"host,omitempty"`
+	// Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+	Service *string `json:"service,omitempty"`
+	// List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+	Tags []string `json:"tags,omitempty"`
+	// Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+	BatchByTags *bool `default:"true" json:"batchByTags"`
+	// Allow API key to be set from the event's '__agent_api_key' field
+	AllowAPIKeyFromEvents *bool `default:"false" json:"allowApiKeyFromEvents"`
+	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+	Severity *OutputDatadogSeverity1 `json:"severity,omitempty"`
+	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+	SendCountersAsCount *bool `default:"false" json:"sendCountersAsCount"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	CustomURL          string   `json:"customUrl"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Organization's API key in Datadog
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputDatadogDatadog1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogDatadog1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "customUrl"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogDatadog1) GetSite() *DatadogSite1 {
+	if o == nil {
+		return nil
+	}
+	return o.Site
+}
+
+func (o *OutputDatadogDatadog1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDatadogDatadog1) GetType() OutputDatadogType1 {
+	if o == nil {
+		return OutputDatadogType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputDatadogDatadog1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDatadogDatadog1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDatadogDatadog1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDatadogDatadog1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDatadogDatadog1) GetContentType() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ContentType
+}
+
+func (o *OutputDatadogDatadog1) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputDatadogDatadog1) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputDatadogDatadog1) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputDatadogDatadog1) GetService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Service
+}
+
+func (o *OutputDatadogDatadog1) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *OutputDatadogDatadog1) GetBatchByTags() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.BatchByTags
+}
+
+func (o *OutputDatadogDatadog1) GetAllowAPIKeyFromEvents() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AllowAPIKeyFromEvents
+}
+
+func (o *OutputDatadogDatadog1) GetSeverity() *OutputDatadogSeverity1 {
+	if o == nil {
+		return nil
+	}
+	return o.Severity
+}
+
+func (o *OutputDatadogDatadog1) GetSendCountersAsCount() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SendCountersAsCount
+}
+
+func (o *OutputDatadogDatadog1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputDatadogDatadog1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputDatadogDatadog1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputDatadogDatadog1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDatadogDatadog1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDatadogDatadog1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputDatadogDatadog1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputDatadogDatadog1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputDatadogDatadog1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputDatadogDatadog1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputDatadogDatadog1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputDatadogDatadog1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputDatadogDatadog1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputDatadogDatadog1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputDatadogDatadog1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDatadogDatadog1) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputDatadogDatadog1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputDatadogDatadog1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDatadogDatadog1) GetCustomURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomURL
+}
+
+func (o *OutputDatadogDatadog1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDatadogDatadog1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDatadogDatadog1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDatadogDatadog1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDatadogDatadog1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputDatadogDatadog1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputDatadogDatadog1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputDatadogDatadog1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputDatadogDatadog1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputDatadogDatadog1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputDatadogDatadog1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputDatadogDatadog1) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputDatadogDatadog1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputDatadogType string
+
+const (
+	OutputDatadogTypeOutputDatadogDatadog1 OutputDatadogType = "OutputDatadog_Datadog_1"
+	OutputDatadogTypeOutputDatadogDatadog2 OutputDatadogType = "OutputDatadog_Datadog_2"
+	OutputDatadogTypeOutputDatadogDatadog3 OutputDatadogType = "OutputDatadog_Datadog_3"
+	OutputDatadogTypeOutputDatadogDatadog4 OutputDatadogType = "OutputDatadog_Datadog_4"
+	OutputDatadogTypeOutputDatadogDatadog5 OutputDatadogType = "OutputDatadog_Datadog_5"
+	OutputDatadogTypeOutputDatadogDatadog6 OutputDatadogType = "OutputDatadog_Datadog_6"
+)
+
+type OutputDatadog struct {
+	OutputDatadogDatadog1 *OutputDatadogDatadog1 `queryParam:"inline,name=OutputDatadog"`
+	OutputDatadogDatadog2 *OutputDatadogDatadog2 `queryParam:"inline,name=OutputDatadog"`
+	OutputDatadogDatadog3 *OutputDatadogDatadog3 `queryParam:"inline,name=OutputDatadog"`
+	OutputDatadogDatadog4 *OutputDatadogDatadog4 `queryParam:"inline,name=OutputDatadog"`
+	OutputDatadogDatadog5 *OutputDatadogDatadog5 `queryParam:"inline,name=OutputDatadog"`
+	OutputDatadogDatadog6 *OutputDatadogDatadog6 `queryParam:"inline,name=OutputDatadog"`
+
+	Type OutputDatadogType
+}
+
+func CreateOutputDatadogOutputDatadogDatadog1(outputDatadogDatadog1 OutputDatadogDatadog1) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog1
+
+	return OutputDatadog{
+		OutputDatadogDatadog1: &outputDatadogDatadog1,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputDatadogOutputDatadogDatadog2(outputDatadogDatadog2 OutputDatadogDatadog2) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog2
+
+	return OutputDatadog{
+		OutputDatadogDatadog2: &outputDatadogDatadog2,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputDatadogOutputDatadogDatadog3(outputDatadogDatadog3 OutputDatadogDatadog3) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog3
+
+	return OutputDatadog{
+		OutputDatadogDatadog3: &outputDatadogDatadog3,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputDatadogOutputDatadogDatadog4(outputDatadogDatadog4 OutputDatadogDatadog4) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog4
+
+	return OutputDatadog{
+		OutputDatadogDatadog4: &outputDatadogDatadog4,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputDatadogOutputDatadogDatadog5(outputDatadogDatadog5 OutputDatadogDatadog5) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog5
+
+	return OutputDatadog{
+		OutputDatadogDatadog5: &outputDatadogDatadog5,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputDatadogOutputDatadogDatadog6(outputDatadogDatadog6 OutputDatadogDatadog6) OutputDatadog {
+	typ := OutputDatadogTypeOutputDatadogDatadog6
+
+	return OutputDatadog{
+		OutputDatadogDatadog6: &outputDatadogDatadog6,
+		Type:                  typ,
+	}
+}
+
+func (u *OutputDatadog) UnmarshalJSON(data []byte) error {
+
+	var outputDatadogDatadog1 OutputDatadogDatadog1 = OutputDatadogDatadog1{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog1, "", true, nil); err == nil {
+		u.OutputDatadogDatadog1 = &outputDatadogDatadog1
+		u.Type = OutputDatadogTypeOutputDatadogDatadog1
+		return nil
+	}
+
+	var outputDatadogDatadog4 OutputDatadogDatadog4 = OutputDatadogDatadog4{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog4, "", true, nil); err == nil {
+		u.OutputDatadogDatadog4 = &outputDatadogDatadog4
+		u.Type = OutputDatadogTypeOutputDatadogDatadog4
+		return nil
+	}
+
+	var outputDatadogDatadog5 OutputDatadogDatadog5 = OutputDatadogDatadog5{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog5, "", true, nil); err == nil {
+		u.OutputDatadogDatadog5 = &outputDatadogDatadog5
+		u.Type = OutputDatadogTypeOutputDatadogDatadog5
+		return nil
+	}
+
+	var outputDatadogDatadog6 OutputDatadogDatadog6 = OutputDatadogDatadog6{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog6, "", true, nil); err == nil {
+		u.OutputDatadogDatadog6 = &outputDatadogDatadog6
+		u.Type = OutputDatadogTypeOutputDatadogDatadog6
+		return nil
+	}
+
+	var outputDatadogDatadog2 OutputDatadogDatadog2 = OutputDatadogDatadog2{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog2, "", true, nil); err == nil {
+		u.OutputDatadogDatadog2 = &outputDatadogDatadog2
+		u.Type = OutputDatadogTypeOutputDatadogDatadog2
+		return nil
+	}
+
+	var outputDatadogDatadog3 OutputDatadogDatadog3 = OutputDatadogDatadog3{}
+	if err := utils.UnmarshalJSON(data, &outputDatadogDatadog3, "", true, nil); err == nil {
+		u.OutputDatadogDatadog3 = &outputDatadogDatadog3
+		u.Type = OutputDatadogTypeOutputDatadogDatadog3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputDatadog", string(data))
+}
+
+func (u OutputDatadog) MarshalJSON() ([]byte, error) {
+	if u.OutputDatadogDatadog1 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog1, "", true)
+	}
+
+	if u.OutputDatadogDatadog2 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog2, "", true)
+	}
+
+	if u.OutputDatadogDatadog3 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog3, "", true)
+	}
+
+	if u.OutputDatadogDatadog4 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog4, "", true)
+	}
+
+	if u.OutputDatadogDatadog5 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog5, "", true)
+	}
+
+	if u.OutputDatadogDatadog6 != nil {
+		return utils.MarshalJSON(u.OutputDatadogDatadog6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputDatadog: all fields are null")
 }

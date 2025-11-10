@@ -1,0 +1,13 @@
+# AwsType
+
+
+## Fields
+
+| Field                                               | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `Enabled`                                           | *bool*                                              | :heavy_check_mark:                                  | N/A                                                 |
+| `InstanceID`                                        | *string*                                            | :heavy_check_mark:                                  | N/A                                                 |
+| `Region`                                            | *string*                                            | :heavy_check_mark:                                  | N/A                                                 |
+| `Tags`                                              | [*components.Tags](../../models/components/tags.md) | :heavy_minus_sign:                                  | N/A                                                 |
+| `Type`                                              | *string*                                            | :heavy_check_mark:                                  | N/A                                                 |
+| `Zone`                                              | *string*                                            | :heavy_check_mark:                                  | N/A                                                 |

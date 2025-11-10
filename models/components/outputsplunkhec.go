@@ -3,288 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSplunkHecType string
-
-const (
-	OutputSplunkHecTypeSplunkHec OutputSplunkHecType = "splunk_hec"
-)
-
-func (e OutputSplunkHecType) ToPointer() *OutputSplunkHecType {
-	return &e
-}
-func (e *OutputSplunkHecType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk_hec":
-		*e = OutputSplunkHecType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkHecType: %v", v)
-	}
-}
-
-type OutputSplunkHecExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSplunkHecExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputSplunkHecExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputSplunkHecFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputSplunkHecFailedRequestLoggingMode string
-
-const (
-	OutputSplunkHecFailedRequestLoggingModePayload           OutputSplunkHecFailedRequestLoggingMode = "payload"
-	OutputSplunkHecFailedRequestLoggingModePayloadAndHeaders OutputSplunkHecFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSplunkHecFailedRequestLoggingModeNone              OutputSplunkHecFailedRequestLoggingMode = "none"
-)
-
-func (e OutputSplunkHecFailedRequestLoggingMode) ToPointer() *OutputSplunkHecFailedRequestLoggingMode {
-	return &e
-}
-
-// OutputSplunkHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputSplunkHecAuthenticationMethod string
-
-const (
-	OutputSplunkHecAuthenticationMethodManual OutputSplunkHecAuthenticationMethod = "manual"
-	OutputSplunkHecAuthenticationMethodSecret OutputSplunkHecAuthenticationMethod = "secret"
-)
-
-func (e OutputSplunkHecAuthenticationMethod) ToPointer() *OutputSplunkHecAuthenticationMethod {
-	return &e
-}
-
-type OutputSplunkHecResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSplunkHecResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSplunkHecResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputSplunkHecTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSplunkHecTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSplunkHecTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputSplunkHecBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSplunkHecBackpressureBehavior string
-
-const (
-	OutputSplunkHecBackpressureBehaviorBlock OutputSplunkHecBackpressureBehavior = "block"
-	OutputSplunkHecBackpressureBehaviorDrop  OutputSplunkHecBackpressureBehavior = "drop"
-	OutputSplunkHecBackpressureBehaviorQueue OutputSplunkHecBackpressureBehavior = "queue"
-)
-
-func (e OutputSplunkHecBackpressureBehavior) ToPointer() *OutputSplunkHecBackpressureBehavior {
-	return &e
-}
-
-type OutputSplunkHecURL struct {
-	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
-	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputSplunkHecURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkHecURL) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *OutputSplunkHecURL) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-// OutputSplunkHecCompression - Codec to use to compress the persisted data
-type OutputSplunkHecCompression string
-
-const (
-	OutputSplunkHecCompressionNone OutputSplunkHecCompression = "none"
-	OutputSplunkHecCompressionGzip OutputSplunkHecCompression = "gzip"
-)
-
-func (e OutputSplunkHecCompression) ToPointer() *OutputSplunkHecCompression {
-	return &e
-}
-
-// OutputSplunkHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSplunkHecQueueFullBehavior string
-
-const (
-	OutputSplunkHecQueueFullBehaviorBlock OutputSplunkHecQueueFullBehavior = "block"
-	OutputSplunkHecQueueFullBehaviorDrop  OutputSplunkHecQueueFullBehavior = "drop"
-)
-
-func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
-	return &e
-}
-
-// OutputSplunkHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSplunkHecMode string
-
-const (
-	OutputSplunkHecModeError        OutputSplunkHecMode = "error"
-	OutputSplunkHecModeBackpressure OutputSplunkHecMode = "backpressure"
-	OutputSplunkHecModeAlways       OutputSplunkHecMode = "always"
-)
-
-func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
-	return &e
-}
-
-type OutputSplunkHecPqControls struct {
-}
-
-func (o OutputSplunkHecPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkHecPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSplunkHec struct {
+type OutputSplunkHecSplunkHec6 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string             `json:"id,omitempty"`
-	Type OutputSplunkHecType `json:"type"`
+	Type TypeSplunkHecOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -298,7 +27,8 @@ type OutputSplunkHec struct {
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `default:"indexQueue" json:"nextQueue"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string `default:"nowhere" json:"tcpRouting"`
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -316,30 +46,28 @@ type OutputSplunkHec struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputSplunkHecExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputSplunkHecFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
 	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *OutputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputSplunkHecResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputSplunkHecTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSplunkHecBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                              `json:"description,omitempty"`
+	ResponseHonorRetryAfterHeader *bool   `default:"true" json:"responseHonorRetryAfterHeader"`
+	Description                   *string `json:"description,omitempty"`
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
 	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                `default:"false" json:"excludeSelf"`
-	Urls        []OutputSplunkHecURL `json:"urls,omitempty"`
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -348,6 +76,16 @@ type OutputSplunkHec struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -355,308 +93,2612 @@ type OutputSplunkHec struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSplunkHecCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSplunkHecQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSplunkHecMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSplunkHecPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
+func (o OutputSplunkHecSplunkHec6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSplunkHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputSplunkHecSplunkHec6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSplunkHec) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSplunkHec) GetType() OutputSplunkHecType {
-	if o == nil {
-		return OutputSplunkHecType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSplunkHec) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSplunkHec) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSplunkHec) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSplunkHec) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSplunkHec) GetLoadBalanced() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
-}
-
-func (o *OutputSplunkHec) GetNextQueue() *string {
-	if o == nil {
-		return nil
-	}
-	return o.NextQueue
-}
-
-func (o *OutputSplunkHec) GetTCPRouting() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TCPRouting
-}
-
-func (o *OutputSplunkHec) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputSplunkHec) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputSplunkHec) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputSplunkHec) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputSplunkHec) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSplunkHec) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputSplunkHec) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputSplunkHec) GetExtraHTTPHeaders() []OutputSplunkHecExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputSplunkHec) GetFailedRequestLoggingMode() *OutputSplunkHecFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputSplunkHec) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputSplunkHec) GetEnableMultiMetrics() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableMultiMetrics
-}
-
-func (o *OutputSplunkHec) GetAuthType() *OutputSplunkHecAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputSplunkHec) GetResponseRetrySettings() []OutputSplunkHecResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputSplunkHec) GetTimeoutRetrySettings() *OutputSplunkHecTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputSplunkHec) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputSplunkHec) GetOnBackpressure() *OutputSplunkHecBackpressureBehavior {
+func (o *OutputSplunkHecSplunkHec6) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSplunkHec) GetDescription() *string {
+func (o *OutputSplunkHecSplunkHec6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSplunkHec) GetURL() *string {
+func (o *OutputSplunkHecSplunkHec6) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *OutputSplunkHec) GetUseRoundRobinDNS() *bool {
+func (o *OutputSplunkHecSplunkHec6) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputSplunkHec) GetExcludeSelf() *bool {
+func (o *OutputSplunkHecSplunkHec6) GetExcludeSelf() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeSelf
 }
 
-func (o *OutputSplunkHec) GetUrls() []OutputSplunkHecURL {
+func (o *OutputSplunkHecSplunkHec6) GetUrls() []UrlsType {
 	if o == nil {
 		return nil
 	}
 	return o.Urls
 }
 
-func (o *OutputSplunkHec) GetDNSResolvePeriodSec() *float64 {
+func (o *OutputSplunkHecSplunkHec6) GetDNSResolvePeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
 }
 
-func (o *OutputSplunkHec) GetLoadBalanceStatsPeriodSec() *float64 {
+func (o *OutputSplunkHecSplunkHec6) GetLoadBalanceStatsPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
 }
 
-func (o *OutputSplunkHec) GetToken() *string {
+func (o *OutputSplunkHecSplunkHec6) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputSplunkHec) GetTextSecret() *string {
+func (o *OutputSplunkHecSplunkHec6) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputSplunkHec) GetPqMaxFileSize() *string {
+func (o *OutputSplunkHecSplunkHec6) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSplunkHec) GetPqMaxSize() *string {
+func (o *OutputSplunkHecSplunkHec6) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSplunkHec) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSplunkHec) GetPqCompress() *OutputSplunkHecCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSplunkHec) GetPqOnBackpressure() *OutputSplunkHecQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSplunkHec) GetPqMode() *OutputSplunkHecMode {
+func (o *OutputSplunkHecSplunkHec6) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSplunkHec) GetPqControls() *OutputSplunkHecPqControls {
+func (o *OutputSplunkHecSplunkHec6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec6) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputSplunkHecSplunkHec5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type TypeSplunkHecOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool   `default:"true" json:"responseHonorRetryAfterHeader"`
+	Description                   *string `json:"description,omitempty"`
+	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Splunk HEC authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSplunkHecSplunkHec5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecSplunkHec5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec5) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputSplunkHecSplunkHec4 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type TypeSplunkHecOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Splunk HEC authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSplunkHecSplunkHec4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecSplunkHec4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSplunkHecSplunkHec3 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type TypeSplunkHecOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Splunk HEC authentication token
+	Token string `json:"token"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSplunkHecSplunkHec3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecSplunkHec3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSplunkHecSplunkHec2 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type TypeSplunkHecOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Splunk HEC authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSplunkHecSplunkHec2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecSplunkHec2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "urls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetUrls() []UrlsType {
+	if o == nil {
+		return []UrlsType{}
+	}
+	return o.Urls
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSplunkHecSplunkHec1 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type TypeSplunkHecOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `default:"indexQueue" json:"nextQueue"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string   `default:"nowhere" json:"tcpRouting"`
+	TLS        *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Splunk HEC authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSplunkHecSplunkHec1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkHecSplunkHec1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetType() TypeSplunkHecOption {
+	if o == nil {
+		return TypeSplunkHecOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkHecSplunkHec1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSplunkHecType string
+
+const (
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec1 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_1"
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec2 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_2"
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec3 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_3"
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec4 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_4"
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec5 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_5"
+	OutputSplunkHecTypeOutputSplunkHecSplunkHec6 OutputSplunkHecType = "OutputSplunkHec_SplunkHec_6"
+)
+
+type OutputSplunkHec struct {
+	OutputSplunkHecSplunkHec1 *OutputSplunkHecSplunkHec1 `queryParam:"inline,name=OutputSplunkHec"`
+	OutputSplunkHecSplunkHec2 *OutputSplunkHecSplunkHec2 `queryParam:"inline,name=OutputSplunkHec"`
+	OutputSplunkHecSplunkHec3 *OutputSplunkHecSplunkHec3 `queryParam:"inline,name=OutputSplunkHec"`
+	OutputSplunkHecSplunkHec4 *OutputSplunkHecSplunkHec4 `queryParam:"inline,name=OutputSplunkHec"`
+	OutputSplunkHecSplunkHec5 *OutputSplunkHecSplunkHec5 `queryParam:"inline,name=OutputSplunkHec"`
+	OutputSplunkHecSplunkHec6 *OutputSplunkHecSplunkHec6 `queryParam:"inline,name=OutputSplunkHec"`
+
+	Type OutputSplunkHecType
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec1(outputSplunkHecSplunkHec1 OutputSplunkHecSplunkHec1) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec1
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec1: &outputSplunkHecSplunkHec1,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec2(outputSplunkHecSplunkHec2 OutputSplunkHecSplunkHec2) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec2
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec2: &outputSplunkHecSplunkHec2,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec3(outputSplunkHecSplunkHec3 OutputSplunkHecSplunkHec3) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec3
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec3: &outputSplunkHecSplunkHec3,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec4(outputSplunkHecSplunkHec4 OutputSplunkHecSplunkHec4) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec4
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec4: &outputSplunkHecSplunkHec4,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec5(outputSplunkHecSplunkHec5 OutputSplunkHecSplunkHec5) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec5
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec5: &outputSplunkHecSplunkHec5,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSplunkHecOutputSplunkHecSplunkHec6(outputSplunkHecSplunkHec6 OutputSplunkHecSplunkHec6) OutputSplunkHec {
+	typ := OutputSplunkHecTypeOutputSplunkHecSplunkHec6
+
+	return OutputSplunkHec{
+		OutputSplunkHecSplunkHec6: &outputSplunkHecSplunkHec6,
+		Type:                      typ,
+	}
+}
+
+func (u *OutputSplunkHec) UnmarshalJSON(data []byte) error {
+
+	var outputSplunkHecSplunkHec2 OutputSplunkHecSplunkHec2 = OutputSplunkHecSplunkHec2{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec2, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec2 = &outputSplunkHecSplunkHec2
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec2
+		return nil
+	}
+
+	var outputSplunkHecSplunkHec3 OutputSplunkHecSplunkHec3 = OutputSplunkHecSplunkHec3{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec3, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec3 = &outputSplunkHecSplunkHec3
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec3
+		return nil
+	}
+
+	var outputSplunkHecSplunkHec4 OutputSplunkHecSplunkHec4 = OutputSplunkHecSplunkHec4{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec4, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec4 = &outputSplunkHecSplunkHec4
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec4
+		return nil
+	}
+
+	var outputSplunkHecSplunkHec6 OutputSplunkHecSplunkHec6 = OutputSplunkHecSplunkHec6{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec6, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec6 = &outputSplunkHecSplunkHec6
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec6
+		return nil
+	}
+
+	var outputSplunkHecSplunkHec1 OutputSplunkHecSplunkHec1 = OutputSplunkHecSplunkHec1{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec1, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec1 = &outputSplunkHecSplunkHec1
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec1
+		return nil
+	}
+
+	var outputSplunkHecSplunkHec5 OutputSplunkHecSplunkHec5 = OutputSplunkHecSplunkHec5{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkHecSplunkHec5, "", true, nil); err == nil {
+		u.OutputSplunkHecSplunkHec5 = &outputSplunkHecSplunkHec5
+		u.Type = OutputSplunkHecTypeOutputSplunkHecSplunkHec5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSplunkHec", string(data))
+}
+
+func (u OutputSplunkHec) MarshalJSON() ([]byte, error) {
+	if u.OutputSplunkHecSplunkHec1 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec1, "", true)
+	}
+
+	if u.OutputSplunkHecSplunkHec2 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec2, "", true)
+	}
+
+	if u.OutputSplunkHecSplunkHec3 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec3, "", true)
+	}
+
+	if u.OutputSplunkHecSplunkHec4 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec4, "", true)
+	}
+
+	if u.OutputSplunkHecSplunkHec5 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec5, "", true)
+	}
+
+	if u.OutputSplunkHecSplunkHec6 != nil {
+		return utils.MarshalJSON(u.OutputSplunkHecSplunkHec6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSplunkHec: all fields are null")
 }

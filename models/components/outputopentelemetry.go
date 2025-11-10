@@ -3,522 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputOpenTelemetryType string
-
-const (
-	OutputOpenTelemetryTypeOpenTelemetry OutputOpenTelemetryType = "open_telemetry"
-)
-
-func (e OutputOpenTelemetryType) ToPointer() *OutputOpenTelemetryType {
-	return &e
-}
-func (e *OutputOpenTelemetryType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "open_telemetry":
-		*e = OutputOpenTelemetryType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputOpenTelemetryType: %v", v)
-	}
-}
-
-// OutputOpenTelemetryProtocol - Select a transport option for OpenTelemetry
-type OutputOpenTelemetryProtocol string
-
-const (
-	OutputOpenTelemetryProtocolGrpc OutputOpenTelemetryProtocol = "grpc"
-	OutputOpenTelemetryProtocolHTTP OutputOpenTelemetryProtocol = "http"
-)
-
-func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
-	return &e
-}
-
-// OutputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type OutputOpenTelemetryOTLPVersion string
-
-const (
-	OutputOpenTelemetryOTLPVersionZeroDot10Dot0 OutputOpenTelemetryOTLPVersion = "0.10.0"
-	OutputOpenTelemetryOTLPVersionOneDot3Dot1   OutputOpenTelemetryOTLPVersion = "1.3.1"
-)
-
-func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVersion {
-	return &e
-}
-
-// OutputOpenTelemetryCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
-type OutputOpenTelemetryCompressCompression string
-
-const (
-	OutputOpenTelemetryCompressCompressionNone    OutputOpenTelemetryCompressCompression = "none"
-	OutputOpenTelemetryCompressCompressionDeflate OutputOpenTelemetryCompressCompression = "deflate"
-	OutputOpenTelemetryCompressCompressionGzip    OutputOpenTelemetryCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetryCompressCompression {
-	return &e
-}
-
-// OutputOpenTelemetryHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
-type OutputOpenTelemetryHTTPCompressCompression string
-
-const (
-	OutputOpenTelemetryHTTPCompressCompressionNone OutputOpenTelemetryHTTPCompressCompression = "none"
-	OutputOpenTelemetryHTTPCompressCompressionGzip OutputOpenTelemetryHTTPCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryHTTPCompressCompression) ToPointer() *OutputOpenTelemetryHTTPCompressCompression {
-	return &e
-}
-
-// OutputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
-type OutputOpenTelemetryAuthenticationType string
-
-const (
-	OutputOpenTelemetryAuthenticationTypeNone              OutputOpenTelemetryAuthenticationType = "none"
-	OutputOpenTelemetryAuthenticationTypeBasic             OutputOpenTelemetryAuthenticationType = "basic"
-	OutputOpenTelemetryAuthenticationTypeCredentialsSecret OutputOpenTelemetryAuthenticationType = "credentialsSecret"
-	OutputOpenTelemetryAuthenticationTypeToken             OutputOpenTelemetryAuthenticationType = "token"
-	OutputOpenTelemetryAuthenticationTypeTextSecret        OutputOpenTelemetryAuthenticationType = "textSecret"
-	OutputOpenTelemetryAuthenticationTypeOauth             OutputOpenTelemetryAuthenticationType = "oauth"
-)
-
-func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
-	return &e
-}
-
-type OutputOpenTelemetryMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputOpenTelemetryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputOpenTelemetryMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputOpenTelemetryFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputOpenTelemetryFailedRequestLoggingMode string
-
-const (
-	OutputOpenTelemetryFailedRequestLoggingModePayload           OutputOpenTelemetryFailedRequestLoggingMode = "payload"
-	OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders OutputOpenTelemetryFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputOpenTelemetryFailedRequestLoggingModeNone              OutputOpenTelemetryFailedRequestLoggingMode = "none"
-)
-
-func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTelemetryFailedRequestLoggingMode {
-	return &e
-}
-
-// OutputOpenTelemetryBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputOpenTelemetryBackpressureBehavior string
-
-const (
-	OutputOpenTelemetryBackpressureBehaviorBlock OutputOpenTelemetryBackpressureBehavior = "block"
-	OutputOpenTelemetryBackpressureBehaviorDrop  OutputOpenTelemetryBackpressureBehavior = "drop"
-	OutputOpenTelemetryBackpressureBehaviorQueue OutputOpenTelemetryBackpressureBehavior = "queue"
-)
-
-func (e OutputOpenTelemetryBackpressureBehavior) ToPointer() *OutputOpenTelemetryBackpressureBehavior {
-	return &e
-}
-
-type OutputOpenTelemetryOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputOpenTelemetryOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputOpenTelemetryOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputOpenTelemetryExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputOpenTelemetryResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputOpenTelemetryTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputOpenTelemetryTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputOpenTelemetryMinimumTLSVersion string
-
-const (
-	OutputOpenTelemetryMinimumTLSVersionTlSv1  OutputOpenTelemetryMinimumTLSVersion = "TLSv1"
-	OutputOpenTelemetryMinimumTLSVersionTlSv11 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.1"
-	OutputOpenTelemetryMinimumTLSVersionTlSv12 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.2"
-	OutputOpenTelemetryMinimumTLSVersionTlSv13 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputOpenTelemetryMinimumTLSVersion) ToPointer() *OutputOpenTelemetryMinimumTLSVersion {
-	return &e
-}
-
-type OutputOpenTelemetryMaximumTLSVersion string
-
-const (
-	OutputOpenTelemetryMaximumTLSVersionTlSv1  OutputOpenTelemetryMaximumTLSVersion = "TLSv1"
-	OutputOpenTelemetryMaximumTLSVersionTlSv11 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.1"
-	OutputOpenTelemetryMaximumTLSVersionTlSv12 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.2"
-	OutputOpenTelemetryMaximumTLSVersionTlSv13 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputOpenTelemetryMaximumTLSVersion) ToPointer() *OutputOpenTelemetryMaximumTLSVersion {
-	return &e
-}
-
-type OutputOpenTelemetryTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                               `json:"passphrase,omitempty"`
-	MinVersion *OutputOpenTelemetryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputOpenTelemetryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputOpenTelemetryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMinVersion() *OutputOpenTelemetryMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMaxVersion() *OutputOpenTelemetryMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputOpenTelemetryPqCompressCompression - Codec to use to compress the persisted data
-type OutputOpenTelemetryPqCompressCompression string
-
-const (
-	OutputOpenTelemetryPqCompressCompressionNone OutputOpenTelemetryPqCompressCompression = "none"
-	OutputOpenTelemetryPqCompressCompressionGzip OutputOpenTelemetryPqCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemetryPqCompressCompression {
-	return &e
-}
-
-// OutputOpenTelemetryQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputOpenTelemetryQueueFullBehavior string
-
-const (
-	OutputOpenTelemetryQueueFullBehaviorBlock OutputOpenTelemetryQueueFullBehavior = "block"
-	OutputOpenTelemetryQueueFullBehaviorDrop  OutputOpenTelemetryQueueFullBehavior = "drop"
-)
-
-func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
-	return &e
-}
-
-// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputOpenTelemetryMode string
-
-const (
-	OutputOpenTelemetryModeError        OutputOpenTelemetryMode = "error"
-	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
-	OutputOpenTelemetryModeAlways       OutputOpenTelemetryMode = "always"
-)
-
-func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
-	return &e
-}
-
-type OutputOpenTelemetryPqControls struct {
-}
-
-func (o OutputOpenTelemetryPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputOpenTelemetry struct {
+type OutputOpenTelemetryOpenTelemetry10 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string                 `json:"id,omitempty"`
-	Type OutputOpenTelemetryType `json:"type"`
+	Type TypeOpenTelemetryOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -527,18 +22,18 @@ type OutputOpenTelemetry struct {
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Select a transport option for OpenTelemetry
-	Protocol *OutputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
-	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OutputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *OutputOpenTelemetryCompressCompression `default:"gzip" json:"compress"`
-	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *OutputOpenTelemetryHTTPCompressCompression `default:"gzip" json:"httpCompress"`
-	// OpenTelemetry authentication type
-	AuthType *OutputOpenTelemetryAuthenticationType `default:"none" json:"authType"`
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -546,7 +41,7 @@ type OutputOpenTelemetry struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []OutputOpenTelemetryMetadatum `json:"metadata,omitempty"`
+	Metadata []TagsType `json:"metadata,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -556,18 +51,16 @@ type OutputOpenTelemetry struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputOpenTelemetryFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// How often the sender should ping the peer to keep the connection open
 	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `default:"true" json:"keepAlive"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputOpenTelemetryBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                  `json:"description,omitempty"`
-	Username       *string                                  `json:"username,omitempty"`
-	Password       *string                                  `json:"password,omitempty"`
+	KeepAlive   *bool   `default:"true" json:"keepAlive"`
+	Description *string `json:"description,omitempty"`
+	Username    *string `json:"username,omitempty"`
+	Password    *string `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -587,9 +80,9 @@ type OutputOpenTelemetry struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputOpenTelemetryOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputOpenTelemetryOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -597,15 +90,25 @@ type OutputOpenTelemetry struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputOpenTelemetryExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputOpenTelemetryResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputOpenTelemetryTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                     `default:"true" json:"responseHonorRetryAfterHeader"`
-	TLS                           *OutputOpenTelemetryTLSSettingsClientSide `json:"tls,omitempty"`
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -613,399 +116,5443 @@ type OutputOpenTelemetry struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputOpenTelemetryPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputOpenTelemetryQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputOpenTelemetryMode       `default:"error" json:"pqMode"`
-	PqControls *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
+func (o OutputOpenTelemetryOpenTelemetry10) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputOpenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint"}); err != nil {
+func (o *OutputOpenTelemetryOpenTelemetry10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputOpenTelemetry) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputOpenTelemetry) GetType() OutputOpenTelemetryType {
-	if o == nil {
-		return OutputOpenTelemetryType("")
-	}
-	return o.Type
-}
-
-func (o *OutputOpenTelemetry) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputOpenTelemetry) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputOpenTelemetry) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputOpenTelemetry) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputOpenTelemetry) GetProtocol() *OutputOpenTelemetryProtocol {
-	if o == nil {
-		return nil
-	}
-	return o.Protocol
-}
-
-func (o *OutputOpenTelemetry) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
-}
-
-func (o *OutputOpenTelemetry) GetOtlpVersion() *OutputOpenTelemetryOTLPVersion {
-	if o == nil {
-		return nil
-	}
-	return o.OtlpVersion
-}
-
-func (o *OutputOpenTelemetry) GetCompress() *OutputOpenTelemetryCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputOpenTelemetry) GetHTTPCompress() *OutputOpenTelemetryHTTPCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.HTTPCompress
-}
-
-func (o *OutputOpenTelemetry) GetAuthType() *OutputOpenTelemetryAuthenticationType {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputOpenTelemetry) GetHTTPTracesEndpointOverride() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HTTPTracesEndpointOverride
-}
-
-func (o *OutputOpenTelemetry) GetHTTPMetricsEndpointOverride() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HTTPMetricsEndpointOverride
-}
-
-func (o *OutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HTTPLogsEndpointOverride
-}
-
-func (o *OutputOpenTelemetry) GetMetadata() []OutputOpenTelemetryMetadatum {
-	if o == nil {
-		return nil
-	}
-	return o.Metadata
-}
-
-func (o *OutputOpenTelemetry) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputOpenTelemetry) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputOpenTelemetry) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputOpenTelemetry) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputOpenTelemetry) GetFailedRequestLoggingMode() *OutputOpenTelemetryFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputOpenTelemetry) GetConnectionTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ConnectionTimeout
-}
-
-func (o *OutputOpenTelemetry) GetKeepAliveTime() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.KeepAliveTime
-}
-
-func (o *OutputOpenTelemetry) GetKeepAlive() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.KeepAlive
-}
-
-func (o *OutputOpenTelemetry) GetOnBackpressure() *OutputOpenTelemetryBackpressureBehavior {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputOpenTelemetry) GetDescription() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputOpenTelemetry) GetUsername() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Username
 }
 
-func (o *OutputOpenTelemetry) GetPassword() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPassword() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Password
 }
 
-func (o *OutputOpenTelemetry) GetToken() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputOpenTelemetry) GetCredentialsSecret() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputOpenTelemetry) GetTextSecret() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputOpenTelemetry) GetLoginURL() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetLoginURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LoginURL
 }
 
-func (o *OutputOpenTelemetry) GetSecretParamName() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetSecretParamName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SecretParamName
 }
 
-func (o *OutputOpenTelemetry) GetSecret() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputOpenTelemetry) GetTokenAttributeName() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTokenAttributeName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TokenAttributeName
 }
 
-func (o *OutputOpenTelemetry) GetAuthHeaderExpr() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetAuthHeaderExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AuthHeaderExpr
 }
 
-func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTokenTimeoutSecs() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputOpenTelemetry) GetOauthParams() []OutputOpenTelemetryOauthParam {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetOauthParams() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputOpenTelemetry) GetOauthHeaders() []OutputOpenTelemetryOauthHeader {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetOauthHeaders() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthHeaders
 }
 
-func (o *OutputOpenTelemetry) GetRejectUnauthorized() *bool {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []OutputOpenTelemetryExtraHTTPHeader {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputOpenTelemetry) GetSafeHeaders() []string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetSafeHeaders() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SafeHeaders
 }
 
-func (o *OutputOpenTelemetry) GetResponseRetrySettings() []OutputOpenTelemetryResponseRetrySetting {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetResponseRetrySettings() []ResponseRetrySettingsType {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputOpenTelemetry) GetTimeoutRetrySettings() *OutputOpenTelemetryTimeoutRetrySettings {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutRetrySettings
 }
 
-func (o *OutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetResponseHonorRetryAfterHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputOpenTelemetry) GetTLS() *OutputOpenTelemetryTLSSettingsClientSide {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetTLS() *Tls5Type {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputOpenTelemetry) GetPqMaxFileSize() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputOpenTelemetry) GetPqMaxSize() *string {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputOpenTelemetry) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputOpenTelemetry) GetPqCompress() *OutputOpenTelemetryPqCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputOpenTelemetry) GetPqOnBackpressure() *OutputOpenTelemetryQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry10) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry9 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive   *bool   `default:"true" json:"keepAlive"`
+	Description *string `json:"description,omitempty"`
+	Username    *string `json:"username,omitempty"`
+	Password    *string `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry9) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry8 struct {
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool    `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           Tls5Type `json:"tls"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "metadata", "tls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetMetadata() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetTLS() Tls5Type {
+	if o == nil {
+		return Tls5Type{}
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry7 struct {
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride string `json:"httpTracesEndpointOverride"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride string `json:"httpMetricsEndpointOverride"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride string `json:"httpLogsEndpointOverride"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings"`
+	TimeoutRetrySettings  TimeoutRetrySettingsType    `json:"timeoutRetrySettings"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "httpTracesEndpointOverride", "httpMetricsEndpointOverride", "httpLogsEndpointOverride", "extraHttpHeaders", "safeHeaders", "responseRetrySettings", "timeoutRetrySettings"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetHTTPTracesEndpointOverride() string {
+	if o == nil {
+		return ""
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetHTTPMetricsEndpointOverride() string {
+	if o == nil {
+		return ""
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetHTTPLogsEndpointOverride() string {
+	if o == nil {
+		return ""
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return []ExtraHTTPHeadersType{}
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetSafeHeaders() []string {
+	if o == nil {
+		return []string{}
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return []ResponseRetrySettingsType{}
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTimeoutRetrySettings() TimeoutRetrySettingsType {
+	if o == nil {
+		return TimeoutRetrySettingsType{}
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry6 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter name to pass in request body
+	SecretParamName string `json:"secretParamName"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName string `json:"tokenAttributeName"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "loginUrl", "secretParamName", "secret", "tokenAttributeName", "oauthParams", "oauthHeaders"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetSecretParamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTokenAttributeName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry5 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry4 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry3 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token string `json:"token"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry2 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       string                 `json:"username"`
+	Password       string                 `json:"password"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "username", "password"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetUsername() string {
+	if o == nil {
+		return ""
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPassword() string {
+	if o == nil {
+		return ""
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryOpenTelemetry1 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string                 `json:"id,omitempty"`
+	Type TypeOpenTelemetryOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+	Endpoint string `json:"endpoint"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
+	Compress *Compress1Options `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	HTTPCompress *PqCompressOptions `default:"none" json:"httpCompress"`
+	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
+	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPMetricsEndpointOverride *string `json:"httpMetricsEndpointOverride,omitempty"`
+	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
+	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+	Metadata []TagsType `json:"metadata,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// How often the sender should ping the peer to keep the connection open
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool     `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *Tls5Type `json:"tls,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputOpenTelemetryOpenTelemetry1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetType() TypeOpenTelemetryOption {
+	if o == nil {
+		return TypeOpenTelemetryOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetProtocol() *ProtocolOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Protocol
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetOtlpVersion() *OtlpVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OtlpVersion
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetCompress() *Compress1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetHTTPCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetHTTPTracesEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPTracesEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetHTTPMetricsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPMetricsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetHTTPLogsEndpointOverride() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPLogsEndpointOverride
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetKeepAliveTime() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAliveTime
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetTLS() *Tls5Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputOpenTelemetryOpenTelemetry1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputOpenTelemetryType string
+
+const (
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry1  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_1"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry2  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_2"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry3  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_3"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry4  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_4"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry5  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_5"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry6  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_6"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry7  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_7"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry8  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_8"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry9  OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_9"
+	OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry10 OutputOpenTelemetryType = "OutputOpenTelemetry_OpenTelemetry_10"
+)
+
+type OutputOpenTelemetry struct {
+	OutputOpenTelemetryOpenTelemetry1  *OutputOpenTelemetryOpenTelemetry1  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry2  *OutputOpenTelemetryOpenTelemetry2  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry3  *OutputOpenTelemetryOpenTelemetry3  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry4  *OutputOpenTelemetryOpenTelemetry4  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry5  *OutputOpenTelemetryOpenTelemetry5  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry6  *OutputOpenTelemetryOpenTelemetry6  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry7  *OutputOpenTelemetryOpenTelemetry7  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry8  *OutputOpenTelemetryOpenTelemetry8  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry9  *OutputOpenTelemetryOpenTelemetry9  `queryParam:"inline,name=OutputOpenTelemetry"`
+	OutputOpenTelemetryOpenTelemetry10 *OutputOpenTelemetryOpenTelemetry10 `queryParam:"inline,name=OutputOpenTelemetry"`
+
+	Type OutputOpenTelemetryType
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry1(outputOpenTelemetryOpenTelemetry1 OutputOpenTelemetryOpenTelemetry1) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry1
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry1: &outputOpenTelemetryOpenTelemetry1,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry2(outputOpenTelemetryOpenTelemetry2 OutputOpenTelemetryOpenTelemetry2) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry2
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry2: &outputOpenTelemetryOpenTelemetry2,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry3(outputOpenTelemetryOpenTelemetry3 OutputOpenTelemetryOpenTelemetry3) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry3
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry3: &outputOpenTelemetryOpenTelemetry3,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry4(outputOpenTelemetryOpenTelemetry4 OutputOpenTelemetryOpenTelemetry4) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry4
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry4: &outputOpenTelemetryOpenTelemetry4,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry5(outputOpenTelemetryOpenTelemetry5 OutputOpenTelemetryOpenTelemetry5) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry5
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry5: &outputOpenTelemetryOpenTelemetry5,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry6(outputOpenTelemetryOpenTelemetry6 OutputOpenTelemetryOpenTelemetry6) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry6
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry6: &outputOpenTelemetryOpenTelemetry6,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry7(outputOpenTelemetryOpenTelemetry7 OutputOpenTelemetryOpenTelemetry7) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry7
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry7: &outputOpenTelemetryOpenTelemetry7,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry8(outputOpenTelemetryOpenTelemetry8 OutputOpenTelemetryOpenTelemetry8) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry8
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry8: &outputOpenTelemetryOpenTelemetry8,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry9(outputOpenTelemetryOpenTelemetry9 OutputOpenTelemetryOpenTelemetry9) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry9
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry9: &outputOpenTelemetryOpenTelemetry9,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputOpenTelemetryOutputOpenTelemetryOpenTelemetry10(outputOpenTelemetryOpenTelemetry10 OutputOpenTelemetryOpenTelemetry10) OutputOpenTelemetry {
+	typ := OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry10
+
+	return OutputOpenTelemetry{
+		OutputOpenTelemetryOpenTelemetry10: &outputOpenTelemetryOpenTelemetry10,
+		Type:                               typ,
+	}
+}
+
+func (u *OutputOpenTelemetry) UnmarshalJSON(data []byte) error {
+
+	var outputOpenTelemetryOpenTelemetry7 OutputOpenTelemetryOpenTelemetry7 = OutputOpenTelemetryOpenTelemetry7{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry7, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry7 = &outputOpenTelemetryOpenTelemetry7
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry7
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry6 OutputOpenTelemetryOpenTelemetry6 = OutputOpenTelemetryOpenTelemetry6{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry6, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry6 = &outputOpenTelemetryOpenTelemetry6
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry6
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry2 OutputOpenTelemetryOpenTelemetry2 = OutputOpenTelemetryOpenTelemetry2{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry2, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry2 = &outputOpenTelemetryOpenTelemetry2
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry2
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry8 OutputOpenTelemetryOpenTelemetry8 = OutputOpenTelemetryOpenTelemetry8{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry8, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry8 = &outputOpenTelemetryOpenTelemetry8
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry8
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry3 OutputOpenTelemetryOpenTelemetry3 = OutputOpenTelemetryOpenTelemetry3{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry3, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry3 = &outputOpenTelemetryOpenTelemetry3
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry3
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry4 OutputOpenTelemetryOpenTelemetry4 = OutputOpenTelemetryOpenTelemetry4{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry4, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry4 = &outputOpenTelemetryOpenTelemetry4
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry4
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry5 OutputOpenTelemetryOpenTelemetry5 = OutputOpenTelemetryOpenTelemetry5{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry5, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry5 = &outputOpenTelemetryOpenTelemetry5
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry5
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry10 OutputOpenTelemetryOpenTelemetry10 = OutputOpenTelemetryOpenTelemetry10{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry10, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry10 = &outputOpenTelemetryOpenTelemetry10
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry10
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry1 OutputOpenTelemetryOpenTelemetry1 = OutputOpenTelemetryOpenTelemetry1{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry1, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry1 = &outputOpenTelemetryOpenTelemetry1
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry1
+		return nil
+	}
+
+	var outputOpenTelemetryOpenTelemetry9 OutputOpenTelemetryOpenTelemetry9 = OutputOpenTelemetryOpenTelemetry9{}
+	if err := utils.UnmarshalJSON(data, &outputOpenTelemetryOpenTelemetry9, "", true, nil); err == nil {
+		u.OutputOpenTelemetryOpenTelemetry9 = &outputOpenTelemetryOpenTelemetry9
+		u.Type = OutputOpenTelemetryTypeOutputOpenTelemetryOpenTelemetry9
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputOpenTelemetry", string(data))
+}
+
+func (u OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
+	if u.OutputOpenTelemetryOpenTelemetry1 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry1, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry2 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry2, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry3 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry3, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry4 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry4, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry5 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry5, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry6 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry6, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry7 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry7, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry8 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry8, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry9 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry9, "", true)
+	}
+
+	if u.OutputOpenTelemetryOpenTelemetry10 != nil {
+		return utils.MarshalJSON(u.OutputOpenTelemetryOpenTelemetry10, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputOpenTelemetry: all fields are null")
 }

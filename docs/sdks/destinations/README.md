@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -97,54 +97,63 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Create(ctx, components.CreateOutputOutputElasticCloud(
-        components.OutputElasticCloud{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.OutputElasticCloudTypeElasticCloud,
-            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            SystemFields: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Streamtags: []string{
-                "<value 1>",
-            },
-            URL: "https://probable-rationale.com/",
-            Index: "<value>",
-            ExtraHTTPHeaders: []components.OutputElasticCloudExtraHTTPHeader{
-                components.OutputElasticCloudExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Value: "<value>",
+    res, err := s.Destinations.Create(ctx, components.CreateOutputElasticCloud(
+        components.CreateOutputElasticCloudOutputElasticCloudElasticCloud1(
+            components.OutputElasticCloudElasticCloud1{
+                ID: criblcontrolplanesdkgo.Pointer("<id>"),
+                Type: components.OutputElasticCloudType1ElasticCloud,
+                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                SystemFields: []string{
+                    "<value 1>",
+                    "<value 2>",
                 },
-            },
-            SafeHeaders: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ExtraParams: []components.OutputElasticCloudExtraParam{
-                components.OutputElasticCloudExtraParam{
-                    Name: "<value>",
-                    Value: "<value>",
+                Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                Streamtags: []string{
+                    "<value 1>",
                 },
-            },
-            Auth: &components.OutputElasticCloudAuth{},
-            ElasticPipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            ResponseRetrySettings: []components.OutputElasticCloudResponseRetrySetting{
-                components.OutputElasticCloudResponseRetrySetting{
-                    HTTPStatus: 7295.73,
+                URL: "https://probable-rationale.com/",
+                Index: "<value>",
+                ExtraHTTPHeaders: []components.ExtraHTTPHeadersType{
+                    components.ExtraHTTPHeadersType{
+                        Name: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Value: "<value>",
+                    },
                 },
+                SafeHeaders: []string{
+                    "<value 1>",
+                    "<value 2>",
+                },
+                ExtraParams: []components.Metadata1Type{
+                    components.Metadata1Type{
+                        Name: "<value>",
+                        Value: "<value>",
+                    },
+                },
+                Auth: &components.AuthType{
+                    Disabled: criblcontrolplanesdkgo.Pointer(false),
+                    Username: criblcontrolplanesdkgo.Pointer("Imogene1"),
+                    Password: criblcontrolplanesdkgo.Pointer("tA9DUjJtHSnXqh9"),
+                    CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+                    ManualAPIKey: criblcontrolplanesdkgo.Pointer("<value>"),
+                    TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+                },
+                ElasticPipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                ResponseRetrySettings: []components.ResponseRetrySettingsType{
+                    components.ResponseRetrySettingsType{
+                        HTTPStatus: 7295.73,
+                    },
+                },
+                TimeoutRetrySettings: &components.TimeoutRetrySettingsType{},
+                ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
+                Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
+                PqControls: &components.MetadataType{},
             },
-            TimeoutRetrySettings: &components.OutputElasticCloudTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
-            Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
-            PqControls: &components.OutputElasticCloudPqControls{},
-        },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -201,7 +210,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -254,45 +263,47 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputOutputSignalfx(
-        components.OutputSignalfx{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.OutputSignalfxTypeSignalfx,
-            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            SystemFields: []string{
-                "<value 1>",
-            },
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            ExtraHTTPHeaders: []components.OutputSignalfxExtraHTTPHeader{
-                components.OutputSignalfxExtraHTTPHeader{
-                    Name: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Value: "<value>",
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSignalfx(
+        components.CreateOutputSignalfxOutputSignalfxSignalfx1(
+            components.OutputSignalfxSignalfx1{
+                ID: criblcontrolplanesdkgo.Pointer("<id>"),
+                Type: components.OutputSignalfxType1Signalfx,
+                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                SystemFields: []string{
+                    "<value 1>",
                 },
-            },
-            SafeHeaders: []string{
-                "<value 1>",
-            },
-            ResponseRetrySettings: []components.OutputSignalfxResponseRetrySetting{
-                components.OutputSignalfxResponseRetrySetting{
-                    HTTPStatus: 2924.72,
+                Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                Streamtags: []string{
+                    "<value 1>",
+                    "<value 2>",
                 },
+                ExtraHTTPHeaders: []components.ExtraHTTPHeadersType{
+                    components.ExtraHTTPHeadersType{
+                        Name: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Value: "<value>",
+                    },
+                },
+                SafeHeaders: []string{
+                    "<value 1>",
+                },
+                ResponseRetrySettings: []components.ResponseRetrySettingsType{
+                    components.ResponseRetrySettingsType{
+                        HTTPStatus: 2924.72,
+                    },
+                },
+                TimeoutRetrySettings: &components.TimeoutRetrySettingsType{},
+                ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
+                Description: criblcontrolplanesdkgo.Pointer("phooey positively a consequently meh until"),
+                Token: "<value>",
+                TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+                PqControls: &components.MetadataType{},
             },
-            TimeoutRetrySettings: &components.OutputSignalfxTimeoutRetrySettings{},
-            ResponseHonorRetryAfterHeader: criblcontrolplanesdkgo.Pointer(false),
-            Description: criblcontrolplanesdkgo.Pointer("phooey positively a consequently meh until"),
-            Token: criblcontrolplanesdkgo.Pointer("<value>"),
-            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            PqControls: &components.OutputSignalfxPqControls{},
-        },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }
@@ -350,7 +361,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutput != nil {
         // handle response
     }
 }

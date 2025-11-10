@@ -4,225 +4,75 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWefType string
+// InputWefAuthenticationMethod6 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod6 string
 
 const (
-	InputWefTypeWef InputWefType = "wef"
+	// InputWefAuthenticationMethod6ClientCert Client certificate
+	InputWefAuthenticationMethod6ClientCert InputWefAuthenticationMethod6 = "clientCert"
+	// InputWefAuthenticationMethod6Kerberos Kerberos
+	InputWefAuthenticationMethod6Kerberos InputWefAuthenticationMethod6 = "kerberos"
 )
 
-func (e InputWefType) ToPointer() *InputWefType {
+func (e InputWefAuthenticationMethod6) ToPointer() *InputWefAuthenticationMethod6 {
 	return &e
 }
-func (e *InputWefType) UnmarshalJSON(data []byte) error {
+
+type InputWefType6 string
+
+const (
+	InputWefType6Wef InputWefType6 = "wef"
+)
+
+func (e InputWefType6) ToPointer() *InputWefType6 {
+	return &e
+}
+func (e *InputWefType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "wef":
-		*e = InputWefType(v)
+		*e = InputWefType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputWefType: %v", v)
+		return fmt.Errorf("invalid value for InputWefType6: %v", v)
 	}
 }
 
-type InputWefConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWefConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWefConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWefMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWefMode string
+type InputWefMinimumTLSVersion6 string
 
 const (
-	InputWefModeSmart  InputWefMode = "smart"
-	InputWefModeAlways InputWefMode = "always"
+	InputWefMinimumTLSVersion6TlSv1  InputWefMinimumTLSVersion6 = "TLSv1"
+	InputWefMinimumTLSVersion6TlSv11 InputWefMinimumTLSVersion6 = "TLSv1.1"
+	InputWefMinimumTLSVersion6TlSv12 InputWefMinimumTLSVersion6 = "TLSv1.2"
+	InputWefMinimumTLSVersion6TlSv13 InputWefMinimumTLSVersion6 = "TLSv1.3"
 )
 
-func (e InputWefMode) ToPointer() *InputWefMode {
+func (e InputWefMinimumTLSVersion6) ToPointer() *InputWefMinimumTLSVersion6 {
 	return &e
 }
 
-// InputWefCompression - Codec to use to compress the persisted data
-type InputWefCompression string
+type InputWefMaximumTLSVersion6 string
 
 const (
-	InputWefCompressionNone InputWefCompression = "none"
-	InputWefCompressionGzip InputWefCompression = "gzip"
+	InputWefMaximumTLSVersion6TlSv1  InputWefMaximumTLSVersion6 = "TLSv1"
+	InputWefMaximumTLSVersion6TlSv11 InputWefMaximumTLSVersion6 = "TLSv1.1"
+	InputWefMaximumTLSVersion6TlSv12 InputWefMaximumTLSVersion6 = "TLSv1.2"
+	InputWefMaximumTLSVersion6TlSv13 InputWefMaximumTLSVersion6 = "TLSv1.3"
 )
 
-func (e InputWefCompression) ToPointer() *InputWefCompression {
+func (e InputWefMaximumTLSVersion6) ToPointer() *InputWefMaximumTLSVersion6 {
 	return &e
 }
 
-type InputWefPqControls struct {
-}
-
-func (i InputWefPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWefPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWefMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWefCompression `default:"none" json:"compress"`
-	PqControls *InputWefPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWefPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefPq) GetMode() *InputWefMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWefPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWefPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWefPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWefPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWefPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWefPq) GetCompress() *InputWefCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWefPq) GetPqControls() *InputWefPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputWefAuthenticationMethod - How to authenticate incoming client connections
-type InputWefAuthenticationMethod string
-
-const (
-	InputWefAuthenticationMethodClientCert InputWefAuthenticationMethod = "clientCert"
-	InputWefAuthenticationMethodKerberos   InputWefAuthenticationMethod = "kerberos"
-)
-
-func (e InputWefAuthenticationMethod) ToPointer() *InputWefAuthenticationMethod {
-	return &e
-}
-
-type InputWefMinimumTLSVersion string
-
-const (
-	InputWefMinimumTLSVersionTlSv1  InputWefMinimumTLSVersion = "TLSv1"
-	InputWefMinimumTLSVersionTlSv11 InputWefMinimumTLSVersion = "TLSv1.1"
-	InputWefMinimumTLSVersionTlSv12 InputWefMinimumTLSVersion = "TLSv1.2"
-	InputWefMinimumTLSVersionTlSv13 InputWefMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputWefMinimumTLSVersion) ToPointer() *InputWefMinimumTLSVersion {
-	return &e
-}
-
-type InputWefMaximumTLSVersion string
-
-const (
-	InputWefMaximumTLSVersionTlSv1  InputWefMaximumTLSVersion = "TLSv1"
-	InputWefMaximumTLSVersionTlSv11 InputWefMaximumTLSVersion = "TLSv1.1"
-	InputWefMaximumTLSVersionTlSv12 InputWefMaximumTLSVersion = "TLSv1.2"
-	InputWefMaximumTLSVersionTlSv13 InputWefMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputWefMaximumTLSVersion) ToPointer() *InputWefMaximumTLSVersion {
-	return &e
-}
-
-type MTLSSettings struct {
+type MTLSSettings6 struct {
 	// Enable TLS
 	Disabled *bool `default:"false" json:"disabled"`
 	// Required for WEF certificate authentication
@@ -240,9 +90,9 @@ type MTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                    `default:"/.*/" json:"commonNameRegex"`
-	MinVersion      *InputWefMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion      *InputWefMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion6 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion6 `json:"maxVersion,omitempty"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `default:"false" json:"ocspCheck"`
 	Keytab    any   `json:"keytab,omitempty"`
@@ -251,182 +101,182 @@ type MTLSSettings struct {
 	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
 }
 
-func (m MTLSSettings) MarshalJSON() ([]byte, error) {
+func (m MTLSSettings6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(m, "", false)
 }
 
-func (m *MTLSSettings) UnmarshalJSON(data []byte) error {
+func (m *MTLSSettings6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *MTLSSettings) GetDisabled() *bool {
+func (m *MTLSSettings6) GetDisabled() *bool {
 	if m == nil {
 		return nil
 	}
 	return m.Disabled
 }
 
-func (m *MTLSSettings) GetRejectUnauthorized() *bool {
+func (m *MTLSSettings6) GetRejectUnauthorized() *bool {
 	if m == nil {
 		return nil
 	}
 	return m.RejectUnauthorized
 }
 
-func (m *MTLSSettings) GetRequestCert() *bool {
+func (m *MTLSSettings6) GetRequestCert() *bool {
 	if m == nil {
 		return nil
 	}
 	return m.RequestCert
 }
 
-func (m *MTLSSettings) GetCertificateName() *string {
+func (m *MTLSSettings6) GetCertificateName() *string {
 	if m == nil {
 		return nil
 	}
 	return m.CertificateName
 }
 
-func (m *MTLSSettings) GetPrivKeyPath() string {
+func (m *MTLSSettings6) GetPrivKeyPath() string {
 	if m == nil {
 		return ""
 	}
 	return m.PrivKeyPath
 }
 
-func (m *MTLSSettings) GetPassphrase() *string {
+func (m *MTLSSettings6) GetPassphrase() *string {
 	if m == nil {
 		return nil
 	}
 	return m.Passphrase
 }
 
-func (m *MTLSSettings) GetCertPath() string {
+func (m *MTLSSettings6) GetCertPath() string {
 	if m == nil {
 		return ""
 	}
 	return m.CertPath
 }
 
-func (m *MTLSSettings) GetCaPath() string {
+func (m *MTLSSettings6) GetCaPath() string {
 	if m == nil {
 		return ""
 	}
 	return m.CaPath
 }
 
-func (m *MTLSSettings) GetCommonNameRegex() *string {
+func (m *MTLSSettings6) GetCommonNameRegex() *string {
 	if m == nil {
 		return nil
 	}
 	return m.CommonNameRegex
 }
 
-func (m *MTLSSettings) GetMinVersion() *InputWefMinimumTLSVersion {
+func (m *MTLSSettings6) GetMinVersion() *InputWefMinimumTLSVersion6 {
 	if m == nil {
 		return nil
 	}
 	return m.MinVersion
 }
 
-func (m *MTLSSettings) GetMaxVersion() *InputWefMaximumTLSVersion {
+func (m *MTLSSettings6) GetMaxVersion() *InputWefMaximumTLSVersion6 {
 	if m == nil {
 		return nil
 	}
 	return m.MaxVersion
 }
 
-func (m *MTLSSettings) GetOcspCheck() *bool {
+func (m *MTLSSettings6) GetOcspCheck() *bool {
 	if m == nil {
 		return nil
 	}
 	return m.OcspCheck
 }
 
-func (m *MTLSSettings) GetKeytab() any {
+func (m *MTLSSettings6) GetKeytab() any {
 	if m == nil {
 		return nil
 	}
 	return m.Keytab
 }
 
-func (m *MTLSSettings) GetPrincipal() any {
+func (m *MTLSSettings6) GetPrincipal() any {
 	if m == nil {
 		return nil
 	}
 	return m.Principal
 }
 
-func (m *MTLSSettings) GetOcspCheckFailClose() *bool {
+func (m *MTLSSettings6) GetOcspCheckFailClose() *bool {
 	if m == nil {
 		return nil
 	}
 	return m.OcspCheckFailClose
 }
 
-// InputWefFormat - Content format in which the endpoint should deliver events
-type InputWefFormat string
+// InputWefFormat6 - Content format in which the endpoint should deliver events
+type InputWefFormat6 string
 
 const (
-	InputWefFormatRaw          InputWefFormat = "Raw"
-	InputWefFormatRenderedText InputWefFormat = "RenderedText"
+	InputWefFormat6Raw          InputWefFormat6 = "Raw"
+	InputWefFormat6RenderedText InputWefFormat6 = "RenderedText"
 )
 
-func (e InputWefFormat) ToPointer() *InputWefFormat {
+func (e InputWefFormat6) ToPointer() *InputWefFormat6 {
 	return &e
 }
 
-type QueryBuilderMode string
+type QueryBuilderMode6 string
 
 const (
-	QueryBuilderModeSimple QueryBuilderMode = "simple"
-	QueryBuilderModeXML    QueryBuilderMode = "xml"
+	QueryBuilderMode6Simple QueryBuilderMode6 = "simple"
+	QueryBuilderMode6XML    QueryBuilderMode6 = "xml"
 )
 
-func (e QueryBuilderMode) ToPointer() *QueryBuilderMode {
+func (e QueryBuilderMode6) ToPointer() *QueryBuilderMode6 {
 	return &e
 }
 
-type SubscriptionMetadatum struct {
+type InputWefMetadatum6 struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
 }
 
-func (s SubscriptionMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (i InputWefMetadatum6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (s *SubscriptionMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
+func (i *InputWefMetadatum6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SubscriptionMetadatum) GetName() string {
-	if s == nil {
+func (i *InputWefMetadatum6) GetName() string {
+	if i == nil {
 		return ""
 	}
-	return s.Name
+	return i.Name
 }
 
-func (s *SubscriptionMetadatum) GetValue() string {
-	if s == nil {
+func (i *InputWefMetadatum6) GetValue() string {
+	if i == nil {
 		return ""
 	}
-	return s.Value
+	return i.Value
 }
 
-type Subscription struct {
+type Subscription6 struct {
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
 	Version *string `json:"version,omitempty"`
 	// Content format in which the endpoint should deliver events
-	ContentFormat *InputWefFormat `default:"Raw" json:"contentFormat"`
+	ContentFormat *InputWefFormat6 `default:"Raw" json:"contentFormat"`
 	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
 	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
 	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
@@ -440,143 +290,114 @@ type Subscription struct {
 	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
 	Targets []string `json:"targets"`
 	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
-	Locale        *string           `default:"en-US" json:"locale"`
-	QuerySelector *QueryBuilderMode `default:"simple" json:"querySelector"`
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode6 `default:"simple" json:"querySelector"`
 	// Fields to add to events ingested under this subscription
-	Metadata []SubscriptionMetadatum `json:"metadata,omitempty"`
+	Metadata []InputWefMetadatum6 `json:"metadata,omitempty"`
 }
 
-func (s Subscription) MarshalJSON() ([]byte, error) {
+func (s Subscription6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *Subscription) UnmarshalJSON(data []byte) error {
+func (s *Subscription6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *Subscription) GetSubscriptionName() string {
+func (s *Subscription6) GetSubscriptionName() string {
 	if s == nil {
 		return ""
 	}
 	return s.SubscriptionName
 }
 
-func (s *Subscription) GetVersion() *string {
+func (s *Subscription6) GetVersion() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Version
 }
 
-func (s *Subscription) GetContentFormat() *InputWefFormat {
+func (s *Subscription6) GetContentFormat() *InputWefFormat6 {
 	if s == nil {
 		return nil
 	}
 	return s.ContentFormat
 }
 
-func (s *Subscription) GetHeartbeatInterval() *float64 {
+func (s *Subscription6) GetHeartbeatInterval() *float64 {
 	if s == nil {
 		return nil
 	}
 	return s.HeartbeatInterval
 }
 
-func (s *Subscription) GetBatchTimeout() *float64 {
+func (s *Subscription6) GetBatchTimeout() *float64 {
 	if s == nil {
 		return nil
 	}
 	return s.BatchTimeout
 }
 
-func (s *Subscription) GetReadExistingEvents() *bool {
+func (s *Subscription6) GetReadExistingEvents() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.ReadExistingEvents
 }
 
-func (s *Subscription) GetSendBookmarks() *bool {
+func (s *Subscription6) GetSendBookmarks() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.SendBookmarks
 }
 
-func (s *Subscription) GetCompress() *bool {
+func (s *Subscription6) GetCompress() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.Compress
 }
 
-func (s *Subscription) GetTargets() []string {
+func (s *Subscription6) GetTargets() []string {
 	if s == nil {
 		return []string{}
 	}
 	return s.Targets
 }
 
-func (s *Subscription) GetLocale() *string {
+func (s *Subscription6) GetLocale() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Locale
 }
 
-func (s *Subscription) GetQuerySelector() *QueryBuilderMode {
+func (s *Subscription6) GetQuerySelector() *QueryBuilderMode6 {
 	if s == nil {
 		return nil
 	}
 	return s.QuerySelector
 }
 
-func (s *Subscription) GetMetadata() []SubscriptionMetadatum {
+func (s *Subscription6) GetMetadata() []InputWefMetadatum6 {
 	if s == nil {
 		return nil
 	}
 	return s.Metadata
 }
 
-type InputWefMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWefMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWefMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputWef struct {
+type InputWefWef6 struct {
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod6 `default:"clientCert" json:"authMethod"`
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputWefType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType6 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -588,15 +409,1353 @@ type InputWef struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWefConnection `json:"connections,omitempty"`
-	Pq          *InputWefPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64      `default:"5986" json:"port"`
+	TLS  MTLSSettings6 `json:"tls"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint string `json:"caFingerprint"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab string `json:"keytab"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal string `json:"principal"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription6 `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+}
+
+func (i InputWefWef6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefWef6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tls", "caFingerprint", "keytab", "principal", "subscriptions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefWef6) GetAuthMethod() *InputWefAuthenticationMethod6 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefWef6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef6) GetType() InputWefType6 {
+	if i == nil {
+		return InputWefType6("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefWef6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefWef6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefWef6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefWef6) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWefWef6) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputWefWef6) GetTLS() MTLSSettings6 {
+	if i == nil {
+		return MTLSSettings6{}
+	}
+	return i.TLS
+}
+
+func (i *InputWefWef6) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefWef6) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefWef6) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefWef6) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefWef6) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefWef6) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefWef6) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefWef6) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefWef6) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefWef6) GetCaFingerprint() string {
+	if i == nil {
+		return ""
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefWef6) GetKeytab() string {
+	if i == nil {
+		return ""
+	}
+	return i.Keytab
+}
+
+func (i *InputWefWef6) GetPrincipal() string {
+	if i == nil {
+		return ""
+	}
+	return i.Principal
+}
+
+func (i *InputWefWef6) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefWef6) GetSubscriptions() []Subscription6 {
+	if i == nil {
+		return []Subscription6{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefWef6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefWef6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefWef6) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+// InputWefAuthenticationMethod5 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod5 string
+
+const (
+	// InputWefAuthenticationMethod5ClientCert Client certificate
+	InputWefAuthenticationMethod5ClientCert InputWefAuthenticationMethod5 = "clientCert"
+	// InputWefAuthenticationMethod5Kerberos Kerberos
+	InputWefAuthenticationMethod5Kerberos InputWefAuthenticationMethod5 = "kerberos"
+)
+
+func (e InputWefAuthenticationMethod5) ToPointer() *InputWefAuthenticationMethod5 {
+	return &e
+}
+
+type InputWefType5 string
+
+const (
+	InputWefType5Wef InputWefType5 = "wef"
+)
+
+func (e InputWefType5) ToPointer() *InputWefType5 {
+	return &e
+}
+func (e *InputWefType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wef":
+		*e = InputWefType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWefType5: %v", v)
+	}
+}
+
+type InputWefMinimumTLSVersion5 string
+
+const (
+	InputWefMinimumTLSVersion5TlSv1  InputWefMinimumTLSVersion5 = "TLSv1"
+	InputWefMinimumTLSVersion5TlSv11 InputWefMinimumTLSVersion5 = "TLSv1.1"
+	InputWefMinimumTLSVersion5TlSv12 InputWefMinimumTLSVersion5 = "TLSv1.2"
+	InputWefMinimumTLSVersion5TlSv13 InputWefMinimumTLSVersion5 = "TLSv1.3"
+)
+
+func (e InputWefMinimumTLSVersion5) ToPointer() *InputWefMinimumTLSVersion5 {
+	return &e
+}
+
+type InputWefMaximumTLSVersion5 string
+
+const (
+	InputWefMaximumTLSVersion5TlSv1  InputWefMaximumTLSVersion5 = "TLSv1"
+	InputWefMaximumTLSVersion5TlSv11 InputWefMaximumTLSVersion5 = "TLSv1.1"
+	InputWefMaximumTLSVersion5TlSv12 InputWefMaximumTLSVersion5 = "TLSv1.2"
+	InputWefMaximumTLSVersion5TlSv13 InputWefMaximumTLSVersion5 = "TLSv1.3"
+)
+
+func (e InputWefMaximumTLSVersion5) ToPointer() *InputWefMaximumTLSVersion5 {
+	return &e
+}
+
+type MTLSSettings5 struct {
+	// Enable TLS
+	Disabled *bool `default:"false" json:"disabled"`
+	// Required for WEF certificate authentication
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Required for WEF certificate authentication
+	RequestCert *bool `default:"true" json:"requestCert"`
+	// Name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+	CaPath string `json:"caPath"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion5 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion5 `json:"maxVersion,omitempty"`
+	// Enable OCSP check of certificate
+	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	Keytab    any   `json:"keytab,omitempty"`
+	Principal any   `json:"principal,omitempty"`
+	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+}
+
+func (m MTLSSettings5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MTLSSettings5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MTLSSettings5) GetDisabled() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.Disabled
+}
+
+func (m *MTLSSettings5) GetRejectUnauthorized() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RejectUnauthorized
+}
+
+func (m *MTLSSettings5) GetRequestCert() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RequestCert
+}
+
+func (m *MTLSSettings5) GetCertificateName() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CertificateName
+}
+
+func (m *MTLSSettings5) GetPrivKeyPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.PrivKeyPath
+}
+
+func (m *MTLSSettings5) GetPassphrase() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Passphrase
+}
+
+func (m *MTLSSettings5) GetCertPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CertPath
+}
+
+func (m *MTLSSettings5) GetCaPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CaPath
+}
+
+func (m *MTLSSettings5) GetCommonNameRegex() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CommonNameRegex
+}
+
+func (m *MTLSSettings5) GetMinVersion() *InputWefMinimumTLSVersion5 {
+	if m == nil {
+		return nil
+	}
+	return m.MinVersion
+}
+
+func (m *MTLSSettings5) GetMaxVersion() *InputWefMaximumTLSVersion5 {
+	if m == nil {
+		return nil
+	}
+	return m.MaxVersion
+}
+
+func (m *MTLSSettings5) GetOcspCheck() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheck
+}
+
+func (m *MTLSSettings5) GetKeytab() any {
+	if m == nil {
+		return nil
+	}
+	return m.Keytab
+}
+
+func (m *MTLSSettings5) GetPrincipal() any {
+	if m == nil {
+		return nil
+	}
+	return m.Principal
+}
+
+func (m *MTLSSettings5) GetOcspCheckFailClose() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheckFailClose
+}
+
+// InputWefFormat5 - Content format in which the endpoint should deliver events
+type InputWefFormat5 string
+
+const (
+	InputWefFormat5Raw          InputWefFormat5 = "Raw"
+	InputWefFormat5RenderedText InputWefFormat5 = "RenderedText"
+)
+
+func (e InputWefFormat5) ToPointer() *InputWefFormat5 {
+	return &e
+}
+
+type QueryBuilderMode5 string
+
+const (
+	QueryBuilderMode5Simple QueryBuilderMode5 = "simple"
+	QueryBuilderMode5XML    QueryBuilderMode5 = "xml"
+)
+
+func (e QueryBuilderMode5) ToPointer() *QueryBuilderMode5 {
+	return &e
+}
+
+type InputWefMetadatum5 struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputWefMetadatum5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefMetadatum5) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputWefMetadatum5) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type Subscription5 struct {
+	SubscriptionName string `json:"subscriptionName"`
+	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+	Version *string `json:"version,omitempty"`
+	// Content format in which the endpoint should deliver events
+	ContentFormat *InputWefFormat5 `default:"Raw" json:"contentFormat"`
+	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
+	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	// Receive compressed events from the source
+	Compress *bool `default:"true" json:"compress"`
+	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+	Targets []string `json:"targets"`
+	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode5 `default:"simple" json:"querySelector"`
+	// Fields to add to events ingested under this subscription
+	Metadata []InputWefMetadatum5 `json:"metadata,omitempty"`
+}
+
+func (s Subscription5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Subscription5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Subscription5) GetSubscriptionName() string {
+	if s == nil {
+		return ""
+	}
+	return s.SubscriptionName
+}
+
+func (s *Subscription5) GetVersion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Version
+}
+
+func (s *Subscription5) GetContentFormat() *InputWefFormat5 {
+	if s == nil {
+		return nil
+	}
+	return s.ContentFormat
+}
+
+func (s *Subscription5) GetHeartbeatInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HeartbeatInterval
+}
+
+func (s *Subscription5) GetBatchTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.BatchTimeout
+}
+
+func (s *Subscription5) GetReadExistingEvents() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ReadExistingEvents
+}
+
+func (s *Subscription5) GetSendBookmarks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SendBookmarks
+}
+
+func (s *Subscription5) GetCompress() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Compress
+}
+
+func (s *Subscription5) GetTargets() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Targets
+}
+
+func (s *Subscription5) GetLocale() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Locale
+}
+
+func (s *Subscription5) GetQuerySelector() *QueryBuilderMode5 {
+	if s == nil {
+		return nil
+	}
+	return s.QuerySelector
+}
+
+func (s *Subscription5) GetMetadata() []InputWefMetadatum5 {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
+}
+
+type InputWefWef5 struct {
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod5 `default:"clientCert" json:"authMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType5 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64      `default:"5986" json:"port"`
+	TLS  MTLSSettings5 `json:"tls"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint string `json:"caFingerprint"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab *string `json:"keytab,omitempty"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal *string `json:"principal,omitempty"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription5 `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+}
+
+func (i InputWefWef5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefWef5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tls", "caFingerprint", "subscriptions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefWef5) GetAuthMethod() *InputWefAuthenticationMethod5 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefWef5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef5) GetType() InputWefType5 {
+	if i == nil {
+		return InputWefType5("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefWef5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefWef5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefWef5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefWef5) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWefWef5) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputWefWef5) GetTLS() MTLSSettings5 {
+	if i == nil {
+		return MTLSSettings5{}
+	}
+	return i.TLS
+}
+
+func (i *InputWefWef5) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefWef5) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefWef5) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefWef5) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefWef5) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefWef5) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefWef5) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefWef5) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefWef5) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefWef5) GetCaFingerprint() string {
+	if i == nil {
+		return ""
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefWef5) GetKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Keytab
+}
+
+func (i *InputWefWef5) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputWefWef5) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefWef5) GetSubscriptions() []Subscription5 {
+	if i == nil {
+		return []Subscription5{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefWef5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefWef5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefWef5) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+type InputWefType4 string
+
+const (
+	InputWefType4Wef InputWefType4 = "wef"
+)
+
+func (e InputWefType4) ToPointer() *InputWefType4 {
+	return &e
+}
+func (e *InputWefType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wef":
+		*e = InputWefType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWefType4: %v", v)
+	}
+}
+
+// InputWefAuthenticationMethod4 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod4 string
+
+const (
+	// InputWefAuthenticationMethod4ClientCert Client certificate
+	InputWefAuthenticationMethod4ClientCert InputWefAuthenticationMethod4 = "clientCert"
+	// InputWefAuthenticationMethod4Kerberos Kerberos
+	InputWefAuthenticationMethod4Kerberos InputWefAuthenticationMethod4 = "kerberos"
+)
+
+func (e InputWefAuthenticationMethod4) ToPointer() *InputWefAuthenticationMethod4 {
+	return &e
+}
+
+type InputWefMinimumTLSVersion4 string
+
+const (
+	InputWefMinimumTLSVersion4TlSv1  InputWefMinimumTLSVersion4 = "TLSv1"
+	InputWefMinimumTLSVersion4TlSv11 InputWefMinimumTLSVersion4 = "TLSv1.1"
+	InputWefMinimumTLSVersion4TlSv12 InputWefMinimumTLSVersion4 = "TLSv1.2"
+	InputWefMinimumTLSVersion4TlSv13 InputWefMinimumTLSVersion4 = "TLSv1.3"
+)
+
+func (e InputWefMinimumTLSVersion4) ToPointer() *InputWefMinimumTLSVersion4 {
+	return &e
+}
+
+type InputWefMaximumTLSVersion4 string
+
+const (
+	InputWefMaximumTLSVersion4TlSv1  InputWefMaximumTLSVersion4 = "TLSv1"
+	InputWefMaximumTLSVersion4TlSv11 InputWefMaximumTLSVersion4 = "TLSv1.1"
+	InputWefMaximumTLSVersion4TlSv12 InputWefMaximumTLSVersion4 = "TLSv1.2"
+	InputWefMaximumTLSVersion4TlSv13 InputWefMaximumTLSVersion4 = "TLSv1.3"
+)
+
+func (e InputWefMaximumTLSVersion4) ToPointer() *InputWefMaximumTLSVersion4 {
+	return &e
+}
+
+type MTLSSettings4 struct {
+	// Enable TLS
+	Disabled *bool `default:"false" json:"disabled"`
+	// Required for WEF certificate authentication
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Required for WEF certificate authentication
+	RequestCert *bool `default:"true" json:"requestCert"`
+	// Name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+	CaPath string `json:"caPath"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion4 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion4 `json:"maxVersion,omitempty"`
+	// Enable OCSP check of certificate
+	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	Keytab    any   `json:"keytab,omitempty"`
+	Principal any   `json:"principal,omitempty"`
+	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+}
+
+func (m MTLSSettings4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MTLSSettings4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MTLSSettings4) GetDisabled() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.Disabled
+}
+
+func (m *MTLSSettings4) GetRejectUnauthorized() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RejectUnauthorized
+}
+
+func (m *MTLSSettings4) GetRequestCert() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RequestCert
+}
+
+func (m *MTLSSettings4) GetCertificateName() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CertificateName
+}
+
+func (m *MTLSSettings4) GetPrivKeyPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.PrivKeyPath
+}
+
+func (m *MTLSSettings4) GetPassphrase() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Passphrase
+}
+
+func (m *MTLSSettings4) GetCertPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CertPath
+}
+
+func (m *MTLSSettings4) GetCaPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CaPath
+}
+
+func (m *MTLSSettings4) GetCommonNameRegex() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CommonNameRegex
+}
+
+func (m *MTLSSettings4) GetMinVersion() *InputWefMinimumTLSVersion4 {
+	if m == nil {
+		return nil
+	}
+	return m.MinVersion
+}
+
+func (m *MTLSSettings4) GetMaxVersion() *InputWefMaximumTLSVersion4 {
+	if m == nil {
+		return nil
+	}
+	return m.MaxVersion
+}
+
+func (m *MTLSSettings4) GetOcspCheck() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheck
+}
+
+func (m *MTLSSettings4) GetKeytab() any {
+	if m == nil {
+		return nil
+	}
+	return m.Keytab
+}
+
+func (m *MTLSSettings4) GetPrincipal() any {
+	if m == nil {
+		return nil
+	}
+	return m.Principal
+}
+
+func (m *MTLSSettings4) GetOcspCheckFailClose() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheckFailClose
+}
+
+// InputWefFormat4 - Content format in which the endpoint should deliver events
+type InputWefFormat4 string
+
+const (
+	InputWefFormat4Raw          InputWefFormat4 = "Raw"
+	InputWefFormat4RenderedText InputWefFormat4 = "RenderedText"
+)
+
+func (e InputWefFormat4) ToPointer() *InputWefFormat4 {
+	return &e
+}
+
+type QueryBuilderMode4 string
+
+const (
+	QueryBuilderMode4Simple QueryBuilderMode4 = "simple"
+	QueryBuilderMode4XML    QueryBuilderMode4 = "xml"
+)
+
+func (e QueryBuilderMode4) ToPointer() *QueryBuilderMode4 {
+	return &e
+}
+
+type InputWefMetadatum4 struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputWefMetadatum4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefMetadatum4) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputWefMetadatum4) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type Subscription4 struct {
+	SubscriptionName string `json:"subscriptionName"`
+	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+	Version *string `json:"version,omitempty"`
+	// Content format in which the endpoint should deliver events
+	ContentFormat *InputWefFormat4 `default:"Raw" json:"contentFormat"`
+	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
+	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	// Receive compressed events from the source
+	Compress *bool `default:"true" json:"compress"`
+	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+	Targets []string `json:"targets"`
+	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode4 `default:"simple" json:"querySelector"`
+	// Fields to add to events ingested under this subscription
+	Metadata []InputWefMetadatum4 `json:"metadata,omitempty"`
+}
+
+func (s Subscription4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Subscription4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Subscription4) GetSubscriptionName() string {
+	if s == nil {
+		return ""
+	}
+	return s.SubscriptionName
+}
+
+func (s *Subscription4) GetVersion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Version
+}
+
+func (s *Subscription4) GetContentFormat() *InputWefFormat4 {
+	if s == nil {
+		return nil
+	}
+	return s.ContentFormat
+}
+
+func (s *Subscription4) GetHeartbeatInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HeartbeatInterval
+}
+
+func (s *Subscription4) GetBatchTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.BatchTimeout
+}
+
+func (s *Subscription4) GetReadExistingEvents() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ReadExistingEvents
+}
+
+func (s *Subscription4) GetSendBookmarks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SendBookmarks
+}
+
+func (s *Subscription4) GetCompress() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Compress
+}
+
+func (s *Subscription4) GetTargets() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Targets
+}
+
+func (s *Subscription4) GetLocale() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Locale
+}
+
+func (s *Subscription4) GetQuerySelector() *QueryBuilderMode4 {
+	if s == nil {
+		return nil
+	}
+	return s.QuerySelector
+}
+
+func (s *Subscription4) GetMetadata() []InputWefMetadatum4 {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
+}
+
+type InputWefWef4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType4 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port *float64 `default:"5986" json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `default:"clientCert" json:"authMethod"`
-	TLS        *MTLSSettings                 `json:"tls,omitempty"`
+	AuthMethod *InputWefAuthenticationMethod4 `default:"clientCert" json:"authMethod"`
+	TLS        *MTLSSettings4                 `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -624,238 +1783,2399 @@ type InputWef struct {
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
 	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
 	// Subscriptions to events on forwarding endpoints
-	Subscriptions []Subscription `json:"subscriptions"`
+	Subscriptions []Subscription4 `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []InputWefMetadatum `json:"metadata,omitempty"`
-	Description *string             `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
 }
 
-func (i InputWef) MarshalJSON() ([]byte, error) {
+func (i InputWefWef4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWef) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+func (i *InputWefWef4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWef) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWef) GetType() InputWefType {
-	if i == nil {
-		return InputWefType("")
-	}
-	return i.Type
-}
-
-func (i *InputWef) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWef) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWef) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWef) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWef) GetPqEnabled() *bool {
+func (i *InputWefWef4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWef) GetStreamtags() []string {
+func (i *InputWefWef4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef4) GetType() InputWefType4 {
+	if i == nil {
+		return InputWefType4("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWef) GetConnections() []InputWefConnection {
+func (i *InputWefWef4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWef) GetPq() *InputWefPq {
+func (i *InputWefWef4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputWef) GetHost() *string {
+func (i *InputWefWef4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWef) GetPort() *float64 {
+func (i *InputWefWef4) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputWef) GetAuthMethod() *InputWefAuthenticationMethod {
+func (i *InputWefWef4) GetAuthMethod() *InputWefAuthenticationMethod4 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthMethod
 }
 
-func (i *InputWef) GetTLS() *MTLSSettings {
+func (i *InputWefWef4) GetTLS() *MTLSSettings4 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWef) GetMaxActiveReq() *float64 {
+func (i *InputWefWef4) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWef) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWefWef4) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWef) GetEnableProxyHeader() *bool {
+func (i *InputWefWef4) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWef) GetCaptureHeaders() *bool {
+func (i *InputWefWef4) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWef) GetKeepAliveTimeout() *float64 {
+func (i *InputWefWef4) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWef) GetEnableHealthCheck() *bool {
+func (i *InputWefWef4) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWef) GetIPAllowlistRegex() *string {
+func (i *InputWefWef4) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWef) GetIPDenylistRegex() *string {
+func (i *InputWefWef4) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWef) GetSocketTimeout() *float64 {
+func (i *InputWefWef4) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWef) GetCaFingerprint() *string {
+func (i *InputWefWef4) GetCaFingerprint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CaFingerprint
 }
 
-func (i *InputWef) GetKeytab() *string {
+func (i *InputWefWef4) GetKeytab() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Keytab
 }
 
-func (i *InputWef) GetPrincipal() *string {
+func (i *InputWefWef4) GetPrincipal() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Principal
 }
 
-func (i *InputWef) GetAllowMachineIDMismatch() *bool {
+func (i *InputWefWef4) GetAllowMachineIDMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AllowMachineIDMismatch
 }
 
-func (i *InputWef) GetSubscriptions() []Subscription {
+func (i *InputWefWef4) GetSubscriptions() []Subscription4 {
 	if i == nil {
-		return []Subscription{}
+		return []Subscription4{}
 	}
 	return i.Subscriptions
 }
 
-func (i *InputWef) GetMetadata() []InputWefMetadatum {
+func (i *InputWefWef4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWef) GetDescription() *string {
+func (i *InputWefWef4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWef) GetLogFingerprintMismatch() *bool {
+func (i *InputWefWef4) GetLogFingerprintMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.LogFingerprintMismatch
+}
+
+type InputWefType3 string
+
+const (
+	InputWefType3Wef InputWefType3 = "wef"
+)
+
+func (e InputWefType3) ToPointer() *InputWefType3 {
+	return &e
+}
+func (e *InputWefType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wef":
+		*e = InputWefType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWefType3: %v", v)
+	}
+}
+
+// InputWefAuthenticationMethod3 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod3 string
+
+const (
+	// InputWefAuthenticationMethod3ClientCert Client certificate
+	InputWefAuthenticationMethod3ClientCert InputWefAuthenticationMethod3 = "clientCert"
+	// InputWefAuthenticationMethod3Kerberos Kerberos
+	InputWefAuthenticationMethod3Kerberos InputWefAuthenticationMethod3 = "kerberos"
+)
+
+func (e InputWefAuthenticationMethod3) ToPointer() *InputWefAuthenticationMethod3 {
+	return &e
+}
+
+type InputWefMinimumTLSVersion3 string
+
+const (
+	InputWefMinimumTLSVersion3TlSv1  InputWefMinimumTLSVersion3 = "TLSv1"
+	InputWefMinimumTLSVersion3TlSv11 InputWefMinimumTLSVersion3 = "TLSv1.1"
+	InputWefMinimumTLSVersion3TlSv12 InputWefMinimumTLSVersion3 = "TLSv1.2"
+	InputWefMinimumTLSVersion3TlSv13 InputWefMinimumTLSVersion3 = "TLSv1.3"
+)
+
+func (e InputWefMinimumTLSVersion3) ToPointer() *InputWefMinimumTLSVersion3 {
+	return &e
+}
+
+type InputWefMaximumTLSVersion3 string
+
+const (
+	InputWefMaximumTLSVersion3TlSv1  InputWefMaximumTLSVersion3 = "TLSv1"
+	InputWefMaximumTLSVersion3TlSv11 InputWefMaximumTLSVersion3 = "TLSv1.1"
+	InputWefMaximumTLSVersion3TlSv12 InputWefMaximumTLSVersion3 = "TLSv1.2"
+	InputWefMaximumTLSVersion3TlSv13 InputWefMaximumTLSVersion3 = "TLSv1.3"
+)
+
+func (e InputWefMaximumTLSVersion3) ToPointer() *InputWefMaximumTLSVersion3 {
+	return &e
+}
+
+type MTLSSettings3 struct {
+	// Enable TLS
+	Disabled *bool `default:"false" json:"disabled"`
+	// Required for WEF certificate authentication
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Required for WEF certificate authentication
+	RequestCert *bool `default:"true" json:"requestCert"`
+	// Name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+	CaPath string `json:"caPath"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion3 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion3 `json:"maxVersion,omitempty"`
+	// Enable OCSP check of certificate
+	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	Keytab    any   `json:"keytab,omitempty"`
+	Principal any   `json:"principal,omitempty"`
+	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+}
+
+func (m MTLSSettings3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MTLSSettings3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MTLSSettings3) GetDisabled() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.Disabled
+}
+
+func (m *MTLSSettings3) GetRejectUnauthorized() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RejectUnauthorized
+}
+
+func (m *MTLSSettings3) GetRequestCert() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RequestCert
+}
+
+func (m *MTLSSettings3) GetCertificateName() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CertificateName
+}
+
+func (m *MTLSSettings3) GetPrivKeyPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.PrivKeyPath
+}
+
+func (m *MTLSSettings3) GetPassphrase() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Passphrase
+}
+
+func (m *MTLSSettings3) GetCertPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CertPath
+}
+
+func (m *MTLSSettings3) GetCaPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CaPath
+}
+
+func (m *MTLSSettings3) GetCommonNameRegex() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CommonNameRegex
+}
+
+func (m *MTLSSettings3) GetMinVersion() *InputWefMinimumTLSVersion3 {
+	if m == nil {
+		return nil
+	}
+	return m.MinVersion
+}
+
+func (m *MTLSSettings3) GetMaxVersion() *InputWefMaximumTLSVersion3 {
+	if m == nil {
+		return nil
+	}
+	return m.MaxVersion
+}
+
+func (m *MTLSSettings3) GetOcspCheck() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheck
+}
+
+func (m *MTLSSettings3) GetKeytab() any {
+	if m == nil {
+		return nil
+	}
+	return m.Keytab
+}
+
+func (m *MTLSSettings3) GetPrincipal() any {
+	if m == nil {
+		return nil
+	}
+	return m.Principal
+}
+
+func (m *MTLSSettings3) GetOcspCheckFailClose() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheckFailClose
+}
+
+// InputWefFormat3 - Content format in which the endpoint should deliver events
+type InputWefFormat3 string
+
+const (
+	InputWefFormat3Raw          InputWefFormat3 = "Raw"
+	InputWefFormat3RenderedText InputWefFormat3 = "RenderedText"
+)
+
+func (e InputWefFormat3) ToPointer() *InputWefFormat3 {
+	return &e
+}
+
+type QueryBuilderMode3 string
+
+const (
+	QueryBuilderMode3Simple QueryBuilderMode3 = "simple"
+	QueryBuilderMode3XML    QueryBuilderMode3 = "xml"
+)
+
+func (e QueryBuilderMode3) ToPointer() *QueryBuilderMode3 {
+	return &e
+}
+
+type InputWefMetadatum3 struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputWefMetadatum3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefMetadatum3) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputWefMetadatum3) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type Subscription3 struct {
+	SubscriptionName string `json:"subscriptionName"`
+	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+	Version *string `json:"version,omitempty"`
+	// Content format in which the endpoint should deliver events
+	ContentFormat *InputWefFormat3 `default:"Raw" json:"contentFormat"`
+	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
+	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	// Receive compressed events from the source
+	Compress *bool `default:"true" json:"compress"`
+	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+	Targets []string `json:"targets"`
+	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode3 `default:"simple" json:"querySelector"`
+	// Fields to add to events ingested under this subscription
+	Metadata []InputWefMetadatum3 `json:"metadata,omitempty"`
+}
+
+func (s Subscription3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Subscription3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Subscription3) GetSubscriptionName() string {
+	if s == nil {
+		return ""
+	}
+	return s.SubscriptionName
+}
+
+func (s *Subscription3) GetVersion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Version
+}
+
+func (s *Subscription3) GetContentFormat() *InputWefFormat3 {
+	if s == nil {
+		return nil
+	}
+	return s.ContentFormat
+}
+
+func (s *Subscription3) GetHeartbeatInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HeartbeatInterval
+}
+
+func (s *Subscription3) GetBatchTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.BatchTimeout
+}
+
+func (s *Subscription3) GetReadExistingEvents() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ReadExistingEvents
+}
+
+func (s *Subscription3) GetSendBookmarks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SendBookmarks
+}
+
+func (s *Subscription3) GetCompress() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Compress
+}
+
+func (s *Subscription3) GetTargets() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Targets
+}
+
+func (s *Subscription3) GetLocale() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Locale
+}
+
+func (s *Subscription3) GetQuerySelector() *QueryBuilderMode3 {
+	if s == nil {
+		return nil
+	}
+	return s.QuerySelector
+}
+
+func (s *Subscription3) GetMetadata() []InputWefMetadatum3 {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
+}
+
+type InputWefWef3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType3 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"5986" json:"port"`
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod3 `default:"clientCert" json:"authMethod"`
+	TLS        *MTLSSettings3                 `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint *string `json:"caFingerprint,omitempty"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab *string `json:"keytab,omitempty"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal *string `json:"principal,omitempty"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription3 `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+}
+
+func (i InputWefWef3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefWef3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefWef3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefWef3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef3) GetType() InputWefType3 {
+	if i == nil {
+		return InputWefType3("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefWef3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefWef3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefWef3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWefWef3) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputWefWef3) GetAuthMethod() *InputWefAuthenticationMethod3 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefWef3) GetTLS() *MTLSSettings3 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWefWef3) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefWef3) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefWef3) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefWef3) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefWef3) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefWef3) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefWef3) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefWef3) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefWef3) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefWef3) GetCaFingerprint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefWef3) GetKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Keytab
+}
+
+func (i *InputWefWef3) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputWefWef3) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefWef3) GetSubscriptions() []Subscription3 {
+	if i == nil {
+		return []Subscription3{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefWef3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefWef3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefWef3) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+type InputWefType2 string
+
+const (
+	InputWefType2Wef InputWefType2 = "wef"
+)
+
+func (e InputWefType2) ToPointer() *InputWefType2 {
+	return &e
+}
+func (e *InputWefType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wef":
+		*e = InputWefType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWefType2: %v", v)
+	}
+}
+
+// InputWefAuthenticationMethod2 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod2 string
+
+const (
+	// InputWefAuthenticationMethod2ClientCert Client certificate
+	InputWefAuthenticationMethod2ClientCert InputWefAuthenticationMethod2 = "clientCert"
+	// InputWefAuthenticationMethod2Kerberos Kerberos
+	InputWefAuthenticationMethod2Kerberos InputWefAuthenticationMethod2 = "kerberos"
+)
+
+func (e InputWefAuthenticationMethod2) ToPointer() *InputWefAuthenticationMethod2 {
+	return &e
+}
+
+type InputWefMinimumTLSVersion2 string
+
+const (
+	InputWefMinimumTLSVersion2TlSv1  InputWefMinimumTLSVersion2 = "TLSv1"
+	InputWefMinimumTLSVersion2TlSv11 InputWefMinimumTLSVersion2 = "TLSv1.1"
+	InputWefMinimumTLSVersion2TlSv12 InputWefMinimumTLSVersion2 = "TLSv1.2"
+	InputWefMinimumTLSVersion2TlSv13 InputWefMinimumTLSVersion2 = "TLSv1.3"
+)
+
+func (e InputWefMinimumTLSVersion2) ToPointer() *InputWefMinimumTLSVersion2 {
+	return &e
+}
+
+type InputWefMaximumTLSVersion2 string
+
+const (
+	InputWefMaximumTLSVersion2TlSv1  InputWefMaximumTLSVersion2 = "TLSv1"
+	InputWefMaximumTLSVersion2TlSv11 InputWefMaximumTLSVersion2 = "TLSv1.1"
+	InputWefMaximumTLSVersion2TlSv12 InputWefMaximumTLSVersion2 = "TLSv1.2"
+	InputWefMaximumTLSVersion2TlSv13 InputWefMaximumTLSVersion2 = "TLSv1.3"
+)
+
+func (e InputWefMaximumTLSVersion2) ToPointer() *InputWefMaximumTLSVersion2 {
+	return &e
+}
+
+type MTLSSettings2 struct {
+	// Enable TLS
+	Disabled *bool `default:"false" json:"disabled"`
+	// Required for WEF certificate authentication
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Required for WEF certificate authentication
+	RequestCert *bool `default:"true" json:"requestCert"`
+	// Name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+	CaPath string `json:"caPath"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion2 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion2 `json:"maxVersion,omitempty"`
+	// Enable OCSP check of certificate
+	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	Keytab    any   `json:"keytab,omitempty"`
+	Principal any   `json:"principal,omitempty"`
+	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+}
+
+func (m MTLSSettings2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MTLSSettings2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MTLSSettings2) GetDisabled() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.Disabled
+}
+
+func (m *MTLSSettings2) GetRejectUnauthorized() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RejectUnauthorized
+}
+
+func (m *MTLSSettings2) GetRequestCert() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RequestCert
+}
+
+func (m *MTLSSettings2) GetCertificateName() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CertificateName
+}
+
+func (m *MTLSSettings2) GetPrivKeyPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.PrivKeyPath
+}
+
+func (m *MTLSSettings2) GetPassphrase() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Passphrase
+}
+
+func (m *MTLSSettings2) GetCertPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CertPath
+}
+
+func (m *MTLSSettings2) GetCaPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CaPath
+}
+
+func (m *MTLSSettings2) GetCommonNameRegex() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CommonNameRegex
+}
+
+func (m *MTLSSettings2) GetMinVersion() *InputWefMinimumTLSVersion2 {
+	if m == nil {
+		return nil
+	}
+	return m.MinVersion
+}
+
+func (m *MTLSSettings2) GetMaxVersion() *InputWefMaximumTLSVersion2 {
+	if m == nil {
+		return nil
+	}
+	return m.MaxVersion
+}
+
+func (m *MTLSSettings2) GetOcspCheck() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheck
+}
+
+func (m *MTLSSettings2) GetKeytab() any {
+	if m == nil {
+		return nil
+	}
+	return m.Keytab
+}
+
+func (m *MTLSSettings2) GetPrincipal() any {
+	if m == nil {
+		return nil
+	}
+	return m.Principal
+}
+
+func (m *MTLSSettings2) GetOcspCheckFailClose() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheckFailClose
+}
+
+// InputWefFormat2 - Content format in which the endpoint should deliver events
+type InputWefFormat2 string
+
+const (
+	InputWefFormat2Raw          InputWefFormat2 = "Raw"
+	InputWefFormat2RenderedText InputWefFormat2 = "RenderedText"
+)
+
+func (e InputWefFormat2) ToPointer() *InputWefFormat2 {
+	return &e
+}
+
+type QueryBuilderMode2 string
+
+const (
+	QueryBuilderMode2Simple QueryBuilderMode2 = "simple"
+	QueryBuilderMode2XML    QueryBuilderMode2 = "xml"
+)
+
+func (e QueryBuilderMode2) ToPointer() *QueryBuilderMode2 {
+	return &e
+}
+
+type InputWefMetadatum2 struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputWefMetadatum2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefMetadatum2) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputWefMetadatum2) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type Subscription2 struct {
+	SubscriptionName string `json:"subscriptionName"`
+	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+	Version *string `json:"version,omitempty"`
+	// Content format in which the endpoint should deliver events
+	ContentFormat *InputWefFormat2 `default:"Raw" json:"contentFormat"`
+	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
+	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	// Receive compressed events from the source
+	Compress *bool `default:"true" json:"compress"`
+	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+	Targets []string `json:"targets"`
+	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode2 `default:"simple" json:"querySelector"`
+	// Fields to add to events ingested under this subscription
+	Metadata []InputWefMetadatum2 `json:"metadata,omitempty"`
+}
+
+func (s Subscription2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Subscription2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Subscription2) GetSubscriptionName() string {
+	if s == nil {
+		return ""
+	}
+	return s.SubscriptionName
+}
+
+func (s *Subscription2) GetVersion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Version
+}
+
+func (s *Subscription2) GetContentFormat() *InputWefFormat2 {
+	if s == nil {
+		return nil
+	}
+	return s.ContentFormat
+}
+
+func (s *Subscription2) GetHeartbeatInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HeartbeatInterval
+}
+
+func (s *Subscription2) GetBatchTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.BatchTimeout
+}
+
+func (s *Subscription2) GetReadExistingEvents() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ReadExistingEvents
+}
+
+func (s *Subscription2) GetSendBookmarks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SendBookmarks
+}
+
+func (s *Subscription2) GetCompress() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Compress
+}
+
+func (s *Subscription2) GetTargets() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Targets
+}
+
+func (s *Subscription2) GetLocale() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Locale
+}
+
+func (s *Subscription2) GetQuerySelector() *QueryBuilderMode2 {
+	if s == nil {
+		return nil
+	}
+	return s.QuerySelector
+}
+
+func (s *Subscription2) GetMetadata() []InputWefMetadatum2 {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
+}
+
+type InputWefWef2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType2 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"5986" json:"port"`
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod2 `default:"clientCert" json:"authMethod"`
+	TLS        *MTLSSettings2                 `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint *string `json:"caFingerprint,omitempty"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab *string `json:"keytab,omitempty"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal *string `json:"principal,omitempty"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription2 `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+}
+
+func (i InputWefWef2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefWef2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "subscriptions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefWef2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef2) GetType() InputWefType2 {
+	if i == nil {
+		return InputWefType2("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefWef2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefWef2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputWefWef2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefWef2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWefWef2) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputWefWef2) GetAuthMethod() *InputWefAuthenticationMethod2 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefWef2) GetTLS() *MTLSSettings2 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWefWef2) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefWef2) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefWef2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefWef2) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefWef2) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefWef2) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefWef2) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefWef2) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefWef2) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefWef2) GetCaFingerprint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefWef2) GetKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Keytab
+}
+
+func (i *InputWefWef2) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputWefWef2) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefWef2) GetSubscriptions() []Subscription2 {
+	if i == nil {
+		return []Subscription2{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefWef2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefWef2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefWef2) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+type InputWefType1 string
+
+const (
+	InputWefType1Wef InputWefType1 = "wef"
+)
+
+func (e InputWefType1) ToPointer() *InputWefType1 {
+	return &e
+}
+func (e *InputWefType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wef":
+		*e = InputWefType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWefType1: %v", v)
+	}
+}
+
+// InputWefAuthenticationMethod1 - How to authenticate incoming client connections
+type InputWefAuthenticationMethod1 string
+
+const (
+	// InputWefAuthenticationMethod1ClientCert Client certificate
+	InputWefAuthenticationMethod1ClientCert InputWefAuthenticationMethod1 = "clientCert"
+	// InputWefAuthenticationMethod1Kerberos Kerberos
+	InputWefAuthenticationMethod1Kerberos InputWefAuthenticationMethod1 = "kerberos"
+)
+
+func (e InputWefAuthenticationMethod1) ToPointer() *InputWefAuthenticationMethod1 {
+	return &e
+}
+
+type InputWefMinimumTLSVersion1 string
+
+const (
+	InputWefMinimumTLSVersion1TlSv1  InputWefMinimumTLSVersion1 = "TLSv1"
+	InputWefMinimumTLSVersion1TlSv11 InputWefMinimumTLSVersion1 = "TLSv1.1"
+	InputWefMinimumTLSVersion1TlSv12 InputWefMinimumTLSVersion1 = "TLSv1.2"
+	InputWefMinimumTLSVersion1TlSv13 InputWefMinimumTLSVersion1 = "TLSv1.3"
+)
+
+func (e InputWefMinimumTLSVersion1) ToPointer() *InputWefMinimumTLSVersion1 {
+	return &e
+}
+
+type InputWefMaximumTLSVersion1 string
+
+const (
+	InputWefMaximumTLSVersion1TlSv1  InputWefMaximumTLSVersion1 = "TLSv1"
+	InputWefMaximumTLSVersion1TlSv11 InputWefMaximumTLSVersion1 = "TLSv1.1"
+	InputWefMaximumTLSVersion1TlSv12 InputWefMaximumTLSVersion1 = "TLSv1.2"
+	InputWefMaximumTLSVersion1TlSv13 InputWefMaximumTLSVersion1 = "TLSv1.3"
+)
+
+func (e InputWefMaximumTLSVersion1) ToPointer() *InputWefMaximumTLSVersion1 {
+	return &e
+}
+
+type MTLSSettings1 struct {
+	// Enable TLS
+	Disabled *bool `default:"false" json:"disabled"`
+	// Required for WEF certificate authentication
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Required for WEF certificate authentication
+	RequestCert *bool `default:"true" json:"requestCert"`
+	// Name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+	CaPath string `json:"caPath"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string                     `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *InputWefMinimumTLSVersion1 `json:"minVersion,omitempty"`
+	MaxVersion      *InputWefMaximumTLSVersion1 `json:"maxVersion,omitempty"`
+	// Enable OCSP check of certificate
+	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	Keytab    any   `json:"keytab,omitempty"`
+	Principal any   `json:"principal,omitempty"`
+	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+}
+
+func (m MTLSSettings1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MTLSSettings1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, []string{"privKeyPath", "certPath", "caPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MTLSSettings1) GetDisabled() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.Disabled
+}
+
+func (m *MTLSSettings1) GetRejectUnauthorized() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RejectUnauthorized
+}
+
+func (m *MTLSSettings1) GetRequestCert() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.RequestCert
+}
+
+func (m *MTLSSettings1) GetCertificateName() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CertificateName
+}
+
+func (m *MTLSSettings1) GetPrivKeyPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.PrivKeyPath
+}
+
+func (m *MTLSSettings1) GetPassphrase() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Passphrase
+}
+
+func (m *MTLSSettings1) GetCertPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CertPath
+}
+
+func (m *MTLSSettings1) GetCaPath() string {
+	if m == nil {
+		return ""
+	}
+	return m.CaPath
+}
+
+func (m *MTLSSettings1) GetCommonNameRegex() *string {
+	if m == nil {
+		return nil
+	}
+	return m.CommonNameRegex
+}
+
+func (m *MTLSSettings1) GetMinVersion() *InputWefMinimumTLSVersion1 {
+	if m == nil {
+		return nil
+	}
+	return m.MinVersion
+}
+
+func (m *MTLSSettings1) GetMaxVersion() *InputWefMaximumTLSVersion1 {
+	if m == nil {
+		return nil
+	}
+	return m.MaxVersion
+}
+
+func (m *MTLSSettings1) GetOcspCheck() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheck
+}
+
+func (m *MTLSSettings1) GetKeytab() any {
+	if m == nil {
+		return nil
+	}
+	return m.Keytab
+}
+
+func (m *MTLSSettings1) GetPrincipal() any {
+	if m == nil {
+		return nil
+	}
+	return m.Principal
+}
+
+func (m *MTLSSettings1) GetOcspCheckFailClose() *bool {
+	if m == nil {
+		return nil
+	}
+	return m.OcspCheckFailClose
+}
+
+// InputWefFormat1 - Content format in which the endpoint should deliver events
+type InputWefFormat1 string
+
+const (
+	InputWefFormat1Raw          InputWefFormat1 = "Raw"
+	InputWefFormat1RenderedText InputWefFormat1 = "RenderedText"
+)
+
+func (e InputWefFormat1) ToPointer() *InputWefFormat1 {
+	return &e
+}
+
+type QueryBuilderMode1 string
+
+const (
+	QueryBuilderMode1Simple QueryBuilderMode1 = "simple"
+	QueryBuilderMode1XML    QueryBuilderMode1 = "xml"
+)
+
+func (e QueryBuilderMode1) ToPointer() *QueryBuilderMode1 {
+	return &e
+}
+
+type InputWefMetadatum1 struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputWefMetadatum1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefMetadatum1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefMetadatum1) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputWefMetadatum1) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type Subscription1 struct {
+	SubscriptionName string `json:"subscriptionName"`
+	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+	Version *string `json:"version,omitempty"`
+	// Content format in which the endpoint should deliver events
+	ContentFormat *InputWefFormat1 `default:"Raw" json:"contentFormat"`
+	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
+	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	// Receive compressed events from the source
+	Compress *bool `default:"true" json:"compress"`
+	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+	Targets []string `json:"targets"`
+	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+	Locale        *string            `default:"en-US" json:"locale"`
+	QuerySelector *QueryBuilderMode1 `default:"simple" json:"querySelector"`
+	// Fields to add to events ingested under this subscription
+	Metadata []InputWefMetadatum1 `json:"metadata,omitempty"`
+}
+
+func (s Subscription1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Subscription1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Subscription1) GetSubscriptionName() string {
+	if s == nil {
+		return ""
+	}
+	return s.SubscriptionName
+}
+
+func (s *Subscription1) GetVersion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Version
+}
+
+func (s *Subscription1) GetContentFormat() *InputWefFormat1 {
+	if s == nil {
+		return nil
+	}
+	return s.ContentFormat
+}
+
+func (s *Subscription1) GetHeartbeatInterval() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.HeartbeatInterval
+}
+
+func (s *Subscription1) GetBatchTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.BatchTimeout
+}
+
+func (s *Subscription1) GetReadExistingEvents() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ReadExistingEvents
+}
+
+func (s *Subscription1) GetSendBookmarks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SendBookmarks
+}
+
+func (s *Subscription1) GetCompress() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Compress
+}
+
+func (s *Subscription1) GetTargets() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.Targets
+}
+
+func (s *Subscription1) GetLocale() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Locale
+}
+
+func (s *Subscription1) GetQuerySelector() *QueryBuilderMode1 {
+	if s == nil {
+		return nil
+	}
+	return s.QuerySelector
+}
+
+func (s *Subscription1) GetMetadata() []InputWefMetadatum1 {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
+}
+
+type InputWefWef1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWefType1 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64 `default:"5986" json:"port"`
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod1 `default:"clientCert" json:"authMethod"`
+	TLS        *MTLSSettings1                 `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint *string `json:"caFingerprint,omitempty"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab *string `json:"keytab,omitempty"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal *string `json:"principal,omitempty"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription1 `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+}
+
+func (i InputWefWef1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefWef1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefWef1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefWef1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefWef1) GetType() InputWefType1 {
+	if i == nil {
+		return InputWefType1("")
+	}
+	return i.Type
+}
+
+func (i *InputWefWef1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefWef1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefWef1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefWef1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefWef1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefWef1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefWef1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefWef1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWefWef1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputWefWef1) GetAuthMethod() *InputWefAuthenticationMethod1 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefWef1) GetTLS() *MTLSSettings1 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWefWef1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefWef1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefWef1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefWef1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefWef1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefWef1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefWef1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefWef1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefWef1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefWef1) GetCaFingerprint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefWef1) GetKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Keytab
+}
+
+func (i *InputWefWef1) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputWefWef1) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefWef1) GetSubscriptions() []Subscription1 {
+	if i == nil {
+		return []Subscription1{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefWef1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefWef1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefWef1) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+type InputWefType string
+
+const (
+	InputWefTypeInputWefWef1 InputWefType = "InputWef_Wef_1"
+	InputWefTypeInputWefWef2 InputWefType = "InputWef_Wef_2"
+	InputWefTypeInputWefWef3 InputWefType = "InputWef_Wef_3"
+	InputWefTypeInputWefWef4 InputWefType = "InputWef_Wef_4"
+	InputWefTypeInputWefWef5 InputWefType = "InputWef_Wef_5"
+	InputWefTypeInputWefWef6 InputWefType = "InputWef_Wef_6"
+)
+
+type InputWef struct {
+	InputWefWef1 *InputWefWef1 `queryParam:"inline,name=InputWef"`
+	InputWefWef2 *InputWefWef2 `queryParam:"inline,name=InputWef"`
+	InputWefWef3 *InputWefWef3 `queryParam:"inline,name=InputWef"`
+	InputWefWef4 *InputWefWef4 `queryParam:"inline,name=InputWef"`
+	InputWefWef5 *InputWefWef5 `queryParam:"inline,name=InputWef"`
+	InputWefWef6 *InputWefWef6 `queryParam:"inline,name=InputWef"`
+
+	Type InputWefType
+}
+
+func CreateInputWefInputWefWef1(inputWefWef1 InputWefWef1) InputWef {
+	typ := InputWefTypeInputWefWef1
+
+	return InputWef{
+		InputWefWef1: &inputWefWef1,
+		Type:         typ,
+	}
+}
+
+func CreateInputWefInputWefWef2(inputWefWef2 InputWefWef2) InputWef {
+	typ := InputWefTypeInputWefWef2
+
+	return InputWef{
+		InputWefWef2: &inputWefWef2,
+		Type:         typ,
+	}
+}
+
+func CreateInputWefInputWefWef3(inputWefWef3 InputWefWef3) InputWef {
+	typ := InputWefTypeInputWefWef3
+
+	return InputWef{
+		InputWefWef3: &inputWefWef3,
+		Type:         typ,
+	}
+}
+
+func CreateInputWefInputWefWef4(inputWefWef4 InputWefWef4) InputWef {
+	typ := InputWefTypeInputWefWef4
+
+	return InputWef{
+		InputWefWef4: &inputWefWef4,
+		Type:         typ,
+	}
+}
+
+func CreateInputWefInputWefWef5(inputWefWef5 InputWefWef5) InputWef {
+	typ := InputWefTypeInputWefWef5
+
+	return InputWef{
+		InputWefWef5: &inputWefWef5,
+		Type:         typ,
+	}
+}
+
+func CreateInputWefInputWefWef6(inputWefWef6 InputWefWef6) InputWef {
+	typ := InputWefTypeInputWefWef6
+
+	return InputWef{
+		InputWefWef6: &inputWefWef6,
+		Type:         typ,
+	}
+}
+
+func (u *InputWef) UnmarshalJSON(data []byte) error {
+
+	var inputWefWef6 InputWefWef6 = InputWefWef6{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef6, "", true, nil); err == nil {
+		u.InputWefWef6 = &inputWefWef6
+		u.Type = InputWefTypeInputWefWef6
+		return nil
+	}
+
+	var inputWefWef5 InputWefWef5 = InputWefWef5{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef5, "", true, nil); err == nil {
+		u.InputWefWef5 = &inputWefWef5
+		u.Type = InputWefTypeInputWefWef5
+		return nil
+	}
+
+	var inputWefWef2 InputWefWef2 = InputWefWef2{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef2, "", true, nil); err == nil {
+		u.InputWefWef2 = &inputWefWef2
+		u.Type = InputWefTypeInputWefWef2
+		return nil
+	}
+
+	var inputWefWef4 InputWefWef4 = InputWefWef4{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef4, "", true, nil); err == nil {
+		u.InputWefWef4 = &inputWefWef4
+		u.Type = InputWefTypeInputWefWef4
+		return nil
+	}
+
+	var inputWefWef1 InputWefWef1 = InputWefWef1{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef1, "", true, nil); err == nil {
+		u.InputWefWef1 = &inputWefWef1
+		u.Type = InputWefTypeInputWefWef1
+		return nil
+	}
+
+	var inputWefWef3 InputWefWef3 = InputWefWef3{}
+	if err := utils.UnmarshalJSON(data, &inputWefWef3, "", true, nil); err == nil {
+		u.InputWefWef3 = &inputWefWef3
+		u.Type = InputWefTypeInputWefWef3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWef", string(data))
+}
+
+func (u InputWef) MarshalJSON() ([]byte, error) {
+	if u.InputWefWef1 != nil {
+		return utils.MarshalJSON(u.InputWefWef1, "", true)
+	}
+
+	if u.InputWefWef2 != nil {
+		return utils.MarshalJSON(u.InputWefWef2, "", true)
+	}
+
+	if u.InputWefWef3 != nil {
+		return utils.MarshalJSON(u.InputWefWef3, "", true)
+	}
+
+	if u.InputWefWef4 != nil {
+		return utils.MarshalJSON(u.InputWefWef4, "", true)
+	}
+
+	if u.InputWefWef5 != nil {
+		return utils.MarshalJSON(u.InputWefWef5, "", true)
+	}
+
+	if u.InputWefWef6 != nil {
+		return utils.MarshalJSON(u.InputWefWef6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWef: all fields are null")
 }

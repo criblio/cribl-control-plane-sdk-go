@@ -4,226 +4,361 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCriblmetricsType string
+type InputCriblmetricsType4 string
 
 const (
-	InputCriblmetricsTypeCriblmetrics InputCriblmetricsType = "criblmetrics"
+	InputCriblmetricsType4Criblmetrics InputCriblmetricsType4 = "criblmetrics"
 )
 
-func (e InputCriblmetricsType) ToPointer() *InputCriblmetricsType {
+func (e InputCriblmetricsType4) ToPointer() *InputCriblmetricsType4 {
 	return &e
 }
-func (e *InputCriblmetricsType) UnmarshalJSON(data []byte) error {
+func (e *InputCriblmetricsType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "criblmetrics":
-		*e = InputCriblmetricsType(v)
+		*e = InputCriblmetricsType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputCriblmetricsType: %v", v)
+		return fmt.Errorf("invalid value for InputCriblmetricsType4: %v", v)
 	}
 }
 
-type InputCriblmetricsConnection struct {
+type InputCriblmetricsCriblmetrics4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblmetricsType4 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputCriblmetricsConnection) MarshalJSON() ([]byte, error) {
+func (i InputCriblmetricsCriblmetrics4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblmetricsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+func (i *InputCriblmetricsCriblmetrics4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblmetricsConnection) GetPipeline() *string {
+func (i *InputCriblmetricsCriblmetrics4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetType() InputCriblmetricsType4 {
+	if i == nil {
+		return InputCriblmetricsType4("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblmetricsConnection) GetOutput() string {
+func (i *InputCriblmetricsCriblmetrics4) GetSendToRoutes() *bool {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Output
+	return i.SendToRoutes
 }
 
-// InputCriblmetricsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputCriblmetricsMode string
+func (i *InputCriblmetricsCriblmetrics4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsCriblmetrics4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblmetricsType3 string
 
 const (
-	InputCriblmetricsModeSmart  InputCriblmetricsMode = "smart"
-	InputCriblmetricsModeAlways InputCriblmetricsMode = "always"
+	InputCriblmetricsType3Criblmetrics InputCriblmetricsType3 = "criblmetrics"
 )
 
-func (e InputCriblmetricsMode) ToPointer() *InputCriblmetricsMode {
+func (e InputCriblmetricsType3) ToPointer() *InputCriblmetricsType3 {
 	return &e
 }
-
-// InputCriblmetricsCompression - Codec to use to compress the persisted data
-type InputCriblmetricsCompression string
-
-const (
-	InputCriblmetricsCompressionNone InputCriblmetricsCompression = "none"
-	InputCriblmetricsCompressionGzip InputCriblmetricsCompression = "gzip"
-)
-
-func (e InputCriblmetricsCompression) ToPointer() *InputCriblmetricsCompression {
-	return &e
-}
-
-type InputCriblmetricsPqControls struct {
-}
-
-func (i InputCriblmetricsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCriblmetricsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (e *InputCriblmetricsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	return nil
-}
-
-type InputCriblmetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputCriblmetricsMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputCriblmetricsCompression `default:"none" json:"compress"`
-	PqControls *InputCriblmetricsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputCriblmetricsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCriblmetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCriblmetricsPq) GetMode() *InputCriblmetricsMode {
-	if i == nil {
+	switch v {
+	case "criblmetrics":
+		*e = InputCriblmetricsType3(v)
 		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCriblmetricsType3: %v", v)
 	}
-	return i.Mode
 }
 
-func (i *InputCriblmetricsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputCriblmetricsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputCriblmetricsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputCriblmetricsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputCriblmetricsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputCriblmetricsPq) GetCompress() *InputCriblmetricsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputCriblmetricsPq) GetPqControls() *InputCriblmetricsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputCriblmetricsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputCriblmetricsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCriblmetricsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCriblmetricsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputCriblmetricsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputCriblmetrics struct {
+type InputCriblmetricsCriblmetrics3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputCriblmetricsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblmetricsType3 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputCriblmetricsCriblmetrics3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsCriblmetrics3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetType() InputCriblmetricsType3 {
+	if i == nil {
+		return InputCriblmetricsType3("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsCriblmetrics3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblmetricsType2 string
+
+const (
+	InputCriblmetricsType2Criblmetrics InputCriblmetricsType2 = "criblmetrics"
+)
+
+func (e InputCriblmetricsType2) ToPointer() *InputCriblmetricsType2 {
+	return &e
+}
+func (e *InputCriblmetricsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "criblmetrics":
+		*e = InputCriblmetricsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCriblmetricsType2: %v", v)
+	}
+}
+
+type InputCriblmetricsCriblmetrics2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblmetricsType2 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -231,122 +366,388 @@ type InputCriblmetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputCriblmetricsConnection `json:"connections,omitempty"`
-	Pq          *InputCriblmetricsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `default:"cribl.logstream." json:"prefix"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `default:"true" json:"fullFidelity"`
 	// Fields to add to events from this input
-	Metadata    []InputCriblmetricsMetadatum `json:"metadata,omitempty"`
-	Description *string                      `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
+func (i InputCriblmetricsCriblmetrics2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblmetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputCriblmetricsCriblmetrics2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblmetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblmetrics) GetType() InputCriblmetricsType {
-	if i == nil {
-		return InputCriblmetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblmetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblmetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblmetrics) GetSendToRoutes() *bool {
+func (i *InputCriblmetricsCriblmetrics2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblmetrics) GetEnvironment() *string {
+func (i *InputCriblmetricsCriblmetrics2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsCriblmetrics2) GetType() InputCriblmetricsType2 {
+	if i == nil {
+		return InputCriblmetricsType2("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsCriblmetrics2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsCriblmetrics2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsCriblmetrics2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblmetrics) GetPqEnabled() *bool {
+func (i *InputCriblmetricsCriblmetrics2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblmetrics) GetStreamtags() []string {
+func (i *InputCriblmetricsCriblmetrics2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblmetrics) GetConnections() []InputCriblmetricsConnection {
+func (i *InputCriblmetricsCriblmetrics2) GetConnections() []ConnectionsType {
 	if i == nil {
-		return nil
+		return []ConnectionsType{}
 	}
 	return i.Connections
 }
 
-func (i *InputCriblmetrics) GetPq() *InputCriblmetricsPq {
+func (i *InputCriblmetricsCriblmetrics2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblmetrics) GetPrefix() *string {
+func (i *InputCriblmetricsCriblmetrics2) GetPrefix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Prefix
 }
 
-func (i *InputCriblmetrics) GetFullFidelity() *bool {
+func (i *InputCriblmetricsCriblmetrics2) GetFullFidelity() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetrics) GetMetadata() []InputCriblmetricsMetadatum {
+func (i *InputCriblmetricsCriblmetrics2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblmetrics) GetDescription() *string {
+func (i *InputCriblmetricsCriblmetrics2) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCriblmetricsType1 string
+
+const (
+	InputCriblmetricsType1Criblmetrics InputCriblmetricsType1 = "criblmetrics"
+)
+
+func (e InputCriblmetricsType1) ToPointer() *InputCriblmetricsType1 {
+	return &e
+}
+func (e *InputCriblmetricsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "criblmetrics":
+		*e = InputCriblmetricsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCriblmetricsType1: %v", v)
+	}
+}
+
+type InputCriblmetricsCriblmetrics1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblmetricsType1 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputCriblmetricsCriblmetrics1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsCriblmetrics1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetType() InputCriblmetricsType1 {
+	if i == nil {
+		return InputCriblmetricsType1("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsCriblmetrics1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblmetricsType string
+
+const (
+	InputCriblmetricsTypeInputCriblmetricsCriblmetrics1 InputCriblmetricsType = "InputCriblmetrics_Criblmetrics_1"
+	InputCriblmetricsTypeInputCriblmetricsCriblmetrics2 InputCriblmetricsType = "InputCriblmetrics_Criblmetrics_2"
+	InputCriblmetricsTypeInputCriblmetricsCriblmetrics3 InputCriblmetricsType = "InputCriblmetrics_Criblmetrics_3"
+	InputCriblmetricsTypeInputCriblmetricsCriblmetrics4 InputCriblmetricsType = "InputCriblmetrics_Criblmetrics_4"
+)
+
+type InputCriblmetrics struct {
+	InputCriblmetricsCriblmetrics1 *InputCriblmetricsCriblmetrics1 `queryParam:"inline,name=InputCriblmetrics"`
+	InputCriblmetricsCriblmetrics2 *InputCriblmetricsCriblmetrics2 `queryParam:"inline,name=InputCriblmetrics"`
+	InputCriblmetricsCriblmetrics3 *InputCriblmetricsCriblmetrics3 `queryParam:"inline,name=InputCriblmetrics"`
+	InputCriblmetricsCriblmetrics4 *InputCriblmetricsCriblmetrics4 `queryParam:"inline,name=InputCriblmetrics"`
+
+	Type InputCriblmetricsType
+}
+
+func CreateInputCriblmetricsInputCriblmetricsCriblmetrics1(inputCriblmetricsCriblmetrics1 InputCriblmetricsCriblmetrics1) InputCriblmetrics {
+	typ := InputCriblmetricsTypeInputCriblmetricsCriblmetrics1
+
+	return InputCriblmetrics{
+		InputCriblmetricsCriblmetrics1: &inputCriblmetricsCriblmetrics1,
+		Type:                           typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsCriblmetrics2(inputCriblmetricsCriblmetrics2 InputCriblmetricsCriblmetrics2) InputCriblmetrics {
+	typ := InputCriblmetricsTypeInputCriblmetricsCriblmetrics2
+
+	return InputCriblmetrics{
+		InputCriblmetricsCriblmetrics2: &inputCriblmetricsCriblmetrics2,
+		Type:                           typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsCriblmetrics3(inputCriblmetricsCriblmetrics3 InputCriblmetricsCriblmetrics3) InputCriblmetrics {
+	typ := InputCriblmetricsTypeInputCriblmetricsCriblmetrics3
+
+	return InputCriblmetrics{
+		InputCriblmetricsCriblmetrics3: &inputCriblmetricsCriblmetrics3,
+		Type:                           typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsCriblmetrics4(inputCriblmetricsCriblmetrics4 InputCriblmetricsCriblmetrics4) InputCriblmetrics {
+	typ := InputCriblmetricsTypeInputCriblmetricsCriblmetrics4
+
+	return InputCriblmetrics{
+		InputCriblmetricsCriblmetrics4: &inputCriblmetricsCriblmetrics4,
+		Type:                           typ,
+	}
+}
+
+func (u *InputCriblmetrics) UnmarshalJSON(data []byte) error {
+
+	var inputCriblmetricsCriblmetrics2 InputCriblmetricsCriblmetrics2 = InputCriblmetricsCriblmetrics2{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsCriblmetrics2, "", true, nil); err == nil {
+		u.InputCriblmetricsCriblmetrics2 = &inputCriblmetricsCriblmetrics2
+		u.Type = InputCriblmetricsTypeInputCriblmetricsCriblmetrics2
+		return nil
+	}
+
+	var inputCriblmetricsCriblmetrics4 InputCriblmetricsCriblmetrics4 = InputCriblmetricsCriblmetrics4{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsCriblmetrics4, "", true, nil); err == nil {
+		u.InputCriblmetricsCriblmetrics4 = &inputCriblmetricsCriblmetrics4
+		u.Type = InputCriblmetricsTypeInputCriblmetricsCriblmetrics4
+		return nil
+	}
+
+	var inputCriblmetricsCriblmetrics1 InputCriblmetricsCriblmetrics1 = InputCriblmetricsCriblmetrics1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsCriblmetrics1, "", true, nil); err == nil {
+		u.InputCriblmetricsCriblmetrics1 = &inputCriblmetricsCriblmetrics1
+		u.Type = InputCriblmetricsTypeInputCriblmetricsCriblmetrics1
+		return nil
+	}
+
+	var inputCriblmetricsCriblmetrics3 InputCriblmetricsCriblmetrics3 = InputCriblmetricsCriblmetrics3{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsCriblmetrics3, "", true, nil); err == nil {
+		u.InputCriblmetricsCriblmetrics3 = &inputCriblmetricsCriblmetrics3
+		u.Type = InputCriblmetricsTypeInputCriblmetricsCriblmetrics3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCriblmetrics", string(data))
+}
+
+func (u InputCriblmetrics) MarshalJSON() ([]byte, error) {
+	if u.InputCriblmetricsCriblmetrics1 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsCriblmetrics1, "", true)
+	}
+
+	if u.InputCriblmetricsCriblmetrics2 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsCriblmetrics2, "", true)
+	}
+
+	if u.InputCriblmetricsCriblmetrics3 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsCriblmetrics3, "", true)
+	}
+
+	if u.InputCriblmetricsCriblmetrics4 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsCriblmetrics4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCriblmetrics: all fields are null")
 }

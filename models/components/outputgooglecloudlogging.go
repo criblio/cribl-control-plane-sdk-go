@@ -4,203 +4,57 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputGoogleCloudLoggingType string
+type OutputGoogleCloudLoggingType11 string
 
 const (
-	OutputGoogleCloudLoggingTypeGoogleCloudLogging OutputGoogleCloudLoggingType = "google_cloud_logging"
+	OutputGoogleCloudLoggingType11GoogleCloudLogging OutputGoogleCloudLoggingType11 = "google_cloud_logging"
 )
 
-func (e OutputGoogleCloudLoggingType) ToPointer() *OutputGoogleCloudLoggingType {
+func (e OutputGoogleCloudLoggingType11) ToPointer() *OutputGoogleCloudLoggingType11 {
 	return &e
 }
-func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
+func (e *OutputGoogleCloudLoggingType11) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "google_cloud_logging":
-		*e = OutputGoogleCloudLoggingType(v)
+		*e = OutputGoogleCloudLoggingType11(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType: %v", v)
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType11: %v", v)
 	}
 }
 
-type LogLocationType string
+type LogLocationType11 string
 
 const (
-	LogLocationTypeProject        LogLocationType = "project"
-	LogLocationTypeOrganization   LogLocationType = "organization"
-	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	LogLocationTypeFolder         LogLocationType = "folder"
+	// LogLocationType11Project Project
+	LogLocationType11Project LogLocationType11 = "project"
+	// LogLocationType11Organization Organization
+	LogLocationType11Organization LogLocationType11 = "organization"
+	// LogLocationType11BillingAccount Billing Account
+	LogLocationType11BillingAccount LogLocationType11 = "billingAccount"
+	// LogLocationType11Folder Folder
+	LogLocationType11Folder LogLocationType11 = "folder"
 )
 
-func (e LogLocationType) ToPointer() *LogLocationType {
+func (e LogLocationType11) ToPointer() *LogLocationType11 {
 	return &e
 }
 
-// PayloadFormat - Format to use when sending payload. Defaults to Text.
-type PayloadFormat string
-
-const (
-	PayloadFormatText PayloadFormat = "text"
-	PayloadFormatJSON PayloadFormat = "json"
-)
-
-func (e PayloadFormat) ToPointer() *PayloadFormat {
-	return &e
-}
-
-type LogLabel struct {
-	// Label name
-	Label string `json:"label"`
-	// JavaScript expression to compute the label's value.
-	ValueExpression string `json:"valueExpression"`
-}
-
-func (l LogLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LogLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"label", "valueExpression"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LogLabel) GetLabel() string {
-	if l == nil {
-		return ""
-	}
-	return l.Label
-}
-
-func (l *LogLabel) GetValueExpression() string {
-	if l == nil {
-		return ""
-	}
-	return l.ValueExpression
-}
-
-type ResourceTypeLabel struct {
-	// Label name
-	Label string `json:"label"`
-	// JavaScript expression to compute the label's value.
-	ValueExpression string `json:"valueExpression"`
-}
-
-func (r ResourceTypeLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResourceTypeLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"label", "valueExpression"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResourceTypeLabel) GetLabel() string {
-	if r == nil {
-		return ""
-	}
-	return r.Label
-}
-
-func (r *ResourceTypeLabel) GetValueExpression() string {
-	if r == nil {
-		return ""
-	}
-	return r.ValueExpression
-}
-
-// OutputGoogleCloudLoggingGoogleAuthenticationMethod - Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-type OutputGoogleCloudLoggingGoogleAuthenticationMethod string
-
-const (
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto   OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodManual OutputGoogleCloudLoggingGoogleAuthenticationMethod = "manual"
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret OutputGoogleCloudLoggingGoogleAuthenticationMethod = "secret"
-)
-
-func (e OutputGoogleCloudLoggingGoogleAuthenticationMethod) ToPointer() *OutputGoogleCloudLoggingGoogleAuthenticationMethod {
-	return &e
-}
-
-// OutputGoogleCloudLoggingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGoogleCloudLoggingBackpressureBehavior string
-
-const (
-	OutputGoogleCloudLoggingBackpressureBehaviorBlock OutputGoogleCloudLoggingBackpressureBehavior = "block"
-	OutputGoogleCloudLoggingBackpressureBehaviorDrop  OutputGoogleCloudLoggingBackpressureBehavior = "drop"
-	OutputGoogleCloudLoggingBackpressureBehaviorQueue OutputGoogleCloudLoggingBackpressureBehavior = "queue"
-)
-
-func (e OutputGoogleCloudLoggingBackpressureBehavior) ToPointer() *OutputGoogleCloudLoggingBackpressureBehavior {
-	return &e
-}
-
-// OutputGoogleCloudLoggingCompression - Codec to use to compress the persisted data
-type OutputGoogleCloudLoggingCompression string
-
-const (
-	OutputGoogleCloudLoggingCompressionNone OutputGoogleCloudLoggingCompression = "none"
-	OutputGoogleCloudLoggingCompressionGzip OutputGoogleCloudLoggingCompression = "gzip"
-)
-
-func (e OutputGoogleCloudLoggingCompression) ToPointer() *OutputGoogleCloudLoggingCompression {
-	return &e
-}
-
-// OutputGoogleCloudLoggingQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputGoogleCloudLoggingQueueFullBehavior string
-
-const (
-	OutputGoogleCloudLoggingQueueFullBehaviorBlock OutputGoogleCloudLoggingQueueFullBehavior = "block"
-	OutputGoogleCloudLoggingQueueFullBehaviorDrop  OutputGoogleCloudLoggingQueueFullBehavior = "drop"
-)
-
-func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleCloudLoggingQueueFullBehavior {
-	return &e
-}
-
-// OutputGoogleCloudLoggingMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGoogleCloudLoggingMode string
-
-const (
-	OutputGoogleCloudLoggingModeError        OutputGoogleCloudLoggingMode = "error"
-	OutputGoogleCloudLoggingModeBackpressure OutputGoogleCloudLoggingMode = "backpressure"
-	OutputGoogleCloudLoggingModeAlways       OutputGoogleCloudLoggingMode = "always"
-)
-
-func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode {
-	return &e
-}
-
-type OutputGoogleCloudLoggingPqControls struct {
-}
-
-func (o OutputGoogleCloudLoggingPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleCloudLoggingPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputGoogleCloudLogging struct {
+type OutputGoogleCloudLoggingGoogleCloudLogging11 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitempty"`
-	Type OutputGoogleCloudLoggingType `json:"type"`
+	ID   *string                        `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType11 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -208,25 +62,2703 @@ type OutputGoogleCloudLogging struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags      []string        `json:"streamtags,omitempty"`
-	LogLocationType LogLocationType `json:"logLocationType"`
+	Streamtags      []string          `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType11 `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
 	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
 	// Format to use when sending payload. Defaults to Text.
-	PayloadFormat *PayloadFormat `default:"text" json:"payloadFormat"`
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
 	// Labels to apply to the log entry
-	LogLabels []LogLabel `json:"logLabels,omitempty"`
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []ResourceTypeLabel `json:"resourceTypeLabels,omitempty"`
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitempty"`
 	// JavaScript expression to compute the value of the insert ID field.
 	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
-	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *OutputGoogleCloudLoggingGoogleAuthenticationMethod `default:"manual" json:"googleAuthMethod"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetType() OutputGoogleCloudLoggingType11 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType11("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLogLocationType() LogLocationType11 {
+	if o == nil {
+		return LogLocationType11("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging11) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType10 string
+
+const (
+	OutputGoogleCloudLoggingType10GoogleCloudLogging OutputGoogleCloudLoggingType10 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType10) ToPointer() *OutputGoogleCloudLoggingType10 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType10) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType10(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType10: %v", v)
+	}
+}
+
+type LogLocationType10 string
+
+const (
+	// LogLocationType10Project Project
+	LogLocationType10Project LogLocationType10 = "project"
+	// LogLocationType10Organization Organization
+	LogLocationType10Organization LogLocationType10 = "organization"
+	// LogLocationType10BillingAccount Billing Account
+	LogLocationType10BillingAccount LogLocationType10 = "billingAccount"
+	// LogLocationType10Folder Folder
+	LogLocationType10Folder LogLocationType10 = "folder"
+)
+
+func (e LogLocationType10) ToPointer() *LogLocationType10 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging10 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                        `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType10 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string          `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType10 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetType() OutputGoogleCloudLoggingType10 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType10("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLogLocationType() LogLocationType10 {
+	if o == nil {
+		return LogLocationType10("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging10) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType9 string
+
+const (
+	OutputGoogleCloudLoggingType9GoogleCloudLogging OutputGoogleCloudLoggingType9 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType9) ToPointer() *OutputGoogleCloudLoggingType9 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType9: %v", v)
+	}
+}
+
+type LogLocationType9 string
+
+const (
+	// LogLocationType9Project Project
+	LogLocationType9Project LogLocationType9 = "project"
+	// LogLocationType9Organization Organization
+	LogLocationType9Organization LogLocationType9 = "organization"
+	// LogLocationType9BillingAccount Billing Account
+	LogLocationType9BillingAccount LogLocationType9 = "billingAccount"
+	// LogLocationType9Folder Folder
+	LogLocationType9Folder LogLocationType9 = "folder"
+)
+
+func (e LogLocationType9) ToPointer() *LogLocationType9 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging9 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string         `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType9 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret string `json:"secret"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "secret", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetType() OutputGoogleCloudLoggingType9 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLogLocationType() LogLocationType9 {
+	if o == nil {
+		return LogLocationType9("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging9) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType8 string
+
+const (
+	OutputGoogleCloudLoggingType8GoogleCloudLogging OutputGoogleCloudLoggingType8 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType8) ToPointer() *OutputGoogleCloudLoggingType8 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType8: %v", v)
+	}
+}
+
+type LogLocationType8 string
+
+const (
+	// LogLocationType8Project Project
+	LogLocationType8Project LogLocationType8 = "project"
+	// LogLocationType8Organization Organization
+	LogLocationType8Organization LogLocationType8 = "organization"
+	// LogLocationType8BillingAccount Billing Account
+	LogLocationType8BillingAccount LogLocationType8 = "billingAccount"
+	// LogLocationType8Folder Folder
+	LogLocationType8Folder LogLocationType8 = "folder"
+)
+
+func (e LogLocationType8) ToPointer() *LogLocationType8 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging8 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string         `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType8 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "serviceAccountCredentials", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetType() OutputGoogleCloudLoggingType8 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLogLocationType() LogLocationType8 {
+	if o == nil {
+		return LogLocationType8("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetServiceAccountCredentials() string {
+	if o == nil {
+		return ""
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType7 string
+
+const (
+	OutputGoogleCloudLoggingType7GoogleCloudLogging OutputGoogleCloudLoggingType7 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType7) ToPointer() *OutputGoogleCloudLoggingType7 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType7: %v", v)
+	}
+}
+
+type LogLocationType7 string
+
+const (
+	// LogLocationType7Project Project
+	LogLocationType7Project LogLocationType7 = "project"
+	// LogLocationType7Organization Organization
+	LogLocationType7Organization LogLocationType7 = "organization"
+	// LogLocationType7BillingAccount Billing Account
+	LogLocationType7BillingAccount LogLocationType7 = "billingAccount"
+	// LogLocationType7Folder Folder
+	LogLocationType7Folder LogLocationType7 = "folder"
+)
+
+func (e LogLocationType7) ToPointer() *LogLocationType7 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string         `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType7 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
@@ -302,7 +2834,7 @@ type OutputGoogleCloudLogging struct {
 	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
 	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGoogleCloudLoggingBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -310,6 +2842,16 @@ type OutputGoogleCloudLogging struct {
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
 	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -317,476 +2859,4783 @@ type OutputGoogleCloudLogging struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputGoogleCloudLoggingCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputGoogleCloudLoggingQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGoogleCloudLoggingMode       `default:"error" json:"pqMode"`
-	PqControls *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 }
 
-func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
+func (o OutputGoogleCloudLoggingGoogleCloudLogging7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputGoogleCloudLogging) UnmarshalJSON(data []byte) error {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputGoogleCloudLogging) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputGoogleCloudLogging) GetType() OutputGoogleCloudLoggingType {
-	if o == nil {
-		return OutputGoogleCloudLoggingType("")
-	}
-	return o.Type
-}
-
-func (o *OutputGoogleCloudLogging) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputGoogleCloudLogging) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputGoogleCloudLogging) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputGoogleCloudLogging) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputGoogleCloudLogging) GetLogLocationType() LogLocationType {
-	if o == nil {
-		return LogLocationType("")
-	}
-	return o.LogLocationType
-}
-
-func (o *OutputGoogleCloudLogging) GetLogNameExpression() string {
-	if o == nil {
-		return ""
-	}
-	return o.LogNameExpression
-}
-
-func (o *OutputGoogleCloudLogging) GetSanitizeLogNames() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.SanitizeLogNames
-}
-
-func (o *OutputGoogleCloudLogging) GetPayloadFormat() *PayloadFormat {
-	if o == nil {
-		return nil
-	}
-	return o.PayloadFormat
-}
-
-func (o *OutputGoogleCloudLogging) GetLogLabels() []LogLabel {
-	if o == nil {
-		return nil
-	}
-	return o.LogLabels
-}
-
-func (o *OutputGoogleCloudLogging) GetResourceTypeExpression() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ResourceTypeExpression
-}
-
-func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []ResourceTypeLabel {
-	if o == nil {
-		return nil
-	}
-	return o.ResourceTypeLabels
-}
-
-func (o *OutputGoogleCloudLogging) GetSeverityExpression() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SeverityExpression
-}
-
-func (o *OutputGoogleCloudLogging) GetInsertIDExpression() *string {
-	if o == nil {
-		return nil
-	}
-	return o.InsertIDExpression
-}
-
-func (o *OutputGoogleCloudLogging) GetGoogleAuthMethod() *OutputGoogleCloudLoggingGoogleAuthenticationMethod {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.GoogleAuthMethod
 }
 
-func (o *OutputGoogleCloudLogging) GetServiceAccountCredentials() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetType() OutputGoogleCloudLoggingType7 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLogLocationType() LogLocationType7 {
+	if o == nil {
+		return LogLocationType7("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetServiceAccountCredentials() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ServiceAccountCredentials
 }
 
-func (o *OutputGoogleCloudLogging) GetSecret() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputGoogleCloudLogging) GetMaxPayloadSizeKB() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetMaxPayloadSizeKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadSizeKB
 }
 
-func (o *OutputGoogleCloudLogging) GetMaxPayloadEvents() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetMaxPayloadEvents() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadEvents
 }
 
-func (o *OutputGoogleCloudLogging) GetFlushPeriodSec() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetFlushPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.FlushPeriodSec
 }
 
-func (o *OutputGoogleCloudLogging) GetConcurrency() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.Concurrency
 }
 
-func (o *OutputGoogleCloudLogging) GetConnectionTimeout() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetConnectionTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ConnectionTimeout
 }
 
-func (o *OutputGoogleCloudLogging) GetTimeoutSec() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetTimeoutSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutSec
 }
 
-func (o *OutputGoogleCloudLogging) GetThrottleRateReqPerSec() *int64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetThrottleRateReqPerSec() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.ThrottleRateReqPerSec
 }
 
-func (o *OutputGoogleCloudLogging) GetRequestMethodExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetRequestMethodExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RequestMethodExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetRequestURLExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetRequestURLExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RequestURLExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetRequestSizeExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetRequestSizeExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RequestSizeExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetStatusExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetStatusExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.StatusExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetResponseSizeExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetResponseSizeExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseSizeExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetUserAgentExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetUserAgentExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.UserAgentExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetRemoteIPExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetRemoteIPExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RemoteIPExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetServerIPExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetServerIPExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ServerIPExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetRefererExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetRefererExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.RefererExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetLatencyExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLatencyExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LatencyExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetCacheLookupExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetCacheLookupExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CacheLookupExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetCacheHitExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetCacheHitExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CacheHitExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetCacheValidatedExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetCacheValidatedExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CacheValidatedExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetCacheFillBytesExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetCacheFillBytesExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CacheFillBytesExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetProtocolExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetProtocolExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ProtocolExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetIDExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetIDExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IDExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetProducerExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetProducerExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ProducerExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetFirstExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetFirstExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FirstExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetLastExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLastExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LastExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetFileExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetFileExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FileExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetLineExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLineExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LineExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetFunctionExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetFunctionExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FunctionExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetUIDExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetUIDExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.UIDExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetIndexExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetIndexExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IndexExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetTotalSplitsExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetTotalSplitsExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TotalSplitsExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetTraceExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetTraceExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TraceExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetSpanIDExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetSpanIDExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SpanIDExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetTraceSampledExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetTraceSampledExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TraceSampledExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetOnBackpressure() *OutputGoogleCloudLoggingBackpressureBehavior {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputGoogleCloudLogging) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputGoogleCloudLogging) GetDescription() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLocationExpression() string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetLogLocationExpression() string {
 	if o == nil {
 		return ""
 	}
 	return o.LogLocationExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetPayloadExpression() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPayloadExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PayloadExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetPqMaxFileSize() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputGoogleCloudLogging) GetPqMaxSize() *string {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputGoogleCloudLogging) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputGoogleCloudLogging) GetPqCompress() *OutputGoogleCloudLoggingCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputGoogleCloudLogging) GetPqOnBackpressure() *OutputGoogleCloudLoggingQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputGoogleCloudLogging) GetPqMode() *OutputGoogleCloudLoggingMode {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputGoogleCloudLogging) GetPqControls() *OutputGoogleCloudLoggingPqControls {
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging7) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType6 string
+
+const (
+	OutputGoogleCloudLoggingType6GoogleCloudLogging OutputGoogleCloudLoggingType6 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType6) ToPointer() *OutputGoogleCloudLoggingType6 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType6: %v", v)
+	}
+}
+
+type LogLocationType6 string
+
+const (
+	// LogLocationType6Project Project
+	LogLocationType6Project LogLocationType6 = "project"
+	// LogLocationType6Organization Organization
+	LogLocationType6Organization LogLocationType6 = "organization"
+	// LogLocationType6BillingAccount Billing Account
+	LogLocationType6BillingAccount LogLocationType6 = "billingAccount"
+	// LogLocationType6Folder Folder
+	LogLocationType6Folder LogLocationType6 = "folder"
+)
+
+func (e LogLocationType6) ToPointer() *LogLocationType6 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging6 struct {
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string         `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType6 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression string `json:"payloadExpression"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression", "payloadExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetType() OutputGoogleCloudLoggingType6 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLogLocationType() LogLocationType6 {
+	if o == nil {
+		return LogLocationType6("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPayloadExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType5 string
+
+const (
+	OutputGoogleCloudLoggingType5GoogleCloudLogging OutputGoogleCloudLoggingType5 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType5) ToPointer() *OutputGoogleCloudLoggingType5 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType5: %v", v)
+	}
+}
+
+type LogLocationType5 string
+
+const (
+	// LogLocationType5Project Project
+	LogLocationType5Project LogLocationType5 = "project"
+	// LogLocationType5Organization Organization
+	LogLocationType5Organization LogLocationType5 = "organization"
+	// LogLocationType5BillingAccount Billing Account
+	LogLocationType5BillingAccount LogLocationType5 = "billingAccount"
+	// LogLocationType5Folder Folder
+	LogLocationType5Folder LogLocationType5 = "folder"
+)
+
+func (e LogLocationType5) ToPointer() *LogLocationType5 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging5 struct {
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags      []string         `json:"streamtags,omitempty"`
+	LogLocationType LogLocationType5 `json:"logLocationType"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression string `json:"payloadExpression"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logLocationType", "logNameExpression", "logLocationExpression", "payloadExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetType() OutputGoogleCloudLoggingType5 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLogLocationType() LogLocationType5 {
+	if o == nil {
+		return LogLocationType5("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPayloadExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type LogLocationType4 string
+
+const (
+	// LogLocationType4Project Project
+	LogLocationType4Project LogLocationType4 = "project"
+	// LogLocationType4Organization Organization
+	LogLocationType4Organization LogLocationType4 = "organization"
+	// LogLocationType4BillingAccount Billing Account
+	LogLocationType4BillingAccount LogLocationType4 = "billingAccount"
+	// LogLocationType4Folder Folder
+	LogLocationType4Folder LogLocationType4 = "folder"
+)
+
+func (e LogLocationType4) ToPointer() *LogLocationType4 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingType4 string
+
+const (
+	OutputGoogleCloudLoggingType4GoogleCloudLogging OutputGoogleCloudLoggingType4 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType4) ToPointer() *OutputGoogleCloudLoggingType4 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType4: %v", v)
+	}
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging4 struct {
+	LogLocationType LogLocationType4 `json:"logLocationType"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"logLocationType", "type", "logNameExpression", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLogLocationType() LogLocationType4 {
+	if o == nil {
+		return LogLocationType4("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetType() OutputGoogleCloudLoggingType4 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type LogLocationType3 string
+
+const (
+	// LogLocationType3Project Project
+	LogLocationType3Project LogLocationType3 = "project"
+	// LogLocationType3Organization Organization
+	LogLocationType3Organization LogLocationType3 = "organization"
+	// LogLocationType3BillingAccount Billing Account
+	LogLocationType3BillingAccount LogLocationType3 = "billingAccount"
+	// LogLocationType3Folder Folder
+	LogLocationType3Folder LogLocationType3 = "folder"
+)
+
+func (e LogLocationType3) ToPointer() *LogLocationType3 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingType3 string
+
+const (
+	OutputGoogleCloudLoggingType3GoogleCloudLogging OutputGoogleCloudLoggingType3 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType3) ToPointer() *OutputGoogleCloudLoggingType3 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType3: %v", v)
+	}
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging3 struct {
+	LogLocationType LogLocationType3 `json:"logLocationType"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"logLocationType", "type", "logNameExpression", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLogLocationType() LogLocationType3 {
+	if o == nil {
+		return LogLocationType3("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetType() OutputGoogleCloudLoggingType3 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type LogLocationType2 string
+
+const (
+	// LogLocationType2Project Project
+	LogLocationType2Project LogLocationType2 = "project"
+	// LogLocationType2Organization Organization
+	LogLocationType2Organization LogLocationType2 = "organization"
+	// LogLocationType2BillingAccount Billing Account
+	LogLocationType2BillingAccount LogLocationType2 = "billingAccount"
+	// LogLocationType2Folder Folder
+	LogLocationType2Folder LogLocationType2 = "folder"
+)
+
+func (e LogLocationType2) ToPointer() *LogLocationType2 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingType2 string
+
+const (
+	OutputGoogleCloudLoggingType2GoogleCloudLogging OutputGoogleCloudLoggingType2 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType2) ToPointer() *OutputGoogleCloudLoggingType2 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType2: %v", v)
+	}
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging2 struct {
+	LogLocationType LogLocationType2 `json:"logLocationType"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"logLocationType", "type", "logNameExpression", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLogLocationType() LogLocationType2 {
+	if o == nil {
+		return LogLocationType2("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetType() OutputGoogleCloudLoggingType2 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type LogLocationType1 string
+
+const (
+	// LogLocationType1Project Project
+	LogLocationType1Project LogLocationType1 = "project"
+	// LogLocationType1Organization Organization
+	LogLocationType1Organization LogLocationType1 = "organization"
+	// LogLocationType1BillingAccount Billing Account
+	LogLocationType1BillingAccount LogLocationType1 = "billingAccount"
+	// LogLocationType1Folder Folder
+	LogLocationType1Folder LogLocationType1 = "folder"
+)
+
+func (e LogLocationType1) ToPointer() *LogLocationType1 {
+	return &e
+}
+
+type OutputGoogleCloudLoggingType1 string
+
+const (
+	OutputGoogleCloudLoggingType1GoogleCloudLogging OutputGoogleCloudLoggingType1 = "google_cloud_logging"
+)
+
+func (e OutputGoogleCloudLoggingType1) ToPointer() *OutputGoogleCloudLoggingType1 {
+	return &e
+}
+func (e *OutputGoogleCloudLoggingType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_logging":
+		*e = OutputGoogleCloudLoggingType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudLoggingType1: %v", v)
+	}
+}
+
+type OutputGoogleCloudLoggingGoogleCloudLogging1 struct {
+	LogLocationType LogLocationType1 `json:"logLocationType"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudLoggingType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogNameExpression string `json:"logNameExpression"`
+	SanitizeLogNames  *bool  `default:"false" json:"sanitizeLogNames"`
+	// Format to use when sending payload. Defaults to Text.
+	PayloadFormat *PayloadFormatOptions `default:"text" json:"payloadFormat"`
+	// Labels to apply to the log entry
+	LogLabels []LogLabelsType `json:"logLabels,omitempty"`
+	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+	ResourceTypeExpression *string `json:"resourceTypeExpression,omitempty"`
+	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+	ResourceTypeLabels []LogLabelsType `json:"resourceTypeLabels,omitempty"`
+	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+	SeverityExpression *string `json:"severityExpression,omitempty"`
+	// JavaScript expression to compute the value of the insert ID field.
+	InsertIDExpression *string `json:"insertIdExpression,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// Maximum size, in KB, of the request body.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Maximum number of ongoing requests before blocking.
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it.
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum number of requests to limit to per second.
+	ThrottleRateReqPerSec *int64 `json:"throttleRateReqPerSec,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestMethodExpression *string `json:"requestMethodExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestURLExpression *string `json:"requestUrlExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RequestSizeExpression *string `json:"requestSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	StatusExpression *string `json:"statusExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ResponseSizeExpression *string `json:"responseSizeExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	UserAgentExpression *string `json:"userAgentExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RemoteIPExpression *string `json:"remoteIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ServerIPExpression *string `json:"serverIpExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	RefererExpression *string `json:"refererExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	LatencyExpression *string `json:"latencyExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheLookupExpression *string `json:"cacheLookupExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheHitExpression *string `json:"cacheHitExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheValidatedExpression *string `json:"cacheValidatedExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	CacheFillBytesExpression *string `json:"cacheFillBytesExpression,omitempty"`
+	// A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+	ProtocolExpression *string `json:"protocolExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	IDExpression *string `json:"idExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	ProducerExpression *string `json:"producerExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	FirstExpression *string `json:"firstExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+	LastExpression *string `json:"lastExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FileExpression *string `json:"fileExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	LineExpression *string `json:"lineExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+	FunctionExpression *string `json:"functionExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	UIDExpression *string `json:"uidExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	IndexExpression *string `json:"indexExpression,omitempty"`
+	// A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+	TotalSplitsExpression *string `json:"totalSplitsExpression,omitempty"`
+	// A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceExpression *string `json:"traceExpression,omitempty"`
+	// A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	SpanIDExpression *string `json:"spanIdExpression,omitempty"`
+	// A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+	TraceSampledExpression *string `json:"traceSampledExpression,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+	LogLocationExpression string `json:"logLocationExpression"`
+	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleCloudLoggingGoogleCloudLogging1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"logLocationType", "type", "logNameExpression", "logLocationExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLogLocationType() LogLocationType1 {
+	if o == nil {
+		return LogLocationType1("")
+	}
+	return o.LogLocationType
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetType() OutputGoogleCloudLoggingType1 {
+	if o == nil {
+		return OutputGoogleCloudLoggingType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLogNameExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogNameExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetSanitizeLogNames() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.SanitizeLogNames
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPayloadFormat() *PayloadFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadFormat
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLogLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.LogLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetResourceTypeLabels() []LogLabelsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResourceTypeLabels
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SeverityExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InsertIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetRequestMethodExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestMethodExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetRequestURLExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestURLExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetRequestSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RequestSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetStatusExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StatusExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetResponseSizeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseSizeExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetUserAgentExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UserAgentExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetRemoteIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RemoteIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetServerIPExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServerIPExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetRefererExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefererExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLatencyExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LatencyExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetCacheLookupExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheLookupExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetCacheHitExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheHitExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetCacheValidatedExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheValidatedExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetCacheFillBytesExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CacheFillBytesExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetProtocolExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtocolExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetProducerExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProducerExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetFirstExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FirstExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLastExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetFileExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLineExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LineExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetFunctionExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FunctionExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetUIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetIndexExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IndexExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetTotalSplitsExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSplitsExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SpanIDExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetLogLocationExpression() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogLocationExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PayloadExpression
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleCloudLoggingGoogleCloudLogging1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleCloudLoggingType string
+
+const (
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging1  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_1"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging2  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_2"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging3  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_3"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging4  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_4"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging5  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_5"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging6  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_6"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging7  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_7"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging8  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_8"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging9  OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_9"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging10 OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_10"
+	OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging11 OutputGoogleCloudLoggingType = "OutputGoogleCloudLogging_GoogleCloudLogging_11"
+)
+
+type OutputGoogleCloudLogging struct {
+	OutputGoogleCloudLoggingGoogleCloudLogging1  *OutputGoogleCloudLoggingGoogleCloudLogging1  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging2  *OutputGoogleCloudLoggingGoogleCloudLogging2  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging3  *OutputGoogleCloudLoggingGoogleCloudLogging3  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging4  *OutputGoogleCloudLoggingGoogleCloudLogging4  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging5  *OutputGoogleCloudLoggingGoogleCloudLogging5  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging6  *OutputGoogleCloudLoggingGoogleCloudLogging6  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging7  *OutputGoogleCloudLoggingGoogleCloudLogging7  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging8  *OutputGoogleCloudLoggingGoogleCloudLogging8  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging9  *OutputGoogleCloudLoggingGoogleCloudLogging9  `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging10 *OutputGoogleCloudLoggingGoogleCloudLogging10 `queryParam:"inline,name=OutputGoogleCloudLogging"`
+	OutputGoogleCloudLoggingGoogleCloudLogging11 *OutputGoogleCloudLoggingGoogleCloudLogging11 `queryParam:"inline,name=OutputGoogleCloudLogging"`
+
+	Type OutputGoogleCloudLoggingType
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging1(outputGoogleCloudLoggingGoogleCloudLogging1 OutputGoogleCloudLoggingGoogleCloudLogging1) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging1
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging1: &outputGoogleCloudLoggingGoogleCloudLogging1,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging2(outputGoogleCloudLoggingGoogleCloudLogging2 OutputGoogleCloudLoggingGoogleCloudLogging2) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging2
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging2: &outputGoogleCloudLoggingGoogleCloudLogging2,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging3(outputGoogleCloudLoggingGoogleCloudLogging3 OutputGoogleCloudLoggingGoogleCloudLogging3) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging3
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging3: &outputGoogleCloudLoggingGoogleCloudLogging3,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging4(outputGoogleCloudLoggingGoogleCloudLogging4 OutputGoogleCloudLoggingGoogleCloudLogging4) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging4
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging4: &outputGoogleCloudLoggingGoogleCloudLogging4,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging5(outputGoogleCloudLoggingGoogleCloudLogging5 OutputGoogleCloudLoggingGoogleCloudLogging5) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging5
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging5: &outputGoogleCloudLoggingGoogleCloudLogging5,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging6(outputGoogleCloudLoggingGoogleCloudLogging6 OutputGoogleCloudLoggingGoogleCloudLogging6) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging6
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging6: &outputGoogleCloudLoggingGoogleCloudLogging6,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging7(outputGoogleCloudLoggingGoogleCloudLogging7 OutputGoogleCloudLoggingGoogleCloudLogging7) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging7
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging7: &outputGoogleCloudLoggingGoogleCloudLogging7,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging8(outputGoogleCloudLoggingGoogleCloudLogging8 OutputGoogleCloudLoggingGoogleCloudLogging8) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging8
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging8: &outputGoogleCloudLoggingGoogleCloudLogging8,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging9(outputGoogleCloudLoggingGoogleCloudLogging9 OutputGoogleCloudLoggingGoogleCloudLogging9) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging9
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging9: &outputGoogleCloudLoggingGoogleCloudLogging9,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging10(outputGoogleCloudLoggingGoogleCloudLogging10 OutputGoogleCloudLoggingGoogleCloudLogging10) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging10
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging10: &outputGoogleCloudLoggingGoogleCloudLogging10,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudLoggingOutputGoogleCloudLoggingGoogleCloudLogging11(outputGoogleCloudLoggingGoogleCloudLogging11 OutputGoogleCloudLoggingGoogleCloudLogging11) OutputGoogleCloudLogging {
+	typ := OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging11
+
+	return OutputGoogleCloudLogging{
+		OutputGoogleCloudLoggingGoogleCloudLogging11: &outputGoogleCloudLoggingGoogleCloudLogging11,
+		Type: typ,
+	}
+}
+
+func (u *OutputGoogleCloudLogging) UnmarshalJSON(data []byte) error {
+
+	var outputGoogleCloudLoggingGoogleCloudLogging5 OutputGoogleCloudLoggingGoogleCloudLogging5 = OutputGoogleCloudLoggingGoogleCloudLogging5{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging5, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging5 = &outputGoogleCloudLoggingGoogleCloudLogging5
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging5
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging6 OutputGoogleCloudLoggingGoogleCloudLogging6 = OutputGoogleCloudLoggingGoogleCloudLogging6{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging6, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging6 = &outputGoogleCloudLoggingGoogleCloudLogging6
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging6
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging8 OutputGoogleCloudLoggingGoogleCloudLogging8 = OutputGoogleCloudLoggingGoogleCloudLogging8{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging8, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging8 = &outputGoogleCloudLoggingGoogleCloudLogging8
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging8
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging9 OutputGoogleCloudLoggingGoogleCloudLogging9 = OutputGoogleCloudLoggingGoogleCloudLogging9{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging9, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging9 = &outputGoogleCloudLoggingGoogleCloudLogging9
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging9
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging11 OutputGoogleCloudLoggingGoogleCloudLogging11 = OutputGoogleCloudLoggingGoogleCloudLogging11{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging11, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging11 = &outputGoogleCloudLoggingGoogleCloudLogging11
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging11
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging1 OutputGoogleCloudLoggingGoogleCloudLogging1 = OutputGoogleCloudLoggingGoogleCloudLogging1{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging1, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging1 = &outputGoogleCloudLoggingGoogleCloudLogging1
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging1
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging2 OutputGoogleCloudLoggingGoogleCloudLogging2 = OutputGoogleCloudLoggingGoogleCloudLogging2{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging2, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging2 = &outputGoogleCloudLoggingGoogleCloudLogging2
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging2
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging3 OutputGoogleCloudLoggingGoogleCloudLogging3 = OutputGoogleCloudLoggingGoogleCloudLogging3{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging3, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging3 = &outputGoogleCloudLoggingGoogleCloudLogging3
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging3
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging4 OutputGoogleCloudLoggingGoogleCloudLogging4 = OutputGoogleCloudLoggingGoogleCloudLogging4{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging4, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging4 = &outputGoogleCloudLoggingGoogleCloudLogging4
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging4
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging7 OutputGoogleCloudLoggingGoogleCloudLogging7 = OutputGoogleCloudLoggingGoogleCloudLogging7{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging7, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging7 = &outputGoogleCloudLoggingGoogleCloudLogging7
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging7
+		return nil
+	}
+
+	var outputGoogleCloudLoggingGoogleCloudLogging10 OutputGoogleCloudLoggingGoogleCloudLogging10 = OutputGoogleCloudLoggingGoogleCloudLogging10{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudLoggingGoogleCloudLogging10, "", true, nil); err == nil {
+		u.OutputGoogleCloudLoggingGoogleCloudLogging10 = &outputGoogleCloudLoggingGoogleCloudLogging10
+		u.Type = OutputGoogleCloudLoggingTypeOutputGoogleCloudLoggingGoogleCloudLogging10
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGoogleCloudLogging", string(data))
+}
+
+func (u OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging1 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging1, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging2 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging2, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging3 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging3, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging4 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging4, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging5 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging5, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging6 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging6, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging7 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging7, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging8 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging8, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging9 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging9, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging10 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging10, "", true)
+	}
+
+	if u.OutputGoogleCloudLoggingGoogleCloudLogging11 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudLoggingGoogleCloudLogging11, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputGoogleCloudLogging: all fields are null")
 }

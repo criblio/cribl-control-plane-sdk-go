@@ -3,313 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputCriblTCPType string
-
-const (
-	OutputCriblTCPTypeCriblTCP OutputCriblTCPType = "cribl_tcp"
-)
-
-func (e OutputCriblTCPType) ToPointer() *OutputCriblTCPType {
-	return &e
-}
-func (e *OutputCriblTCPType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cribl_tcp":
-		*e = OutputCriblTCPType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputCriblTCPType: %v", v)
-	}
-}
-
-// OutputCriblTCPCompression - Codec to use to compress the data before sending
-type OutputCriblTCPCompression string
-
-const (
-	OutputCriblTCPCompressionNone OutputCriblTCPCompression = "none"
-	OutputCriblTCPCompressionGzip OutputCriblTCPCompression = "gzip"
-)
-
-func (e OutputCriblTCPCompression) ToPointer() *OutputCriblTCPCompression {
-	return &e
-}
-
-type OutputCriblTCPMinimumTLSVersion string
-
-const (
-	OutputCriblTCPMinimumTLSVersionTlSv1  OutputCriblTCPMinimumTLSVersion = "TLSv1"
-	OutputCriblTCPMinimumTLSVersionTlSv11 OutputCriblTCPMinimumTLSVersion = "TLSv1.1"
-	OutputCriblTCPMinimumTLSVersionTlSv12 OutputCriblTCPMinimumTLSVersion = "TLSv1.2"
-	OutputCriblTCPMinimumTLSVersionTlSv13 OutputCriblTCPMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputCriblTCPMinimumTLSVersion) ToPointer() *OutputCriblTCPMinimumTLSVersion {
-	return &e
-}
-
-type OutputCriblTCPMaximumTLSVersion string
-
-const (
-	OutputCriblTCPMaximumTLSVersionTlSv1  OutputCriblTCPMaximumTLSVersion = "TLSv1"
-	OutputCriblTCPMaximumTLSVersionTlSv11 OutputCriblTCPMaximumTLSVersion = "TLSv1.1"
-	OutputCriblTCPMaximumTLSVersionTlSv12 OutputCriblTCPMaximumTLSVersion = "TLSv1.2"
-	OutputCriblTCPMaximumTLSVersionTlSv13 OutputCriblTCPMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputCriblTCPMaximumTLSVersion) ToPointer() *OutputCriblTCPMaximumTLSVersion {
-	return &e
-}
-
-type OutputCriblTCPTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                          `json:"passphrase,omitempty"`
-	MinVersion *OutputCriblTCPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputCriblTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputCriblTCPTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetMinVersion() *OutputCriblTCPMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputCriblTCPTLSSettingsClientSide) GetMaxVersion() *OutputCriblTCPMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputCriblTCPBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCriblTCPBackpressureBehavior string
-
-const (
-	OutputCriblTCPBackpressureBehaviorBlock OutputCriblTCPBackpressureBehavior = "block"
-	OutputCriblTCPBackpressureBehaviorDrop  OutputCriblTCPBackpressureBehavior = "drop"
-	OutputCriblTCPBackpressureBehaviorQueue OutputCriblTCPBackpressureBehavior = "queue"
-)
-
-func (e OutputCriblTCPBackpressureBehavior) ToPointer() *OutputCriblTCPBackpressureBehavior {
-	return &e
-}
-
-// OutputCriblTCPTLS - Whether to inherit TLS configs from group setting or disable TLS
-type OutputCriblTCPTLS string
-
-const (
-	OutputCriblTCPTLSInherit OutputCriblTCPTLS = "inherit"
-	OutputCriblTCPTLSOff     OutputCriblTCPTLS = "off"
-)
-
-func (e OutputCriblTCPTLS) ToPointer() *OutputCriblTCPTLS {
-	return &e
-}
-
-type OutputCriblTCPHost struct {
-	// The hostname of the receiver
-	Host string `json:"host"`
-	// The port to connect to on the provided host
-	Port *float64 `default:"10300" json:"port"`
-	// Whether to inherit TLS configs from group setting or disable TLS
-	TLS *OutputCriblTCPTLS `default:"inherit" json:"tls"`
-	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-	Servername *string `json:"servername,omitempty"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputCriblTCPHost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblTCPHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblTCPHost) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputCriblTCPHost) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
-
-func (o *OutputCriblTCPHost) GetTLS() *OutputCriblTCPTLS {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputCriblTCPHost) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputCriblTCPHost) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-// OutputCriblTCPPqCompressCompression - Codec to use to compress the persisted data
-type OutputCriblTCPPqCompressCompression string
-
-const (
-	OutputCriblTCPPqCompressCompressionNone OutputCriblTCPPqCompressCompression = "none"
-	OutputCriblTCPPqCompressCompressionGzip OutputCriblTCPPqCompressCompression = "gzip"
-)
-
-func (e OutputCriblTCPPqCompressCompression) ToPointer() *OutputCriblTCPPqCompressCompression {
-	return &e
-}
-
-// OutputCriblTCPQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputCriblTCPQueueFullBehavior string
-
-const (
-	OutputCriblTCPQueueFullBehaviorBlock OutputCriblTCPQueueFullBehavior = "block"
-	OutputCriblTCPQueueFullBehaviorDrop  OutputCriblTCPQueueFullBehavior = "drop"
-)
-
-func (e OutputCriblTCPQueueFullBehavior) ToPointer() *OutputCriblTCPQueueFullBehavior {
-	return &e
-}
-
-// OutputCriblTCPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputCriblTCPMode string
-
-const (
-	OutputCriblTCPModeError        OutputCriblTCPMode = "error"
-	OutputCriblTCPModeBackpressure OutputCriblTCPMode = "backpressure"
-	OutputCriblTCPModeAlways       OutputCriblTCPMode = "always"
-)
-
-func (e OutputCriblTCPMode) ToPointer() *OutputCriblTCPMode {
-	return &e
-}
-
-type OutputCriblTCPPqControls struct {
-}
-
-func (o OutputCriblTCPPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblTCPPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputCriblTCP struct {
+type OutputCriblTCPCriblTCP4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string            `json:"id,omitempty"`
-	Type OutputCriblTCPType `json:"type"`
+	Type TypeCriblTCPOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -320,24 +24,24 @@ type OutputCriblTCP struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Use load-balanced destinations
 	LoadBalanced *bool `default:"true" json:"loadBalanced"`
-	// Codec to use to compress the data before sending
-	Compression *OutputCriblTCPCompression `default:"gzip" json:"compression"`
+	// Codec to use to compress the persisted data
+	Compression *PqCompressOptions `default:"none" json:"compression"`
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                              `default:"0" json:"throttleRatePerSec"`
-	TLS                *OutputCriblTCPTLSSettingsClientSide `json:"tls,omitempty"`
+	ThrottleRatePerSec *string   `default:"0" json:"throttleRatePerSec"`
+	TLS                *Tls1Type `json:"tls,omitempty"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
 	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+	AuthTokens []AuthTokens1Type `json:"authTokens,omitempty"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitempty"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCriblTCPBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                             `json:"description,omitempty"`
+	Description   *string  `json:"description,omitempty"`
 	// The hostname of the receiver
 	Host *string `json:"host,omitempty"`
 	// The port to connect to on the provided host
@@ -345,13 +49,23 @@ type OutputCriblTCP struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
 	// Set of hosts to load-balance data to
-	Hosts []OutputCriblTCPHost `json:"hosts,omitempty"`
+	Hosts []HostsType `json:"hosts,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
 	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
 	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -359,238 +73,1380 @@ type OutputCriblTCP struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputCriblTCPPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputCriblTCPQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputCriblTCPMode       `default:"error" json:"pqMode"`
-	PqControls *OutputCriblTCPPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputCriblTCP) MarshalJSON() ([]byte, error) {
+func (o OutputCriblTCPCriblTCP4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputCriblTCP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputCriblTCPCriblTCP4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputCriblTCP) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputCriblTCP) GetType() OutputCriblTCPType {
-	if o == nil {
-		return OutputCriblTCPType("")
-	}
-	return o.Type
-}
-
-func (o *OutputCriblTCP) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputCriblTCP) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputCriblTCP) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputCriblTCP) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputCriblTCP) GetLoadBalanced() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
-}
-
-func (o *OutputCriblTCP) GetCompression() *OutputCriblTCPCompression {
-	if o == nil {
-		return nil
-	}
-	return o.Compression
-}
-
-func (o *OutputCriblTCP) GetLogFailedRequests() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LogFailedRequests
-}
-
-func (o *OutputCriblTCP) GetThrottleRatePerSec() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ThrottleRatePerSec
-}
-
-func (o *OutputCriblTCP) GetTLS() *OutputCriblTCPTLSSettingsClientSide {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputCriblTCP) GetConnectionTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ConnectionTimeout
-}
-
-func (o *OutputCriblTCP) GetWriteTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WriteTimeout
-}
-
-func (o *OutputCriblTCP) GetTokenTTLMinutes() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TokenTTLMinutes
-}
-
-func (o *OutputCriblTCP) GetExcludeFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.ExcludeFields
-}
-
-func (o *OutputCriblTCP) GetOnBackpressure() *OutputCriblTCPBackpressureBehavior {
+func (o *OutputCriblTCPCriblTCP4) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputCriblTCP) GetDescription() *string {
+func (o *OutputCriblTCPCriblTCP4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetType() TypeCriblTCPOption {
+	if o == nil {
+		return TypeCriblTCPOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetCompression() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compression
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetTokenTTLMinutes() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTTLMinutes
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetAuthTokens() []AuthTokens1Type {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetExcludeFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeFields
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputCriblTCP) GetHost() *string {
+func (o *OutputCriblTCPCriblTCP4) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *OutputCriblTCP) GetPort() *float64 {
+func (o *OutputCriblTCPCriblTCP4) GetPort() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.Port
 }
 
-func (o *OutputCriblTCP) GetExcludeSelf() *bool {
+func (o *OutputCriblTCPCriblTCP4) GetExcludeSelf() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeSelf
 }
 
-func (o *OutputCriblTCP) GetHosts() []OutputCriblTCPHost {
+func (o *OutputCriblTCPCriblTCP4) GetHosts() []HostsType {
 	if o == nil {
 		return nil
 	}
 	return o.Hosts
 }
 
-func (o *OutputCriblTCP) GetDNSResolvePeriodSec() *float64 {
+func (o *OutputCriblTCPCriblTCP4) GetDNSResolvePeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
 }
 
-func (o *OutputCriblTCP) GetLoadBalanceStatsPeriodSec() *float64 {
+func (o *OutputCriblTCPCriblTCP4) GetLoadBalanceStatsPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
 }
 
-func (o *OutputCriblTCP) GetMaxConcurrentSenders() *float64 {
+func (o *OutputCriblTCPCriblTCP4) GetMaxConcurrentSenders() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentSenders
 }
 
-func (o *OutputCriblTCP) GetPqMaxFileSize() *string {
+func (o *OutputCriblTCPCriblTCP4) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputCriblTCP) GetPqMaxSize() *string {
+func (o *OutputCriblTCPCriblTCP4) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputCriblTCP) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputCriblTCP) GetPqCompress() *OutputCriblTCPPqCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputCriblTCP) GetPqOnBackpressure() *OutputCriblTCPQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputCriblTCP) GetPqMode() *OutputCriblTCPMode {
+func (o *OutputCriblTCPCriblTCP4) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputCriblTCP) GetPqControls() *OutputCriblTCPPqControls {
+func (o *OutputCriblTCPCriblTCP4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP4) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputCriblTCPCriblTCP3 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type TypeCriblTCPOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Use load-balanced destinations
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Codec to use to compress the persisted data
+	Compression *PqCompressOptions `default:"none" json:"compression"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string   `default:"0" json:"throttleRatePerSec"`
+	TLS                *Tls1Type `json:"tls,omitempty"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
+	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
+	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+	AuthTokens []AuthTokens1Type `json:"authTokens,omitempty"`
+	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+	ExcludeFields []string `json:"excludeFields,omitempty"`
+	Description   *string  `json:"description,omitempty"`
+	// The hostname of the receiver
+	Host *string `json:"host,omitempty"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"10300" json:"port"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	// Set of hosts to load-balance data to
+	Hosts []HostsType `json:"hosts,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCriblTCPCriblTCP3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblTCPCriblTCP3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetType() TypeCriblTCPOption {
+	if o == nil {
+		return TypeCriblTCPOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetCompression() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compression
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetTokenTTLMinutes() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTTLMinutes
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetAuthTokens() []AuthTokens1Type {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetExcludeFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeFields
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetHosts() []HostsType {
+	if o == nil {
+		return nil
+	}
+	return o.Hosts
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetMaxConcurrentSenders() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentSenders
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP3) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputCriblTCPCriblTCP2 struct {
+	// Use load-balanced destinations
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type TypeCriblTCPOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Codec to use to compress the persisted data
+	Compression *PqCompressOptions `default:"none" json:"compression"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string   `default:"0" json:"throttleRatePerSec"`
+	TLS                *Tls1Type `json:"tls,omitempty"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
+	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
+	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+	AuthTokens []AuthTokens1Type `json:"authTokens,omitempty"`
+	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+	ExcludeFields []string `json:"excludeFields,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// The hostname of the receiver
+	Host *string `json:"host,omitempty"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"10300" json:"port"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	// Set of hosts to load-balance data to
+	Hosts []HostsType `json:"hosts"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCriblTCPCriblTCP2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblTCPCriblTCP2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "hosts"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetType() TypeCriblTCPOption {
+	if o == nil {
+		return TypeCriblTCPOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetCompression() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compression
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetTokenTTLMinutes() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTTLMinutes
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetAuthTokens() []AuthTokens1Type {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetExcludeFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeFields
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetHosts() []HostsType {
+	if o == nil {
+		return []HostsType{}
+	}
+	return o.Hosts
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetMaxConcurrentSenders() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentSenders
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputCriblTCPCriblTCP1 struct {
+	// Use load-balanced destinations
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type TypeCriblTCPOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Codec to use to compress the persisted data
+	Compression *PqCompressOptions `default:"none" json:"compression"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string   `default:"0" json:"throttleRatePerSec"`
+	TLS                *Tls1Type `json:"tls,omitempty"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
+	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
+	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+	AuthTokens []AuthTokens1Type `json:"authTokens,omitempty"`
+	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+	ExcludeFields []string `json:"excludeFields,omitempty"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"10300" json:"port"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	// Set of hosts to load-balance data to
+	Hosts []HostsType `json:"hosts,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCriblTCPCriblTCP1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblTCPCriblTCP1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetType() TypeCriblTCPOption {
+	if o == nil {
+		return TypeCriblTCPOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetCompression() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compression
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetTokenTTLMinutes() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTTLMinutes
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetAuthTokens() []AuthTokens1Type {
+	if o == nil {
+		return nil
+	}
+	return o.AuthTokens
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetExcludeFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeFields
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetHosts() []HostsType {
+	if o == nil {
+		return nil
+	}
+	return o.Hosts
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetMaxConcurrentSenders() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentSenders
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCriblTCPCriblTCP1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputCriblTCPType string
+
+const (
+	OutputCriblTCPTypeOutputCriblTCPCriblTCP1 OutputCriblTCPType = "OutputCriblTcp_CriblTCP_1"
+	OutputCriblTCPTypeOutputCriblTCPCriblTCP2 OutputCriblTCPType = "OutputCriblTcp_CriblTCP_2"
+	OutputCriblTCPTypeOutputCriblTCPCriblTCP3 OutputCriblTCPType = "OutputCriblTcp_CriblTCP_3"
+	OutputCriblTCPTypeOutputCriblTCPCriblTCP4 OutputCriblTCPType = "OutputCriblTcp_CriblTCP_4"
+)
+
+type OutputCriblTCP struct {
+	OutputCriblTCPCriblTCP1 *OutputCriblTCPCriblTCP1 `queryParam:"inline,name=OutputCriblTcp"`
+	OutputCriblTCPCriblTCP2 *OutputCriblTCPCriblTCP2 `queryParam:"inline,name=OutputCriblTcp"`
+	OutputCriblTCPCriblTCP3 *OutputCriblTCPCriblTCP3 `queryParam:"inline,name=OutputCriblTcp"`
+	OutputCriblTCPCriblTCP4 *OutputCriblTCPCriblTCP4 `queryParam:"inline,name=OutputCriblTcp"`
+
+	Type OutputCriblTCPType
+}
+
+func CreateOutputCriblTCPOutputCriblTCPCriblTCP1(outputCriblTCPCriblTCP1 OutputCriblTCPCriblTCP1) OutputCriblTCP {
+	typ := OutputCriblTCPTypeOutputCriblTCPCriblTCP1
+
+	return OutputCriblTCP{
+		OutputCriblTCPCriblTCP1: &outputCriblTCPCriblTCP1,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputCriblTCPOutputCriblTCPCriblTCP2(outputCriblTCPCriblTCP2 OutputCriblTCPCriblTCP2) OutputCriblTCP {
+	typ := OutputCriblTCPTypeOutputCriblTCPCriblTCP2
+
+	return OutputCriblTCP{
+		OutputCriblTCPCriblTCP2: &outputCriblTCPCriblTCP2,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputCriblTCPOutputCriblTCPCriblTCP3(outputCriblTCPCriblTCP3 OutputCriblTCPCriblTCP3) OutputCriblTCP {
+	typ := OutputCriblTCPTypeOutputCriblTCPCriblTCP3
+
+	return OutputCriblTCP{
+		OutputCriblTCPCriblTCP3: &outputCriblTCPCriblTCP3,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputCriblTCPOutputCriblTCPCriblTCP4(outputCriblTCPCriblTCP4 OutputCriblTCPCriblTCP4) OutputCriblTCP {
+	typ := OutputCriblTCPTypeOutputCriblTCPCriblTCP4
+
+	return OutputCriblTCP{
+		OutputCriblTCPCriblTCP4: &outputCriblTCPCriblTCP4,
+		Type:                    typ,
+	}
+}
+
+func (u *OutputCriblTCP) UnmarshalJSON(data []byte) error {
+
+	var outputCriblTCPCriblTCP1 OutputCriblTCPCriblTCP1 = OutputCriblTCPCriblTCP1{}
+	if err := utils.UnmarshalJSON(data, &outputCriblTCPCriblTCP1, "", true, nil); err == nil {
+		u.OutputCriblTCPCriblTCP1 = &outputCriblTCPCriblTCP1
+		u.Type = OutputCriblTCPTypeOutputCriblTCPCriblTCP1
+		return nil
+	}
+
+	var outputCriblTCPCriblTCP2 OutputCriblTCPCriblTCP2 = OutputCriblTCPCriblTCP2{}
+	if err := utils.UnmarshalJSON(data, &outputCriblTCPCriblTCP2, "", true, nil); err == nil {
+		u.OutputCriblTCPCriblTCP2 = &outputCriblTCPCriblTCP2
+		u.Type = OutputCriblTCPTypeOutputCriblTCPCriblTCP2
+		return nil
+	}
+
+	var outputCriblTCPCriblTCP4 OutputCriblTCPCriblTCP4 = OutputCriblTCPCriblTCP4{}
+	if err := utils.UnmarshalJSON(data, &outputCriblTCPCriblTCP4, "", true, nil); err == nil {
+		u.OutputCriblTCPCriblTCP4 = &outputCriblTCPCriblTCP4
+		u.Type = OutputCriblTCPTypeOutputCriblTCPCriblTCP4
+		return nil
+	}
+
+	var outputCriblTCPCriblTCP3 OutputCriblTCPCriblTCP3 = OutputCriblTCPCriblTCP3{}
+	if err := utils.UnmarshalJSON(data, &outputCriblTCPCriblTCP3, "", true, nil); err == nil {
+		u.OutputCriblTCPCriblTCP3 = &outputCriblTCPCriblTCP3
+		u.Type = OutputCriblTCPTypeOutputCriblTCPCriblTCP3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputCriblTCP", string(data))
+}
+
+func (u OutputCriblTCP) MarshalJSON() ([]byte, error) {
+	if u.OutputCriblTCPCriblTCP1 != nil {
+		return utils.MarshalJSON(u.OutputCriblTCPCriblTCP1, "", true)
+	}
+
+	if u.OutputCriblTCPCriblTCP2 != nil {
+		return utils.MarshalJSON(u.OutputCriblTCPCriblTCP2, "", true)
+	}
+
+	if u.OutputCriblTCPCriblTCP3 != nil {
+		return utils.MarshalJSON(u.OutputCriblTCPCriblTCP3, "", true)
+	}
+
+	if u.OutputCriblTCPCriblTCP4 != nil {
+		return utils.MarshalJSON(u.OutputCriblTCPCriblTCP4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputCriblTCP: all fields are null")
 }

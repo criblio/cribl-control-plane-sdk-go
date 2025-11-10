@@ -31,7 +31,7 @@ func (e *OutputRouterType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputRouterRule struct {
+type Rule struct {
 	// JavaScript expression to select events to send to output
 	Filter string `json:"filter"`
 	// Output to send matching events to
@@ -42,43 +42,43 @@ type OutputRouterRule struct {
 	Final *bool `default:"true" json:"final"`
 }
 
-func (o OutputRouterRule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (r Rule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (o *OutputRouterRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"filter", "output"}); err != nil {
+func (r *Rule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"filter", "output"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputRouterRule) GetFilter() string {
-	if o == nil {
+func (r *Rule) GetFilter() string {
+	if r == nil {
 		return ""
 	}
-	return o.Filter
+	return r.Filter
 }
 
-func (o *OutputRouterRule) GetOutput() string {
-	if o == nil {
+func (r *Rule) GetOutput() string {
+	if r == nil {
 		return ""
 	}
-	return o.Output
+	return r.Output
 }
 
-func (o *OutputRouterRule) GetDescription() *string {
-	if o == nil {
+func (r *Rule) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *OutputRouterRule) GetFinal() *bool {
-	if o == nil {
+func (r *Rule) GetFinal() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.Final
+	return r.Final
 }
 
 type OutputRouter struct {
@@ -94,8 +94,8 @@ type OutputRouter struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Event routing rules
-	Rules       []OutputRouterRule `json:"rules"`
-	Description *string            `json:"description,omitempty"`
+	Rules       []Rule  `json:"rules"`
+	Description *string `json:"description,omitempty"`
 }
 
 func (o OutputRouter) MarshalJSON() ([]byte, error) {
@@ -151,9 +151,9 @@ func (o *OutputRouter) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputRouter) GetRules() []OutputRouterRule {
+func (o *OutputRouter) GetRules() []Rule {
 	if o == nil {
-		return []OutputRouterRule{}
+		return []Rule{}
 	}
 	return o.Rules
 }

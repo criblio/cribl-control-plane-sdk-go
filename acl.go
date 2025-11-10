@@ -212,12 +212,12 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupACLByProductAndIDResponseBody
+			var out components.CountedUserAccessControlList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedUserAccessControlList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

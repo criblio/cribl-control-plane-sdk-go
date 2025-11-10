@@ -4,114 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputCloudwatchType string
+type OutputCloudwatchType5 string
 
 const (
-	OutputCloudwatchTypeCloudwatch OutputCloudwatchType = "cloudwatch"
+	OutputCloudwatchType5Cloudwatch OutputCloudwatchType5 = "cloudwatch"
 )
 
-func (e OutputCloudwatchType) ToPointer() *OutputCloudwatchType {
+func (e OutputCloudwatchType5) ToPointer() *OutputCloudwatchType5 {
 	return &e
 }
-func (e *OutputCloudwatchType) UnmarshalJSON(data []byte) error {
+func (e *OutputCloudwatchType5) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cloudwatch":
-		*e = OutputCloudwatchType(v)
+		*e = OutputCloudwatchType5(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputCloudwatchType: %v", v)
+		return fmt.Errorf("invalid value for OutputCloudwatchType5: %v", v)
 	}
 }
 
-// OutputCloudwatchAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputCloudwatchAuthenticationMethod string
-
-const (
-	OutputCloudwatchAuthenticationMethodAuto   OutputCloudwatchAuthenticationMethod = "auto"
-	OutputCloudwatchAuthenticationMethodManual OutputCloudwatchAuthenticationMethod = "manual"
-	OutputCloudwatchAuthenticationMethodSecret OutputCloudwatchAuthenticationMethod = "secret"
-)
-
-func (e OutputCloudwatchAuthenticationMethod) ToPointer() *OutputCloudwatchAuthenticationMethod {
-	return &e
-}
-
-// OutputCloudwatchBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCloudwatchBackpressureBehavior string
-
-const (
-	OutputCloudwatchBackpressureBehaviorBlock OutputCloudwatchBackpressureBehavior = "block"
-	OutputCloudwatchBackpressureBehaviorDrop  OutputCloudwatchBackpressureBehavior = "drop"
-	OutputCloudwatchBackpressureBehaviorQueue OutputCloudwatchBackpressureBehavior = "queue"
-)
-
-func (e OutputCloudwatchBackpressureBehavior) ToPointer() *OutputCloudwatchBackpressureBehavior {
-	return &e
-}
-
-// OutputCloudwatchCompression - Codec to use to compress the persisted data
-type OutputCloudwatchCompression string
-
-const (
-	OutputCloudwatchCompressionNone OutputCloudwatchCompression = "none"
-	OutputCloudwatchCompressionGzip OutputCloudwatchCompression = "gzip"
-)
-
-func (e OutputCloudwatchCompression) ToPointer() *OutputCloudwatchCompression {
-	return &e
-}
-
-// OutputCloudwatchQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputCloudwatchQueueFullBehavior string
-
-const (
-	OutputCloudwatchQueueFullBehaviorBlock OutputCloudwatchQueueFullBehavior = "block"
-	OutputCloudwatchQueueFullBehaviorDrop  OutputCloudwatchQueueFullBehavior = "drop"
-)
-
-func (e OutputCloudwatchQueueFullBehavior) ToPointer() *OutputCloudwatchQueueFullBehavior {
-	return &e
-}
-
-// OutputCloudwatchMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputCloudwatchMode string
-
-const (
-	OutputCloudwatchModeError        OutputCloudwatchMode = "error"
-	OutputCloudwatchModeBackpressure OutputCloudwatchMode = "backpressure"
-	OutputCloudwatchModeAlways       OutputCloudwatchMode = "always"
-)
-
-func (e OutputCloudwatchMode) ToPointer() *OutputCloudwatchMode {
-	return &e
-}
-
-type OutputCloudwatchPqControls struct {
-}
-
-func (o OutputCloudwatchPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCloudwatchPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputCloudwatch struct {
+type OutputCloudwatchCloudwatch5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
-	Type OutputCloudwatchType `json:"type"`
+	ID   *string               `json:"id,omitempty"`
+	Type OutputCloudwatchType5 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -125,8 +51,718 @@ type OutputCloudwatch struct {
 	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
 	LogStreamName string `json:"logStreamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputCloudwatchAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                               `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the CloudWatchLogs is located
+	Region string `json:"region"`
+	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access CloudWatchLogs
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Maximum number of queued batches before blocking
+	MaxQueueSize *float64 `default:"5" json:"maxQueueSize"`
+	// Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+	MaxRecordSizeKB *float64 `default:"1024" json:"maxRecordSizeKB"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	Description    *string  `json:"description,omitempty"`
+	AwsAPIKey      *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+}
+
+func (o OutputCloudwatchCloudwatch5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCloudwatchCloudwatch5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetType() OutputCloudwatchType5 {
+	if o == nil {
+		return OutputCloudwatchType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetLogGroupName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogGroupName
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetLogStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogStreamName
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch5) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputCloudwatchType4 string
+
+const (
+	OutputCloudwatchType4Cloudwatch OutputCloudwatchType4 = "cloudwatch"
+)
+
+func (e OutputCloudwatchType4) ToPointer() *OutputCloudwatchType4 {
+	return &e
+}
+func (e *OutputCloudwatchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cloudwatch":
+		*e = OutputCloudwatchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCloudwatchType4: %v", v)
+	}
+}
+
+type OutputCloudwatchCloudwatch4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputCloudwatchType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// CloudWatch log group to associate events with
+	LogGroupName string `json:"logGroupName"`
+	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+	LogStreamName string `json:"logStreamName"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the CloudWatchLogs is located
+	Region string `json:"region"`
+	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access CloudWatchLogs
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Maximum number of queued batches before blocking
+	MaxQueueSize *float64 `default:"5" json:"maxQueueSize"`
+	// Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+	MaxRecordSizeKB *float64 `default:"1024" json:"maxRecordSizeKB"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	Description    *string  `json:"description,omitempty"`
+	AwsAPIKey      *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCloudwatchCloudwatch4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCloudwatchCloudwatch4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetType() OutputCloudwatchType4 {
+	if o == nil {
+		return OutputCloudwatchType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetLogGroupName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogGroupName
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetLogStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogStreamName
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputCloudwatchType3 string
+
+const (
+	OutputCloudwatchType3Cloudwatch OutputCloudwatchType3 = "cloudwatch"
+)
+
+func (e OutputCloudwatchType3) ToPointer() *OutputCloudwatchType3 {
+	return &e
+}
+func (e *OutputCloudwatchType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cloudwatch":
+		*e = OutputCloudwatchType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCloudwatchType3: %v", v)
+	}
+}
+
+type OutputCloudwatchCloudwatch3 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputCloudwatchType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// CloudWatch log group to associate events with
+	LogGroupName string `json:"logGroupName"`
+	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+	LogStreamName string  `json:"logStreamName"`
+	AwsSecretKey  *string `json:"awsSecretKey,omitempty"`
 	// Region where the CloudWatchLogs is located
 	Region string `json:"region"`
 	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
@@ -150,11 +786,21 @@ type OutputCloudwatch struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCloudwatchBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                               `json:"description,omitempty"`
-	AwsAPIKey      *string                               `json:"awsApiKey,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      *string                `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret string `json:"awsSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -162,245 +808,1112 @@ type OutputCloudwatch struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputCloudwatchCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputCloudwatchQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputCloudwatchMode       `default:"error" json:"pqMode"`
-	PqControls *OutputCloudwatchPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 }
 
-func (o OutputCloudwatch) MarshalJSON() ([]byte, error) {
+func (o OutputCloudwatchCloudwatch3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputCloudwatch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region"}); err != nil {
+func (o *OutputCloudwatchCloudwatch3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region", "awsSecret"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputCloudwatch) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputCloudwatch) GetType() OutputCloudwatchType {
-	if o == nil {
-		return OutputCloudwatchType("")
-	}
-	return o.Type
-}
-
-func (o *OutputCloudwatch) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputCloudwatch) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputCloudwatch) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputCloudwatch) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputCloudwatch) GetLogGroupName() string {
-	if o == nil {
-		return ""
-	}
-	return o.LogGroupName
-}
-
-func (o *OutputCloudwatch) GetLogStreamName() string {
-	if o == nil {
-		return ""
-	}
-	return o.LogStreamName
-}
-
-func (o *OutputCloudwatch) GetAwsAuthenticationMethod() *OutputCloudwatchAuthenticationMethod {
+func (o *OutputCloudwatchCloudwatch3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCloudwatch) GetAwsSecretKey() *string {
+func (o *OutputCloudwatchCloudwatch3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetType() OutputCloudwatchType3 {
+	if o == nil {
+		return OutputCloudwatchType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetLogGroupName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogGroupName
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetLogStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogStreamName
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputCloudwatch) GetRegion() string {
+func (o *OutputCloudwatchCloudwatch3) GetRegion() string {
 	if o == nil {
 		return ""
 	}
 	return o.Region
 }
 
-func (o *OutputCloudwatch) GetEndpoint() *string {
+func (o *OutputCloudwatchCloudwatch3) GetEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Endpoint
 }
 
-func (o *OutputCloudwatch) GetReuseConnections() *bool {
+func (o *OutputCloudwatchCloudwatch3) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputCloudwatch) GetRejectUnauthorized() *bool {
+func (o *OutputCloudwatchCloudwatch3) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputCloudwatch) GetEnableAssumeRole() *bool {
+func (o *OutputCloudwatchCloudwatch3) GetEnableAssumeRole() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableAssumeRole
 }
 
-func (o *OutputCloudwatch) GetAssumeRoleArn() *string {
+func (o *OutputCloudwatchCloudwatch3) GetAssumeRoleArn() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleArn
 }
 
-func (o *OutputCloudwatch) GetAssumeRoleExternalID() *string {
+func (o *OutputCloudwatchCloudwatch3) GetAssumeRoleExternalID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleExternalID
 }
 
-func (o *OutputCloudwatch) GetDurationSeconds() *float64 {
+func (o *OutputCloudwatchCloudwatch3) GetDurationSeconds() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DurationSeconds
 }
 
-func (o *OutputCloudwatch) GetMaxQueueSize() *float64 {
+func (o *OutputCloudwatchCloudwatch3) GetMaxQueueSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxQueueSize
 }
 
-func (o *OutputCloudwatch) GetMaxRecordSizeKB() *float64 {
+func (o *OutputCloudwatchCloudwatch3) GetMaxRecordSizeKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRecordSizeKB
 }
 
-func (o *OutputCloudwatch) GetFlushPeriodSec() *float64 {
+func (o *OutputCloudwatchCloudwatch3) GetFlushPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.FlushPeriodSec
 }
 
-func (o *OutputCloudwatch) GetOnBackpressure() *OutputCloudwatchBackpressureBehavior {
+func (o *OutputCloudwatchCloudwatch3) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputCloudwatch) GetDescription() *string {
+func (o *OutputCloudwatchCloudwatch3) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputCloudwatch) GetAwsAPIKey() *string {
+func (o *OutputCloudwatchCloudwatch3) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputCloudwatch) GetAwsSecret() *string {
+func (o *OutputCloudwatchCloudwatch3) GetAwsSecret() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputCloudwatch) GetPqMaxFileSize() *string {
+func (o *OutputCloudwatchCloudwatch3) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputCloudwatch) GetPqMaxSize() *string {
+func (o *OutputCloudwatchCloudwatch3) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputCloudwatch) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputCloudwatch) GetPqCompress() *OutputCloudwatchCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputCloudwatch) GetPqOnBackpressure() *OutputCloudwatchQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputCloudwatch) GetPqMode() *OutputCloudwatchMode {
+func (o *OutputCloudwatchCloudwatch3) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputCloudwatch) GetPqControls() *OutputCloudwatchPqControls {
+func (o *OutputCloudwatchCloudwatch3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch3) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputCloudwatchType2 string
+
+const (
+	OutputCloudwatchType2Cloudwatch OutputCloudwatchType2 = "cloudwatch"
+)
+
+func (e OutputCloudwatchType2) ToPointer() *OutputCloudwatchType2 {
+	return &e
+}
+func (e *OutputCloudwatchType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cloudwatch":
+		*e = OutputCloudwatchType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCloudwatchType2: %v", v)
+	}
+}
+
+type OutputCloudwatchCloudwatch2 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputCloudwatchType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// CloudWatch log group to associate events with
+	LogGroupName string `json:"logGroupName"`
+	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+	LogStreamName string  `json:"logStreamName"`
+	AwsSecretKey  *string `json:"awsSecretKey,omitempty"`
+	// Region where the CloudWatchLogs is located
+	Region string `json:"region"`
+	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access CloudWatchLogs
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Maximum number of queued batches before blocking
+	MaxQueueSize *float64 `default:"5" json:"maxQueueSize"`
+	// Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+	MaxRecordSizeKB *float64 `default:"1024" json:"maxRecordSizeKB"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      string                 `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCloudwatchCloudwatch2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCloudwatchCloudwatch2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetType() OutputCloudwatchType2 {
+	if o == nil {
+		return OutputCloudwatchType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetLogGroupName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogGroupName
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetLogStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogStreamName
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputCloudwatchType1 string
+
+const (
+	OutputCloudwatchType1Cloudwatch OutputCloudwatchType1 = "cloudwatch"
+)
+
+func (e OutputCloudwatchType1) ToPointer() *OutputCloudwatchType1 {
+	return &e
+}
+func (e *OutputCloudwatchType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cloudwatch":
+		*e = OutputCloudwatchType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCloudwatchType1: %v", v)
+	}
+}
+
+type OutputCloudwatchCloudwatch1 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputCloudwatchType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// CloudWatch log group to associate events with
+	LogGroupName string `json:"logGroupName"`
+	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+	LogStreamName string  `json:"logStreamName"`
+	AwsSecretKey  *string `json:"awsSecretKey,omitempty"`
+	// Region where the CloudWatchLogs is located
+	Region string `json:"region"`
+	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access CloudWatchLogs
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Maximum number of queued batches before blocking
+	MaxQueueSize *float64 `default:"5" json:"maxQueueSize"`
+	// Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+	MaxRecordSizeKB *float64 `default:"1024" json:"maxRecordSizeKB"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      *string                `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputCloudwatchCloudwatch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCloudwatchCloudwatch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "logGroupName", "logStreamName", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetType() OutputCloudwatchType1 {
+	if o == nil {
+		return OutputCloudwatchType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetLogGroupName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogGroupName
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetLogStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogStreamName
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputCloudwatchCloudwatch1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputCloudwatchType string
+
+const (
+	OutputCloudwatchTypeOutputCloudwatchCloudwatch1 OutputCloudwatchType = "OutputCloudwatch_Cloudwatch_1"
+	OutputCloudwatchTypeOutputCloudwatchCloudwatch2 OutputCloudwatchType = "OutputCloudwatch_Cloudwatch_2"
+	OutputCloudwatchTypeOutputCloudwatchCloudwatch3 OutputCloudwatchType = "OutputCloudwatch_Cloudwatch_3"
+	OutputCloudwatchTypeOutputCloudwatchCloudwatch4 OutputCloudwatchType = "OutputCloudwatch_Cloudwatch_4"
+	OutputCloudwatchTypeOutputCloudwatchCloudwatch5 OutputCloudwatchType = "OutputCloudwatch_Cloudwatch_5"
+)
+
+type OutputCloudwatch struct {
+	OutputCloudwatchCloudwatch1 *OutputCloudwatchCloudwatch1 `queryParam:"inline,name=OutputCloudwatch"`
+	OutputCloudwatchCloudwatch2 *OutputCloudwatchCloudwatch2 `queryParam:"inline,name=OutputCloudwatch"`
+	OutputCloudwatchCloudwatch3 *OutputCloudwatchCloudwatch3 `queryParam:"inline,name=OutputCloudwatch"`
+	OutputCloudwatchCloudwatch4 *OutputCloudwatchCloudwatch4 `queryParam:"inline,name=OutputCloudwatch"`
+	OutputCloudwatchCloudwatch5 *OutputCloudwatchCloudwatch5 `queryParam:"inline,name=OutputCloudwatch"`
+
+	Type OutputCloudwatchType
+}
+
+func CreateOutputCloudwatchOutputCloudwatchCloudwatch1(outputCloudwatchCloudwatch1 OutputCloudwatchCloudwatch1) OutputCloudwatch {
+	typ := OutputCloudwatchTypeOutputCloudwatchCloudwatch1
+
+	return OutputCloudwatch{
+		OutputCloudwatchCloudwatch1: &outputCloudwatchCloudwatch1,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputCloudwatchOutputCloudwatchCloudwatch2(outputCloudwatchCloudwatch2 OutputCloudwatchCloudwatch2) OutputCloudwatch {
+	typ := OutputCloudwatchTypeOutputCloudwatchCloudwatch2
+
+	return OutputCloudwatch{
+		OutputCloudwatchCloudwatch2: &outputCloudwatchCloudwatch2,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputCloudwatchOutputCloudwatchCloudwatch3(outputCloudwatchCloudwatch3 OutputCloudwatchCloudwatch3) OutputCloudwatch {
+	typ := OutputCloudwatchTypeOutputCloudwatchCloudwatch3
+
+	return OutputCloudwatch{
+		OutputCloudwatchCloudwatch3: &outputCloudwatchCloudwatch3,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputCloudwatchOutputCloudwatchCloudwatch4(outputCloudwatchCloudwatch4 OutputCloudwatchCloudwatch4) OutputCloudwatch {
+	typ := OutputCloudwatchTypeOutputCloudwatchCloudwatch4
+
+	return OutputCloudwatch{
+		OutputCloudwatchCloudwatch4: &outputCloudwatchCloudwatch4,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputCloudwatchOutputCloudwatchCloudwatch5(outputCloudwatchCloudwatch5 OutputCloudwatchCloudwatch5) OutputCloudwatch {
+	typ := OutputCloudwatchTypeOutputCloudwatchCloudwatch5
+
+	return OutputCloudwatch{
+		OutputCloudwatchCloudwatch5: &outputCloudwatchCloudwatch5,
+		Type:                        typ,
+	}
+}
+
+func (u *OutputCloudwatch) UnmarshalJSON(data []byte) error {
+
+	var outputCloudwatchCloudwatch2 OutputCloudwatchCloudwatch2 = OutputCloudwatchCloudwatch2{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatchCloudwatch2, "", true, nil); err == nil {
+		u.OutputCloudwatchCloudwatch2 = &outputCloudwatchCloudwatch2
+		u.Type = OutputCloudwatchTypeOutputCloudwatchCloudwatch2
+		return nil
+	}
+
+	var outputCloudwatchCloudwatch3 OutputCloudwatchCloudwatch3 = OutputCloudwatchCloudwatch3{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatchCloudwatch3, "", true, nil); err == nil {
+		u.OutputCloudwatchCloudwatch3 = &outputCloudwatchCloudwatch3
+		u.Type = OutputCloudwatchTypeOutputCloudwatchCloudwatch3
+		return nil
+	}
+
+	var outputCloudwatchCloudwatch5 OutputCloudwatchCloudwatch5 = OutputCloudwatchCloudwatch5{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatchCloudwatch5, "", true, nil); err == nil {
+		u.OutputCloudwatchCloudwatch5 = &outputCloudwatchCloudwatch5
+		u.Type = OutputCloudwatchTypeOutputCloudwatchCloudwatch5
+		return nil
+	}
+
+	var outputCloudwatchCloudwatch1 OutputCloudwatchCloudwatch1 = OutputCloudwatchCloudwatch1{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatchCloudwatch1, "", true, nil); err == nil {
+		u.OutputCloudwatchCloudwatch1 = &outputCloudwatchCloudwatch1
+		u.Type = OutputCloudwatchTypeOutputCloudwatchCloudwatch1
+		return nil
+	}
+
+	var outputCloudwatchCloudwatch4 OutputCloudwatchCloudwatch4 = OutputCloudwatchCloudwatch4{}
+	if err := utils.UnmarshalJSON(data, &outputCloudwatchCloudwatch4, "", true, nil); err == nil {
+		u.OutputCloudwatchCloudwatch4 = &outputCloudwatchCloudwatch4
+		u.Type = OutputCloudwatchTypeOutputCloudwatchCloudwatch4
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputCloudwatch", string(data))
+}
+
+func (u OutputCloudwatch) MarshalJSON() ([]byte, error) {
+	if u.OutputCloudwatchCloudwatch1 != nil {
+		return utils.MarshalJSON(u.OutputCloudwatchCloudwatch1, "", true)
+	}
+
+	if u.OutputCloudwatchCloudwatch2 != nil {
+		return utils.MarshalJSON(u.OutputCloudwatchCloudwatch2, "", true)
+	}
+
+	if u.OutputCloudwatchCloudwatch3 != nil {
+		return utils.MarshalJSON(u.OutputCloudwatchCloudwatch3, "", true)
+	}
+
+	if u.OutputCloudwatchCloudwatch4 != nil {
+		return utils.MarshalJSON(u.OutputCloudwatchCloudwatch4, "", true)
+	}
+
+	if u.OutputCloudwatchCloudwatch5 != nil {
+		return utils.MarshalJSON(u.OutputCloudwatchCloudwatch5, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputCloudwatch: all fields are null")
 }

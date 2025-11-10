@@ -4,266 +4,397 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCollectionType string
+type InputCollectionType4 string
 
 const (
-	InputCollectionTypeCollection InputCollectionType = "collection"
+	InputCollectionType4Collection InputCollectionType4 = "collection"
 )
 
-func (e InputCollectionType) ToPointer() *InputCollectionType {
+func (e InputCollectionType4) ToPointer() *InputCollectionType4 {
 	return &e
 }
-func (e *InputCollectionType) UnmarshalJSON(data []byte) error {
+func (e *InputCollectionType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "collection":
-		*e = InputCollectionType(v)
+		*e = InputCollectionType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputCollectionType: %v", v)
+		return fmt.Errorf("invalid value for InputCollectionType4: %v", v)
 	}
 }
 
-type InputCollectionConnection struct {
+type InputCollectionCollection4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     *InputCollectionType4 `default:"collection" json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
+	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Destination to send results to
+	Output *string `json:"output,omitempty"`
 }
 
-func (i InputCollectionConnection) MarshalJSON() ([]byte, error) {
+func (i InputCollectionCollection4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCollectionConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+func (i *InputCollectionCollection4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionConnection) GetPipeline() *string {
+func (i *InputCollectionCollection4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.Pipeline
+	return i.PqEnabled
 }
 
-func (i *InputCollectionConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputCollectionMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputCollectionMode string
-
-const (
-	InputCollectionModeSmart  InputCollectionMode = "smart"
-	InputCollectionModeAlways InputCollectionMode = "always"
-)
-
-func (e InputCollectionMode) ToPointer() *InputCollectionMode {
-	return &e
-}
-
-// InputCollectionCompression - Codec to use to compress the persisted data
-type InputCollectionCompression string
-
-const (
-	InputCollectionCompressionNone InputCollectionCompression = "none"
-	InputCollectionCompressionGzip InputCollectionCompression = "gzip"
-)
-
-func (e InputCollectionCompression) ToPointer() *InputCollectionCompression {
-	return &e
-}
-
-type InputCollectionPqControls struct {
-}
-
-func (i InputCollectionPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCollectionPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputCollectionPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputCollectionMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputCollectionCompression `default:"none" json:"compress"`
-	PqControls *InputCollectionPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputCollectionPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCollectionPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCollectionPq) GetMode() *InputCollectionMode {
+func (i *InputCollectionCollection4) GetID() *string {
 	if i == nil {
 		return nil
 	}
-	return i.Mode
+	return i.ID
 }
 
-func (i *InputCollectionPq) GetMaxBufferSize() *float64 {
+func (i *InputCollectionCollection4) GetType() *InputCollectionType4 {
 	if i == nil {
 		return nil
 	}
-	return i.MaxBufferSize
+	return i.Type
 }
 
-func (i *InputCollectionPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputCollectionPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputCollectionPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputCollectionPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputCollectionPq) GetCompress() *InputCollectionCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputCollectionPq) GetPqControls() *InputCollectionPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputCollectionPreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (i InputCollectionPreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCollectionPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCollectionPreprocess) GetDisabled() *bool {
+func (i *InputCollectionCollection4) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCollectionPreprocess) GetCommand() *string {
+func (i *InputCollectionCollection4) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
-	return i.Command
+	return i.Pipeline
 }
 
-func (i *InputCollectionPreprocess) GetArgs() []string {
+func (i *InputCollectionCollection4) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.Args
+	return i.SendToRoutes
 }
 
-type InputCollectionMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
+func (i *InputCollectionCollection4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
 }
 
-func (i InputCollectionMetadatum) MarshalJSON() ([]byte, error) {
+func (i *InputCollectionCollection4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCollectionCollection4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCollectionCollection4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputCollectionCollection4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCollectionCollection4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCollectionCollection4) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputCollectionCollection4) GetThrottleRatePerSec() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ThrottleRatePerSec
+}
+
+func (i *InputCollectionCollection4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCollectionCollection4) GetOutput() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Output
+}
+
+type InputCollectionType3 string
+
+const (
+	InputCollectionType3Collection InputCollectionType3 = "collection"
+)
+
+func (e InputCollectionType3) ToPointer() *InputCollectionType3 {
+	return &e
+}
+func (e *InputCollectionType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "collection":
+		*e = InputCollectionType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCollectionType3: %v", v)
+	}
+}
+
+type InputCollectionCollection3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     *InputCollectionType3 `default:"collection" json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process results
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Destination to send results to
+	Output *string `json:"output,omitempty"`
+}
+
+func (i InputCollectionCollection3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCollectionMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+func (i *InputCollectionCollection3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionMetadatum) GetName() string {
+func (i *InputCollectionCollection3) GetPqEnabled() *bool {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Name
+	return i.PqEnabled
 }
 
-func (i *InputCollectionMetadatum) GetValue() string {
+func (i *InputCollectionCollection3) GetID() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Value
+	return i.ID
 }
 
-type InputCollection struct {
-	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     *InputCollectionType `default:"collection" json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
-	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitempty"`
+func (i *InputCollectionCollection3) GetType() *InputCollectionType3 {
+	if i == nil {
+		return nil
+	}
+	return i.Type
+}
+
+func (i *InputCollectionCollection3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCollectionCollection3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCollectionCollection3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCollectionCollection3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCollectionCollection3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCollectionCollection3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCollectionCollection3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCollectionCollection3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCollectionCollection3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCollectionCollection3) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputCollectionCollection3) GetThrottleRatePerSec() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ThrottleRatePerSec
+}
+
+func (i *InputCollectionCollection3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCollectionCollection3) GetOutput() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Output
+}
+
+type InputCollectionType2 string
+
+const (
+	InputCollectionType2Collection InputCollectionType2 = "collection"
+)
+
+func (e InputCollectionType2) ToPointer() *InputCollectionType2 {
+	return &e
+}
+func (e *InputCollectionType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "collection":
+		*e = InputCollectionType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCollectionType2: %v", v)
+	}
+}
+
+type InputCollectionCollection2 struct {
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     *InputCollectionType2 `default:"collection" json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process results
+	Pipeline string `json:"pipeline"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -271,140 +402,424 @@ type InputCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputCollectionConnection `json:"connections,omitempty"`
-	Pq          *InputCollectionPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                   `default:"10000" json:"staleChannelFlushMs"`
-	Preprocess          *InputCollectionPreprocess `json:"preprocess,omitempty"`
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
 	// Fields to add to events from this input
-	Metadata []InputCollectionMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// Destination to send results to
-	Output *string `json:"output,omitempty"`
+	Output string `json:"output"`
 }
 
-func (i InputCollection) MarshalJSON() ([]byte, error) {
+func (i InputCollectionCollection2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCollection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (i *InputCollectionCollection2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pipeline", "output"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollection) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCollection) GetType() *InputCollectionType {
-	if i == nil {
-		return nil
-	}
-	return i.Type
-}
-
-func (i *InputCollection) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCollection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCollection) GetSendToRoutes() *bool {
+func (i *InputCollectionCollection2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCollection) GetEnvironment() *string {
+func (i *InputCollectionCollection2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCollectionCollection2) GetType() *InputCollectionType2 {
+	if i == nil {
+		return nil
+	}
+	return i.Type
+}
+
+func (i *InputCollectionCollection2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCollectionCollection2) GetPipeline() string {
+	if i == nil {
+		return ""
+	}
+	return i.Pipeline
+}
+
+func (i *InputCollectionCollection2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCollection) GetPqEnabled() *bool {
+func (i *InputCollectionCollection2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCollection) GetStreamtags() []string {
+func (i *InputCollectionCollection2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCollection) GetConnections() []InputCollectionConnection {
+func (i *InputCollectionCollection2) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCollection) GetPq() *InputCollectionPq {
+func (i *InputCollectionCollection2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCollection) GetBreakerRulesets() []string {
+func (i *InputCollectionCollection2) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCollection) GetStaleChannelFlushMs() *float64 {
+func (i *InputCollectionCollection2) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCollection) GetPreprocess() *InputCollectionPreprocess {
+func (i *InputCollectionCollection2) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCollection) GetThrottleRatePerSec() *string {
+func (i *InputCollectionCollection2) GetThrottleRatePerSec() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ThrottleRatePerSec
 }
 
-func (i *InputCollection) GetMetadata() []InputCollectionMetadatum {
+func (i *InputCollectionCollection2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCollection) GetOutput() *string {
+func (i *InputCollectionCollection2) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+type InputCollectionType1 string
+
+const (
+	InputCollectionType1Collection InputCollectionType1 = "collection"
+)
+
+func (e InputCollectionType1) ToPointer() *InputCollectionType1 {
+	return &e
+}
+func (e *InputCollectionType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "collection":
+		*e = InputCollectionType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputCollectionType1: %v", v)
+	}
+}
+
+type InputCollectionCollection1 struct {
+	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     *InputCollectionType1 `default:"collection" json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process results
+	Pipeline string `json:"pipeline"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Destination to send results to
+	Output *string `json:"output,omitempty"`
+}
+
+func (i InputCollectionCollection1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCollectionCollection1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pipeline"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCollectionCollection1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCollectionCollection1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCollectionCollection1) GetType() *InputCollectionType1 {
+	if i == nil {
+		return nil
+	}
+	return i.Type
+}
+
+func (i *InputCollectionCollection1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCollectionCollection1) GetPipeline() string {
+	if i == nil {
+		return ""
+	}
+	return i.Pipeline
+}
+
+func (i *InputCollectionCollection1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCollectionCollection1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCollectionCollection1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCollectionCollection1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCollectionCollection1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCollectionCollection1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCollectionCollection1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCollectionCollection1) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputCollectionCollection1) GetThrottleRatePerSec() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ThrottleRatePerSec
+}
+
+func (i *InputCollectionCollection1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCollectionCollection1) GetOutput() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Output
+}
+
+type InputCollectionType string
+
+const (
+	InputCollectionTypeInputCollectionCollection1 InputCollectionType = "InputCollection_Collection_1"
+	InputCollectionTypeInputCollectionCollection2 InputCollectionType = "InputCollection_Collection_2"
+	InputCollectionTypeInputCollectionCollection3 InputCollectionType = "InputCollection_Collection_3"
+	InputCollectionTypeInputCollectionCollection4 InputCollectionType = "InputCollection_Collection_4"
+)
+
+type InputCollection struct {
+	InputCollectionCollection1 *InputCollectionCollection1 `queryParam:"inline,name=InputCollection"`
+	InputCollectionCollection2 *InputCollectionCollection2 `queryParam:"inline,name=InputCollection"`
+	InputCollectionCollection3 *InputCollectionCollection3 `queryParam:"inline,name=InputCollection"`
+	InputCollectionCollection4 *InputCollectionCollection4 `queryParam:"inline,name=InputCollection"`
+
+	Type InputCollectionType
+}
+
+func CreateInputCollectionInputCollectionCollection1(inputCollectionCollection1 InputCollectionCollection1) InputCollection {
+	typ := InputCollectionTypeInputCollectionCollection1
+
+	return InputCollection{
+		InputCollectionCollection1: &inputCollectionCollection1,
+		Type:                       typ,
+	}
+}
+
+func CreateInputCollectionInputCollectionCollection2(inputCollectionCollection2 InputCollectionCollection2) InputCollection {
+	typ := InputCollectionTypeInputCollectionCollection2
+
+	return InputCollection{
+		InputCollectionCollection2: &inputCollectionCollection2,
+		Type:                       typ,
+	}
+}
+
+func CreateInputCollectionInputCollectionCollection3(inputCollectionCollection3 InputCollectionCollection3) InputCollection {
+	typ := InputCollectionTypeInputCollectionCollection3
+
+	return InputCollection{
+		InputCollectionCollection3: &inputCollectionCollection3,
+		Type:                       typ,
+	}
+}
+
+func CreateInputCollectionInputCollectionCollection4(inputCollectionCollection4 InputCollectionCollection4) InputCollection {
+	typ := InputCollectionTypeInputCollectionCollection4
+
+	return InputCollection{
+		InputCollectionCollection4: &inputCollectionCollection4,
+		Type:                       typ,
+	}
+}
+
+func (u *InputCollection) UnmarshalJSON(data []byte) error {
+
+	var inputCollectionCollection2 InputCollectionCollection2 = InputCollectionCollection2{}
+	if err := utils.UnmarshalJSON(data, &inputCollectionCollection2, "", true, nil); err == nil {
+		u.InputCollectionCollection2 = &inputCollectionCollection2
+		u.Type = InputCollectionTypeInputCollectionCollection2
+		return nil
+	}
+
+	var inputCollectionCollection1 InputCollectionCollection1 = InputCollectionCollection1{}
+	if err := utils.UnmarshalJSON(data, &inputCollectionCollection1, "", true, nil); err == nil {
+		u.InputCollectionCollection1 = &inputCollectionCollection1
+		u.Type = InputCollectionTypeInputCollectionCollection1
+		return nil
+	}
+
+	var inputCollectionCollection4 InputCollectionCollection4 = InputCollectionCollection4{}
+	if err := utils.UnmarshalJSON(data, &inputCollectionCollection4, "", true, nil); err == nil {
+		u.InputCollectionCollection4 = &inputCollectionCollection4
+		u.Type = InputCollectionTypeInputCollectionCollection4
+		return nil
+	}
+
+	var inputCollectionCollection3 InputCollectionCollection3 = InputCollectionCollection3{}
+	if err := utils.UnmarshalJSON(data, &inputCollectionCollection3, "", true, nil); err == nil {
+		u.InputCollectionCollection3 = &inputCollectionCollection3
+		u.Type = InputCollectionTypeInputCollectionCollection3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCollection", string(data))
+}
+
+func (u InputCollection) MarshalJSON() ([]byte, error) {
+	if u.InputCollectionCollection1 != nil {
+		return utils.MarshalJSON(u.InputCollectionCollection1, "", true)
+	}
+
+	if u.InputCollectionCollection2 != nil {
+		return utils.MarshalJSON(u.InputCollectionCollection2, "", true)
+	}
+
+	if u.InputCollectionCollection3 != nil {
+		return utils.MarshalJSON(u.InputCollectionCollection3, "", true)
+	}
+
+	if u.InputCollectionCollection4 != nil {
+		return utils.MarshalJSON(u.InputCollectionCollection4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCollection: all fields are null")
 }

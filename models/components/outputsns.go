@@ -4,126 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSnsType string
+type OutputSnsType5 string
 
 const (
-	OutputSnsTypeSns OutputSnsType = "sns"
+	OutputSnsType5Sns OutputSnsType5 = "sns"
 )
 
-func (e OutputSnsType) ToPointer() *OutputSnsType {
+func (e OutputSnsType5) ToPointer() *OutputSnsType5 {
 	return &e
 }
-func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
+func (e *OutputSnsType5) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sns":
-		*e = OutputSnsType(v)
+		*e = OutputSnsType5(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputSnsType: %v", v)
+		return fmt.Errorf("invalid value for OutputSnsType5: %v", v)
 	}
 }
 
-// OutputSnsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputSnsAuthenticationMethod string
-
-const (
-	OutputSnsAuthenticationMethodAuto   OutputSnsAuthenticationMethod = "auto"
-	OutputSnsAuthenticationMethodManual OutputSnsAuthenticationMethod = "manual"
-	OutputSnsAuthenticationMethodSecret OutputSnsAuthenticationMethod = "secret"
-)
-
-func (e OutputSnsAuthenticationMethod) ToPointer() *OutputSnsAuthenticationMethod {
-	return &e
-}
-
-// OutputSnsSignatureVersion - Signature version to use for signing SNS requests
-type OutputSnsSignatureVersion string
-
-const (
-	OutputSnsSignatureVersionV2 OutputSnsSignatureVersion = "v2"
-	OutputSnsSignatureVersionV4 OutputSnsSignatureVersion = "v4"
-)
-
-func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
-	return &e
-}
-
-// OutputSnsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSnsBackpressureBehavior string
-
-const (
-	OutputSnsBackpressureBehaviorBlock OutputSnsBackpressureBehavior = "block"
-	OutputSnsBackpressureBehaviorDrop  OutputSnsBackpressureBehavior = "drop"
-	OutputSnsBackpressureBehaviorQueue OutputSnsBackpressureBehavior = "queue"
-)
-
-func (e OutputSnsBackpressureBehavior) ToPointer() *OutputSnsBackpressureBehavior {
-	return &e
-}
-
-// OutputSnsCompression - Codec to use to compress the persisted data
-type OutputSnsCompression string
-
-const (
-	OutputSnsCompressionNone OutputSnsCompression = "none"
-	OutputSnsCompressionGzip OutputSnsCompression = "gzip"
-)
-
-func (e OutputSnsCompression) ToPointer() *OutputSnsCompression {
-	return &e
-}
-
-// OutputSnsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSnsQueueFullBehavior string
-
-const (
-	OutputSnsQueueFullBehaviorBlock OutputSnsQueueFullBehavior = "block"
-	OutputSnsQueueFullBehaviorDrop  OutputSnsQueueFullBehavior = "drop"
-)
-
-func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
-	return &e
-}
-
-// OutputSnsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSnsMode string
-
-const (
-	OutputSnsModeError        OutputSnsMode = "error"
-	OutputSnsModeBackpressure OutputSnsMode = "backpressure"
-	OutputSnsModeAlways       OutputSnsMode = "always"
-)
-
-func (e OutputSnsMode) ToPointer() *OutputSnsMode {
-	return &e
-}
-
-type OutputSnsPqControls struct {
-}
-
-func (o OutputSnsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSnsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSns struct {
+type OutputSnsSns5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string       `json:"id,omitempty"`
-	Type OutputSnsType `json:"type"`
+	ID   *string        `json:"id,omitempty"`
+	Type OutputSnsType5 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -139,14 +53,706 @@ type OutputSns struct {
 	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
 	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputSnsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                        `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
 	// Region where the SNS is located
 	Region *string `json:"region,omitempty"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing SNS requests
-	SignatureVersion *OutputSnsSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SNS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+}
+
+func (o OutputSnsSns5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSnsSns5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSnsSns5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSnsSns5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSnsSns5) GetType() OutputSnsType5 {
+	if o == nil {
+		return OutputSnsType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputSnsSns5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSnsSns5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSnsSns5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSnsSns5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSnsSns5) GetTopicArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicArn
+}
+
+func (o *OutputSnsSns5) GetMessageGroupID() string {
+	if o == nil {
+		return ""
+	}
+	return o.MessageGroupID
+}
+
+func (o *OutputSnsSns5) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputSnsSns5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSnsSns5) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSnsSns5) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSnsSns5) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSnsSns5) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSnsSns5) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSnsSns5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSnsSns5) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSnsSns5) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSnsSns5) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSnsSns5) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSnsSns5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSnsSns5) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSnsSns5) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSnsSns5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSnsSns5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSnsSns5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSnsSns5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSnsSns5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSnsSns5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSnsSns5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSnsSns5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSnsSns5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSnsSns5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSnsSns5) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputSnsType4 string
+
+const (
+	OutputSnsType4Sns OutputSnsType4 = "sns"
+)
+
+func (e OutputSnsType4) ToPointer() *OutputSnsType4 {
+	return &e
+}
+func (e *OutputSnsType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sns":
+		*e = OutputSnsType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSnsType4: %v", v)
+	}
+}
+
+type OutputSnsSns4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type OutputSnsType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The ARN of the SNS topic to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. E.g., 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`
+	TopicArn string `json:"topicArn"`
+	// Messages in the same group are processed in a FIFO manner. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	MessageGroupID string `json:"messageGroupId"`
+	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
+	MaxRetries *float64 `json:"maxRetries,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// Region where the SNS is located
+	Region *string `json:"region,omitempty"`
+	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SNS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	Description     *string  `json:"description,omitempty"`
+	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSnsSns4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSnsSns4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSnsSns4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSnsSns4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSnsSns4) GetType() OutputSnsType4 {
+	if o == nil {
+		return OutputSnsType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputSnsSns4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSnsSns4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSnsSns4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSnsSns4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSnsSns4) GetTopicArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicArn
+}
+
+func (o *OutputSnsSns4) GetMessageGroupID() string {
+	if o == nil {
+		return ""
+	}
+	return o.MessageGroupID
+}
+
+func (o *OutputSnsSns4) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputSnsSns4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSnsSns4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSnsSns4) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSnsSns4) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSnsSns4) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSnsSns4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSnsSns4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSnsSns4) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSnsSns4) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSnsSns4) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSnsSns4) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSnsSns4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSnsSns4) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSnsSns4) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSnsSns4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSnsSns4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSnsSns4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSnsSns4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSnsSns4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSnsSns4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSnsSns4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSnsSns4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSnsSns4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSnsSns4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSnsSns4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSnsType3 string
+
+const (
+	OutputSnsType3Sns OutputSnsType3 = "sns"
+)
+
+func (e OutputSnsType3) ToPointer() *OutputSnsType3 {
+	return &e
+}
+func (e *OutputSnsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sns":
+		*e = OutputSnsType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSnsType3: %v", v)
+	}
+}
+
+type OutputSnsSns3 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type OutputSnsType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The ARN of the SNS topic to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. E.g., 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`
+	TopicArn string `json:"topicArn"`
+	// Messages in the same group are processed in a FIFO manner. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	MessageGroupID string `json:"messageGroupId"`
+	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
+	MaxRetries   *float64 `json:"maxRetries,omitempty"`
+	AwsSecretKey *string  `json:"awsSecretKey,omitempty"`
+	// Region where the SNS is located
+	Region *string `json:"region,omitempty"`
+	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -160,11 +766,21 @@ type OutputSns struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSnsBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                        `json:"description,omitempty"`
-	AwsAPIKey      *string                        `json:"awsApiKey,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      *string                `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
+	AwsSecret string `json:"awsSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -172,238 +788,1087 @@ type OutputSns struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSnsCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSnsQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSnsMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSnsPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 }
 
-func (o OutputSns) MarshalJSON() ([]byte, error) {
+func (o OutputSnsSns3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSns) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId"}); err != nil {
+func (o *OutputSnsSns3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId", "awsSecret"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSns) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSns) GetType() OutputSnsType {
-	if o == nil {
-		return OutputSnsType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSns) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSns) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSns) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSns) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSns) GetTopicArn() string {
-	if o == nil {
-		return ""
-	}
-	return o.TopicArn
-}
-
-func (o *OutputSns) GetMessageGroupID() string {
-	if o == nil {
-		return ""
-	}
-	return o.MessageGroupID
-}
-
-func (o *OutputSns) GetMaxRetries() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxRetries
-}
-
-func (o *OutputSns) GetAwsAuthenticationMethod() *OutputSnsAuthenticationMethod {
+func (o *OutputSnsSns3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputSns) GetAwsSecretKey() *string {
+func (o *OutputSnsSns3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSnsSns3) GetType() OutputSnsType3 {
+	if o == nil {
+		return OutputSnsType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputSnsSns3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSnsSns3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSnsSns3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSnsSns3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSnsSns3) GetTopicArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicArn
+}
+
+func (o *OutputSnsSns3) GetMessageGroupID() string {
+	if o == nil {
+		return ""
+	}
+	return o.MessageGroupID
+}
+
+func (o *OutputSnsSns3) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputSnsSns3) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputSns) GetRegion() *string {
+func (o *OutputSnsSns3) GetRegion() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Region
 }
 
-func (o *OutputSns) GetEndpoint() *string {
+func (o *OutputSnsSns3) GetEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Endpoint
 }
 
-func (o *OutputSns) GetSignatureVersion() *OutputSnsSignatureVersion {
+func (o *OutputSnsSns3) GetSignatureVersion() *SignatureVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputSns) GetReuseConnections() *bool {
+func (o *OutputSnsSns3) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputSns) GetRejectUnauthorized() *bool {
+func (o *OutputSnsSns3) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputSns) GetEnableAssumeRole() *bool {
+func (o *OutputSnsSns3) GetEnableAssumeRole() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableAssumeRole
 }
 
-func (o *OutputSns) GetAssumeRoleArn() *string {
+func (o *OutputSnsSns3) GetAssumeRoleArn() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleArn
 }
 
-func (o *OutputSns) GetAssumeRoleExternalID() *string {
+func (o *OutputSnsSns3) GetAssumeRoleExternalID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleExternalID
 }
 
-func (o *OutputSns) GetDurationSeconds() *float64 {
+func (o *OutputSnsSns3) GetDurationSeconds() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DurationSeconds
 }
 
-func (o *OutputSns) GetOnBackpressure() *OutputSnsBackpressureBehavior {
+func (o *OutputSnsSns3) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSns) GetDescription() *string {
+func (o *OutputSnsSns3) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSns) GetAwsAPIKey() *string {
+func (o *OutputSnsSns3) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputSns) GetAwsSecret() *string {
+func (o *OutputSnsSns3) GetAwsSecret() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputSns) GetPqMaxFileSize() *string {
+func (o *OutputSnsSns3) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSns) GetPqMaxSize() *string {
+func (o *OutputSnsSns3) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSns) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSns) GetPqCompress() *OutputSnsCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSns) GetPqOnBackpressure() *OutputSnsQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSns) GetPqMode() *OutputSnsMode {
+func (o *OutputSnsSns3) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSns) GetPqControls() *OutputSnsPqControls {
+func (o *OutputSnsSns3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSnsSns3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSnsSns3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSnsSns3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSnsSns3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSnsSns3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSnsSns3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSnsSns3) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputSnsType2 string
+
+const (
+	OutputSnsType2Sns OutputSnsType2 = "sns"
+)
+
+func (e OutputSnsType2) ToPointer() *OutputSnsType2 {
+	return &e
+}
+func (e *OutputSnsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sns":
+		*e = OutputSnsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSnsType2: %v", v)
+	}
+}
+
+type OutputSnsSns2 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type OutputSnsType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The ARN of the SNS topic to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. E.g., 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`
+	TopicArn string `json:"topicArn"`
+	// Messages in the same group are processed in a FIFO manner. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	MessageGroupID string `json:"messageGroupId"`
+	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
+	MaxRetries   *float64 `json:"maxRetries,omitempty"`
+	AwsSecretKey *string  `json:"awsSecretKey,omitempty"`
+	// Region where the SNS is located
+	Region *string `json:"region,omitempty"`
+	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SNS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      string                 `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSnsSns2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSnsSns2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSnsSns2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSnsSns2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSnsSns2) GetType() OutputSnsType2 {
+	if o == nil {
+		return OutputSnsType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputSnsSns2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSnsSns2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSnsSns2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSnsSns2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSnsSns2) GetTopicArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicArn
+}
+
+func (o *OutputSnsSns2) GetMessageGroupID() string {
+	if o == nil {
+		return ""
+	}
+	return o.MessageGroupID
+}
+
+func (o *OutputSnsSns2) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputSnsSns2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSnsSns2) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSnsSns2) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSnsSns2) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSnsSns2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSnsSns2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSnsSns2) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSnsSns2) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSnsSns2) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSnsSns2) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSnsSns2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSnsSns2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSnsSns2) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSnsSns2) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSnsSns2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSnsSns2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSnsSns2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSnsSns2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSnsSns2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSnsSns2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSnsSns2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSnsSns2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSnsSns2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSnsSns2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSnsSns2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSnsType1 string
+
+const (
+	OutputSnsType1Sns OutputSnsType1 = "sns"
+)
+
+func (e OutputSnsType1) ToPointer() *OutputSnsType1 {
+	return &e
+}
+func (e *OutputSnsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sns":
+		*e = OutputSnsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSnsType1: %v", v)
+	}
+}
+
+type OutputSnsSns1 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type OutputSnsType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The ARN of the SNS topic to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. E.g., 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`
+	TopicArn string `json:"topicArn"`
+	// Messages in the same group are processed in a FIFO manner. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	MessageGroupID string `json:"messageGroupId"`
+	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
+	MaxRetries   *float64 `json:"maxRetries,omitempty"`
+	AwsSecretKey *string  `json:"awsSecretKey,omitempty"`
+	// Region where the SNS is located
+	Region *string `json:"region,omitempty"`
+	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SNS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	AwsAPIKey      *string                `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSnsSns1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSnsSns1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicArn", "messageGroupId"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSnsSns1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSnsSns1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSnsSns1) GetType() OutputSnsType1 {
+	if o == nil {
+		return OutputSnsType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputSnsSns1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSnsSns1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSnsSns1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSnsSns1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSnsSns1) GetTopicArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicArn
+}
+
+func (o *OutputSnsSns1) GetMessageGroupID() string {
+	if o == nil {
+		return ""
+	}
+	return o.MessageGroupID
+}
+
+func (o *OutputSnsSns1) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputSnsSns1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSnsSns1) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSnsSns1) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSnsSns1) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSnsSns1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSnsSns1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSnsSns1) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSnsSns1) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSnsSns1) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSnsSns1) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSnsSns1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSnsSns1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSnsSns1) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSnsSns1) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSnsSns1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSnsSns1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSnsSns1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSnsSns1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSnsSns1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSnsSns1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSnsSns1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSnsSns1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSnsSns1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSnsSns1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSnsSns1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSnsType string
+
+const (
+	OutputSnsTypeOutputSnsSns1 OutputSnsType = "OutputSns_Sns_1"
+	OutputSnsTypeOutputSnsSns2 OutputSnsType = "OutputSns_Sns_2"
+	OutputSnsTypeOutputSnsSns3 OutputSnsType = "OutputSns_Sns_3"
+	OutputSnsTypeOutputSnsSns4 OutputSnsType = "OutputSns_Sns_4"
+	OutputSnsTypeOutputSnsSns5 OutputSnsType = "OutputSns_Sns_5"
+)
+
+type OutputSns struct {
+	OutputSnsSns1 *OutputSnsSns1 `queryParam:"inline,name=OutputSns"`
+	OutputSnsSns2 *OutputSnsSns2 `queryParam:"inline,name=OutputSns"`
+	OutputSnsSns3 *OutputSnsSns3 `queryParam:"inline,name=OutputSns"`
+	OutputSnsSns4 *OutputSnsSns4 `queryParam:"inline,name=OutputSns"`
+	OutputSnsSns5 *OutputSnsSns5 `queryParam:"inline,name=OutputSns"`
+
+	Type OutputSnsType
+}
+
+func CreateOutputSnsOutputSnsSns1(outputSnsSns1 OutputSnsSns1) OutputSns {
+	typ := OutputSnsTypeOutputSnsSns1
+
+	return OutputSns{
+		OutputSnsSns1: &outputSnsSns1,
+		Type:          typ,
+	}
+}
+
+func CreateOutputSnsOutputSnsSns2(outputSnsSns2 OutputSnsSns2) OutputSns {
+	typ := OutputSnsTypeOutputSnsSns2
+
+	return OutputSns{
+		OutputSnsSns2: &outputSnsSns2,
+		Type:          typ,
+	}
+}
+
+func CreateOutputSnsOutputSnsSns3(outputSnsSns3 OutputSnsSns3) OutputSns {
+	typ := OutputSnsTypeOutputSnsSns3
+
+	return OutputSns{
+		OutputSnsSns3: &outputSnsSns3,
+		Type:          typ,
+	}
+}
+
+func CreateOutputSnsOutputSnsSns4(outputSnsSns4 OutputSnsSns4) OutputSns {
+	typ := OutputSnsTypeOutputSnsSns4
+
+	return OutputSns{
+		OutputSnsSns4: &outputSnsSns4,
+		Type:          typ,
+	}
+}
+
+func CreateOutputSnsOutputSnsSns5(outputSnsSns5 OutputSnsSns5) OutputSns {
+	typ := OutputSnsTypeOutputSnsSns5
+
+	return OutputSns{
+		OutputSnsSns5: &outputSnsSns5,
+		Type:          typ,
+	}
+}
+
+func (u *OutputSns) UnmarshalJSON(data []byte) error {
+
+	var outputSnsSns2 OutputSnsSns2 = OutputSnsSns2{}
+	if err := utils.UnmarshalJSON(data, &outputSnsSns2, "", true, nil); err == nil {
+		u.OutputSnsSns2 = &outputSnsSns2
+		u.Type = OutputSnsTypeOutputSnsSns2
+		return nil
+	}
+
+	var outputSnsSns3 OutputSnsSns3 = OutputSnsSns3{}
+	if err := utils.UnmarshalJSON(data, &outputSnsSns3, "", true, nil); err == nil {
+		u.OutputSnsSns3 = &outputSnsSns3
+		u.Type = OutputSnsTypeOutputSnsSns3
+		return nil
+	}
+
+	var outputSnsSns5 OutputSnsSns5 = OutputSnsSns5{}
+	if err := utils.UnmarshalJSON(data, &outputSnsSns5, "", true, nil); err == nil {
+		u.OutputSnsSns5 = &outputSnsSns5
+		u.Type = OutputSnsTypeOutputSnsSns5
+		return nil
+	}
+
+	var outputSnsSns1 OutputSnsSns1 = OutputSnsSns1{}
+	if err := utils.UnmarshalJSON(data, &outputSnsSns1, "", true, nil); err == nil {
+		u.OutputSnsSns1 = &outputSnsSns1
+		u.Type = OutputSnsTypeOutputSnsSns1
+		return nil
+	}
+
+	var outputSnsSns4 OutputSnsSns4 = OutputSnsSns4{}
+	if err := utils.UnmarshalJSON(data, &outputSnsSns4, "", true, nil); err == nil {
+		u.OutputSnsSns4 = &outputSnsSns4
+		u.Type = OutputSnsTypeOutputSnsSns4
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSns", string(data))
+}
+
+func (u OutputSns) MarshalJSON() ([]byte, error) {
+	if u.OutputSnsSns1 != nil {
+		return utils.MarshalJSON(u.OutputSnsSns1, "", true)
+	}
+
+	if u.OutputSnsSns2 != nil {
+		return utils.MarshalJSON(u.OutputSnsSns2, "", true)
+	}
+
+	if u.OutputSnsSns3 != nil {
+		return utils.MarshalJSON(u.OutputSnsSns3, "", true)
+	}
+
+	if u.OutputSnsSns4 != nil {
+		return utils.MarshalJSON(u.OutputSnsSns4, "", true)
+	}
+
+	if u.OutputSnsSns5 != nil {
+		return utils.MarshalJSON(u.OutputSnsSns5, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSns: all fields are null")
 }

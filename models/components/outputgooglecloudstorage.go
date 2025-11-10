@@ -4,208 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputGoogleCloudStorageType string
+type OutputGoogleCloudStorageType9 string
 
 const (
-	OutputGoogleCloudStorageTypeGoogleCloudStorage OutputGoogleCloudStorageType = "google_cloud_storage"
+	OutputGoogleCloudStorageType9GoogleCloudStorage OutputGoogleCloudStorageType9 = "google_cloud_storage"
 )
 
-func (e OutputGoogleCloudStorageType) ToPointer() *OutputGoogleCloudStorageType {
+func (e OutputGoogleCloudStorageType9) ToPointer() *OutputGoogleCloudStorageType9 {
 	return &e
 }
-func (e *OutputGoogleCloudStorageType) UnmarshalJSON(data []byte) error {
+func (e *OutputGoogleCloudStorageType9) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "google_cloud_storage":
-		*e = OutputGoogleCloudStorageType(v)
+		*e = OutputGoogleCloudStorageType9(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType: %v", v)
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType9: %v", v)
 	}
 }
 
-// OutputGoogleCloudStorageSignatureVersion - Signature version to use for signing Google Cloud Storage requests
-type OutputGoogleCloudStorageSignatureVersion string
-
-const (
-	OutputGoogleCloudStorageSignatureVersionV2 OutputGoogleCloudStorageSignatureVersion = "v2"
-	OutputGoogleCloudStorageSignatureVersionV4 OutputGoogleCloudStorageSignatureVersion = "v4"
-)
-
-func (e OutputGoogleCloudStorageSignatureVersion) ToPointer() *OutputGoogleCloudStorageSignatureVersion {
-	return &e
-}
-
-type OutputGoogleCloudStorageAuthenticationMethod string
-
-const (
-	OutputGoogleCloudStorageAuthenticationMethodAuto   OutputGoogleCloudStorageAuthenticationMethod = "auto"
-	OutputGoogleCloudStorageAuthenticationMethodManual OutputGoogleCloudStorageAuthenticationMethod = "manual"
-	OutputGoogleCloudStorageAuthenticationMethodSecret OutputGoogleCloudStorageAuthenticationMethod = "secret"
-)
-
-func (e OutputGoogleCloudStorageAuthenticationMethod) ToPointer() *OutputGoogleCloudStorageAuthenticationMethod {
-	return &e
-}
-
-// OutputGoogleCloudStorageObjectACL - Object ACL to assign to uploaded objects
-type OutputGoogleCloudStorageObjectACL string
-
-const (
-	OutputGoogleCloudStorageObjectACLPrivate                OutputGoogleCloudStorageObjectACL = "private"
-	OutputGoogleCloudStorageObjectACLBucketOwnerRead        OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
-	OutputGoogleCloudStorageObjectACLBucketOwnerFullControl OutputGoogleCloudStorageObjectACL = "bucket-owner-full-control"
-	OutputGoogleCloudStorageObjectACLProjectPrivate         OutputGoogleCloudStorageObjectACL = "project-private"
-	OutputGoogleCloudStorageObjectACLAuthenticatedRead      OutputGoogleCloudStorageObjectACL = "authenticated-read"
-	OutputGoogleCloudStorageObjectACLPublicRead             OutputGoogleCloudStorageObjectACL = "public-read"
-)
-
-func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorageObjectACL {
-	return &e
-}
-
-// OutputGoogleCloudStorageStorageClass - Storage class to select for uploaded objects
-type OutputGoogleCloudStorageStorageClass string
-
-const (
-	OutputGoogleCloudStorageStorageClassStandard OutputGoogleCloudStorageStorageClass = "STANDARD"
-	OutputGoogleCloudStorageStorageClassNearline OutputGoogleCloudStorageStorageClass = "NEARLINE"
-	OutputGoogleCloudStorageStorageClassColdline OutputGoogleCloudStorageStorageClass = "COLDLINE"
-	OutputGoogleCloudStorageStorageClassArchive  OutputGoogleCloudStorageStorageClass = "ARCHIVE"
-)
-
-func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStorageStorageClass {
-	return &e
-}
-
-// OutputGoogleCloudStorageDataFormat - Format of the output data
-type OutputGoogleCloudStorageDataFormat string
-
-const (
-	OutputGoogleCloudStorageDataFormatJSON    OutputGoogleCloudStorageDataFormat = "json"
-	OutputGoogleCloudStorageDataFormatRaw     OutputGoogleCloudStorageDataFormat = "raw"
-	OutputGoogleCloudStorageDataFormatParquet OutputGoogleCloudStorageDataFormat = "parquet"
-)
-
-func (e OutputGoogleCloudStorageDataFormat) ToPointer() *OutputGoogleCloudStorageDataFormat {
-	return &e
-}
-
-// OutputGoogleCloudStorageBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGoogleCloudStorageBackpressureBehavior string
-
-const (
-	OutputGoogleCloudStorageBackpressureBehaviorBlock OutputGoogleCloudStorageBackpressureBehavior = "block"
-	OutputGoogleCloudStorageBackpressureBehaviorDrop  OutputGoogleCloudStorageBackpressureBehavior = "drop"
-)
-
-func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleCloudStorageBackpressureBehavior {
-	return &e
-}
-
-// OutputGoogleCloudStorageDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputGoogleCloudStorageDiskSpaceProtection string
-
-const (
-	OutputGoogleCloudStorageDiskSpaceProtectionBlock OutputGoogleCloudStorageDiskSpaceProtection = "block"
-	OutputGoogleCloudStorageDiskSpaceProtectionDrop  OutputGoogleCloudStorageDiskSpaceProtection = "drop"
-)
-
-func (e OutputGoogleCloudStorageDiskSpaceProtection) ToPointer() *OutputGoogleCloudStorageDiskSpaceProtection {
-	return &e
-}
-
-// OutputGoogleCloudStorageCompression - Data compression format to apply to HTTP content before it is delivered
-type OutputGoogleCloudStorageCompression string
-
-const (
-	OutputGoogleCloudStorageCompressionNone OutputGoogleCloudStorageCompression = "none"
-	OutputGoogleCloudStorageCompressionGzip OutputGoogleCloudStorageCompression = "gzip"
-)
-
-func (e OutputGoogleCloudStorageCompression) ToPointer() *OutputGoogleCloudStorageCompression {
-	return &e
-}
-
-// OutputGoogleCloudStorageCompressionLevel - Compression level to apply before moving files to final destination
-type OutputGoogleCloudStorageCompressionLevel string
-
-const (
-	OutputGoogleCloudStorageCompressionLevelBestSpeed       OutputGoogleCloudStorageCompressionLevel = "best_speed"
-	OutputGoogleCloudStorageCompressionLevelNormal          OutputGoogleCloudStorageCompressionLevel = "normal"
-	OutputGoogleCloudStorageCompressionLevelBestCompression OutputGoogleCloudStorageCompressionLevel = "best_compression"
-)
-
-func (e OutputGoogleCloudStorageCompressionLevel) ToPointer() *OutputGoogleCloudStorageCompressionLevel {
-	return &e
-}
-
-// OutputGoogleCloudStorageParquetVersion - Determines which data types are supported and how they are represented
-type OutputGoogleCloudStorageParquetVersion string
-
-const (
-	OutputGoogleCloudStorageParquetVersionParquet10 OutputGoogleCloudStorageParquetVersion = "PARQUET_1_0"
-	OutputGoogleCloudStorageParquetVersionParquet24 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_4"
-	OutputGoogleCloudStorageParquetVersionParquet26 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputGoogleCloudStorageParquetVersion) ToPointer() *OutputGoogleCloudStorageParquetVersion {
-	return &e
-}
-
-// OutputGoogleCloudStorageDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputGoogleCloudStorageDataPageVersion string
-
-const (
-	OutputGoogleCloudStorageDataPageVersionDataPageV1 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V1"
-	OutputGoogleCloudStorageDataPageVersionDataPageV2 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputGoogleCloudStorageDataPageVersion) ToPointer() *OutputGoogleCloudStorageDataPageVersion {
-	return &e
-}
-
-type OutputGoogleCloudStorageKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputGoogleCloudStorageKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleCloudStorageKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputGoogleCloudStorageKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputGoogleCloudStorageKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputGoogleCloudStorage struct {
+type OutputGoogleCloudStorageGoogleCloudStorage9 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitempty"`
-	Type OutputGoogleCloudStorageType `json:"type"`
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType9 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -220,9 +52,8 @@ type OutputGoogleCloudStorage struct {
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
 	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *OutputGoogleCloudStorageSignatureVersion     `default:"v4" json:"signatureVersion"`
-	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `default:"manual" json:"awsAuthenticationMethod"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -230,9 +61,9 @@ type OutputGoogleCloudStorage struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputGoogleCloudStorageObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass *OutputGoogleCloudStorageStorageClass `json:"storageClass,omitempty"`
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -244,7 +75,7 @@ type OutputGoogleCloudStorage struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *OutputGoogleCloudStorageDataFormat `default:"json" json:"format"`
+	Format *Format1Options `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -261,23 +92,25 @@ type OutputGoogleCloudStorage struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGoogleCloudStorageBackpressureBehavior `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputGoogleCloudStorageDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
-	Description            *string                                      `json:"description,omitempty"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputGoogleCloudStorageCompression `default:"gzip" json:"compress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputGoogleCloudStorageCompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputGoogleCloudStorageParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputGoogleCloudStorageDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -285,7 +118,1031 @@ type OutputGoogleCloudStorage struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputGoogleCloudStorageKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetType() OutputGoogleCloudStorageType9 {
+	if o == nil {
+		return OutputGoogleCloudStorageType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage9) GetAwsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType8 string
+
+const (
+	OutputGoogleCloudStorageType8GoogleCloudStorage OutputGoogleCloudStorageType8 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType8) ToPointer() *OutputGoogleCloudStorageType8 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType8: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage8 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey string `json:"awsApiKey"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey string `json:"awsSecretKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "awsApiKey", "awsSecretKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetType() OutputGoogleCloudStorageType8 {
+	if o == nil {
+		return OutputGoogleCloudStorageType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAwsSecretKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage8) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType7 string
+
+const (
+	OutputGoogleCloudStorageType7GoogleCloudStorage OutputGoogleCloudStorageType7 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType7) ToPointer() *OutputGoogleCloudStorageType7 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType7: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -306,377 +1163,3673 @@ type OutputGoogleCloudStorage struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
+func (o OutputGoogleCloudStorageGoogleCloudStorage7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputGoogleCloudStorage) UnmarshalJSON(data []byte) error {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputGoogleCloudStorage) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputGoogleCloudStorage) GetType() OutputGoogleCloudStorageType {
-	if o == nil {
-		return OutputGoogleCloudStorageType("")
-	}
-	return o.Type
-}
-
-func (o *OutputGoogleCloudStorage) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputGoogleCloudStorage) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputGoogleCloudStorage) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputGoogleCloudStorage) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputGoogleCloudStorage) GetBucket() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bucket
-}
-
-func (o *OutputGoogleCloudStorage) GetRegion() string {
-	if o == nil {
-		return ""
-	}
-	return o.Region
-}
-
-func (o *OutputGoogleCloudStorage) GetEndpoint() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Endpoint
-}
-
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *OutputGoogleCloudStorageSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
-func (o *OutputGoogleCloudStorage) GetAwsAuthenticationMethod() *OutputGoogleCloudStorageAuthenticationMethod {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputGoogleCloudStorage) GetStagePath() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetType() OutputGoogleCloudStorageType7 {
+	if o == nil {
+		return OutputGoogleCloudStorageType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetStagePath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.StagePath
 }
 
-func (o *OutputGoogleCloudStorage) GetDestPath() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DestPath
 }
 
-func (o *OutputGoogleCloudStorage) GetVerifyPermissions() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
 }
 
-func (o *OutputGoogleCloudStorage) GetObjectACL() *OutputGoogleCloudStorageObjectACL {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetObjectACL() *ObjectAcl1Options {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputGoogleCloudStorage) GetStorageClass() *OutputGoogleCloudStorageStorageClass {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetStorageClass() *StorageClass1Options {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputGoogleCloudStorage) GetReuseConnections() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputGoogleCloudStorage) GetRejectUnauthorized() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputGoogleCloudStorage) GetAddIDToStagePath() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAddIDToStagePath() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AddIDToStagePath
 }
 
-func (o *OutputGoogleCloudStorage) GetRemoveEmptyDirs() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetRemoveEmptyDirs() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RemoveEmptyDirs
 }
 
-func (o *OutputGoogleCloudStorage) GetPartitionExpr() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetPartitionExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PartitionExpr
 }
 
-func (o *OutputGoogleCloudStorage) GetFormat() *OutputGoogleCloudStorageDataFormat {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetFormat() *Format1Options {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputGoogleCloudStorage) GetBaseFileName() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetBaseFileName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.BaseFileName
 }
 
-func (o *OutputGoogleCloudStorage) GetFileNameSuffix() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetFileNameSuffix() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FileNameSuffix
 }
 
-func (o *OutputGoogleCloudStorage) GetMaxFileSizeMB() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetMaxFileSizeMB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileSizeMB
 }
 
-func (o *OutputGoogleCloudStorage) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputGoogleCloudStorage) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputGoogleCloudStorage) GetMaxOpenFiles() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxOpenFiles
 }
 
-func (o *OutputGoogleCloudStorage) GetHeaderLine() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetHeaderLine() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HeaderLine
 }
 
-func (o *OutputGoogleCloudStorage) GetWriteHighWaterMark() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetWriteHighWaterMark() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputGoogleCloudStorage) GetOnBackpressure() *OutputGoogleCloudStorageBackpressureBehavior {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetOnBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputGoogleCloudStorage) GetDeadletterEnabled() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputGoogleCloudStorage) GetOnDiskFullBackpressure() *OutputGoogleCloudStorageDiskSpaceProtection {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputGoogleCloudStorage) GetDescription() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputGoogleCloudStorage) GetCompress() *OutputGoogleCloudStorageCompression {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetCompress() *PqCompressOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputGoogleCloudStorage) GetCompressionLevel() *OutputGoogleCloudStorageCompressionLevel {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
 	return o.CompressionLevel
 }
 
-func (o *OutputGoogleCloudStorage) GetAutomaticSchema() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetVersion() *OutputGoogleCloudStorageParquetVersion {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetDataPageVersion() *OutputGoogleCloudStorageDataPageVersion {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetRowGroupLength() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetPageSize() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputGoogleCloudStorage) GetShouldLogInvalidRows() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputGoogleCloudStorage) GetKeyValueMetadata() []OutputGoogleCloudStorageKeyValueMetadatum {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetKeyValueMetadata() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputGoogleCloudStorage) GetEnableStatistics() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputGoogleCloudStorage) GetEnableWritePageIndex() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputGoogleCloudStorage) GetEnablePageChecksum() *bool {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputGoogleCloudStorage) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputGoogleCloudStorage) GetDeadletterPath() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputGoogleCloudStorage) GetMaxRetryNum() *float64 {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
 }
 
-func (o *OutputGoogleCloudStorage) GetAwsAPIKey() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputGoogleCloudStorage) GetAwsSecretKey() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputGoogleCloudStorage) GetAwsSecret() *string {
+func (o *OutputGoogleCloudStorageGoogleCloudStorage7) GetAwsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType6 string
+
+const (
+	OutputGoogleCloudStorageType6GoogleCloudStorage OutputGoogleCloudStorageType6 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType6) ToPointer() *OutputGoogleCloudStorageType6 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType6: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage6 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetType() OutputGoogleCloudStorageType6 {
+	if o == nil {
+		return OutputGoogleCloudStorageType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage6) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType5 string
+
+const (
+	OutputGoogleCloudStorageType5GoogleCloudStorage OutputGoogleCloudStorageType5 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType5) ToPointer() *OutputGoogleCloudStorageType5 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType5: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage5 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetType() OutputGoogleCloudStorageType5 {
+	if o == nil {
+		return OutputGoogleCloudStorageType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage5) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType4 string
+
+const (
+	OutputGoogleCloudStorageType4GoogleCloudStorage OutputGoogleCloudStorageType4 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType4) ToPointer() *OutputGoogleCloudStorageType4 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType4: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage4 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetType() OutputGoogleCloudStorageType4 {
+	if o == nil {
+		return OutputGoogleCloudStorageType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage4) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType3 string
+
+const (
+	OutputGoogleCloudStorageType3GoogleCloudStorage OutputGoogleCloudStorageType3 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType3) ToPointer() *OutputGoogleCloudStorageType3 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType3: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage3 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetType() OutputGoogleCloudStorageType3 {
+	if o == nil {
+		return OutputGoogleCloudStorageType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage3) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType2 string
+
+const (
+	OutputGoogleCloudStorageType2GoogleCloudStorage OutputGoogleCloudStorageType2 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType2) ToPointer() *OutputGoogleCloudStorageType2 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType2: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage2 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows bool `json:"shouldLogInvalidRows"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "shouldLogInvalidRows", "keyValueMetadata"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetType() OutputGoogleCloudStorageType2 {
+	if o == nil {
+		return OutputGoogleCloudStorageType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetShouldLogInvalidRows() bool {
+	if o == nil {
+		return false
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage2) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType1 string
+
+const (
+	OutputGoogleCloudStorageType1GoogleCloudStorage OutputGoogleCloudStorageType1 = "google_cloud_storage"
+)
+
+func (e OutputGoogleCloudStorageType1) ToPointer() *OutputGoogleCloudStorageType1 {
+	return &e
+}
+func (e *OutputGoogleCloudStorageType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = OutputGoogleCloudStorageType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleCloudStorageType1: %v", v)
+	}
+}
+
+type OutputGoogleCloudStorageGoogleCloudStorage1 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string                       `json:"id,omitempty"`
+	Type OutputGoogleCloudStorageType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// Region where the bucket is located
+	Region string `json:"region"`
+	// Google Cloud Storage service endpoint
+	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectAcl1Options `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1Options `json:"storageClass,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (o OutputGoogleCloudStorageGoogleCloudStorage1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetType() OutputGoogleCloudStorageType1 {
+	if o == nil {
+		return OutputGoogleCloudStorageType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetObjectACL() *ObjectAcl1Options {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetStorageClass() *StorageClass1Options {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputGoogleCloudStorageGoogleCloudStorage1) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+type OutputGoogleCloudStorageType string
+
+const (
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage1 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_1"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage2 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_2"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage3 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_3"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage4 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_4"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage5 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_5"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage6 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_6"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage7 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_7"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage8 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_8"
+	OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage9 OutputGoogleCloudStorageType = "OutputGoogleCloudStorage_GoogleCloudStorage_9"
+)
+
+type OutputGoogleCloudStorage struct {
+	OutputGoogleCloudStorageGoogleCloudStorage1 *OutputGoogleCloudStorageGoogleCloudStorage1 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage2 *OutputGoogleCloudStorageGoogleCloudStorage2 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage3 *OutputGoogleCloudStorageGoogleCloudStorage3 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage4 *OutputGoogleCloudStorageGoogleCloudStorage4 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage5 *OutputGoogleCloudStorageGoogleCloudStorage5 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage6 *OutputGoogleCloudStorageGoogleCloudStorage6 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage7 *OutputGoogleCloudStorageGoogleCloudStorage7 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage8 *OutputGoogleCloudStorageGoogleCloudStorage8 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+	OutputGoogleCloudStorageGoogleCloudStorage9 *OutputGoogleCloudStorageGoogleCloudStorage9 `queryParam:"inline,name=OutputGoogleCloudStorage"`
+
+	Type OutputGoogleCloudStorageType
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage1(outputGoogleCloudStorageGoogleCloudStorage1 OutputGoogleCloudStorageGoogleCloudStorage1) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage1
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage1: &outputGoogleCloudStorageGoogleCloudStorage1,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage2(outputGoogleCloudStorageGoogleCloudStorage2 OutputGoogleCloudStorageGoogleCloudStorage2) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage2
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage2: &outputGoogleCloudStorageGoogleCloudStorage2,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage3(outputGoogleCloudStorageGoogleCloudStorage3 OutputGoogleCloudStorageGoogleCloudStorage3) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage3
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage3: &outputGoogleCloudStorageGoogleCloudStorage3,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage4(outputGoogleCloudStorageGoogleCloudStorage4 OutputGoogleCloudStorageGoogleCloudStorage4) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage4
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage4: &outputGoogleCloudStorageGoogleCloudStorage4,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage5(outputGoogleCloudStorageGoogleCloudStorage5 OutputGoogleCloudStorageGoogleCloudStorage5) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage5
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage5: &outputGoogleCloudStorageGoogleCloudStorage5,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage6(outputGoogleCloudStorageGoogleCloudStorage6 OutputGoogleCloudStorageGoogleCloudStorage6) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage6
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage6: &outputGoogleCloudStorageGoogleCloudStorage6,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage7(outputGoogleCloudStorageGoogleCloudStorage7 OutputGoogleCloudStorageGoogleCloudStorage7) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage7
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage7: &outputGoogleCloudStorageGoogleCloudStorage7,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage8(outputGoogleCloudStorageGoogleCloudStorage8 OutputGoogleCloudStorageGoogleCloudStorage8) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage8
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage8: &outputGoogleCloudStorageGoogleCloudStorage8,
+		Type: typ,
+	}
+}
+
+func CreateOutputGoogleCloudStorageOutputGoogleCloudStorageGoogleCloudStorage9(outputGoogleCloudStorageGoogleCloudStorage9 OutputGoogleCloudStorageGoogleCloudStorage9) OutputGoogleCloudStorage {
+	typ := OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage9
+
+	return OutputGoogleCloudStorage{
+		OutputGoogleCloudStorageGoogleCloudStorage9: &outputGoogleCloudStorageGoogleCloudStorage9,
+		Type: typ,
+	}
+}
+
+func (u *OutputGoogleCloudStorage) UnmarshalJSON(data []byte) error {
+
+	var outputGoogleCloudStorageGoogleCloudStorage2 OutputGoogleCloudStorageGoogleCloudStorage2 = OutputGoogleCloudStorageGoogleCloudStorage2{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage2, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage2 = &outputGoogleCloudStorageGoogleCloudStorage2
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage2
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage8 OutputGoogleCloudStorageGoogleCloudStorage8 = OutputGoogleCloudStorageGoogleCloudStorage8{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage8, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage8 = &outputGoogleCloudStorageGoogleCloudStorage8
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage8
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage9 OutputGoogleCloudStorageGoogleCloudStorage9 = OutputGoogleCloudStorageGoogleCloudStorage9{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage9, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage9 = &outputGoogleCloudStorageGoogleCloudStorage9
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage9
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage1 OutputGoogleCloudStorageGoogleCloudStorage1 = OutputGoogleCloudStorageGoogleCloudStorage1{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage1, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage1 = &outputGoogleCloudStorageGoogleCloudStorage1
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage1
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage3 OutputGoogleCloudStorageGoogleCloudStorage3 = OutputGoogleCloudStorageGoogleCloudStorage3{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage3, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage3 = &outputGoogleCloudStorageGoogleCloudStorage3
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage3
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage4 OutputGoogleCloudStorageGoogleCloudStorage4 = OutputGoogleCloudStorageGoogleCloudStorage4{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage4, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage4 = &outputGoogleCloudStorageGoogleCloudStorage4
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage4
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage5 OutputGoogleCloudStorageGoogleCloudStorage5 = OutputGoogleCloudStorageGoogleCloudStorage5{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage5, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage5 = &outputGoogleCloudStorageGoogleCloudStorage5
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage5
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage6 OutputGoogleCloudStorageGoogleCloudStorage6 = OutputGoogleCloudStorageGoogleCloudStorage6{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage6, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage6 = &outputGoogleCloudStorageGoogleCloudStorage6
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage6
+		return nil
+	}
+
+	var outputGoogleCloudStorageGoogleCloudStorage7 OutputGoogleCloudStorageGoogleCloudStorage7 = OutputGoogleCloudStorageGoogleCloudStorage7{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleCloudStorageGoogleCloudStorage7, "", true, nil); err == nil {
+		u.OutputGoogleCloudStorageGoogleCloudStorage7 = &outputGoogleCloudStorageGoogleCloudStorage7
+		u.Type = OutputGoogleCloudStorageTypeOutputGoogleCloudStorageGoogleCloudStorage7
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGoogleCloudStorage", string(data))
+}
+
+func (u OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
+	if u.OutputGoogleCloudStorageGoogleCloudStorage1 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage1, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage2 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage2, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage3 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage3, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage4 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage4, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage5 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage5, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage6 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage6, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage7 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage7, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage8 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage8, "", true)
+	}
+
+	if u.OutputGoogleCloudStorageGoogleCloudStorage9 != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudStorageGoogleCloudStorage9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputGoogleCloudStorage: all fields are null")
 }

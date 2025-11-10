@@ -3,115 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputGooglePubsubType string
-
-const (
-	OutputGooglePubsubTypeGooglePubsub OutputGooglePubsubType = "google_pubsub"
-)
-
-func (e OutputGooglePubsubType) ToPointer() *OutputGooglePubsubType {
-	return &e
-}
-func (e *OutputGooglePubsubType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "google_pubsub":
-		*e = OutputGooglePubsubType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputGooglePubsubType: %v", v)
-	}
-}
-
-// OutputGooglePubsubGoogleAuthenticationMethod - Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-type OutputGooglePubsubGoogleAuthenticationMethod string
-
-const (
-	OutputGooglePubsubGoogleAuthenticationMethodAuto   OutputGooglePubsubGoogleAuthenticationMethod = "auto"
-	OutputGooglePubsubGoogleAuthenticationMethodManual OutputGooglePubsubGoogleAuthenticationMethod = "manual"
-	OutputGooglePubsubGoogleAuthenticationMethodSecret OutputGooglePubsubGoogleAuthenticationMethod = "secret"
-)
-
-func (e OutputGooglePubsubGoogleAuthenticationMethod) ToPointer() *OutputGooglePubsubGoogleAuthenticationMethod {
-	return &e
-}
-
-// OutputGooglePubsubBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGooglePubsubBackpressureBehavior string
-
-const (
-	OutputGooglePubsubBackpressureBehaviorBlock OutputGooglePubsubBackpressureBehavior = "block"
-	OutputGooglePubsubBackpressureBehaviorDrop  OutputGooglePubsubBackpressureBehavior = "drop"
-	OutputGooglePubsubBackpressureBehaviorQueue OutputGooglePubsubBackpressureBehavior = "queue"
-)
-
-func (e OutputGooglePubsubBackpressureBehavior) ToPointer() *OutputGooglePubsubBackpressureBehavior {
-	return &e
-}
-
-// OutputGooglePubsubCompression - Codec to use to compress the persisted data
-type OutputGooglePubsubCompression string
-
-const (
-	OutputGooglePubsubCompressionNone OutputGooglePubsubCompression = "none"
-	OutputGooglePubsubCompressionGzip OutputGooglePubsubCompression = "gzip"
-)
-
-func (e OutputGooglePubsubCompression) ToPointer() *OutputGooglePubsubCompression {
-	return &e
-}
-
-// OutputGooglePubsubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputGooglePubsubQueueFullBehavior string
-
-const (
-	OutputGooglePubsubQueueFullBehaviorBlock OutputGooglePubsubQueueFullBehavior = "block"
-	OutputGooglePubsubQueueFullBehaviorDrop  OutputGooglePubsubQueueFullBehavior = "drop"
-)
-
-func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueueFullBehavior {
-	return &e
-}
-
-// OutputGooglePubsubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGooglePubsubMode string
-
-const (
-	OutputGooglePubsubModeError        OutputGooglePubsubMode = "error"
-	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
-	OutputGooglePubsubModeAlways       OutputGooglePubsubMode = "always"
-)
-
-func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {
-	return &e
-}
-
-type OutputGooglePubsubPqControls struct {
-}
-
-func (o OutputGooglePubsubPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGooglePubsubPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputGooglePubsub struct {
+type OutputGooglePubsubGooglePubsub5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string                `json:"id,omitempty"`
-	Type OutputGooglePubsubType `json:"type"`
+	Type TypeGooglePubsubOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -128,8 +30,1202 @@ type OutputGooglePubsub struct {
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
-	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *OutputGooglePubsubGoogleAuthenticationMethod `default:"manual" json:"googleAuthMethod"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// The maximum number of items the Google API should batch before it sends them to the topic.
+	BatchSize *float64 `default:"1000" json:"batchSize"`
+	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+	BatchTimeout *float64 `default:"100" json:"batchTimeout"`
+	// Maximum number of queued batches before blocking.
+	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
+	// Maximum size (KB) of batches to send.
+	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
+	// Maximum time to wait before sending a batch (when batch size limit is not reached)
+	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
+	// The maximum number of in-progress API requests before backpressure is applied.
+	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
+	Description   *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+}
+
+func (o OutputGooglePubsubGooglePubsub5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicName", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetType() TypeGooglePubsubOption {
+	if o == nil {
+		return TypeGooglePubsubOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetTopicName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicName
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetCreateTopic() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTopic
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetOrderedDelivery() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OrderedDelivery
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetBatchTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchTimeout
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetFlushPeriod() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriod
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetMaxInProgress() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxInProgress
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub5) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputGooglePubsubGooglePubsub4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeGooglePubsubOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// ID of the topic to send events to.
+	TopicName string `json:"topicName"`
+	// If enabled, create topic if it does not exist.
+	CreateTopic *bool `default:"false" json:"createTopic"`
+	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+	Region *string `json:"region,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// The maximum number of items the Google API should batch before it sends them to the topic.
+	BatchSize *float64 `default:"1000" json:"batchSize"`
+	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+	BatchTimeout *float64 `default:"100" json:"batchTimeout"`
+	// Maximum number of queued batches before blocking.
+	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
+	// Maximum size (KB) of batches to send.
+	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
+	// Maximum time to wait before sending a batch (when batch size limit is not reached)
+	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
+	// The maximum number of in-progress API requests before backpressure is applied.
+	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
+	Description   *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGooglePubsubGooglePubsub4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetType() TypeGooglePubsubOption {
+	if o == nil {
+		return TypeGooglePubsubOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetTopicName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicName
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetCreateTopic() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTopic
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetOrderedDelivery() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OrderedDelivery
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetBatchTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchTimeout
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetFlushPeriod() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriod
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetMaxInProgress() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxInProgress
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGooglePubsubGooglePubsub3 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeGooglePubsubOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// ID of the topic to send events to.
+	TopicName string `json:"topicName"`
+	// If enabled, create topic if it does not exist.
+	CreateTopic *bool `default:"false" json:"createTopic"`
+	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+	Region *string `json:"region,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	Secret string `json:"secret"`
+	// The maximum number of items the Google API should batch before it sends them to the topic.
+	BatchSize *float64 `default:"1000" json:"batchSize"`
+	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+	BatchTimeout *float64 `default:"100" json:"batchTimeout"`
+	// Maximum number of queued batches before blocking.
+	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
+	// Maximum size (KB) of batches to send.
+	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
+	// Maximum time to wait before sending a batch (when batch size limit is not reached)
+	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
+	// The maximum number of in-progress API requests before backpressure is applied.
+	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGooglePubsubGooglePubsub3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicName", "secret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetType() TypeGooglePubsubOption {
+	if o == nil {
+		return TypeGooglePubsubOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetTopicName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicName
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetCreateTopic() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTopic
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetOrderedDelivery() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OrderedDelivery
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetBatchTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchTimeout
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetFlushPeriod() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriod
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetMaxInProgress() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxInProgress
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGooglePubsubGooglePubsub2 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeGooglePubsubOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// ID of the topic to send events to.
+	TopicName string `json:"topicName"`
+	// If enabled, create topic if it does not exist.
+	CreateTopic *bool `default:"false" json:"createTopic"`
+	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+	Region *string `json:"region,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitempty"`
+	// The maximum number of items the Google API should batch before it sends them to the topic.
+	BatchSize *float64 `default:"1000" json:"batchSize"`
+	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+	BatchTimeout *float64 `default:"100" json:"batchTimeout"`
+	// Maximum number of queued batches before blocking.
+	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
+	// Maximum size (KB) of batches to send.
+	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
+	// Maximum time to wait before sending a batch (when batch size limit is not reached)
+	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
+	// The maximum number of in-progress API requests before backpressure is applied.
+	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGooglePubsubGooglePubsub2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicName", "serviceAccountCredentials"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.GoogleAuthMethod
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetType() TypeGooglePubsubOption {
+	if o == nil {
+		return TypeGooglePubsubOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetTopicName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicName
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetCreateTopic() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTopic
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetOrderedDelivery() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OrderedDelivery
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetServiceAccountCredentials() string {
+	if o == nil {
+		return ""
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetBatchTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BatchTimeout
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetMaxQueueSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxQueueSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetMaxRecordSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSizeKB
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetFlushPeriod() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriod
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetMaxInProgress() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxInProgress
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGooglePubsubGooglePubsub1 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	GoogleAuthMethod *AwsAuthenticationMethodOptions `default:"auto" json:"googleAuthMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeGooglePubsubOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// ID of the topic to send events to.
+	TopicName string `json:"topicName"`
+	// If enabled, create topic if it does not exist.
+	CreateTopic *bool `default:"false" json:"createTopic"`
+	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+	Region *string `json:"region,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
@@ -147,8 +1243,18 @@ type OutputGooglePubsub struct {
 	// The maximum number of in-progress API requests before backpressure is applied.
 	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGooglePubsubBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -156,217 +1262,372 @@ type OutputGooglePubsub struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputGooglePubsubCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputGooglePubsubQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGooglePubsubMode       `default:"error" json:"pqMode"`
-	PqControls *OutputGooglePubsubPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 }
 
-func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
+func (o OutputGooglePubsubGooglePubsub1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputGooglePubsub) UnmarshalJSON(data []byte) error {
+func (o *OutputGooglePubsubGooglePubsub1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "topicName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputGooglePubsub) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputGooglePubsub) GetType() OutputGooglePubsubType {
-	if o == nil {
-		return OutputGooglePubsubType("")
-	}
-	return o.Type
-}
-
-func (o *OutputGooglePubsub) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputGooglePubsub) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputGooglePubsub) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputGooglePubsub) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputGooglePubsub) GetTopicName() string {
-	if o == nil {
-		return ""
-	}
-	return o.TopicName
-}
-
-func (o *OutputGooglePubsub) GetCreateTopic() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.CreateTopic
-}
-
-func (o *OutputGooglePubsub) GetOrderedDelivery() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.OrderedDelivery
-}
-
-func (o *OutputGooglePubsub) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputGooglePubsub) GetGoogleAuthMethod() *OutputGooglePubsubGoogleAuthenticationMethod {
+func (o *OutputGooglePubsubGooglePubsub1) GetGoogleAuthMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.GoogleAuthMethod
 }
 
-func (o *OutputGooglePubsub) GetServiceAccountCredentials() *string {
+func (o *OutputGooglePubsubGooglePubsub1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetType() TypeGooglePubsubOption {
+	if o == nil {
+		return TypeGooglePubsubOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetTopicName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TopicName
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetCreateTopic() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTopic
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetOrderedDelivery() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.OrderedDelivery
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetServiceAccountCredentials() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ServiceAccountCredentials
 }
 
-func (o *OutputGooglePubsub) GetSecret() *string {
+func (o *OutputGooglePubsubGooglePubsub1) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputGooglePubsub) GetBatchSize() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetBatchSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.BatchSize
 }
 
-func (o *OutputGooglePubsub) GetBatchTimeout() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetBatchTimeout() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.BatchTimeout
 }
 
-func (o *OutputGooglePubsub) GetMaxQueueSize() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetMaxQueueSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxQueueSize
 }
 
-func (o *OutputGooglePubsub) GetMaxRecordSizeKB() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetMaxRecordSizeKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRecordSizeKB
 }
 
-func (o *OutputGooglePubsub) GetFlushPeriod() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetFlushPeriod() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.FlushPeriod
 }
 
-func (o *OutputGooglePubsub) GetMaxInProgress() *float64 {
+func (o *OutputGooglePubsubGooglePubsub1) GetMaxInProgress() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxInProgress
 }
 
-func (o *OutputGooglePubsub) GetOnBackpressure() *OutputGooglePubsubBackpressureBehavior {
+func (o *OutputGooglePubsubGooglePubsub1) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputGooglePubsub) GetDescription() *string {
+func (o *OutputGooglePubsubGooglePubsub1) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputGooglePubsub) GetPqMaxFileSize() *string {
+func (o *OutputGooglePubsubGooglePubsub1) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputGooglePubsub) GetPqMaxSize() *string {
+func (o *OutputGooglePubsubGooglePubsub1) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputGooglePubsub) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputGooglePubsub) GetPqCompress() *OutputGooglePubsubCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputGooglePubsub) GetPqOnBackpressure() *OutputGooglePubsubQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputGooglePubsub) GetPqMode() *OutputGooglePubsubMode {
+func (o *OutputGooglePubsubGooglePubsub1) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputGooglePubsub) GetPqControls() *OutputGooglePubsubPqControls {
+func (o *OutputGooglePubsubGooglePubsub1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGooglePubsubGooglePubsub1) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputGooglePubsubType string
+
+const (
+	OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub1 OutputGooglePubsubType = "OutputGooglePubsub_GooglePubsub_1"
+	OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub2 OutputGooglePubsubType = "OutputGooglePubsub_GooglePubsub_2"
+	OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub3 OutputGooglePubsubType = "OutputGooglePubsub_GooglePubsub_3"
+	OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub4 OutputGooglePubsubType = "OutputGooglePubsub_GooglePubsub_4"
+	OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub5 OutputGooglePubsubType = "OutputGooglePubsub_GooglePubsub_5"
+)
+
+type OutputGooglePubsub struct {
+	OutputGooglePubsubGooglePubsub1 *OutputGooglePubsubGooglePubsub1 `queryParam:"inline,name=OutputGooglePubsub"`
+	OutputGooglePubsubGooglePubsub2 *OutputGooglePubsubGooglePubsub2 `queryParam:"inline,name=OutputGooglePubsub"`
+	OutputGooglePubsubGooglePubsub3 *OutputGooglePubsubGooglePubsub3 `queryParam:"inline,name=OutputGooglePubsub"`
+	OutputGooglePubsubGooglePubsub4 *OutputGooglePubsubGooglePubsub4 `queryParam:"inline,name=OutputGooglePubsub"`
+	OutputGooglePubsubGooglePubsub5 *OutputGooglePubsubGooglePubsub5 `queryParam:"inline,name=OutputGooglePubsub"`
+
+	Type OutputGooglePubsubType
+}
+
+func CreateOutputGooglePubsubOutputGooglePubsubGooglePubsub1(outputGooglePubsubGooglePubsub1 OutputGooglePubsubGooglePubsub1) OutputGooglePubsub {
+	typ := OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub1
+
+	return OutputGooglePubsub{
+		OutputGooglePubsubGooglePubsub1: &outputGooglePubsubGooglePubsub1,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputGooglePubsubOutputGooglePubsubGooglePubsub2(outputGooglePubsubGooglePubsub2 OutputGooglePubsubGooglePubsub2) OutputGooglePubsub {
+	typ := OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub2
+
+	return OutputGooglePubsub{
+		OutputGooglePubsubGooglePubsub2: &outputGooglePubsubGooglePubsub2,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputGooglePubsubOutputGooglePubsubGooglePubsub3(outputGooglePubsubGooglePubsub3 OutputGooglePubsubGooglePubsub3) OutputGooglePubsub {
+	typ := OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub3
+
+	return OutputGooglePubsub{
+		OutputGooglePubsubGooglePubsub3: &outputGooglePubsubGooglePubsub3,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputGooglePubsubOutputGooglePubsubGooglePubsub4(outputGooglePubsubGooglePubsub4 OutputGooglePubsubGooglePubsub4) OutputGooglePubsub {
+	typ := OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub4
+
+	return OutputGooglePubsub{
+		OutputGooglePubsubGooglePubsub4: &outputGooglePubsubGooglePubsub4,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputGooglePubsubOutputGooglePubsubGooglePubsub5(outputGooglePubsubGooglePubsub5 OutputGooglePubsubGooglePubsub5) OutputGooglePubsub {
+	typ := OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub5
+
+	return OutputGooglePubsub{
+		OutputGooglePubsubGooglePubsub5: &outputGooglePubsubGooglePubsub5,
+		Type:                            typ,
+	}
+}
+
+func (u *OutputGooglePubsub) UnmarshalJSON(data []byte) error {
+
+	var outputGooglePubsubGooglePubsub2 OutputGooglePubsubGooglePubsub2 = OutputGooglePubsubGooglePubsub2{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsubGooglePubsub2, "", true, nil); err == nil {
+		u.OutputGooglePubsubGooglePubsub2 = &outputGooglePubsubGooglePubsub2
+		u.Type = OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub2
+		return nil
+	}
+
+	var outputGooglePubsubGooglePubsub3 OutputGooglePubsubGooglePubsub3 = OutputGooglePubsubGooglePubsub3{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsubGooglePubsub3, "", true, nil); err == nil {
+		u.OutputGooglePubsubGooglePubsub3 = &outputGooglePubsubGooglePubsub3
+		u.Type = OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub3
+		return nil
+	}
+
+	var outputGooglePubsubGooglePubsub5 OutputGooglePubsubGooglePubsub5 = OutputGooglePubsubGooglePubsub5{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsubGooglePubsub5, "", true, nil); err == nil {
+		u.OutputGooglePubsubGooglePubsub5 = &outputGooglePubsubGooglePubsub5
+		u.Type = OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub5
+		return nil
+	}
+
+	var outputGooglePubsubGooglePubsub1 OutputGooglePubsubGooglePubsub1 = OutputGooglePubsubGooglePubsub1{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsubGooglePubsub1, "", true, nil); err == nil {
+		u.OutputGooglePubsubGooglePubsub1 = &outputGooglePubsubGooglePubsub1
+		u.Type = OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub1
+		return nil
+	}
+
+	var outputGooglePubsubGooglePubsub4 OutputGooglePubsubGooglePubsub4 = OutputGooglePubsubGooglePubsub4{}
+	if err := utils.UnmarshalJSON(data, &outputGooglePubsubGooglePubsub4, "", true, nil); err == nil {
+		u.OutputGooglePubsubGooglePubsub4 = &outputGooglePubsubGooglePubsub4
+		u.Type = OutputGooglePubsubTypeOutputGooglePubsubGooglePubsub4
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGooglePubsub", string(data))
+}
+
+func (u OutputGooglePubsub) MarshalJSON() ([]byte, error) {
+	if u.OutputGooglePubsubGooglePubsub1 != nil {
+		return utils.MarshalJSON(u.OutputGooglePubsubGooglePubsub1, "", true)
+	}
+
+	if u.OutputGooglePubsubGooglePubsub2 != nil {
+		return utils.MarshalJSON(u.OutputGooglePubsubGooglePubsub2, "", true)
+	}
+
+	if u.OutputGooglePubsubGooglePubsub3 != nil {
+		return utils.MarshalJSON(u.OutputGooglePubsubGooglePubsub3, "", true)
+	}
+
+	if u.OutputGooglePubsubGooglePubsub4 != nil {
+		return utils.MarshalJSON(u.OutputGooglePubsubGooglePubsub4, "", true)
+	}
+
+	if u.OutputGooglePubsubGooglePubsub5 != nil {
+		return utils.MarshalJSON(u.OutputGooglePubsubGooglePubsub5, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputGooglePubsub: all fields are null")
 }

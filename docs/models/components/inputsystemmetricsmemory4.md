@@ -1,0 +1,9 @@
+# InputSystemMetricsMemory4
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Mode`                                                                                                | [*components.InputSystemMetricsMemoryMode4](../../models/components/inputsystemmetricsmemorymode4.md) | :heavy_minus_sign:                                                                                    | Select the level of detail for memory metrics                                                         |
+| `Detail`                                                                                              | **bool*                                                                                               | :heavy_minus_sign:                                                                                    | Generate metrics for all memory states                                                                |

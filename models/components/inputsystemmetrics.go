@@ -4,263 +4,123 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSystemMetricsType string
+type InputSystemMetricsType4 string
 
 const (
-	InputSystemMetricsTypeSystemMetrics InputSystemMetricsType = "system_metrics"
+	InputSystemMetricsType4SystemMetrics InputSystemMetricsType4 = "system_metrics"
 )
 
-func (e InputSystemMetricsType) ToPointer() *InputSystemMetricsType {
+func (e InputSystemMetricsType4) ToPointer() *InputSystemMetricsType4 {
 	return &e
 }
-func (e *InputSystemMetricsType) UnmarshalJSON(data []byte) error {
+func (e *InputSystemMetricsType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "system_metrics":
-		*e = InputSystemMetricsType(v)
+		*e = InputSystemMetricsType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputSystemMetricsType: %v", v)
+		return fmt.Errorf("invalid value for InputSystemMetricsType4: %v", v)
 	}
 }
 
-type InputSystemMetricsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSystemMetricsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemMetricsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSystemMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSystemMetricsPqMode string
+// InputSystemMetricsHostMode4 - Select level of detail for host metrics
+type InputSystemMetricsHostMode4 string
 
 const (
-	InputSystemMetricsPqModeSmart  InputSystemMetricsPqMode = "smart"
-	InputSystemMetricsPqModeAlways InputSystemMetricsPqMode = "always"
+	// InputSystemMetricsHostMode4Basic Basic
+	InputSystemMetricsHostMode4Basic InputSystemMetricsHostMode4 = "basic"
+	// InputSystemMetricsHostMode4All All
+	InputSystemMetricsHostMode4All InputSystemMetricsHostMode4 = "all"
+	// InputSystemMetricsHostMode4Custom Custom
+	InputSystemMetricsHostMode4Custom InputSystemMetricsHostMode4 = "custom"
+	// InputSystemMetricsHostMode4Disabled Disabled
+	InputSystemMetricsHostMode4Disabled InputSystemMetricsHostMode4 = "disabled"
 )
 
-func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
+func (e InputSystemMetricsHostMode4) ToPointer() *InputSystemMetricsHostMode4 {
 	return &e
 }
 
-// InputSystemMetricsCompression - Codec to use to compress the persisted data
-type InputSystemMetricsCompression string
+// InputSystemMetricsSystemMode4 - Select the level of detail for system metrics
+type InputSystemMetricsSystemMode4 string
 
 const (
-	InputSystemMetricsCompressionNone InputSystemMetricsCompression = "none"
-	InputSystemMetricsCompressionGzip InputSystemMetricsCompression = "gzip"
+	// InputSystemMetricsSystemMode4Basic Basic
+	InputSystemMetricsSystemMode4Basic InputSystemMetricsSystemMode4 = "basic"
+	// InputSystemMetricsSystemMode4All All
+	InputSystemMetricsSystemMode4All InputSystemMetricsSystemMode4 = "all"
+	// InputSystemMetricsSystemMode4Custom Custom
+	InputSystemMetricsSystemMode4Custom InputSystemMetricsSystemMode4 = "custom"
+	// InputSystemMetricsSystemMode4Disabled Disabled
+	InputSystemMetricsSystemMode4Disabled InputSystemMetricsSystemMode4 = "disabled"
 )
 
-func (e InputSystemMetricsCompression) ToPointer() *InputSystemMetricsCompression {
+func (e InputSystemMetricsSystemMode4) ToPointer() *InputSystemMetricsSystemMode4 {
 	return &e
 }
 
-type InputSystemMetricsPqControls struct {
-}
-
-func (i InputSystemMetricsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSystemMetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSystemMetricsPqMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSystemMetricsCompression `default:"none" json:"compress"`
-	PqControls *InputSystemMetricsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSystemMetricsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsPq) GetMode() *InputSystemMetricsPqMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSystemMetricsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSystemMetricsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSystemMetricsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSystemMetricsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSystemMetricsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSystemMetricsPq) GetCompress() *InputSystemMetricsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSystemMetricsPq) GetPqControls() *InputSystemMetricsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputSystemMetricsHostMode - Select level of detail for host metrics
-type InputSystemMetricsHostMode string
-
-const (
-	InputSystemMetricsHostModeBasic    InputSystemMetricsHostMode = "basic"
-	InputSystemMetricsHostModeAll      InputSystemMetricsHostMode = "all"
-	InputSystemMetricsHostModeCustom   InputSystemMetricsHostMode = "custom"
-	InputSystemMetricsHostModeDisabled InputSystemMetricsHostMode = "disabled"
-)
-
-func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
-	return &e
-}
-
-// InputSystemMetricsSystemMode - Select the level of detail for system metrics
-type InputSystemMetricsSystemMode string
-
-const (
-	InputSystemMetricsSystemModeBasic    InputSystemMetricsSystemMode = "basic"
-	InputSystemMetricsSystemModeAll      InputSystemMetricsSystemMode = "all"
-	InputSystemMetricsSystemModeCustom   InputSystemMetricsSystemMode = "custom"
-	InputSystemMetricsSystemModeDisabled InputSystemMetricsSystemMode = "disabled"
-)
-
-func (e InputSystemMetricsSystemMode) ToPointer() *InputSystemMetricsSystemMode {
-	return &e
-}
-
-type InputSystemMetricsSystem struct {
+type InputSystemMetricsSystem4 struct {
 	// Select the level of detail for system metrics
-	Mode *InputSystemMetricsSystemMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsSystemMode4 `default:"basic" json:"mode"`
 	// Generate metrics for the numbers of processes in various states
 	Processes *bool `default:"false" json:"processes"`
 }
 
-func (i InputSystemMetricsSystem) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsSystem4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsSystem) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsSystem4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsSystem) GetMode() *InputSystemMetricsSystemMode {
+func (i *InputSystemMetricsSystem4) GetMode() *InputSystemMetricsSystemMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsSystem) GetProcesses() *bool {
+func (i *InputSystemMetricsSystem4) GetProcesses() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Processes
 }
 
-// InputSystemMetricsCPUMode - Select the level of detail for CPU metrics
-type InputSystemMetricsCPUMode string
+// InputSystemMetricsCPUMode4 - Select the level of detail for CPU metrics
+type InputSystemMetricsCPUMode4 string
 
 const (
-	InputSystemMetricsCPUModeBasic    InputSystemMetricsCPUMode = "basic"
-	InputSystemMetricsCPUModeAll      InputSystemMetricsCPUMode = "all"
-	InputSystemMetricsCPUModeCustom   InputSystemMetricsCPUMode = "custom"
-	InputSystemMetricsCPUModeDisabled InputSystemMetricsCPUMode = "disabled"
+	// InputSystemMetricsCPUMode4Basic Basic
+	InputSystemMetricsCPUMode4Basic InputSystemMetricsCPUMode4 = "basic"
+	// InputSystemMetricsCPUMode4All All
+	InputSystemMetricsCPUMode4All InputSystemMetricsCPUMode4 = "all"
+	// InputSystemMetricsCPUMode4Custom Custom
+	InputSystemMetricsCPUMode4Custom InputSystemMetricsCPUMode4 = "custom"
+	// InputSystemMetricsCPUMode4Disabled Disabled
+	InputSystemMetricsCPUMode4Disabled InputSystemMetricsCPUMode4 = "disabled"
 )
 
-func (e InputSystemMetricsCPUMode) ToPointer() *InputSystemMetricsCPUMode {
+func (e InputSystemMetricsCPUMode4) ToPointer() *InputSystemMetricsCPUMode4 {
 	return &e
 }
 
-type InputSystemMetricsCPU struct {
+type InputSystemMetricsCPU4 struct {
 	// Select the level of detail for CPU metrics
-	Mode *InputSystemMetricsCPUMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsCPUMode4 `default:"basic" json:"mode"`
 	// Generate metrics for each CPU
 	PerCPU *bool `default:"false" json:"perCpu"`
 	// Generate metrics for all CPU states
@@ -269,172 +129,197 @@ type InputSystemMetricsCPU struct {
 	Time *bool `default:"false" json:"time"`
 }
 
-func (i InputSystemMetricsCPU) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsCPU4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsCPU) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsCPU4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsCPU) GetMode() *InputSystemMetricsCPUMode {
+func (i *InputSystemMetricsCPU4) GetMode() *InputSystemMetricsCPUMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsCPU) GetPerCPU() *bool {
+func (i *InputSystemMetricsCPU4) GetPerCPU() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerCPU
 }
 
-func (i *InputSystemMetricsCPU) GetDetail() *bool {
+func (i *InputSystemMetricsCPU4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-func (i *InputSystemMetricsCPU) GetTime() *bool {
+func (i *InputSystemMetricsCPU4) GetTime() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Time
 }
 
-// InputSystemMetricsMemoryMode - Select the level of detail for memory metrics
-type InputSystemMetricsMemoryMode string
+// InputSystemMetricsMemoryMode4 - Select the level of detail for memory metrics
+type InputSystemMetricsMemoryMode4 string
 
 const (
-	InputSystemMetricsMemoryModeBasic    InputSystemMetricsMemoryMode = "basic"
-	InputSystemMetricsMemoryModeAll      InputSystemMetricsMemoryMode = "all"
-	InputSystemMetricsMemoryModeCustom   InputSystemMetricsMemoryMode = "custom"
-	InputSystemMetricsMemoryModeDisabled InputSystemMetricsMemoryMode = "disabled"
+	// InputSystemMetricsMemoryMode4Basic Basic
+	InputSystemMetricsMemoryMode4Basic InputSystemMetricsMemoryMode4 = "basic"
+	// InputSystemMetricsMemoryMode4All All
+	InputSystemMetricsMemoryMode4All InputSystemMetricsMemoryMode4 = "all"
+	// InputSystemMetricsMemoryMode4Custom Custom
+	InputSystemMetricsMemoryMode4Custom InputSystemMetricsMemoryMode4 = "custom"
+	// InputSystemMetricsMemoryMode4Disabled Disabled
+	InputSystemMetricsMemoryMode4Disabled InputSystemMetricsMemoryMode4 = "disabled"
 )
 
-func (e InputSystemMetricsMemoryMode) ToPointer() *InputSystemMetricsMemoryMode {
+func (e InputSystemMetricsMemoryMode4) ToPointer() *InputSystemMetricsMemoryMode4 {
 	return &e
 }
 
-type InputSystemMetricsMemory struct {
+type InputSystemMetricsMemory4 struct {
 	// Select the level of detail for memory metrics
-	Mode *InputSystemMetricsMemoryMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsMemoryMode4 `default:"basic" json:"mode"`
 	// Generate metrics for all memory states
 	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputSystemMetricsMemory) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsMemory4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsMemory) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsMemory4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsMemory) GetMode() *InputSystemMetricsMemoryMode {
+func (i *InputSystemMetricsMemory4) GetMode() *InputSystemMetricsMemoryMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsMemory) GetDetail() *bool {
+func (i *InputSystemMetricsMemory4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-// InputSystemMetricsNetworkMode - Select the level of detail for network metrics
-type InputSystemMetricsNetworkMode string
+// InputSystemMetricsNetworkMode4 - Select the level of detail for network metrics
+type InputSystemMetricsNetworkMode4 string
 
 const (
-	InputSystemMetricsNetworkModeBasic    InputSystemMetricsNetworkMode = "basic"
-	InputSystemMetricsNetworkModeAll      InputSystemMetricsNetworkMode = "all"
-	InputSystemMetricsNetworkModeCustom   InputSystemMetricsNetworkMode = "custom"
-	InputSystemMetricsNetworkModeDisabled InputSystemMetricsNetworkMode = "disabled"
+	// InputSystemMetricsNetworkMode4Basic Basic
+	InputSystemMetricsNetworkMode4Basic InputSystemMetricsNetworkMode4 = "basic"
+	// InputSystemMetricsNetworkMode4All All
+	InputSystemMetricsNetworkMode4All InputSystemMetricsNetworkMode4 = "all"
+	// InputSystemMetricsNetworkMode4Custom Custom
+	InputSystemMetricsNetworkMode4Custom InputSystemMetricsNetworkMode4 = "custom"
+	// InputSystemMetricsNetworkMode4Disabled Disabled
+	InputSystemMetricsNetworkMode4Disabled InputSystemMetricsNetworkMode4 = "disabled"
 )
 
-func (e InputSystemMetricsNetworkMode) ToPointer() *InputSystemMetricsNetworkMode {
+func (e InputSystemMetricsNetworkMode4) ToPointer() *InputSystemMetricsNetworkMode4 {
 	return &e
 }
 
-type InputSystemMetricsNetwork struct {
+type InputSystemMetricsNetwork4 struct {
 	// Select the level of detail for network metrics
-	Mode *InputSystemMetricsNetworkMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsNetworkMode4 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsNetwork4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsNetwork) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsNetwork4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsNetwork) GetMode() *InputSystemMetricsNetworkMode {
+func (i *InputSystemMetricsNetwork4) GetMode() *InputSystemMetricsNetworkMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsNetwork) GetDevices() []string {
+func (i *InputSystemMetricsNetwork4) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork4) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputSystemMetricsNetwork4) GetDevices() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Devices
 }
 
-func (i *InputSystemMetricsNetwork) GetPerInterface() *bool {
+func (i *InputSystemMetricsNetwork4) GetPerInterface() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerInterface
 }
 
-func (i *InputSystemMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
-// InputSystemMetricsDiskMode - Select the level of detail for disk metrics
-type InputSystemMetricsDiskMode string
+// InputSystemMetricsDiskMode4 - Select the level of detail for disk metrics
+type InputSystemMetricsDiskMode4 string
 
 const (
-	InputSystemMetricsDiskModeBasic    InputSystemMetricsDiskMode = "basic"
-	InputSystemMetricsDiskModeAll      InputSystemMetricsDiskMode = "all"
-	InputSystemMetricsDiskModeCustom   InputSystemMetricsDiskMode = "custom"
-	InputSystemMetricsDiskModeDisabled InputSystemMetricsDiskMode = "disabled"
+	// InputSystemMetricsDiskMode4Basic Basic
+	InputSystemMetricsDiskMode4Basic InputSystemMetricsDiskMode4 = "basic"
+	// InputSystemMetricsDiskMode4All All
+	InputSystemMetricsDiskMode4All InputSystemMetricsDiskMode4 = "all"
+	// InputSystemMetricsDiskMode4Custom Custom
+	InputSystemMetricsDiskMode4Custom InputSystemMetricsDiskMode4 = "custom"
+	// InputSystemMetricsDiskMode4Disabled Disabled
+	InputSystemMetricsDiskMode4Disabled InputSystemMetricsDiskMode4 = "disabled"
 )
 
-func (e InputSystemMetricsDiskMode) ToPointer() *InputSystemMetricsDiskMode {
+func (e InputSystemMetricsDiskMode4) ToPointer() *InputSystemMetricsDiskMode4 {
 	return &e
 }
 
-type InputSystemMetricsDisk struct {
+type InputSystemMetricsDisk4 struct {
 	// Select the level of detail for disk metrics
-	Mode *InputSystemMetricsDiskMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsDiskMode4 `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
@@ -443,254 +328,202 @@ type InputSystemMetricsDisk struct {
 	Fstypes []string `json:"fstypes,omitempty"`
 	// Generate separate metrics for each device
 	PerDevice *bool `default:"false" json:"perDevice"`
-	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsDisk4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsDisk) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsDisk4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsDisk) GetMode() *InputSystemMetricsDiskMode {
+func (i *InputSystemMetricsDisk4) GetMode() *InputSystemMetricsDiskMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsDisk) GetDevices() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Devices
-}
-
-func (i *InputSystemMetricsDisk) GetMountpoints() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Mountpoints
-}
-
-func (i *InputSystemMetricsDisk) GetFstypes() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Fstypes
-}
-
-func (i *InputSystemMetricsDisk) GetPerDevice() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PerDevice
-}
-
-func (i *InputSystemMetricsDisk) GetDetail() *bool {
+func (i *InputSystemMetricsDisk4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-type InputSystemMetricsCustom struct {
-	System  *InputSystemMetricsSystem  `json:"system,omitempty"`
-	CPU     *InputSystemMetricsCPU     `json:"cpu,omitempty"`
-	Memory  *InputSystemMetricsMemory  `json:"memory,omitempty"`
-	Network *InputSystemMetricsNetwork `json:"network,omitempty"`
-	Disk    *InputSystemMetricsDisk    `json:"disk,omitempty"`
+func (i *InputSystemMetricsDisk4) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
 }
 
-func (i InputSystemMetricsCustom) MarshalJSON() ([]byte, error) {
+func (i *InputSystemMetricsDisk4) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsDisk4) GetMountpoints() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Mountpoints
+}
+
+func (i *InputSystemMetricsDisk4) GetFstypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fstypes
+}
+
+func (i *InputSystemMetricsDisk4) GetPerDevice() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerDevice
+}
+
+type InputSystemMetricsCustom4 struct {
+	System  *InputSystemMetricsSystem4  `json:"system,omitempty"`
+	CPU     *InputSystemMetricsCPU4     `json:"cpu,omitempty"`
+	Memory  *InputSystemMetricsMemory4  `json:"memory,omitempty"`
+	Network *InputSystemMetricsNetwork4 `json:"network,omitempty"`
+	Disk    *InputSystemMetricsDisk4    `json:"disk,omitempty"`
+}
+
+func (i InputSystemMetricsCustom4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsCustom) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsCustom4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsCustom) GetSystem() *InputSystemMetricsSystem {
+func (i *InputSystemMetricsCustom4) GetSystem() *InputSystemMetricsSystem4 {
 	if i == nil {
 		return nil
 	}
 	return i.System
 }
 
-func (i *InputSystemMetricsCustom) GetCPU() *InputSystemMetricsCPU {
+func (i *InputSystemMetricsCustom4) GetCPU() *InputSystemMetricsCPU4 {
 	if i == nil {
 		return nil
 	}
 	return i.CPU
 }
 
-func (i *InputSystemMetricsCustom) GetMemory() *InputSystemMetricsMemory {
+func (i *InputSystemMetricsCustom4) GetMemory() *InputSystemMetricsMemory4 {
 	if i == nil {
 		return nil
 	}
 	return i.Memory
 }
 
-func (i *InputSystemMetricsCustom) GetNetwork() *InputSystemMetricsNetwork {
+func (i *InputSystemMetricsCustom4) GetNetwork() *InputSystemMetricsNetwork4 {
 	if i == nil {
 		return nil
 	}
 	return i.Network
 }
 
-func (i *InputSystemMetricsCustom) GetDisk() *InputSystemMetricsDisk {
+func (i *InputSystemMetricsCustom4) GetDisk() *InputSystemMetricsDisk4 {
 	if i == nil {
 		return nil
 	}
 	return i.Disk
 }
 
-type InputSystemMetricsHost struct {
+type InputSystemMetricsHost4 struct {
 	// Select level of detail for host metrics
-	Mode   *InputSystemMetricsHostMode `default:"basic" json:"mode"`
-	Custom *InputSystemMetricsCustom   `json:"custom,omitempty"`
+	Mode   *InputSystemMetricsHostMode4 `default:"basic" json:"mode"`
+	Custom *InputSystemMetricsCustom4   `json:"custom,omitempty"`
 }
 
-func (i InputSystemMetricsHost) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsHost4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsHost) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsHost4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsHost) GetMode() *InputSystemMetricsHostMode {
+func (i *InputSystemMetricsHost4) GetMode() *InputSystemMetricsHostMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputSystemMetricsHost) GetCustom() *InputSystemMetricsCustom {
+func (i *InputSystemMetricsHost4) GetCustom() *InputSystemMetricsCustom4 {
 	if i == nil {
 		return nil
 	}
 	return i.Custom
 }
 
-type InputSystemMetricsSet struct {
-	Name            string `json:"name"`
-	Filter          string `json:"filter"`
-	IncludeChildren *bool  `default:"false" json:"includeChildren"`
-}
-
-func (i InputSystemMetricsSet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsSet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "filter"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsSet) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSystemMetricsSet) GetFilter() string {
-	if i == nil {
-		return ""
-	}
-	return i.Filter
-}
-
-func (i *InputSystemMetricsSet) GetIncludeChildren() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeChildren
-}
-
-type InputSystemMetricsProcess struct {
-	// Configure sets to collect process metrics
-	Sets []InputSystemMetricsSet `json:"sets,omitempty"`
-}
-
-func (i InputSystemMetricsProcess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsProcess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
-	if i == nil {
-		return nil
-	}
-	return i.Sets
-}
-
-// ContainerMode - Select the level of detail for container metrics
-type ContainerMode string
+// ContainerMode4 - Select the level of detail for container metrics
+type ContainerMode4 string
 
 const (
-	ContainerModeBasic    ContainerMode = "basic"
-	ContainerModeAll      ContainerMode = "all"
-	ContainerModeCustom   ContainerMode = "custom"
-	ContainerModeDisabled ContainerMode = "disabled"
+	// ContainerMode4Basic Basic
+	ContainerMode4Basic ContainerMode4 = "basic"
+	// ContainerMode4All All
+	ContainerMode4All ContainerMode4 = "all"
+	// ContainerMode4Custom Custom
+	ContainerMode4Custom ContainerMode4 = "custom"
+	// ContainerMode4Disabled Disabled
+	ContainerMode4Disabled ContainerMode4 = "disabled"
 )
 
-func (e ContainerMode) ToPointer() *ContainerMode {
+func (e ContainerMode4) ToPointer() *ContainerMode4 {
 	return &e
 }
 
-type InputSystemMetricsFilter struct {
+type InputSystemMetricsFilter4 struct {
 	Expr string `json:"expr"`
 }
 
-func (i InputSystemMetricsFilter) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsFilter4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsFilter) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsFilter4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsFilter) GetExpr() string {
+func (i *InputSystemMetricsFilter4) GetExpr() string {
 	if i == nil {
 		return ""
 	}
 	return i.Expr
 }
 
-type Container struct {
+type Container4 struct {
 	// Select the level of detail for container metrics
-	Mode *ContainerMode `default:"basic" json:"mode"`
+	Mode *ContainerMode4 `default:"basic" json:"mode"`
 	// Full paths for Docker's UNIX-domain socket
 	DockerSocket []string `json:"dockerSocket,omitempty"`
 	// Timeout, in seconds, for the Docker API
 	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
 	// Containers matching any of these will be included. All are included if no filters are added.
-	Filters []InputSystemMetricsFilter `json:"filters,omitempty"`
+	Filters []InputSystemMetricsFilter4 `json:"filters,omitempty"`
 	// Include stopped and paused containers
 	AllContainers *bool `default:"false" json:"allContainers"`
 	// Generate separate metrics for each device
@@ -699,184 +532,1559 @@ type Container struct {
 	Detail *bool `default:"false" json:"detail"`
 }
 
-func (c Container) MarshalJSON() ([]byte, error) {
+func (c Container4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *Container) UnmarshalJSON(data []byte) error {
+func (c *Container4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Container) GetMode() *ContainerMode {
+func (c *Container4) GetMode() *ContainerMode4 {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *Container) GetDockerSocket() []string {
+func (c *Container4) GetDockerSocket() []string {
 	if c == nil {
 		return nil
 	}
 	return c.DockerSocket
 }
 
-func (c *Container) GetDockerTimeout() *float64 {
+func (c *Container4) GetDockerTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DockerTimeout
 }
 
-func (c *Container) GetFilters() []InputSystemMetricsFilter {
+func (c *Container4) GetFilters() []InputSystemMetricsFilter4 {
 	if c == nil {
 		return nil
 	}
 	return c.Filters
 }
 
-func (c *Container) GetAllContainers() *bool {
+func (c *Container4) GetAllContainers() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllContainers
 }
 
-func (c *Container) GetPerDevice() *bool {
+func (c *Container4) GetPerDevice() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PerDevice
 }
 
-func (c *Container) GetDetail() *bool {
+func (c *Container4) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-type InputSystemMetricsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
+type InputSystemMetricsSystemMetrics4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputSystemMetricsType4 `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                 `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost4 `json:"host,omitempty"`
+	Process   *ProcessType             `json:"process,omitempty"`
+	Container *Container4              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	Description *string           `json:"description,omitempty"`
 }
 
-func (i InputSystemMetricsMetadatum) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsSystemMetrics4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+func (i *InputSystemMetricsSystemMetrics4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsMetadatum) GetName() string {
+func (i *InputSystemMetricsSystemMetrics4) GetPqEnabled() *bool {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Name
+	return i.PqEnabled
 }
 
-func (i *InputSystemMetricsMetadatum) GetValue() string {
+func (i *InputSystemMetricsSystemMetrics4) GetID() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
-	return i.Value
+	return i.ID
 }
 
-type InputSystemMetricsDataCompressionFormat string
+func (i *InputSystemMetricsSystemMetrics4) GetType() InputSystemMetricsType4 {
+	if i == nil {
+		return InputSystemMetricsType4("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetHost() *InputSystemMetricsHost4 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetContainer() *Container4 {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsSystemMetrics4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemMetricsType3 string
 
 const (
-	InputSystemMetricsDataCompressionFormatNone InputSystemMetricsDataCompressionFormat = "none"
-	InputSystemMetricsDataCompressionFormatGzip InputSystemMetricsDataCompressionFormat = "gzip"
+	InputSystemMetricsType3SystemMetrics InputSystemMetricsType3 = "system_metrics"
 )
 
-func (e InputSystemMetricsDataCompressionFormat) ToPointer() *InputSystemMetricsDataCompressionFormat {
+func (e InputSystemMetricsType3) ToPointer() *InputSystemMetricsType3 {
+	return &e
+}
+func (e *InputSystemMetricsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_metrics":
+		*e = InputSystemMetricsType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemMetricsType3: %v", v)
+	}
+}
+
+// InputSystemMetricsHostMode3 - Select level of detail for host metrics
+type InputSystemMetricsHostMode3 string
+
+const (
+	// InputSystemMetricsHostMode3Basic Basic
+	InputSystemMetricsHostMode3Basic InputSystemMetricsHostMode3 = "basic"
+	// InputSystemMetricsHostMode3All All
+	InputSystemMetricsHostMode3All InputSystemMetricsHostMode3 = "all"
+	// InputSystemMetricsHostMode3Custom Custom
+	InputSystemMetricsHostMode3Custom InputSystemMetricsHostMode3 = "custom"
+	// InputSystemMetricsHostMode3Disabled Disabled
+	InputSystemMetricsHostMode3Disabled InputSystemMetricsHostMode3 = "disabled"
+)
+
+func (e InputSystemMetricsHostMode3) ToPointer() *InputSystemMetricsHostMode3 {
 	return &e
 }
 
-type InputSystemMetricsPersistence struct {
-	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
-	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
-	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
-	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `default:"24h" json:"maxDataTime"`
-	Compress    *InputSystemMetricsDataCompressionFormat `default:"gzip" json:"compress"`
-	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `default:"$CRIBL_HOME/state/system_metrics" json:"destPath"`
+// InputSystemMetricsSystemMode3 - Select the level of detail for system metrics
+type InputSystemMetricsSystemMode3 string
+
+const (
+	// InputSystemMetricsSystemMode3Basic Basic
+	InputSystemMetricsSystemMode3Basic InputSystemMetricsSystemMode3 = "basic"
+	// InputSystemMetricsSystemMode3All All
+	InputSystemMetricsSystemMode3All InputSystemMetricsSystemMode3 = "all"
+	// InputSystemMetricsSystemMode3Custom Custom
+	InputSystemMetricsSystemMode3Custom InputSystemMetricsSystemMode3 = "custom"
+	// InputSystemMetricsSystemMode3Disabled Disabled
+	InputSystemMetricsSystemMode3Disabled InputSystemMetricsSystemMode3 = "disabled"
+)
+
+func (e InputSystemMetricsSystemMode3) ToPointer() *InputSystemMetricsSystemMode3 {
+	return &e
 }
 
-func (i InputSystemMetricsPersistence) MarshalJSON() ([]byte, error) {
+type InputSystemMetricsSystem3 struct {
+	// Select the level of detail for system metrics
+	Mode *InputSystemMetricsSystemMode3 `default:"basic" json:"mode"`
+	// Generate metrics for the numbers of processes in various states
+	Processes *bool `default:"false" json:"processes"`
+}
+
+func (i InputSystemMetricsSystem3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetricsPersistence) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsSystem3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsPersistence) GetEnable() *bool {
+func (i *InputSystemMetricsSystem3) GetMode() *InputSystemMetricsSystemMode3 {
 	if i == nil {
 		return nil
 	}
-	return i.Enable
+	return i.Mode
 }
 
-func (i *InputSystemMetricsPersistence) GetTimeWindow() *string {
+func (i *InputSystemMetricsSystem3) GetProcesses() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.TimeWindow
+	return i.Processes
 }
 
-func (i *InputSystemMetricsPersistence) GetMaxDataSize() *string {
+// InputSystemMetricsCPUMode3 - Select the level of detail for CPU metrics
+type InputSystemMetricsCPUMode3 string
+
+const (
+	// InputSystemMetricsCPUMode3Basic Basic
+	InputSystemMetricsCPUMode3Basic InputSystemMetricsCPUMode3 = "basic"
+	// InputSystemMetricsCPUMode3All All
+	InputSystemMetricsCPUMode3All InputSystemMetricsCPUMode3 = "all"
+	// InputSystemMetricsCPUMode3Custom Custom
+	InputSystemMetricsCPUMode3Custom InputSystemMetricsCPUMode3 = "custom"
+	// InputSystemMetricsCPUMode3Disabled Disabled
+	InputSystemMetricsCPUMode3Disabled InputSystemMetricsCPUMode3 = "disabled"
+)
+
+func (e InputSystemMetricsCPUMode3) ToPointer() *InputSystemMetricsCPUMode3 {
+	return &e
+}
+
+type InputSystemMetricsCPU3 struct {
+	// Select the level of detail for CPU metrics
+	Mode *InputSystemMetricsCPUMode3 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputSystemMetricsCPU3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCPU3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCPU3) GetMode() *InputSystemMetricsCPUMode3 {
 	if i == nil {
 		return nil
 	}
-	return i.MaxDataSize
+	return i.Mode
 }
 
-func (i *InputSystemMetricsPersistence) GetMaxDataTime() *string {
+func (i *InputSystemMetricsCPU3) GetPerCPU() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.MaxDataTime
+	return i.PerCPU
 }
 
-func (i *InputSystemMetricsPersistence) GetCompress() *InputSystemMetricsDataCompressionFormat {
+func (i *InputSystemMetricsCPU3) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.Compress
+	return i.Detail
 }
 
-func (i *InputSystemMetricsPersistence) GetDestPath() *string {
+func (i *InputSystemMetricsCPU3) GetTime() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.DestPath
+	return i.Time
 }
 
-type InputSystemMetrics struct {
+// InputSystemMetricsMemoryMode3 - Select the level of detail for memory metrics
+type InputSystemMetricsMemoryMode3 string
+
+const (
+	// InputSystemMetricsMemoryMode3Basic Basic
+	InputSystemMetricsMemoryMode3Basic InputSystemMetricsMemoryMode3 = "basic"
+	// InputSystemMetricsMemoryMode3All All
+	InputSystemMetricsMemoryMode3All InputSystemMetricsMemoryMode3 = "all"
+	// InputSystemMetricsMemoryMode3Custom Custom
+	InputSystemMetricsMemoryMode3Custom InputSystemMetricsMemoryMode3 = "custom"
+	// InputSystemMetricsMemoryMode3Disabled Disabled
+	InputSystemMetricsMemoryMode3Disabled InputSystemMetricsMemoryMode3 = "disabled"
+)
+
+func (e InputSystemMetricsMemoryMode3) ToPointer() *InputSystemMetricsMemoryMode3 {
+	return &e
+}
+
+type InputSystemMetricsMemory3 struct {
+	// Select the level of detail for memory metrics
+	Mode *InputSystemMetricsMemoryMode3 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputSystemMetricsMemory3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsMemory3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsMemory3) GetMode() *InputSystemMetricsMemoryMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsMemory3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputSystemMetricsNetworkMode3 - Select the level of detail for network metrics
+type InputSystemMetricsNetworkMode3 string
+
+const (
+	// InputSystemMetricsNetworkMode3Basic Basic
+	InputSystemMetricsNetworkMode3Basic InputSystemMetricsNetworkMode3 = "basic"
+	// InputSystemMetricsNetworkMode3All All
+	InputSystemMetricsNetworkMode3All InputSystemMetricsNetworkMode3 = "all"
+	// InputSystemMetricsNetworkMode3Custom Custom
+	InputSystemMetricsNetworkMode3Custom InputSystemMetricsNetworkMode3 = "custom"
+	// InputSystemMetricsNetworkMode3Disabled Disabled
+	InputSystemMetricsNetworkMode3Disabled InputSystemMetricsNetworkMode3 = "disabled"
+)
+
+func (e InputSystemMetricsNetworkMode3) ToPointer() *InputSystemMetricsNetworkMode3 {
+	return &e
+}
+
+type InputSystemMetricsNetwork3 struct {
+	// Select the level of detail for network metrics
+	Mode *InputSystemMetricsNetworkMode3 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputSystemMetricsNetwork3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsNetwork3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsNetwork3) GetMode() *InputSystemMetricsNetworkMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsNetwork3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork3) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputSystemMetricsNetwork3) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsNetwork3) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputSystemMetricsDiskMode3 - Select the level of detail for disk metrics
+type InputSystemMetricsDiskMode3 string
+
+const (
+	// InputSystemMetricsDiskMode3Basic Basic
+	InputSystemMetricsDiskMode3Basic InputSystemMetricsDiskMode3 = "basic"
+	// InputSystemMetricsDiskMode3All All
+	InputSystemMetricsDiskMode3All InputSystemMetricsDiskMode3 = "all"
+	// InputSystemMetricsDiskMode3Custom Custom
+	InputSystemMetricsDiskMode3Custom InputSystemMetricsDiskMode3 = "custom"
+	// InputSystemMetricsDiskMode3Disabled Disabled
+	InputSystemMetricsDiskMode3Disabled InputSystemMetricsDiskMode3 = "disabled"
+)
+
+func (e InputSystemMetricsDiskMode3) ToPointer() *InputSystemMetricsDiskMode3 {
+	return &e
+}
+
+type InputSystemMetricsDisk3 struct {
+	// Select the level of detail for disk metrics
+	Mode *InputSystemMetricsDiskMode3 `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
+	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+	Mountpoints []string `json:"mountpoints,omitempty"`
+	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+	Fstypes []string `json:"fstypes,omitempty"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+}
+
+func (i InputSystemMetricsDisk3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsDisk3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsDisk3) GetMode() *InputSystemMetricsDiskMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsDisk3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsDisk3) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
+}
+
+func (i *InputSystemMetricsDisk3) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsDisk3) GetMountpoints() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Mountpoints
+}
+
+func (i *InputSystemMetricsDisk3) GetFstypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fstypes
+}
+
+func (i *InputSystemMetricsDisk3) GetPerDevice() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerDevice
+}
+
+type InputSystemMetricsCustom3 struct {
+	System  *InputSystemMetricsSystem3  `json:"system,omitempty"`
+	CPU     *InputSystemMetricsCPU3     `json:"cpu,omitempty"`
+	Memory  *InputSystemMetricsMemory3  `json:"memory,omitempty"`
+	Network *InputSystemMetricsNetwork3 `json:"network,omitempty"`
+	Disk    *InputSystemMetricsDisk3    `json:"disk,omitempty"`
+}
+
+func (i InputSystemMetricsCustom3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCustom3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCustom3) GetSystem() *InputSystemMetricsSystem3 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputSystemMetricsCustom3) GetCPU() *InputSystemMetricsCPU3 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputSystemMetricsCustom3) GetMemory() *InputSystemMetricsMemory3 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputSystemMetricsCustom3) GetNetwork() *InputSystemMetricsNetwork3 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputSystemMetricsCustom3) GetDisk() *InputSystemMetricsDisk3 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputSystemMetricsHost3 struct {
+	// Select level of detail for host metrics
+	Mode   *InputSystemMetricsHostMode3 `default:"basic" json:"mode"`
+	Custom *InputSystemMetricsCustom3   `json:"custom,omitempty"`
+}
+
+func (i InputSystemMetricsHost3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsHost3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsHost3) GetMode() *InputSystemMetricsHostMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsHost3) GetCustom() *InputSystemMetricsCustom3 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+// ContainerMode3 - Select the level of detail for container metrics
+type ContainerMode3 string
+
+const (
+	// ContainerMode3Basic Basic
+	ContainerMode3Basic ContainerMode3 = "basic"
+	// ContainerMode3All All
+	ContainerMode3All ContainerMode3 = "all"
+	// ContainerMode3Custom Custom
+	ContainerMode3Custom ContainerMode3 = "custom"
+	// ContainerMode3Disabled Disabled
+	ContainerMode3Disabled ContainerMode3 = "disabled"
+)
+
+func (e ContainerMode3) ToPointer() *ContainerMode3 {
+	return &e
+}
+
+type InputSystemMetricsFilter3 struct {
+	Expr string `json:"expr"`
+}
+
+func (i InputSystemMetricsFilter3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsFilter3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsFilter3) GetExpr() string {
+	if i == nil {
+		return ""
+	}
+	return i.Expr
+}
+
+type Container3 struct {
+	// Select the level of detail for container metrics
+	Mode *ContainerMode3 `default:"basic" json:"mode"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitempty"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []InputSystemMetricsFilter3 `json:"filters,omitempty"`
+	// Include stopped and paused containers
+	AllContainers *bool `default:"false" json:"allContainers"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+	// Generate full container metrics
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (c Container3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Container3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Container3) GetMode() *ContainerMode3 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *Container3) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *Container3) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *Container3) GetFilters() []InputSystemMetricsFilter3 {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *Container3) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *Container3) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *Container3) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+type InputSystemMetricsSystemMetrics3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                `json:"id,omitempty"`
-	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputSystemMetricsType3 `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                 `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost3 `json:"host,omitempty"`
+	Process   *ProcessType             `json:"process,omitempty"`
+	Container *Container3              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	Description *string           `json:"description,omitempty"`
+}
+
+func (i InputSystemMetricsSystemMetrics3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsSystemMetrics3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetType() InputSystemMetricsType3 {
+	if i == nil {
+		return InputSystemMetricsType3("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetHost() *InputSystemMetricsHost3 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetContainer() *Container3 {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsSystemMetrics3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemMetricsType2 string
+
+const (
+	InputSystemMetricsType2SystemMetrics InputSystemMetricsType2 = "system_metrics"
+)
+
+func (e InputSystemMetricsType2) ToPointer() *InputSystemMetricsType2 {
+	return &e
+}
+func (e *InputSystemMetricsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_metrics":
+		*e = InputSystemMetricsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemMetricsType2: %v", v)
+	}
+}
+
+// InputSystemMetricsHostMode2 - Select level of detail for host metrics
+type InputSystemMetricsHostMode2 string
+
+const (
+	// InputSystemMetricsHostMode2Basic Basic
+	InputSystemMetricsHostMode2Basic InputSystemMetricsHostMode2 = "basic"
+	// InputSystemMetricsHostMode2All All
+	InputSystemMetricsHostMode2All InputSystemMetricsHostMode2 = "all"
+	// InputSystemMetricsHostMode2Custom Custom
+	InputSystemMetricsHostMode2Custom InputSystemMetricsHostMode2 = "custom"
+	// InputSystemMetricsHostMode2Disabled Disabled
+	InputSystemMetricsHostMode2Disabled InputSystemMetricsHostMode2 = "disabled"
+)
+
+func (e InputSystemMetricsHostMode2) ToPointer() *InputSystemMetricsHostMode2 {
+	return &e
+}
+
+// InputSystemMetricsSystemMode2 - Select the level of detail for system metrics
+type InputSystemMetricsSystemMode2 string
+
+const (
+	// InputSystemMetricsSystemMode2Basic Basic
+	InputSystemMetricsSystemMode2Basic InputSystemMetricsSystemMode2 = "basic"
+	// InputSystemMetricsSystemMode2All All
+	InputSystemMetricsSystemMode2All InputSystemMetricsSystemMode2 = "all"
+	// InputSystemMetricsSystemMode2Custom Custom
+	InputSystemMetricsSystemMode2Custom InputSystemMetricsSystemMode2 = "custom"
+	// InputSystemMetricsSystemMode2Disabled Disabled
+	InputSystemMetricsSystemMode2Disabled InputSystemMetricsSystemMode2 = "disabled"
+)
+
+func (e InputSystemMetricsSystemMode2) ToPointer() *InputSystemMetricsSystemMode2 {
+	return &e
+}
+
+type InputSystemMetricsSystem2 struct {
+	// Select the level of detail for system metrics
+	Mode *InputSystemMetricsSystemMode2 `default:"basic" json:"mode"`
+	// Generate metrics for the numbers of processes in various states
+	Processes *bool `default:"false" json:"processes"`
+}
+
+func (i InputSystemMetricsSystem2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsSystem2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsSystem2) GetMode() *InputSystemMetricsSystemMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsSystem2) GetProcesses() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Processes
+}
+
+// InputSystemMetricsCPUMode2 - Select the level of detail for CPU metrics
+type InputSystemMetricsCPUMode2 string
+
+const (
+	// InputSystemMetricsCPUMode2Basic Basic
+	InputSystemMetricsCPUMode2Basic InputSystemMetricsCPUMode2 = "basic"
+	// InputSystemMetricsCPUMode2All All
+	InputSystemMetricsCPUMode2All InputSystemMetricsCPUMode2 = "all"
+	// InputSystemMetricsCPUMode2Custom Custom
+	InputSystemMetricsCPUMode2Custom InputSystemMetricsCPUMode2 = "custom"
+	// InputSystemMetricsCPUMode2Disabled Disabled
+	InputSystemMetricsCPUMode2Disabled InputSystemMetricsCPUMode2 = "disabled"
+)
+
+func (e InputSystemMetricsCPUMode2) ToPointer() *InputSystemMetricsCPUMode2 {
+	return &e
+}
+
+type InputSystemMetricsCPU2 struct {
+	// Select the level of detail for CPU metrics
+	Mode *InputSystemMetricsCPUMode2 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputSystemMetricsCPU2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCPU2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCPU2) GetMode() *InputSystemMetricsCPUMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsCPU2) GetPerCPU() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerCPU
+}
+
+func (i *InputSystemMetricsCPU2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsCPU2) GetTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Time
+}
+
+// InputSystemMetricsMemoryMode2 - Select the level of detail for memory metrics
+type InputSystemMetricsMemoryMode2 string
+
+const (
+	// InputSystemMetricsMemoryMode2Basic Basic
+	InputSystemMetricsMemoryMode2Basic InputSystemMetricsMemoryMode2 = "basic"
+	// InputSystemMetricsMemoryMode2All All
+	InputSystemMetricsMemoryMode2All InputSystemMetricsMemoryMode2 = "all"
+	// InputSystemMetricsMemoryMode2Custom Custom
+	InputSystemMetricsMemoryMode2Custom InputSystemMetricsMemoryMode2 = "custom"
+	// InputSystemMetricsMemoryMode2Disabled Disabled
+	InputSystemMetricsMemoryMode2Disabled InputSystemMetricsMemoryMode2 = "disabled"
+)
+
+func (e InputSystemMetricsMemoryMode2) ToPointer() *InputSystemMetricsMemoryMode2 {
+	return &e
+}
+
+type InputSystemMetricsMemory2 struct {
+	// Select the level of detail for memory metrics
+	Mode *InputSystemMetricsMemoryMode2 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputSystemMetricsMemory2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsMemory2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsMemory2) GetMode() *InputSystemMetricsMemoryMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsMemory2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputSystemMetricsNetworkMode2 - Select the level of detail for network metrics
+type InputSystemMetricsNetworkMode2 string
+
+const (
+	// InputSystemMetricsNetworkMode2Basic Basic
+	InputSystemMetricsNetworkMode2Basic InputSystemMetricsNetworkMode2 = "basic"
+	// InputSystemMetricsNetworkMode2All All
+	InputSystemMetricsNetworkMode2All InputSystemMetricsNetworkMode2 = "all"
+	// InputSystemMetricsNetworkMode2Custom Custom
+	InputSystemMetricsNetworkMode2Custom InputSystemMetricsNetworkMode2 = "custom"
+	// InputSystemMetricsNetworkMode2Disabled Disabled
+	InputSystemMetricsNetworkMode2Disabled InputSystemMetricsNetworkMode2 = "disabled"
+)
+
+func (e InputSystemMetricsNetworkMode2) ToPointer() *InputSystemMetricsNetworkMode2 {
+	return &e
+}
+
+type InputSystemMetricsNetwork2 struct {
+	// Select the level of detail for network metrics
+	Mode *InputSystemMetricsNetworkMode2 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputSystemMetricsNetwork2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsNetwork2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsNetwork2) GetMode() *InputSystemMetricsNetworkMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsNetwork2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork2) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputSystemMetricsNetwork2) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsNetwork2) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputSystemMetricsDiskMode2 - Select the level of detail for disk metrics
+type InputSystemMetricsDiskMode2 string
+
+const (
+	// InputSystemMetricsDiskMode2Basic Basic
+	InputSystemMetricsDiskMode2Basic InputSystemMetricsDiskMode2 = "basic"
+	// InputSystemMetricsDiskMode2All All
+	InputSystemMetricsDiskMode2All InputSystemMetricsDiskMode2 = "all"
+	// InputSystemMetricsDiskMode2Custom Custom
+	InputSystemMetricsDiskMode2Custom InputSystemMetricsDiskMode2 = "custom"
+	// InputSystemMetricsDiskMode2Disabled Disabled
+	InputSystemMetricsDiskMode2Disabled InputSystemMetricsDiskMode2 = "disabled"
+)
+
+func (e InputSystemMetricsDiskMode2) ToPointer() *InputSystemMetricsDiskMode2 {
+	return &e
+}
+
+type InputSystemMetricsDisk2 struct {
+	// Select the level of detail for disk metrics
+	Mode *InputSystemMetricsDiskMode2 `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
+	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+	Mountpoints []string `json:"mountpoints,omitempty"`
+	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+	Fstypes []string `json:"fstypes,omitempty"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+}
+
+func (i InputSystemMetricsDisk2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsDisk2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsDisk2) GetMode() *InputSystemMetricsDiskMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsDisk2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsDisk2) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
+}
+
+func (i *InputSystemMetricsDisk2) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsDisk2) GetMountpoints() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Mountpoints
+}
+
+func (i *InputSystemMetricsDisk2) GetFstypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fstypes
+}
+
+func (i *InputSystemMetricsDisk2) GetPerDevice() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerDevice
+}
+
+type InputSystemMetricsCustom2 struct {
+	System  *InputSystemMetricsSystem2  `json:"system,omitempty"`
+	CPU     *InputSystemMetricsCPU2     `json:"cpu,omitempty"`
+	Memory  *InputSystemMetricsMemory2  `json:"memory,omitempty"`
+	Network *InputSystemMetricsNetwork2 `json:"network,omitempty"`
+	Disk    *InputSystemMetricsDisk2    `json:"disk,omitempty"`
+}
+
+func (i InputSystemMetricsCustom2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCustom2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCustom2) GetSystem() *InputSystemMetricsSystem2 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputSystemMetricsCustom2) GetCPU() *InputSystemMetricsCPU2 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputSystemMetricsCustom2) GetMemory() *InputSystemMetricsMemory2 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputSystemMetricsCustom2) GetNetwork() *InputSystemMetricsNetwork2 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputSystemMetricsCustom2) GetDisk() *InputSystemMetricsDisk2 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputSystemMetricsHost2 struct {
+	// Select level of detail for host metrics
+	Mode   *InputSystemMetricsHostMode2 `default:"basic" json:"mode"`
+	Custom *InputSystemMetricsCustom2   `json:"custom,omitempty"`
+}
+
+func (i InputSystemMetricsHost2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsHost2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsHost2) GetMode() *InputSystemMetricsHostMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsHost2) GetCustom() *InputSystemMetricsCustom2 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+// ContainerMode2 - Select the level of detail for container metrics
+type ContainerMode2 string
+
+const (
+	// ContainerMode2Basic Basic
+	ContainerMode2Basic ContainerMode2 = "basic"
+	// ContainerMode2All All
+	ContainerMode2All ContainerMode2 = "all"
+	// ContainerMode2Custom Custom
+	ContainerMode2Custom ContainerMode2 = "custom"
+	// ContainerMode2Disabled Disabled
+	ContainerMode2Disabled ContainerMode2 = "disabled"
+)
+
+func (e ContainerMode2) ToPointer() *ContainerMode2 {
+	return &e
+}
+
+type InputSystemMetricsFilter2 struct {
+	Expr string `json:"expr"`
+}
+
+func (i InputSystemMetricsFilter2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsFilter2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsFilter2) GetExpr() string {
+	if i == nil {
+		return ""
+	}
+	return i.Expr
+}
+
+type Container2 struct {
+	// Select the level of detail for container metrics
+	Mode *ContainerMode2 `default:"basic" json:"mode"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitempty"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []InputSystemMetricsFilter2 `json:"filters,omitempty"`
+	// Include stopped and paused containers
+	AllContainers *bool `default:"false" json:"allContainers"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+	// Generate full container metrics
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (c Container2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Container2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Container2) GetMode() *ContainerMode2 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *Container2) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *Container2) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *Container2) GetFilters() []InputSystemMetricsFilter2 {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *Container2) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *Container2) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *Container2) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+type InputSystemMetricsSystemMetrics2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputSystemMetricsType2 `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -884,145 +2092,994 @@ type InputSystemMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSystemMetricsConnection `json:"connections,omitempty"`
-	Pq          *InputSystemMetricsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                   `default:"10" json:"interval"`
-	Host      *InputSystemMetricsHost    `json:"host,omitempty"`
-	Process   *InputSystemMetricsProcess `json:"process,omitempty"`
-	Container *Container                 `json:"container,omitempty"`
+	Interval  *float64                 `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost2 `json:"host,omitempty"`
+	Process   *ProcessType             `json:"process,omitempty"`
+	Container *Container2              `json:"container,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputSystemMetricsMetadatum  `json:"metadata,omitempty"`
-	Persistence *InputSystemMetricsPersistence `json:"persistence,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	Description *string           `json:"description,omitempty"`
 }
 
-func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsSystemMetrics2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputSystemMetricsSystemMetrics2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemMetrics) GetType() InputSystemMetricsType {
-	if i == nil {
-		return InputSystemMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemMetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemMetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemMetrics) GetSendToRoutes() *bool {
+func (i *InputSystemMetricsSystemMetrics2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemMetrics) GetEnvironment() *string {
+func (i *InputSystemMetricsSystemMetrics2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsSystemMetrics2) GetType() InputSystemMetricsType2 {
+	if i == nil {
+		return InputSystemMetricsType2("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSystemMetrics2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSystemMetrics2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSystemMetrics2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemMetrics) GetPqEnabled() *bool {
+func (i *InputSystemMetricsSystemMetrics2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemMetrics) GetStreamtags() []string {
+func (i *InputSystemMetricsSystemMetrics2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemMetrics) GetConnections() []InputSystemMetricsConnection {
+func (i *InputSystemMetricsSystemMetrics2) GetConnections() []ConnectionsType {
 	if i == nil {
-		return nil
+		return []ConnectionsType{}
 	}
 	return i.Connections
 }
 
-func (i *InputSystemMetrics) GetPq() *InputSystemMetricsPq {
+func (i *InputSystemMetricsSystemMetrics2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemMetrics) GetInterval() *float64 {
+func (i *InputSystemMetricsSystemMetrics2) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemMetrics) GetHost() *InputSystemMetricsHost {
+func (i *InputSystemMetricsSystemMetrics2) GetHost() *InputSystemMetricsHost2 {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSystemMetrics) GetProcess() *InputSystemMetricsProcess {
+func (i *InputSystemMetricsSystemMetrics2) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputSystemMetrics) GetContainer() *Container {
+func (i *InputSystemMetricsSystemMetrics2) GetContainer() *Container2 {
 	if i == nil {
 		return nil
 	}
 	return i.Container
 }
 
-func (i *InputSystemMetrics) GetMetadata() []InputSystemMetricsMetadatum {
+func (i *InputSystemMetricsSystemMetrics2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemMetrics) GetPersistence() *InputSystemMetricsPersistence {
+func (i *InputSystemMetricsSystemMetrics2) GetPersistence() *Persistence1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemMetrics) GetDescription() *string {
+func (i *InputSystemMetricsSystemMetrics2) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSystemMetricsType1 string
+
+const (
+	InputSystemMetricsType1SystemMetrics InputSystemMetricsType1 = "system_metrics"
+)
+
+func (e InputSystemMetricsType1) ToPointer() *InputSystemMetricsType1 {
+	return &e
+}
+func (e *InputSystemMetricsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_metrics":
+		*e = InputSystemMetricsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemMetricsType1: %v", v)
+	}
+}
+
+// InputSystemMetricsHostMode1 - Select level of detail for host metrics
+type InputSystemMetricsHostMode1 string
+
+const (
+	// InputSystemMetricsHostMode1Basic Basic
+	InputSystemMetricsHostMode1Basic InputSystemMetricsHostMode1 = "basic"
+	// InputSystemMetricsHostMode1All All
+	InputSystemMetricsHostMode1All InputSystemMetricsHostMode1 = "all"
+	// InputSystemMetricsHostMode1Custom Custom
+	InputSystemMetricsHostMode1Custom InputSystemMetricsHostMode1 = "custom"
+	// InputSystemMetricsHostMode1Disabled Disabled
+	InputSystemMetricsHostMode1Disabled InputSystemMetricsHostMode1 = "disabled"
+)
+
+func (e InputSystemMetricsHostMode1) ToPointer() *InputSystemMetricsHostMode1 {
+	return &e
+}
+
+// InputSystemMetricsSystemMode1 - Select the level of detail for system metrics
+type InputSystemMetricsSystemMode1 string
+
+const (
+	// InputSystemMetricsSystemMode1Basic Basic
+	InputSystemMetricsSystemMode1Basic InputSystemMetricsSystemMode1 = "basic"
+	// InputSystemMetricsSystemMode1All All
+	InputSystemMetricsSystemMode1All InputSystemMetricsSystemMode1 = "all"
+	// InputSystemMetricsSystemMode1Custom Custom
+	InputSystemMetricsSystemMode1Custom InputSystemMetricsSystemMode1 = "custom"
+	// InputSystemMetricsSystemMode1Disabled Disabled
+	InputSystemMetricsSystemMode1Disabled InputSystemMetricsSystemMode1 = "disabled"
+)
+
+func (e InputSystemMetricsSystemMode1) ToPointer() *InputSystemMetricsSystemMode1 {
+	return &e
+}
+
+type InputSystemMetricsSystem1 struct {
+	// Select the level of detail for system metrics
+	Mode *InputSystemMetricsSystemMode1 `default:"basic" json:"mode"`
+	// Generate metrics for the numbers of processes in various states
+	Processes *bool `default:"false" json:"processes"`
+}
+
+func (i InputSystemMetricsSystem1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsSystem1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsSystem1) GetMode() *InputSystemMetricsSystemMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsSystem1) GetProcesses() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Processes
+}
+
+// InputSystemMetricsCPUMode1 - Select the level of detail for CPU metrics
+type InputSystemMetricsCPUMode1 string
+
+const (
+	// InputSystemMetricsCPUMode1Basic Basic
+	InputSystemMetricsCPUMode1Basic InputSystemMetricsCPUMode1 = "basic"
+	// InputSystemMetricsCPUMode1All All
+	InputSystemMetricsCPUMode1All InputSystemMetricsCPUMode1 = "all"
+	// InputSystemMetricsCPUMode1Custom Custom
+	InputSystemMetricsCPUMode1Custom InputSystemMetricsCPUMode1 = "custom"
+	// InputSystemMetricsCPUMode1Disabled Disabled
+	InputSystemMetricsCPUMode1Disabled InputSystemMetricsCPUMode1 = "disabled"
+)
+
+func (e InputSystemMetricsCPUMode1) ToPointer() *InputSystemMetricsCPUMode1 {
+	return &e
+}
+
+type InputSystemMetricsCPU1 struct {
+	// Select the level of detail for CPU metrics
+	Mode *InputSystemMetricsCPUMode1 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputSystemMetricsCPU1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCPU1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCPU1) GetMode() *InputSystemMetricsCPUMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsCPU1) GetPerCPU() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerCPU
+}
+
+func (i *InputSystemMetricsCPU1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsCPU1) GetTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Time
+}
+
+// InputSystemMetricsMemoryMode1 - Select the level of detail for memory metrics
+type InputSystemMetricsMemoryMode1 string
+
+const (
+	// InputSystemMetricsMemoryMode1Basic Basic
+	InputSystemMetricsMemoryMode1Basic InputSystemMetricsMemoryMode1 = "basic"
+	// InputSystemMetricsMemoryMode1All All
+	InputSystemMetricsMemoryMode1All InputSystemMetricsMemoryMode1 = "all"
+	// InputSystemMetricsMemoryMode1Custom Custom
+	InputSystemMetricsMemoryMode1Custom InputSystemMetricsMemoryMode1 = "custom"
+	// InputSystemMetricsMemoryMode1Disabled Disabled
+	InputSystemMetricsMemoryMode1Disabled InputSystemMetricsMemoryMode1 = "disabled"
+)
+
+func (e InputSystemMetricsMemoryMode1) ToPointer() *InputSystemMetricsMemoryMode1 {
+	return &e
+}
+
+type InputSystemMetricsMemory1 struct {
+	// Select the level of detail for memory metrics
+	Mode *InputSystemMetricsMemoryMode1 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputSystemMetricsMemory1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsMemory1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsMemory1) GetMode() *InputSystemMetricsMemoryMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsMemory1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputSystemMetricsNetworkMode1 - Select the level of detail for network metrics
+type InputSystemMetricsNetworkMode1 string
+
+const (
+	// InputSystemMetricsNetworkMode1Basic Basic
+	InputSystemMetricsNetworkMode1Basic InputSystemMetricsNetworkMode1 = "basic"
+	// InputSystemMetricsNetworkMode1All All
+	InputSystemMetricsNetworkMode1All InputSystemMetricsNetworkMode1 = "all"
+	// InputSystemMetricsNetworkMode1Custom Custom
+	InputSystemMetricsNetworkMode1Custom InputSystemMetricsNetworkMode1 = "custom"
+	// InputSystemMetricsNetworkMode1Disabled Disabled
+	InputSystemMetricsNetworkMode1Disabled InputSystemMetricsNetworkMode1 = "disabled"
+)
+
+func (e InputSystemMetricsNetworkMode1) ToPointer() *InputSystemMetricsNetworkMode1 {
+	return &e
+}
+
+type InputSystemMetricsNetwork1 struct {
+	// Select the level of detail for network metrics
+	Mode *InputSystemMetricsNetworkMode1 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputSystemMetricsNetwork1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsNetwork1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsNetwork1) GetMode() *InputSystemMetricsNetworkMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsNetwork1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork1) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputSystemMetricsNetwork1) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsNetwork1) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputSystemMetricsDiskMode1 - Select the level of detail for disk metrics
+type InputSystemMetricsDiskMode1 string
+
+const (
+	// InputSystemMetricsDiskMode1Basic Basic
+	InputSystemMetricsDiskMode1Basic InputSystemMetricsDiskMode1 = "basic"
+	// InputSystemMetricsDiskMode1All All
+	InputSystemMetricsDiskMode1All InputSystemMetricsDiskMode1 = "all"
+	// InputSystemMetricsDiskMode1Custom Custom
+	InputSystemMetricsDiskMode1Custom InputSystemMetricsDiskMode1 = "custom"
+	// InputSystemMetricsDiskMode1Disabled Disabled
+	InputSystemMetricsDiskMode1Disabled InputSystemMetricsDiskMode1 = "disabled"
+)
+
+func (e InputSystemMetricsDiskMode1) ToPointer() *InputSystemMetricsDiskMode1 {
+	return &e
+}
+
+type InputSystemMetricsDisk1 struct {
+	// Select the level of detail for disk metrics
+	Mode *InputSystemMetricsDiskMode1 `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
+	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+	Mountpoints []string `json:"mountpoints,omitempty"`
+	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+	Fstypes []string `json:"fstypes,omitempty"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+}
+
+func (i InputSystemMetricsDisk1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsDisk1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsDisk1) GetMode() *InputSystemMetricsDiskMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsDisk1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsDisk1) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
+}
+
+func (i *InputSystemMetricsDisk1) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputSystemMetricsDisk1) GetMountpoints() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Mountpoints
+}
+
+func (i *InputSystemMetricsDisk1) GetFstypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fstypes
+}
+
+func (i *InputSystemMetricsDisk1) GetPerDevice() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerDevice
+}
+
+type InputSystemMetricsCustom1 struct {
+	System  *InputSystemMetricsSystem1  `json:"system,omitempty"`
+	CPU     *InputSystemMetricsCPU1     `json:"cpu,omitempty"`
+	Memory  *InputSystemMetricsMemory1  `json:"memory,omitempty"`
+	Network *InputSystemMetricsNetwork1 `json:"network,omitempty"`
+	Disk    *InputSystemMetricsDisk1    `json:"disk,omitempty"`
+}
+
+func (i InputSystemMetricsCustom1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsCustom1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsCustom1) GetSystem() *InputSystemMetricsSystem1 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputSystemMetricsCustom1) GetCPU() *InputSystemMetricsCPU1 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputSystemMetricsCustom1) GetMemory() *InputSystemMetricsMemory1 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputSystemMetricsCustom1) GetNetwork() *InputSystemMetricsNetwork1 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputSystemMetricsCustom1) GetDisk() *InputSystemMetricsDisk1 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputSystemMetricsHost1 struct {
+	// Select level of detail for host metrics
+	Mode   *InputSystemMetricsHostMode1 `default:"basic" json:"mode"`
+	Custom *InputSystemMetricsCustom1   `json:"custom,omitempty"`
+}
+
+func (i InputSystemMetricsHost1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsHost1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsHost1) GetMode() *InputSystemMetricsHostMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemMetricsHost1) GetCustom() *InputSystemMetricsCustom1 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+// ContainerMode1 - Select the level of detail for container metrics
+type ContainerMode1 string
+
+const (
+	// ContainerMode1Basic Basic
+	ContainerMode1Basic ContainerMode1 = "basic"
+	// ContainerMode1All All
+	ContainerMode1All ContainerMode1 = "all"
+	// ContainerMode1Custom Custom
+	ContainerMode1Custom ContainerMode1 = "custom"
+	// ContainerMode1Disabled Disabled
+	ContainerMode1Disabled ContainerMode1 = "disabled"
+)
+
+func (e ContainerMode1) ToPointer() *ContainerMode1 {
+	return &e
+}
+
+type InputSystemMetricsFilter1 struct {
+	Expr string `json:"expr"`
+}
+
+func (i InputSystemMetricsFilter1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsFilter1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"expr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsFilter1) GetExpr() string {
+	if i == nil {
+		return ""
+	}
+	return i.Expr
+}
+
+type Container1 struct {
+	// Select the level of detail for container metrics
+	Mode *ContainerMode1 `default:"basic" json:"mode"`
+	// Full paths for Docker's UNIX-domain socket
+	DockerSocket []string `json:"dockerSocket,omitempty"`
+	// Timeout, in seconds, for the Docker API
+	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
+	// Containers matching any of these will be included. All are included if no filters are added.
+	Filters []InputSystemMetricsFilter1 `json:"filters,omitempty"`
+	// Include stopped and paused containers
+	AllContainers *bool `default:"false" json:"allContainers"`
+	// Generate separate metrics for each device
+	PerDevice *bool `default:"false" json:"perDevice"`
+	// Generate full container metrics
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (c Container1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Container1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Container1) GetMode() *ContainerMode1 {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *Container1) GetDockerSocket() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DockerSocket
+}
+
+func (c *Container1) GetDockerTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DockerTimeout
+}
+
+func (c *Container1) GetFilters() []InputSystemMetricsFilter1 {
+	if c == nil {
+		return nil
+	}
+	return c.Filters
+}
+
+func (c *Container1) GetAllContainers() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AllContainers
+}
+
+func (c *Container1) GetPerDevice() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PerDevice
+}
+
+func (c *Container1) GetDetail() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Detail
+}
+
+type InputSystemMetricsSystemMetrics1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputSystemMetricsType1 `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                 `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost1 `json:"host,omitempty"`
+	Process   *ProcessType             `json:"process,omitempty"`
+	Container *Container1              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	Description *string           `json:"description,omitempty"`
+}
+
+func (i InputSystemMetricsSystemMetrics1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsSystemMetrics1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetType() InputSystemMetricsType1 {
+	if i == nil {
+		return InputSystemMetricsType1("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetHost() *InputSystemMetricsHost1 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetContainer() *Container1 {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsSystemMetrics1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemMetricsType string
+
+const (
+	InputSystemMetricsTypeInputSystemMetricsSystemMetrics1 InputSystemMetricsType = "InputSystemMetrics_SystemMetrics_1"
+	InputSystemMetricsTypeInputSystemMetricsSystemMetrics2 InputSystemMetricsType = "InputSystemMetrics_SystemMetrics_2"
+	InputSystemMetricsTypeInputSystemMetricsSystemMetrics3 InputSystemMetricsType = "InputSystemMetrics_SystemMetrics_3"
+	InputSystemMetricsTypeInputSystemMetricsSystemMetrics4 InputSystemMetricsType = "InputSystemMetrics_SystemMetrics_4"
+)
+
+type InputSystemMetrics struct {
+	InputSystemMetricsSystemMetrics1 *InputSystemMetricsSystemMetrics1 `queryParam:"inline,name=InputSystemMetrics"`
+	InputSystemMetricsSystemMetrics2 *InputSystemMetricsSystemMetrics2 `queryParam:"inline,name=InputSystemMetrics"`
+	InputSystemMetricsSystemMetrics3 *InputSystemMetricsSystemMetrics3 `queryParam:"inline,name=InputSystemMetrics"`
+	InputSystemMetricsSystemMetrics4 *InputSystemMetricsSystemMetrics4 `queryParam:"inline,name=InputSystemMetrics"`
+
+	Type InputSystemMetricsType
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSystemMetrics1(inputSystemMetricsSystemMetrics1 InputSystemMetricsSystemMetrics1) InputSystemMetrics {
+	typ := InputSystemMetricsTypeInputSystemMetricsSystemMetrics1
+
+	return InputSystemMetrics{
+		InputSystemMetricsSystemMetrics1: &inputSystemMetricsSystemMetrics1,
+		Type:                             typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSystemMetrics2(inputSystemMetricsSystemMetrics2 InputSystemMetricsSystemMetrics2) InputSystemMetrics {
+	typ := InputSystemMetricsTypeInputSystemMetricsSystemMetrics2
+
+	return InputSystemMetrics{
+		InputSystemMetricsSystemMetrics2: &inputSystemMetricsSystemMetrics2,
+		Type:                             typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSystemMetrics3(inputSystemMetricsSystemMetrics3 InputSystemMetricsSystemMetrics3) InputSystemMetrics {
+	typ := InputSystemMetricsTypeInputSystemMetricsSystemMetrics3
+
+	return InputSystemMetrics{
+		InputSystemMetricsSystemMetrics3: &inputSystemMetricsSystemMetrics3,
+		Type:                             typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSystemMetrics4(inputSystemMetricsSystemMetrics4 InputSystemMetricsSystemMetrics4) InputSystemMetrics {
+	typ := InputSystemMetricsTypeInputSystemMetricsSystemMetrics4
+
+	return InputSystemMetrics{
+		InputSystemMetricsSystemMetrics4: &inputSystemMetricsSystemMetrics4,
+		Type:                             typ,
+	}
+}
+
+func (u *InputSystemMetrics) UnmarshalJSON(data []byte) error {
+
+	var inputSystemMetricsSystemMetrics2 InputSystemMetricsSystemMetrics2 = InputSystemMetricsSystemMetrics2{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSystemMetrics2, "", true, nil); err == nil {
+		u.InputSystemMetricsSystemMetrics2 = &inputSystemMetricsSystemMetrics2
+		u.Type = InputSystemMetricsTypeInputSystemMetricsSystemMetrics2
+		return nil
+	}
+
+	var inputSystemMetricsSystemMetrics4 InputSystemMetricsSystemMetrics4 = InputSystemMetricsSystemMetrics4{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSystemMetrics4, "", true, nil); err == nil {
+		u.InputSystemMetricsSystemMetrics4 = &inputSystemMetricsSystemMetrics4
+		u.Type = InputSystemMetricsTypeInputSystemMetricsSystemMetrics4
+		return nil
+	}
+
+	var inputSystemMetricsSystemMetrics1 InputSystemMetricsSystemMetrics1 = InputSystemMetricsSystemMetrics1{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSystemMetrics1, "", true, nil); err == nil {
+		u.InputSystemMetricsSystemMetrics1 = &inputSystemMetricsSystemMetrics1
+		u.Type = InputSystemMetricsTypeInputSystemMetricsSystemMetrics1
+		return nil
+	}
+
+	var inputSystemMetricsSystemMetrics3 InputSystemMetricsSystemMetrics3 = InputSystemMetricsSystemMetrics3{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSystemMetrics3, "", true, nil); err == nil {
+		u.InputSystemMetricsSystemMetrics3 = &inputSystemMetricsSystemMetrics3
+		u.Type = InputSystemMetricsTypeInputSystemMetricsSystemMetrics3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSystemMetrics", string(data))
+}
+
+func (u InputSystemMetrics) MarshalJSON() ([]byte, error) {
+	if u.InputSystemMetricsSystemMetrics1 != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSystemMetrics1, "", true)
+	}
+
+	if u.InputSystemMetricsSystemMetrics2 != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSystemMetrics2, "", true)
+	}
+
+	if u.InputSystemMetricsSystemMetrics3 != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSystemMetrics3, "", true)
+	}
+
+	if u.InputSystemMetricsSystemMetrics4 != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSystemMetrics4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSystemMetrics: all fields are null")
 }

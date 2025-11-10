@@ -3,331 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSecurityLakeType string
-
-const (
-	InputSecurityLakeTypeSecurityLake InputSecurityLakeType = "security_lake"
-)
-
-func (e InputSecurityLakeType) ToPointer() *InputSecurityLakeType {
-	return &e
-}
-func (e *InputSecurityLakeType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "security_lake":
-		*e = InputSecurityLakeType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSecurityLakeType: %v", v)
-	}
-}
-
-type InputSecurityLakeConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSecurityLakeConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakeConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSecurityLakeConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSecurityLakeConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSecurityLakeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSecurityLakeMode string
-
-const (
-	InputSecurityLakeModeSmart  InputSecurityLakeMode = "smart"
-	InputSecurityLakeModeAlways InputSecurityLakeMode = "always"
-)
-
-func (e InputSecurityLakeMode) ToPointer() *InputSecurityLakeMode {
-	return &e
-}
-
-// InputSecurityLakeCompression - Codec to use to compress the persisted data
-type InputSecurityLakeCompression string
-
-const (
-	InputSecurityLakeCompressionNone InputSecurityLakeCompression = "none"
-	InputSecurityLakeCompressionGzip InputSecurityLakeCompression = "gzip"
-)
-
-func (e InputSecurityLakeCompression) ToPointer() *InputSecurityLakeCompression {
-	return &e
-}
-
-type InputSecurityLakePqControls struct {
-}
-
-func (i InputSecurityLakePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSecurityLakePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSecurityLakeMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSecurityLakeCompression `default:"none" json:"compress"`
-	PqControls *InputSecurityLakePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSecurityLakePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSecurityLakePq) GetMode() *InputSecurityLakeMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSecurityLakePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSecurityLakePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSecurityLakePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSecurityLakePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSecurityLakePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSecurityLakePq) GetCompress() *InputSecurityLakeCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSecurityLakePq) GetPqControls() *InputSecurityLakePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputSecurityLakeAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputSecurityLakeAuthenticationMethod string
-
-const (
-	InputSecurityLakeAuthenticationMethodAuto   InputSecurityLakeAuthenticationMethod = "auto"
-	InputSecurityLakeAuthenticationMethodManual InputSecurityLakeAuthenticationMethod = "manual"
-	InputSecurityLakeAuthenticationMethodSecret InputSecurityLakeAuthenticationMethod = "secret"
-)
-
-func (e InputSecurityLakeAuthenticationMethod) ToPointer() *InputSecurityLakeAuthenticationMethod {
-	return &e
-}
-
-// InputSecurityLakeSignatureVersion - Signature version to use for signing S3 requests
-type InputSecurityLakeSignatureVersion string
-
-const (
-	InputSecurityLakeSignatureVersionV2 InputSecurityLakeSignatureVersion = "v2"
-	InputSecurityLakeSignatureVersionV4 InputSecurityLakeSignatureVersion = "v4"
-)
-
-func (e InputSecurityLakeSignatureVersion) ToPointer() *InputSecurityLakeSignatureVersion {
-	return &e
-}
-
-type InputSecurityLakePreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (i InputSecurityLakePreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakePreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSecurityLakePreprocess) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSecurityLakePreprocess) GetCommand() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Command
-}
-
-func (i *InputSecurityLakePreprocess) GetArgs() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Args
-}
-
-type InputSecurityLakeMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSecurityLakeMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakeMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSecurityLakeMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSecurityLakeMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputSecurityLakeCheckpointing struct {
-	// Resume processing files after an interruption
-	Enabled *bool `default:"false" json:"enabled"`
-	// The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-	Retries *float64 `default:"5" json:"retries"`
-}
-
-func (i InputSecurityLakeCheckpointing) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSecurityLakeCheckpointing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSecurityLakeCheckpointing) GetEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Enabled
-}
-
-func (i *InputSecurityLakeCheckpointing) GetRetries() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Retries
-}
-
-type InputSecurityLakeTagAfterProcessing string
-
-const (
-	InputSecurityLakeTagAfterProcessingFalse InputSecurityLakeTagAfterProcessing = "false"
-	InputSecurityLakeTagAfterProcessingTrue  InputSecurityLakeTagAfterProcessing = "true"
-)
-
-func (e InputSecurityLakeTagAfterProcessing) ToPointer() *InputSecurityLakeTagAfterProcessing {
-	return &e
-}
-
-type InputSecurityLake struct {
+type InputSecurityLakeSecurityLake9 struct {
+	TagAfterProcessing TagAfterProcessingOptions `json:"tagAfterProcessing"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputSecurityLakeType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -339,8 +25,8 @@ type InputSecurityLake struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSecurityLakeConnection `json:"connections,omitempty"`
-	Pq          *InputSecurityLakePq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -348,14 +34,14 @@ type InputSecurityLake struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputSecurityLakeAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *InputSecurityLakeSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -385,15 +71,15 @@ type InputSecurityLake struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                        `default:"false" json:"enableSQSAssumeRole"`
-	Preprocess          *InputSecurityLakePreprocess `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputSecurityLakeMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                        `default:"600" json:"parquetChunkDownloadTimeout"`
-	Checkpointing               *InputSecurityLakeCheckpointing `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `default:"10" json:"pollTimeout"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -401,343 +87,3911 @@ type InputSecurityLake struct {
 	Description *string `json:"description,omitempty"`
 	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                              `json:"awsSecret,omitempty"`
-	TagAfterProcessing *InputSecurityLakeTagAfterProcessing `json:"tagAfterProcessing,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitempty"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey string `json:"processedTagKey"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue string `json:"processedTagValue"`
 }
 
-func (i InputSecurityLake) MarshalJSON() ([]byte, error) {
+func (i InputSecurityLakeSecurityLake9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSecurityLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+func (i *InputSecurityLakeSecurityLake9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tagAfterProcessing", "type", "queueName", "processedTagKey", "processedTagValue"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSecurityLake) GetID() *string {
+func (i *InputSecurityLakeSecurityLake9) GetTagAfterProcessing() TagAfterProcessingOptions {
+	if i == nil {
+		return TagAfterProcessingOptions("")
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake9) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSecurityLake) GetType() InputSecurityLakeType {
+func (i *InputSecurityLakeSecurityLake9) GetType() TypeSecurityLakeOption {
 	if i == nil {
-		return InputSecurityLakeType("")
+		return TypeSecurityLakeOption("")
 	}
 	return i.Type
 }
 
-func (i *InputSecurityLake) GetDisabled() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSecurityLake) GetPipeline() *string {
+func (i *InputSecurityLakeSecurityLake9) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSecurityLake) GetSendToRoutes() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSecurityLake) GetEnvironment() *string {
+func (i *InputSecurityLakeSecurityLake9) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSecurityLake) GetPqEnabled() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSecurityLake) GetStreamtags() []string {
+func (i *InputSecurityLakeSecurityLake9) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSecurityLake) GetConnections() []InputSecurityLakeConnection {
+func (i *InputSecurityLakeSecurityLake9) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSecurityLake) GetPq() *InputSecurityLakePq {
+func (i *InputSecurityLakeSecurityLake9) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSecurityLake) GetQueueName() string {
+func (i *InputSecurityLakeSecurityLake9) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSecurityLake) GetFileFilter() *string {
+func (i *InputSecurityLakeSecurityLake9) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputSecurityLake) GetAwsAccountID() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLake) GetAwsAuthenticationMethod() *InputSecurityLakeAuthenticationMethod {
+func (i *InputSecurityLakeSecurityLake9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSecurityLake) GetAwsSecretKey() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSecurityLake) GetRegion() *string {
+func (i *InputSecurityLakeSecurityLake9) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSecurityLake) GetEndpoint() *string {
+func (i *InputSecurityLakeSecurityLake9) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSecurityLake) GetSignatureVersion() *InputSecurityLakeSignatureVersion {
+func (i *InputSecurityLakeSecurityLake9) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSecurityLake) GetReuseConnections() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSecurityLake) GetRejectUnauthorized() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSecurityLake) GetBreakerRulesets() []string {
+func (i *InputSecurityLakeSecurityLake9) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSecurityLake) GetStaleChannelFlushMs() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSecurityLake) GetMaxMessages() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSecurityLake) GetVisibilityTimeout() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSecurityLake) GetNumReceivers() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputSecurityLake) GetSocketTimeout() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSecurityLake) GetSkipOnError() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputSecurityLake) GetIncludeSqsMetadata() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputSecurityLake) GetEnableAssumeRole() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSecurityLake) GetAssumeRoleArn() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSecurityLake) GetAssumeRoleExternalID() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSecurityLake) GetDurationSeconds() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSecurityLake) GetEnableSQSAssumeRole() *bool {
+func (i *InputSecurityLakeSecurityLake9) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputSecurityLake) GetPreprocess() *InputSecurityLakePreprocess {
+func (i *InputSecurityLakeSecurityLake9) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputSecurityLake) GetMetadata() []InputSecurityLakeMetadatum {
+func (i *InputSecurityLakeSecurityLake9) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSecurityLake) GetParquetChunkSizeMB() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputSecurityLake) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputSecurityLake) GetCheckpointing() *InputSecurityLakeCheckpointing {
+func (i *InputSecurityLakeSecurityLake9) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputSecurityLake) GetPollTimeout() *float64 {
+func (i *InputSecurityLakeSecurityLake9) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSecurityLake) GetEncoding() *string {
+func (i *InputSecurityLakeSecurityLake9) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSecurityLake) GetDescription() *string {
+func (i *InputSecurityLakeSecurityLake9) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSecurityLake) GetAwsAPIKey() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSecurityLake) GetAwsSecret() *string {
+func (i *InputSecurityLakeSecurityLake9) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSecurityLake) GetTagAfterProcessing() *InputSecurityLakeTagAfterProcessing {
+func (i *InputSecurityLakeSecurityLake9) GetProcessedTagKey() string {
 	if i == nil {
-		return nil
+		return ""
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake9) GetProcessedTagValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake8 struct {
+	TagAfterProcessing TagAfterProcessingOptions `json:"tagAfterProcessing"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tagAfterProcessing", "type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetTagAfterProcessing() TagAfterProcessingOptions {
+	if i == nil {
+		return TagAfterProcessingOptions("")
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputSecurityLake) GetProcessedTagKey() *string {
+func (i *InputSecurityLakeSecurityLake8) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake8) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputSecurityLake) GetProcessedTagValue() *string {
+func (i *InputSecurityLakeSecurityLake8) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          string                     `json:"awsSecret"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetAwsSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake7) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake6 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   string  `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAwsAPIKey() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake6) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake5 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake5) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake4) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake3) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake2) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeSecurityLake1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     TypeSecurityLakeOption `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding    *string `json:"encoding,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AwsAPIKey   *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputSecurityLakeSecurityLake1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSecurityLakeSecurityLake1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetType() TypeSecurityLakeOption {
+	if i == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputSecurityLakeSecurityLake1) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputSecurityLakeType string
+
+const (
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake1 InputSecurityLakeType = "InputSecurityLake_SecurityLake_1"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake2 InputSecurityLakeType = "InputSecurityLake_SecurityLake_2"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake3 InputSecurityLakeType = "InputSecurityLake_SecurityLake_3"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake4 InputSecurityLakeType = "InputSecurityLake_SecurityLake_4"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake5 InputSecurityLakeType = "InputSecurityLake_SecurityLake_5"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake6 InputSecurityLakeType = "InputSecurityLake_SecurityLake_6"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake7 InputSecurityLakeType = "InputSecurityLake_SecurityLake_7"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake8 InputSecurityLakeType = "InputSecurityLake_SecurityLake_8"
+	InputSecurityLakeTypeInputSecurityLakeSecurityLake9 InputSecurityLakeType = "InputSecurityLake_SecurityLake_9"
+)
+
+type InputSecurityLake struct {
+	InputSecurityLakeSecurityLake1 *InputSecurityLakeSecurityLake1 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake2 *InputSecurityLakeSecurityLake2 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake3 *InputSecurityLakeSecurityLake3 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake4 *InputSecurityLakeSecurityLake4 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake5 *InputSecurityLakeSecurityLake5 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake6 *InputSecurityLakeSecurityLake6 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake7 *InputSecurityLakeSecurityLake7 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake8 *InputSecurityLakeSecurityLake8 `queryParam:"inline,name=InputSecurityLake"`
+	InputSecurityLakeSecurityLake9 *InputSecurityLakeSecurityLake9 `queryParam:"inline,name=InputSecurityLake"`
+
+	Type InputSecurityLakeType
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake1(inputSecurityLakeSecurityLake1 InputSecurityLakeSecurityLake1) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake1
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake1: &inputSecurityLakeSecurityLake1,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake2(inputSecurityLakeSecurityLake2 InputSecurityLakeSecurityLake2) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake2
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake2: &inputSecurityLakeSecurityLake2,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake3(inputSecurityLakeSecurityLake3 InputSecurityLakeSecurityLake3) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake3
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake3: &inputSecurityLakeSecurityLake3,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake4(inputSecurityLakeSecurityLake4 InputSecurityLakeSecurityLake4) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake4
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake4: &inputSecurityLakeSecurityLake4,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake5(inputSecurityLakeSecurityLake5 InputSecurityLakeSecurityLake5) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake5
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake5: &inputSecurityLakeSecurityLake5,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake6(inputSecurityLakeSecurityLake6 InputSecurityLakeSecurityLake6) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake6
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake6: &inputSecurityLakeSecurityLake6,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake7(inputSecurityLakeSecurityLake7 InputSecurityLakeSecurityLake7) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake7
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake7: &inputSecurityLakeSecurityLake7,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake8(inputSecurityLakeSecurityLake8 InputSecurityLakeSecurityLake8) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake8
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake8: &inputSecurityLakeSecurityLake8,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSecurityLakeInputSecurityLakeSecurityLake9(inputSecurityLakeSecurityLake9 InputSecurityLakeSecurityLake9) InputSecurityLake {
+	typ := InputSecurityLakeTypeInputSecurityLakeSecurityLake9
+
+	return InputSecurityLake{
+		InputSecurityLakeSecurityLake9: &inputSecurityLakeSecurityLake9,
+		Type:                           typ,
+	}
+}
+
+func (u *InputSecurityLake) UnmarshalJSON(data []byte) error {
+
+	var inputSecurityLakeSecurityLake9 InputSecurityLakeSecurityLake9 = InputSecurityLakeSecurityLake9{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake9, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake9 = &inputSecurityLakeSecurityLake9
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake9
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake2 InputSecurityLakeSecurityLake2 = InputSecurityLakeSecurityLake2{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake2, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake2 = &inputSecurityLakeSecurityLake2
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake2
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake4 InputSecurityLakeSecurityLake4 = InputSecurityLakeSecurityLake4{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake4, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake4 = &inputSecurityLakeSecurityLake4
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake4
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake6 InputSecurityLakeSecurityLake6 = InputSecurityLakeSecurityLake6{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake6, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake6 = &inputSecurityLakeSecurityLake6
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake6
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake7 InputSecurityLakeSecurityLake7 = InputSecurityLakeSecurityLake7{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake7, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake7 = &inputSecurityLakeSecurityLake7
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake7
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake8 InputSecurityLakeSecurityLake8 = InputSecurityLakeSecurityLake8{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake8, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake8 = &inputSecurityLakeSecurityLake8
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake8
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake1 InputSecurityLakeSecurityLake1 = InputSecurityLakeSecurityLake1{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake1, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake1 = &inputSecurityLakeSecurityLake1
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake1
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake3 InputSecurityLakeSecurityLake3 = InputSecurityLakeSecurityLake3{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake3, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake3 = &inputSecurityLakeSecurityLake3
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake3
+		return nil
+	}
+
+	var inputSecurityLakeSecurityLake5 InputSecurityLakeSecurityLake5 = InputSecurityLakeSecurityLake5{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSecurityLake5, "", true, nil); err == nil {
+		u.InputSecurityLakeSecurityLake5 = &inputSecurityLakeSecurityLake5
+		u.Type = InputSecurityLakeTypeInputSecurityLakeSecurityLake5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSecurityLake", string(data))
+}
+
+func (u InputSecurityLake) MarshalJSON() ([]byte, error) {
+	if u.InputSecurityLakeSecurityLake1 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake1, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake2 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake2, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake3 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake3, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake4 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake4, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake5 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake5, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake6 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake6, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake7 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake7, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake8 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake8, "", true)
+	}
+
+	if u.InputSecurityLakeSecurityLake9 != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSecurityLake9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSecurityLake: all fields are null")
 }

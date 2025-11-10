@@ -4,372 +4,80 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWizType string
+type InputWizType6 string
 
 const (
-	InputWizTypeWiz InputWizType = "wiz"
+	InputWizType6Wiz InputWizType6 = "wiz"
 )
 
-func (e InputWizType) ToPointer() *InputWizType {
+func (e InputWizType6) ToPointer() *InputWizType6 {
 	return &e
 }
-func (e *InputWizType) UnmarshalJSON(data []byte) error {
+func (e *InputWizType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "wiz":
-		*e = InputWizType(v)
+		*e = InputWizType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputWizType: %v", v)
+		return fmt.Errorf("invalid value for InputWizType6: %v", v)
 	}
 }
 
-type InputWizConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWizConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWizConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWizMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWizMode string
-
-const (
-	InputWizModeSmart  InputWizMode = "smart"
-	InputWizModeAlways InputWizMode = "always"
-)
-
-func (e InputWizMode) ToPointer() *InputWizMode {
-	return &e
-}
-
-// InputWizCompression - Codec to use to compress the persisted data
-type InputWizCompression string
-
-const (
-	InputWizCompressionNone InputWizCompression = "none"
-	InputWizCompressionGzip InputWizCompression = "gzip"
-)
-
-func (e InputWizCompression) ToPointer() *InputWizCompression {
-	return &e
-}
-
-type InputWizPqControls struct {
-}
-
-func (i InputWizPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWizPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWizMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWizCompression `default:"none" json:"compress"`
-	PqControls *InputWizPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWizPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizPq) GetMode() *InputWizMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWizPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWizPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWizPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWizPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWizPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWizPq) GetCompress() *InputWizCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWizPq) GetPqControls() *InputWizPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputWizContentConfig struct {
+type ContentConfig6 struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
 	ContentDescription *string `json:"contentDescription,omitempty"`
 	Enabled            *bool   `default:"false" json:"enabled"`
 }
 
-func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (c ContentConfig6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (i *InputWizContentConfig) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"contentType"}); err != nil {
+func (c *ContentConfig6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizContentConfig) GetContentType() string {
-	if i == nil {
+func (c *ContentConfig6) GetContentType() string {
+	if c == nil {
 		return ""
 	}
-	return i.ContentType
+	return c.ContentType
 }
 
-func (i *InputWizContentConfig) GetContentDescription() *string {
-	if i == nil {
+func (c *ContentConfig6) GetContentDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return i.ContentDescription
+	return c.ContentDescription
 }
 
-func (i *InputWizContentConfig) GetEnabled() *bool {
-	if i == nil {
+func (c *ContentConfig6) GetEnabled() *bool {
+	if c == nil {
 		return nil
 	}
-	return i.Enabled
+	return c.Enabled
 }
 
-type InputWizMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWizMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWizMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputWizRetryType - The algorithm to use when performing HTTP retries
-type InputWizRetryType string
-
-const (
-	InputWizRetryTypeNone    InputWizRetryType = "none"
-	InputWizRetryTypeBackoff InputWizRetryType = "backoff"
-	InputWizRetryTypeStatic  InputWizRetryType = "static"
-)
-
-func (e InputWizRetryType) ToPointer() *InputWizRetryType {
-	return &e
-}
-
-type InputWizRetryRules struct {
-	// The algorithm to use when performing HTTP retries
-	Type *InputWizRetryType `default:"backoff" json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `default:"1000" json:"interval"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `default:"5" json:"limit"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `default:"2" json:"multiplier"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `default:"true" json:"enableHeader"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
-}
-
-func (i InputWizRetryRules) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizRetryRules) GetType() *InputWizRetryType {
-	if i == nil {
-		return nil
-	}
-	return i.Type
-}
-
-func (i *InputWizRetryRules) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputWizRetryRules) GetLimit() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Limit
-}
-
-func (i *InputWizRetryRules) GetMultiplier() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Multiplier
-}
-
-func (i *InputWizRetryRules) GetCodes() []float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Codes
-}
-
-func (i *InputWizRetryRules) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputWizRetryRules) GetRetryConnectTimeout() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectTimeout
-}
-
-func (i *InputWizRetryRules) GetRetryConnectReset() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectReset
-}
-
-// InputWizAuthenticationMethod - Enter client secret directly, or select a stored secret
-type InputWizAuthenticationMethod string
-
-const (
-	InputWizAuthenticationMethodManual InputWizAuthenticationMethod = "manual"
-	InputWizAuthenticationMethodSecret InputWizAuthenticationMethod = "secret"
-)
-
-func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
-	return &e
-}
-
-type InputWiz struct {
+type InputWizWiz6 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputWizType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType6 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -381,8 +89,8 @@ type InputWiz struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWizConnection `json:"connections,omitempty"`
-	Pq          *InputWizPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
 	// The authentication URL to generate an OAuth token
@@ -390,8 +98,8 @@ type InputWiz struct {
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
 	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
 	// The client ID of the Wiz application
-	ClientID      string                  `json:"clientId"`
-	ContentConfig []InputWizContentConfig `json:"contentConfig"`
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig6 `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -403,206 +111,1875 @@ type InputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
 	// Fields to add to events from this input
-	Metadata   []InputWizMetadatum `json:"metadata,omitempty"`
-	RetryRules *InputWizRetryRules `json:"retryRules,omitempty"`
-	// Enter client secret directly, or select a stored secret
-	AuthType    *InputWizAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                       `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules  *RetryRulesType `json:"retryRules,omitempty"`
+	Description *string         `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret string `json:"textSecret"`
 }
 
-func (i InputWiz) MarshalJSON() ([]byte, error) {
+func (i InputWizWiz6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWiz) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+func (i *InputWizWiz6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig", "textSecret"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWiz) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWiz) GetType() InputWizType {
-	if i == nil {
-		return InputWizType("")
-	}
-	return i.Type
-}
-
-func (i *InputWiz) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWiz) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWiz) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWiz) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWiz) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWiz) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWiz) GetConnections() []InputWizConnection {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWiz) GetPq() *InputWizPq {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWiz) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputWiz) GetAuthURL() string {
-	if i == nil {
-		return ""
-	}
-	return i.AuthURL
-}
-
-func (i *InputWiz) GetAuthAudienceOverride() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthAudienceOverride
-}
-
-func (i *InputWiz) GetClientID() string {
-	if i == nil {
-		return ""
-	}
-	return i.ClientID
-}
-
-func (i *InputWiz) GetContentConfig() []InputWizContentConfig {
-	if i == nil {
-		return []InputWizContentConfig{}
-	}
-	return i.ContentConfig
-}
-
-func (i *InputWiz) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputWiz) GetKeepAliveTime() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTime
-}
-
-func (i *InputWiz) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxMissedKeepAlives
-}
-
-func (i *InputWiz) GetTTL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TTL
-}
-
-func (i *InputWiz) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IgnoreGroupJobsLimit
-}
-
-func (i *InputWiz) GetMetadata() []InputWizMetadatum {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWiz) GetRetryRules() *InputWizRetryRules {
-	if i == nil {
-		return nil
-	}
-	return i.RetryRules
-}
-
-func (i *InputWiz) GetAuthType() *InputWizAuthenticationMethod {
+func (i *InputWizWiz6) GetAuthType() *AuthType2Options {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWiz) GetDescription() *string {
+func (i *InputWizWiz6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz6) GetType() InputWizType6 {
+	if i == nil {
+		return InputWizType6("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz6) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz6) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz6) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz6) GetContentConfig() []ContentConfig6 {
+	if i == nil {
+		return []ContentConfig6{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz6) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz6) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz6) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz6) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz6) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz6) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz6) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWiz) GetClientSecret() *string {
+func (i *InputWizWiz6) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWiz) GetTextSecret() *string {
+func (i *InputWizWiz6) GetTextSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TextSecret
+}
+
+type InputWizType5 string
+
+const (
+	InputWizType5Wiz InputWizType5 = "wiz"
+)
+
+func (e InputWizType5) ToPointer() *InputWizType5 {
+	return &e
+}
+func (e *InputWizType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wiz":
+		*e = InputWizType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWizType5: %v", v)
+	}
+}
+
+type ContentConfig5 struct {
+	// The name of the Wiz query
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitempty"`
+	Enabled            *bool   `default:"false" json:"enabled"`
+}
+
+func (c ContentConfig5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentConfig5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ContentConfig5) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *ContentConfig5) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *ContentConfig5) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+type InputWizWiz5 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType5 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig5 `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules  *RetryRulesType `json:"retryRules,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret string `json:"clientSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizWiz5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWiz5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig", "clientSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWiz5) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizWiz5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz5) GetType() InputWizType5 {
+	if i == nil {
+		return InputWizType5("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz5) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz5) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz5) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz5) GetContentConfig() []ContentConfig5 {
+	if i == nil {
+		return []ContentConfig5{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz5) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz5) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz5) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz5) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz5) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz5) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizWiz5) GetClientSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizWiz5) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
+}
+
+type InputWizType4 string
+
+const (
+	InputWizType4Wiz InputWizType4 = "wiz"
+)
+
+func (e InputWizType4) ToPointer() *InputWizType4 {
+	return &e
+}
+func (e *InputWizType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wiz":
+		*e = InputWizType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWizType4: %v", v)
+	}
+}
+
+type ContentConfig4 struct {
+	// The name of the Wiz query
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitempty"`
+	Enabled            *bool   `default:"false" json:"enabled"`
+}
+
+func (c ContentConfig4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentConfig4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ContentConfig4) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *ContentConfig4) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *ContentConfig4) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+type InputWizWiz4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType4 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig4 `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizWiz4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWiz4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWiz4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz4) GetType() InputWizType4 {
+	if i == nil {
+		return InputWizType4("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz4) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz4) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz4) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz4) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz4) GetContentConfig() []ContentConfig4 {
+	if i == nil {
+		return []ContentConfig4{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz4) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz4) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz4) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz4) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz4) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz4) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz4) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizWiz4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizWiz4) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizWiz4) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizType3 string
+
+const (
+	InputWizType3Wiz InputWizType3 = "wiz"
+)
+
+func (e InputWizType3) ToPointer() *InputWizType3 {
+	return &e
+}
+func (e *InputWizType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wiz":
+		*e = InputWizType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWizType3: %v", v)
+	}
+}
+
+type ContentConfig3 struct {
+	// The name of the Wiz query
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitempty"`
+	Enabled            *bool   `default:"false" json:"enabled"`
+}
+
+func (c ContentConfig3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentConfig3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ContentConfig3) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *ContentConfig3) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *ContentConfig3) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+type InputWizWiz3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType3 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig3 `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizWiz3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWiz3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWiz3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz3) GetType() InputWizType3 {
+	if i == nil {
+		return InputWizType3("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz3) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz3) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz3) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz3) GetContentConfig() []ContentConfig3 {
+	if i == nil {
+		return []ContentConfig3{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz3) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz3) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz3) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz3) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz3) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz3) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizWiz3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizWiz3) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizWiz3) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizType2 string
+
+const (
+	InputWizType2Wiz InputWizType2 = "wiz"
+)
+
+func (e InputWizType2) ToPointer() *InputWizType2 {
+	return &e
+}
+func (e *InputWizType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wiz":
+		*e = InputWizType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWizType2: %v", v)
+	}
+}
+
+type ContentConfig2 struct {
+	// The name of the Wiz query
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitempty"`
+	Enabled            *bool   `default:"false" json:"enabled"`
+}
+
+func (c ContentConfig2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentConfig2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ContentConfig2) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *ContentConfig2) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *ContentConfig2) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+type InputWizWiz2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType2 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig2 `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizWiz2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWiz2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWiz2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz2) GetType() InputWizType2 {
+	if i == nil {
+		return InputWizType2("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz2) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz2) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz2) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz2) GetContentConfig() []ContentConfig2 {
+	if i == nil {
+		return []ContentConfig2{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz2) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz2) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz2) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz2) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz2) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz2) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizWiz2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizWiz2) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizWiz2) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizType1 string
+
+const (
+	InputWizType1Wiz InputWizType1 = "wiz"
+)
+
+func (e InputWizType1) ToPointer() *InputWizType1 {
+	return &e
+}
+func (e *InputWizType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "wiz":
+		*e = InputWizType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWizType1: %v", v)
+	}
+}
+
+type ContentConfig1 struct {
+	// The name of the Wiz query
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitempty"`
+	Enabled            *bool   `default:"false" json:"enabled"`
+}
+
+func (c ContentConfig1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentConfig1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"contentType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ContentConfig1) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *ContentConfig1) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *ContentConfig1) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+type InputWizWiz1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputWizType1 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string           `json:"clientId"`
+	ContentConfig []ContentConfig1 `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizWiz1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWiz1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWiz1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWiz1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWiz1) GetType() InputWizType1 {
+	if i == nil {
+		return InputWizType1("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWiz1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWiz1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWiz1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWiz1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWiz1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWiz1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWiz1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWiz1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizWiz1) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizWiz1) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizWiz1) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizWiz1) GetContentConfig() []ContentConfig1 {
+	if i == nil {
+		return []ContentConfig1{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizWiz1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWiz1) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizWiz1) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizWiz1) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizWiz1) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizWiz1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWiz1) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizWiz1) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizWiz1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizWiz1) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizWiz1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizType string
+
+const (
+	InputWizTypeInputWizWiz1 InputWizType = "InputWiz_Wiz_1"
+	InputWizTypeInputWizWiz2 InputWizType = "InputWiz_Wiz_2"
+	InputWizTypeInputWizWiz3 InputWizType = "InputWiz_Wiz_3"
+	InputWizTypeInputWizWiz4 InputWizType = "InputWiz_Wiz_4"
+	InputWizTypeInputWizWiz5 InputWizType = "InputWiz_Wiz_5"
+	InputWizTypeInputWizWiz6 InputWizType = "InputWiz_Wiz_6"
+)
+
+type InputWiz struct {
+	InputWizWiz1 *InputWizWiz1 `queryParam:"inline,name=InputWiz"`
+	InputWizWiz2 *InputWizWiz2 `queryParam:"inline,name=InputWiz"`
+	InputWizWiz3 *InputWizWiz3 `queryParam:"inline,name=InputWiz"`
+	InputWizWiz4 *InputWizWiz4 `queryParam:"inline,name=InputWiz"`
+	InputWizWiz5 *InputWizWiz5 `queryParam:"inline,name=InputWiz"`
+	InputWizWiz6 *InputWizWiz6 `queryParam:"inline,name=InputWiz"`
+
+	Type InputWizType
+}
+
+func CreateInputWizInputWizWiz1(inputWizWiz1 InputWizWiz1) InputWiz {
+	typ := InputWizTypeInputWizWiz1
+
+	return InputWiz{
+		InputWizWiz1: &inputWizWiz1,
+		Type:         typ,
+	}
+}
+
+func CreateInputWizInputWizWiz2(inputWizWiz2 InputWizWiz2) InputWiz {
+	typ := InputWizTypeInputWizWiz2
+
+	return InputWiz{
+		InputWizWiz2: &inputWizWiz2,
+		Type:         typ,
+	}
+}
+
+func CreateInputWizInputWizWiz3(inputWizWiz3 InputWizWiz3) InputWiz {
+	typ := InputWizTypeInputWizWiz3
+
+	return InputWiz{
+		InputWizWiz3: &inputWizWiz3,
+		Type:         typ,
+	}
+}
+
+func CreateInputWizInputWizWiz4(inputWizWiz4 InputWizWiz4) InputWiz {
+	typ := InputWizTypeInputWizWiz4
+
+	return InputWiz{
+		InputWizWiz4: &inputWizWiz4,
+		Type:         typ,
+	}
+}
+
+func CreateInputWizInputWizWiz5(inputWizWiz5 InputWizWiz5) InputWiz {
+	typ := InputWizTypeInputWizWiz5
+
+	return InputWiz{
+		InputWizWiz5: &inputWizWiz5,
+		Type:         typ,
+	}
+}
+
+func CreateInputWizInputWizWiz6(inputWizWiz6 InputWizWiz6) InputWiz {
+	typ := InputWizTypeInputWizWiz6
+
+	return InputWiz{
+		InputWizWiz6: &inputWizWiz6,
+		Type:         typ,
+	}
+}
+
+func (u *InputWiz) UnmarshalJSON(data []byte) error {
+
+	var inputWizWiz2 InputWizWiz2 = InputWizWiz2{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz2, "", true, nil); err == nil {
+		u.InputWizWiz2 = &inputWizWiz2
+		u.Type = InputWizTypeInputWizWiz2
+		return nil
+	}
+
+	var inputWizWiz4 InputWizWiz4 = InputWizWiz4{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz4, "", true, nil); err == nil {
+		u.InputWizWiz4 = &inputWizWiz4
+		u.Type = InputWizTypeInputWizWiz4
+		return nil
+	}
+
+	var inputWizWiz5 InputWizWiz5 = InputWizWiz5{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz5, "", true, nil); err == nil {
+		u.InputWizWiz5 = &inputWizWiz5
+		u.Type = InputWizTypeInputWizWiz5
+		return nil
+	}
+
+	var inputWizWiz6 InputWizWiz6 = InputWizWiz6{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz6, "", true, nil); err == nil {
+		u.InputWizWiz6 = &inputWizWiz6
+		u.Type = InputWizTypeInputWizWiz6
+		return nil
+	}
+
+	var inputWizWiz1 InputWizWiz1 = InputWizWiz1{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz1, "", true, nil); err == nil {
+		u.InputWizWiz1 = &inputWizWiz1
+		u.Type = InputWizTypeInputWizWiz1
+		return nil
+	}
+
+	var inputWizWiz3 InputWizWiz3 = InputWizWiz3{}
+	if err := utils.UnmarshalJSON(data, &inputWizWiz3, "", true, nil); err == nil {
+		u.InputWizWiz3 = &inputWizWiz3
+		u.Type = InputWizTypeInputWizWiz3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWiz", string(data))
+}
+
+func (u InputWiz) MarshalJSON() ([]byte, error) {
+	if u.InputWizWiz1 != nil {
+		return utils.MarshalJSON(u.InputWizWiz1, "", true)
+	}
+
+	if u.InputWizWiz2 != nil {
+		return utils.MarshalJSON(u.InputWizWiz2, "", true)
+	}
+
+	if u.InputWizWiz3 != nil {
+		return utils.MarshalJSON(u.InputWizWiz3, "", true)
+	}
+
+	if u.InputWizWiz4 != nil {
+		return utils.MarshalJSON(u.InputWizWiz4, "", true)
+	}
+
+	if u.InputWizWiz5 != nil {
+		return utils.MarshalJSON(u.InputWizWiz5, "", true)
+	}
+
+	if u.InputWizWiz6 != nil {
+		return utils.MarshalJSON(u.InputWizWiz6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWiz: all fields are null")
 }

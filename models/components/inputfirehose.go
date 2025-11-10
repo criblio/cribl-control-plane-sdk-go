@@ -4,376 +4,59 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputFirehoseType string
+type InputFirehoseType4 string
 
 const (
-	InputFirehoseTypeFirehose InputFirehoseType = "firehose"
+	InputFirehoseType4Firehose InputFirehoseType4 = "firehose"
 )
 
-func (e InputFirehoseType) ToPointer() *InputFirehoseType {
+func (e InputFirehoseType4) ToPointer() *InputFirehoseType4 {
 	return &e
 }
-func (e *InputFirehoseType) UnmarshalJSON(data []byte) error {
+func (e *InputFirehoseType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "firehose":
-		*e = InputFirehoseType(v)
+		*e = InputFirehoseType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputFirehoseType: %v", v)
+		return fmt.Errorf("invalid value for InputFirehoseType4: %v", v)
 	}
 }
 
-type InputFirehoseConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputFirehoseConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehoseConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehoseConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehoseConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputFirehoseMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputFirehoseMode string
-
-const (
-	InputFirehoseModeSmart  InputFirehoseMode = "smart"
-	InputFirehoseModeAlways InputFirehoseMode = "always"
-)
-
-func (e InputFirehoseMode) ToPointer() *InputFirehoseMode {
-	return &e
-}
-
-// InputFirehoseCompression - Codec to use to compress the persisted data
-type InputFirehoseCompression string
-
-const (
-	InputFirehoseCompressionNone InputFirehoseCompression = "none"
-	InputFirehoseCompressionGzip InputFirehoseCompression = "gzip"
-)
-
-func (e InputFirehoseCompression) ToPointer() *InputFirehoseCompression {
-	return &e
-}
-
-type InputFirehosePqControls struct {
-}
-
-func (i InputFirehosePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehosePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputFirehosePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputFirehoseMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputFirehoseCompression `default:"none" json:"compress"`
-	PqControls *InputFirehosePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputFirehosePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehosePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehosePq) GetMode() *InputFirehoseMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFirehosePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputFirehosePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputFirehosePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputFirehosePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputFirehosePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFirehosePq) GetCompress() *InputFirehoseCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputFirehosePq) GetPqControls() *InputFirehosePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputFirehoseMinimumTLSVersion string
-
-const (
-	InputFirehoseMinimumTLSVersionTlSv1  InputFirehoseMinimumTLSVersion = "TLSv1"
-	InputFirehoseMinimumTLSVersionTlSv11 InputFirehoseMinimumTLSVersion = "TLSv1.1"
-	InputFirehoseMinimumTLSVersionTlSv12 InputFirehoseMinimumTLSVersion = "TLSv1.2"
-	InputFirehoseMinimumTLSVersionTlSv13 InputFirehoseMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputFirehoseMinimumTLSVersion) ToPointer() *InputFirehoseMinimumTLSVersion {
-	return &e
-}
-
-type InputFirehoseMaximumTLSVersion string
-
-const (
-	InputFirehoseMaximumTLSVersionTlSv1  InputFirehoseMaximumTLSVersion = "TLSv1"
-	InputFirehoseMaximumTLSVersionTlSv11 InputFirehoseMaximumTLSVersion = "TLSv1.1"
-	InputFirehoseMaximumTLSVersionTlSv12 InputFirehoseMaximumTLSVersion = "TLSv1.2"
-	InputFirehoseMaximumTLSVersionTlSv13 InputFirehoseMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputFirehoseMaximumTLSVersion) ToPointer() *InputFirehoseMaximumTLSVersion {
-	return &e
-}
-
-type InputFirehoseTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                           `default:"false" json:"requestCert"`
-	RejectUnauthorized any                             `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                             `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputFirehoseMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputFirehoseMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputFirehoseTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetMinVersion() *InputFirehoseMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputFirehoseTLSSettingsServerSide) GetMaxVersion() *InputFirehoseMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputFirehoseMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputFirehoseMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehoseMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehoseMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputFirehoseMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputFirehose struct {
+type InputFirehoseFirehose4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputFirehoseType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	ID       *string            `json:"id,omitempty"`
+	Type     InputFirehoseType4 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputFirehoseConnection `json:"connections,omitempty"`
-	Pq          *InputFirehosePq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                            `json:"authTokens,omitempty"`
-	TLS        *InputFirehoseTLSSettingsServerSide `json:"tls,omitempty"`
+	AuthTokens []string  `json:"authTokens,omitempty"`
+	TLS        *Tls2Type `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -397,206 +80,1138 @@ type InputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
 	// Fields to add to events from this input
-	Metadata    []InputFirehoseMetadatum `json:"metadata,omitempty"`
-	Description *string                  `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputFirehose) MarshalJSON() ([]byte, error) {
+func (i InputFirehoseFirehose4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehose) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+func (i *InputFirehoseFirehose4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehose) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehose) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehose) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehose) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehose) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehose) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehose) GetPqEnabled() *bool {
+func (i *InputFirehoseFirehose4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFirehose) GetStreamtags() []string {
+func (i *InputFirehoseFirehose4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehoseFirehose4) GetType() InputFirehoseType4 {
+	if i == nil {
+		return InputFirehoseType4("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehoseFirehose4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehoseFirehose4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehoseFirehose4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehoseFirehose4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehoseFirehose4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFirehose) GetConnections() []InputFirehoseConnection {
+func (i *InputFirehoseFirehose4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFirehose) GetPq() *InputFirehosePq {
+func (i *InputFirehoseFirehose4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputFirehose) GetHost() *string {
+func (i *InputFirehoseFirehose4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputFirehose) GetPort() float64 {
+func (i *InputFirehoseFirehose4) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehose) GetAuthTokens() []string {
+func (i *InputFirehoseFirehose4) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehose) GetTLS() *InputFirehoseTLSSettingsServerSide {
+func (i *InputFirehoseFirehose4) GetTLS() *Tls2Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehose) GetMaxActiveReq() *float64 {
+func (i *InputFirehoseFirehose4) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehose) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehoseFirehose4) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehose) GetEnableProxyHeader() *bool {
+func (i *InputFirehoseFirehose4) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehose) GetCaptureHeaders() *bool {
+func (i *InputFirehoseFirehose4) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehose) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehoseFirehose4) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehose) GetRequestTimeout() *float64 {
+func (i *InputFirehoseFirehose4) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehose) GetSocketTimeout() *float64 {
+func (i *InputFirehoseFirehose4) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehose) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehoseFirehose4) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehose) GetEnableHealthCheck() *bool {
+func (i *InputFirehoseFirehose4) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehose) GetIPAllowlistRegex() *string {
+func (i *InputFirehoseFirehose4) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehose) GetIPDenylistRegex() *string {
+func (i *InputFirehoseFirehose4) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehose) GetMetadata() []InputFirehoseMetadatum {
+func (i *InputFirehoseFirehose4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehose) GetDescription() *string {
+func (i *InputFirehoseFirehose4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputFirehoseType3 string
+
+const (
+	InputFirehoseType3Firehose InputFirehoseType3 = "firehose"
+)
+
+func (e InputFirehoseType3) ToPointer() *InputFirehoseType3 {
+	return &e
+}
+func (e *InputFirehoseType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "firehose":
+		*e = InputFirehoseType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFirehoseType3: %v", v)
+	}
+}
+
+type InputFirehoseFirehose3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputFirehoseType3 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string  `json:"authTokens,omitempty"`
+	TLS        *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputFirehoseFirehose3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFirehoseFirehose3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFirehoseFirehose3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFirehoseFirehose3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehoseFirehose3) GetType() InputFirehoseType3 {
+	if i == nil {
+		return InputFirehoseType3("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehoseFirehose3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehoseFirehose3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehoseFirehose3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehoseFirehose3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehoseFirehose3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFirehoseFirehose3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFirehoseFirehose3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFirehoseFirehose3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputFirehoseFirehose3) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputFirehoseFirehose3) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputFirehoseFirehose3) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputFirehoseFirehose3) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputFirehoseFirehose3) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputFirehoseFirehose3) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputFirehoseFirehose3) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputFirehoseFirehose3) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputFirehoseFirehose3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputFirehoseFirehose3) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputFirehoseFirehose3) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputFirehoseFirehose3) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputFirehoseFirehose3) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputFirehoseFirehose3) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputFirehoseFirehose3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFirehoseFirehose3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputFirehoseType2 string
+
+const (
+	InputFirehoseType2Firehose InputFirehoseType2 = "firehose"
+)
+
+func (e InputFirehoseType2) ToPointer() *InputFirehoseType2 {
+	return &e
+}
+func (e *InputFirehoseType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "firehose":
+		*e = InputFirehoseType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFirehoseType2: %v", v)
+	}
+}
+
+type InputFirehoseFirehose2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputFirehoseType2 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string  `json:"authTokens,omitempty"`
+	TLS        *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputFirehoseFirehose2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFirehoseFirehose2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFirehoseFirehose2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehoseFirehose2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehoseFirehose2) GetType() InputFirehoseType2 {
+	if i == nil {
+		return InputFirehoseType2("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehoseFirehose2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehoseFirehose2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehoseFirehose2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehoseFirehose2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFirehoseFirehose2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFirehoseFirehose2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputFirehoseFirehose2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFirehoseFirehose2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputFirehoseFirehose2) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputFirehoseFirehose2) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputFirehoseFirehose2) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputFirehoseFirehose2) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputFirehoseFirehose2) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputFirehoseFirehose2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputFirehoseFirehose2) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputFirehoseFirehose2) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputFirehoseFirehose2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputFirehoseFirehose2) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputFirehoseFirehose2) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputFirehoseFirehose2) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputFirehoseFirehose2) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputFirehoseFirehose2) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputFirehoseFirehose2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFirehoseFirehose2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputFirehoseType1 string
+
+const (
+	InputFirehoseType1Firehose InputFirehoseType1 = "firehose"
+)
+
+func (e InputFirehoseType1) ToPointer() *InputFirehoseType1 {
+	return &e
+}
+func (e *InputFirehoseType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "firehose":
+		*e = InputFirehoseType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFirehoseType1: %v", v)
+	}
+}
+
+type InputFirehoseFirehose1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputFirehoseType1 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string  `json:"authTokens,omitempty"`
+	TLS        *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputFirehoseFirehose1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFirehoseFirehose1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFirehoseFirehose1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehoseFirehose1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehoseFirehose1) GetType() InputFirehoseType1 {
+	if i == nil {
+		return InputFirehoseType1("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehoseFirehose1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehoseFirehose1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehoseFirehose1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehoseFirehose1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFirehoseFirehose1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFirehoseFirehose1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFirehoseFirehose1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFirehoseFirehose1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputFirehoseFirehose1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputFirehoseFirehose1) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputFirehoseFirehose1) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputFirehoseFirehose1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputFirehoseFirehose1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputFirehoseFirehose1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputFirehoseFirehose1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputFirehoseFirehose1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputFirehoseFirehose1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputFirehoseFirehose1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputFirehoseFirehose1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputFirehoseFirehose1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputFirehoseFirehose1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputFirehoseFirehose1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputFirehoseFirehose1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFirehoseFirehose1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputFirehoseType string
+
+const (
+	InputFirehoseTypeInputFirehoseFirehose1 InputFirehoseType = "InputFirehose_Firehose_1"
+	InputFirehoseTypeInputFirehoseFirehose2 InputFirehoseType = "InputFirehose_Firehose_2"
+	InputFirehoseTypeInputFirehoseFirehose3 InputFirehoseType = "InputFirehose_Firehose_3"
+	InputFirehoseTypeInputFirehoseFirehose4 InputFirehoseType = "InputFirehose_Firehose_4"
+)
+
+type InputFirehose struct {
+	InputFirehoseFirehose1 *InputFirehoseFirehose1 `queryParam:"inline,name=InputFirehose"`
+	InputFirehoseFirehose2 *InputFirehoseFirehose2 `queryParam:"inline,name=InputFirehose"`
+	InputFirehoseFirehose3 *InputFirehoseFirehose3 `queryParam:"inline,name=InputFirehose"`
+	InputFirehoseFirehose4 *InputFirehoseFirehose4 `queryParam:"inline,name=InputFirehose"`
+
+	Type InputFirehoseType
+}
+
+func CreateInputFirehoseInputFirehoseFirehose1(inputFirehoseFirehose1 InputFirehoseFirehose1) InputFirehose {
+	typ := InputFirehoseTypeInputFirehoseFirehose1
+
+	return InputFirehose{
+		InputFirehoseFirehose1: &inputFirehoseFirehose1,
+		Type:                   typ,
+	}
+}
+
+func CreateInputFirehoseInputFirehoseFirehose2(inputFirehoseFirehose2 InputFirehoseFirehose2) InputFirehose {
+	typ := InputFirehoseTypeInputFirehoseFirehose2
+
+	return InputFirehose{
+		InputFirehoseFirehose2: &inputFirehoseFirehose2,
+		Type:                   typ,
+	}
+}
+
+func CreateInputFirehoseInputFirehoseFirehose3(inputFirehoseFirehose3 InputFirehoseFirehose3) InputFirehose {
+	typ := InputFirehoseTypeInputFirehoseFirehose3
+
+	return InputFirehose{
+		InputFirehoseFirehose3: &inputFirehoseFirehose3,
+		Type:                   typ,
+	}
+}
+
+func CreateInputFirehoseInputFirehoseFirehose4(inputFirehoseFirehose4 InputFirehoseFirehose4) InputFirehose {
+	typ := InputFirehoseTypeInputFirehoseFirehose4
+
+	return InputFirehose{
+		InputFirehoseFirehose4: &inputFirehoseFirehose4,
+		Type:                   typ,
+	}
+}
+
+func (u *InputFirehose) UnmarshalJSON(data []byte) error {
+
+	var inputFirehoseFirehose2 InputFirehoseFirehose2 = InputFirehoseFirehose2{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseFirehose2, "", true, nil); err == nil {
+		u.InputFirehoseFirehose2 = &inputFirehoseFirehose2
+		u.Type = InputFirehoseTypeInputFirehoseFirehose2
+		return nil
+	}
+
+	var inputFirehoseFirehose4 InputFirehoseFirehose4 = InputFirehoseFirehose4{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseFirehose4, "", true, nil); err == nil {
+		u.InputFirehoseFirehose4 = &inputFirehoseFirehose4
+		u.Type = InputFirehoseTypeInputFirehoseFirehose4
+		return nil
+	}
+
+	var inputFirehoseFirehose1 InputFirehoseFirehose1 = InputFirehoseFirehose1{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseFirehose1, "", true, nil); err == nil {
+		u.InputFirehoseFirehose1 = &inputFirehoseFirehose1
+		u.Type = InputFirehoseTypeInputFirehoseFirehose1
+		return nil
+	}
+
+	var inputFirehoseFirehose3 InputFirehoseFirehose3 = InputFirehoseFirehose3{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseFirehose3, "", true, nil); err == nil {
+		u.InputFirehoseFirehose3 = &inputFirehoseFirehose3
+		u.Type = InputFirehoseTypeInputFirehoseFirehose3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputFirehose", string(data))
+}
+
+func (u InputFirehose) MarshalJSON() ([]byte, error) {
+	if u.InputFirehoseFirehose1 != nil {
+		return utils.MarshalJSON(u.InputFirehoseFirehose1, "", true)
+	}
+
+	if u.InputFirehoseFirehose2 != nil {
+		return utils.MarshalJSON(u.InputFirehoseFirehose2, "", true)
+	}
+
+	if u.InputFirehoseFirehose3 != nil {
+		return utils.MarshalJSON(u.InputFirehoseFirehose3, "", true)
+	}
+
+	if u.InputFirehoseFirehose4 != nil {
+		return utils.MarshalJSON(u.InputFirehoseFirehose4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputFirehose: all fields are null")
 }

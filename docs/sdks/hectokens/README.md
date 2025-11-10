@@ -39,8 +39,8 @@ func main() {
     res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
         Description: criblcontrolplanesdkgo.Pointer("bah ick stingy"),
         Enabled: criblcontrolplanesdkgo.Pointer(false),
-        Metadata: []components.AddHecTokenRequestMetadatum{
-            components.AddHecTokenRequestMetadatum{
+        Metadata: []components.Metadata1Type{
+            components.Metadata1Type{
                 Name: "<value>",
                 Value: "<value>",
             },
@@ -50,7 +50,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInputSplunkHec != nil {
         // handle response
     }
 }
@@ -107,8 +107,8 @@ func main() {
     res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
         Description: criblcontrolplanesdkgo.Pointer("by bleakly fortunately phew barring"),
         Enabled: criblcontrolplanesdkgo.Pointer(false),
-        Metadata: []components.UpdateHecTokenRequestMetadatum{
-            components.UpdateHecTokenRequestMetadatum{
+        Metadata: []components.Metadata1Type{
+            components.Metadata1Type{
                 Name: "<value>",
                 Value: "<value>",
             },
@@ -117,7 +117,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInputSplunkHec != nil {
         // handle response
     }
 }

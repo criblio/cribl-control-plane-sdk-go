@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -111,7 +111,7 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("academics woot finally woot queasy bah"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
+                    Conf: components.ConfType{},
                     GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
@@ -127,7 +127,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -184,7 +184,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -251,7 +251,7 @@ func main() {
                     Description: criblcontrolplanesdkgo.Pointer("mozzarella boohoo possession as grok"),
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
+                    Conf: components.ConfType{},
                     GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
                 },
             },
@@ -267,7 +267,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -325,7 +325,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }

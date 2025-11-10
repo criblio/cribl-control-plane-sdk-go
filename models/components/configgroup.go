@@ -2,66 +2,30 @@
 
 package components
 
-type Git struct {
-	Commit       *string  `json:"commit,omitempty"`
-	LocalChanges *float64 `json:"localChanges,omitempty"`
-	Log          []Commit `json:"log,omitempty"`
-}
-
-func (g *Git) GetCommit() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Commit
-}
-
-func (g *Git) GetLocalChanges() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.LocalChanges
-}
-
-func (g *Git) GetLog() []Commit {
-	if g == nil {
-		return nil
-	}
-	return g.Log
-}
-
-type ConfigGroupType string
-
-const (
-	ConfigGroupTypeLakeAccess ConfigGroupType = "lake_access"
-)
-
-func (e ConfigGroupType) ToPointer() *ConfigGroupType {
-	return &e
-}
-
 type ConfigGroup struct {
-	Cloud                   *ConfigGroupCloud    `json:"cloud,omitempty"`
-	ConfigVersion           *string              `json:"configVersion,omitempty"`
-	DeployingWorkerCount    *float64             `json:"deployingWorkerCount,omitempty"`
-	Description             *string              `json:"description,omitempty"`
-	EstimatedIngestRate     *float64             `json:"estimatedIngestRate,omitempty"`
-	Git                     *Git                 `json:"git,omitempty"`
-	ID                      string               `json:"id"`
-	IncompatibleWorkerCount *float64             `json:"incompatibleWorkerCount,omitempty"`
-	Inherits                *string              `json:"inherits,omitempty"`
-	IsFleet                 *bool                `json:"isFleet,omitempty"`
-	IsSearch                *bool                `json:"isSearch,omitempty"`
-	LookupDeployments       []ConfigGroupLookups `json:"lookupDeployments,omitempty"`
-	MaxWorkerAge            *string              `json:"maxWorkerAge,omitempty"`
-	Name                    *string              `json:"name,omitempty"`
-	OnPrem                  *bool                `json:"onPrem,omitempty"`
-	Provisioned             *bool                `json:"provisioned,omitempty"`
-	Streamtags              []string             `json:"streamtags,omitempty"`
-	Tags                    *string              `json:"tags,omitempty"`
-	Type                    *ConfigGroupType     `json:"type,omitempty"`
-	UpgradeVersion          *string              `json:"upgradeVersion,omitempty"`
-	WorkerCount             *float64             `json:"workerCount,omitempty"`
-	WorkerRemoteAccess      *bool                `json:"workerRemoteAccess,omitempty"`
+	Cloud                *ConfigGroupCloud `json:"cloud,omitempty"`
+	ConfigVersion        *string           `json:"configVersion,omitempty"`
+	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitempty"`
+	Description          *string           `json:"description,omitempty"`
+	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+	EstimatedIngestRate     *EstimatedIngestRateOptions `json:"estimatedIngestRate,omitempty"`
+	Git                     *GitType                    `json:"git,omitempty"`
+	ID                      string                      `json:"id"`
+	IncompatibleWorkerCount *float64                    `json:"incompatibleWorkerCount,omitempty"`
+	Inherits                *string                     `json:"inherits,omitempty"`
+	IsFleet                 *bool                       `json:"isFleet,omitempty"`
+	IsSearch                *bool                       `json:"isSearch,omitempty"`
+	LookupDeployments       []ConfigGroupLookups        `json:"lookupDeployments,omitempty"`
+	MaxWorkerAge            *string                     `json:"maxWorkerAge,omitempty"`
+	Name                    *string                     `json:"name,omitempty"`
+	OnPrem                  *bool                       `json:"onPrem,omitempty"`
+	Provisioned             *bool                       `json:"provisioned,omitempty"`
+	Streamtags              []string                    `json:"streamtags,omitempty"`
+	Tags                    *string                     `json:"tags,omitempty"`
+	Type                    *TypeOptions                `json:"type,omitempty"`
+	UpgradeVersion          *string                     `json:"upgradeVersion,omitempty"`
+	WorkerCount             *float64                    `json:"workerCount,omitempty"`
+	WorkerRemoteAccess      *bool                       `json:"workerRemoteAccess,omitempty"`
 }
 
 func (c *ConfigGroup) GetCloud() *ConfigGroupCloud {
@@ -92,14 +56,14 @@ func (c *ConfigGroup) GetDescription() *string {
 	return c.Description
 }
 
-func (c *ConfigGroup) GetEstimatedIngestRate() *float64 {
+func (c *ConfigGroup) GetEstimatedIngestRate() *EstimatedIngestRateOptions {
 	if c == nil {
 		return nil
 	}
 	return c.EstimatedIngestRate
 }
 
-func (c *ConfigGroup) GetGit() *Git {
+func (c *ConfigGroup) GetGit() *GitType {
 	if c == nil {
 		return nil
 	}
@@ -190,7 +154,7 @@ func (c *ConfigGroup) GetTags() *string {
 	return c.Tags
 }
 
-func (c *ConfigGroup) GetType() *ConfigGroupType {
+func (c *ConfigGroup) GetType() *TypeOptions {
 	if c == nil {
 		return nil
 	}

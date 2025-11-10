@@ -4,284 +4,69 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSentinelOneAiSiemType string
+type OutputSentinelOneAiSiemType8 string
 
 const (
-	OutputSentinelOneAiSiemTypeSentinelOneAiSiem OutputSentinelOneAiSiemType = "sentinel_one_ai_siem"
+	OutputSentinelOneAiSiemType8SentinelOneAiSiem OutputSentinelOneAiSiemType8 = "sentinel_one_ai_siem"
 )
 
-func (e OutputSentinelOneAiSiemType) ToPointer() *OutputSentinelOneAiSiemType {
+func (e OutputSentinelOneAiSiemType8) ToPointer() *OutputSentinelOneAiSiemType8 {
 	return &e
 }
-func (e *OutputSentinelOneAiSiemType) UnmarshalJSON(data []byte) error {
+func (e *OutputSentinelOneAiSiemType8) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sentinel_one_ai_siem":
-		*e = OutputSentinelOneAiSiemType(v)
+		*e = OutputSentinelOneAiSiemType8(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType: %v", v)
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType8: %v", v)
 	}
 }
 
-// OutputSentinelOneAiSiemRegion - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-type OutputSentinelOneAiSiemRegion string
+// Region8 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region8 string
 
 const (
-	OutputSentinelOneAiSiemRegionUs     OutputSentinelOneAiSiemRegion = "US"
-	OutputSentinelOneAiSiemRegionCa     OutputSentinelOneAiSiemRegion = "CA"
-	OutputSentinelOneAiSiemRegionEmea   OutputSentinelOneAiSiemRegion = "EMEA"
-	OutputSentinelOneAiSiemRegionAp     OutputSentinelOneAiSiemRegion = "AP"
-	OutputSentinelOneAiSiemRegionAps    OutputSentinelOneAiSiemRegion = "APS"
-	OutputSentinelOneAiSiemRegionAu     OutputSentinelOneAiSiemRegion = "AU"
-	OutputSentinelOneAiSiemRegionCustom OutputSentinelOneAiSiemRegion = "Custom"
+	Region8Us     Region8 = "US"
+	Region8Ca     Region8 = "CA"
+	Region8Emea   Region8 = "EMEA"
+	Region8Ap     Region8 = "AP"
+	Region8Aps    Region8 = "APS"
+	Region8Au     Region8 = "AU"
+	Region8Custom Region8 = "Custom"
 )
 
-func (e OutputSentinelOneAiSiemRegion) ToPointer() *OutputSentinelOneAiSiemRegion {
+func (e Region8) ToPointer() *Region8 {
 	return &e
 }
 
-// AISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-type AISIEMEndpointPath string
+// AISIEMEndpointPath8 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath8 string
 
 const (
-	AISIEMEndpointPathRootServicesCollectorEvent AISIEMEndpointPath = "/services/collector/event"
-	AISIEMEndpointPathRootServicesCollectorRaw   AISIEMEndpointPath = "/services/collector/raw"
+	AISIEMEndpointPath8RootServicesCollectorEvent AISIEMEndpointPath8 = "/services/collector/event"
+	AISIEMEndpointPath8RootServicesCollectorRaw   AISIEMEndpointPath8 = "/services/collector/raw"
 )
 
-func (e AISIEMEndpointPath) ToPointer() *AISIEMEndpointPath {
+func (e AISIEMEndpointPath8) ToPointer() *AISIEMEndpointPath8 {
 	return &e
 }
 
-type OutputSentinelOneAiSiemExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSentinelOneAiSiemExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelOneAiSiemExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelOneAiSiemExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputSentinelOneAiSiemExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputSentinelOneAiSiemFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputSentinelOneAiSiemFailedRequestLoggingMode string
-
-const (
-	OutputSentinelOneAiSiemFailedRequestLoggingModePayload           OutputSentinelOneAiSiemFailedRequestLoggingMode = "payload"
-	OutputSentinelOneAiSiemFailedRequestLoggingModePayloadAndHeaders OutputSentinelOneAiSiemFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSentinelOneAiSiemFailedRequestLoggingModeNone              OutputSentinelOneAiSiemFailedRequestLoggingMode = "none"
-)
-
-func (e OutputSentinelOneAiSiemFailedRequestLoggingMode) ToPointer() *OutputSentinelOneAiSiemFailedRequestLoggingMode {
-	return &e
-}
-
-// OutputSentinelOneAiSiemAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputSentinelOneAiSiemAuthenticationMethod string
-
-const (
-	OutputSentinelOneAiSiemAuthenticationMethodManual OutputSentinelOneAiSiemAuthenticationMethod = "manual"
-	OutputSentinelOneAiSiemAuthenticationMethodSecret OutputSentinelOneAiSiemAuthenticationMethod = "secret"
-)
-
-func (e OutputSentinelOneAiSiemAuthenticationMethod) ToPointer() *OutputSentinelOneAiSiemAuthenticationMethod {
-	return &e
-}
-
-type OutputSentinelOneAiSiemResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSentinelOneAiSiemResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelOneAiSiemResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelOneAiSiemResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputSentinelOneAiSiemResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSentinelOneAiSiemResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSentinelOneAiSiemResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputSentinelOneAiSiemTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSentinelOneAiSiemTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputSentinelOneAiSiemBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSentinelOneAiSiemBackpressureBehavior string
-
-const (
-	OutputSentinelOneAiSiemBackpressureBehaviorBlock OutputSentinelOneAiSiemBackpressureBehavior = "block"
-	OutputSentinelOneAiSiemBackpressureBehaviorDrop  OutputSentinelOneAiSiemBackpressureBehavior = "drop"
-	OutputSentinelOneAiSiemBackpressureBehaviorQueue OutputSentinelOneAiSiemBackpressureBehavior = "queue"
-)
-
-func (e OutputSentinelOneAiSiemBackpressureBehavior) ToPointer() *OutputSentinelOneAiSiemBackpressureBehavior {
-	return &e
-}
-
-// OutputSentinelOneAiSiemCompression - Codec to use to compress the persisted data
-type OutputSentinelOneAiSiemCompression string
-
-const (
-	OutputSentinelOneAiSiemCompressionNone OutputSentinelOneAiSiemCompression = "none"
-	OutputSentinelOneAiSiemCompressionGzip OutputSentinelOneAiSiemCompression = "gzip"
-)
-
-func (e OutputSentinelOneAiSiemCompression) ToPointer() *OutputSentinelOneAiSiemCompression {
-	return &e
-}
-
-// OutputSentinelOneAiSiemQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSentinelOneAiSiemQueueFullBehavior string
-
-const (
-	OutputSentinelOneAiSiemQueueFullBehaviorBlock OutputSentinelOneAiSiemQueueFullBehavior = "block"
-	OutputSentinelOneAiSiemQueueFullBehaviorDrop  OutputSentinelOneAiSiemQueueFullBehavior = "drop"
-)
-
-func (e OutputSentinelOneAiSiemQueueFullBehavior) ToPointer() *OutputSentinelOneAiSiemQueueFullBehavior {
-	return &e
-}
-
-// OutputSentinelOneAiSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSentinelOneAiSiemMode string
-
-const (
-	OutputSentinelOneAiSiemModeError        OutputSentinelOneAiSiemMode = "error"
-	OutputSentinelOneAiSiemModeBackpressure OutputSentinelOneAiSiemMode = "backpressure"
-	OutputSentinelOneAiSiemModeAlways       OutputSentinelOneAiSiemMode = "always"
-)
-
-func (e OutputSentinelOneAiSiemMode) ToPointer() *OutputSentinelOneAiSiemMode {
-	return &e
-}
-
-type OutputSentinelOneAiSiemPqControls struct {
-}
-
-func (o OutputSentinelOneAiSiemPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelOneAiSiemPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSentinelOneAiSiem struct {
+type OutputSentinelOneAiSiemSentinelOneAiSiem8 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string                     `json:"id,omitempty"`
-	Type OutputSentinelOneAiSiemType `json:"type"`
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType8 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -291,9 +76,9 @@ type OutputSentinelOneAiSiem struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region *OutputSentinelOneAiSiemRegion `default:"US" json:"region"`
+	Region *Region8 `default:"US" json:"region"`
 	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint *AISIEMEndpointPath `default:"/services/collector/event" json:"endpoint"`
+	Endpoint *AISIEMEndpointPath8 `default:"/services/collector/event" json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -311,21 +96,19 @@ type OutputSentinelOneAiSiem struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputSentinelOneAiSiemExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputSentinelOneAiSiemFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *OutputSentinelOneAiSiemAuthenticationMethod `default:"manual" json:"authType"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputSentinelOneAiSiemResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputSentinelOneAiSiemTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSentinelOneAiSiemBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                      `json:"description,omitempty"`
+	ResponseHonorRetryAfterHeader *bool   `default:"true" json:"responseHonorRetryAfterHeader"`
+	Description                   *string `json:"description,omitempty"`
 	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
@@ -360,6 +143,16 @@ type OutputSentinelOneAiSiem struct {
 	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
 	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
 	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -367,357 +160,4302 @@ type OutputSentinelOneAiSiem struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSentinelOneAiSiemCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSentinelOneAiSiemQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSentinelOneAiSiemMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSentinelOneAiSiem) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSentinelOneAiSiem) GetType() OutputSentinelOneAiSiemType {
-	if o == nil {
-		return OutputSentinelOneAiSiemType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSentinelOneAiSiem) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSentinelOneAiSiem) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSentinelOneAiSiem) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSentinelOneAiSiem) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSentinelOneAiSiem) GetRegion() *OutputSentinelOneAiSiemRegion {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputSentinelOneAiSiem) GetEndpoint() *AISIEMEndpointPath {
-	if o == nil {
-		return nil
-	}
-	return o.Endpoint
-}
-
-func (o *OutputSentinelOneAiSiem) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputSentinelOneAiSiem) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputSentinelOneAiSiem) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputSentinelOneAiSiem) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputSentinelOneAiSiem) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSentinelOneAiSiem) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputSentinelOneAiSiem) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputSentinelOneAiSiem) GetExtraHTTPHeaders() []OutputSentinelOneAiSiemExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputSentinelOneAiSiem) GetFailedRequestLoggingMode() *OutputSentinelOneAiSiemFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputSentinelOneAiSiem) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputSentinelOneAiSiem) GetAuthType() *OutputSentinelOneAiSiemAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputSentinelOneAiSiem) GetResponseRetrySettings() []OutputSentinelOneAiSiemResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputSentinelOneAiSiem) GetTimeoutRetrySettings() *OutputSentinelOneAiSiemTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputSentinelOneAiSiem) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputSentinelOneAiSiem) GetOnBackpressure() *OutputSentinelOneAiSiemBackpressureBehavior {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSentinelOneAiSiem) GetDescription() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetType() OutputSentinelOneAiSiemType8 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetRegion() *Region8 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetEndpoint() *AISIEMEndpointPath8 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSentinelOneAiSiem) GetToken() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputSentinelOneAiSiem) GetTextSecret() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputSentinelOneAiSiem) GetBaseURL() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetBaseURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.BaseURL
 }
 
-func (o *OutputSentinelOneAiSiem) GetHostExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetHostExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HostExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetSourceExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSourceExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SourceExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetSourceTypeExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSourceTypeExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SourceTypeExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceCategoryExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceCategoryExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceCategoryExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceNameExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceNameExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceNameExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceVendorExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceVendorExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceVendorExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetEventTypeExpression() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetEventTypeExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.EventTypeExpression
 }
 
-func (o *OutputSentinelOneAiSiem) GetHost() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetHost() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Host
 }
 
-func (o *OutputSentinelOneAiSiem) GetSource() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSource() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Source
 }
 
-func (o *OutputSentinelOneAiSiem) GetSourceType() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetSourceType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SourceType
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceCategory() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceCategory() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceCategory
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceName() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceName
 }
 
-func (o *OutputSentinelOneAiSiem) GetDataSourceVendor() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetDataSourceVendor() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DataSourceVendor
 }
 
-func (o *OutputSentinelOneAiSiem) GetEventType() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetEventType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.EventType
 }
 
-func (o *OutputSentinelOneAiSiem) GetPqMaxFileSize() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSentinelOneAiSiem) GetPqMaxSize() *string {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSentinelOneAiSiem) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSentinelOneAiSiem) GetPqCompress() *OutputSentinelOneAiSiemCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSentinelOneAiSiem) GetPqOnBackpressure() *OutputSentinelOneAiSiemQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSentinelOneAiSiem) GetPqMode() *OutputSentinelOneAiSiemMode {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSentinelOneAiSiem) GetPqControls() *OutputSentinelOneAiSiemPqControls {
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem8) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputSentinelOneAiSiemType7 string
+
+const (
+	OutputSentinelOneAiSiemType7SentinelOneAiSiem OutputSentinelOneAiSiemType7 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType7) ToPointer() *OutputSentinelOneAiSiemType7 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType7: %v", v)
+	}
+}
+
+// Region7 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region7 string
+
+const (
+	Region7Us     Region7 = "US"
+	Region7Ca     Region7 = "CA"
+	Region7Emea   Region7 = "EMEA"
+	Region7Ap     Region7 = "AP"
+	Region7Aps    Region7 = "APS"
+	Region7Au     Region7 = "AU"
+	Region7Custom Region7 = "Custom"
+)
+
+func (e Region7) ToPointer() *Region7 {
+	return &e
+}
+
+// AISIEMEndpointPath7 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath7 string
+
+const (
+	AISIEMEndpointPath7RootServicesCollectorEvent AISIEMEndpointPath7 = "/services/collector/event"
+	AISIEMEndpointPath7RootServicesCollectorRaw   AISIEMEndpointPath7 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath7) ToPointer() *AISIEMEndpointPath7 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem7 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region7 `default:"US" json:"region"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath7 `default:"/services/collector/event" json:"endpoint"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool   `default:"true" json:"responseHonorRetryAfterHeader"`
+	Description                   *string `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetType() OutputSentinelOneAiSiemType7 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetRegion() *Region7 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetEndpoint() *AISIEMEndpointPath7 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem7) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+// AISIEMEndpointPath6 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath6 string
+
+const (
+	AISIEMEndpointPath6RootServicesCollectorEvent AISIEMEndpointPath6 = "/services/collector/event"
+	AISIEMEndpointPath6RootServicesCollectorRaw   AISIEMEndpointPath6 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath6) ToPointer() *AISIEMEndpointPath6 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemType6 string
+
+const (
+	OutputSentinelOneAiSiemType6SentinelOneAiSiem OutputSentinelOneAiSiemType6 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType6) ToPointer() *OutputSentinelOneAiSiemType6 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType6: %v", v)
+	}
+}
+
+// Region6 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region6 string
+
+const (
+	Region6Us     Region6 = "US"
+	Region6Ca     Region6 = "CA"
+	Region6Emea   Region6 = "EMEA"
+	Region6Ap     Region6 = "AP"
+	Region6Aps    Region6 = "APS"
+	Region6Au     Region6 = "AU"
+	Region6Custom Region6 = "Custom"
+)
+
+func (e Region6) ToPointer() *Region6 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem6 struct {
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath6 `default:"/services/collector/event" json:"endpoint"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region6 `default:"US" json:"region"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetEndpoint() *AISIEMEndpointPath6 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetType() OutputSentinelOneAiSiemType6 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetRegion() *Region6 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// AISIEMEndpointPath5 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath5 string
+
+const (
+	AISIEMEndpointPath5RootServicesCollectorEvent AISIEMEndpointPath5 = "/services/collector/event"
+	AISIEMEndpointPath5RootServicesCollectorRaw   AISIEMEndpointPath5 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath5) ToPointer() *AISIEMEndpointPath5 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemType5 string
+
+const (
+	OutputSentinelOneAiSiemType5SentinelOneAiSiem OutputSentinelOneAiSiemType5 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType5) ToPointer() *OutputSentinelOneAiSiemType5 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType5: %v", v)
+	}
+}
+
+// Region5 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region5 string
+
+const (
+	Region5Us     Region5 = "US"
+	Region5Ca     Region5 = "CA"
+	Region5Emea   Region5 = "EMEA"
+	Region5Ap     Region5 = "AP"
+	Region5Aps    Region5 = "APS"
+	Region5Au     Region5 = "AU"
+	Region5Custom Region5 = "Custom"
+)
+
+func (e Region5) ToPointer() *Region5 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem5 struct {
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath5 `default:"/services/collector/event" json:"endpoint"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region5 `default:"US" json:"region"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetEndpoint() *AISIEMEndpointPath5 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetType() OutputSentinelOneAiSiemType5 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetRegion() *Region5 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// Region4 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region4 string
+
+const (
+	Region4Us     Region4 = "US"
+	Region4Ca     Region4 = "CA"
+	Region4Emea   Region4 = "EMEA"
+	Region4Ap     Region4 = "AP"
+	Region4Aps    Region4 = "APS"
+	Region4Au     Region4 = "AU"
+	Region4Custom Region4 = "Custom"
+)
+
+func (e Region4) ToPointer() *Region4 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemType4 string
+
+const (
+	OutputSentinelOneAiSiemType4SentinelOneAiSiem OutputSentinelOneAiSiemType4 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType4) ToPointer() *OutputSentinelOneAiSiemType4 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType4: %v", v)
+	}
+}
+
+// AISIEMEndpointPath4 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath4 string
+
+const (
+	AISIEMEndpointPath4RootServicesCollectorEvent AISIEMEndpointPath4 = "/services/collector/event"
+	AISIEMEndpointPath4RootServicesCollectorRaw   AISIEMEndpointPath4 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath4) ToPointer() *AISIEMEndpointPath4 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem4 struct {
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region4 `default:"US" json:"region"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath4 `default:"/services/collector/event" json:"endpoint"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetRegion() *Region4 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetType() OutputSentinelOneAiSiemType4 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetEndpoint() *AISIEMEndpointPath4 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// Region3 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region3 string
+
+const (
+	Region3Us     Region3 = "US"
+	Region3Ca     Region3 = "CA"
+	Region3Emea   Region3 = "EMEA"
+	Region3Ap     Region3 = "AP"
+	Region3Aps    Region3 = "APS"
+	Region3Au     Region3 = "AU"
+	Region3Custom Region3 = "Custom"
+)
+
+func (e Region3) ToPointer() *Region3 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemType3 string
+
+const (
+	OutputSentinelOneAiSiemType3SentinelOneAiSiem OutputSentinelOneAiSiemType3 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType3) ToPointer() *OutputSentinelOneAiSiemType3 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType3: %v", v)
+	}
+}
+
+// AISIEMEndpointPath3 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath3 string
+
+const (
+	AISIEMEndpointPath3RootServicesCollectorEvent AISIEMEndpointPath3 = "/services/collector/event"
+	AISIEMEndpointPath3RootServicesCollectorRaw   AISIEMEndpointPath3 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath3) ToPointer() *AISIEMEndpointPath3 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem3 struct {
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region3 `default:"US" json:"region"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath3 `default:"/services/collector/event" json:"endpoint"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetRegion() *Region3 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetType() OutputSentinelOneAiSiemType3 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetEndpoint() *AISIEMEndpointPath3 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSentinelOneAiSiemType2 string
+
+const (
+	OutputSentinelOneAiSiemType2SentinelOneAiSiem OutputSentinelOneAiSiemType2 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType2) ToPointer() *OutputSentinelOneAiSiemType2 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType2: %v", v)
+	}
+}
+
+// Region2 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region2 string
+
+const (
+	Region2Us     Region2 = "US"
+	Region2Ca     Region2 = "CA"
+	Region2Emea   Region2 = "EMEA"
+	Region2Ap     Region2 = "AP"
+	Region2Aps    Region2 = "APS"
+	Region2Au     Region2 = "AU"
+	Region2Custom Region2 = "Custom"
+)
+
+func (e Region2) ToPointer() *Region2 {
+	return &e
+}
+
+// AISIEMEndpointPath2 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath2 string
+
+const (
+	AISIEMEndpointPath2RootServicesCollectorEvent AISIEMEndpointPath2 = "/services/collector/event"
+	AISIEMEndpointPath2RootServicesCollectorRaw   AISIEMEndpointPath2 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath2) ToPointer() *AISIEMEndpointPath2 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem2 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region2 `default:"US" json:"region"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath2 `default:"/services/collector/event" json:"endpoint"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetType() OutputSentinelOneAiSiemType2 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetRegion() *Region2 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetEndpoint() *AISIEMEndpointPath2 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSentinelOneAiSiemType1 string
+
+const (
+	OutputSentinelOneAiSiemType1SentinelOneAiSiem OutputSentinelOneAiSiemType1 = "sentinel_one_ai_siem"
+)
+
+func (e OutputSentinelOneAiSiemType1) ToPointer() *OutputSentinelOneAiSiemType1 {
+	return &e
+}
+func (e *OutputSentinelOneAiSiemType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel_one_ai_siem":
+		*e = OutputSentinelOneAiSiemType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelOneAiSiemType1: %v", v)
+	}
+}
+
+// Region1 - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type Region1 string
+
+const (
+	Region1Us     Region1 = "US"
+	Region1Ca     Region1 = "CA"
+	Region1Emea   Region1 = "EMEA"
+	Region1Ap     Region1 = "AP"
+	Region1Aps    Region1 = "APS"
+	Region1Au     Region1 = "AU"
+	Region1Custom Region1 = "Custom"
+)
+
+func (e Region1) ToPointer() *Region1 {
+	return &e
+}
+
+// AISIEMEndpointPath1 - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type AISIEMEndpointPath1 string
+
+const (
+	AISIEMEndpointPath1RootServicesCollectorEvent AISIEMEndpointPath1 = "/services/collector/event"
+	AISIEMEndpointPath1RootServicesCollectorRaw   AISIEMEndpointPath1 = "/services/collector/raw"
+)
+
+func (e AISIEMEndpointPath1) ToPointer() *AISIEMEndpointPath1 {
+	return &e
+}
+
+type OutputSentinelOneAiSiemSentinelOneAiSiem1 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitempty"`
+	Type OutputSentinelOneAiSiemType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region *Region1 `default:"US" json:"region"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint *AISIEMEndpointPath1 `default:"/services/collector/event" json:"endpoint"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"5120" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"5" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+	Token string `json:"token"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+	BaseURL *string `default:"https://<Your-S1-Tenant>.sentinelone.net" json:"baseUrl"`
+	// Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+	HostExpression *string `default:"__e.host || C.os.hostname()" json:"hostExpression"`
+	// Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+	SourceExpression *string `default:"__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')" json:"sourceExpression"`
+	// Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+	SourceTypeExpression *string `default:"__e.sourcetype || 'dottedJson'" json:"sourceTypeExpression"`
+	// Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+	DataSourceCategoryExpression *string `default:"'security'" json:"dataSourceCategoryExpression"`
+	// Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+	DataSourceNameExpression *string `default:"__e.__dataSourceName || 'cribl'" json:"dataSourceNameExpression"`
+	// Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+	DataSourceVendorExpression *string `default:"__e.__dataSourceVendor || 'cribl'" json:"dataSourceVendorExpression"`
+	// Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+	EventTypeExpression *string `default:"" json:"eventTypeExpression"`
+	// Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+	Host *string `default:"C.os.hostname()" json:"host"`
+	// Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+	Source *string `default:"cribl" json:"source"`
+	// Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+	SourceType *string `default:"hecRawParser" json:"sourceType"`
+	// Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+	DataSourceCategory *string `default:"security" json:"dataSourceCategory"`
+	// Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+	DataSourceName *string `default:"cribl" json:"dataSourceName"`
+	// Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
+	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSentinelOneAiSiemSentinelOneAiSiem1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetType() OutputSentinelOneAiSiemType1 {
+	if o == nil {
+		return OutputSentinelOneAiSiemType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetRegion() *Region1 {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetEndpoint() *AISIEMEndpointPath1 {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetBaseURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseURL
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetHostExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HostExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceCategoryExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategoryExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceNameExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceVendorExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendorExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetEventTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventTypeExpression
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Source
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetSourceType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SourceType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceCategory
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceName
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetDataSourceVendor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSourceVendor
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetEventType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EventType
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelOneAiSiemSentinelOneAiSiem1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputSentinelOneAiSiemType string
+
+const (
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem1 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_1"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem2 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_2"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem3 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_3"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem4 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_4"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem5 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_5"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem6 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_6"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem7 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_7"
+	OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem8 OutputSentinelOneAiSiemType = "OutputSentinelOneAiSiem_SentinelOneAiSiem_8"
+)
+
+type OutputSentinelOneAiSiem struct {
+	OutputSentinelOneAiSiemSentinelOneAiSiem1 *OutputSentinelOneAiSiemSentinelOneAiSiem1 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem2 *OutputSentinelOneAiSiemSentinelOneAiSiem2 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem3 *OutputSentinelOneAiSiemSentinelOneAiSiem3 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem4 *OutputSentinelOneAiSiemSentinelOneAiSiem4 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem5 *OutputSentinelOneAiSiemSentinelOneAiSiem5 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem6 *OutputSentinelOneAiSiemSentinelOneAiSiem6 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem7 *OutputSentinelOneAiSiemSentinelOneAiSiem7 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+	OutputSentinelOneAiSiemSentinelOneAiSiem8 *OutputSentinelOneAiSiemSentinelOneAiSiem8 `queryParam:"inline,name=OutputSentinelOneAiSiem"`
+
+	Type OutputSentinelOneAiSiemType
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem1(outputSentinelOneAiSiemSentinelOneAiSiem1 OutputSentinelOneAiSiemSentinelOneAiSiem1) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem1
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem1: &outputSentinelOneAiSiemSentinelOneAiSiem1,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem2(outputSentinelOneAiSiemSentinelOneAiSiem2 OutputSentinelOneAiSiemSentinelOneAiSiem2) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem2
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem2: &outputSentinelOneAiSiemSentinelOneAiSiem2,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem3(outputSentinelOneAiSiemSentinelOneAiSiem3 OutputSentinelOneAiSiemSentinelOneAiSiem3) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem3
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem3: &outputSentinelOneAiSiemSentinelOneAiSiem3,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem4(outputSentinelOneAiSiemSentinelOneAiSiem4 OutputSentinelOneAiSiemSentinelOneAiSiem4) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem4
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem4: &outputSentinelOneAiSiemSentinelOneAiSiem4,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem5(outputSentinelOneAiSiemSentinelOneAiSiem5 OutputSentinelOneAiSiemSentinelOneAiSiem5) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem5
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem5: &outputSentinelOneAiSiemSentinelOneAiSiem5,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem6(outputSentinelOneAiSiemSentinelOneAiSiem6 OutputSentinelOneAiSiemSentinelOneAiSiem6) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem6
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem6: &outputSentinelOneAiSiemSentinelOneAiSiem6,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem7(outputSentinelOneAiSiemSentinelOneAiSiem7 OutputSentinelOneAiSiemSentinelOneAiSiem7) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem7
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem7: &outputSentinelOneAiSiemSentinelOneAiSiem7,
+		Type: typ,
+	}
+}
+
+func CreateOutputSentinelOneAiSiemOutputSentinelOneAiSiemSentinelOneAiSiem8(outputSentinelOneAiSiemSentinelOneAiSiem8 OutputSentinelOneAiSiemSentinelOneAiSiem8) OutputSentinelOneAiSiem {
+	typ := OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem8
+
+	return OutputSentinelOneAiSiem{
+		OutputSentinelOneAiSiemSentinelOneAiSiem8: &outputSentinelOneAiSiemSentinelOneAiSiem8,
+		Type: typ,
+	}
+}
+
+func (u *OutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem1 OutputSentinelOneAiSiemSentinelOneAiSiem1 = OutputSentinelOneAiSiemSentinelOneAiSiem1{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem1, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem1 = &outputSentinelOneAiSiemSentinelOneAiSiem1
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem1
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem2 OutputSentinelOneAiSiemSentinelOneAiSiem2 = OutputSentinelOneAiSiemSentinelOneAiSiem2{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem2, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem2 = &outputSentinelOneAiSiemSentinelOneAiSiem2
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem2
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem8 OutputSentinelOneAiSiemSentinelOneAiSiem8 = OutputSentinelOneAiSiemSentinelOneAiSiem8{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem8, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem8 = &outputSentinelOneAiSiemSentinelOneAiSiem8
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem8
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem3 OutputSentinelOneAiSiemSentinelOneAiSiem3 = OutputSentinelOneAiSiemSentinelOneAiSiem3{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem3, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem3 = &outputSentinelOneAiSiemSentinelOneAiSiem3
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem3
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem4 OutputSentinelOneAiSiemSentinelOneAiSiem4 = OutputSentinelOneAiSiemSentinelOneAiSiem4{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem4, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem4 = &outputSentinelOneAiSiemSentinelOneAiSiem4
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem4
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem5 OutputSentinelOneAiSiemSentinelOneAiSiem5 = OutputSentinelOneAiSiemSentinelOneAiSiem5{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem5, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem5 = &outputSentinelOneAiSiemSentinelOneAiSiem5
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem5
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem6 OutputSentinelOneAiSiemSentinelOneAiSiem6 = OutputSentinelOneAiSiemSentinelOneAiSiem6{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem6, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem6 = &outputSentinelOneAiSiemSentinelOneAiSiem6
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem6
+		return nil
+	}
+
+	var outputSentinelOneAiSiemSentinelOneAiSiem7 OutputSentinelOneAiSiemSentinelOneAiSiem7 = OutputSentinelOneAiSiemSentinelOneAiSiem7{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelOneAiSiemSentinelOneAiSiem7, "", true, nil); err == nil {
+		u.OutputSentinelOneAiSiemSentinelOneAiSiem7 = &outputSentinelOneAiSiemSentinelOneAiSiem7
+		u.Type = OutputSentinelOneAiSiemTypeOutputSentinelOneAiSiemSentinelOneAiSiem7
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSentinelOneAiSiem", string(data))
+}
+
+func (u OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem1 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem1, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem2 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem2, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem3 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem3, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem4 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem4, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem5 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem5, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem6 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem6, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem7 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem7, "", true)
+	}
+
+	if u.OutputSentinelOneAiSiemSentinelOneAiSiem8 != nil {
+		return utils.MarshalJSON(u.OutputSentinelOneAiSiemSentinelOneAiSiem8, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSentinelOneAiSiem: all fields are null")
 }

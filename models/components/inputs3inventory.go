@@ -4,330 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputS3InventoryType string
+type InputS3InventoryType9 string
 
 const (
-	InputS3InventoryTypeS3Inventory InputS3InventoryType = "s3_inventory"
+	InputS3InventoryType9S3Inventory InputS3InventoryType9 = "s3_inventory"
 )
 
-func (e InputS3InventoryType) ToPointer() *InputS3InventoryType {
+func (e InputS3InventoryType9) ToPointer() *InputS3InventoryType9 {
 	return &e
 }
-func (e *InputS3InventoryType) UnmarshalJSON(data []byte) error {
+func (e *InputS3InventoryType9) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "s3_inventory":
-		*e = InputS3InventoryType(v)
+		*e = InputS3InventoryType9(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputS3InventoryType: %v", v)
+		return fmt.Errorf("invalid value for InputS3InventoryType9: %v", v)
 	}
 }
 
-type InputS3InventoryConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputS3InventoryConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputS3InventoryConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputS3InventoryConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputS3InventoryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputS3InventoryMode string
-
-const (
-	InputS3InventoryModeSmart  InputS3InventoryMode = "smart"
-	InputS3InventoryModeAlways InputS3InventoryMode = "always"
-)
-
-func (e InputS3InventoryMode) ToPointer() *InputS3InventoryMode {
-	return &e
-}
-
-// InputS3InventoryCompression - Codec to use to compress the persisted data
-type InputS3InventoryCompression string
-
-const (
-	InputS3InventoryCompressionNone InputS3InventoryCompression = "none"
-	InputS3InventoryCompressionGzip InputS3InventoryCompression = "gzip"
-)
-
-func (e InputS3InventoryCompression) ToPointer() *InputS3InventoryCompression {
-	return &e
-}
-
-type InputS3InventoryPqControls struct {
-}
-
-func (i InputS3InventoryPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputS3InventoryPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputS3InventoryMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputS3InventoryCompression `default:"none" json:"compress"`
-	PqControls *InputS3InventoryPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputS3InventoryPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputS3InventoryPq) GetMode() *InputS3InventoryMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputS3InventoryPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputS3InventoryPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputS3InventoryPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputS3InventoryPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputS3InventoryPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputS3InventoryPq) GetCompress() *InputS3InventoryCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputS3InventoryPq) GetPqControls() *InputS3InventoryPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputS3InventoryAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputS3InventoryAuthenticationMethod string
-
-const (
-	InputS3InventoryAuthenticationMethodAuto   InputS3InventoryAuthenticationMethod = "auto"
-	InputS3InventoryAuthenticationMethodManual InputS3InventoryAuthenticationMethod = "manual"
-	InputS3InventoryAuthenticationMethodSecret InputS3InventoryAuthenticationMethod = "secret"
-)
-
-func (e InputS3InventoryAuthenticationMethod) ToPointer() *InputS3InventoryAuthenticationMethod {
-	return &e
-}
-
-// InputS3InventorySignatureVersion - Signature version to use for signing S3 requests
-type InputS3InventorySignatureVersion string
-
-const (
-	InputS3InventorySignatureVersionV2 InputS3InventorySignatureVersion = "v2"
-	InputS3InventorySignatureVersionV4 InputS3InventorySignatureVersion = "v4"
-)
-
-func (e InputS3InventorySignatureVersion) ToPointer() *InputS3InventorySignatureVersion {
-	return &e
-}
-
-type InputS3InventoryPreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (i InputS3InventoryPreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputS3InventoryPreprocess) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputS3InventoryPreprocess) GetCommand() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Command
-}
-
-func (i *InputS3InventoryPreprocess) GetArgs() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Args
-}
-
-type InputS3InventoryMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputS3InventoryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputS3InventoryMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputS3InventoryMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputS3InventoryCheckpointing struct {
-	// Resume processing files after an interruption
-	Enabled *bool `default:"false" json:"enabled"`
-	// The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-	Retries *float64 `default:"5" json:"retries"`
-}
-
-func (i InputS3InventoryCheckpointing) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputS3InventoryCheckpointing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputS3InventoryCheckpointing) GetEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Enabled
-}
-
-func (i *InputS3InventoryCheckpointing) GetRetries() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Retries
-}
-
-type InputS3InventoryTagAfterProcessing string
-
-const (
-	InputS3InventoryTagAfterProcessingFalse InputS3InventoryTagAfterProcessing = "false"
-	InputS3InventoryTagAfterProcessingTrue  InputS3InventoryTagAfterProcessing = "true"
-)
-
-func (e InputS3InventoryTagAfterProcessing) ToPointer() *InputS3InventoryTagAfterProcessing {
-	return &e
-}
-
-type InputS3Inventory struct {
+type InputS3InventoryS3Inventory9 struct {
+	TagAfterProcessing TagAfterProcessingOptions `json:"tagAfterProcessing"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType9 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -339,8 +49,8 @@ type InputS3Inventory struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputS3InventoryConnection `json:"connections,omitempty"`
-	Pq          *InputS3InventoryPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -348,14 +58,14 @@ type InputS3Inventory struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputS3InventoryAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                               `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *InputS3InventorySignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -385,15 +95,15 @@ type InputS3Inventory struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                       `default:"false" json:"enableSQSAssumeRole"`
-	Preprocess          *InputS3InventoryPreprocess `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputS3InventoryMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                       `default:"600" json:"parquetChunkDownloadTimeout"`
-	Checkpointing               *InputS3InventoryCheckpointing `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `default:"10" json:"pollTimeout"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
@@ -405,357 +115,4253 @@ type InputS3Inventory struct {
 	Description            *string `json:"description,omitempty"`
 	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                             `json:"awsSecret,omitempty"`
-	TagAfterProcessing *InputS3InventoryTagAfterProcessing `json:"tagAfterProcessing,omitempty"`
+	AwsSecret *string `json:"awsSecret,omitempty"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	ProcessedTagKey string `json:"processedTagKey"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
-	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+	ProcessedTagValue string `json:"processedTagValue"`
 }
 
-func (i InputS3Inventory) MarshalJSON() ([]byte, error) {
+func (i InputS3InventoryS3Inventory9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3Inventory) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+func (i *InputS3InventoryS3Inventory9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tagAfterProcessing", "type", "queueName", "processedTagKey", "processedTagValue"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3Inventory) GetID() *string {
+func (i *InputS3InventoryS3Inventory9) GetTagAfterProcessing() TagAfterProcessingOptions {
+	if i == nil {
+		return TagAfterProcessingOptions("")
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory9) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputS3Inventory) GetType() InputS3InventoryType {
+func (i *InputS3InventoryS3Inventory9) GetType() InputS3InventoryType9 {
 	if i == nil {
-		return InputS3InventoryType("")
+		return InputS3InventoryType9("")
 	}
 	return i.Type
 }
 
-func (i *InputS3Inventory) GetDisabled() *bool {
+func (i *InputS3InventoryS3Inventory9) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputS3Inventory) GetPipeline() *string {
+func (i *InputS3InventoryS3Inventory9) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputS3Inventory) GetSendToRoutes() *bool {
+func (i *InputS3InventoryS3Inventory9) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3Inventory) GetEnvironment() *string {
+func (i *InputS3InventoryS3Inventory9) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputS3Inventory) GetPqEnabled() *bool {
+func (i *InputS3InventoryS3Inventory9) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3Inventory) GetStreamtags() []string {
+func (i *InputS3InventoryS3Inventory9) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputS3Inventory) GetConnections() []InputS3InventoryConnection {
+func (i *InputS3InventoryS3Inventory9) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3Inventory) GetPq() *InputS3InventoryPq {
+func (i *InputS3InventoryS3Inventory9) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3Inventory) GetQueueName() string {
+func (i *InputS3InventoryS3Inventory9) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3Inventory) GetFileFilter() *string {
+func (i *InputS3InventoryS3Inventory9) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3Inventory) GetAwsAccountID() *string {
+func (i *InputS3InventoryS3Inventory9) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3Inventory) GetAwsAuthenticationMethod() *InputS3InventoryAuthenticationMethod {
+func (i *InputS3InventoryS3Inventory9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3Inventory) GetAwsSecretKey() *string {
+func (i *InputS3InventoryS3Inventory9) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3Inventory) GetRegion() *string {
+func (i *InputS3InventoryS3Inventory9) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3Inventory) GetEndpoint() *string {
+func (i *InputS3InventoryS3Inventory9) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3Inventory) GetSignatureVersion() *InputS3InventorySignatureVersion {
+func (i *InputS3InventoryS3Inventory9) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3Inventory) GetReuseConnections() *bool {
+func (i *InputS3InventoryS3Inventory9) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3Inventory) GetRejectUnauthorized() *bool {
+func (i *InputS3InventoryS3Inventory9) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3Inventory) GetBreakerRulesets() []string {
+func (i *InputS3InventoryS3Inventory9) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3Inventory) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3Inventory) GetMaxMessages() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3Inventory) GetVisibilityTimeout() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3Inventory) GetNumReceivers() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3Inventory) GetSocketTimeout() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3Inventory) GetSkipOnError() *bool {
+func (i *InputS3InventoryS3Inventory9) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3Inventory) GetIncludeSqsMetadata() *bool {
+func (i *InputS3InventoryS3Inventory9) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3Inventory) GetEnableAssumeRole() *bool {
+func (i *InputS3InventoryS3Inventory9) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3Inventory) GetAssumeRoleArn() *string {
+func (i *InputS3InventoryS3Inventory9) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3Inventory) GetAssumeRoleExternalID() *string {
+func (i *InputS3InventoryS3Inventory9) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3Inventory) GetDurationSeconds() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3Inventory) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3InventoryS3Inventory9) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3Inventory) GetPreprocess() *InputS3InventoryPreprocess {
+func (i *InputS3InventoryS3Inventory9) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3Inventory) GetMetadata() []InputS3InventoryMetadatum {
+func (i *InputS3InventoryS3Inventory9) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3Inventory) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3Inventory) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3Inventory) GetCheckpointing() *InputS3InventoryCheckpointing {
+func (i *InputS3InventoryS3Inventory9) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3Inventory) GetPollTimeout() *float64 {
+func (i *InputS3InventoryS3Inventory9) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3Inventory) GetChecksumSuffix() *string {
+func (i *InputS3InventoryS3Inventory9) GetChecksumSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ChecksumSuffix
 }
 
-func (i *InputS3Inventory) GetMaxManifestSizeKB() *int64 {
+func (i *InputS3InventoryS3Inventory9) GetMaxManifestSizeKB() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxManifestSizeKB
 }
 
-func (i *InputS3Inventory) GetValidateInventoryFiles() *bool {
+func (i *InputS3InventoryS3Inventory9) GetValidateInventoryFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ValidateInventoryFiles
 }
 
-func (i *InputS3Inventory) GetDescription() *string {
+func (i *InputS3InventoryS3Inventory9) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3Inventory) GetAwsAPIKey() *string {
+func (i *InputS3InventoryS3Inventory9) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3Inventory) GetAwsSecret() *string {
+func (i *InputS3InventoryS3Inventory9) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3Inventory) GetTagAfterProcessing() *InputS3InventoryTagAfterProcessing {
+func (i *InputS3InventoryS3Inventory9) GetProcessedTagKey() string {
 	if i == nil {
+		return ""
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory9) GetProcessedTagValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType8 string
+
+const (
+	InputS3InventoryType8S3Inventory InputS3InventoryType8 = "s3_inventory"
+)
+
+func (e InputS3InventoryType8) ToPointer() *InputS3InventoryType8 {
+	return &e
+}
+func (e *InputS3InventoryType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType8(v)
 		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType8: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory8 struct {
+	TagAfterProcessing TagAfterProcessingOptions `json:"tagAfterProcessing"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType8 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tagAfterProcessing", "type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory8) GetTagAfterProcessing() TagAfterProcessingOptions {
+	if i == nil {
+		return TagAfterProcessingOptions("")
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3Inventory) GetProcessedTagKey() *string {
+func (i *InputS3InventoryS3Inventory8) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory8) GetType() InputS3InventoryType8 {
+	if i == nil {
+		return InputS3InventoryType8("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory8) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory8) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory8) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory8) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory8) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory8) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory8) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory8) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory8) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory8) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory8) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory8) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory8) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory8) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory8) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory8) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory8) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory8) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory8) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory8) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory8) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory8) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory8) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory8) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory8) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory8) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory8) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory8) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory8) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory8) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory8) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory8) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory8) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory8) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory8) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory8) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory8) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory8) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3Inventory) GetProcessedTagValue() *string {
+func (i *InputS3InventoryS3Inventory8) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType7 string
+
+const (
+	InputS3InventoryType7S3Inventory InputS3InventoryType7 = "s3_inventory"
+)
+
+func (e InputS3InventoryType7) ToPointer() *InputS3InventoryType7 {
+	return &e
+}
+func (e *InputS3InventoryType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType7: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType7 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          string                     `json:"awsSecret"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory7) GetType() InputS3InventoryType7 {
+	if i == nil {
+		return InputS3InventoryType7("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory7) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory7) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory7) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory7) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory7) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory7) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory7) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory7) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory7) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory7) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory7) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory7) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory7) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory7) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory7) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory7) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory7) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory7) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory7) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory7) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory7) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory7) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory7) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory7) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory7) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory7) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory7) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory7) GetAwsSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory7) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory7) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory7) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType6 string
+
+const (
+	InputS3InventoryType6S3Inventory InputS3InventoryType6 = "s3_inventory"
+)
+
+func (e InputS3InventoryType6) ToPointer() *InputS3InventoryType6 {
+	return &e
+}
+func (e *InputS3InventoryType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType6: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory6 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType6 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              string  `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory6) GetType() InputS3InventoryType6 {
+	if i == nil {
+		return InputS3InventoryType6("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory6) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory6) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory6) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory6) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory6) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory6) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory6) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory6) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory6) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory6) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory6) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory6) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory6) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory6) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory6) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory6) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory6) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory6) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory6) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory6) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory6) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory6) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory6) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory6) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory6) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAwsAPIKey() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory6) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory6) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory6) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory6) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType5 string
+
+const (
+	InputS3InventoryType5S3Inventory InputS3InventoryType5 = "s3_inventory"
+)
+
+func (e InputS3InventoryType5) ToPointer() *InputS3InventoryType5 {
+	return &e
+}
+func (e *InputS3InventoryType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType5: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory5 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType5 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory5) GetType() InputS3InventoryType5 {
+	if i == nil {
+		return InputS3InventoryType5("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory5) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory5) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory5) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory5) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory5) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory5) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory5) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory5) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory5) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory5) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory5) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory5) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory5) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory5) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory5) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory5) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory5) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory5) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory5) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory5) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory5) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory5) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory5) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory5) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory5) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory5) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory5) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory5) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory5) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType4 string
+
+const (
+	InputS3InventoryType4S3Inventory InputS3InventoryType4 = "s3_inventory"
+)
+
+func (e InputS3InventoryType4) ToPointer() *InputS3InventoryType4 {
+	return &e
+}
+func (e *InputS3InventoryType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType4: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType4 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory4) GetType() InputS3InventoryType4 {
+	if i == nil {
+		return InputS3InventoryType4("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory4) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory4) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory4) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory4) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory4) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory4) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory4) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory4) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory4) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory4) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory4) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory4) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory4) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory4) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory4) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory4) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory4) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory4) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory4) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory4) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory4) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory4) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory4) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory4) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory4) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory4) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory4) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory4) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType3 string
+
+const (
+	InputS3InventoryType3S3Inventory InputS3InventoryType3 = "s3_inventory"
+)
+
+func (e InputS3InventoryType3) ToPointer() *InputS3InventoryType3 {
+	return &e
+}
+func (e *InputS3InventoryType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType3: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType3 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory3) GetType() InputS3InventoryType3 {
+	if i == nil {
+		return InputS3InventoryType3("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory3) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory3) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory3) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory3) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory3) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory3) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory3) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory3) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory3) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory3) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory3) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory3) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory3) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory3) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory3) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory3) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory3) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory3) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory3) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory3) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory3) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory3) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory3) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory3) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory3) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory3) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType2 string
+
+const (
+	InputS3InventoryType2S3Inventory InputS3InventoryType2 = "s3_inventory"
+)
+
+func (e InputS3InventoryType2) ToPointer() *InputS3InventoryType2 {
+	return &e
+}
+func (e *InputS3InventoryType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType2: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType2 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory2) GetType() InputS3InventoryType2 {
+	if i == nil {
+		return InputS3InventoryType2("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory2) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory2) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory2) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory2) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory2) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory2) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory2) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory2) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory2) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory2) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory2) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory2) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory2) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory2) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory2) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory2) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory2) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory2) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory2) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory2) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory2) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory2) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory2) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory2) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory2) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory2) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory2) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory2) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType1 string
+
+const (
+	InputS3InventoryType1S3Inventory InputS3InventoryType1 = "s3_inventory"
+)
+
+func (e InputS3InventoryType1) ToPointer() *InputS3InventoryType1 {
+	return &e
+}
+func (e *InputS3InventoryType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "s3_inventory":
+		*e = InputS3InventoryType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputS3InventoryType1: %v", v)
+	}
+}
+
+type InputS3InventoryS3Inventory1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputS3InventoryType1 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Attach SQS notification metadata to a __sqsMetadata field on each event
+	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	// Use Assume Role credentials to access Amazon S3
+	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Use Assume Role credentials when accessing Amazon SQS
+	EnableSQSAssumeRole *bool           `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	Description            *string `json:"description,omitempty"`
+	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret          *string                    `json:"awsSecret,omitempty"`
+	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitempty"`
+	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
+	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
+}
+
+func (i InputS3InventoryS3Inventory1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3InventoryS3Inventory1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3InventoryS3Inventory1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryS3Inventory1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryS3Inventory1) GetType() InputS3InventoryType1 {
+	if i == nil {
+		return InputS3InventoryType1("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryS3Inventory1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryS3Inventory1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryS3Inventory1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryS3Inventory1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventoryS3Inventory1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryS3Inventory1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryS3Inventory1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3InventoryS3Inventory1) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputS3InventoryS3Inventory1) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputS3InventoryS3Inventory1) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputS3InventoryS3Inventory1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputS3InventoryS3Inventory1) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputS3InventoryS3Inventory1) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputS3InventoryS3Inventory1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputS3InventoryS3Inventory1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputS3InventoryS3Inventory1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputS3InventoryS3Inventory1) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputS3InventoryS3Inventory1) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputS3InventoryS3Inventory1) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputS3InventoryS3Inventory1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputS3InventoryS3Inventory1) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputS3InventoryS3Inventory1) GetIncludeSqsMetadata() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeSqsMetadata
+}
+
+func (i *InputS3InventoryS3Inventory1) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputS3InventoryS3Inventory1) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputS3InventoryS3Inventory1) GetEnableSQSAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableSQSAssumeRole
+}
+
+func (i *InputS3InventoryS3Inventory1) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputS3InventoryS3Inventory1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputS3InventoryS3Inventory1) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputS3InventoryS3Inventory1) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputS3InventoryS3Inventory1) GetCheckpointing() *CheckpointingType {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputS3InventoryS3Inventory1) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputS3InventoryS3Inventory1) GetChecksumSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ChecksumSuffix
+}
+
+func (i *InputS3InventoryS3Inventory1) GetMaxManifestSizeKB() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxManifestSizeKB
+}
+
+func (i *InputS3InventoryS3Inventory1) GetValidateInventoryFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ValidateInventoryFiles
+}
+
+func (i *InputS3InventoryS3Inventory1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputS3InventoryS3Inventory1) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputS3InventoryS3Inventory1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+	if i == nil {
+		return nil
+	}
+	return i.TagAfterProcessing
+}
+
+func (i *InputS3InventoryS3Inventory1) GetProcessedTagKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagKey
+}
+
+func (i *InputS3InventoryS3Inventory1) GetProcessedTagValue() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ProcessedTagValue
+}
+
+type InputS3InventoryType string
+
+const (
+	InputS3InventoryTypeInputS3InventoryS3Inventory1 InputS3InventoryType = "InputS3Inventory_S3Inventory_1"
+	InputS3InventoryTypeInputS3InventoryS3Inventory2 InputS3InventoryType = "InputS3Inventory_S3Inventory_2"
+	InputS3InventoryTypeInputS3InventoryS3Inventory3 InputS3InventoryType = "InputS3Inventory_S3Inventory_3"
+	InputS3InventoryTypeInputS3InventoryS3Inventory4 InputS3InventoryType = "InputS3Inventory_S3Inventory_4"
+	InputS3InventoryTypeInputS3InventoryS3Inventory5 InputS3InventoryType = "InputS3Inventory_S3Inventory_5"
+	InputS3InventoryTypeInputS3InventoryS3Inventory6 InputS3InventoryType = "InputS3Inventory_S3Inventory_6"
+	InputS3InventoryTypeInputS3InventoryS3Inventory7 InputS3InventoryType = "InputS3Inventory_S3Inventory_7"
+	InputS3InventoryTypeInputS3InventoryS3Inventory8 InputS3InventoryType = "InputS3Inventory_S3Inventory_8"
+	InputS3InventoryTypeInputS3InventoryS3Inventory9 InputS3InventoryType = "InputS3Inventory_S3Inventory_9"
+)
+
+type InputS3Inventory struct {
+	InputS3InventoryS3Inventory1 *InputS3InventoryS3Inventory1 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory2 *InputS3InventoryS3Inventory2 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory3 *InputS3InventoryS3Inventory3 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory4 *InputS3InventoryS3Inventory4 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory5 *InputS3InventoryS3Inventory5 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory6 *InputS3InventoryS3Inventory6 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory7 *InputS3InventoryS3Inventory7 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory8 *InputS3InventoryS3Inventory8 `queryParam:"inline,name=InputS3Inventory"`
+	InputS3InventoryS3Inventory9 *InputS3InventoryS3Inventory9 `queryParam:"inline,name=InputS3Inventory"`
+
+	Type InputS3InventoryType
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory1(inputS3InventoryS3Inventory1 InputS3InventoryS3Inventory1) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory1
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory1: &inputS3InventoryS3Inventory1,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory2(inputS3InventoryS3Inventory2 InputS3InventoryS3Inventory2) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory2
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory2: &inputS3InventoryS3Inventory2,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory3(inputS3InventoryS3Inventory3 InputS3InventoryS3Inventory3) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory3
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory3: &inputS3InventoryS3Inventory3,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory4(inputS3InventoryS3Inventory4 InputS3InventoryS3Inventory4) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory4
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory4: &inputS3InventoryS3Inventory4,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory5(inputS3InventoryS3Inventory5 InputS3InventoryS3Inventory5) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory5
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory5: &inputS3InventoryS3Inventory5,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory6(inputS3InventoryS3Inventory6 InputS3InventoryS3Inventory6) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory6
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory6: &inputS3InventoryS3Inventory6,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory7(inputS3InventoryS3Inventory7 InputS3InventoryS3Inventory7) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory7
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory7: &inputS3InventoryS3Inventory7,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory8(inputS3InventoryS3Inventory8 InputS3InventoryS3Inventory8) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory8
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory8: &inputS3InventoryS3Inventory8,
+		Type:                         typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryS3Inventory9(inputS3InventoryS3Inventory9 InputS3InventoryS3Inventory9) InputS3Inventory {
+	typ := InputS3InventoryTypeInputS3InventoryS3Inventory9
+
+	return InputS3Inventory{
+		InputS3InventoryS3Inventory9: &inputS3InventoryS3Inventory9,
+		Type:                         typ,
+	}
+}
+
+func (u *InputS3Inventory) UnmarshalJSON(data []byte) error {
+
+	var inputS3InventoryS3Inventory9 InputS3InventoryS3Inventory9 = InputS3InventoryS3Inventory9{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory9, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory9 = &inputS3InventoryS3Inventory9
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory9
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory2 InputS3InventoryS3Inventory2 = InputS3InventoryS3Inventory2{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory2, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory2 = &inputS3InventoryS3Inventory2
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory2
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory4 InputS3InventoryS3Inventory4 = InputS3InventoryS3Inventory4{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory4, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory4 = &inputS3InventoryS3Inventory4
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory4
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory6 InputS3InventoryS3Inventory6 = InputS3InventoryS3Inventory6{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory6, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory6 = &inputS3InventoryS3Inventory6
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory6
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory7 InputS3InventoryS3Inventory7 = InputS3InventoryS3Inventory7{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory7, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory7 = &inputS3InventoryS3Inventory7
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory7
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory8 InputS3InventoryS3Inventory8 = InputS3InventoryS3Inventory8{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory8, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory8 = &inputS3InventoryS3Inventory8
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory8
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory1 InputS3InventoryS3Inventory1 = InputS3InventoryS3Inventory1{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory1, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory1 = &inputS3InventoryS3Inventory1
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory1
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory3 InputS3InventoryS3Inventory3 = InputS3InventoryS3Inventory3{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory3, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory3 = &inputS3InventoryS3Inventory3
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory3
+		return nil
+	}
+
+	var inputS3InventoryS3Inventory5 InputS3InventoryS3Inventory5 = InputS3InventoryS3Inventory5{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryS3Inventory5, "", true, nil); err == nil {
+		u.InputS3InventoryS3Inventory5 = &inputS3InventoryS3Inventory5
+		u.Type = InputS3InventoryTypeInputS3InventoryS3Inventory5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputS3Inventory", string(data))
+}
+
+func (u InputS3Inventory) MarshalJSON() ([]byte, error) {
+	if u.InputS3InventoryS3Inventory1 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory1, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory2 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory2, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory3 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory3, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory4 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory4, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory5 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory5, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory6 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory6, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory7 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory7, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory8 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory8, "", true)
+	}
+
+	if u.InputS3InventoryS3Inventory9 != nil {
+		return utils.MarshalJSON(u.InputS3InventoryS3Inventory9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputS3Inventory: all fields are null")
 }

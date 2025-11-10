@@ -3,70 +3,13 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputNetflowType string
-
-const (
-	OutputNetflowTypeNetflow OutputNetflowType = "netflow"
-)
-
-func (e OutputNetflowType) ToPointer() *OutputNetflowType {
-	return &e
-}
-func (e *OutputNetflowType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "netflow":
-		*e = OutputNetflowType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNetflowType: %v", v)
-	}
-}
-
-type OutputNetflowHost struct {
-	// Destination host
-	Host string `json:"host"`
-	// Destination port, default is 2055
-	Port *float64 `default:"2055" json:"port"`
-}
-
-func (o OutputNetflowHost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputNetflowHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputNetflowHost) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputNetflowHost) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
 
 type OutputNetflow struct {
 	// Unique ID for this output
 	ID   *string           `json:"id,omitempty"`
-	Type OutputNetflowType `json:"type"`
+	Type TypeNetflowOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -76,7 +19,7 @@ type OutputNetflow struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// One or more NetFlow destinations to forward events to
-	Hosts []OutputNetflowHost `json:"hosts"`
+	Hosts []Hosts1Type `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
 	Description         *string  `json:"description,omitempty"`
@@ -100,9 +43,9 @@ func (o *OutputNetflow) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputNetflow) GetType() OutputNetflowType {
+func (o *OutputNetflow) GetType() TypeNetflowOption {
 	if o == nil {
-		return OutputNetflowType("")
+		return TypeNetflowOption("")
 	}
 	return o.Type
 }
@@ -135,9 +78,9 @@ func (o *OutputNetflow) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputNetflow) GetHosts() []OutputNetflowHost {
+func (o *OutputNetflow) GetHosts() []Hosts1Type {
 	if o == nil {
-		return []OutputNetflowHost{}
+		return []Hosts1Type{}
 	}
 	return o.Hosts
 }

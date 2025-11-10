@@ -4,500 +4,58 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputWebhookType string
+type OutputWebhookType14 string
 
 const (
-	OutputWebhookTypeWebhook OutputWebhookType = "webhook"
+	OutputWebhookType14Webhook OutputWebhookType14 = "webhook"
 )
 
-func (e OutputWebhookType) ToPointer() *OutputWebhookType {
+func (e OutputWebhookType14) ToPointer() *OutputWebhookType14 {
 	return &e
 }
-func (e *OutputWebhookType) UnmarshalJSON(data []byte) error {
+func (e *OutputWebhookType14) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "webhook":
-		*e = OutputWebhookType(v)
+		*e = OutputWebhookType14(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputWebhookType: %v", v)
+		return fmt.Errorf("invalid value for OutputWebhookType14: %v", v)
 	}
 }
 
-// OutputWebhookMethod - The method to use when sending events
-type OutputWebhookMethod string
+// OutputWebhookFormat14 - How to format events before sending out
+type OutputWebhookFormat14 string
 
 const (
-	OutputWebhookMethodPost  OutputWebhookMethod = "POST"
-	OutputWebhookMethodPut   OutputWebhookMethod = "PUT"
-	OutputWebhookMethodPatch OutputWebhookMethod = "PATCH"
+	// OutputWebhookFormat14Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat14Ndjson OutputWebhookFormat14 = "ndjson"
+	// OutputWebhookFormat14JSONArray JSON Array
+	OutputWebhookFormat14JSONArray OutputWebhookFormat14 = "json_array"
+	// OutputWebhookFormat14Custom Custom
+	OutputWebhookFormat14Custom OutputWebhookFormat14 = "custom"
+	// OutputWebhookFormat14Advanced Advanced
+	OutputWebhookFormat14Advanced OutputWebhookFormat14 = "advanced"
 )
 
-func (e OutputWebhookMethod) ToPointer() *OutputWebhookMethod {
+func (e OutputWebhookFormat14) ToPointer() *OutputWebhookFormat14 {
 	return &e
 }
 
-// OutputWebhookFormat - How to format events before sending out
-type OutputWebhookFormat string
-
-const (
-	OutputWebhookFormatNdjson    OutputWebhookFormat = "ndjson"
-	OutputWebhookFormatJSONArray OutputWebhookFormat = "json_array"
-	OutputWebhookFormatCustom    OutputWebhookFormat = "custom"
-	OutputWebhookFormatAdvanced  OutputWebhookFormat = "advanced"
-)
-
-func (e OutputWebhookFormat) ToPointer() *OutputWebhookFormat {
-	return &e
-}
-
-type OutputWebhookExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputWebhookExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputWebhookFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputWebhookFailedRequestLoggingMode string
-
-const (
-	OutputWebhookFailedRequestLoggingModePayload           OutputWebhookFailedRequestLoggingMode = "payload"
-	OutputWebhookFailedRequestLoggingModePayloadAndHeaders OutputWebhookFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputWebhookFailedRequestLoggingModeNone              OutputWebhookFailedRequestLoggingMode = "none"
-)
-
-func (e OutputWebhookFailedRequestLoggingMode) ToPointer() *OutputWebhookFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputWebhookResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputWebhookResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputWebhookTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputWebhookTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputWebhookBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputWebhookBackpressureBehavior string
-
-const (
-	OutputWebhookBackpressureBehaviorBlock OutputWebhookBackpressureBehavior = "block"
-	OutputWebhookBackpressureBehaviorDrop  OutputWebhookBackpressureBehavior = "drop"
-	OutputWebhookBackpressureBehaviorQueue OutputWebhookBackpressureBehavior = "queue"
-)
-
-func (e OutputWebhookBackpressureBehavior) ToPointer() *OutputWebhookBackpressureBehavior {
-	return &e
-}
-
-// OutputWebhookAuthenticationType - Authentication method to use for the HTTP request
-type OutputWebhookAuthenticationType string
-
-const (
-	OutputWebhookAuthenticationTypeNone              OutputWebhookAuthenticationType = "none"
-	OutputWebhookAuthenticationTypeBasic             OutputWebhookAuthenticationType = "basic"
-	OutputWebhookAuthenticationTypeCredentialsSecret OutputWebhookAuthenticationType = "credentialsSecret"
-	OutputWebhookAuthenticationTypeToken             OutputWebhookAuthenticationType = "token"
-	OutputWebhookAuthenticationTypeTextSecret        OutputWebhookAuthenticationType = "textSecret"
-	OutputWebhookAuthenticationTypeOauth             OutputWebhookAuthenticationType = "oauth"
-)
-
-func (e OutputWebhookAuthenticationType) ToPointer() *OutputWebhookAuthenticationType {
-	return &e
-}
-
-type OutputWebhookMinimumTLSVersion string
-
-const (
-	OutputWebhookMinimumTLSVersionTlSv1  OutputWebhookMinimumTLSVersion = "TLSv1"
-	OutputWebhookMinimumTLSVersionTlSv11 OutputWebhookMinimumTLSVersion = "TLSv1.1"
-	OutputWebhookMinimumTLSVersionTlSv12 OutputWebhookMinimumTLSVersion = "TLSv1.2"
-	OutputWebhookMinimumTLSVersionTlSv13 OutputWebhookMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputWebhookMinimumTLSVersion) ToPointer() *OutputWebhookMinimumTLSVersion {
-	return &e
-}
-
-type OutputWebhookMaximumTLSVersion string
-
-const (
-	OutputWebhookMaximumTLSVersionTlSv1  OutputWebhookMaximumTLSVersion = "TLSv1"
-	OutputWebhookMaximumTLSVersionTlSv11 OutputWebhookMaximumTLSVersion = "TLSv1.1"
-	OutputWebhookMaximumTLSVersionTlSv12 OutputWebhookMaximumTLSVersion = "TLSv1.2"
-	OutputWebhookMaximumTLSVersionTlSv13 OutputWebhookMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputWebhookMaximumTLSVersion) ToPointer() *OutputWebhookMaximumTLSVersion {
-	return &e
-}
-
-type OutputWebhookTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                         `json:"passphrase,omitempty"`
-	MinVersion *OutputWebhookMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputWebhookMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputWebhookTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetMinVersion() *OutputWebhookMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetMaxVersion() *OutputWebhookMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputWebhookCompression - Codec to use to compress the persisted data
-type OutputWebhookCompression string
-
-const (
-	OutputWebhookCompressionNone OutputWebhookCompression = "none"
-	OutputWebhookCompressionGzip OutputWebhookCompression = "gzip"
-)
-
-func (e OutputWebhookCompression) ToPointer() *OutputWebhookCompression {
-	return &e
-}
-
-// OutputWebhookQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputWebhookQueueFullBehavior string
-
-const (
-	OutputWebhookQueueFullBehaviorBlock OutputWebhookQueueFullBehavior = "block"
-	OutputWebhookQueueFullBehaviorDrop  OutputWebhookQueueFullBehavior = "drop"
-)
-
-func (e OutputWebhookQueueFullBehavior) ToPointer() *OutputWebhookQueueFullBehavior {
-	return &e
-}
-
-// OutputWebhookMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputWebhookMode string
-
-const (
-	OutputWebhookModeError        OutputWebhookMode = "error"
-	OutputWebhookModeBackpressure OutputWebhookMode = "backpressure"
-	OutputWebhookModeAlways       OutputWebhookMode = "always"
-)
-
-func (e OutputWebhookMode) ToPointer() *OutputWebhookMode {
-	return &e
-}
-
-type OutputWebhookPqControls struct {
-}
-
-func (o OutputWebhookPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputWebhookOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputWebhookOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputWebhookOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputWebhookOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputWebhookURL struct {
-	// URL of a webhook endpoint to send events to, such as http://localhost:10200
-	URL string `json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputWebhookURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookURL) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputWebhookURL) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-type OutputWebhook struct {
+type OutputWebhookWebhook14 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
 	// Unique ID for this output
-	ID   *string           `json:"id,omitempty"`
-	Type OutputWebhookType `json:"type"`
+	ID   *string             `json:"id,omitempty"`
+	Type OutputWebhookType14 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -507,9 +65,9 @@ type OutputWebhook struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// The method to use when sending events
-	Method *OutputWebhookMethod `default:"POST" json:"method"`
+	Method *Method1Options `default:"POST" json:"method"`
 	// How to format events before sending out
-	Format *OutputWebhookFormat `default:"ndjson" json:"format"`
+	Format *OutputWebhookFormat14 `default:"ndjson" json:"format"`
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `default:"true" json:"keepAlive"`
 	// Maximum number of ongoing requests before blocking
@@ -529,23 +87,1307 @@ type OutputWebhook struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []OutputWebhookExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputWebhookFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputWebhookResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputWebhookTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputWebhookBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType    `default:"none" json:"authType"`
-	TLS      *OutputWebhookTLSSettingsClientSide `json:"tls,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook14) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook14) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "urls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook14) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook14) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook14) GetType() OutputWebhookType14 {
+	if o == nil {
+		return OutputWebhookType14("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook14) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook14) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook14) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook14) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook14) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook14) GetFormat() *OutputWebhookFormat14 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook14) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook14) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook14) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook14) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook14) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook14) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook14) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook14) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook14) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook14) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook14) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook14) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook14) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook14) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook14) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook14) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook14) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook14) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook14) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook14) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook14) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook14) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook14) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook14) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook14) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook14) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook14) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook14) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook14) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook14) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook14) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook14) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook14) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook14) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook14) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook14) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook14) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook14) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook14) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook14) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook14) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook14) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook14) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook14) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook14) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook14) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook14) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook14) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook14) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook14) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook14) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook14) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook14) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook14) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook14) GetUrls() []UrlsType {
+	if o == nil {
+		return []UrlsType{}
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook14) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook14) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType13 string
+
+const (
+	OutputWebhookType13Webhook OutputWebhookType13 = "webhook"
+)
+
+func (e OutputWebhookType13) ToPointer() *OutputWebhookType13 {
+	return &e
+}
+func (e *OutputWebhookType13) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType13(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType13: %v", v)
+	}
+}
+
+// OutputWebhookFormat13 - How to format events before sending out
+type OutputWebhookFormat13 string
+
+const (
+	// OutputWebhookFormat13Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat13Ndjson OutputWebhookFormat13 = "ndjson"
+	// OutputWebhookFormat13JSONArray JSON Array
+	OutputWebhookFormat13JSONArray OutputWebhookFormat13 = "json_array"
+	// OutputWebhookFormat13Custom Custom
+	OutputWebhookFormat13Custom OutputWebhookFormat13 = "custom"
+	// OutputWebhookFormat13Advanced Advanced
+	OutputWebhookFormat13Advanced OutputWebhookFormat13 = "advanced"
+)
+
+func (e OutputWebhookFormat13) ToPointer() *OutputWebhookFormat13 {
+	return &e
+}
+
+type OutputWebhookWebhook13 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputWebhookType13 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat13 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL string `json:"url"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook13) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook13) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook13) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook13) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook13) GetType() OutputWebhookType13 {
+	if o == nil {
+		return OutputWebhookType13("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook13) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook13) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook13) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook13) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook13) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook13) GetFormat() *OutputWebhookFormat13 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook13) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook13) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook13) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook13) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook13) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook13) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook13) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook13) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook13) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook13) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook13) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook13) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook13) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook13) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook13) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook13) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook13) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook13) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook13) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook13) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook13) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook13) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook13) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook13) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook13) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook13) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook13) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook13) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook13) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook13) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook13) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook13) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook13) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook13) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook13) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook13) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook13) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook13) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook13) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook13) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook13) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook13) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook13) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook13) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook13) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook13) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook13) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook13) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook13) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook13) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook13) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook13) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook13) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook13) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook13) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook13) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook13) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType12 string
+
+const (
+	OutputWebhookType12Webhook OutputWebhookType12 = "webhook"
+)
+
+func (e OutputWebhookType12) ToPointer() *OutputWebhookType12 {
+	return &e
+}
+func (e *OutputWebhookType12) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType12(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType12: %v", v)
+	}
+}
+
+// OutputWebhookFormat12 - How to format events before sending out
+type OutputWebhookFormat12 string
+
+const (
+	// OutputWebhookFormat12Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat12Ndjson OutputWebhookFormat12 = "ndjson"
+	// OutputWebhookFormat12JSONArray JSON Array
+	OutputWebhookFormat12JSONArray OutputWebhookFormat12 = "json_array"
+	// OutputWebhookFormat12Custom Custom
+	OutputWebhookFormat12Custom OutputWebhookFormat12 = "custom"
+	// OutputWebhookFormat12Advanced Advanced
+	OutputWebhookFormat12Advanced OutputWebhookFormat12 = "advanced"
+)
+
+func (e OutputWebhookFormat12) ToPointer() *OutputWebhookFormat12 {
+	return &e
+}
+
+type OutputWebhookWebhook12 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputWebhookType12 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat12 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
@@ -567,6 +1409,16 @@ type OutputWebhook struct {
 	FormatEventCode *string `json:"formatEventCode,omitempty"`
 	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -574,14 +1426,2584 @@ type OutputWebhook struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputWebhookCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputWebhookQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter name to pass in request body
+	SecretParamName string `json:"secretParamName"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName string `json:"tokenAttributeName"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook12) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook12) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secretParamName", "secret", "tokenAttributeName", "oauthParams", "oauthHeaders"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook12) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook12) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook12) GetType() OutputWebhookType12 {
+	if o == nil {
+		return OutputWebhookType12("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook12) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook12) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook12) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook12) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook12) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook12) GetFormat() *OutputWebhookFormat12 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook12) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook12) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook12) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook12) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook12) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook12) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook12) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook12) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook12) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook12) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook12) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook12) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook12) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook12) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook12) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook12) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook12) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook12) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook12) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook12) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook12) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook12) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook12) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook12) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook12) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook12) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook12) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook12) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook12) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook12) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook12) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook12) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook12) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook12) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook12) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook12) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook12) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook12) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook12) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook12) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook12) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook12) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook12) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook12) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook12) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook12) GetSecretParamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook12) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook12) GetTokenAttributeName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook12) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook12) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook12) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook12) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook12) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook12) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook12) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook12) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook12) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType11 string
+
+const (
+	OutputWebhookType11Webhook OutputWebhookType11 = "webhook"
+)
+
+func (e OutputWebhookType11) ToPointer() *OutputWebhookType11 {
+	return &e
+}
+func (e *OutputWebhookType11) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType11(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType11: %v", v)
+	}
+}
+
+// OutputWebhookFormat11 - How to format events before sending out
+type OutputWebhookFormat11 string
+
+const (
+	// OutputWebhookFormat11Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat11Ndjson OutputWebhookFormat11 = "ndjson"
+	// OutputWebhookFormat11JSONArray JSON Array
+	OutputWebhookFormat11JSONArray OutputWebhookFormat11 = "json_array"
+	// OutputWebhookFormat11Custom Custom
+	OutputWebhookFormat11Custom OutputWebhookFormat11 = "custom"
+	// OutputWebhookFormat11Advanced Advanced
+	OutputWebhookFormat11Advanced OutputWebhookFormat11 = "advanced"
+)
+
+func (e OutputWebhookFormat11) ToPointer() *OutputWebhookFormat11 {
+	return &e
+}
+
+type OutputWebhookWebhook11 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputWebhookType11 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat11 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputWebhookMode       `default:"error" json:"pqMode"`
-	PqControls *OutputWebhookPqControls `json:"pqControls,omitempty"`
-	Username   *string                  `json:"username,omitempty"`
-	Password   *string                  `json:"password,omitempty"`
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook11) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook11) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook11) GetType() OutputWebhookType11 {
+	if o == nil {
+		return OutputWebhookType11("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook11) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook11) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook11) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook11) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook11) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook11) GetFormat() *OutputWebhookFormat11 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook11) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook11) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook11) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook11) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook11) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook11) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook11) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook11) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook11) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook11) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook11) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook11) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook11) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook11) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook11) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook11) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook11) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook11) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook11) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook11) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook11) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook11) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook11) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook11) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook11) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook11) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook11) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook11) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook11) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook11) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook11) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook11) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook11) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook11) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook11) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook11) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook11) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook11) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook11) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook11) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook11) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook11) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook11) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook11) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook11) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook11) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook11) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook11) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook11) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook11) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook11) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook11) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook11) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook11) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook11) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook11) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook11) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType10 string
+
+const (
+	OutputWebhookType10Webhook OutputWebhookType10 = "webhook"
+)
+
+func (e OutputWebhookType10) ToPointer() *OutputWebhookType10 {
+	return &e
+}
+func (e *OutputWebhookType10) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType10(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType10: %v", v)
+	}
+}
+
+// OutputWebhookFormat10 - How to format events before sending out
+type OutputWebhookFormat10 string
+
+const (
+	// OutputWebhookFormat10Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat10Ndjson OutputWebhookFormat10 = "ndjson"
+	// OutputWebhookFormat10JSONArray JSON Array
+	OutputWebhookFormat10JSONArray OutputWebhookFormat10 = "json_array"
+	// OutputWebhookFormat10Custom Custom
+	OutputWebhookFormat10Custom OutputWebhookFormat10 = "custom"
+	// OutputWebhookFormat10Advanced Advanced
+	OutputWebhookFormat10Advanced OutputWebhookFormat10 = "advanced"
+)
+
+func (e OutputWebhookFormat10) ToPointer() *OutputWebhookFormat10 {
+	return &e
+}
+
+type OutputWebhookWebhook10 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputWebhookType10 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat10 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook10) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook10) GetType() OutputWebhookType10 {
+	if o == nil {
+		return OutputWebhookType10("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook10) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook10) GetFormat() *OutputWebhookFormat10 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook10) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook10) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook10) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook10) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook10) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook10) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook10) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook10) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook10) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook10) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook10) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook10) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook10) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook10) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook10) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook10) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook10) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook10) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook10) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook10) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook10) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook10) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook10) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook10) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook10) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook10) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook10) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook10) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook10) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook10) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook10) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook10) GetCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook10) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook10) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook10) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook10) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook10) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook10) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook10) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook10) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook10) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook10) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook10) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook10) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook10) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook10) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType9 string
+
+const (
+	OutputWebhookType9Webhook OutputWebhookType9 = "webhook"
+)
+
+func (e OutputWebhookType9) ToPointer() *OutputWebhookType9 {
+	return &e
+}
+func (e *OutputWebhookType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType9: %v", v)
+	}
+}
+
+// OutputWebhookFormat9 - How to format events before sending out
+type OutputWebhookFormat9 string
+
+const (
+	// OutputWebhookFormat9Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat9Ndjson OutputWebhookFormat9 = "ndjson"
+	// OutputWebhookFormat9JSONArray JSON Array
+	OutputWebhookFormat9JSONArray OutputWebhookFormat9 = "json_array"
+	// OutputWebhookFormat9Custom Custom
+	OutputWebhookFormat9Custom OutputWebhookFormat9 = "custom"
+	// OutputWebhookFormat9Advanced Advanced
+	OutputWebhookFormat9Advanced OutputWebhookFormat9 = "advanced"
+)
+
+func (e OutputWebhookFormat9) ToPointer() *OutputWebhookFormat9 {
+	return &e
+}
+
+type OutputWebhookWebhook9 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat9 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token string `json:"token"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook9) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook9) GetType() OutputWebhookType9 {
+	if o == nil {
+		return OutputWebhookType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook9) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook9) GetFormat() *OutputWebhookFormat9 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook9) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook9) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook9) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook9) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook9) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook9) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook9) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook9) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook9) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook9) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook9) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook9) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook9) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook9) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook9) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook9) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook9) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook9) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook9) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook9) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook9) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook9) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook9) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook9) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook9) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook9) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook9) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook9) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook9) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook9) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook9) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook9) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType8 string
+
+const (
+	OutputWebhookType8Webhook OutputWebhookType8 = "webhook"
+)
+
+func (e OutputWebhookType8) ToPointer() *OutputWebhookType8 {
+	return &e
+}
+func (e *OutputWebhookType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType8: %v", v)
+	}
+}
+
+// OutputWebhookFormat8 - How to format events before sending out
+type OutputWebhookFormat8 string
+
+const (
+	// OutputWebhookFormat8Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat8Ndjson OutputWebhookFormat8 = "ndjson"
+	// OutputWebhookFormat8JSONArray JSON Array
+	OutputWebhookFormat8JSONArray OutputWebhookFormat8 = "json_array"
+	// OutputWebhookFormat8Custom Custom
+	OutputWebhookFormat8Custom OutputWebhookFormat8 = "custom"
+	// OutputWebhookFormat8Advanced Advanced
+	OutputWebhookFormat8Advanced OutputWebhookFormat8 = "advanced"
+)
+
+func (e OutputWebhookFormat8) ToPointer() *OutputWebhookFormat8 {
+	return &e
+}
+
+type OutputWebhookWebhook8 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat8 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         string                   `json:"username"`
+	Password         string                   `json:"password"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -601,461 +4023,5317 @@ type OutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputWebhookOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputWebhookOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool              `default:"false" json:"excludeSelf"`
-	Urls        []OutputWebhookURL `json:"urls,omitempty"`
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
 }
 
-func (o OutputWebhook) MarshalJSON() ([]byte, error) {
+func (o OutputWebhookWebhook8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputWebhook) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputWebhookWebhook8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "username", "password"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputWebhook) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputWebhook) GetType() OutputWebhookType {
-	if o == nil {
-		return OutputWebhookType("")
-	}
-	return o.Type
-}
-
-func (o *OutputWebhook) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputWebhook) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputWebhook) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputWebhook) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputWebhook) GetMethod() *OutputWebhookMethod {
-	if o == nil {
-		return nil
-	}
-	return o.Method
-}
-
-func (o *OutputWebhook) GetFormat() *OutputWebhookFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
-}
-
-func (o *OutputWebhook) GetKeepAlive() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.KeepAlive
-}
-
-func (o *OutputWebhook) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputWebhook) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputWebhook) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputWebhook) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputWebhook) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputWebhook) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputWebhook) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputWebhook) GetExtraHTTPHeaders() []OutputWebhookExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputWebhook) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputWebhook) GetFailedRequestLoggingMode() *OutputWebhookFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputWebhook) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputWebhook) GetResponseRetrySettings() []OutputWebhookResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputWebhook) GetTimeoutRetrySettings() *OutputWebhookTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputWebhook) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputWebhook) GetOnBackpressure() *OutputWebhookBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputWebhook) GetAuthType() *OutputWebhookAuthenticationType {
+func (o *OutputWebhookWebhook8) GetAuthType() *AuthTypeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputWebhook) GetTLS() *OutputWebhookTLSSettingsClientSide {
+func (o *OutputWebhookWebhook8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook8) GetType() OutputWebhookType8 {
+	if o == nil {
+		return OutputWebhookType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook8) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook8) GetFormat() *OutputWebhookFormat8 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook8) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook8) GetTLS() *Tls4Type {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputWebhook) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputWebhookWebhook8) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputWebhook) GetLoadBalanced() *bool {
+func (o *OutputWebhookWebhook8) GetLoadBalanced() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanced
 }
 
-func (o *OutputWebhook) GetDescription() *string {
+func (o *OutputWebhookWebhook8) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputWebhook) GetCustomSourceExpression() *string {
+func (o *OutputWebhookWebhook8) GetCustomSourceExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomSourceExpression
 }
 
-func (o *OutputWebhook) GetCustomDropWhenNull() *bool {
+func (o *OutputWebhookWebhook8) GetCustomDropWhenNull() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.CustomDropWhenNull
 }
 
-func (o *OutputWebhook) GetCustomEventDelimiter() *string {
+func (o *OutputWebhookWebhook8) GetCustomEventDelimiter() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomEventDelimiter
 }
 
-func (o *OutputWebhook) GetCustomContentType() *string {
+func (o *OutputWebhookWebhook8) GetCustomContentType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomContentType
 }
 
-func (o *OutputWebhook) GetCustomPayloadExpression() *string {
+func (o *OutputWebhookWebhook8) GetCustomPayloadExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomPayloadExpression
 }
 
-func (o *OutputWebhook) GetAdvancedContentType() *string {
+func (o *OutputWebhookWebhook8) GetAdvancedContentType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AdvancedContentType
 }
 
-func (o *OutputWebhook) GetFormatEventCode() *string {
+func (o *OutputWebhookWebhook8) GetFormatEventCode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FormatEventCode
 }
 
-func (o *OutputWebhook) GetFormatPayloadCode() *string {
+func (o *OutputWebhookWebhook8) GetFormatPayloadCode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FormatPayloadCode
 }
 
-func (o *OutputWebhook) GetPqMaxFileSize() *string {
+func (o *OutputWebhookWebhook8) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputWebhook) GetPqMaxSize() *string {
+func (o *OutputWebhookWebhook8) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputWebhook) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputWebhook) GetPqCompress() *OutputWebhookCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputWebhook) GetPqOnBackpressure() *OutputWebhookQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputWebhook) GetPqMode() *OutputWebhookMode {
+func (o *OutputWebhookWebhook8) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputWebhook) GetPqControls() *OutputWebhookPqControls {
+func (o *OutputWebhookWebhook8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook8) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputWebhook) GetUsername() *string {
+func (o *OutputWebhookWebhook8) GetUsername() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Username
 }
 
-func (o *OutputWebhook) GetPassword() *string {
+func (o *OutputWebhookWebhook8) GetPassword() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Password
 }
 
-func (o *OutputWebhook) GetToken() *string {
+func (o *OutputWebhookWebhook8) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputWebhook) GetCredentialsSecret() *string {
+func (o *OutputWebhookWebhook8) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputWebhook) GetTextSecret() *string {
+func (o *OutputWebhookWebhook8) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputWebhook) GetLoginURL() *string {
+func (o *OutputWebhookWebhook8) GetLoginURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LoginURL
 }
 
-func (o *OutputWebhook) GetSecretParamName() *string {
+func (o *OutputWebhookWebhook8) GetSecretParamName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SecretParamName
 }
 
-func (o *OutputWebhook) GetSecret() *string {
+func (o *OutputWebhookWebhook8) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputWebhook) GetTokenAttributeName() *string {
+func (o *OutputWebhookWebhook8) GetTokenAttributeName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TokenAttributeName
 }
 
-func (o *OutputWebhook) GetAuthHeaderExpr() *string {
+func (o *OutputWebhookWebhook8) GetAuthHeaderExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AuthHeaderExpr
 }
 
-func (o *OutputWebhook) GetTokenTimeoutSecs() *float64 {
+func (o *OutputWebhookWebhook8) GetTokenTimeoutSecs() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhook) GetOauthParams() []OutputWebhookOauthParam {
+func (o *OutputWebhookWebhook8) GetOauthParams() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhook) GetOauthHeaders() []OutputWebhookOauthHeader {
+func (o *OutputWebhookWebhook8) GetOauthHeaders() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthHeaders
 }
 
-func (o *OutputWebhook) GetURL() *string {
+func (o *OutputWebhookWebhook8) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *OutputWebhook) GetExcludeSelf() *bool {
+func (o *OutputWebhookWebhook8) GetExcludeSelf() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeSelf
 }
 
-func (o *OutputWebhook) GetUrls() []OutputWebhookURL {
+func (o *OutputWebhookWebhook8) GetUrls() []UrlsType {
 	if o == nil {
 		return nil
 	}
 	return o.Urls
 }
 
-func (o *OutputWebhook) GetDNSResolvePeriodSec() *float64 {
+func (o *OutputWebhookWebhook8) GetDNSResolvePeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
 }
 
-func (o *OutputWebhook) GetLoadBalanceStatsPeriodSec() *float64 {
+func (o *OutputWebhookWebhook8) GetLoadBalanceStatsPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType7 string
+
+const (
+	OutputWebhookType7Webhook OutputWebhookType7 = "webhook"
+)
+
+func (e OutputWebhookType7) ToPointer() *OutputWebhookType7 {
+	return &e
+}
+func (e *OutputWebhookType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType7: %v", v)
+	}
+}
+
+// OutputWebhookFormat7 - How to format events before sending out
+type OutputWebhookFormat7 string
+
+const (
+	// OutputWebhookFormat7Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat7Ndjson OutputWebhookFormat7 = "ndjson"
+	// OutputWebhookFormat7JSONArray JSON Array
+	OutputWebhookFormat7JSONArray OutputWebhookFormat7 = "json_array"
+	// OutputWebhookFormat7Custom Custom
+	OutputWebhookFormat7Custom OutputWebhookFormat7 = "custom"
+	// OutputWebhookFormat7Advanced Advanced
+	OutputWebhookFormat7Advanced OutputWebhookFormat7 = "advanced"
+)
+
+func (e OutputWebhookFormat7) ToPointer() *OutputWebhookFormat7 {
+	return &e
+}
+
+type OutputWebhookWebhook7 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat7 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	TLS            *Tls4Type              `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook7) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook7) GetType() OutputWebhookType7 {
+	if o == nil {
+		return OutputWebhookType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook7) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook7) GetFormat() *OutputWebhookFormat7 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook7) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook7) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook7) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook7) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook7) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook7) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook7) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook7) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook7) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook7) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook7) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook7) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook7) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook7) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook7) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook7) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook7) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook7) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook7) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook7) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook7) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook7) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook7) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook7) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook7) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook7) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook7) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook7) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook7) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType6 string
+
+const (
+	OutputWebhookType6Webhook OutputWebhookType6 = "webhook"
+)
+
+func (e OutputWebhookType6) ToPointer() *OutputWebhookType6 {
+	return &e
+}
+func (e *OutputWebhookType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType6: %v", v)
+	}
+}
+
+// OutputWebhookFormat6 - How to format events before sending out
+type OutputWebhookFormat6 string
+
+const (
+	// OutputWebhookFormat6Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat6Ndjson OutputWebhookFormat6 = "ndjson"
+	// OutputWebhookFormat6JSONArray JSON Array
+	OutputWebhookFormat6JSONArray OutputWebhookFormat6 = "json_array"
+	// OutputWebhookFormat6Custom Custom
+	OutputWebhookFormat6Custom OutputWebhookFormat6 = "custom"
+	// OutputWebhookFormat6Advanced Advanced
+	OutputWebhookFormat6Advanced OutputWebhookFormat6 = "advanced"
+)
+
+func (e OutputWebhookFormat6) ToPointer() *OutputWebhookFormat6 {
+	return &e
+}
+
+type OutputWebhookWebhook6 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat6 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook6) GetType() OutputWebhookType6 {
+	if o == nil {
+		return OutputWebhookType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook6) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook6) GetFormat() *OutputWebhookFormat6 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook6) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook6) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook6) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook6) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook6) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook6) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook6) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook6) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook6) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook6) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook6) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook6) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook6) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook6) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook6) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook6) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook6) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook6) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook6) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook6) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook6) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook6) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook6) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook6) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook6) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook6) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook6) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook6) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook6) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook6) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook6) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType5 string
+
+const (
+	OutputWebhookType5Webhook OutputWebhookType5 = "webhook"
+)
+
+func (e OutputWebhookType5) ToPointer() *OutputWebhookType5 {
+	return &e
+}
+func (e *OutputWebhookType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType5: %v", v)
+	}
+}
+
+// OutputWebhookFormat5 - How to format events before sending out
+type OutputWebhookFormat5 string
+
+const (
+	// OutputWebhookFormat5Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat5Ndjson OutputWebhookFormat5 = "ndjson"
+	// OutputWebhookFormat5JSONArray JSON Array
+	OutputWebhookFormat5JSONArray OutputWebhookFormat5 = "json_array"
+	// OutputWebhookFormat5Custom Custom
+	OutputWebhookFormat5Custom OutputWebhookFormat5 = "custom"
+	// OutputWebhookFormat5Advanced Advanced
+	OutputWebhookFormat5Advanced OutputWebhookFormat5 = "advanced"
+)
+
+func (e OutputWebhookFormat5) ToPointer() *OutputWebhookFormat5 {
+	return &e
+}
+
+type OutputWebhookWebhook5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// How to format events before sending out
+	Format *OutputWebhookFormat5 `default:"ndjson" json:"format"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook5) GetType() OutputWebhookType5 {
+	if o == nil {
+		return OutputWebhookType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook5) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook5) GetFormat() *OutputWebhookFormat5 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook5) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook5) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook5) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook5) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook5) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook5) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook5) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook5) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook5) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook5) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook5) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook5) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook5) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook5) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook5) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook5) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook5) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook5) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook5) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook5) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook5) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook5) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook5) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook5) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook5) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook5) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook5) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+// OutputWebhookFormat4 - How to format events before sending out
+type OutputWebhookFormat4 string
+
+const (
+	// OutputWebhookFormat4Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat4Ndjson OutputWebhookFormat4 = "ndjson"
+	// OutputWebhookFormat4JSONArray JSON Array
+	OutputWebhookFormat4JSONArray OutputWebhookFormat4 = "json_array"
+	// OutputWebhookFormat4Custom Custom
+	OutputWebhookFormat4Custom OutputWebhookFormat4 = "custom"
+	// OutputWebhookFormat4Advanced Advanced
+	OutputWebhookFormat4Advanced OutputWebhookFormat4 = "advanced"
+)
+
+func (e OutputWebhookFormat4) ToPointer() *OutputWebhookFormat4 {
+	return &e
+}
+
+type OutputWebhookType4 string
+
+const (
+	OutputWebhookType4Webhook OutputWebhookType4 = "webhook"
+)
+
+func (e OutputWebhookType4) ToPointer() *OutputWebhookType4 {
+	return &e
+}
+func (e *OutputWebhookType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType4: %v", v)
+	}
+}
+
+type OutputWebhookWebhook4 struct {
+	// How to format events before sending out
+	Format *OutputWebhookFormat4 `default:"ndjson" json:"format"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode string `json:"formatEventCode"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode string `json:"formatPayloadCode"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "formatEventCode", "formatPayloadCode"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook4) GetFormat() *OutputWebhookFormat4 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook4) GetType() OutputWebhookType4 {
+	if o == nil {
+		return OutputWebhookType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook4) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook4) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook4) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook4) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook4) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook4) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook4) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook4) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook4) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook4) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook4) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook4) GetFormatEventCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook4) GetFormatPayloadCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook4) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook4) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook4) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook4) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook4) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook4) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook4) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook4) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook4) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook4) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook4) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook4) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook4) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook4) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook4) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+// OutputWebhookFormat3 - How to format events before sending out
+type OutputWebhookFormat3 string
+
+const (
+	// OutputWebhookFormat3Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat3Ndjson OutputWebhookFormat3 = "ndjson"
+	// OutputWebhookFormat3JSONArray JSON Array
+	OutputWebhookFormat3JSONArray OutputWebhookFormat3 = "json_array"
+	// OutputWebhookFormat3Custom Custom
+	OutputWebhookFormat3Custom OutputWebhookFormat3 = "custom"
+	// OutputWebhookFormat3Advanced Advanced
+	OutputWebhookFormat3Advanced OutputWebhookFormat3 = "advanced"
+)
+
+func (e OutputWebhookFormat3) ToPointer() *OutputWebhookFormat3 {
+	return &e
+}
+
+type OutputWebhookType3 string
+
+const (
+	OutputWebhookType3Webhook OutputWebhookType3 = "webhook"
+)
+
+func (e OutputWebhookType3) ToPointer() *OutputWebhookType3 {
+	return &e
+}
+func (e *OutputWebhookType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType3: %v", v)
+	}
+}
+
+type OutputWebhookWebhook3 struct {
+	// How to format events before sending out
+	Format *OutputWebhookFormat3 `default:"ndjson" json:"format"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook3) GetFormat() *OutputWebhookFormat3 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook3) GetType() OutputWebhookType3 {
+	if o == nil {
+		return OutputWebhookType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook3) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook3) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook3) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook3) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook3) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook3) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook3) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook3) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook3) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook3) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook3) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook3) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook3) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook3) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook3) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook3) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook3) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook3) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook3) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook3) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook3) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook3) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook3) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook3) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook3) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook3) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook3) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook3) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook3) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook3) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+// OutputWebhookFormat2 - How to format events before sending out
+type OutputWebhookFormat2 string
+
+const (
+	// OutputWebhookFormat2Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat2Ndjson OutputWebhookFormat2 = "ndjson"
+	// OutputWebhookFormat2JSONArray JSON Array
+	OutputWebhookFormat2JSONArray OutputWebhookFormat2 = "json_array"
+	// OutputWebhookFormat2Custom Custom
+	OutputWebhookFormat2Custom OutputWebhookFormat2 = "custom"
+	// OutputWebhookFormat2Advanced Advanced
+	OutputWebhookFormat2Advanced OutputWebhookFormat2 = "advanced"
+)
+
+func (e OutputWebhookFormat2) ToPointer() *OutputWebhookFormat2 {
+	return &e
+}
+
+type OutputWebhookType2 string
+
+const (
+	OutputWebhookType2Webhook OutputWebhookType2 = "webhook"
+)
+
+func (e OutputWebhookType2) ToPointer() *OutputWebhookType2 {
+	return &e
+}
+func (e *OutputWebhookType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType2: %v", v)
+	}
+}
+
+type OutputWebhookWebhook2 struct {
+	// How to format events before sending out
+	Format *OutputWebhookFormat2 `default:"ndjson" json:"format"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook2) GetFormat() *OutputWebhookFormat2 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook2) GetType() OutputWebhookType2 {
+	if o == nil {
+		return OutputWebhookType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook2) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook2) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook2) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook2) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook2) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook2) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook2) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook2) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook2) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook2) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook2) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook2) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook2) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook2) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook2) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook2) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook2) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook2) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook2) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook2) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook2) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook2) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook2) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook2) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook2) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook2) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook2) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook2) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+// OutputWebhookFormat1 - How to format events before sending out
+type OutputWebhookFormat1 string
+
+const (
+	// OutputWebhookFormat1Ndjson NDJSON (Newline Delimited JSON)
+	OutputWebhookFormat1Ndjson OutputWebhookFormat1 = "ndjson"
+	// OutputWebhookFormat1JSONArray JSON Array
+	OutputWebhookFormat1JSONArray OutputWebhookFormat1 = "json_array"
+	// OutputWebhookFormat1Custom Custom
+	OutputWebhookFormat1Custom OutputWebhookFormat1 = "custom"
+	// OutputWebhookFormat1Advanced Advanced
+	OutputWebhookFormat1Advanced OutputWebhookFormat1 = "advanced"
+)
+
+func (e OutputWebhookFormat1) ToPointer() *OutputWebhookFormat1 {
+	return &e
+}
+
+type OutputWebhookType1 string
+
+const (
+	OutputWebhookType1Webhook OutputWebhookType1 = "webhook"
+)
+
+func (e OutputWebhookType1) ToPointer() *OutputWebhookType1 {
+	return &e
+}
+func (e *OutputWebhookType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "webhook":
+		*e = OutputWebhookType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebhookType1: %v", v)
+	}
+}
+
+type OutputWebhookWebhook1 struct {
+	// How to format events before sending out
+	Format *OutputWebhookFormat1 `default:"ndjson" json:"format"`
+	// Unique ID for this output
+	ID   *string            `json:"id,omitempty"`
+	Type OutputWebhookType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The method to use when sending events
+	Method *Method1Options `default:"POST" json:"method"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	TLS      *Tls4Type        `json:"tls,omitempty"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool   `default:"false" json:"loadBalanced"`
+	Description  *string `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// URL of a webhook endpoint to send events to, such as http://localhost:10200
+	URL *string `json:"url,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+}
+
+func (o OutputWebhookWebhook1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebhookWebhook1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebhookWebhook1) GetFormat() *OutputWebhookFormat1 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputWebhookWebhook1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputWebhookWebhook1) GetType() OutputWebhookType1 {
+	if o == nil {
+		return OutputWebhookType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebhookWebhook1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputWebhookWebhook1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputWebhookWebhook1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputWebhookWebhook1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputWebhookWebhook1) GetMethod() *Method1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Method
+}
+
+func (o *OutputWebhookWebhook1) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputWebhookWebhook1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputWebhookWebhook1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputWebhookWebhook1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputWebhookWebhook1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputWebhookWebhook1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputWebhookWebhook1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputWebhookWebhook1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputWebhookWebhook1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputWebhookWebhook1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputWebhookWebhook1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputWebhookWebhook1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputWebhookWebhook1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputWebhookWebhook1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputWebhookWebhook1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputWebhookWebhook1) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputWebhookWebhook1) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputWebhookWebhook1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputWebhookWebhook1) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputWebhookWebhook1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputWebhookWebhook1) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputWebhookWebhook1) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputWebhookWebhook1) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputWebhookWebhook1) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputWebhookWebhook1) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputWebhookWebhook1) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputWebhookWebhook1) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputWebhookWebhook1) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputWebhookWebhook1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWebhookWebhook1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWebhookWebhook1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWebhookWebhook1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWebhookWebhook1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputWebhookWebhook1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputWebhookWebhook1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputWebhookWebhook1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputWebhookWebhook1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputWebhookWebhook1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputWebhookWebhook1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputWebhookWebhook1) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputWebhookWebhook1) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputWebhookWebhook1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWebhookWebhook1) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputWebhookWebhook1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputWebhookWebhook1) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputWebhookWebhook1) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputWebhookWebhook1) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputWebhookWebhook1) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputWebhookWebhook1) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputWebhookWebhook1) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputWebhookWebhook1) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputWebhookWebhook1) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputWebhookWebhook1) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputWebhookWebhook1) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputWebhookWebhook1) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputWebhookWebhook1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+type OutputWebhookType string
+
+const (
+	OutputWebhookTypeOutputWebhookWebhook1  OutputWebhookType = "OutputWebhook_Webhook_1"
+	OutputWebhookTypeOutputWebhookWebhook2  OutputWebhookType = "OutputWebhook_Webhook_2"
+	OutputWebhookTypeOutputWebhookWebhook3  OutputWebhookType = "OutputWebhook_Webhook_3"
+	OutputWebhookTypeOutputWebhookWebhook4  OutputWebhookType = "OutputWebhook_Webhook_4"
+	OutputWebhookTypeOutputWebhookWebhook5  OutputWebhookType = "OutputWebhook_Webhook_5"
+	OutputWebhookTypeOutputWebhookWebhook6  OutputWebhookType = "OutputWebhook_Webhook_6"
+	OutputWebhookTypeOutputWebhookWebhook7  OutputWebhookType = "OutputWebhook_Webhook_7"
+	OutputWebhookTypeOutputWebhookWebhook8  OutputWebhookType = "OutputWebhook_Webhook_8"
+	OutputWebhookTypeOutputWebhookWebhook9  OutputWebhookType = "OutputWebhook_Webhook_9"
+	OutputWebhookTypeOutputWebhookWebhook10 OutputWebhookType = "OutputWebhook_Webhook_10"
+	OutputWebhookTypeOutputWebhookWebhook11 OutputWebhookType = "OutputWebhook_Webhook_11"
+	OutputWebhookTypeOutputWebhookWebhook12 OutputWebhookType = "OutputWebhook_Webhook_12"
+	OutputWebhookTypeOutputWebhookWebhook13 OutputWebhookType = "OutputWebhook_Webhook_13"
+	OutputWebhookTypeOutputWebhookWebhook14 OutputWebhookType = "OutputWebhook_Webhook_14"
+)
+
+type OutputWebhook struct {
+	OutputWebhookWebhook1  *OutputWebhookWebhook1  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook2  *OutputWebhookWebhook2  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook3  *OutputWebhookWebhook3  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook4  *OutputWebhookWebhook4  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook5  *OutputWebhookWebhook5  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook6  *OutputWebhookWebhook6  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook7  *OutputWebhookWebhook7  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook8  *OutputWebhookWebhook8  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook9  *OutputWebhookWebhook9  `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook10 *OutputWebhookWebhook10 `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook11 *OutputWebhookWebhook11 `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook12 *OutputWebhookWebhook12 `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook13 *OutputWebhookWebhook13 `queryParam:"inline,name=OutputWebhook"`
+	OutputWebhookWebhook14 *OutputWebhookWebhook14 `queryParam:"inline,name=OutputWebhook"`
+
+	Type OutputWebhookType
+}
+
+func CreateOutputWebhookOutputWebhookWebhook1(outputWebhookWebhook1 OutputWebhookWebhook1) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook1
+
+	return OutputWebhook{
+		OutputWebhookWebhook1: &outputWebhookWebhook1,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook2(outputWebhookWebhook2 OutputWebhookWebhook2) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook2
+
+	return OutputWebhook{
+		OutputWebhookWebhook2: &outputWebhookWebhook2,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook3(outputWebhookWebhook3 OutputWebhookWebhook3) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook3
+
+	return OutputWebhook{
+		OutputWebhookWebhook3: &outputWebhookWebhook3,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook4(outputWebhookWebhook4 OutputWebhookWebhook4) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook4
+
+	return OutputWebhook{
+		OutputWebhookWebhook4: &outputWebhookWebhook4,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook5(outputWebhookWebhook5 OutputWebhookWebhook5) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook5
+
+	return OutputWebhook{
+		OutputWebhookWebhook5: &outputWebhookWebhook5,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook6(outputWebhookWebhook6 OutputWebhookWebhook6) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook6
+
+	return OutputWebhook{
+		OutputWebhookWebhook6: &outputWebhookWebhook6,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook7(outputWebhookWebhook7 OutputWebhookWebhook7) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook7
+
+	return OutputWebhook{
+		OutputWebhookWebhook7: &outputWebhookWebhook7,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook8(outputWebhookWebhook8 OutputWebhookWebhook8) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook8
+
+	return OutputWebhook{
+		OutputWebhookWebhook8: &outputWebhookWebhook8,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook9(outputWebhookWebhook9 OutputWebhookWebhook9) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook9
+
+	return OutputWebhook{
+		OutputWebhookWebhook9: &outputWebhookWebhook9,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook10(outputWebhookWebhook10 OutputWebhookWebhook10) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook10
+
+	return OutputWebhook{
+		OutputWebhookWebhook10: &outputWebhookWebhook10,
+		Type:                   typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook11(outputWebhookWebhook11 OutputWebhookWebhook11) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook11
+
+	return OutputWebhook{
+		OutputWebhookWebhook11: &outputWebhookWebhook11,
+		Type:                   typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook12(outputWebhookWebhook12 OutputWebhookWebhook12) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook12
+
+	return OutputWebhook{
+		OutputWebhookWebhook12: &outputWebhookWebhook12,
+		Type:                   typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook13(outputWebhookWebhook13 OutputWebhookWebhook13) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook13
+
+	return OutputWebhook{
+		OutputWebhookWebhook13: &outputWebhookWebhook13,
+		Type:                   typ,
+	}
+}
+
+func CreateOutputWebhookOutputWebhookWebhook14(outputWebhookWebhook14 OutputWebhookWebhook14) OutputWebhook {
+	typ := OutputWebhookTypeOutputWebhookWebhook14
+
+	return OutputWebhook{
+		OutputWebhookWebhook14: &outputWebhookWebhook14,
+		Type:                   typ,
+	}
+}
+
+func (u *OutputWebhook) UnmarshalJSON(data []byte) error {
+
+	var outputWebhookWebhook12 OutputWebhookWebhook12 = OutputWebhookWebhook12{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook12, "", true, nil); err == nil {
+		u.OutputWebhookWebhook12 = &outputWebhookWebhook12
+		u.Type = OutputWebhookTypeOutputWebhookWebhook12
+		return nil
+	}
+
+	var outputWebhookWebhook4 OutputWebhookWebhook4 = OutputWebhookWebhook4{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook4, "", true, nil); err == nil {
+		u.OutputWebhookWebhook4 = &outputWebhookWebhook4
+		u.Type = OutputWebhookTypeOutputWebhookWebhook4
+		return nil
+	}
+
+	var outputWebhookWebhook8 OutputWebhookWebhook8 = OutputWebhookWebhook8{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook8, "", true, nil); err == nil {
+		u.OutputWebhookWebhook8 = &outputWebhookWebhook8
+		u.Type = OutputWebhookTypeOutputWebhookWebhook8
+		return nil
+	}
+
+	var outputWebhookWebhook6 OutputWebhookWebhook6 = OutputWebhookWebhook6{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook6, "", true, nil); err == nil {
+		u.OutputWebhookWebhook6 = &outputWebhookWebhook6
+		u.Type = OutputWebhookTypeOutputWebhookWebhook6
+		return nil
+	}
+
+	var outputWebhookWebhook9 OutputWebhookWebhook9 = OutputWebhookWebhook9{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook9, "", true, nil); err == nil {
+		u.OutputWebhookWebhook9 = &outputWebhookWebhook9
+		u.Type = OutputWebhookTypeOutputWebhookWebhook9
+		return nil
+	}
+
+	var outputWebhookWebhook10 OutputWebhookWebhook10 = OutputWebhookWebhook10{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook10, "", true, nil); err == nil {
+		u.OutputWebhookWebhook10 = &outputWebhookWebhook10
+		u.Type = OutputWebhookTypeOutputWebhookWebhook10
+		return nil
+	}
+
+	var outputWebhookWebhook11 OutputWebhookWebhook11 = OutputWebhookWebhook11{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook11, "", true, nil); err == nil {
+		u.OutputWebhookWebhook11 = &outputWebhookWebhook11
+		u.Type = OutputWebhookTypeOutputWebhookWebhook11
+		return nil
+	}
+
+	var outputWebhookWebhook13 OutputWebhookWebhook13 = OutputWebhookWebhook13{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook13, "", true, nil); err == nil {
+		u.OutputWebhookWebhook13 = &outputWebhookWebhook13
+		u.Type = OutputWebhookTypeOutputWebhookWebhook13
+		return nil
+	}
+
+	var outputWebhookWebhook14 OutputWebhookWebhook14 = OutputWebhookWebhook14{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook14, "", true, nil); err == nil {
+		u.OutputWebhookWebhook14 = &outputWebhookWebhook14
+		u.Type = OutputWebhookTypeOutputWebhookWebhook14
+		return nil
+	}
+
+	var outputWebhookWebhook1 OutputWebhookWebhook1 = OutputWebhookWebhook1{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook1, "", true, nil); err == nil {
+		u.OutputWebhookWebhook1 = &outputWebhookWebhook1
+		u.Type = OutputWebhookTypeOutputWebhookWebhook1
+		return nil
+	}
+
+	var outputWebhookWebhook2 OutputWebhookWebhook2 = OutputWebhookWebhook2{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook2, "", true, nil); err == nil {
+		u.OutputWebhookWebhook2 = &outputWebhookWebhook2
+		u.Type = OutputWebhookTypeOutputWebhookWebhook2
+		return nil
+	}
+
+	var outputWebhookWebhook3 OutputWebhookWebhook3 = OutputWebhookWebhook3{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook3, "", true, nil); err == nil {
+		u.OutputWebhookWebhook3 = &outputWebhookWebhook3
+		u.Type = OutputWebhookTypeOutputWebhookWebhook3
+		return nil
+	}
+
+	var outputWebhookWebhook5 OutputWebhookWebhook5 = OutputWebhookWebhook5{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook5, "", true, nil); err == nil {
+		u.OutputWebhookWebhook5 = &outputWebhookWebhook5
+		u.Type = OutputWebhookTypeOutputWebhookWebhook5
+		return nil
+	}
+
+	var outputWebhookWebhook7 OutputWebhookWebhook7 = OutputWebhookWebhook7{}
+	if err := utils.UnmarshalJSON(data, &outputWebhookWebhook7, "", true, nil); err == nil {
+		u.OutputWebhookWebhook7 = &outputWebhookWebhook7
+		u.Type = OutputWebhookTypeOutputWebhookWebhook7
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputWebhook", string(data))
+}
+
+func (u OutputWebhook) MarshalJSON() ([]byte, error) {
+	if u.OutputWebhookWebhook1 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook1, "", true)
+	}
+
+	if u.OutputWebhookWebhook2 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook2, "", true)
+	}
+
+	if u.OutputWebhookWebhook3 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook3, "", true)
+	}
+
+	if u.OutputWebhookWebhook4 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook4, "", true)
+	}
+
+	if u.OutputWebhookWebhook5 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook5, "", true)
+	}
+
+	if u.OutputWebhookWebhook6 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook6, "", true)
+	}
+
+	if u.OutputWebhookWebhook7 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook7, "", true)
+	}
+
+	if u.OutputWebhookWebhook8 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook8, "", true)
+	}
+
+	if u.OutputWebhookWebhook9 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook9, "", true)
+	}
+
+	if u.OutputWebhookWebhook10 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook10, "", true)
+	}
+
+	if u.OutputWebhookWebhook11 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook11, "", true)
+	}
+
+	if u.OutputWebhookWebhook12 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook12, "", true)
+	}
+
+	if u.OutputWebhookWebhook13 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook13, "", true)
+	}
+
+	if u.OutputWebhookWebhook14 != nil {
+		return utils.MarshalJSON(u.OutputWebhookWebhook14, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputWebhook: all fields are null")
 }
