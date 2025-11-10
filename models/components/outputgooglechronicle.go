@@ -4,338 +4,125 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputGoogleChronicleType string
+type OutputGoogleChronicleType10 string
 
 const (
-	OutputGoogleChronicleTypeGoogleChronicle OutputGoogleChronicleType = "google_chronicle"
+	OutputGoogleChronicleType10GoogleChronicle OutputGoogleChronicleType10 = "google_chronicle"
 )
 
-func (e OutputGoogleChronicleType) ToPointer() *OutputGoogleChronicleType {
+func (e OutputGoogleChronicleType10) ToPointer() *OutputGoogleChronicleType10 {
 	return &e
 }
-func (e *OutputGoogleChronicleType) UnmarshalJSON(data []byte) error {
+func (e *OutputGoogleChronicleType10) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "google_chronicle":
-		*e = OutputGoogleChronicleType(v)
+		*e = OutputGoogleChronicleType10(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputGoogleChronicleType: %v", v)
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType10: %v", v)
 	}
 }
 
-type OutputGoogleChronicleAPIVersion string
+type OutputGoogleChronicleAPIVersion10 string
 
 const (
-	OutputGoogleChronicleAPIVersionV1 OutputGoogleChronicleAPIVersion = "v1"
-	OutputGoogleChronicleAPIVersionV2 OutputGoogleChronicleAPIVersion = "v2"
+	// OutputGoogleChronicleAPIVersion10V1 V1
+	OutputGoogleChronicleAPIVersion10V1 OutputGoogleChronicleAPIVersion10 = "v1"
+	// OutputGoogleChronicleAPIVersion10V2 V2
+	OutputGoogleChronicleAPIVersion10V2 OutputGoogleChronicleAPIVersion10 = "v2"
 )
 
-func (e OutputGoogleChronicleAPIVersion) ToPointer() *OutputGoogleChronicleAPIVersion {
+func (e OutputGoogleChronicleAPIVersion10) ToPointer() *OutputGoogleChronicleAPIVersion10 {
 	return &e
 }
 
-type OutputGoogleChronicleAuthenticationMethod string
+type OutputGoogleChronicleAuthenticationMethod10 string
 
 const (
-	OutputGoogleChronicleAuthenticationMethodManual               OutputGoogleChronicleAuthenticationMethod = "manual"
-	OutputGoogleChronicleAuthenticationMethodSecret               OutputGoogleChronicleAuthenticationMethod = "secret"
-	OutputGoogleChronicleAuthenticationMethodServiceAccount       OutputGoogleChronicleAuthenticationMethod = "serviceAccount"
-	OutputGoogleChronicleAuthenticationMethodServiceAccountSecret OutputGoogleChronicleAuthenticationMethod = "serviceAccountSecret"
+	// OutputGoogleChronicleAuthenticationMethod10Manual API key
+	OutputGoogleChronicleAuthenticationMethod10Manual OutputGoogleChronicleAuthenticationMethod10 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod10Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod10Secret OutputGoogleChronicleAuthenticationMethod10 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod10ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod10ServiceAccount OutputGoogleChronicleAuthenticationMethod10 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod10ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod10ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod10 = "serviceAccountSecret"
 )
 
-func (e OutputGoogleChronicleAuthenticationMethod) ToPointer() *OutputGoogleChronicleAuthenticationMethod {
+func (e OutputGoogleChronicleAuthenticationMethod10) ToPointer() *OutputGoogleChronicleAuthenticationMethod10 {
 	return &e
 }
 
-type OutputGoogleChronicleResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputGoogleChronicleResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleChronicleResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputGoogleChronicleResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputGoogleChronicleResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputGoogleChronicleResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputGoogleChronicleResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputGoogleChronicleTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputGoogleChronicleTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleChronicleTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputGoogleChronicleTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputGoogleChronicleTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputGoogleChronicleTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputGoogleChronicleTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type SendEventsAs string
+type SendEventsAs10 string
 
 const (
-	SendEventsAsUnstructured SendEventsAs = "unstructured"
-	SendEventsAsUdm          SendEventsAs = "udm"
+	// SendEventsAs10Unstructured Unstructured
+	SendEventsAs10Unstructured SendEventsAs10 = "unstructured"
+	// SendEventsAs10Udm UDM
+	SendEventsAs10Udm SendEventsAs10 = "udm"
 )
 
-func (e SendEventsAs) ToPointer() *SendEventsAs {
+func (e SendEventsAs10) ToPointer() *SendEventsAs10 {
 	return &e
 }
 
-type OutputGoogleChronicleExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputGoogleChronicleExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleChronicleExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputGoogleChronicleExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputGoogleChronicleExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputGoogleChronicleFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputGoogleChronicleFailedRequestLoggingMode string
-
-const (
-	OutputGoogleChronicleFailedRequestLoggingModePayload           OutputGoogleChronicleFailedRequestLoggingMode = "payload"
-	OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders OutputGoogleChronicleFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputGoogleChronicleFailedRequestLoggingModeNone              OutputGoogleChronicleFailedRequestLoggingMode = "none"
-)
-
-func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogleChronicleFailedRequestLoggingMode {
-	return &e
-}
-
-// OutputGoogleChronicleBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGoogleChronicleBackpressureBehavior string
-
-const (
-	OutputGoogleChronicleBackpressureBehaviorBlock OutputGoogleChronicleBackpressureBehavior = "block"
-	OutputGoogleChronicleBackpressureBehaviorDrop  OutputGoogleChronicleBackpressureBehavior = "drop"
-	OutputGoogleChronicleBackpressureBehaviorQueue OutputGoogleChronicleBackpressureBehavior = "queue"
-)
-
-func (e OutputGoogleChronicleBackpressureBehavior) ToPointer() *OutputGoogleChronicleBackpressureBehavior {
-	return &e
-}
-
-type ExtraLogType struct {
+type ExtraLogType10 struct {
 	LogType     string  `json:"logType"`
 	Description *string `json:"description,omitempty"`
 }
 
-func (e ExtraLogType) MarshalJSON() ([]byte, error) {
+func (e ExtraLogType10) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(e, "", false)
 }
 
-func (e *ExtraLogType) UnmarshalJSON(data []byte) error {
+func (e *ExtraLogType10) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *ExtraLogType) GetLogType() string {
+func (e *ExtraLogType10) GetLogType() string {
 	if e == nil {
 		return ""
 	}
 	return e.LogType
 }
 
-func (e *ExtraLogType) GetDescription() *string {
+func (e *ExtraLogType10) GetDescription() *string {
 	if e == nil {
 		return nil
 	}
 	return e.Description
 }
 
-type OutputGoogleChronicleCustomLabel struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
-
-func (o OutputGoogleChronicleCustomLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleChronicleCustomLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"key", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputGoogleChronicleCustomLabel) GetKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.Key
-}
-
-func (o *OutputGoogleChronicleCustomLabel) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputGoogleChronicleCompression - Codec to use to compress the persisted data
-type OutputGoogleChronicleCompression string
+// UDMType10 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType10 string
 
 const (
-	OutputGoogleChronicleCompressionNone OutputGoogleChronicleCompression = "none"
-	OutputGoogleChronicleCompressionGzip OutputGoogleChronicleCompression = "gzip"
+	UDMType10Entities UDMType10 = "entities"
+	UDMType10Logs     UDMType10 = "logs"
 )
 
-func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleCompression {
+func (e UDMType10) ToPointer() *UDMType10 {
 	return &e
 }
 
-// OutputGoogleChronicleQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputGoogleChronicleQueueFullBehavior string
-
-const (
-	OutputGoogleChronicleQueueFullBehaviorBlock OutputGoogleChronicleQueueFullBehavior = "block"
-	OutputGoogleChronicleQueueFullBehaviorDrop  OutputGoogleChronicleQueueFullBehavior = "drop"
-)
-
-func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
-	return &e
-}
-
-// OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGoogleChronicleMode string
-
-const (
-	OutputGoogleChronicleModeError        OutputGoogleChronicleMode = "error"
-	OutputGoogleChronicleModeBackpressure OutputGoogleChronicleMode = "backpressure"
-	OutputGoogleChronicleModeAlways       OutputGoogleChronicleMode = "always"
-)
-
-func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
-	return &e
-}
-
-type OutputGoogleChroniclePqControls struct {
-}
-
-func (o OutputGoogleChroniclePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputGoogleChroniclePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputGoogleChronicle struct {
+type OutputGoogleChronicleGoogleChronicle10 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitempty"`
-	Type OutputGoogleChronicleType `json:"type"`
+	ID   *string                     `json:"id,omitempty"`
+	Type OutputGoogleChronicleType10 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -343,15 +130,15 @@ type OutputGoogleChronicle struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags           []string                                   `json:"streamtags,omitempty"`
-	APIVersion           *OutputGoogleChronicleAPIVersion           `default:"v1" json:"apiVersion"`
-	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `default:"serviceAccount" json:"authenticationMethod"`
+	Streamtags           []string                                     `json:"streamtags,omitempty"`
+	APIVersion           *OutputGoogleChronicleAPIVersion10           `default:"v1" json:"apiVersion"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod10 `default:"serviceAccount" json:"authenticationMethod"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputGoogleChronicleResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputGoogleChronicleTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool         `default:"false" json:"responseHonorRetryAfterHeader"`
-	LogFormatType                 *SendEventsAs `default:"unstructured" json:"logFormatType"`
+	ResponseHonorRetryAfterHeader *bool           `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs10 `default:"unstructured" json:"logFormatType"`
 	// Regional endpoint to send events to
 	Region *string `json:"region,omitempty"`
 	// Maximum number of ongoing requests before blocking
@@ -371,20 +158,18 @@ type OutputGoogleChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputGoogleChronicleExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputGoogleChronicleFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGoogleChronicleBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
-	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitempty"`
+	ExtraLogTypes []ExtraLogType10 `json:"extraLogTypes,omitempty"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
 	LogType *string `json:"logType,omitempty"`
 	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
@@ -394,7 +179,9 @@ type OutputGoogleChronicle struct {
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitempty"`
 	// Custom labels to be added to every batch
-	CustomLabels []OutputGoogleChronicleCustomLabel `json:"customLabels,omitempty"`
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType10 `default:"logs" json:"udmType"`
 	// Organization's API key in Google SecOps
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -403,6 +190,16 @@ type OutputGoogleChronicle struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -410,329 +207,5623 @@ type OutputGoogleChronicle struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputGoogleChronicleCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputGoogleChronicleQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGoogleChronicleMode       `default:"error" json:"pqMode"`
-	PqControls *OutputGoogleChroniclePqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
+func (o OutputGoogleChronicleGoogleChronicle10) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputGoogleChronicle) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputGoogleChronicleGoogleChronicle10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputGoogleChronicle) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputGoogleChronicle) GetType() OutputGoogleChronicleType {
-	if o == nil {
-		return OutputGoogleChronicleType("")
-	}
-	return o.Type
-}
-
-func (o *OutputGoogleChronicle) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputGoogleChronicle) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputGoogleChronicle) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputGoogleChronicle) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputGoogleChronicle) GetAPIVersion() *OutputGoogleChronicleAPIVersion {
-	if o == nil {
-		return nil
-	}
-	return o.APIVersion
-}
-
-func (o *OutputGoogleChronicle) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthenticationMethod
-}
-
-func (o *OutputGoogleChronicle) GetResponseRetrySettings() []OutputGoogleChronicleResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputGoogleChronicle) GetTimeoutRetrySettings() *OutputGoogleChronicleTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputGoogleChronicle) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputGoogleChronicle) GetLogFormatType() *SendEventsAs {
-	if o == nil {
-		return nil
-	}
-	return o.LogFormatType
-}
-
-func (o *OutputGoogleChronicle) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputGoogleChronicle) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputGoogleChronicle) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputGoogleChronicle) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputGoogleChronicle) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputGoogleChronicle) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputGoogleChronicle) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputGoogleChronicle) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputGoogleChronicle) GetExtraHTTPHeaders() []OutputGoogleChronicleExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputGoogleChronicle) GetFailedRequestLoggingMode() *OutputGoogleChronicleFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputGoogleChronicle) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputGoogleChronicle) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputGoogleChronicle) GetOnBackpressure() *OutputGoogleChronicleBackpressureBehavior {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputGoogleChronicle) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetType() OutputGoogleChronicleType10 {
+	if o == nil {
+		return OutputGoogleChronicleType10("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetAPIVersion() *OutputGoogleChronicleAPIVersion10 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod10 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetLogFormatType() *SendEventsAs10 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputGoogleChronicle) GetDescription() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputGoogleChronicle) GetExtraLogTypes() []ExtraLogType {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetExtraLogTypes() []ExtraLogType10 {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraLogTypes
 }
 
-func (o *OutputGoogleChronicle) GetLogType() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetLogType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LogType
 }
 
-func (o *OutputGoogleChronicle) GetLogTextField() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetLogTextField() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LogTextField
 }
 
-func (o *OutputGoogleChronicle) GetCustomerID() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetCustomerID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomerID
 }
 
-func (o *OutputGoogleChronicle) GetNamespace() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetNamespace() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Namespace
 }
 
-func (o *OutputGoogleChronicle) GetCustomLabels() []OutputGoogleChronicleCustomLabel {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetCustomLabels() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.CustomLabels
 }
 
-func (o *OutputGoogleChronicle) GetAPIKey() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetUdmType() *UDMType10 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.APIKey
 }
 
-func (o *OutputGoogleChronicle) GetAPIKeySecret() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetAPIKeySecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.APIKeySecret
 }
 
-func (o *OutputGoogleChronicle) GetServiceAccountCredentials() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetServiceAccountCredentials() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ServiceAccountCredentials
 }
 
-func (o *OutputGoogleChronicle) GetServiceAccountCredentialsSecret() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetServiceAccountCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ServiceAccountCredentialsSecret
 }
 
-func (o *OutputGoogleChronicle) GetPqMaxFileSize() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputGoogleChronicle) GetPqMaxSize() *string {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputGoogleChronicle) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputGoogleChronicle) GetPqCompress() *OutputGoogleChronicleCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputGoogleChronicle) GetPqOnBackpressure() *OutputGoogleChronicleQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputGoogleChronicle) GetPqMode() *OutputGoogleChronicleMode {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputGoogleChronicle) GetPqControls() *OutputGoogleChroniclePqControls {
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle10) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleType9 string
+
+const (
+	OutputGoogleChronicleType9GoogleChronicle OutputGoogleChronicleType9 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType9) ToPointer() *OutputGoogleChronicleType9 {
+	return &e
+}
+func (e *OutputGoogleChronicleType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType9: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion9 string
+
+const (
+	// OutputGoogleChronicleAPIVersion9V1 V1
+	OutputGoogleChronicleAPIVersion9V1 OutputGoogleChronicleAPIVersion9 = "v1"
+	// OutputGoogleChronicleAPIVersion9V2 V2
+	OutputGoogleChronicleAPIVersion9V2 OutputGoogleChronicleAPIVersion9 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion9) ToPointer() *OutputGoogleChronicleAPIVersion9 {
+	return &e
+}
+
+type OutputGoogleChronicleAuthenticationMethod9 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod9Manual API key
+	OutputGoogleChronicleAuthenticationMethod9Manual OutputGoogleChronicleAuthenticationMethod9 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod9Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod9Secret OutputGoogleChronicleAuthenticationMethod9 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod9ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod9ServiceAccount OutputGoogleChronicleAuthenticationMethod9 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod9ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod9ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod9 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod9) ToPointer() *OutputGoogleChronicleAuthenticationMethod9 {
+	return &e
+}
+
+type SendEventsAs9 string
+
+const (
+	// SendEventsAs9Unstructured Unstructured
+	SendEventsAs9Unstructured SendEventsAs9 = "unstructured"
+	// SendEventsAs9Udm UDM
+	SendEventsAs9Udm SendEventsAs9 = "udm"
+)
+
+func (e SendEventsAs9) ToPointer() *SendEventsAs9 {
+	return &e
+}
+
+type ExtraLogType9 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType9) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType9) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType9 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType9 string
+
+const (
+	UDMType9Entities UDMType9 = "entities"
+	UDMType9Logs     UDMType9 = "logs"
+)
+
+func (e UDMType9) ToPointer() *UDMType9 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle9 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags           []string                                    `json:"streamtags,omitempty"`
+	APIVersion           *OutputGoogleChronicleAPIVersion9           `default:"v1" json:"apiVersion"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod9 `default:"serviceAccount" json:"authenticationMethod"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs9 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType9 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType9 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetType() OutputGoogleChronicleType9 {
+	if o == nil {
+		return OutputGoogleChronicleType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetAPIVersion() *OutputGoogleChronicleAPIVersion9 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod9 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetLogFormatType() *SendEventsAs9 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetExtraLogTypes() []ExtraLogType9 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetUdmType() *UDMType9 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle9) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputGoogleChronicleAPIVersion8 string
+
+const (
+	// OutputGoogleChronicleAPIVersion8V1 V1
+	OutputGoogleChronicleAPIVersion8V1 OutputGoogleChronicleAPIVersion8 = "v1"
+	// OutputGoogleChronicleAPIVersion8V2 V2
+	OutputGoogleChronicleAPIVersion8V2 OutputGoogleChronicleAPIVersion8 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion8) ToPointer() *OutputGoogleChronicleAPIVersion8 {
+	return &e
+}
+
+type OutputGoogleChronicleType8 string
+
+const (
+	OutputGoogleChronicleType8GoogleChronicle OutputGoogleChronicleType8 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType8) ToPointer() *OutputGoogleChronicleType8 {
+	return &e
+}
+func (e *OutputGoogleChronicleType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType8: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAuthenticationMethod8 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod8Manual API key
+	OutputGoogleChronicleAuthenticationMethod8Manual OutputGoogleChronicleAuthenticationMethod8 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod8Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod8Secret OutputGoogleChronicleAuthenticationMethod8 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod8ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod8ServiceAccount OutputGoogleChronicleAuthenticationMethod8 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod8ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod8ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod8 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod8) ToPointer() *OutputGoogleChronicleAuthenticationMethod8 {
+	return &e
+}
+
+type SendEventsAs8 string
+
+const (
+	// SendEventsAs8Unstructured Unstructured
+	SendEventsAs8Unstructured SendEventsAs8 = "unstructured"
+	// SendEventsAs8Udm UDM
+	SendEventsAs8Udm SendEventsAs8 = "udm"
+)
+
+func (e SendEventsAs8) ToPointer() *SendEventsAs8 {
+	return &e
+}
+
+type ExtraLogType8 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType8) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType8) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType8 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType8 string
+
+const (
+	UDMType8Entities UDMType8 = "entities"
+	UDMType8Logs     UDMType8 = "logs"
+)
+
+func (e UDMType8) ToPointer() *UDMType8 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle8 struct {
+	APIVersion *OutputGoogleChronicleAPIVersion8 `default:"v1" json:"apiVersion"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags           []string                                    `json:"streamtags,omitempty"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod8 `default:"serviceAccount" json:"authenticationMethod"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs8 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType8 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType8 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetAPIVersion() *OutputGoogleChronicleAPIVersion8 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetType() OutputGoogleChronicleType8 {
+	if o == nil {
+		return OutputGoogleChronicleType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod8 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetLogFormatType() *SendEventsAs8 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetExtraLogTypes() []ExtraLogType8 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetUdmType() *UDMType8 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleAPIVersion7 string
+
+const (
+	// OutputGoogleChronicleAPIVersion7V1 V1
+	OutputGoogleChronicleAPIVersion7V1 OutputGoogleChronicleAPIVersion7 = "v1"
+	// OutputGoogleChronicleAPIVersion7V2 V2
+	OutputGoogleChronicleAPIVersion7V2 OutputGoogleChronicleAPIVersion7 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion7) ToPointer() *OutputGoogleChronicleAPIVersion7 {
+	return &e
+}
+
+type OutputGoogleChronicleType7 string
+
+const (
+	OutputGoogleChronicleType7GoogleChronicle OutputGoogleChronicleType7 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType7) ToPointer() *OutputGoogleChronicleType7 {
+	return &e
+}
+func (e *OutputGoogleChronicleType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType7: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAuthenticationMethod7 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod7Manual API key
+	OutputGoogleChronicleAuthenticationMethod7Manual OutputGoogleChronicleAuthenticationMethod7 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod7Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod7Secret OutputGoogleChronicleAuthenticationMethod7 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod7ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod7ServiceAccount OutputGoogleChronicleAuthenticationMethod7 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod7ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod7ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod7 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod7) ToPointer() *OutputGoogleChronicleAuthenticationMethod7 {
+	return &e
+}
+
+type SendEventsAs7 string
+
+const (
+	// SendEventsAs7Unstructured Unstructured
+	SendEventsAs7Unstructured SendEventsAs7 = "unstructured"
+	// SendEventsAs7Udm UDM
+	SendEventsAs7Udm SendEventsAs7 = "udm"
+)
+
+func (e SendEventsAs7) ToPointer() *SendEventsAs7 {
+	return &e
+}
+
+type ExtraLogType7 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType7) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType7) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType7 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType7 string
+
+const (
+	UDMType7Entities UDMType7 = "entities"
+	UDMType7Logs     UDMType7 = "logs"
+)
+
+func (e UDMType7) ToPointer() *UDMType7 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle7 struct {
+	APIVersion *OutputGoogleChronicleAPIVersion7 `default:"v1" json:"apiVersion"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags           []string                                    `json:"streamtags,omitempty"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod7 `default:"serviceAccount" json:"authenticationMethod"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs7 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType7 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType7 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetAPIVersion() *OutputGoogleChronicleAPIVersion7 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetType() OutputGoogleChronicleType7 {
+	if o == nil {
+		return OutputGoogleChronicleType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod7 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetLogFormatType() *SendEventsAs7 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetExtraLogTypes() []ExtraLogType7 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetUdmType() *UDMType7 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleAuthenticationMethod6 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod6Manual API key
+	OutputGoogleChronicleAuthenticationMethod6Manual OutputGoogleChronicleAuthenticationMethod6 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod6Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod6Secret OutputGoogleChronicleAuthenticationMethod6 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod6ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod6ServiceAccount OutputGoogleChronicleAuthenticationMethod6 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod6ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod6ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod6 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod6) ToPointer() *OutputGoogleChronicleAuthenticationMethod6 {
+	return &e
+}
+
+type OutputGoogleChronicleType6 string
+
+const (
+	OutputGoogleChronicleType6GoogleChronicle OutputGoogleChronicleType6 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType6) ToPointer() *OutputGoogleChronicleType6 {
+	return &e
+}
+func (e *OutputGoogleChronicleType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType6: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion6 string
+
+const (
+	// OutputGoogleChronicleAPIVersion6V1 V1
+	OutputGoogleChronicleAPIVersion6V1 OutputGoogleChronicleAPIVersion6 = "v1"
+	// OutputGoogleChronicleAPIVersion6V2 V2
+	OutputGoogleChronicleAPIVersion6V2 OutputGoogleChronicleAPIVersion6 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion6) ToPointer() *OutputGoogleChronicleAPIVersion6 {
+	return &e
+}
+
+type SendEventsAs6 string
+
+const (
+	// SendEventsAs6Unstructured Unstructured
+	SendEventsAs6Unstructured SendEventsAs6 = "unstructured"
+	// SendEventsAs6Udm UDM
+	SendEventsAs6Udm SendEventsAs6 = "udm"
+)
+
+func (e SendEventsAs6) ToPointer() *SendEventsAs6 {
+	return &e
+}
+
+type ExtraLogType6 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType6) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType6) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType6 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType6 string
+
+const (
+	UDMType6Entities UDMType6 = "entities"
+	UDMType6Logs     UDMType6 = "logs"
+)
+
+func (e UDMType6) ToPointer() *UDMType6 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle6 struct {
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod6 `default:"serviceAccount" json:"authenticationMethod"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string                          `json:"streamtags,omitempty"`
+	APIVersion *OutputGoogleChronicleAPIVersion6 `default:"v1" json:"apiVersion"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs6 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType6 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType6 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret string `json:"serviceAccountCredentialsSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "serviceAccountCredentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod6 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetType() OutputGoogleChronicleType6 {
+	if o == nil {
+		return OutputGoogleChronicleType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetAPIVersion() *OutputGoogleChronicleAPIVersion6 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetLogFormatType() *SendEventsAs6 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetExtraLogTypes() []ExtraLogType6 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetUdmType() *UDMType6 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetServiceAccountCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleAuthenticationMethod5 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod5Manual API key
+	OutputGoogleChronicleAuthenticationMethod5Manual OutputGoogleChronicleAuthenticationMethod5 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod5Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod5Secret OutputGoogleChronicleAuthenticationMethod5 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod5ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod5ServiceAccount OutputGoogleChronicleAuthenticationMethod5 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod5ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod5ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod5 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod5) ToPointer() *OutputGoogleChronicleAuthenticationMethod5 {
+	return &e
+}
+
+type OutputGoogleChronicleType5 string
+
+const (
+	OutputGoogleChronicleType5GoogleChronicle OutputGoogleChronicleType5 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType5) ToPointer() *OutputGoogleChronicleType5 {
+	return &e
+}
+func (e *OutputGoogleChronicleType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType5: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion5 string
+
+const (
+	// OutputGoogleChronicleAPIVersion5V1 V1
+	OutputGoogleChronicleAPIVersion5V1 OutputGoogleChronicleAPIVersion5 = "v1"
+	// OutputGoogleChronicleAPIVersion5V2 V2
+	OutputGoogleChronicleAPIVersion5V2 OutputGoogleChronicleAPIVersion5 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion5) ToPointer() *OutputGoogleChronicleAPIVersion5 {
+	return &e
+}
+
+type SendEventsAs5 string
+
+const (
+	// SendEventsAs5Unstructured Unstructured
+	SendEventsAs5Unstructured SendEventsAs5 = "unstructured"
+	// SendEventsAs5Udm UDM
+	SendEventsAs5Udm SendEventsAs5 = "udm"
+)
+
+func (e SendEventsAs5) ToPointer() *SendEventsAs5 {
+	return &e
+}
+
+type ExtraLogType5 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType5) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType5) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType5 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType5 string
+
+const (
+	UDMType5Entities UDMType5 = "entities"
+	UDMType5Logs     UDMType5 = "logs"
+)
+
+func (e UDMType5) ToPointer() *UDMType5 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle5 struct {
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod5 `default:"serviceAccount" json:"authenticationMethod"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string                          `json:"streamtags,omitempty"`
+	APIVersion *OutputGoogleChronicleAPIVersion5 `default:"v1" json:"apiVersion"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs5 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType5 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType5 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "serviceAccountCredentials"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod5 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetType() OutputGoogleChronicleType5 {
+	if o == nil {
+		return OutputGoogleChronicleType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetAPIVersion() *OutputGoogleChronicleAPIVersion5 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetLogFormatType() *SendEventsAs5 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetExtraLogTypes() []ExtraLogType5 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetUdmType() *UDMType5 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetServiceAccountCredentials() string {
+	if o == nil {
+		return ""
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleAuthenticationMethod4 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod4Manual API key
+	OutputGoogleChronicleAuthenticationMethod4Manual OutputGoogleChronicleAuthenticationMethod4 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod4Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod4Secret OutputGoogleChronicleAuthenticationMethod4 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod4ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod4ServiceAccount OutputGoogleChronicleAuthenticationMethod4 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod4ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod4ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod4 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod4) ToPointer() *OutputGoogleChronicleAuthenticationMethod4 {
+	return &e
+}
+
+type OutputGoogleChronicleType4 string
+
+const (
+	OutputGoogleChronicleType4GoogleChronicle OutputGoogleChronicleType4 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType4) ToPointer() *OutputGoogleChronicleType4 {
+	return &e
+}
+func (e *OutputGoogleChronicleType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType4: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion4 string
+
+const (
+	// OutputGoogleChronicleAPIVersion4V1 V1
+	OutputGoogleChronicleAPIVersion4V1 OutputGoogleChronicleAPIVersion4 = "v1"
+	// OutputGoogleChronicleAPIVersion4V2 V2
+	OutputGoogleChronicleAPIVersion4V2 OutputGoogleChronicleAPIVersion4 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion4) ToPointer() *OutputGoogleChronicleAPIVersion4 {
+	return &e
+}
+
+type SendEventsAs4 string
+
+const (
+	// SendEventsAs4Unstructured Unstructured
+	SendEventsAs4Unstructured SendEventsAs4 = "unstructured"
+	// SendEventsAs4Udm UDM
+	SendEventsAs4Udm SendEventsAs4 = "udm"
+)
+
+func (e SendEventsAs4) ToPointer() *SendEventsAs4 {
+	return &e
+}
+
+type ExtraLogType4 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType4) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType4) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType4 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType4 string
+
+const (
+	UDMType4Entities UDMType4 = "entities"
+	UDMType4Logs     UDMType4 = "logs"
+)
+
+func (e UDMType4) ToPointer() *UDMType4 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle4 struct {
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod4 `default:"serviceAccount" json:"authenticationMethod"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string                          `json:"streamtags,omitempty"`
+	APIVersion *OutputGoogleChronicleAPIVersion4 `default:"v1" json:"apiVersion"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs4 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType4 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType4 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret string `json:"apiKeySecret"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "apiKeySecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod4 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetType() OutputGoogleChronicleType4 {
+	if o == nil {
+		return OutputGoogleChronicleType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetAPIVersion() *OutputGoogleChronicleAPIVersion4 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetLogFormatType() *SendEventsAs4 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetExtraLogTypes() []ExtraLogType4 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetUdmType() *UDMType4 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetAPIKeySecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleAuthenticationMethod3 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod3Manual API key
+	OutputGoogleChronicleAuthenticationMethod3Manual OutputGoogleChronicleAuthenticationMethod3 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod3Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod3Secret OutputGoogleChronicleAuthenticationMethod3 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod3ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod3ServiceAccount OutputGoogleChronicleAuthenticationMethod3 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod3ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod3ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod3 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod3) ToPointer() *OutputGoogleChronicleAuthenticationMethod3 {
+	return &e
+}
+
+type OutputGoogleChronicleType3 string
+
+const (
+	OutputGoogleChronicleType3GoogleChronicle OutputGoogleChronicleType3 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType3) ToPointer() *OutputGoogleChronicleType3 {
+	return &e
+}
+func (e *OutputGoogleChronicleType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType3: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion3 string
+
+const (
+	// OutputGoogleChronicleAPIVersion3V1 V1
+	OutputGoogleChronicleAPIVersion3V1 OutputGoogleChronicleAPIVersion3 = "v1"
+	// OutputGoogleChronicleAPIVersion3V2 V2
+	OutputGoogleChronicleAPIVersion3V2 OutputGoogleChronicleAPIVersion3 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion3) ToPointer() *OutputGoogleChronicleAPIVersion3 {
+	return &e
+}
+
+type SendEventsAs3 string
+
+const (
+	// SendEventsAs3Unstructured Unstructured
+	SendEventsAs3Unstructured SendEventsAs3 = "unstructured"
+	// SendEventsAs3Udm UDM
+	SendEventsAs3Udm SendEventsAs3 = "udm"
+)
+
+func (e SendEventsAs3) ToPointer() *SendEventsAs3 {
+	return &e
+}
+
+type ExtraLogType3 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType3) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType3) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType3 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType3 string
+
+const (
+	UDMType3Entities UDMType3 = "entities"
+	UDMType3Logs     UDMType3 = "logs"
+)
+
+func (e UDMType3) ToPointer() *UDMType3 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle3 struct {
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod3 `default:"serviceAccount" json:"authenticationMethod"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string                          `json:"streamtags,omitempty"`
+	APIVersion *OutputGoogleChronicleAPIVersion3 `default:"v1" json:"apiVersion"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	LogFormatType                 *SendEventsAs3 `default:"unstructured" json:"logFormatType"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType3 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType3 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey string `json:"apiKey"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "apiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod3 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetType() OutputGoogleChronicleType3 {
+	if o == nil {
+		return OutputGoogleChronicleType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetAPIVersion() *OutputGoogleChronicleAPIVersion3 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetLogFormatType() *SendEventsAs3 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetExtraLogTypes() []ExtraLogType3 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetUdmType() *UDMType3 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type SendEventsAs2 string
+
+const (
+	// SendEventsAs2Unstructured Unstructured
+	SendEventsAs2Unstructured SendEventsAs2 = "unstructured"
+	// SendEventsAs2Udm UDM
+	SendEventsAs2Udm SendEventsAs2 = "udm"
+)
+
+func (e SendEventsAs2) ToPointer() *SendEventsAs2 {
+	return &e
+}
+
+type OutputGoogleChronicleType2 string
+
+const (
+	OutputGoogleChronicleType2GoogleChronicle OutputGoogleChronicleType2 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType2) ToPointer() *OutputGoogleChronicleType2 {
+	return &e
+}
+func (e *OutputGoogleChronicleType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType2: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion2 string
+
+const (
+	// OutputGoogleChronicleAPIVersion2V1 V1
+	OutputGoogleChronicleAPIVersion2V1 OutputGoogleChronicleAPIVersion2 = "v1"
+	// OutputGoogleChronicleAPIVersion2V2 V2
+	OutputGoogleChronicleAPIVersion2V2 OutputGoogleChronicleAPIVersion2 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion2) ToPointer() *OutputGoogleChronicleAPIVersion2 {
+	return &e
+}
+
+type OutputGoogleChronicleAuthenticationMethod2 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod2Manual API key
+	OutputGoogleChronicleAuthenticationMethod2Manual OutputGoogleChronicleAuthenticationMethod2 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod2Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod2Secret OutputGoogleChronicleAuthenticationMethod2 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod2ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod2ServiceAccount OutputGoogleChronicleAuthenticationMethod2 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod2ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod2ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod2 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod2) ToPointer() *OutputGoogleChronicleAuthenticationMethod2 {
+	return &e
+}
+
+type ExtraLogType2 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType2) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType2) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType2 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType2 string
+
+const (
+	UDMType2Entities UDMType2 = "entities"
+	UDMType2Logs     UDMType2 = "logs"
+)
+
+func (e UDMType2) ToPointer() *UDMType2 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle2 struct {
+	LogFormatType *SendEventsAs2 `default:"unstructured" json:"logFormatType"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags           []string                                    `json:"streamtags,omitempty"`
+	APIVersion           *OutputGoogleChronicleAPIVersion2           `default:"v1" json:"apiVersion"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod2 `default:"serviceAccount" json:"authenticationMethod"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType2 `json:"extraLogTypes,omitempty"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType *string `json:"logType,omitempty"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField *string `json:"logTextField,omitempty"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID *string `json:"customerId,omitempty"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace *string `json:"namespace,omitempty"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType2 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetLogFormatType() *SendEventsAs2 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetType() OutputGoogleChronicleType2 {
+	if o == nil {
+		return OutputGoogleChronicleType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetAPIVersion() *OutputGoogleChronicleAPIVersion2 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod2 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetExtraLogTypes() []ExtraLogType2 {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetLogType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetLogTextField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetCustomLabels() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetUdmType() *UDMType2 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type SendEventsAs1 string
+
+const (
+	// SendEventsAs1Unstructured Unstructured
+	SendEventsAs1Unstructured SendEventsAs1 = "unstructured"
+	// SendEventsAs1Udm UDM
+	SendEventsAs1Udm SendEventsAs1 = "udm"
+)
+
+func (e SendEventsAs1) ToPointer() *SendEventsAs1 {
+	return &e
+}
+
+type OutputGoogleChronicleType1 string
+
+const (
+	OutputGoogleChronicleType1GoogleChronicle OutputGoogleChronicleType1 = "google_chronicle"
+)
+
+func (e OutputGoogleChronicleType1) ToPointer() *OutputGoogleChronicleType1 {
+	return &e
+}
+func (e *OutputGoogleChronicleType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_chronicle":
+		*e = OutputGoogleChronicleType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputGoogleChronicleType1: %v", v)
+	}
+}
+
+type OutputGoogleChronicleAPIVersion1 string
+
+const (
+	// OutputGoogleChronicleAPIVersion1V1 V1
+	OutputGoogleChronicleAPIVersion1V1 OutputGoogleChronicleAPIVersion1 = "v1"
+	// OutputGoogleChronicleAPIVersion1V2 V2
+	OutputGoogleChronicleAPIVersion1V2 OutputGoogleChronicleAPIVersion1 = "v2"
+)
+
+func (e OutputGoogleChronicleAPIVersion1) ToPointer() *OutputGoogleChronicleAPIVersion1 {
+	return &e
+}
+
+type OutputGoogleChronicleAuthenticationMethod1 string
+
+const (
+	// OutputGoogleChronicleAuthenticationMethod1Manual API key
+	OutputGoogleChronicleAuthenticationMethod1Manual OutputGoogleChronicleAuthenticationMethod1 = "manual"
+	// OutputGoogleChronicleAuthenticationMethod1Secret API key secret
+	OutputGoogleChronicleAuthenticationMethod1Secret OutputGoogleChronicleAuthenticationMethod1 = "secret"
+	// OutputGoogleChronicleAuthenticationMethod1ServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethod1ServiceAccount OutputGoogleChronicleAuthenticationMethod1 = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethod1ServiceAccountSecret Service account credentials secret
+	OutputGoogleChronicleAuthenticationMethod1ServiceAccountSecret OutputGoogleChronicleAuthenticationMethod1 = "serviceAccountSecret"
+)
+
+func (e OutputGoogleChronicleAuthenticationMethod1) ToPointer() *OutputGoogleChronicleAuthenticationMethod1 {
+	return &e
+}
+
+type ExtraLogType1 struct {
+	LogType     string  `json:"logType"`
+	Description *string `json:"description,omitempty"`
+}
+
+func (e ExtraLogType1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtraLogType1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"logType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (e *ExtraLogType1) GetLogType() string {
+	if e == nil {
+		return ""
+	}
+	return e.LogType
+}
+
+func (e *ExtraLogType1) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+// UDMType1 - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType1 string
+
+const (
+	UDMType1Entities UDMType1 = "entities"
+	UDMType1Logs     UDMType1 = "logs"
+)
+
+func (e UDMType1) ToPointer() *UDMType1 {
+	return &e
+}
+
+type OutputGoogleChronicleGoogleChronicle1 struct {
+	LogFormatType *SendEventsAs1 `default:"unstructured" json:"logFormatType"`
+	// Unique ID for this output
+	ID   *string                    `json:"id,omitempty"`
+	Type OutputGoogleChronicleType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags           []string                                    `json:"streamtags,omitempty"`
+	APIVersion           *OutputGoogleChronicleAPIVersion1           `default:"v1" json:"apiVersion"`
+	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod1 `default:"serviceAccount" json:"authenticationMethod"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Regional endpoint to send events to
+	Region *string `json:"region,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"90" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+	ExtraLogTypes []ExtraLogType1 `json:"extraLogTypes"`
+	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
+	LogType string `json:"logType"`
+	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+	LogTextField string `json:"logTextField"`
+	// A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+	CustomerID string `json:"customerId"`
+	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+	Namespace string `json:"namespace"`
+	// Custom labels to be added to every batch
+	CustomLabels []TagsType `json:"customLabels"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType1 `default:"logs" json:"udmType"`
+	// Organization's API key in Google SecOps
+	APIKey *string `json:"apiKey,omitempty"`
+	// Select or create a stored text secret
+	APIKeySecret *string `json:"apiKeySecret,omitempty"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret
+	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputGoogleChronicleGoogleChronicle1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "extraLogTypes", "logType", "logTextField", "customerId", "namespace", "customLabels"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetLogFormatType() *SendEventsAs1 {
+	if o == nil {
+		return nil
+	}
+	return o.LogFormatType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetType() OutputGoogleChronicleType1 {
+	if o == nil {
+		return OutputGoogleChronicleType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetAPIVersion() *OutputGoogleChronicleAPIVersion1 {
+	if o == nil {
+		return nil
+	}
+	return o.APIVersion
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetAuthenticationMethod() *OutputGoogleChronicleAuthenticationMethod1 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthenticationMethod
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetExtraLogTypes() []ExtraLogType1 {
+	if o == nil {
+		return []ExtraLogType1{}
+	}
+	return o.ExtraLogTypes
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetLogType() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetLogTextField() string {
+	if o == nil {
+		return ""
+	}
+	return o.LogTextField
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetCustomerID() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomerID
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetNamespace() string {
+	if o == nil {
+		return ""
+	}
+	return o.Namespace
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetCustomLabels() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.CustomLabels
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetUdmType() *UDMType1 {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKey
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetAPIKeySecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.APIKeySecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetServiceAccountCredentials() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentials
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetServiceAccountCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputGoogleChronicleGoogleChronicle1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputGoogleChronicleType string
+
+const (
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle1  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_1"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle2  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_2"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle3  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_3"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle4  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_4"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle5  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_5"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle6  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_6"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle7  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_7"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle8  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_8"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle9  OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_9"
+	OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle10 OutputGoogleChronicleType = "OutputGoogleChronicle_GoogleChronicle_10"
+)
+
+type OutputGoogleChronicle struct {
+	OutputGoogleChronicleGoogleChronicle1  *OutputGoogleChronicleGoogleChronicle1  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle2  *OutputGoogleChronicleGoogleChronicle2  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle3  *OutputGoogleChronicleGoogleChronicle3  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle4  *OutputGoogleChronicleGoogleChronicle4  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle5  *OutputGoogleChronicleGoogleChronicle5  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle6  *OutputGoogleChronicleGoogleChronicle6  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle7  *OutputGoogleChronicleGoogleChronicle7  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle8  *OutputGoogleChronicleGoogleChronicle8  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle9  *OutputGoogleChronicleGoogleChronicle9  `queryParam:"inline,name=OutputGoogleChronicle"`
+	OutputGoogleChronicleGoogleChronicle10 *OutputGoogleChronicleGoogleChronicle10 `queryParam:"inline,name=OutputGoogleChronicle"`
+
+	Type OutputGoogleChronicleType
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle1(outputGoogleChronicleGoogleChronicle1 OutputGoogleChronicleGoogleChronicle1) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle1
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle1: &outputGoogleChronicleGoogleChronicle1,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle2(outputGoogleChronicleGoogleChronicle2 OutputGoogleChronicleGoogleChronicle2) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle2
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle2: &outputGoogleChronicleGoogleChronicle2,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle3(outputGoogleChronicleGoogleChronicle3 OutputGoogleChronicleGoogleChronicle3) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle3
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle3: &outputGoogleChronicleGoogleChronicle3,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle4(outputGoogleChronicleGoogleChronicle4 OutputGoogleChronicleGoogleChronicle4) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle4
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle4: &outputGoogleChronicleGoogleChronicle4,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle5(outputGoogleChronicleGoogleChronicle5 OutputGoogleChronicleGoogleChronicle5) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle5
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle5: &outputGoogleChronicleGoogleChronicle5,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle6(outputGoogleChronicleGoogleChronicle6 OutputGoogleChronicleGoogleChronicle6) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle6
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle6: &outputGoogleChronicleGoogleChronicle6,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle7(outputGoogleChronicleGoogleChronicle7 OutputGoogleChronicleGoogleChronicle7) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle7
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle7: &outputGoogleChronicleGoogleChronicle7,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle8(outputGoogleChronicleGoogleChronicle8 OutputGoogleChronicleGoogleChronicle8) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle8
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle8: &outputGoogleChronicleGoogleChronicle8,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle9(outputGoogleChronicleGoogleChronicle9 OutputGoogleChronicleGoogleChronicle9) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle9
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle9: &outputGoogleChronicleGoogleChronicle9,
+		Type:                                  typ,
+	}
+}
+
+func CreateOutputGoogleChronicleOutputGoogleChronicleGoogleChronicle10(outputGoogleChronicleGoogleChronicle10 OutputGoogleChronicleGoogleChronicle10) OutputGoogleChronicle {
+	typ := OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle10
+
+	return OutputGoogleChronicle{
+		OutputGoogleChronicleGoogleChronicle10: &outputGoogleChronicleGoogleChronicle10,
+		Type:                                   typ,
+	}
+}
+
+func (u *OutputGoogleChronicle) UnmarshalJSON(data []byte) error {
+
+	var outputGoogleChronicleGoogleChronicle1 OutputGoogleChronicleGoogleChronicle1 = OutputGoogleChronicleGoogleChronicle1{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle1, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle1 = &outputGoogleChronicleGoogleChronicle1
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle1
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle3 OutputGoogleChronicleGoogleChronicle3 = OutputGoogleChronicleGoogleChronicle3{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle3, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle3 = &outputGoogleChronicleGoogleChronicle3
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle3
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle4 OutputGoogleChronicleGoogleChronicle4 = OutputGoogleChronicleGoogleChronicle4{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle4, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle4 = &outputGoogleChronicleGoogleChronicle4
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle4
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle5 OutputGoogleChronicleGoogleChronicle5 = OutputGoogleChronicleGoogleChronicle5{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle5, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle5 = &outputGoogleChronicleGoogleChronicle5
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle5
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle6 OutputGoogleChronicleGoogleChronicle6 = OutputGoogleChronicleGoogleChronicle6{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle6, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle6 = &outputGoogleChronicleGoogleChronicle6
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle6
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle10 OutputGoogleChronicleGoogleChronicle10 = OutputGoogleChronicleGoogleChronicle10{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle10, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle10 = &outputGoogleChronicleGoogleChronicle10
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle10
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle2 OutputGoogleChronicleGoogleChronicle2 = OutputGoogleChronicleGoogleChronicle2{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle2, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle2 = &outputGoogleChronicleGoogleChronicle2
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle2
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle7 OutputGoogleChronicleGoogleChronicle7 = OutputGoogleChronicleGoogleChronicle7{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle7, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle7 = &outputGoogleChronicleGoogleChronicle7
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle7
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle8 OutputGoogleChronicleGoogleChronicle8 = OutputGoogleChronicleGoogleChronicle8{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle8, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle8 = &outputGoogleChronicleGoogleChronicle8
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle8
+		return nil
+	}
+
+	var outputGoogleChronicleGoogleChronicle9 OutputGoogleChronicleGoogleChronicle9 = OutputGoogleChronicleGoogleChronicle9{}
+	if err := utils.UnmarshalJSON(data, &outputGoogleChronicleGoogleChronicle9, "", true, nil); err == nil {
+		u.OutputGoogleChronicleGoogleChronicle9 = &outputGoogleChronicleGoogleChronicle9
+		u.Type = OutputGoogleChronicleTypeOutputGoogleChronicleGoogleChronicle9
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputGoogleChronicle", string(data))
+}
+
+func (u OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
+	if u.OutputGoogleChronicleGoogleChronicle1 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle1, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle2 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle2, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle3 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle3, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle4 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle4, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle5 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle5, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle6 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle6, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle7 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle7, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle8 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle8, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle9 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle9, "", true)
+	}
+
+	if u.OutputGoogleChronicleGoogleChronicle10 != nil {
+		return utils.MarshalJSON(u.OutputGoogleChronicleGoogleChronicle10, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputGoogleChronicle: all fields are null")
 }

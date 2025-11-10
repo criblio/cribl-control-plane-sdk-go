@@ -6,9 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionSpecificConfigs struct {
-}
-
 type PipelineFunctionConf struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `default:"true" json:"filter"`
@@ -19,8 +16,8 @@ type PipelineFunctionConf struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
-	Conf  FunctionSpecificConfigs `json:"conf"`
+	Final *bool    `json:"final,omitempty"`
+	Conf  ConfType `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -71,9 +68,9 @@ func (p *PipelineFunctionConf) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionConf) GetConf() FunctionSpecificConfigs {
+func (p *PipelineFunctionConf) GetConf() ConfType {
 	if p == nil {
-		return FunctionSpecificConfigs{}
+		return ConfType{}
 	}
 	return p.Conf
 }

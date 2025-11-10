@@ -4,219 +4,66 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputMinioType string
+type OutputMinioType9 string
 
 const (
-	OutputMinioTypeMinio OutputMinioType = "minio"
+	OutputMinioType9Minio OutputMinioType9 = "minio"
 )
 
-func (e OutputMinioType) ToPointer() *OutputMinioType {
+func (e OutputMinioType9) ToPointer() *OutputMinioType9 {
 	return &e
 }
-func (e *OutputMinioType) UnmarshalJSON(data []byte) error {
+func (e *OutputMinioType9) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "minio":
-		*e = OutputMinioType(v)
+		*e = OutputMinioType9(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputMinioType: %v", v)
+		return fmt.Errorf("invalid value for OutputMinioType9: %v", v)
 	}
 }
 
-// OutputMinioAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputMinioAuthenticationMethod string
+// StorageClass9 - Storage class to select for uploaded objects
+type StorageClass9 string
 
 const (
-	OutputMinioAuthenticationMethodAuto   OutputMinioAuthenticationMethod = "auto"
-	OutputMinioAuthenticationMethodManual OutputMinioAuthenticationMethod = "manual"
-	OutputMinioAuthenticationMethodSecret OutputMinioAuthenticationMethod = "secret"
+	// StorageClass9Standard Standard
+	StorageClass9Standard StorageClass9 = "STANDARD"
+	// StorageClass9ReducedRedundancy Reduced Redundancy Storage
+	StorageClass9ReducedRedundancy StorageClass9 = "REDUCED_REDUNDANCY"
 )
 
-func (e OutputMinioAuthenticationMethod) ToPointer() *OutputMinioAuthenticationMethod {
+func (e StorageClass9) ToPointer() *StorageClass9 {
 	return &e
 }
 
-// OutputMinioSignatureVersion - Signature version to use for signing MinIO requests
-type OutputMinioSignatureVersion string
+// ServerSideEncryption9 - Server-side encryption for uploaded objects
+type ServerSideEncryption9 string
 
 const (
-	OutputMinioSignatureVersionV2 OutputMinioSignatureVersion = "v2"
-	OutputMinioSignatureVersionV4 OutputMinioSignatureVersion = "v4"
+	// ServerSideEncryption9Aes256 Amazon S3 Managed Key
+	ServerSideEncryption9Aes256 ServerSideEncryption9 = "AES256"
 )
 
-func (e OutputMinioSignatureVersion) ToPointer() *OutputMinioSignatureVersion {
+func (e ServerSideEncryption9) ToPointer() *ServerSideEncryption9 {
 	return &e
 }
 
-// OutputMinioObjectACL - Object ACL to assign to uploaded objects
-type OutputMinioObjectACL string
-
-const (
-	OutputMinioObjectACLPrivate                OutputMinioObjectACL = "private"
-	OutputMinioObjectACLPublicRead             OutputMinioObjectACL = "public-read"
-	OutputMinioObjectACLPublicReadWrite        OutputMinioObjectACL = "public-read-write"
-	OutputMinioObjectACLAuthenticatedRead      OutputMinioObjectACL = "authenticated-read"
-	OutputMinioObjectACLAwsExecRead            OutputMinioObjectACL = "aws-exec-read"
-	OutputMinioObjectACLBucketOwnerRead        OutputMinioObjectACL = "bucket-owner-read"
-	OutputMinioObjectACLBucketOwnerFullControl OutputMinioObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputMinioObjectACL) ToPointer() *OutputMinioObjectACL {
-	return &e
-}
-
-// OutputMinioStorageClass - Storage class to select for uploaded objects
-type OutputMinioStorageClass string
-
-const (
-	OutputMinioStorageClassStandard          OutputMinioStorageClass = "STANDARD"
-	OutputMinioStorageClassReducedRedundancy OutputMinioStorageClass = "REDUCED_REDUNDANCY"
-)
-
-func (e OutputMinioStorageClass) ToPointer() *OutputMinioStorageClass {
-	return &e
-}
-
-// ServerSideEncryption - Server-side encryption for uploaded objects
-type ServerSideEncryption string
-
-const (
-	ServerSideEncryptionAes256 ServerSideEncryption = "AES256"
-)
-
-func (e ServerSideEncryption) ToPointer() *ServerSideEncryption {
-	return &e
-}
-
-// OutputMinioDataFormat - Format of the output data
-type OutputMinioDataFormat string
-
-const (
-	OutputMinioDataFormatJSON    OutputMinioDataFormat = "json"
-	OutputMinioDataFormatRaw     OutputMinioDataFormat = "raw"
-	OutputMinioDataFormatParquet OutputMinioDataFormat = "parquet"
-)
-
-func (e OutputMinioDataFormat) ToPointer() *OutputMinioDataFormat {
-	return &e
-}
-
-// OutputMinioBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputMinioBackpressureBehavior string
-
-const (
-	OutputMinioBackpressureBehaviorBlock OutputMinioBackpressureBehavior = "block"
-	OutputMinioBackpressureBehaviorDrop  OutputMinioBackpressureBehavior = "drop"
-)
-
-func (e OutputMinioBackpressureBehavior) ToPointer() *OutputMinioBackpressureBehavior {
-	return &e
-}
-
-// OutputMinioDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputMinioDiskSpaceProtection string
-
-const (
-	OutputMinioDiskSpaceProtectionBlock OutputMinioDiskSpaceProtection = "block"
-	OutputMinioDiskSpaceProtectionDrop  OutputMinioDiskSpaceProtection = "drop"
-)
-
-func (e OutputMinioDiskSpaceProtection) ToPointer() *OutputMinioDiskSpaceProtection {
-	return &e
-}
-
-// OutputMinioCompression - Data compression format to apply to HTTP content before it is delivered
-type OutputMinioCompression string
-
-const (
-	OutputMinioCompressionNone OutputMinioCompression = "none"
-	OutputMinioCompressionGzip OutputMinioCompression = "gzip"
-)
-
-func (e OutputMinioCompression) ToPointer() *OutputMinioCompression {
-	return &e
-}
-
-// OutputMinioCompressionLevel - Compression level to apply before moving files to final destination
-type OutputMinioCompressionLevel string
-
-const (
-	OutputMinioCompressionLevelBestSpeed       OutputMinioCompressionLevel = "best_speed"
-	OutputMinioCompressionLevelNormal          OutputMinioCompressionLevel = "normal"
-	OutputMinioCompressionLevelBestCompression OutputMinioCompressionLevel = "best_compression"
-)
-
-func (e OutputMinioCompressionLevel) ToPointer() *OutputMinioCompressionLevel {
-	return &e
-}
-
-// OutputMinioParquetVersion - Determines which data types are supported and how they are represented
-type OutputMinioParquetVersion string
-
-const (
-	OutputMinioParquetVersionParquet10 OutputMinioParquetVersion = "PARQUET_1_0"
-	OutputMinioParquetVersionParquet24 OutputMinioParquetVersion = "PARQUET_2_4"
-	OutputMinioParquetVersionParquet26 OutputMinioParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputMinioParquetVersion) ToPointer() *OutputMinioParquetVersion {
-	return &e
-}
-
-// OutputMinioDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputMinioDataPageVersion string
-
-const (
-	OutputMinioDataPageVersionDataPageV1 OutputMinioDataPageVersion = "DATA_PAGE_V1"
-	OutputMinioDataPageVersionDataPageV2 OutputMinioDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputMinioDataPageVersion) ToPointer() *OutputMinioDataPageVersion {
-	return &e
-}
-
-type OutputMinioKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputMinioKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputMinioKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputMinioKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputMinioKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputMinio struct {
+type OutputMinioMinio9 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// Unique ID for this output
-	ID   *string         `json:"id,omitempty"`
-	Type OutputMinioType `json:"type"`
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType9 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -230,7 +77,7 @@ type OutputMinio struct {
 	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputMinioAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// Region where the MinIO service/cluster is located
@@ -241,14 +88,14 @@ type OutputMinio struct {
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitempty"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *OutputMinioSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputMinioObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass *OutputMinioStorageClass `json:"storageClass,omitempty"`
+	StorageClass *StorageClass9 `json:"storageClass,omitempty"`
 	// Server-side encryption for uploaded objects
-	ServerSideEncryption *ServerSideEncryption `json:"serverSideEncryption,omitempty"`
+	ServerSideEncryption *ServerSideEncryption9 `json:"serverSideEncryption,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
@@ -260,7 +107,7 @@ type OutputMinio struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *OutputMinioDataFormat `default:"json" json:"format"`
+	Format *Format1Options `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -273,12 +120,10 @@ type OutputMinio struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputMinioBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputMinioDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -290,16 +135,18 @@ type OutputMinio struct {
 	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputMinioCompression `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputMinioCompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputMinioParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputMinioDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -307,7 +154,7 @@ type OutputMinio struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputMinioKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -322,391 +169,5063 @@ type OutputMinio struct {
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
 
-func (o OutputMinio) MarshalJSON() ([]byte, error) {
+func (o OutputMinioMinio9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputMinio) UnmarshalJSON(data []byte) error {
+func (o *OutputMinioMinio9) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputMinio) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputMinio) GetType() OutputMinioType {
-	if o == nil {
-		return OutputMinioType("")
-	}
-	return o.Type
-}
-
-func (o *OutputMinio) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputMinio) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputMinio) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputMinio) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputMinio) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
-}
-
-func (o *OutputMinio) GetBucket() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bucket
-}
-
-func (o *OutputMinio) GetAwsAuthenticationMethod() *OutputMinioAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputMinio) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
-}
-
-func (o *OutputMinio) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputMinio) GetStagePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.StagePath
-}
-
-func (o *OutputMinio) GetAddIDToStagePath() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AddIDToStagePath
-}
-
-func (o *OutputMinio) GetDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DestPath
-}
-
-func (o *OutputMinio) GetSignatureVersion() *OutputMinioSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
-func (o *OutputMinio) GetObjectACL() *OutputMinioObjectACL {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
-}
-
-func (o *OutputMinio) GetStorageClass() *OutputMinioStorageClass {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputMinio) GetServerSideEncryption() *ServerSideEncryption {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputMinio) GetReuseConnections() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ReuseConnections
-}
-
-func (o *OutputMinio) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputMinio) GetVerifyPermissions() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.VerifyPermissions
-}
-
-func (o *OutputMinio) GetRemoveEmptyDirs() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RemoveEmptyDirs
-}
-
-func (o *OutputMinio) GetPartitionExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PartitionExpr
-}
-
-func (o *OutputMinio) GetFormat() *OutputMinioDataFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
-}
-
-func (o *OutputMinio) GetBaseFileName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BaseFileName
-}
-
-func (o *OutputMinio) GetFileNameSuffix() *string {
-	if o == nil {
-		return nil
-	}
-	return o.FileNameSuffix
-}
-
-func (o *OutputMinio) GetMaxFileSizeMB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxFileSizeMB
-}
-
-func (o *OutputMinio) GetMaxOpenFiles() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxOpenFiles
-}
-
-func (o *OutputMinio) GetHeaderLine() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HeaderLine
-}
-
-func (o *OutputMinio) GetWriteHighWaterMark() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WriteHighWaterMark
-}
-
-func (o *OutputMinio) GetOnBackpressure() *OutputMinioBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputMinio) GetDeadletterEnabled() *bool {
+func (o *OutputMinioMinio9) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputMinio) GetOnDiskFullBackpressure() *OutputMinioDiskSpaceProtection {
+func (o *OutputMinioMinio9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio9) GetType() OutputMinioType9 {
+	if o == nil {
+		return OutputMinioType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio9) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio9) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio9) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio9) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio9) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio9) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio9) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio9) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio9) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio9) GetStorageClass() *StorageClass9 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio9) GetServerSideEncryption() *ServerSideEncryption9 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio9) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio9) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio9) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio9) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio9) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio9) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio9) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio9) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio9) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio9) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio9) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio9) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio9) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputMinio) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputMinioMinio9) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputMinio) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputMinioMinio9) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputMinio) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputMinioMinio9) GetMaxConcurrentFileParts() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentFileParts
 }
 
-func (o *OutputMinio) GetDescription() *string {
+func (o *OutputMinioMinio9) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputMinio) GetAwsAPIKey() *string {
+func (o *OutputMinioMinio9) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputMinio) GetAwsSecret() *string {
+func (o *OutputMinioMinio9) GetAwsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputMinio) GetCompress() *OutputMinioCompression {
+func (o *OutputMinioMinio9) GetCompress() *PqCompressOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputMinio) GetCompressionLevel() *OutputMinioCompressionLevel {
+func (o *OutputMinioMinio9) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
 	return o.CompressionLevel
 }
 
-func (o *OutputMinio) GetAutomaticSchema() *bool {
+func (o *OutputMinioMinio9) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputMinio) GetParquetVersion() *OutputMinioParquetVersion {
+func (o *OutputMinioMinio9) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio9) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputMinio) GetParquetDataPageVersion() *OutputMinioDataPageVersion {
+func (o *OutputMinioMinio9) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputMinio) GetParquetRowGroupLength() *float64 {
+func (o *OutputMinioMinio9) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputMinio) GetParquetPageSize() *string {
+func (o *OutputMinioMinio9) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputMinio) GetShouldLogInvalidRows() *bool {
+func (o *OutputMinioMinio9) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputMinio) GetKeyValueMetadata() []OutputMinioKeyValueMetadatum {
+func (o *OutputMinioMinio9) GetKeyValueMetadata() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputMinio) GetEnableStatistics() *bool {
+func (o *OutputMinioMinio9) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputMinio) GetEnableWritePageIndex() *bool {
+func (o *OutputMinioMinio9) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputMinio) GetEnablePageChecksum() *bool {
+func (o *OutputMinioMinio9) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputMinio) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputMinioMinio9) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputMinio) GetDeadletterPath() *string {
+func (o *OutputMinioMinio9) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputMinio) GetMaxRetryNum() *float64 {
+func (o *OutputMinioMinio9) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+type OutputMinioType8 string
+
+const (
+	OutputMinioType8Minio OutputMinioType8 = "minio"
+)
+
+func (e OutputMinioType8) ToPointer() *OutputMinioType8 {
+	return &e
+}
+func (e *OutputMinioType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType8: %v", v)
+	}
+}
+
+// StorageClass8 - Storage class to select for uploaded objects
+type StorageClass8 string
+
+const (
+	// StorageClass8Standard Standard
+	StorageClass8Standard StorageClass8 = "STANDARD"
+	// StorageClass8ReducedRedundancy Reduced Redundancy Storage
+	StorageClass8ReducedRedundancy StorageClass8 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass8) ToPointer() *StorageClass8 {
+	return &e
+}
+
+// ServerSideEncryption8 - Server-side encryption for uploaded objects
+type ServerSideEncryption8 string
+
+const (
+	// ServerSideEncryption8Aes256 Amazon S3 Managed Key
+	ServerSideEncryption8Aes256 ServerSideEncryption8 = "AES256"
+)
+
+func (e ServerSideEncryption8) ToPointer() *ServerSideEncryption8 {
+	return &e
+}
+
+type OutputMinioMinio8 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass8 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption8 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio8) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio8) GetType() OutputMinioType8 {
+	if o == nil {
+		return OutputMinioType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio8) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio8) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio8) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio8) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio8) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio8) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio8) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio8) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio8) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio8) GetStorageClass() *StorageClass8 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio8) GetServerSideEncryption() *ServerSideEncryption8 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio8) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio8) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio8) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio8) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio8) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio8) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio8) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio8) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio8) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio8) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio8) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio8) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio8) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio8) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio8) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio8) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio8) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio8) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio8) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio8) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio8) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio8) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio8) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio8) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio8) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio8) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio8) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio8) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio8) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio8) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio8) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio8) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio8) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio8) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType7 string
+
+const (
+	OutputMinioType7Minio OutputMinioType7 = "minio"
+)
+
+func (e OutputMinioType7) ToPointer() *OutputMinioType7 {
+	return &e
+}
+func (e *OutputMinioType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType7: %v", v)
+	}
+}
+
+// StorageClass7 - Storage class to select for uploaded objects
+type StorageClass7 string
+
+const (
+	// StorageClass7Standard Standard
+	StorageClass7Standard StorageClass7 = "STANDARD"
+	// StorageClass7ReducedRedundancy Reduced Redundancy Storage
+	StorageClass7ReducedRedundancy StorageClass7 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass7) ToPointer() *StorageClass7 {
+	return &e
+}
+
+// ServerSideEncryption7 - Server-side encryption for uploaded objects
+type ServerSideEncryption7 string
+
+const (
+	// ServerSideEncryption7Aes256 Amazon S3 Managed Key
+	ServerSideEncryption7Aes256 ServerSideEncryption7 = "AES256"
+)
+
+func (e ServerSideEncryption7) ToPointer() *ServerSideEncryption7 {
+	return &e
+}
+
+type OutputMinioMinio7 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass7 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption7 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio7) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio7) GetType() OutputMinioType7 {
+	if o == nil {
+		return OutputMinioType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio7) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio7) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio7) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio7) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio7) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio7) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio7) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio7) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio7) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio7) GetStorageClass() *StorageClass7 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio7) GetServerSideEncryption() *ServerSideEncryption7 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio7) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio7) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio7) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio7) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio7) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio7) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio7) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio7) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio7) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio7) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio7) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio7) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio7) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio7) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio7) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio7) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio7) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio7) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio7) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio7) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio7) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio7) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio7) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio7) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio7) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio7) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio7) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio7) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio7) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio7) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio7) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio7) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio7) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio7) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType6 string
+
+const (
+	OutputMinioType6Minio OutputMinioType6 = "minio"
+)
+
+func (e OutputMinioType6) ToPointer() *OutputMinioType6 {
+	return &e
+}
+func (e *OutputMinioType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType6: %v", v)
+	}
+}
+
+// StorageClass6 - Storage class to select for uploaded objects
+type StorageClass6 string
+
+const (
+	// StorageClass6Standard Standard
+	StorageClass6Standard StorageClass6 = "STANDARD"
+	// StorageClass6ReducedRedundancy Reduced Redundancy Storage
+	StorageClass6ReducedRedundancy StorageClass6 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass6) ToPointer() *StorageClass6 {
+	return &e
+}
+
+// ServerSideEncryption6 - Server-side encryption for uploaded objects
+type ServerSideEncryption6 string
+
+const (
+	// ServerSideEncryption6Aes256 Amazon S3 Managed Key
+	ServerSideEncryption6Aes256 ServerSideEncryption6 = "AES256"
+)
+
+func (e ServerSideEncryption6) ToPointer() *ServerSideEncryption6 {
+	return &e
+}
+
+type OutputMinioMinio6 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass6 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption6 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio6) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio6) GetType() OutputMinioType6 {
+	if o == nil {
+		return OutputMinioType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio6) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio6) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio6) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio6) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio6) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio6) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio6) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio6) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio6) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio6) GetStorageClass() *StorageClass6 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio6) GetServerSideEncryption() *ServerSideEncryption6 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio6) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio6) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio6) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio6) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio6) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio6) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio6) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio6) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio6) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio6) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio6) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio6) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio6) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio6) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio6) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio6) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio6) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio6) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio6) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio6) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio6) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio6) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio6) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio6) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio6) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio6) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio6) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio6) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio6) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio6) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio6) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio6) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio6) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio6) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType5 string
+
+const (
+	OutputMinioType5Minio OutputMinioType5 = "minio"
+)
+
+func (e OutputMinioType5) ToPointer() *OutputMinioType5 {
+	return &e
+}
+func (e *OutputMinioType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType5: %v", v)
+	}
+}
+
+// StorageClass5 - Storage class to select for uploaded objects
+type StorageClass5 string
+
+const (
+	// StorageClass5Standard Standard
+	StorageClass5Standard StorageClass5 = "STANDARD"
+	// StorageClass5ReducedRedundancy Reduced Redundancy Storage
+	StorageClass5ReducedRedundancy StorageClass5 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass5) ToPointer() *StorageClass5 {
+	return &e
+}
+
+// ServerSideEncryption5 - Server-side encryption for uploaded objects
+type ServerSideEncryption5 string
+
+const (
+	// ServerSideEncryption5Aes256 Amazon S3 Managed Key
+	ServerSideEncryption5Aes256 ServerSideEncryption5 = "AES256"
+)
+
+func (e ServerSideEncryption5) ToPointer() *ServerSideEncryption5 {
+	return &e
+}
+
+type OutputMinioMinio5 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass5 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption5 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows bool `json:"shouldLogInvalidRows"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket", "shouldLogInvalidRows", "keyValueMetadata"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio5) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio5) GetType() OutputMinioType5 {
+	if o == nil {
+		return OutputMinioType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio5) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio5) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio5) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio5) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio5) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio5) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio5) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio5) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio5) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio5) GetStorageClass() *StorageClass5 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio5) GetServerSideEncryption() *ServerSideEncryption5 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio5) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio5) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio5) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio5) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio5) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio5) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio5) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio5) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio5) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio5) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio5) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio5) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio5) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio5) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio5) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio5) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio5) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio5) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio5) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio5) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio5) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio5) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio5) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio5) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio5) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio5) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio5) GetShouldLogInvalidRows() bool {
+	if o == nil {
+		return false
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio5) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio5) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio5) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio5) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio5) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio5) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio5) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType4 string
+
+const (
+	OutputMinioType4Minio OutputMinioType4 = "minio"
+)
+
+func (e OutputMinioType4) ToPointer() *OutputMinioType4 {
+	return &e
+}
+func (e *OutputMinioType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType4: %v", v)
+	}
+}
+
+// StorageClass4 - Storage class to select for uploaded objects
+type StorageClass4 string
+
+const (
+	// StorageClass4Standard Standard
+	StorageClass4Standard StorageClass4 = "STANDARD"
+	// StorageClass4ReducedRedundancy Reduced Redundancy Storage
+	StorageClass4ReducedRedundancy StorageClass4 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass4) ToPointer() *StorageClass4 {
+	return &e
+}
+
+// ServerSideEncryption4 - Server-side encryption for uploaded objects
+type ServerSideEncryption4 string
+
+const (
+	// ServerSideEncryption4Aes256 Amazon S3 Managed Key
+	ServerSideEncryption4Aes256 ServerSideEncryption4 = "AES256"
+)
+
+func (e ServerSideEncryption4) ToPointer() *ServerSideEncryption4 {
+	return &e
+}
+
+type OutputMinioMinio4 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass4 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption4 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio4) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio4) GetType() OutputMinioType4 {
+	if o == nil {
+		return OutputMinioType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio4) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio4) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio4) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio4) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio4) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio4) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio4) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio4) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio4) GetStorageClass() *StorageClass4 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio4) GetServerSideEncryption() *ServerSideEncryption4 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio4) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio4) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio4) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio4) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio4) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio4) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio4) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio4) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio4) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio4) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio4) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio4) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio4) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio4) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio4) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio4) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio4) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio4) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio4) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio4) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio4) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio4) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio4) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio4) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio4) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio4) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio4) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio4) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio4) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio4) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio4) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio4) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio4) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType3 string
+
+const (
+	OutputMinioType3Minio OutputMinioType3 = "minio"
+)
+
+func (e OutputMinioType3) ToPointer() *OutputMinioType3 {
+	return &e
+}
+func (e *OutputMinioType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType3: %v", v)
+	}
+}
+
+// StorageClass3 - Storage class to select for uploaded objects
+type StorageClass3 string
+
+const (
+	// StorageClass3Standard Standard
+	StorageClass3Standard StorageClass3 = "STANDARD"
+	// StorageClass3ReducedRedundancy Reduced Redundancy Storage
+	StorageClass3ReducedRedundancy StorageClass3 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass3) ToPointer() *StorageClass3 {
+	return &e
+}
+
+// ServerSideEncryption3 - Server-side encryption for uploaded objects
+type ServerSideEncryption3 string
+
+const (
+	// ServerSideEncryption3Aes256 Amazon S3 Managed Key
+	ServerSideEncryption3Aes256 ServerSideEncryption3 = "AES256"
+)
+
+func (e ServerSideEncryption3) ToPointer() *ServerSideEncryption3 {
+	return &e
+}
+
+type OutputMinioMinio3 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass3 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption3 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio3) GetType() OutputMinioType3 {
+	if o == nil {
+		return OutputMinioType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio3) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio3) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio3) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio3) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio3) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio3) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio3) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio3) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio3) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio3) GetStorageClass() *StorageClass3 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio3) GetServerSideEncryption() *ServerSideEncryption3 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio3) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio3) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio3) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio3) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio3) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio3) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio3) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio3) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio3) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio3) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio3) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio3) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio3) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio3) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio3) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio3) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio3) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio3) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio3) GetAwsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio3) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio3) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio3) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio3) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio3) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio3) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio3) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio3) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio3) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio3) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio3) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio3) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio3) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio3) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio3) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio3) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType2 string
+
+const (
+	OutputMinioType2Minio OutputMinioType2 = "minio"
+)
+
+func (e OutputMinioType2) ToPointer() *OutputMinioType2 {
+	return &e
+}
+func (e *OutputMinioType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType2: %v", v)
+	}
+}
+
+// StorageClass2 - Storage class to select for uploaded objects
+type StorageClass2 string
+
+const (
+	// StorageClass2Standard Standard
+	StorageClass2Standard StorageClass2 = "STANDARD"
+	// StorageClass2ReducedRedundancy Reduced Redundancy Storage
+	StorageClass2ReducedRedundancy StorageClass2 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass2) ToPointer() *StorageClass2 {
+	return &e
+}
+
+// ServerSideEncryption2 - Server-side encryption for uploaded objects
+type ServerSideEncryption2 string
+
+const (
+	// ServerSideEncryption2Aes256 Amazon S3 Managed Key
+	ServerSideEncryption2Aes256 ServerSideEncryption2 = "AES256"
+)
+
+func (e ServerSideEncryption2) ToPointer() *ServerSideEncryption2 {
+	return &e
+}
+
+type OutputMinioMinio2 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass2 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption2 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey string `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio2) GetType() OutputMinioType2 {
+	if o == nil {
+		return OutputMinioType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio2) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio2) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio2) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio2) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio2) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio2) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio2) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio2) GetStorageClass() *StorageClass2 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio2) GetServerSideEncryption() *ServerSideEncryption2 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio2) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio2) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio2) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio2) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio2) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio2) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio2) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio2) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio2) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio2) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio2) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio2) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio2) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio2) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio2) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio2) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio2) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio2) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio2) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio2) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio2) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio2) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio2) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio2) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio2) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio2) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio2) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio2) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio2) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio2) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio2) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio2) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType1 string
+
+const (
+	OutputMinioType1Minio OutputMinioType1 = "minio"
+)
+
+func (e OutputMinioType1) ToPointer() *OutputMinioType1 {
+	return &e
+}
+func (e *OutputMinioType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = OutputMinioType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMinioType1: %v", v)
+	}
+}
+
+// StorageClass1 - Storage class to select for uploaded objects
+type StorageClass1 string
+
+const (
+	// StorageClass1Standard Standard
+	StorageClass1Standard StorageClass1 = "STANDARD"
+	// StorageClass1ReducedRedundancy Reduced Redundancy Storage
+	StorageClass1ReducedRedundancy StorageClass1 = "REDUCED_REDUNDANCY"
+)
+
+func (e StorageClass1) ToPointer() *StorageClass1 {
+	return &e
+}
+
+// ServerSideEncryption1 - Server-side encryption for uploaded objects
+type ServerSideEncryption1 string
+
+const (
+	// ServerSideEncryption1Aes256 Amazon S3 Managed Key
+	ServerSideEncryption1Aes256 ServerSideEncryption1 = "AES256"
+)
+
+func (e ServerSideEncryption1) ToPointer() *ServerSideEncryption1 {
+	return &e
+}
+
+type OutputMinioMinio1 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputMinioType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Region where the MinIO service/cluster is located
+	Region *string `json:"region,omitempty"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+	DestPath *string `json:"destPath,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClass1 `json:"storageClass,omitempty"`
+	// Server-side encryption for uploaded objects
+	ServerSideEncryption *ServerSideEncryption1 `json:"serverSideEncryption,omitempty"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputMinioMinio1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMinioMinio1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMinioMinio1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputMinioMinio1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputMinioMinio1) GetType() OutputMinioType1 {
+	if o == nil {
+		return OutputMinioType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputMinioMinio1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputMinioMinio1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputMinioMinio1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputMinioMinio1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputMinioMinio1) GetEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.Endpoint
+}
+
+func (o *OutputMinioMinio1) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinioMinio1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputMinioMinio1) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinioMinio1) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinioMinio1) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputMinioMinio1) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinioMinio1) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputMinioMinio1) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputMinioMinio1) GetStorageClass() *StorageClass1 {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinioMinio1) GetServerSideEncryption() *ServerSideEncryption1 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputMinioMinio1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputMinioMinio1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMinioMinio1) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputMinioMinio1) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputMinioMinio1) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputMinioMinio1) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputMinioMinio1) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputMinioMinio1) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputMinioMinio1) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputMinioMinio1) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputMinioMinio1) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputMinioMinio1) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputMinioMinio1) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputMinioMinio1) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputMinioMinio1) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinioMinio1) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinioMinio1) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputMinioMinio1) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputMinioMinio1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputMinioMinio1) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputMinioMinio1) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputMinioMinio1) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputMinioMinio1) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputMinioMinio1) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputMinioMinio1) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputMinioMinio1) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputMinioMinio1) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputMinioMinio1) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputMinioMinio1) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputMinioMinio1) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputMinioMinio1) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputMinioMinio1) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputMinioMinio1) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputMinioMinio1) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputMinioMinio1) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputMinioMinio1) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputMinioMinio1) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputMinioType string
+
+const (
+	OutputMinioTypeOutputMinioMinio1 OutputMinioType = "OutputMinio_Minio_1"
+	OutputMinioTypeOutputMinioMinio2 OutputMinioType = "OutputMinio_Minio_2"
+	OutputMinioTypeOutputMinioMinio3 OutputMinioType = "OutputMinio_Minio_3"
+	OutputMinioTypeOutputMinioMinio4 OutputMinioType = "OutputMinio_Minio_4"
+	OutputMinioTypeOutputMinioMinio5 OutputMinioType = "OutputMinio_Minio_5"
+	OutputMinioTypeOutputMinioMinio6 OutputMinioType = "OutputMinio_Minio_6"
+	OutputMinioTypeOutputMinioMinio7 OutputMinioType = "OutputMinio_Minio_7"
+	OutputMinioTypeOutputMinioMinio8 OutputMinioType = "OutputMinio_Minio_8"
+	OutputMinioTypeOutputMinioMinio9 OutputMinioType = "OutputMinio_Minio_9"
+)
+
+type OutputMinio struct {
+	OutputMinioMinio1 *OutputMinioMinio1 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio2 *OutputMinioMinio2 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio3 *OutputMinioMinio3 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio4 *OutputMinioMinio4 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio5 *OutputMinioMinio5 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio6 *OutputMinioMinio6 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio7 *OutputMinioMinio7 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio8 *OutputMinioMinio8 `queryParam:"inline,name=OutputMinio"`
+	OutputMinioMinio9 *OutputMinioMinio9 `queryParam:"inline,name=OutputMinio"`
+
+	Type OutputMinioType
+}
+
+func CreateOutputMinioOutputMinioMinio1(outputMinioMinio1 OutputMinioMinio1) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio1
+
+	return OutputMinio{
+		OutputMinioMinio1: &outputMinioMinio1,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio2(outputMinioMinio2 OutputMinioMinio2) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio2
+
+	return OutputMinio{
+		OutputMinioMinio2: &outputMinioMinio2,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio3(outputMinioMinio3 OutputMinioMinio3) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio3
+
+	return OutputMinio{
+		OutputMinioMinio3: &outputMinioMinio3,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio4(outputMinioMinio4 OutputMinioMinio4) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio4
+
+	return OutputMinio{
+		OutputMinioMinio4: &outputMinioMinio4,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio5(outputMinioMinio5 OutputMinioMinio5) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio5
+
+	return OutputMinio{
+		OutputMinioMinio5: &outputMinioMinio5,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio6(outputMinioMinio6 OutputMinioMinio6) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio6
+
+	return OutputMinio{
+		OutputMinioMinio6: &outputMinioMinio6,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio7(outputMinioMinio7 OutputMinioMinio7) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio7
+
+	return OutputMinio{
+		OutputMinioMinio7: &outputMinioMinio7,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio8(outputMinioMinio8 OutputMinioMinio8) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio8
+
+	return OutputMinio{
+		OutputMinioMinio8: &outputMinioMinio8,
+		Type:              typ,
+	}
+}
+
+func CreateOutputMinioOutputMinioMinio9(outputMinioMinio9 OutputMinioMinio9) OutputMinio {
+	typ := OutputMinioTypeOutputMinioMinio9
+
+	return OutputMinio{
+		OutputMinioMinio9: &outputMinioMinio9,
+		Type:              typ,
+	}
+}
+
+func (u *OutputMinio) UnmarshalJSON(data []byte) error {
+
+	var outputMinioMinio5 OutputMinioMinio5 = OutputMinioMinio5{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio5, "", true, nil); err == nil {
+		u.OutputMinioMinio5 = &outputMinioMinio5
+		u.Type = OutputMinioTypeOutputMinioMinio5
+		return nil
+	}
+
+	var outputMinioMinio2 OutputMinioMinio2 = OutputMinioMinio2{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio2, "", true, nil); err == nil {
+		u.OutputMinioMinio2 = &outputMinioMinio2
+		u.Type = OutputMinioTypeOutputMinioMinio2
+		return nil
+	}
+
+	var outputMinioMinio3 OutputMinioMinio3 = OutputMinioMinio3{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio3, "", true, nil); err == nil {
+		u.OutputMinioMinio3 = &outputMinioMinio3
+		u.Type = OutputMinioTypeOutputMinioMinio3
+		return nil
+	}
+
+	var outputMinioMinio1 OutputMinioMinio1 = OutputMinioMinio1{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio1, "", true, nil); err == nil {
+		u.OutputMinioMinio1 = &outputMinioMinio1
+		u.Type = OutputMinioTypeOutputMinioMinio1
+		return nil
+	}
+
+	var outputMinioMinio4 OutputMinioMinio4 = OutputMinioMinio4{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio4, "", true, nil); err == nil {
+		u.OutputMinioMinio4 = &outputMinioMinio4
+		u.Type = OutputMinioTypeOutputMinioMinio4
+		return nil
+	}
+
+	var outputMinioMinio6 OutputMinioMinio6 = OutputMinioMinio6{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio6, "", true, nil); err == nil {
+		u.OutputMinioMinio6 = &outputMinioMinio6
+		u.Type = OutputMinioTypeOutputMinioMinio6
+		return nil
+	}
+
+	var outputMinioMinio7 OutputMinioMinio7 = OutputMinioMinio7{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio7, "", true, nil); err == nil {
+		u.OutputMinioMinio7 = &outputMinioMinio7
+		u.Type = OutputMinioTypeOutputMinioMinio7
+		return nil
+	}
+
+	var outputMinioMinio8 OutputMinioMinio8 = OutputMinioMinio8{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio8, "", true, nil); err == nil {
+		u.OutputMinioMinio8 = &outputMinioMinio8
+		u.Type = OutputMinioTypeOutputMinioMinio8
+		return nil
+	}
+
+	var outputMinioMinio9 OutputMinioMinio9 = OutputMinioMinio9{}
+	if err := utils.UnmarshalJSON(data, &outputMinioMinio9, "", true, nil); err == nil {
+		u.OutputMinioMinio9 = &outputMinioMinio9
+		u.Type = OutputMinioTypeOutputMinioMinio9
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMinio", string(data))
+}
+
+func (u OutputMinio) MarshalJSON() ([]byte, error) {
+	if u.OutputMinioMinio1 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio1, "", true)
+	}
+
+	if u.OutputMinioMinio2 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio2, "", true)
+	}
+
+	if u.OutputMinioMinio3 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio3, "", true)
+	}
+
+	if u.OutputMinioMinio4 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio4, "", true)
+	}
+
+	if u.OutputMinioMinio5 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio5, "", true)
+	}
+
+	if u.OutputMinioMinio6 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio6, "", true)
+	}
+
+	if u.OutputMinioMinio7 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio7, "", true)
+	}
+
+	if u.OutputMinioMinio8 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio8, "", true)
+	}
+
+	if u.OutputMinioMinio9 != nil {
+		return utils.MarshalJSON(u.OutputMinioMinio9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputMinio: all fields are null")
 }

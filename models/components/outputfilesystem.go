@@ -4,154 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputFilesystemType string
+type OutputFilesystemType6 string
 
 const (
-	OutputFilesystemTypeFilesystem OutputFilesystemType = "filesystem"
+	OutputFilesystemType6Filesystem OutputFilesystemType6 = "filesystem"
 )
 
-func (e OutputFilesystemType) ToPointer() *OutputFilesystemType {
+func (e OutputFilesystemType6) ToPointer() *OutputFilesystemType6 {
 	return &e
 }
-func (e *OutputFilesystemType) UnmarshalJSON(data []byte) error {
+func (e *OutputFilesystemType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "filesystem":
-		*e = OutputFilesystemType(v)
+		*e = OutputFilesystemType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputFilesystemType: %v", v)
+		return fmt.Errorf("invalid value for OutputFilesystemType6: %v", v)
 	}
 }
 
-// OutputFilesystemDataFormat - Format of the output data
-type OutputFilesystemDataFormat string
-
-const (
-	OutputFilesystemDataFormatJSON    OutputFilesystemDataFormat = "json"
-	OutputFilesystemDataFormatRaw     OutputFilesystemDataFormat = "raw"
-	OutputFilesystemDataFormatParquet OutputFilesystemDataFormat = "parquet"
-)
-
-func (e OutputFilesystemDataFormat) ToPointer() *OutputFilesystemDataFormat {
-	return &e
-}
-
-// OutputFilesystemBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputFilesystemBackpressureBehavior string
-
-const (
-	OutputFilesystemBackpressureBehaviorBlock OutputFilesystemBackpressureBehavior = "block"
-	OutputFilesystemBackpressureBehaviorDrop  OutputFilesystemBackpressureBehavior = "drop"
-)
-
-func (e OutputFilesystemBackpressureBehavior) ToPointer() *OutputFilesystemBackpressureBehavior {
-	return &e
-}
-
-// OutputFilesystemDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputFilesystemDiskSpaceProtection string
-
-const (
-	OutputFilesystemDiskSpaceProtectionBlock OutputFilesystemDiskSpaceProtection = "block"
-	OutputFilesystemDiskSpaceProtectionDrop  OutputFilesystemDiskSpaceProtection = "drop"
-)
-
-func (e OutputFilesystemDiskSpaceProtection) ToPointer() *OutputFilesystemDiskSpaceProtection {
-	return &e
-}
-
-// OutputFilesystemCompression - Data compression format to apply to HTTP content before it is delivered
-type OutputFilesystemCompression string
-
-const (
-	OutputFilesystemCompressionNone OutputFilesystemCompression = "none"
-	OutputFilesystemCompressionGzip OutputFilesystemCompression = "gzip"
-)
-
-func (e OutputFilesystemCompression) ToPointer() *OutputFilesystemCompression {
-	return &e
-}
-
-// OutputFilesystemCompressionLevel - Compression level to apply before moving files to final destination
-type OutputFilesystemCompressionLevel string
-
-const (
-	OutputFilesystemCompressionLevelBestSpeed       OutputFilesystemCompressionLevel = "best_speed"
-	OutputFilesystemCompressionLevelNormal          OutputFilesystemCompressionLevel = "normal"
-	OutputFilesystemCompressionLevelBestCompression OutputFilesystemCompressionLevel = "best_compression"
-)
-
-func (e OutputFilesystemCompressionLevel) ToPointer() *OutputFilesystemCompressionLevel {
-	return &e
-}
-
-// OutputFilesystemParquetVersion - Determines which data types are supported and how they are represented
-type OutputFilesystemParquetVersion string
-
-const (
-	OutputFilesystemParquetVersionParquet10 OutputFilesystemParquetVersion = "PARQUET_1_0"
-	OutputFilesystemParquetVersionParquet24 OutputFilesystemParquetVersion = "PARQUET_2_4"
-	OutputFilesystemParquetVersionParquet26 OutputFilesystemParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputFilesystemParquetVersion) ToPointer() *OutputFilesystemParquetVersion {
-	return &e
-}
-
-// OutputFilesystemDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputFilesystemDataPageVersion string
-
-const (
-	OutputFilesystemDataPageVersionDataPageV1 OutputFilesystemDataPageVersion = "DATA_PAGE_V1"
-	OutputFilesystemDataPageVersionDataPageV2 OutputFilesystemDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputFilesystemDataPageVersion) ToPointer() *OutputFilesystemDataPageVersion {
-	return &e
-}
-
-type OutputFilesystemKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputFilesystemKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputFilesystemKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputFilesystemKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputFilesystemKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputFilesystem struct {
+type OutputFilesystemFilesystem6 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
-	Type OutputFilesystemType `json:"type"`
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType6 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -171,7 +57,7 @@ type OutputFilesystem struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *OutputFilesystemDataFormat `default:"json" json:"format"`
+	Format *Format1Options `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -188,23 +74,23 @@ type OutputFilesystem struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputFilesystemBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputFilesystemDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
-	Description            *string                              `json:"description,omitempty"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputFilesystemCompression `default:"gzip" json:"compress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputFilesystemCompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputFilesystemParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputFilesystemDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -212,7 +98,7 @@ type OutputFilesystem struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputFilesystemKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -227,286 +113,2419 @@ type OutputFilesystem struct {
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
 
-func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
+func (o OutputFilesystemFilesystem6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputFilesystem) UnmarshalJSON(data []byte) error {
+func (o *OutputFilesystemFilesystem6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputFilesystem) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputFilesystem) GetType() OutputFilesystemType {
-	if o == nil {
-		return OutputFilesystemType("")
-	}
-	return o.Type
-}
-
-func (o *OutputFilesystem) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputFilesystem) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputFilesystem) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputFilesystem) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputFilesystem) GetDestPath() string {
-	if o == nil {
-		return ""
-	}
-	return o.DestPath
-}
-
-func (o *OutputFilesystem) GetStagePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.StagePath
-}
-
-func (o *OutputFilesystem) GetAddIDToStagePath() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AddIDToStagePath
-}
-
-func (o *OutputFilesystem) GetRemoveEmptyDirs() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RemoveEmptyDirs
-}
-
-func (o *OutputFilesystem) GetPartitionExpr() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PartitionExpr
-}
-
-func (o *OutputFilesystem) GetFormat() *OutputFilesystemDataFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
-}
-
-func (o *OutputFilesystem) GetBaseFileName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BaseFileName
-}
-
-func (o *OutputFilesystem) GetFileNameSuffix() *string {
-	if o == nil {
-		return nil
-	}
-	return o.FileNameSuffix
-}
-
-func (o *OutputFilesystem) GetMaxFileSizeMB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxFileSizeMB
-}
-
-func (o *OutputFilesystem) GetMaxFileOpenTimeSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxFileOpenTimeSec
-}
-
-func (o *OutputFilesystem) GetMaxFileIdleTimeSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxFileIdleTimeSec
-}
-
-func (o *OutputFilesystem) GetMaxOpenFiles() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxOpenFiles
-}
-
-func (o *OutputFilesystem) GetHeaderLine() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HeaderLine
-}
-
-func (o *OutputFilesystem) GetWriteHighWaterMark() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WriteHighWaterMark
-}
-
-func (o *OutputFilesystem) GetOnBackpressure() *OutputFilesystemBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputFilesystem) GetDeadletterEnabled() *bool {
+func (o *OutputFilesystemFilesystem6) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputFilesystem) GetOnDiskFullBackpressure() *OutputFilesystemDiskSpaceProtection {
+func (o *OutputFilesystemFilesystem6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem6) GetType() OutputFilesystemType6 {
+	if o == nil {
+		return OutputFilesystemType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem6) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem6) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem6) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem6) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem6) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem6) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem6) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem6) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem6) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem6) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem6) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem6) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem6) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem6) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem6) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem6) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputFilesystem) GetDescription() *string {
+func (o *OutputFilesystemFilesystem6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputFilesystem) GetCompress() *OutputFilesystemCompression {
+func (o *OutputFilesystemFilesystem6) GetCompress() *PqCompressOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputFilesystem) GetCompressionLevel() *OutputFilesystemCompressionLevel {
+func (o *OutputFilesystemFilesystem6) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
 	return o.CompressionLevel
 }
 
-func (o *OutputFilesystem) GetAutomaticSchema() *bool {
+func (o *OutputFilesystemFilesystem6) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputFilesystem) GetParquetVersion() *OutputFilesystemParquetVersion {
+func (o *OutputFilesystemFilesystem6) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem6) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputFilesystem) GetParquetDataPageVersion() *OutputFilesystemDataPageVersion {
+func (o *OutputFilesystemFilesystem6) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputFilesystem) GetParquetRowGroupLength() *float64 {
+func (o *OutputFilesystemFilesystem6) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputFilesystem) GetParquetPageSize() *string {
+func (o *OutputFilesystemFilesystem6) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputFilesystem) GetShouldLogInvalidRows() *bool {
+func (o *OutputFilesystemFilesystem6) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputFilesystem) GetKeyValueMetadata() []OutputFilesystemKeyValueMetadatum {
+func (o *OutputFilesystemFilesystem6) GetKeyValueMetadata() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputFilesystem) GetEnableStatistics() *bool {
+func (o *OutputFilesystemFilesystem6) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputFilesystem) GetEnableWritePageIndex() *bool {
+func (o *OutputFilesystemFilesystem6) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputFilesystem) GetEnablePageChecksum() *bool {
+func (o *OutputFilesystemFilesystem6) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputFilesystem) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputFilesystemFilesystem6) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputFilesystem) GetDeadletterPath() *string {
+func (o *OutputFilesystemFilesystem6) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputFilesystem) GetMaxRetryNum() *float64 {
+func (o *OutputFilesystemFilesystem6) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+type OutputFilesystemType5 string
+
+const (
+	OutputFilesystemType5Filesystem OutputFilesystemType5 = "filesystem"
+)
+
+func (e OutputFilesystemType5) ToPointer() *OutputFilesystemType5 {
+	return &e
+}
+func (e *OutputFilesystemType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "filesystem":
+		*e = OutputFilesystemType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFilesystemType5: %v", v)
+	}
+}
+
+type OutputFilesystemFilesystem5 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Final destination for the output files
+	DestPath string `json:"destPath"`
+	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	StagePath *string `json:"stagePath,omitempty"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputFilesystemFilesystem5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFilesystemFilesystem5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFilesystemFilesystem5) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputFilesystemFilesystem5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem5) GetType() OutputFilesystemType5 {
+	if o == nil {
+		return OutputFilesystemType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem5) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem5) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem5) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem5) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem5) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem5) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem5) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem5) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem5) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem5) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem5) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem5) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem5) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem5) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem5) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem5) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputFilesystemFilesystem5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputFilesystemFilesystem5) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputFilesystemFilesystem5) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputFilesystemFilesystem5) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystemFilesystem5) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem5) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputFilesystemFilesystem5) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputFilesystemFilesystem5) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputFilesystemFilesystem5) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputFilesystemFilesystem5) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputFilesystemFilesystem5) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputFilesystemFilesystem5) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputFilesystemFilesystem5) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputFilesystemFilesystem5) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputFilesystemFilesystem5) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystemFilesystem5) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputFilesystemFilesystem5) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputFilesystemType4 string
+
+const (
+	OutputFilesystemType4Filesystem OutputFilesystemType4 = "filesystem"
+)
+
+func (e OutputFilesystemType4) ToPointer() *OutputFilesystemType4 {
+	return &e
+}
+func (e *OutputFilesystemType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "filesystem":
+		*e = OutputFilesystemType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFilesystemType4: %v", v)
+	}
+}
+
+type OutputFilesystemFilesystem4 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Final destination for the output files
+	DestPath string `json:"destPath"`
+	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	StagePath *string `json:"stagePath,omitempty"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputFilesystemFilesystem4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFilesystemFilesystem4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFilesystemFilesystem4) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem4) GetType() OutputFilesystemType4 {
+	if o == nil {
+		return OutputFilesystemType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem4) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem4) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem4) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem4) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem4) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem4) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem4) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem4) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem4) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem4) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem4) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem4) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem4) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem4) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem4) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputFilesystemFilesystem4) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputFilesystemFilesystem4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputFilesystemFilesystem4) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputFilesystemFilesystem4) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputFilesystemFilesystem4) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystemFilesystem4) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem4) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputFilesystemFilesystem4) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputFilesystemFilesystem4) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputFilesystemFilesystem4) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputFilesystemFilesystem4) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputFilesystemFilesystem4) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputFilesystemFilesystem4) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputFilesystemFilesystem4) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputFilesystemFilesystem4) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputFilesystemFilesystem4) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystemFilesystem4) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputFilesystemFilesystem4) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputFilesystemType3 string
+
+const (
+	OutputFilesystemType3Filesystem OutputFilesystemType3 = "filesystem"
+)
+
+func (e OutputFilesystemType3) ToPointer() *OutputFilesystemType3 {
+	return &e
+}
+func (e *OutputFilesystemType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "filesystem":
+		*e = OutputFilesystemType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFilesystemType3: %v", v)
+	}
+}
+
+type OutputFilesystemFilesystem3 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Final destination for the output files
+	DestPath string `json:"destPath"`
+	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	StagePath *string `json:"stagePath,omitempty"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputFilesystemFilesystem3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFilesystemFilesystem3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFilesystemFilesystem3) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem3) GetType() OutputFilesystemType3 {
+	if o == nil {
+		return OutputFilesystemType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem3) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem3) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem3) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem3) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem3) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem3) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem3) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem3) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem3) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem3) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem3) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem3) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem3) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem3) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem3) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputFilesystemFilesystem3) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputFilesystemFilesystem3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputFilesystemFilesystem3) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputFilesystemFilesystem3) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputFilesystemFilesystem3) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystemFilesystem3) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem3) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputFilesystemFilesystem3) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputFilesystemFilesystem3) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputFilesystemFilesystem3) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputFilesystemFilesystem3) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputFilesystemFilesystem3) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputFilesystemFilesystem3) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputFilesystemFilesystem3) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputFilesystemFilesystem3) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputFilesystemFilesystem3) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystemFilesystem3) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputFilesystemFilesystem3) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputFilesystemType2 string
+
+const (
+	OutputFilesystemType2Filesystem OutputFilesystemType2 = "filesystem"
+)
+
+func (e OutputFilesystemType2) ToPointer() *OutputFilesystemType2 {
+	return &e
+}
+func (e *OutputFilesystemType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "filesystem":
+		*e = OutputFilesystemType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFilesystemType2: %v", v)
+	}
+}
+
+type OutputFilesystemFilesystem2 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Final destination for the output files
+	DestPath string `json:"destPath"`
+	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	StagePath *string `json:"stagePath,omitempty"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows bool `json:"shouldLogInvalidRows"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputFilesystemFilesystem2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFilesystemFilesystem2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath", "shouldLogInvalidRows", "keyValueMetadata"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFilesystemFilesystem2) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem2) GetType() OutputFilesystemType2 {
+	if o == nil {
+		return OutputFilesystemType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem2) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem2) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem2) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem2) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem2) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem2) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem2) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem2) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem2) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem2) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem2) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem2) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputFilesystemFilesystem2) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputFilesystemFilesystem2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputFilesystemFilesystem2) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputFilesystemFilesystem2) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputFilesystemFilesystem2) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystemFilesystem2) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem2) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputFilesystemFilesystem2) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputFilesystemFilesystem2) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputFilesystemFilesystem2) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputFilesystemFilesystem2) GetShouldLogInvalidRows() bool {
+	if o == nil {
+		return false
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputFilesystemFilesystem2) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputFilesystemFilesystem2) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputFilesystemFilesystem2) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputFilesystemFilesystem2) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputFilesystemFilesystem2) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystemFilesystem2) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputFilesystemFilesystem2) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputFilesystemType1 string
+
+const (
+	OutputFilesystemType1Filesystem OutputFilesystemType1 = "filesystem"
+)
+
+func (e OutputFilesystemType1) ToPointer() *OutputFilesystemType1 {
+	return &e
+}
+func (e *OutputFilesystemType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "filesystem":
+		*e = OutputFilesystemType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFilesystemType1: %v", v)
+	}
+}
+
+type OutputFilesystemFilesystem1 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputFilesystemType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Final destination for the output files
+	DestPath string `json:"destPath"`
+	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+	StagePath *string `json:"stagePath,omitempty"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	Description            *string                  `json:"description,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputFilesystemFilesystem1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFilesystemFilesystem1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "destPath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFilesystemFilesystem1) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputFilesystemFilesystem1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFilesystemFilesystem1) GetType() OutputFilesystemType1 {
+	if o == nil {
+		return OutputFilesystemType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputFilesystemFilesystem1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputFilesystemFilesystem1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputFilesystemFilesystem1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputFilesystemFilesystem1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputFilesystemFilesystem1) GetDestPath() string {
+	if o == nil {
+		return ""
+	}
+	return o.DestPath
+}
+
+func (o *OutputFilesystemFilesystem1) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputFilesystemFilesystem1) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputFilesystemFilesystem1) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputFilesystemFilesystem1) GetPartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitionExpr
+}
+
+func (o *OutputFilesystemFilesystem1) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputFilesystemFilesystem1) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputFilesystemFilesystem1) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputFilesystemFilesystem1) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputFilesystemFilesystem1) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputFilesystemFilesystem1) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputFilesystemFilesystem1) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputFilesystemFilesystem1) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputFilesystemFilesystem1) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputFilesystemFilesystem1) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputFilesystemFilesystem1) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputFilesystemFilesystem1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputFilesystemFilesystem1) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputFilesystemFilesystem1) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputFilesystemFilesystem1) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystemFilesystem1) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputFilesystemFilesystem1) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputFilesystemFilesystem1) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputFilesystemFilesystem1) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputFilesystemFilesystem1) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputFilesystemFilesystem1) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputFilesystemFilesystem1) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputFilesystemFilesystem1) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputFilesystemFilesystem1) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputFilesystemFilesystem1) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputFilesystemFilesystem1) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystemFilesystem1) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputFilesystemFilesystem1) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputFilesystemType string
+
+const (
+	OutputFilesystemTypeOutputFilesystemFilesystem1 OutputFilesystemType = "OutputFilesystem_Filesystem_1"
+	OutputFilesystemTypeOutputFilesystemFilesystem2 OutputFilesystemType = "OutputFilesystem_Filesystem_2"
+	OutputFilesystemTypeOutputFilesystemFilesystem3 OutputFilesystemType = "OutputFilesystem_Filesystem_3"
+	OutputFilesystemTypeOutputFilesystemFilesystem4 OutputFilesystemType = "OutputFilesystem_Filesystem_4"
+	OutputFilesystemTypeOutputFilesystemFilesystem5 OutputFilesystemType = "OutputFilesystem_Filesystem_5"
+	OutputFilesystemTypeOutputFilesystemFilesystem6 OutputFilesystemType = "OutputFilesystem_Filesystem_6"
+)
+
+type OutputFilesystem struct {
+	OutputFilesystemFilesystem1 *OutputFilesystemFilesystem1 `queryParam:"inline,name=OutputFilesystem"`
+	OutputFilesystemFilesystem2 *OutputFilesystemFilesystem2 `queryParam:"inline,name=OutputFilesystem"`
+	OutputFilesystemFilesystem3 *OutputFilesystemFilesystem3 `queryParam:"inline,name=OutputFilesystem"`
+	OutputFilesystemFilesystem4 *OutputFilesystemFilesystem4 `queryParam:"inline,name=OutputFilesystem"`
+	OutputFilesystemFilesystem5 *OutputFilesystemFilesystem5 `queryParam:"inline,name=OutputFilesystem"`
+	OutputFilesystemFilesystem6 *OutputFilesystemFilesystem6 `queryParam:"inline,name=OutputFilesystem"`
+
+	Type OutputFilesystemType
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem1(outputFilesystemFilesystem1 OutputFilesystemFilesystem1) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem1
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem1: &outputFilesystemFilesystem1,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem2(outputFilesystemFilesystem2 OutputFilesystemFilesystem2) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem2
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem2: &outputFilesystemFilesystem2,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem3(outputFilesystemFilesystem3 OutputFilesystemFilesystem3) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem3
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem3: &outputFilesystemFilesystem3,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem4(outputFilesystemFilesystem4 OutputFilesystemFilesystem4) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem4
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem4: &outputFilesystemFilesystem4,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem5(outputFilesystemFilesystem5 OutputFilesystemFilesystem5) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem5
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem5: &outputFilesystemFilesystem5,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputFilesystemOutputFilesystemFilesystem6(outputFilesystemFilesystem6 OutputFilesystemFilesystem6) OutputFilesystem {
+	typ := OutputFilesystemTypeOutputFilesystemFilesystem6
+
+	return OutputFilesystem{
+		OutputFilesystemFilesystem6: &outputFilesystemFilesystem6,
+		Type:                        typ,
+	}
+}
+
+func (u *OutputFilesystem) UnmarshalJSON(data []byte) error {
+
+	var outputFilesystemFilesystem2 OutputFilesystemFilesystem2 = OutputFilesystemFilesystem2{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem2, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem2 = &outputFilesystemFilesystem2
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem2
+		return nil
+	}
+
+	var outputFilesystemFilesystem1 OutputFilesystemFilesystem1 = OutputFilesystemFilesystem1{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem1, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem1 = &outputFilesystemFilesystem1
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem1
+		return nil
+	}
+
+	var outputFilesystemFilesystem3 OutputFilesystemFilesystem3 = OutputFilesystemFilesystem3{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem3, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem3 = &outputFilesystemFilesystem3
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem3
+		return nil
+	}
+
+	var outputFilesystemFilesystem4 OutputFilesystemFilesystem4 = OutputFilesystemFilesystem4{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem4, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem4 = &outputFilesystemFilesystem4
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem4
+		return nil
+	}
+
+	var outputFilesystemFilesystem5 OutputFilesystemFilesystem5 = OutputFilesystemFilesystem5{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem5, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem5 = &outputFilesystemFilesystem5
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem5
+		return nil
+	}
+
+	var outputFilesystemFilesystem6 OutputFilesystemFilesystem6 = OutputFilesystemFilesystem6{}
+	if err := utils.UnmarshalJSON(data, &outputFilesystemFilesystem6, "", true, nil); err == nil {
+		u.OutputFilesystemFilesystem6 = &outputFilesystemFilesystem6
+		u.Type = OutputFilesystemTypeOutputFilesystemFilesystem6
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputFilesystem", string(data))
+}
+
+func (u OutputFilesystem) MarshalJSON() ([]byte, error) {
+	if u.OutputFilesystemFilesystem1 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem1, "", true)
+	}
+
+	if u.OutputFilesystemFilesystem2 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem2, "", true)
+	}
+
+	if u.OutputFilesystemFilesystem3 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem3, "", true)
+	}
+
+	if u.OutputFilesystemFilesystem4 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem4, "", true)
+	}
+
+	if u.OutputFilesystemFilesystem5 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem5, "", true)
+	}
+
+	if u.OutputFilesystemFilesystem6 != nil {
+		return utils.MarshalJSON(u.OutputFilesystemFilesystem6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputFilesystem: all fields are null")
 }

@@ -8,307 +8,158 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type NodeProvidedInfoTags struct {
+type Os2 struct {
+	Addresses []string `json:"addresses"`
 }
 
-type NodeProvidedInfoAws struct {
-	Enabled bool                  `json:"enabled"`
-	Region  string                `json:"region"`
-	Tags    *NodeProvidedInfoTags `json:"tags,omitempty"`
-	Type    string                `json:"type"`
-	Zone    string                `json:"zone"`
+func (o Os2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (n *NodeProvidedInfoAws) GetEnabled() bool {
-	if n == nil {
-		return false
+func (o *Os2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"addresses"}); err != nil {
+		return err
 	}
-	return n.Enabled
+	return nil
 }
 
-func (n *NodeProvidedInfoAws) GetRegion() string {
-	if n == nil {
-		return ""
+func (o *Os2) GetAddresses() []string {
+	if o == nil {
+		return []string{}
 	}
-	return n.Region
+	return o.Addresses
 }
 
-func (n *NodeProvidedInfoAws) GetTags() *NodeProvidedInfoTags {
-	if n == nil {
-		return nil
-	}
-	return n.Tags
-}
-
-func (n *NodeProvidedInfoAws) GetType() string {
-	if n == nil {
-		return ""
-	}
-	return n.Type
-}
-
-func (n *NodeProvidedInfoAws) GetZone() string {
-	if n == nil {
-		return ""
-	}
-	return n.Zone
-}
-
-type NodeProvidedInfoHostOs struct {
+type Os1 struct {
 	Addresses []string `json:"addresses"`
 	Enabled   bool     `json:"enabled"`
 	ID        string   `json:"id"`
 	Version   string   `json:"version"`
 }
 
-func (n *NodeProvidedInfoHostOs) GetAddresses() []string {
-	if n == nil {
-		return []string{}
-	}
-	return n.Addresses
+func (o Os1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (n *NodeProvidedInfoHostOs) GetEnabled() bool {
-	if n == nil {
-		return false
-	}
-	return n.Enabled
-}
-
-func (n *NodeProvidedInfoHostOs) GetID() string {
-	if n == nil {
-		return ""
-	}
-	return n.ID
-}
-
-func (n *NodeProvidedInfoHostOs) GetVersion() string {
-	if n == nil {
-		return ""
-	}
-	return n.Version
-}
-
-type NodeProvidedInfoOwner struct {
-	Kind string `json:"kind"`
-	Name string `json:"name"`
-}
-
-func (n *NodeProvidedInfoOwner) GetKind() string {
-	if n == nil {
-		return ""
-	}
-	return n.Kind
-}
-
-func (n *NodeProvidedInfoOwner) GetName() string {
-	if n == nil {
-		return ""
-	}
-	return n.Name
-}
-
-type NodeProvidedInfoKube struct {
-	Enabled   bool                   `json:"enabled"`
-	Namespace string                 `json:"namespace"`
-	Node      string                 `json:"node"`
-	Owner     *NodeProvidedInfoOwner `json:"owner,omitempty"`
-	Pod       string                 `json:"pod"`
-	Source    string                 `json:"source"`
-}
-
-func (n *NodeProvidedInfoKube) GetEnabled() bool {
-	if n == nil {
-		return false
-	}
-	return n.Enabled
-}
-
-func (n *NodeProvidedInfoKube) GetNamespace() string {
-	if n == nil {
-		return ""
-	}
-	return n.Namespace
-}
-
-func (n *NodeProvidedInfoKube) GetNode() string {
-	if n == nil {
-		return ""
-	}
-	return n.Node
-}
-
-func (n *NodeProvidedInfoKube) GetOwner() *NodeProvidedInfoOwner {
-	if n == nil {
-		return nil
-	}
-	return n.Owner
-}
-
-func (n *NodeProvidedInfoKube) GetPod() string {
-	if n == nil {
-		return ""
-	}
-	return n.Pod
-}
-
-func (n *NodeProvidedInfoKube) GetSource() string {
-	if n == nil {
-		return ""
-	}
-	return n.Source
-}
-
-type NodeProvidedInfoOs2 struct {
-	Addresses []string `json:"addresses"`
-}
-
-func (n NodeProvidedInfoOs2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NodeProvidedInfoOs2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"addresses"}); err != nil {
+func (o *Os1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"addresses", "enabled", "id", "version"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (n *NodeProvidedInfoOs2) GetAddresses() []string {
-	if n == nil {
+func (o *Os1) GetAddresses() []string {
+	if o == nil {
 		return []string{}
 	}
-	return n.Addresses
+	return o.Addresses
 }
 
-type NodeProvidedInfoOs1 struct {
-	Addresses []string `json:"addresses"`
-	Enabled   bool     `json:"enabled"`
-	ID        string   `json:"id"`
-	Version   string   `json:"version"`
-}
-
-func (n NodeProvidedInfoOs1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NodeProvidedInfoOs1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"addresses", "enabled", "id", "version"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *NodeProvidedInfoOs1) GetAddresses() []string {
-	if n == nil {
-		return []string{}
-	}
-	return n.Addresses
-}
-
-func (n *NodeProvidedInfoOs1) GetEnabled() bool {
-	if n == nil {
+func (o *Os1) GetEnabled() bool {
+	if o == nil {
 		return false
 	}
-	return n.Enabled
+	return o.Enabled
 }
 
-func (n *NodeProvidedInfoOs1) GetID() string {
-	if n == nil {
+func (o *Os1) GetID() string {
+	if o == nil {
 		return ""
 	}
-	return n.ID
+	return o.ID
 }
 
-func (n *NodeProvidedInfoOs1) GetVersion() string {
-	if n == nil {
+func (o *Os1) GetVersion() string {
+	if o == nil {
 		return ""
 	}
-	return n.Version
+	return o.Version
 }
 
-type OsType string
+type OsUnionType string
 
 const (
-	OsTypeNodeProvidedInfoOs1 OsType = "NodeProvidedInfo_os_1"
-	OsTypeNodeProvidedInfoOs2 OsType = "NodeProvidedInfo_os_2"
+	OsUnionTypeOs1 OsUnionType = "os_1"
+	OsUnionTypeOs2 OsUnionType = "os_2"
 )
 
-type Os struct {
-	NodeProvidedInfoOs1 *NodeProvidedInfoOs1 `queryParam:"inline,name=os"`
-	NodeProvidedInfoOs2 *NodeProvidedInfoOs2 `queryParam:"inline,name=os"`
+type OsUnion struct {
+	Os1 *Os1 `queryParam:"inline,name=os"`
+	Os2 *Os2 `queryParam:"inline,name=os"`
 
-	Type OsType
+	Type OsUnionType
 }
 
-func CreateOsNodeProvidedInfoOs1(nodeProvidedInfoOs1 NodeProvidedInfoOs1) Os {
-	typ := OsTypeNodeProvidedInfoOs1
+func CreateOsUnionOs1(os1 Os1) OsUnion {
+	typ := OsUnionTypeOs1
 
-	return Os{
-		NodeProvidedInfoOs1: &nodeProvidedInfoOs1,
-		Type:                typ,
+	return OsUnion{
+		Os1:  &os1,
+		Type: typ,
 	}
 }
 
-func CreateOsNodeProvidedInfoOs2(nodeProvidedInfoOs2 NodeProvidedInfoOs2) Os {
-	typ := OsTypeNodeProvidedInfoOs2
+func CreateOsUnionOs2(os2 Os2) OsUnion {
+	typ := OsUnionTypeOs2
 
-	return Os{
-		NodeProvidedInfoOs2: &nodeProvidedInfoOs2,
-		Type:                typ,
+	return OsUnion{
+		Os2:  &os2,
+		Type: typ,
 	}
 }
 
-func (u *Os) UnmarshalJSON(data []byte) error {
+func (u *OsUnion) UnmarshalJSON(data []byte) error {
 
-	var nodeProvidedInfoOs1 NodeProvidedInfoOs1 = NodeProvidedInfoOs1{}
-	if err := utils.UnmarshalJSON(data, &nodeProvidedInfoOs1, "", true, nil); err == nil {
-		u.NodeProvidedInfoOs1 = &nodeProvidedInfoOs1
-		u.Type = OsTypeNodeProvidedInfoOs1
+	var os1 Os1 = Os1{}
+	if err := utils.UnmarshalJSON(data, &os1, "", true, nil); err == nil {
+		u.Os1 = &os1
+		u.Type = OsUnionTypeOs1
 		return nil
 	}
 
-	var nodeProvidedInfoOs2 NodeProvidedInfoOs2 = NodeProvidedInfoOs2{}
-	if err := utils.UnmarshalJSON(data, &nodeProvidedInfoOs2, "", true, nil); err == nil {
-		u.NodeProvidedInfoOs2 = &nodeProvidedInfoOs2
-		u.Type = OsTypeNodeProvidedInfoOs2
+	var os2 Os2 = Os2{}
+	if err := utils.UnmarshalJSON(data, &os2, "", true, nil); err == nil {
+		u.Os2 = &os2
+		u.Type = OsUnionTypeOs2
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Os", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
 }
 
-func (u Os) MarshalJSON() ([]byte, error) {
-	if u.NodeProvidedInfoOs1 != nil {
-		return utils.MarshalJSON(u.NodeProvidedInfoOs1, "", true)
+func (u OsUnion) MarshalJSON() ([]byte, error) {
+	if u.Os1 != nil {
+		return utils.MarshalJSON(u.Os1, "", true)
 	}
 
-	if u.NodeProvidedInfoOs2 != nil {
-		return utils.MarshalJSON(u.NodeProvidedInfoOs2, "", true)
+	if u.Os2 != nil {
+		return utils.MarshalJSON(u.Os2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Os: all fields are null")
+	return nil, errors.New("could not marshal union type OsUnion: all fields are null")
 }
 
 type NodeProvidedInfo struct {
-	Architecture   string                  `json:"architecture"`
-	Aws            *NodeProvidedInfoAws    `json:"aws,omitempty"`
-	ConnIP         *string                 `json:"conn_ip,omitempty"`
-	Cpus           float64                 `json:"cpus"`
-	Cribl          HBCriblInfo             `json:"cribl"`
-	FreeDiskSpace  float64                 `json:"freeDiskSpace"`
-	HostOs         *NodeProvidedInfoHostOs `json:"hostOs,omitempty"`
-	Hostname       string                  `json:"hostname"`
-	IsSaasWorker   *bool                   `json:"isSaasWorker,omitempty"`
-	Kube           *NodeProvidedInfoKube   `json:"kube,omitempty"`
-	LocalTime      *float64                `json:"localTime,omitempty"`
-	Metadata       *HeartbeatMetadata      `json:"metadata,omitempty"`
-	Node           string                  `json:"node"`
-	Os             *Os                     `json:"os,omitempty"`
-	Platform       string                  `json:"platform"`
-	Release        string                  `json:"release"`
-	TotalDiskSpace float64                 `json:"totalDiskSpace"`
-	Totalmem       float64                 `json:"totalmem"`
+	Architecture   string             `json:"architecture"`
+	Aws            *AwsType           `json:"aws,omitempty"`
+	ConnIP         *string            `json:"conn_ip,omitempty"`
+	Cpus           float64            `json:"cpus"`
+	Cribl          HBCriblInfo        `json:"cribl"`
+	Env            map[string]string  `json:"env"`
+	FreeDiskSpace  float64            `json:"freeDiskSpace"`
+	HostOs         *HostOsType        `json:"hostOs,omitempty"`
+	Hostname       string             `json:"hostname"`
+	IsSaasWorker   *bool              `json:"isSaasWorker,omitempty"`
+	Kube           *KubeType          `json:"kube,omitempty"`
+	LocalTime      *float64           `json:"localTime,omitempty"`
+	Metadata       *HeartbeatMetadata `json:"metadata,omitempty"`
+	Node           string             `json:"node"`
+	Os             *OsUnion           `json:"os,omitempty"`
+	Outpost        *OutpostNodeInfo   `json:"outpost,omitempty"`
+	Platform       string             `json:"platform"`
+	Release        string             `json:"release"`
+	TotalDiskSpace float64            `json:"totalDiskSpace"`
+	Totalmem       float64            `json:"totalmem"`
 }
 
 func (n *NodeProvidedInfo) GetArchitecture() string {
@@ -318,7 +169,7 @@ func (n *NodeProvidedInfo) GetArchitecture() string {
 	return n.Architecture
 }
 
-func (n *NodeProvidedInfo) GetAws() *NodeProvidedInfoAws {
+func (n *NodeProvidedInfo) GetAws() *AwsType {
 	if n == nil {
 		return nil
 	}
@@ -346,6 +197,13 @@ func (n *NodeProvidedInfo) GetCribl() HBCriblInfo {
 	return n.Cribl
 }
 
+func (n *NodeProvidedInfo) GetEnv() map[string]string {
+	if n == nil {
+		return map[string]string{}
+	}
+	return n.Env
+}
+
 func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {
 	if n == nil {
 		return 0.0
@@ -353,7 +211,7 @@ func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {
 	return n.FreeDiskSpace
 }
 
-func (n *NodeProvidedInfo) GetHostOs() *NodeProvidedInfoHostOs {
+func (n *NodeProvidedInfo) GetHostOs() *HostOsType {
 	if n == nil {
 		return nil
 	}
@@ -374,7 +232,7 @@ func (n *NodeProvidedInfo) GetIsSaasWorker() *bool {
 	return n.IsSaasWorker
 }
 
-func (n *NodeProvidedInfo) GetKube() *NodeProvidedInfoKube {
+func (n *NodeProvidedInfo) GetKube() *KubeType {
 	if n == nil {
 		return nil
 	}
@@ -402,11 +260,18 @@ func (n *NodeProvidedInfo) GetNode() string {
 	return n.Node
 }
 
-func (n *NodeProvidedInfo) GetOs() *Os {
+func (n *NodeProvidedInfo) GetOs() *OsUnion {
 	if n == nil {
 		return nil
 	}
 	return n.Os
+}
+
+func (n *NodeProvidedInfo) GetOutpost() *OutpostNodeInfo {
+	if n == nil {
+		return nil
+	}
+	return n.Outpost
 }
 
 func (n *NodeProvidedInfo) GetPlatform() string {

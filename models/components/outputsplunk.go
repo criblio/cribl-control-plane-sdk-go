@@ -3,279 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSplunkType string
-
-const (
-	OutputSplunkTypeSplunk OutputSplunkType = "splunk"
-)
-
-func (e OutputSplunkType) ToPointer() *OutputSplunkType {
-	return &e
-}
-func (e *OutputSplunkType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = OutputSplunkType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkType: %v", v)
-	}
-}
-
-// OutputSplunkNestedFieldSerialization - How to serialize nested fields into index-time fields
-type OutputSplunkNestedFieldSerialization string
-
-const (
-	OutputSplunkNestedFieldSerializationJSON OutputSplunkNestedFieldSerialization = "json"
-	OutputSplunkNestedFieldSerializationNone OutputSplunkNestedFieldSerialization = "none"
-)
-
-func (e OutputSplunkNestedFieldSerialization) ToPointer() *OutputSplunkNestedFieldSerialization {
-	return &e
-}
-
-type OutputSplunkMinimumTLSVersion string
-
-const (
-	OutputSplunkMinimumTLSVersionTlSv1  OutputSplunkMinimumTLSVersion = "TLSv1"
-	OutputSplunkMinimumTLSVersionTlSv11 OutputSplunkMinimumTLSVersion = "TLSv1.1"
-	OutputSplunkMinimumTLSVersionTlSv12 OutputSplunkMinimumTLSVersion = "TLSv1.2"
-	OutputSplunkMinimumTLSVersionTlSv13 OutputSplunkMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkMinimumTLSVersion) ToPointer() *OutputSplunkMinimumTLSVersion {
-	return &e
-}
-
-type OutputSplunkMaximumTLSVersion string
-
-const (
-	OutputSplunkMaximumTLSVersionTlSv1  OutputSplunkMaximumTLSVersion = "TLSv1"
-	OutputSplunkMaximumTLSVersionTlSv11 OutputSplunkMaximumTLSVersion = "TLSv1.1"
-	OutputSplunkMaximumTLSVersionTlSv12 OutputSplunkMaximumTLSVersion = "TLSv1.2"
-	OutputSplunkMaximumTLSVersionTlSv13 OutputSplunkMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkMaximumTLSVersion) ToPointer() *OutputSplunkMaximumTLSVersion {
-	return &e
-}
-
-type OutputSplunkTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                        `json:"passphrase,omitempty"`
-	MinVersion *OutputSplunkMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputSplunkMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputSplunkTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetMinVersion() *OutputSplunkMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetMaxVersion() *OutputSplunkMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputSplunkMaxS2SVersion - The highest S2S protocol version to advertise during handshake
-type OutputSplunkMaxS2SVersion string
-
-const (
-	OutputSplunkMaxS2SVersionV3 OutputSplunkMaxS2SVersion = "v3"
-	OutputSplunkMaxS2SVersionV4 OutputSplunkMaxS2SVersion = "v4"
-)
-
-func (e OutputSplunkMaxS2SVersion) ToPointer() *OutputSplunkMaxS2SVersion {
-	return &e
-}
-
-// OutputSplunkBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSplunkBackpressureBehavior string
-
-const (
-	OutputSplunkBackpressureBehaviorBlock OutputSplunkBackpressureBehavior = "block"
-	OutputSplunkBackpressureBehaviorDrop  OutputSplunkBackpressureBehavior = "drop"
-	OutputSplunkBackpressureBehaviorQueue OutputSplunkBackpressureBehavior = "queue"
-)
-
-func (e OutputSplunkBackpressureBehavior) ToPointer() *OutputSplunkBackpressureBehavior {
-	return &e
-}
-
-// OutputSplunkAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputSplunkAuthenticationMethod string
-
-const (
-	OutputSplunkAuthenticationMethodManual OutputSplunkAuthenticationMethod = "manual"
-	OutputSplunkAuthenticationMethodSecret OutputSplunkAuthenticationMethod = "secret"
-)
-
-func (e OutputSplunkAuthenticationMethod) ToPointer() *OutputSplunkAuthenticationMethod {
-	return &e
-}
-
-// OutputSplunkCompressCompression - Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-type OutputSplunkCompressCompression string
-
-const (
-	OutputSplunkCompressCompressionDisabled OutputSplunkCompressCompression = "disabled"
-	OutputSplunkCompressCompressionAuto     OutputSplunkCompressCompression = "auto"
-	OutputSplunkCompressCompressionAlways   OutputSplunkCompressCompression = "always"
-)
-
-func (e OutputSplunkCompressCompression) ToPointer() *OutputSplunkCompressCompression {
-	return &e
-}
-
-// OutputSplunkPqCompressCompression - Codec to use to compress the persisted data
-type OutputSplunkPqCompressCompression string
-
-const (
-	OutputSplunkPqCompressCompressionNone OutputSplunkPqCompressCompression = "none"
-	OutputSplunkPqCompressCompressionGzip OutputSplunkPqCompressCompression = "gzip"
-)
-
-func (e OutputSplunkPqCompressCompression) ToPointer() *OutputSplunkPqCompressCompression {
-	return &e
-}
-
-// OutputSplunkQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSplunkQueueFullBehavior string
-
-const (
-	OutputSplunkQueueFullBehaviorBlock OutputSplunkQueueFullBehavior = "block"
-	OutputSplunkQueueFullBehaviorDrop  OutputSplunkQueueFullBehavior = "drop"
-)
-
-func (e OutputSplunkQueueFullBehavior) ToPointer() *OutputSplunkQueueFullBehavior {
-	return &e
-}
-
-// OutputSplunkMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSplunkMode string
-
-const (
-	OutputSplunkModeError        OutputSplunkMode = "error"
-	OutputSplunkModeBackpressure OutputSplunkMode = "backpressure"
-	OutputSplunkModeAlways       OutputSplunkMode = "always"
-)
-
-func (e OutputSplunkMode) ToPointer() *OutputSplunkMode {
-	return &e
-}
-
-type OutputSplunkPqControls struct {
-}
-
-func (o OutputSplunkPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSplunk struct {
+type OutputSplunkSplunk8 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Unique ID for this output
 	ID   *string          `json:"id,omitempty"`
-	Type OutputSplunkType `json:"type"`
+	Type TypeSplunkOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -289,14 +27,14 @@ type OutputSplunk struct {
 	// The port to connect to on the provided host
 	Port *float64 `default:"9997" json:"port"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *OutputSplunkNestedFieldSerialization `default:"none" json:"nestedFields"`
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                           `default:"60000" json:"writeTimeout"`
-	TLS          *OutputSplunkTLSSettingsClientSide `json:"tls,omitempty"`
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -304,16 +42,24 @@ type OutputSplunk struct {
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *OutputSplunkMaxS2SVersion `default:"v3" json:"maxS2Sversion"`
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSplunkBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *OutputSplunkAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                           `json:"description,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
 	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
-	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *OutputSplunkCompressCompression `default:"disabled" json:"compress"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -321,242 +67,2738 @@ type OutputSplunk struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSplunkPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSplunkQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSplunkMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSplunkPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `default:"" json:"authToken"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
+	TextSecret string `json:"textSecret"`
 }
 
-func (o OutputSplunk) MarshalJSON() ([]byte, error) {
+func (o OutputSplunkSplunk8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+func (o *OutputSplunkSplunk8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host", "textSecret"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSplunk) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSplunk) GetType() OutputSplunkType {
-	if o == nil {
-		return OutputSplunkType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSplunk) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSplunk) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSplunk) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSplunk) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSplunk) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputSplunk) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
-
-func (o *OutputSplunk) GetNestedFields() *OutputSplunkNestedFieldSerialization {
-	if o == nil {
-		return nil
-	}
-	return o.NestedFields
-}
-
-func (o *OutputSplunk) GetThrottleRatePerSec() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ThrottleRatePerSec
-}
-
-func (o *OutputSplunk) GetConnectionTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ConnectionTimeout
-}
-
-func (o *OutputSplunk) GetWriteTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WriteTimeout
-}
-
-func (o *OutputSplunk) GetTLS() *OutputSplunkTLSSettingsClientSide {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputSplunk) GetEnableMultiMetrics() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableMultiMetrics
-}
-
-func (o *OutputSplunk) GetEnableACK() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableACK
-}
-
-func (o *OutputSplunk) GetLogFailedRequests() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LogFailedRequests
-}
-
-func (o *OutputSplunk) GetMaxS2Sversion() *OutputSplunkMaxS2SVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxS2Sversion
-}
-
-func (o *OutputSplunk) GetOnBackpressure() *OutputSplunkBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputSplunk) GetAuthType() *OutputSplunkAuthenticationMethod {
+func (o *OutputSplunkSplunk8) GetAuthType() *AuthType2Options {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputSplunk) GetDescription() *string {
+func (o *OutputSplunkSplunk8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk8) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk8) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk8) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk8) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk8) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk8) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk8) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk8) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk8) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk8) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk8) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk8) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk8) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSplunk) GetMaxFailedHealthChecks() *float64 {
+func (o *OutputSplunkSplunk8) GetMaxFailedHealthChecks() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFailedHealthChecks
 }
 
-func (o *OutputSplunk) GetCompress() *OutputSplunkCompressCompression {
+func (o *OutputSplunkSplunk8) GetCompress() *CompressOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputSplunk) GetPqMaxFileSize() *string {
+func (o *OutputSplunkSplunk8) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSplunk) GetPqMaxSize() *string {
+func (o *OutputSplunkSplunk8) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSplunk) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSplunk) GetPqCompress() *OutputSplunkPqCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSplunk) GetPqOnBackpressure() *OutputSplunkQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSplunk) GetPqMode() *OutputSplunkMode {
+func (o *OutputSplunkSplunk8) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSplunk) GetPqControls() *OutputSplunkPqControls {
+func (o *OutputSplunkSplunk8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk8) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputSplunk) GetAuthToken() *string {
+func (o *OutputSplunkSplunk8) GetAuthToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AuthToken
 }
 
-func (o *OutputSplunk) GetTextSecret() *string {
+func (o *OutputSplunkSplunk8) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk7 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk7) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk7) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk7) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk7) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk7) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk7) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk7) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk7) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk7) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk7) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk7) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk7) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk7) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk7) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk7) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk7) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk7) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
+}
+
+type OutputSplunkSplunk6 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk6) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk6) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk6) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk6) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk6) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk6) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk6) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk6) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk6) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk6) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk6) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk6) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk6) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk6) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk6) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk6) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk6) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk5) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk5) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk5) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk5) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk5) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk5) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk5) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk5) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk5) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk5) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk5) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk5) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk5) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk5) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk5) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk5) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk4 struct {
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk4) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk4) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk4) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk4) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk4) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk4) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk4) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk4) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk4) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk4) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk4) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk4) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk4) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk4) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk4) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk4) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk3 struct {
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk3) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk3) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk3) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk3) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk3) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk3) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk3) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk3) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk3) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk3) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk3) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk3) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk3) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk3) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk3) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk3) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk2 struct {
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk2) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk2) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk2) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk2) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk2) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk2) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk2) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk2) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk2) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk2) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk2) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk2) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk2) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk2) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk2) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk2) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkSplunk1 struct {
+	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+	EnableACK *bool `default:"true" json:"enableACK"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type TypeSplunkOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port *float64 `default:"9997" json:"port"`
+	// How to serialize nested fields into index-time fields
+	NestedFields *NestedFieldsOptions `default:"none" json:"nestedFields"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64  `default:"60000" json:"writeTimeout"`
+	TLS          *Tls1Type `json:"tls,omitempty"`
+	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	// Use to troubleshoot issues with sending data
+	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SversionOptions `default:"v3" json:"maxS2Sversion"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *CompressOptions `default:"disabled" json:"compress"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// Shared secret token to use when establishing a connection to a Splunk indexer.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (o OutputSplunkSplunk1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSplunkSplunk1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSplunkSplunk1) GetEnableACK() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableACK
+}
+
+func (o *OutputSplunkSplunk1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSplunkSplunk1) GetType() TypeSplunkOption {
+	if o == nil {
+		return TypeSplunkOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSplunkSplunk1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSplunkSplunk1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSplunkSplunk1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSplunkSplunk1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSplunkSplunk1) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSplunkSplunk1) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSplunkSplunk1) GetNestedFields() *NestedFieldsOptions {
+	if o == nil {
+		return nil
+	}
+	return o.NestedFields
+}
+
+func (o *OutputSplunkSplunk1) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputSplunkSplunk1) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputSplunkSplunk1) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputSplunkSplunk1) GetTLS() *Tls1Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSplunkSplunk1) GetEnableMultiMetrics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableMultiMetrics
+}
+
+func (o *OutputSplunkSplunk1) GetLogFailedRequests() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LogFailedRequests
+}
+
+func (o *OutputSplunkSplunk1) GetMaxS2Sversion() *MaxS2SversionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MaxS2Sversion
+}
+
+func (o *OutputSplunkSplunk1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSplunkSplunk1) GetAuthType() *AuthType2Options {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSplunkSplunk1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSplunkSplunk1) GetMaxFailedHealthChecks() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFailedHealthChecks
+}
+
+func (o *OutputSplunkSplunk1) GetCompress() *CompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSplunkSplunk1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSplunkSplunk1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSplunkSplunk1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSplunkSplunk1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSplunkSplunk1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSplunkSplunk1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSplunkSplunk1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSplunkSplunk1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSplunkSplunk1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSplunkSplunk1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSplunkSplunk1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSplunkSplunk1) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkSplunk1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+type OutputSplunkType string
+
+const (
+	OutputSplunkTypeOutputSplunkSplunk1 OutputSplunkType = "OutputSplunk_Splunk_1"
+	OutputSplunkTypeOutputSplunkSplunk2 OutputSplunkType = "OutputSplunk_Splunk_2"
+	OutputSplunkTypeOutputSplunkSplunk3 OutputSplunkType = "OutputSplunk_Splunk_3"
+	OutputSplunkTypeOutputSplunkSplunk4 OutputSplunkType = "OutputSplunk_Splunk_4"
+	OutputSplunkTypeOutputSplunkSplunk5 OutputSplunkType = "OutputSplunk_Splunk_5"
+	OutputSplunkTypeOutputSplunkSplunk6 OutputSplunkType = "OutputSplunk_Splunk_6"
+	OutputSplunkTypeOutputSplunkSplunk7 OutputSplunkType = "OutputSplunk_Splunk_7"
+	OutputSplunkTypeOutputSplunkSplunk8 OutputSplunkType = "OutputSplunk_Splunk_8"
+)
+
+type OutputSplunk struct {
+	OutputSplunkSplunk1 *OutputSplunkSplunk1 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk2 *OutputSplunkSplunk2 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk3 *OutputSplunkSplunk3 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk4 *OutputSplunkSplunk4 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk5 *OutputSplunkSplunk5 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk6 *OutputSplunkSplunk6 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk7 *OutputSplunkSplunk7 `queryParam:"inline,name=OutputSplunk"`
+	OutputSplunkSplunk8 *OutputSplunkSplunk8 `queryParam:"inline,name=OutputSplunk"`
+
+	Type OutputSplunkType
+}
+
+func CreateOutputSplunkOutputSplunkSplunk1(outputSplunkSplunk1 OutputSplunkSplunk1) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk1
+
+	return OutputSplunk{
+		OutputSplunkSplunk1: &outputSplunkSplunk1,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk2(outputSplunkSplunk2 OutputSplunkSplunk2) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk2
+
+	return OutputSplunk{
+		OutputSplunkSplunk2: &outputSplunkSplunk2,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk3(outputSplunkSplunk3 OutputSplunkSplunk3) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk3
+
+	return OutputSplunk{
+		OutputSplunkSplunk3: &outputSplunkSplunk3,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk4(outputSplunkSplunk4 OutputSplunkSplunk4) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk4
+
+	return OutputSplunk{
+		OutputSplunkSplunk4: &outputSplunkSplunk4,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk5(outputSplunkSplunk5 OutputSplunkSplunk5) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk5
+
+	return OutputSplunk{
+		OutputSplunkSplunk5: &outputSplunkSplunk5,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk6(outputSplunkSplunk6 OutputSplunkSplunk6) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk6
+
+	return OutputSplunk{
+		OutputSplunkSplunk6: &outputSplunkSplunk6,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk7(outputSplunkSplunk7 OutputSplunkSplunk7) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk7
+
+	return OutputSplunk{
+		OutputSplunkSplunk7: &outputSplunkSplunk7,
+		Type:                typ,
+	}
+}
+
+func CreateOutputSplunkOutputSplunkSplunk8(outputSplunkSplunk8 OutputSplunkSplunk8) OutputSplunk {
+	typ := OutputSplunkTypeOutputSplunkSplunk8
+
+	return OutputSplunk{
+		OutputSplunkSplunk8: &outputSplunkSplunk8,
+		Type:                typ,
+	}
+}
+
+func (u *OutputSplunk) UnmarshalJSON(data []byte) error {
+
+	var outputSplunkSplunk6 OutputSplunkSplunk6 = OutputSplunkSplunk6{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk6, "", true, nil); err == nil {
+		u.OutputSplunkSplunk6 = &outputSplunkSplunk6
+		u.Type = OutputSplunkTypeOutputSplunkSplunk6
+		return nil
+	}
+
+	var outputSplunkSplunk8 OutputSplunkSplunk8 = OutputSplunkSplunk8{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk8, "", true, nil); err == nil {
+		u.OutputSplunkSplunk8 = &outputSplunkSplunk8
+		u.Type = OutputSplunkTypeOutputSplunkSplunk8
+		return nil
+	}
+
+	var outputSplunkSplunk1 OutputSplunkSplunk1 = OutputSplunkSplunk1{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk1, "", true, nil); err == nil {
+		u.OutputSplunkSplunk1 = &outputSplunkSplunk1
+		u.Type = OutputSplunkTypeOutputSplunkSplunk1
+		return nil
+	}
+
+	var outputSplunkSplunk2 OutputSplunkSplunk2 = OutputSplunkSplunk2{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk2, "", true, nil); err == nil {
+		u.OutputSplunkSplunk2 = &outputSplunkSplunk2
+		u.Type = OutputSplunkTypeOutputSplunkSplunk2
+		return nil
+	}
+
+	var outputSplunkSplunk3 OutputSplunkSplunk3 = OutputSplunkSplunk3{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk3, "", true, nil); err == nil {
+		u.OutputSplunkSplunk3 = &outputSplunkSplunk3
+		u.Type = OutputSplunkTypeOutputSplunkSplunk3
+		return nil
+	}
+
+	var outputSplunkSplunk4 OutputSplunkSplunk4 = OutputSplunkSplunk4{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk4, "", true, nil); err == nil {
+		u.OutputSplunkSplunk4 = &outputSplunkSplunk4
+		u.Type = OutputSplunkTypeOutputSplunkSplunk4
+		return nil
+	}
+
+	var outputSplunkSplunk5 OutputSplunkSplunk5 = OutputSplunkSplunk5{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk5, "", true, nil); err == nil {
+		u.OutputSplunkSplunk5 = &outputSplunkSplunk5
+		u.Type = OutputSplunkTypeOutputSplunkSplunk5
+		return nil
+	}
+
+	var outputSplunkSplunk7 OutputSplunkSplunk7 = OutputSplunkSplunk7{}
+	if err := utils.UnmarshalJSON(data, &outputSplunkSplunk7, "", true, nil); err == nil {
+		u.OutputSplunkSplunk7 = &outputSplunkSplunk7
+		u.Type = OutputSplunkTypeOutputSplunkSplunk7
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSplunk", string(data))
+}
+
+func (u OutputSplunk) MarshalJSON() ([]byte, error) {
+	if u.OutputSplunkSplunk1 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk1, "", true)
+	}
+
+	if u.OutputSplunkSplunk2 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk2, "", true)
+	}
+
+	if u.OutputSplunkSplunk3 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk3, "", true)
+	}
+
+	if u.OutputSplunkSplunk4 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk4, "", true)
+	}
+
+	if u.OutputSplunkSplunk5 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk5, "", true)
+	}
+
+	if u.OutputSplunkSplunk6 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk6, "", true)
+	}
+
+	if u.OutputSplunkSplunk7 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk7, "", true)
+	}
+
+	if u.OutputSplunkSplunk8 != nil {
+		return utils.MarshalJSON(u.OutputSplunkSplunk8, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSplunk: all fields are null")
 }

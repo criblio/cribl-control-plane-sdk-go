@@ -2,30 +2,11 @@
 
 package components
 
-type AddHecTokenRequestMetadatum struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (a *AddHecTokenRequestMetadatum) GetName() string {
-	if a == nil {
-		return ""
-	}
-	return a.Name
-}
-
-func (a *AddHecTokenRequestMetadatum) GetValue() string {
-	if a == nil {
-		return ""
-	}
-	return a.Value
-}
-
 type AddHecTokenRequest struct {
-	Description *string                       `json:"description,omitempty"`
-	Enabled     *bool                         `json:"enabled,omitempty"`
-	Metadata    []AddHecTokenRequestMetadatum `json:"metadata,omitempty"`
-	Token       string                        `json:"token"`
+	Description *string         `json:"description,omitempty"`
+	Enabled     *bool           `json:"enabled,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Token       string          `json:"token"`
 }
 
 func (a *AddHecTokenRequest) GetDescription() *string {
@@ -42,7 +23,7 @@ func (a *AddHecTokenRequest) GetEnabled() *bool {
 	return a.Enabled
 }
 
-func (a *AddHecTokenRequest) GetMetadata() []AddHecTokenRequestMetadatum {
+func (a *AddHecTokenRequest) GetMetadata() []Metadata1Type {
 	if a == nil {
 		return nil
 	}

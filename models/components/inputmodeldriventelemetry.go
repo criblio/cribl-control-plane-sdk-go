@@ -4,376 +4,59 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputModelDrivenTelemetryType string
+type InputModelDrivenTelemetryType4 string
 
 const (
-	InputModelDrivenTelemetryTypeModelDrivenTelemetry InputModelDrivenTelemetryType = "model_driven_telemetry"
+	InputModelDrivenTelemetryType4ModelDrivenTelemetry InputModelDrivenTelemetryType4 = "model_driven_telemetry"
 )
 
-func (e InputModelDrivenTelemetryType) ToPointer() *InputModelDrivenTelemetryType {
+func (e InputModelDrivenTelemetryType4) ToPointer() *InputModelDrivenTelemetryType4 {
 	return &e
 }
-func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
+func (e *InputModelDrivenTelemetryType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "model_driven_telemetry":
-		*e = InputModelDrivenTelemetryType(v)
+		*e = InputModelDrivenTelemetryType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputModelDrivenTelemetryType: %v", v)
+		return fmt.Errorf("invalid value for InputModelDrivenTelemetryType4: %v", v)
 	}
 }
 
-type InputModelDrivenTelemetryConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputModelDrivenTelemetryConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputModelDrivenTelemetryConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputModelDrivenTelemetryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputModelDrivenTelemetryMode string
-
-const (
-	InputModelDrivenTelemetryModeSmart  InputModelDrivenTelemetryMode = "smart"
-	InputModelDrivenTelemetryModeAlways InputModelDrivenTelemetryMode = "always"
-)
-
-func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMode {
-	return &e
-}
-
-// InputModelDrivenTelemetryCompression - Codec to use to compress the persisted data
-type InputModelDrivenTelemetryCompression string
-
-const (
-	InputModelDrivenTelemetryCompressionNone InputModelDrivenTelemetryCompression = "none"
-	InputModelDrivenTelemetryCompressionGzip InputModelDrivenTelemetryCompression = "gzip"
-)
-
-func (e InputModelDrivenTelemetryCompression) ToPointer() *InputModelDrivenTelemetryCompression {
-	return &e
-}
-
-type InputModelDrivenTelemetryPqControls struct {
-}
-
-func (i InputModelDrivenTelemetryPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputModelDrivenTelemetryPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputModelDrivenTelemetryMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputModelDrivenTelemetryCompression `default:"none" json:"compress"`
-	PqControls *InputModelDrivenTelemetryPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputModelDrivenTelemetryPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMode() *InputModelDrivenTelemetryMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputModelDrivenTelemetryPq) GetCompress() *InputModelDrivenTelemetryCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputModelDrivenTelemetryPq) GetPqControls() *InputModelDrivenTelemetryPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputModelDrivenTelemetryMinimumTLSVersion string
-
-const (
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv1  InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv11 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.1"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv12 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.2"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv13 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputModelDrivenTelemetryMinimumTLSVersion) ToPointer() *InputModelDrivenTelemetryMinimumTLSVersion {
-	return &e
-}
-
-type InputModelDrivenTelemetryMaximumTLSVersion string
-
-const (
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv1  InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv11 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.1"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv12 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.2"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv13 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputModelDrivenTelemetryMaximumTLSVersion) ToPointer() *InputModelDrivenTelemetryMaximumTLSVersion {
-	return &e
-}
-
-type InputModelDrivenTelemetryTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                                       `default:"false" json:"requestCert"`
-	RejectUnauthorized any                                         `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                                         `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputModelDrivenTelemetryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputModelDrivenTelemetryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputModelDrivenTelemetryTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetMinVersion() *InputModelDrivenTelemetryMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetMaxVersion() *InputModelDrivenTelemetryMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputModelDrivenTelemetryMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputModelDrivenTelemetryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputModelDrivenTelemetry struct {
+type InputModelDrivenTelemetryModelDrivenTelemetry4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitempty"`
-	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `default:"false" json:"disabled"`
+	ID       *string                        `json:"id,omitempty"`
+	Type     InputModelDrivenTelemetryType4 `json:"type"`
+	Disabled *bool                          `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputModelDrivenTelemetryConnection `json:"connections,omitempty"`
-	Pq          *InputModelDrivenTelemetryPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port *float64                                        `default:"57000" json:"port"`
-	TLS  *InputModelDrivenTelemetryTLSSettingsServerSide `json:"tls,omitempty"`
+	Port *float64  `default:"57000" json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputModelDrivenTelemetryMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -381,132 +64,794 @@ type InputModelDrivenTelemetry struct {
 	Description       *string  `json:"description,omitempty"`
 }
 
-func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
+func (i InputModelDrivenTelemetryModelDrivenTelemetry4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetry) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputModelDrivenTelemetry) GetType() InputModelDrivenTelemetryType {
-	if i == nil {
-		return InputModelDrivenTelemetryType("")
-	}
-	return i.Type
-}
-
-func (i *InputModelDrivenTelemetry) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputModelDrivenTelemetry) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputModelDrivenTelemetry) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputModelDrivenTelemetry) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputModelDrivenTelemetry) GetPqEnabled() *bool {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputModelDrivenTelemetry) GetStreamtags() []string {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetType() InputModelDrivenTelemetryType4 {
+	if i == nil {
+		return InputModelDrivenTelemetryType4("")
+	}
+	return i.Type
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetry) GetConnections() []InputModelDrivenTelemetryConnection {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputModelDrivenTelemetry) GetPq() *InputModelDrivenTelemetryPq {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputModelDrivenTelemetry) GetHost() *string {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetry) GetPort() *float64 {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputModelDrivenTelemetry) GetTLS() *InputModelDrivenTelemetryTLSSettingsServerSide {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetTLS() *Tls2Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetry) GetMetadata() []InputModelDrivenTelemetryMetadatum {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputModelDrivenTelemetry) GetMaxActiveCxn() *float64 {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputModelDrivenTelemetry) GetShutdownTimeoutMs() *float64 {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetShutdownTimeoutMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ShutdownTimeoutMs
 }
 
-func (i *InputModelDrivenTelemetry) GetDescription() *string {
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputModelDrivenTelemetryType3 string
+
+const (
+	InputModelDrivenTelemetryType3ModelDrivenTelemetry InputModelDrivenTelemetryType3 = "model_driven_telemetry"
+)
+
+func (e InputModelDrivenTelemetryType3) ToPointer() *InputModelDrivenTelemetryType3 {
+	return &e
+}
+func (e *InputModelDrivenTelemetryType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "model_driven_telemetry":
+		*e = InputModelDrivenTelemetryType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputModelDrivenTelemetryType3: %v", v)
+	}
+}
+
+type InputModelDrivenTelemetryModelDrivenTelemetry3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                        `json:"id,omitempty"`
+	Type     InputModelDrivenTelemetryType3 `json:"type"`
+	Disabled *bool                          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64  `default:"57000" json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	Description       *string  `json:"description,omitempty"`
+}
+
+func (i InputModelDrivenTelemetryModelDrivenTelemetry3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetType() InputModelDrivenTelemetryType3 {
+	if i == nil {
+		return InputModelDrivenTelemetryType3("")
+	}
+	return i.Type
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetShutdownTimeoutMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ShutdownTimeoutMs
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputModelDrivenTelemetryType2 string
+
+const (
+	InputModelDrivenTelemetryType2ModelDrivenTelemetry InputModelDrivenTelemetryType2 = "model_driven_telemetry"
+)
+
+func (e InputModelDrivenTelemetryType2) ToPointer() *InputModelDrivenTelemetryType2 {
+	return &e
+}
+func (e *InputModelDrivenTelemetryType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "model_driven_telemetry":
+		*e = InputModelDrivenTelemetryType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputModelDrivenTelemetryType2: %v", v)
+	}
+}
+
+type InputModelDrivenTelemetryModelDrivenTelemetry2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                        `json:"id,omitempty"`
+	Type     InputModelDrivenTelemetryType2 `json:"type"`
+	Disabled *bool                          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64  `default:"57000" json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	Description       *string  `json:"description,omitempty"`
+}
+
+func (i InputModelDrivenTelemetryModelDrivenTelemetry2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetType() InputModelDrivenTelemetryType2 {
+	if i == nil {
+		return InputModelDrivenTelemetryType2("")
+	}
+	return i.Type
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetShutdownTimeoutMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ShutdownTimeoutMs
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputModelDrivenTelemetryType1 string
+
+const (
+	InputModelDrivenTelemetryType1ModelDrivenTelemetry InputModelDrivenTelemetryType1 = "model_driven_telemetry"
+)
+
+func (e InputModelDrivenTelemetryType1) ToPointer() *InputModelDrivenTelemetryType1 {
+	return &e
+}
+func (e *InputModelDrivenTelemetryType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "model_driven_telemetry":
+		*e = InputModelDrivenTelemetryType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputModelDrivenTelemetryType1: %v", v)
+	}
+}
+
+type InputModelDrivenTelemetryModelDrivenTelemetry1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                        `json:"id,omitempty"`
+	Type     InputModelDrivenTelemetryType1 `json:"type"`
+	Disabled *bool                          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64  `default:"57000" json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	Description       *string  `json:"description,omitempty"`
+}
+
+func (i InputModelDrivenTelemetryModelDrivenTelemetry1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetType() InputModelDrivenTelemetryType1 {
+	if i == nil {
+		return InputModelDrivenTelemetryType1("")
+	}
+	return i.Type
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetShutdownTimeoutMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ShutdownTimeoutMs
+}
+
+func (i *InputModelDrivenTelemetryModelDrivenTelemetry1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputModelDrivenTelemetryType string
+
+const (
+	InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry1 InputModelDrivenTelemetryType = "InputModelDrivenTelemetry_ModelDrivenTelemetry_1"
+	InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry2 InputModelDrivenTelemetryType = "InputModelDrivenTelemetry_ModelDrivenTelemetry_2"
+	InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry3 InputModelDrivenTelemetryType = "InputModelDrivenTelemetry_ModelDrivenTelemetry_3"
+	InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry4 InputModelDrivenTelemetryType = "InputModelDrivenTelemetry_ModelDrivenTelemetry_4"
+)
+
+type InputModelDrivenTelemetry struct {
+	InputModelDrivenTelemetryModelDrivenTelemetry1 *InputModelDrivenTelemetryModelDrivenTelemetry1 `queryParam:"inline,name=InputModelDrivenTelemetry"`
+	InputModelDrivenTelemetryModelDrivenTelemetry2 *InputModelDrivenTelemetryModelDrivenTelemetry2 `queryParam:"inline,name=InputModelDrivenTelemetry"`
+	InputModelDrivenTelemetryModelDrivenTelemetry3 *InputModelDrivenTelemetryModelDrivenTelemetry3 `queryParam:"inline,name=InputModelDrivenTelemetry"`
+	InputModelDrivenTelemetryModelDrivenTelemetry4 *InputModelDrivenTelemetryModelDrivenTelemetry4 `queryParam:"inline,name=InputModelDrivenTelemetry"`
+
+	Type InputModelDrivenTelemetryType
+}
+
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryModelDrivenTelemetry1(inputModelDrivenTelemetryModelDrivenTelemetry1 InputModelDrivenTelemetryModelDrivenTelemetry1) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry1
+
+	return InputModelDrivenTelemetry{
+		InputModelDrivenTelemetryModelDrivenTelemetry1: &inputModelDrivenTelemetryModelDrivenTelemetry1,
+		Type: typ,
+	}
+}
+
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryModelDrivenTelemetry2(inputModelDrivenTelemetryModelDrivenTelemetry2 InputModelDrivenTelemetryModelDrivenTelemetry2) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry2
+
+	return InputModelDrivenTelemetry{
+		InputModelDrivenTelemetryModelDrivenTelemetry2: &inputModelDrivenTelemetryModelDrivenTelemetry2,
+		Type: typ,
+	}
+}
+
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryModelDrivenTelemetry3(inputModelDrivenTelemetryModelDrivenTelemetry3 InputModelDrivenTelemetryModelDrivenTelemetry3) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry3
+
+	return InputModelDrivenTelemetry{
+		InputModelDrivenTelemetryModelDrivenTelemetry3: &inputModelDrivenTelemetryModelDrivenTelemetry3,
+		Type: typ,
+	}
+}
+
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryModelDrivenTelemetry4(inputModelDrivenTelemetryModelDrivenTelemetry4 InputModelDrivenTelemetryModelDrivenTelemetry4) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry4
+
+	return InputModelDrivenTelemetry{
+		InputModelDrivenTelemetryModelDrivenTelemetry4: &inputModelDrivenTelemetryModelDrivenTelemetry4,
+		Type: typ,
+	}
+}
+
+func (u *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
+
+	var inputModelDrivenTelemetryModelDrivenTelemetry2 InputModelDrivenTelemetryModelDrivenTelemetry2 = InputModelDrivenTelemetryModelDrivenTelemetry2{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryModelDrivenTelemetry2, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetryModelDrivenTelemetry2 = &inputModelDrivenTelemetryModelDrivenTelemetry2
+		u.Type = InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry2
+		return nil
+	}
+
+	var inputModelDrivenTelemetryModelDrivenTelemetry4 InputModelDrivenTelemetryModelDrivenTelemetry4 = InputModelDrivenTelemetryModelDrivenTelemetry4{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryModelDrivenTelemetry4, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetryModelDrivenTelemetry4 = &inputModelDrivenTelemetryModelDrivenTelemetry4
+		u.Type = InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry4
+		return nil
+	}
+
+	var inputModelDrivenTelemetryModelDrivenTelemetry1 InputModelDrivenTelemetryModelDrivenTelemetry1 = InputModelDrivenTelemetryModelDrivenTelemetry1{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryModelDrivenTelemetry1, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetryModelDrivenTelemetry1 = &inputModelDrivenTelemetryModelDrivenTelemetry1
+		u.Type = InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry1
+		return nil
+	}
+
+	var inputModelDrivenTelemetryModelDrivenTelemetry3 InputModelDrivenTelemetryModelDrivenTelemetry3 = InputModelDrivenTelemetryModelDrivenTelemetry3{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryModelDrivenTelemetry3, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetryModelDrivenTelemetry3 = &inputModelDrivenTelemetryModelDrivenTelemetry3
+		u.Type = InputModelDrivenTelemetryTypeInputModelDrivenTelemetryModelDrivenTelemetry3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputModelDrivenTelemetry", string(data))
+}
+
+func (u InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
+	if u.InputModelDrivenTelemetryModelDrivenTelemetry1 != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetryModelDrivenTelemetry1, "", true)
+	}
+
+	if u.InputModelDrivenTelemetryModelDrivenTelemetry2 != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetryModelDrivenTelemetry2, "", true)
+	}
+
+	if u.InputModelDrivenTelemetryModelDrivenTelemetry3 != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetryModelDrivenTelemetry3, "", true)
+	}
+
+	if u.InputModelDrivenTelemetryModelDrivenTelemetry4 != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetryModelDrivenTelemetry4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputModelDrivenTelemetry: all fields are null")
 }

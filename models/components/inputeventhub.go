@@ -4,308 +4,52 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputEventhubType string
+type InputEventhubType4 string
 
 const (
-	InputEventhubTypeEventhub InputEventhubType = "eventhub"
+	InputEventhubType4Eventhub InputEventhubType4 = "eventhub"
 )
 
-func (e InputEventhubType) ToPointer() *InputEventhubType {
+func (e InputEventhubType4) ToPointer() *InputEventhubType4 {
 	return &e
 }
-func (e *InputEventhubType) UnmarshalJSON(data []byte) error {
+func (e *InputEventhubType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "eventhub":
-		*e = InputEventhubType(v)
+		*e = InputEventhubType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputEventhubType: %v", v)
+		return fmt.Errorf("invalid value for InputEventhubType4: %v", v)
 	}
 }
 
-type InputEventhubConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputEventhubConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEventhubConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputEventhubMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputEventhubMode string
-
-const (
-	InputEventhubModeSmart  InputEventhubMode = "smart"
-	InputEventhubModeAlways InputEventhubMode = "always"
-)
-
-func (e InputEventhubMode) ToPointer() *InputEventhubMode {
-	return &e
-}
-
-// InputEventhubCompression - Codec to use to compress the persisted data
-type InputEventhubCompression string
-
-const (
-	InputEventhubCompressionNone InputEventhubCompression = "none"
-	InputEventhubCompressionGzip InputEventhubCompression = "gzip"
-)
-
-func (e InputEventhubCompression) ToPointer() *InputEventhubCompression {
-	return &e
-}
-
-type InputEventhubPqControls struct {
-}
-
-func (i InputEventhubPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputEventhubPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputEventhubMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputEventhubCompression `default:"none" json:"compress"`
-	PqControls *InputEventhubPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputEventhubPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubPq) GetMode() *InputEventhubMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputEventhubPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputEventhubPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputEventhubPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputEventhubPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputEventhubPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputEventhubPq) GetCompress() *InputEventhubCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputEventhubPq) GetPqControls() *InputEventhubPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputEventhubSASLMechanism string
-
-const (
-	InputEventhubSASLMechanismPlain       InputEventhubSASLMechanism = "plain"
-	InputEventhubSASLMechanismOauthbearer InputEventhubSASLMechanism = "oauthbearer"
-)
-
-func (e InputEventhubSASLMechanism) ToPointer() *InputEventhubSASLMechanism {
-	return &e
-}
-
-// InputEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-type InputEventhubAuthentication struct {
-	Disabled  *bool                       `default:"false" json:"disabled"`
-	Mechanism *InputEventhubSASLMechanism `default:"plain" json:"mechanism"`
-}
-
-func (i InputEventhubAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubAuthentication) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubAuthentication) GetMechanism() *InputEventhubSASLMechanism {
-	if i == nil {
-		return nil
-	}
-	return i.Mechanism
-}
-
-type InputEventhubTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-}
-
-func (i InputEventhubTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubTLSSettingsClientSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-type InputEventhubMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputEventhubMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputEventhubMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputEventhub struct {
+type InputEventhubEventhub4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputEventhubType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	ID       *string            `json:"id,omitempty"`
+	Type     InputEventhubType4 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputEventhubConnection `json:"connections,omitempty"`
-	Pq          *InputEventhubPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -331,8 +75,8 @@ type InputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *InputEventhubAuthentication        `json:"sasl,omitempty"`
-	TLS  *InputEventhubTLSSettingsClientSide `json:"tls,omitempty"`
+	Sasl *Sasl1Type `json:"sasl,omitempty"`
+	TLS  *Tls3Type  `json:"tls,omitempty"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be lower than rebalanceTimeout.
@@ -359,262 +103,1431 @@ type InputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `default:"false" json:"minimizeDuplicates"`
 	// Fields to add to events from this input
-	Metadata    []InputEventhubMetadatum `json:"metadata,omitempty"`
-	Description *string                  `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputEventhub) MarshalJSON() ([]byte, error) {
+func (i InputEventhubEventhub4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEventhub) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+func (i *InputEventhubEventhub4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhub) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEventhub) GetType() InputEventhubType {
-	if i == nil {
-		return InputEventhubType("")
-	}
-	return i.Type
-}
-
-func (i *InputEventhub) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhub) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEventhub) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEventhub) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEventhub) GetPqEnabled() *bool {
+func (i *InputEventhubEventhub4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEventhub) GetStreamtags() []string {
+func (i *InputEventhubEventhub4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubEventhub4) GetType() InputEventhubType4 {
+	if i == nil {
+		return InputEventhubType4("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubEventhub4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubEventhub4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubEventhub4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubEventhub4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubEventhub4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEventhub) GetConnections() []InputEventhubConnection {
+func (i *InputEventhubEventhub4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEventhub) GetPq() *InputEventhubPq {
+func (i *InputEventhubEventhub4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputEventhub) GetBrokers() []string {
+func (i *InputEventhubEventhub4) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputEventhub) GetTopics() []string {
+func (i *InputEventhubEventhub4) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputEventhub) GetGroupID() *string {
+func (i *InputEventhubEventhub4) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputEventhub) GetFromBeginning() *bool {
+func (i *InputEventhubEventhub4) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputEventhub) GetConnectionTimeout() *float64 {
+func (i *InputEventhubEventhub4) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputEventhub) GetRequestTimeout() *float64 {
+func (i *InputEventhubEventhub4) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputEventhub) GetMaxRetries() *float64 {
+func (i *InputEventhubEventhub4) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputEventhub) GetMaxBackOff() *float64 {
+func (i *InputEventhubEventhub4) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputEventhub) GetInitialBackoff() *float64 {
+func (i *InputEventhubEventhub4) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputEventhub) GetBackoffRate() *float64 {
+func (i *InputEventhubEventhub4) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputEventhub) GetAuthenticationTimeout() *float64 {
+func (i *InputEventhubEventhub4) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputEventhub) GetReauthenticationThreshold() *float64 {
+func (i *InputEventhubEventhub4) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhub) GetSasl() *InputEventhubAuthentication {
+func (i *InputEventhubEventhub4) GetSasl() *Sasl1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhub) GetTLS() *InputEventhubTLSSettingsClientSide {
+func (i *InputEventhubEventhub4) GetTLS() *Tls3Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputEventhub) GetSessionTimeout() *float64 {
+func (i *InputEventhubEventhub4) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputEventhub) GetRebalanceTimeout() *float64 {
+func (i *InputEventhubEventhub4) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputEventhub) GetHeartbeatInterval() *float64 {
+func (i *InputEventhubEventhub4) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputEventhub) GetAutoCommitInterval() *float64 {
+func (i *InputEventhubEventhub4) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputEventhub) GetAutoCommitThreshold() *float64 {
+func (i *InputEventhubEventhub4) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputEventhub) GetMaxBytesPerPartition() *float64 {
+func (i *InputEventhubEventhub4) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputEventhub) GetMaxBytes() *float64 {
+func (i *InputEventhubEventhub4) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputEventhub) GetMaxSocketErrors() *float64 {
+func (i *InputEventhubEventhub4) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputEventhub) GetMinimizeDuplicates() *bool {
+func (i *InputEventhubEventhub4) GetMinimizeDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhub) GetMetadata() []InputEventhubMetadatum {
+func (i *InputEventhubEventhub4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEventhub) GetDescription() *string {
+func (i *InputEventhubEventhub4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputEventhubType3 string
+
+const (
+	InputEventhubType3Eventhub InputEventhubType3 = "eventhub"
+)
+
+func (e InputEventhubType3) ToPointer() *InputEventhubType3 {
+	return &e
+}
+func (e *InputEventhubType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "eventhub":
+		*e = InputEventhubType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputEventhubType3: %v", v)
+	}
+}
+
+type InputEventhubEventhub3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputEventhubType3 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+	Brokers []string `json:"brokers"`
+	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+	Topics []string `json:"topics"`
+	// The consumer group this instance belongs to. Default is 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Start reading from earliest available data; relevant only during initial subscription
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *Sasl1Type `json:"sasl,omitempty"`
+	TLS  *Tls3Type  `json:"tls,omitempty"`
+	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be lower than rebalanceTimeout.
+	//       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Minimize duplicate events by starting only one consumer for each topic partition
+	MinimizeDuplicates *bool `default:"false" json:"minimizeDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputEventhubEventhub3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubEventhub3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubEventhub3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEventhubEventhub3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubEventhub3) GetType() InputEventhubType3 {
+	if i == nil {
+		return InputEventhubType3("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubEventhub3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubEventhub3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubEventhub3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubEventhub3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubEventhub3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubEventhub3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputEventhubEventhub3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputEventhubEventhub3) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputEventhubEventhub3) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputEventhubEventhub3) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputEventhubEventhub3) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputEventhubEventhub3) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputEventhubEventhub3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputEventhubEventhub3) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputEventhubEventhub3) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputEventhubEventhub3) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputEventhubEventhub3) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputEventhubEventhub3) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputEventhubEventhub3) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputEventhubEventhub3) GetSasl() *Sasl1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputEventhubEventhub3) GetTLS() *Tls3Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputEventhubEventhub3) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputEventhubEventhub3) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputEventhubEventhub3) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputEventhubEventhub3) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputEventhubEventhub3) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputEventhubEventhub3) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputEventhubEventhub3) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputEventhubEventhub3) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputEventhubEventhub3) GetMinimizeDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.MinimizeDuplicates
+}
+
+func (i *InputEventhubEventhub3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputEventhubEventhub3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputEventhubType2 string
+
+const (
+	InputEventhubType2Eventhub InputEventhubType2 = "eventhub"
+)
+
+func (e InputEventhubType2) ToPointer() *InputEventhubType2 {
+	return &e
+}
+func (e *InputEventhubType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "eventhub":
+		*e = InputEventhubType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputEventhubType2: %v", v)
+	}
+}
+
+type InputEventhubEventhub2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputEventhubType2 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+	Brokers []string `json:"brokers"`
+	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+	Topics []string `json:"topics"`
+	// The consumer group this instance belongs to. Default is 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Start reading from earliest available data; relevant only during initial subscription
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *Sasl1Type `json:"sasl,omitempty"`
+	TLS  *Tls3Type  `json:"tls,omitempty"`
+	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be lower than rebalanceTimeout.
+	//       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Minimize duplicate events by starting only one consumer for each topic partition
+	MinimizeDuplicates *bool `default:"false" json:"minimizeDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputEventhubEventhub2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubEventhub2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubEventhub2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubEventhub2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubEventhub2) GetType() InputEventhubType2 {
+	if i == nil {
+		return InputEventhubType2("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubEventhub2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubEventhub2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubEventhub2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubEventhub2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEventhubEventhub2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubEventhub2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputEventhubEventhub2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputEventhubEventhub2) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputEventhubEventhub2) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputEventhubEventhub2) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputEventhubEventhub2) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputEventhubEventhub2) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputEventhubEventhub2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputEventhubEventhub2) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputEventhubEventhub2) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputEventhubEventhub2) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputEventhubEventhub2) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputEventhubEventhub2) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputEventhubEventhub2) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputEventhubEventhub2) GetSasl() *Sasl1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputEventhubEventhub2) GetTLS() *Tls3Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputEventhubEventhub2) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputEventhubEventhub2) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputEventhubEventhub2) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputEventhubEventhub2) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputEventhubEventhub2) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputEventhubEventhub2) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputEventhubEventhub2) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputEventhubEventhub2) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputEventhubEventhub2) GetMinimizeDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.MinimizeDuplicates
+}
+
+func (i *InputEventhubEventhub2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputEventhubEventhub2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputEventhubType1 string
+
+const (
+	InputEventhubType1Eventhub InputEventhubType1 = "eventhub"
+)
+
+func (e InputEventhubType1) ToPointer() *InputEventhubType1 {
+	return &e
+}
+func (e *InputEventhubType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "eventhub":
+		*e = InputEventhubType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputEventhubType1: %v", v)
+	}
+}
+
+type InputEventhubEventhub1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputEventhubType1 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+	Brokers []string `json:"brokers"`
+	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+	Topics []string `json:"topics"`
+	// The consumer group this instance belongs to. Default is 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Start reading from earliest available data; relevant only during initial subscription
+	FromBeginning *bool `default:"true" json:"fromBeginning"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *Sasl1Type `json:"sasl,omitempty"`
+	TLS  *Tls3Type  `json:"tls,omitempty"`
+	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be lower than rebalanceTimeout.
+	//       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Minimize duplicate events by starting only one consumer for each topic partition
+	MinimizeDuplicates *bool `default:"false" json:"minimizeDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputEventhubEventhub1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubEventhub1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubEventhub1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubEventhub1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubEventhub1) GetType() InputEventhubType1 {
+	if i == nil {
+		return InputEventhubType1("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubEventhub1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubEventhub1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubEventhub1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubEventhub1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEventhubEventhub1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubEventhub1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputEventhubEventhub1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputEventhubEventhub1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputEventhubEventhub1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputEventhubEventhub1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputEventhubEventhub1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputEventhubEventhub1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputEventhubEventhub1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputEventhubEventhub1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputEventhubEventhub1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputEventhubEventhub1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputEventhubEventhub1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputEventhubEventhub1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputEventhubEventhub1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputEventhubEventhub1) GetSasl() *Sasl1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputEventhubEventhub1) GetTLS() *Tls3Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputEventhubEventhub1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputEventhubEventhub1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputEventhubEventhub1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputEventhubEventhub1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputEventhubEventhub1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputEventhubEventhub1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputEventhubEventhub1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputEventhubEventhub1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputEventhubEventhub1) GetMinimizeDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.MinimizeDuplicates
+}
+
+func (i *InputEventhubEventhub1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputEventhubEventhub1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputEventhubType string
+
+const (
+	InputEventhubTypeInputEventhubEventhub1 InputEventhubType = "InputEventhub_Eventhub_1"
+	InputEventhubTypeInputEventhubEventhub2 InputEventhubType = "InputEventhub_Eventhub_2"
+	InputEventhubTypeInputEventhubEventhub3 InputEventhubType = "InputEventhub_Eventhub_3"
+	InputEventhubTypeInputEventhubEventhub4 InputEventhubType = "InputEventhub_Eventhub_4"
+)
+
+type InputEventhub struct {
+	InputEventhubEventhub1 *InputEventhubEventhub1 `queryParam:"inline,name=InputEventhub"`
+	InputEventhubEventhub2 *InputEventhubEventhub2 `queryParam:"inline,name=InputEventhub"`
+	InputEventhubEventhub3 *InputEventhubEventhub3 `queryParam:"inline,name=InputEventhub"`
+	InputEventhubEventhub4 *InputEventhubEventhub4 `queryParam:"inline,name=InputEventhub"`
+
+	Type InputEventhubType
+}
+
+func CreateInputEventhubInputEventhubEventhub1(inputEventhubEventhub1 InputEventhubEventhub1) InputEventhub {
+	typ := InputEventhubTypeInputEventhubEventhub1
+
+	return InputEventhub{
+		InputEventhubEventhub1: &inputEventhubEventhub1,
+		Type:                   typ,
+	}
+}
+
+func CreateInputEventhubInputEventhubEventhub2(inputEventhubEventhub2 InputEventhubEventhub2) InputEventhub {
+	typ := InputEventhubTypeInputEventhubEventhub2
+
+	return InputEventhub{
+		InputEventhubEventhub2: &inputEventhubEventhub2,
+		Type:                   typ,
+	}
+}
+
+func CreateInputEventhubInputEventhubEventhub3(inputEventhubEventhub3 InputEventhubEventhub3) InputEventhub {
+	typ := InputEventhubTypeInputEventhubEventhub3
+
+	return InputEventhub{
+		InputEventhubEventhub3: &inputEventhubEventhub3,
+		Type:                   typ,
+	}
+}
+
+func CreateInputEventhubInputEventhubEventhub4(inputEventhubEventhub4 InputEventhubEventhub4) InputEventhub {
+	typ := InputEventhubTypeInputEventhubEventhub4
+
+	return InputEventhub{
+		InputEventhubEventhub4: &inputEventhubEventhub4,
+		Type:                   typ,
+	}
+}
+
+func (u *InputEventhub) UnmarshalJSON(data []byte) error {
+
+	var inputEventhubEventhub2 InputEventhubEventhub2 = InputEventhubEventhub2{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubEventhub2, "", true, nil); err == nil {
+		u.InputEventhubEventhub2 = &inputEventhubEventhub2
+		u.Type = InputEventhubTypeInputEventhubEventhub2
+		return nil
+	}
+
+	var inputEventhubEventhub4 InputEventhubEventhub4 = InputEventhubEventhub4{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubEventhub4, "", true, nil); err == nil {
+		u.InputEventhubEventhub4 = &inputEventhubEventhub4
+		u.Type = InputEventhubTypeInputEventhubEventhub4
+		return nil
+	}
+
+	var inputEventhubEventhub1 InputEventhubEventhub1 = InputEventhubEventhub1{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubEventhub1, "", true, nil); err == nil {
+		u.InputEventhubEventhub1 = &inputEventhubEventhub1
+		u.Type = InputEventhubTypeInputEventhubEventhub1
+		return nil
+	}
+
+	var inputEventhubEventhub3 InputEventhubEventhub3 = InputEventhubEventhub3{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubEventhub3, "", true, nil); err == nil {
+		u.InputEventhubEventhub3 = &inputEventhubEventhub3
+		u.Type = InputEventhubTypeInputEventhubEventhub3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputEventhub", string(data))
+}
+
+func (u InputEventhub) MarshalJSON() ([]byte, error) {
+	if u.InputEventhubEventhub1 != nil {
+		return utils.MarshalJSON(u.InputEventhubEventhub1, "", true)
+	}
+
+	if u.InputEventhubEventhub2 != nil {
+		return utils.MarshalJSON(u.InputEventhubEventhub2, "", true)
+	}
+
+	if u.InputEventhubEventhub3 != nil {
+		return utils.MarshalJSON(u.InputEventhubEventhub3, "", true)
+	}
+
+	if u.InputEventhubEventhub4 != nil {
+		return utils.MarshalJSON(u.InputEventhubEventhub4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputEventhub: all fields are null")
 }

@@ -3,557 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type RunnableJobCollectionJobType string
-
-const (
-	RunnableJobCollectionJobTypeCollection      RunnableJobCollectionJobType = "collection"
-	RunnableJobCollectionJobTypeExecutor        RunnableJobCollectionJobType = "executor"
-	RunnableJobCollectionJobTypeScheduledSearch RunnableJobCollectionJobType = "scheduledSearch"
-)
-
-func (e RunnableJobCollectionJobType) ToPointer() *RunnableJobCollectionJobType {
-	return &e
-}
-
-type RunnableJobCollectionRunType string
-
-const (
-	RunnableJobCollectionRunTypeCollection RunnableJobCollectionRunType = "collection"
-)
-
-func (e RunnableJobCollectionRunType) ToPointer() *RunnableJobCollectionRunType {
-	return &e
-}
-func (e *RunnableJobCollectionRunType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "collection":
-		*e = RunnableJobCollectionRunType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionRunType: %v", v)
-	}
-}
-
-// RunnableJobCollectionScheduleLogLevel - Level at which to set task logging
-type RunnableJobCollectionScheduleLogLevel string
-
-const (
-	RunnableJobCollectionScheduleLogLevelError RunnableJobCollectionScheduleLogLevel = "error"
-	RunnableJobCollectionScheduleLogLevelWarn  RunnableJobCollectionScheduleLogLevel = "warn"
-	RunnableJobCollectionScheduleLogLevelInfo  RunnableJobCollectionScheduleLogLevel = "info"
-	RunnableJobCollectionScheduleLogLevelDebug RunnableJobCollectionScheduleLogLevel = "debug"
-	RunnableJobCollectionScheduleLogLevelSilly RunnableJobCollectionScheduleLogLevel = "silly"
-)
-
-func (e RunnableJobCollectionScheduleLogLevel) ToPointer() *RunnableJobCollectionScheduleLogLevel {
-	return &e
-}
-func (e *RunnableJobCollectionScheduleLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = RunnableJobCollectionScheduleLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionScheduleLogLevel: %v", v)
-	}
-}
-
-type RunnableJobCollectionScheduleTimeWarning struct {
-}
-
-func (r RunnableJobCollectionScheduleTimeWarning) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionScheduleTimeWarning) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type RunnableJobCollectionRunSettings struct {
-	Type *RunnableJobCollectionRunType `json:"type,omitempty"`
-	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
-	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
-	// Level at which to set task logging
-	LogLevel *RunnableJobCollectionScheduleLogLevel `default:"info" json:"logLevel"`
-	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
-	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          *string `default:"list" json:"mode"`
-	TimeRangeType *string `default:"relative" json:"timeRangeType"`
-	// Earliest time to collect data for the selected timezone
-	Earliest *float64 `json:"earliest,omitempty"`
-	// Latest time to collect data for the selected timezone
-	Latest            *float64                                  `json:"latest,omitempty"`
-	TimestampTimezone any                                       `json:"timestampTimezone,omitempty"`
-	TimeWarning       *RunnableJobCollectionScheduleTimeWarning `json:"timeWarning,omitempty"`
-	// A filter for tokens in the provided collect path and/or the events being collected
-	Expression *string `default:"true" json:"expression"`
-	// Limits the bundle size for small tasks. For example,
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
-	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-	MaxTaskSize *string `default:"10MB" json:"maxTaskSize"`
-}
-
-func (r RunnableJobCollectionRunSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionRunSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionRunSettings) GetType() *RunnableJobCollectionRunType {
-	if r == nil {
-		return nil
-	}
-	return r.Type
-}
-
-func (r *RunnableJobCollectionRunSettings) GetRescheduleDroppedTasks() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RescheduleDroppedTasks
-}
-
-func (r *RunnableJobCollectionRunSettings) GetMaxTaskReschedule() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxTaskReschedule
-}
-
-func (r *RunnableJobCollectionRunSettings) GetLogLevel() *RunnableJobCollectionScheduleLogLevel {
-	if r == nil {
-		return nil
-	}
-	return r.LogLevel
-}
-
-func (r *RunnableJobCollectionRunSettings) GetJobTimeout() *string {
-	if r == nil {
-		return nil
-	}
-	return r.JobTimeout
-}
-
-func (r *RunnableJobCollectionRunSettings) GetMode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Mode
-}
-
-func (r *RunnableJobCollectionRunSettings) GetTimeRangeType() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TimeRangeType
-}
-
-func (r *RunnableJobCollectionRunSettings) GetEarliest() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Earliest
-}
-
-func (r *RunnableJobCollectionRunSettings) GetLatest() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Latest
-}
-
-func (r *RunnableJobCollectionRunSettings) GetTimestampTimezone() any {
-	if r == nil {
-		return nil
-	}
-	return r.TimestampTimezone
-}
-
-func (r *RunnableJobCollectionRunSettings) GetTimeWarning() *RunnableJobCollectionScheduleTimeWarning {
-	if r == nil {
-		return nil
-	}
-	return r.TimeWarning
-}
-
-func (r *RunnableJobCollectionRunSettings) GetExpression() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Expression
-}
-
-func (r *RunnableJobCollectionRunSettings) GetMinTaskSize() *string {
-	if r == nil {
-		return nil
-	}
-	return r.MinTaskSize
-}
-
-func (r *RunnableJobCollectionRunSettings) GetMaxTaskSize() *string {
-	if r == nil {
-		return nil
-	}
-	return r.MaxTaskSize
-}
-
-// RunnableJobCollectionSchedule - Configuration for a scheduled job
-type RunnableJobCollectionSchedule struct {
-	// Enable to configure scheduling for this Collector
-	Enabled *bool `json:"enabled,omitempty"`
-	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
-	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64 `default:"1" json:"maxConcurrentRuns"`
-	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable    *bool                             `default:"true" json:"skippable"`
-	ResumeMissed any                               `json:"resumeMissed,omitempty"`
-	Run          *RunnableJobCollectionRunSettings `json:"run,omitempty"`
-}
-
-func (r RunnableJobCollectionSchedule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionSchedule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionSchedule) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-func (r *RunnableJobCollectionSchedule) GetCronSchedule() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CronSchedule
-}
-
-func (r *RunnableJobCollectionSchedule) GetMaxConcurrentRuns() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxConcurrentRuns
-}
-
-func (r *RunnableJobCollectionSchedule) GetSkippable() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Skippable
-}
-
-func (r *RunnableJobCollectionSchedule) GetResumeMissed() any {
-	if r == nil {
-		return nil
-	}
-	return r.ResumeMissed
-}
-
-func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettings {
-	if r == nil {
-		return nil
-	}
-	return r.Run
-}
-
-type CollectorSpecificSettings struct {
-}
-
-func (c CollectorSpecificSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSpecificSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type Collector struct {
-	// The type of collector to run
-	Type string                    `json:"type"`
-	Conf CollectorSpecificSettings `json:"conf"`
-	// Delete any files collected (where applicable)
-	Destructive *bool `default:"false" json:"destructive"`
-	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding *string `json:"encoding,omitempty"`
-}
-
-func (c Collector) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Collector) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Collector) GetType() string {
-	if c == nil {
-		return ""
-	}
-	return c.Type
-}
-
-func (c *Collector) GetConf() CollectorSpecificSettings {
-	if c == nil {
-		return CollectorSpecificSettings{}
-	}
-	return c.Conf
-}
-
-func (c *Collector) GetDestructive() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Destructive
-}
-
-func (c *Collector) GetEncoding() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Encoding
-}
-
-type InputType string
-
-const (
-	InputTypeCollection InputType = "collection"
-)
-
-func (e InputType) ToPointer() *InputType {
-	return &e
-}
-
-type RunnableJobCollectionPreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (r RunnableJobCollectionPreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionPreprocess) GetDisabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Disabled
-}
-
-func (r *RunnableJobCollectionPreprocess) GetCommand() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Command
-}
-
-func (r *RunnableJobCollectionPreprocess) GetArgs() []string {
-	if r == nil {
-		return nil
-	}
-	return r.Args
-}
-
-type RunnableJobCollectionMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (r RunnableJobCollectionMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionMetadatum) GetName() string {
-	if r == nil {
-		return ""
-	}
-	return r.Name
-}
-
-func (r *RunnableJobCollectionMetadatum) GetValue() string {
-	if r == nil {
-		return ""
-	}
-	return r.Value
-}
-
-type RunnableJobCollectionInput struct {
-	Type *InputType `default:"collection" json:"type"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool                            `default:"true" json:"sendToRoutes"`
-	Preprocess   *RunnableJobCollectionPreprocess `json:"preprocess,omitempty"`
-	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
-	// Fields to add to events from this input
-	Metadata []RunnableJobCollectionMetadatum `json:"metadata,omitempty"`
-	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Destination to send results to
-	Output *string `json:"output,omitempty"`
-}
-
-func (r RunnableJobCollectionInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RunnableJobCollectionInput) GetType() *InputType {
-	if r == nil {
-		return nil
-	}
-	return r.Type
-}
-
-func (r *RunnableJobCollectionInput) GetBreakerRulesets() []string {
-	if r == nil {
-		return nil
-	}
-	return r.BreakerRulesets
-}
-
-func (r *RunnableJobCollectionInput) GetStaleChannelFlushMs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.StaleChannelFlushMs
-}
-
-func (r *RunnableJobCollectionInput) GetSendToRoutes() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.SendToRoutes
-}
-
-func (r *RunnableJobCollectionInput) GetPreprocess() *RunnableJobCollectionPreprocess {
-	if r == nil {
-		return nil
-	}
-	return r.Preprocess
-}
-
-func (r *RunnableJobCollectionInput) GetThrottleRatePerSec() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ThrottleRatePerSec
-}
-
-func (r *RunnableJobCollectionInput) GetMetadata() []RunnableJobCollectionMetadatum {
-	if r == nil {
-		return nil
-	}
-	return r.Metadata
-}
-
-func (r *RunnableJobCollectionInput) GetPipeline() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Pipeline
-}
-
-func (r *RunnableJobCollectionInput) GetOutput() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Output
-}
 
 // RunnableJobCollectionLogLevel - Level at which to set task logging
 type RunnableJobCollectionLogLevel string
@@ -594,15 +45,15 @@ func (e TimeRange) ToPointer() *TimeRange {
 	return &e
 }
 
-type RunnableJobCollectionTimeWarning struct {
+type TimeWarning struct {
 }
 
-func (r RunnableJobCollectionTimeWarning) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (t TimeWarning) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
 }
 
-func (r *RunnableJobCollectionTimeWarning) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (t *TimeWarning) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -611,9 +62,13 @@ func (r *RunnableJobCollectionTimeWarning) UnmarshalJSON(data []byte) error {
 type WhereToCapture int64
 
 const (
-	WhereToCaptureZero  WhereToCapture = 0
-	WhereToCaptureOne   WhereToCapture = 1
-	WhereToCaptureTwo   WhereToCapture = 2
+	// WhereToCaptureZero 1. Before pre-processing Pipeline
+	WhereToCaptureZero WhereToCapture = 0
+	// WhereToCaptureOne 2. Before the Routes
+	WhereToCaptureOne WhereToCapture = 1
+	// WhereToCaptureTwo 3. Before post-processing Pipeline
+	WhereToCaptureTwo WhereToCapture = 2
+	// WhereToCaptureThree 4. Before the Destination
 	WhereToCaptureThree WhereToCapture = 3
 )
 
@@ -678,8 +133,8 @@ type RunnableJobCollectionRun struct {
 	// Latest time to collect data for the selected timezone
 	Latest *float64 `json:"latest,omitempty"`
 	// Timezone to use for Earliest and Latest times
-	TimestampTimezone *string                           `default:"UTC" json:"timestampTimezone"`
-	TimeWarning       *RunnableJobCollectionTimeWarning `json:"timeWarning,omitempty"`
+	TimestampTimezone *string      `default:"UTC" json:"timestampTimezone"`
+	TimeWarning       *TimeWarning `json:"timeWarning,omitempty"`
 	// A filter for tokens in the provided collect path and/or the events being collected
 	Expression *string `default:"true" json:"expression"`
 	// Limits the bundle size for small tasks. For example,
@@ -692,9 +147,13 @@ type RunnableJobCollectionRun struct {
 	//
 	//
 	//
+	//
+	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
+	//
+	//
 	//
 	//
 	//
@@ -785,7 +244,7 @@ func (r *RunnableJobCollectionRun) GetTimestampTimezone() *string {
 	return r.TimestampTimezone
 }
 
-func (r *RunnableJobCollectionRun) GetTimeWarning() *RunnableJobCollectionTimeWarning {
+func (r *RunnableJobCollectionRun) GetTimeWarning() *TimeWarning {
 	if r == nil {
 		return nil
 	}
@@ -829,9 +288,9 @@ func (r *RunnableJobCollectionRun) GetCapture() *CaptureSettings {
 
 type RunnableJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                       `json:"id,omitempty"`
-	Description *string                       `json:"description,omitempty"`
-	Type        *RunnableJobCollectionJobType `json:"type,omitempty"`
+	ID          *string       `json:"id,omitempty"`
+	Description *string       `json:"description,omitempty"`
+	Type        *Type1Options `json:"type,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `default:"4h" json:"ttl"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -843,14 +302,14 @@ type RunnableJobCollection struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job
-	Schedule *RunnableJobCollectionSchedule `json:"schedule,omitempty"`
+	Schedule *ScheduleType `json:"schedule,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool                       `default:"false" json:"workerAffinity"`
-	Collector      Collector                   `json:"collector"`
-	Input          *RunnableJobCollectionInput `json:"input,omitempty"`
-	Run            RunnableJobCollectionRun    `json:"run"`
+	WorkerAffinity *bool                    `default:"false" json:"workerAffinity"`
+	Collector      CollectorType            `json:"collector"`
+	Input          *InputType               `json:"input,omitempty"`
+	Run            RunnableJobCollectionRun `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -878,7 +337,7 @@ func (r *RunnableJobCollection) GetDescription() *string {
 	return r.Description
 }
 
-func (r *RunnableJobCollection) GetType() *RunnableJobCollectionJobType {
+func (r *RunnableJobCollection) GetType() *Type1Options {
 	if r == nil {
 		return nil
 	}
@@ -920,7 +379,7 @@ func (r *RunnableJobCollection) GetEnvironment() *string {
 	return r.Environment
 }
 
-func (r *RunnableJobCollection) GetSchedule() *RunnableJobCollectionSchedule {
+func (r *RunnableJobCollection) GetSchedule() *ScheduleType {
 	if r == nil {
 		return nil
 	}
@@ -941,14 +400,14 @@ func (r *RunnableJobCollection) GetWorkerAffinity() *bool {
 	return r.WorkerAffinity
 }
 
-func (r *RunnableJobCollection) GetCollector() Collector {
+func (r *RunnableJobCollection) GetCollector() CollectorType {
 	if r == nil {
-		return Collector{}
+		return CollectorType{}
 	}
 	return r.Collector
 }
 
-func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionInput {
+func (r *RunnableJobCollection) GetInput() *InputType {
 	if r == nil {
 		return nil
 	}

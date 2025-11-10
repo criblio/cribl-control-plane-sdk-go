@@ -2,27 +2,16 @@
 
 package components
 
-type CriblLakeDatasetFormat string
-
-const (
-	CriblLakeDatasetFormatJSON    CriblLakeDatasetFormat = "json"
-	CriblLakeDatasetFormatDdss    CriblLakeDatasetFormat = "ddss"
-	CriblLakeDatasetFormatParquet CriblLakeDatasetFormat = "parquet"
-)
-
-func (e CriblLakeDatasetFormat) ToPointer() *CriblLakeDatasetFormat {
-	return &e
-}
-
 type CriblLakeDataset struct {
 	AcceleratedFields     []string                 `json:"acceleratedFields,omitempty"`
 	BucketName            *string                  `json:"bucketName,omitempty"`
 	CacheConnection       *CacheConnection         `json:"cacheConnection,omitempty"`
 	DeletionStartedAt     *float64                 `json:"deletionStartedAt,omitempty"`
 	Description           *string                  `json:"description,omitempty"`
-	Format                *CriblLakeDatasetFormat  `json:"format,omitempty"`
+	Format                *FormatOptions           `json:"format,omitempty"`
 	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitempty"`
 	ID                    string                   `json:"id"`
+	Metrics               *LakeDatasetMetrics      `json:"metrics,omitempty"`
 	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitempty"`
 	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitempty"`
 	StorageLocationID     *string                  `json:"storageLocationId,omitempty"`
@@ -64,7 +53,7 @@ func (c *CriblLakeDataset) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDataset) GetFormat() *CriblLakeDatasetFormat {
+func (c *CriblLakeDataset) GetFormat() *FormatOptions {
 	if c == nil {
 		return nil
 	}
@@ -83,6 +72,13 @@ func (c *CriblLakeDataset) GetID() string {
 		return ""
 	}
 	return c.ID
+}
+
+func (c *CriblLakeDataset) GetMetrics() *LakeDatasetMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Metrics
 }
 
 func (c *CriblLakeDataset) GetRetentionPeriodInDays() *float64 {

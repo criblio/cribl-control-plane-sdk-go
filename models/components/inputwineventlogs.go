@@ -4,246 +4,69 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWinEventLogsType string
+type InputWinEventLogsType6 string
 
 const (
-	InputWinEventLogsTypeWinEventLogs InputWinEventLogsType = "win_event_logs"
+	InputWinEventLogsType6WinEventLogs InputWinEventLogsType6 = "win_event_logs"
 )
 
-func (e InputWinEventLogsType) ToPointer() *InputWinEventLogsType {
+func (e InputWinEventLogsType6) ToPointer() *InputWinEventLogsType6 {
 	return &e
 }
-func (e *InputWinEventLogsType) UnmarshalJSON(data []byte) error {
+func (e *InputWinEventLogsType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "win_event_logs":
-		*e = InputWinEventLogsType(v)
+		*e = InputWinEventLogsType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputWinEventLogsType: %v", v)
+		return fmt.Errorf("invalid value for InputWinEventLogsType6: %v", v)
 	}
 }
 
-type InputWinEventLogsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWinEventLogsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWinEventLogsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWinEventLogsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWinEventLogsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWinEventLogsMode string
+// ReadMode6 - Read all stored and future event logs, or only future events
+type ReadMode6 string
 
 const (
-	InputWinEventLogsModeSmart  InputWinEventLogsMode = "smart"
-	InputWinEventLogsModeAlways InputWinEventLogsMode = "always"
+	// ReadMode6Oldest Entire log
+	ReadMode6Oldest ReadMode6 = "oldest"
+	// ReadMode6Newest From last entry
+	ReadMode6Newest ReadMode6 = "newest"
 )
 
-func (e InputWinEventLogsMode) ToPointer() *InputWinEventLogsMode {
+func (e ReadMode6) ToPointer() *ReadMode6 {
 	return &e
 }
 
-// InputWinEventLogsCompression - Codec to use to compress the persisted data
-type InputWinEventLogsCompression string
+// EventFormat6 - Format of individual events
+type EventFormat6 string
 
 const (
-	InputWinEventLogsCompressionNone InputWinEventLogsCompression = "none"
-	InputWinEventLogsCompressionGzip InputWinEventLogsCompression = "gzip"
+	// EventFormat6JSON JSON
+	EventFormat6JSON EventFormat6 = "json"
+	// EventFormat6XML XML
+	EventFormat6XML EventFormat6 = "xml"
 )
 
-func (e InputWinEventLogsCompression) ToPointer() *InputWinEventLogsCompression {
+func (e EventFormat6) ToPointer() *EventFormat6 {
 	return &e
 }
 
-type InputWinEventLogsPqControls struct {
-}
-
-func (i InputWinEventLogsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWinEventLogsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWinEventLogsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWinEventLogsMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWinEventLogsCompression `default:"none" json:"compress"`
-	PqControls *InputWinEventLogsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWinEventLogsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWinEventLogsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWinEventLogsPq) GetMode() *InputWinEventLogsMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWinEventLogsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWinEventLogsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWinEventLogsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWinEventLogsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWinEventLogsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWinEventLogsPq) GetCompress() *InputWinEventLogsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWinEventLogsPq) GetPqControls() *InputWinEventLogsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// ReadMode - Read all stored and future event logs, or only future events
-type ReadMode string
-
-const (
-	ReadModeOldest ReadMode = "oldest"
-	ReadModeNewest ReadMode = "newest"
-)
-
-func (e ReadMode) ToPointer() *ReadMode {
-	return &e
-}
-
-// EventFormat - Format of individual events
-type EventFormat string
-
-const (
-	EventFormatJSON EventFormat = "json"
-	EventFormatXML  EventFormat = "xml"
-)
-
-func (e EventFormat) ToPointer() *EventFormat {
-	return &e
-}
-
-type InputWinEventLogsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWinEventLogsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWinEventLogsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWinEventLogsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWinEventLogsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputWinEventLogs struct {
+type InputWinEventLogsWinEventLogs6 struct {
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType6 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -255,14 +78,512 @@ type InputWinEventLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWinEventLogsConnection `json:"connections,omitempty"`
-	Pq          *InputWinEventLogsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	ReadMode *ReadMode6 `default:"newest" json:"readMode"`
 	// Format of individual events
-	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	EventFormat *EventFormat6 `default:"json" json:"eventFormat"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsWinEventLogs6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsWinEventLogs6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetType() InputWinEventLogsType6 {
+	if i == nil {
+		return InputWinEventLogsType6("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetReadMode() *ReadMode6 {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetEventFormat() *EventFormat6 {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs6) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType5 string
+
+const (
+	InputWinEventLogsType5WinEventLogs InputWinEventLogsType5 = "win_event_logs"
+)
+
+func (e InputWinEventLogsType5) ToPointer() *InputWinEventLogsType5 {
+	return &e
+}
+func (e *InputWinEventLogsType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "win_event_logs":
+		*e = InputWinEventLogsType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWinEventLogsType5: %v", v)
+	}
+}
+
+// ReadMode5 - Read all stored and future event logs, or only future events
+type ReadMode5 string
+
+const (
+	// ReadMode5Oldest Entire log
+	ReadMode5Oldest ReadMode5 = "oldest"
+	// ReadMode5Newest From last entry
+	ReadMode5Newest ReadMode5 = "newest"
+)
+
+func (e ReadMode5) ToPointer() *ReadMode5 {
+	return &e
+}
+
+// EventFormat5 - Format of individual events
+type EventFormat5 string
+
+const (
+	// EventFormat5JSON JSON
+	EventFormat5JSON EventFormat5 = "json"
+	// EventFormat5XML XML
+	EventFormat5XML EventFormat5 = "xml"
+)
+
+func (e EventFormat5) ToPointer() *EventFormat5 {
+	return &e
+}
+
+type InputWinEventLogsWinEventLogs5 struct {
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType5 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode5 `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat5 `default:"json" json:"eventFormat"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsWinEventLogs5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsWinEventLogs5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetType() InputWinEventLogsType5 {
+	if i == nil {
+		return InputWinEventLogsType5("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetReadMode() *ReadMode5 {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetEventFormat() *EventFormat5 {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs5) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType4 string
+
+const (
+	InputWinEventLogsType4WinEventLogs InputWinEventLogsType4 = "win_event_logs"
+)
+
+func (e InputWinEventLogsType4) ToPointer() *InputWinEventLogsType4 {
+	return &e
+}
+func (e *InputWinEventLogsType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "win_event_logs":
+		*e = InputWinEventLogsType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWinEventLogsType4: %v", v)
+	}
+}
+
+// ReadMode4 - Read all stored and future event logs, or only future events
+type ReadMode4 string
+
+const (
+	// ReadMode4Oldest Entire log
+	ReadMode4Oldest ReadMode4 = "oldest"
+	// ReadMode4Newest From last entry
+	ReadMode4Newest ReadMode4 = "newest"
+)
+
+func (e ReadMode4) ToPointer() *ReadMode4 {
+	return &e
+}
+
+// EventFormat4 - Format of individual events
+type EventFormat4 string
+
+const (
+	// EventFormat4JSON JSON
+	EventFormat4JSON EventFormat4 = "json"
+	// EventFormat4XML XML
+	EventFormat4XML EventFormat4 = "xml"
+)
+
+func (e EventFormat4) ToPointer() *EventFormat4 {
+	return &e
+}
+
+type InputWinEventLogsWinEventLogs4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType4 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode4 `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat4 `default:"json" json:"eventFormat"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
 	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
@@ -270,152 +591,1071 @@ type InputWinEventLogs struct {
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
 	BatchSize *float64 `default:"500" json:"batchSize"`
 	// Fields to add to events from this input
-	Metadata []InputWinEventLogsMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
 	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsWinEventLogs4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+func (i *InputWinEventLogsWinEventLogs4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogs) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWinEventLogs) GetType() InputWinEventLogsType {
-	if i == nil {
-		return InputWinEventLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWinEventLogs) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWinEventLogs) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogs) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWinEventLogs) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWinEventLogs) GetPqEnabled() *bool {
+func (i *InputWinEventLogsWinEventLogs4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogs) GetStreamtags() []string {
+func (i *InputWinEventLogsWinEventLogs4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetType() InputWinEventLogsType4 {
+	if i == nil {
+		return InputWinEventLogsType4("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogs) GetConnections() []InputWinEventLogsConnection {
+func (i *InputWinEventLogsWinEventLogs4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogs) GetPq() *InputWinEventLogsPq {
+func (i *InputWinEventLogsWinEventLogs4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogs) GetLogNames() []string {
+func (i *InputWinEventLogsWinEventLogs4) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogs) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsWinEventLogs4) GetReadMode() *ReadMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogs) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsWinEventLogs4) GetEventFormat() *EventFormat4 {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogs) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsWinEventLogs4) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogs) GetInterval() *float64 {
+func (i *InputWinEventLogsWinEventLogs4) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogs) GetBatchSize() *float64 {
+func (i *InputWinEventLogsWinEventLogs4) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogs) GetMetadata() []InputWinEventLogsMetadatum {
+func (i *InputWinEventLogsWinEventLogs4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogs) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsWinEventLogs4) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogs) GetDescription() *string {
+func (i *InputWinEventLogsWinEventLogs4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs4) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType3 string
+
+const (
+	InputWinEventLogsType3WinEventLogs InputWinEventLogsType3 = "win_event_logs"
+)
+
+func (e InputWinEventLogsType3) ToPointer() *InputWinEventLogsType3 {
+	return &e
+}
+func (e *InputWinEventLogsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "win_event_logs":
+		*e = InputWinEventLogsType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWinEventLogsType3: %v", v)
+	}
+}
+
+// ReadMode3 - Read all stored and future event logs, or only future events
+type ReadMode3 string
+
+const (
+	// ReadMode3Oldest Entire log
+	ReadMode3Oldest ReadMode3 = "oldest"
+	// ReadMode3Newest From last entry
+	ReadMode3Newest ReadMode3 = "newest"
+)
+
+func (e ReadMode3) ToPointer() *ReadMode3 {
+	return &e
+}
+
+// EventFormat3 - Format of individual events
+type EventFormat3 string
+
+const (
+	// EventFormat3JSON JSON
+	EventFormat3JSON EventFormat3 = "json"
+	// EventFormat3XML XML
+	EventFormat3XML EventFormat3 = "xml"
+)
+
+func (e EventFormat3) ToPointer() *EventFormat3 {
+	return &e
+}
+
+type InputWinEventLogsWinEventLogs3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType3 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode3 `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat3 `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsWinEventLogs3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsWinEventLogs3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetType() InputWinEventLogsType3 {
+	if i == nil {
+		return InputWinEventLogsType3("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetReadMode() *ReadMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetEventFormat() *EventFormat3 {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs3) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType2 string
+
+const (
+	InputWinEventLogsType2WinEventLogs InputWinEventLogsType2 = "win_event_logs"
+)
+
+func (e InputWinEventLogsType2) ToPointer() *InputWinEventLogsType2 {
+	return &e
+}
+func (e *InputWinEventLogsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "win_event_logs":
+		*e = InputWinEventLogsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWinEventLogsType2: %v", v)
+	}
+}
+
+// ReadMode2 - Read all stored and future event logs, or only future events
+type ReadMode2 string
+
+const (
+	// ReadMode2Oldest Entire log
+	ReadMode2Oldest ReadMode2 = "oldest"
+	// ReadMode2Newest From last entry
+	ReadMode2Newest ReadMode2 = "newest"
+)
+
+func (e ReadMode2) ToPointer() *ReadMode2 {
+	return &e
+}
+
+// EventFormat2 - Format of individual events
+type EventFormat2 string
+
+const (
+	// EventFormat2JSON JSON
+	EventFormat2JSON EventFormat2 = "json"
+	// EventFormat2XML XML
+	EventFormat2XML EventFormat2 = "xml"
+)
+
+func (e EventFormat2) ToPointer() *EventFormat2 {
+	return &e
+}
+
+type InputWinEventLogsWinEventLogs2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType2 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode2 `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat2 `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsWinEventLogs2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsWinEventLogs2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetType() InputWinEventLogsType2 {
+	if i == nil {
+		return InputWinEventLogsType2("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetReadMode() *ReadMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetEventFormat() *EventFormat2 {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs2) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType1 string
+
+const (
+	InputWinEventLogsType1WinEventLogs InputWinEventLogsType1 = "win_event_logs"
+)
+
+func (e InputWinEventLogsType1) ToPointer() *InputWinEventLogsType1 {
+	return &e
+}
+func (e *InputWinEventLogsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "win_event_logs":
+		*e = InputWinEventLogsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWinEventLogsType1: %v", v)
+	}
+}
+
+// ReadMode1 - Read all stored and future event logs, or only future events
+type ReadMode1 string
+
+const (
+	// ReadMode1Oldest Entire log
+	ReadMode1Oldest ReadMode1 = "oldest"
+	// ReadMode1Newest From last entry
+	ReadMode1Newest ReadMode1 = "newest"
+)
+
+func (e ReadMode1) ToPointer() *ReadMode1 {
+	return &e
+}
+
+// EventFormat1 - Format of individual events
+type EventFormat1 string
+
+const (
+	// EventFormat1JSON JSON
+	EventFormat1JSON EventFormat1 = "json"
+	// EventFormat1XML XML
+	EventFormat1XML EventFormat1 = "xml"
+)
+
+func (e EventFormat1) ToPointer() *EventFormat1 {
+	return &e
+}
+
+type InputWinEventLogsWinEventLogs1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputWinEventLogsType1 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode1 `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat1 `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsWinEventLogs1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsWinEventLogs1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetType() InputWinEventLogsType1 {
+	if i == nil {
+		return InputWinEventLogsType1("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetReadMode() *ReadMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetEventFormat() *EventFormat1 {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsWinEventLogs1) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsType string
+
+const (
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs1 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_1"
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs2 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_2"
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs3 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_3"
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs4 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_4"
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs5 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_5"
+	InputWinEventLogsTypeInputWinEventLogsWinEventLogs6 InputWinEventLogsType = "InputWinEventLogs_WinEventLogs_6"
+)
+
+type InputWinEventLogs struct {
+	InputWinEventLogsWinEventLogs1 *InputWinEventLogsWinEventLogs1 `queryParam:"inline,name=InputWinEventLogs"`
+	InputWinEventLogsWinEventLogs2 *InputWinEventLogsWinEventLogs2 `queryParam:"inline,name=InputWinEventLogs"`
+	InputWinEventLogsWinEventLogs3 *InputWinEventLogsWinEventLogs3 `queryParam:"inline,name=InputWinEventLogs"`
+	InputWinEventLogsWinEventLogs4 *InputWinEventLogsWinEventLogs4 `queryParam:"inline,name=InputWinEventLogs"`
+	InputWinEventLogsWinEventLogs5 *InputWinEventLogsWinEventLogs5 `queryParam:"inline,name=InputWinEventLogs"`
+	InputWinEventLogsWinEventLogs6 *InputWinEventLogsWinEventLogs6 `queryParam:"inline,name=InputWinEventLogs"`
+
+	Type InputWinEventLogsType
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs1(inputWinEventLogsWinEventLogs1 InputWinEventLogsWinEventLogs1) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs1
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs1: &inputWinEventLogsWinEventLogs1,
+		Type:                           typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs2(inputWinEventLogsWinEventLogs2 InputWinEventLogsWinEventLogs2) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs2
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs2: &inputWinEventLogsWinEventLogs2,
+		Type:                           typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs3(inputWinEventLogsWinEventLogs3 InputWinEventLogsWinEventLogs3) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs3
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs3: &inputWinEventLogsWinEventLogs3,
+		Type:                           typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs4(inputWinEventLogsWinEventLogs4 InputWinEventLogsWinEventLogs4) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs4
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs4: &inputWinEventLogsWinEventLogs4,
+		Type:                           typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs5(inputWinEventLogsWinEventLogs5 InputWinEventLogsWinEventLogs5) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs5
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs5: &inputWinEventLogsWinEventLogs5,
+		Type:                           typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsWinEventLogs6(inputWinEventLogsWinEventLogs6 InputWinEventLogsWinEventLogs6) InputWinEventLogs {
+	typ := InputWinEventLogsTypeInputWinEventLogsWinEventLogs6
+
+	return InputWinEventLogs{
+		InputWinEventLogsWinEventLogs6: &inputWinEventLogsWinEventLogs6,
+		Type:                           typ,
+	}
+}
+
+func (u *InputWinEventLogs) UnmarshalJSON(data []byte) error {
+
+	var inputWinEventLogsWinEventLogs2 InputWinEventLogsWinEventLogs2 = InputWinEventLogsWinEventLogs2{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs2, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs2 = &inputWinEventLogsWinEventLogs2
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs2
+		return nil
+	}
+
+	var inputWinEventLogsWinEventLogs4 InputWinEventLogsWinEventLogs4 = InputWinEventLogsWinEventLogs4{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs4, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs4 = &inputWinEventLogsWinEventLogs4
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs4
+		return nil
+	}
+
+	var inputWinEventLogsWinEventLogs1 InputWinEventLogsWinEventLogs1 = InputWinEventLogsWinEventLogs1{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs1, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs1 = &inputWinEventLogsWinEventLogs1
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs1
+		return nil
+	}
+
+	var inputWinEventLogsWinEventLogs3 InputWinEventLogsWinEventLogs3 = InputWinEventLogsWinEventLogs3{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs3, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs3 = &inputWinEventLogsWinEventLogs3
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs3
+		return nil
+	}
+
+	var inputWinEventLogsWinEventLogs5 InputWinEventLogsWinEventLogs5 = InputWinEventLogsWinEventLogs5{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs5, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs5 = &inputWinEventLogsWinEventLogs5
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs5
+		return nil
+	}
+
+	var inputWinEventLogsWinEventLogs6 InputWinEventLogsWinEventLogs6 = InputWinEventLogsWinEventLogs6{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsWinEventLogs6, "", true, nil); err == nil {
+		u.InputWinEventLogsWinEventLogs6 = &inputWinEventLogsWinEventLogs6
+		u.Type = InputWinEventLogsTypeInputWinEventLogsWinEventLogs6
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWinEventLogs", string(data))
+}
+
+func (u InputWinEventLogs) MarshalJSON() ([]byte, error) {
+	if u.InputWinEventLogsWinEventLogs1 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs1, "", true)
+	}
+
+	if u.InputWinEventLogsWinEventLogs2 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs2, "", true)
+	}
+
+	if u.InputWinEventLogsWinEventLogs3 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs3, "", true)
+	}
+
+	if u.InputWinEventLogsWinEventLogs4 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs4, "", true)
+	}
+
+	if u.InputWinEventLogsWinEventLogs5 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs5, "", true)
+	}
+
+	if u.InputWinEventLogsWinEventLogs6 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsWinEventLogs6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWinEventLogs: all fields are null")
 }

@@ -3,260 +3,18 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSqsType string
-
-const (
-	InputSqsTypeSqs InputSqsType = "sqs"
-)
-
-func (e InputSqsType) ToPointer() *InputSqsType {
-	return &e
-}
-func (e *InputSqsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "sqs":
-		*e = InputSqsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsType: %v", v)
-	}
-}
-
-type InputSqsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSqsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSqsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSqsMode string
-
-const (
-	InputSqsModeSmart  InputSqsMode = "smart"
-	InputSqsModeAlways InputSqsMode = "always"
-)
-
-func (e InputSqsMode) ToPointer() *InputSqsMode {
-	return &e
-}
-
-// InputSqsCompression - Codec to use to compress the persisted data
-type InputSqsCompression string
-
-const (
-	InputSqsCompressionNone InputSqsCompression = "none"
-	InputSqsCompressionGzip InputSqsCompression = "gzip"
-)
-
-func (e InputSqsCompression) ToPointer() *InputSqsCompression {
-	return &e
-}
-
-type InputSqsPqControls struct {
-}
-
-func (i InputSqsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSqsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSqsMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSqsCompression `default:"none" json:"compress"`
-	PqControls *InputSqsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSqsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsPq) GetMode() *InputSqsMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSqsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSqsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSqsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSqsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSqsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSqsPq) GetCompress() *InputSqsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSqsPq) GetPqControls() *InputSqsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputSqsQueueType - The queue type used (or created)
-type InputSqsQueueType string
-
-const (
-	InputSqsQueueTypeStandard InputSqsQueueType = "standard"
-	InputSqsQueueTypeFifo     InputSqsQueueType = "fifo"
-)
-
-func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
-	return &e
-}
-
-// InputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputSqsAuthenticationMethod string
-
-const (
-	InputSqsAuthenticationMethodAuto   InputSqsAuthenticationMethod = "auto"
-	InputSqsAuthenticationMethodManual InputSqsAuthenticationMethod = "manual"
-	InputSqsAuthenticationMethodSecret InputSqsAuthenticationMethod = "secret"
-)
-
-func (e InputSqsAuthenticationMethod) ToPointer() *InputSqsAuthenticationMethod {
-	return &e
-}
-
-// InputSqsSignatureVersion - Signature version to use for signing SQS requests
-type InputSqsSignatureVersion string
-
-const (
-	InputSqsSignatureVersionV2 InputSqsSignatureVersion = "v2"
-	InputSqsSignatureVersionV4 InputSqsSignatureVersion = "v4"
-)
-
-func (e InputSqsSignatureVersion) ToPointer() *InputSqsSignatureVersion {
-	return &e
-}
-
-type InputSqsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSqsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSqsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputSqs struct {
+type InputSqsSqs9 struct {
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -268,25 +26,23 @@ type InputSqs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSqsConnection `json:"connections,omitempty"`
-	Pq          *InputSqsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
-	// The queue type used (or created)
-	QueueType InputSqsQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputSqsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                       `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing SQS requests
-	SignatureVersion *InputSqsSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -304,7 +60,7 @@ type InputSqs struct {
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
 	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
 	// Fields to add to events from this input
-	Metadata []InputSqsMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `default:"10" json:"pollTimeout"`
 	Description *string  `json:"description,omitempty"`
@@ -315,244 +71,2901 @@ type InputSqs struct {
 	NumReceivers *float64 `default:"3" json:"numReceivers"`
 }
 
-func (i InputSqs) MarshalJSON() ([]byte, error) {
+func (i InputSqsSqs9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
+func (i *InputSqsSqs9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"queueType", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqs) GetID() *string {
+func (i *InputSqsSqs9) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs9) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSqs) GetType() InputSqsType {
+func (i *InputSqsSqs9) GetType() TypeSqsOption {
 	if i == nil {
-		return InputSqsType("")
+		return TypeSqsOption("")
 	}
 	return i.Type
 }
 
-func (i *InputSqs) GetDisabled() *bool {
+func (i *InputSqsSqs9) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSqs) GetPipeline() *string {
+func (i *InputSqsSqs9) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSqs) GetSendToRoutes() *bool {
+func (i *InputSqsSqs9) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSqs) GetEnvironment() *string {
+func (i *InputSqsSqs9) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSqs) GetPqEnabled() *bool {
+func (i *InputSqsSqs9) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSqs) GetStreamtags() []string {
+func (i *InputSqsSqs9) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSqs) GetConnections() []InputSqsConnection {
+func (i *InputSqsSqs9) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqs) GetPq() *InputSqsPq {
+func (i *InputSqsSqs9) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqs) GetQueueName() string {
+func (i *InputSqsSqs9) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqs) GetQueueType() InputSqsQueueType {
-	if i == nil {
-		return InputSqsQueueType("")
-	}
-	return i.QueueType
-}
-
-func (i *InputSqs) GetAwsAccountID() *string {
+func (i *InputSqsSqs9) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqs) GetCreateQueue() *bool {
+func (i *InputSqsSqs9) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqs) GetAwsAuthenticationMethod() *InputSqsAuthenticationMethod {
+func (i *InputSqsSqs9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqs) GetAwsSecretKey() *string {
+func (i *InputSqsSqs9) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqs) GetRegion() *string {
+func (i *InputSqsSqs9) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqs) GetEndpoint() *string {
+func (i *InputSqsSqs9) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqs) GetSignatureVersion() *InputSqsSignatureVersion {
+func (i *InputSqsSqs9) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqs) GetReuseConnections() *bool {
+func (i *InputSqsSqs9) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqs) GetRejectUnauthorized() *bool {
+func (i *InputSqsSqs9) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqs) GetEnableAssumeRole() *bool {
+func (i *InputSqsSqs9) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqs) GetAssumeRoleArn() *string {
+func (i *InputSqsSqs9) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqs) GetAssumeRoleExternalID() *string {
+func (i *InputSqsSqs9) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqs) GetDurationSeconds() *float64 {
+func (i *InputSqsSqs9) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqs) GetMaxMessages() *float64 {
+func (i *InputSqsSqs9) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqs) GetVisibilityTimeout() *float64 {
+func (i *InputSqsSqs9) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqs) GetMetadata() []InputSqsMetadatum {
+func (i *InputSqsSqs9) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqs) GetPollTimeout() *float64 {
+func (i *InputSqsSqs9) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqs) GetDescription() *string {
+func (i *InputSqsSqs9) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqs) GetAwsAPIKey() *string {
+func (i *InputSqsSqs9) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqs) GetAwsSecret() *string {
+func (i *InputSqsSqs9) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqs) GetNumReceivers() *float64 {
+func (i *InputSqsSqs9) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
+}
+
+type InputSqsSqs8 struct {
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue *bool `default:"false" json:"createQueue"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"queueType", "type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs8) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs8) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs8) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs8) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs8) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs8) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs8) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs8) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs8) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs8) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs8) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs8) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs8) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs8) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs8) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs8) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs8) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs8) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs8) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs8) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs8) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs8) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs8) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs8) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs8) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs8) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs8) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs8) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs8) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs8) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs8) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs8) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs7 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue  *bool   `default:"false" json:"createQueue"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs7) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs7) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs7) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs7) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs7) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs7) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs7) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs7) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs7) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs7) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs7) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs7) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs7) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs7) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs7) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs7) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs7) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs7) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs7) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs7) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs7) GetAwsSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs7) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs6 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue  *bool   `default:"false" json:"createQueue"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   string   `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs6) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs6) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs6) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs6) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs6) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs6) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs6) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs6) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs6) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs6) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs6) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs6) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs6) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs6) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs6) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs6) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs6) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs6) GetAwsAPIKey() string {
+	if i == nil {
+		return ""
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs6) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs6) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs5 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue  *bool   `default:"false" json:"createQueue"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs5) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs5) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs5) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs5) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs5) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs5) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs5) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs5) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs5) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs5) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs5) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs5) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs5) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs5) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs5) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs5) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs5) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs5) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs5) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs5) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue *bool `default:"false" json:"createQueue"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "queueName", "queueType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs4) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs4) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs4) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs4) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs4) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs4) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs4) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs4) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs4) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs4) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs4) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs4) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs4) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs4) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs4) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs4) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs4) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs4) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs4) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs4) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs4) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue *bool `default:"false" json:"createQueue"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs3) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs3) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs3) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs3) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs3) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs3) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs3) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs3) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs3) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs3) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs3) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs3) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs3) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs3) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs3) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs3) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs3) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs3) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs3) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue *bool `default:"false" json:"createQueue"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "queueName", "queueType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs2) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs2) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs2) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs2) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs2) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs2) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs2) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs2) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs2) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs2) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs2) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs2) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs2) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs2) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs2) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs2) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs2) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs2) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs2) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsSqs1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     TypeSqsOption `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+	QueueName string `json:"queueName"`
+	// The queue type used (or created)
+	QueueType QueueTypeOptions `json:"queueType"`
+	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+	AwsAccountID *string `json:"awsAccountId,omitempty"`
+	// Create queue if it does not exist
+	CreateQueue *bool `default:"false" json:"createQueue"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                         `json:"awsSecretKey,omitempty"`
+	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+	Region *string `json:"region,omitempty"`
+	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access SQS
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+	MaxMessages *float64 `default:"10" json:"maxMessages"`
+	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	Description *string  `json:"description,omitempty"`
+	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"3" json:"numReceivers"`
+}
+
+func (i InputSqsSqs1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsSqs1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsSqs1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsSqs1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSqs1) GetType() TypeSqsOption {
+	if i == nil {
+		return TypeSqsOption("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSqs1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSqs1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSqs1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSqs1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSqs1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSqs1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsSqs1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSqsSqs1) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputSqsSqs1) GetQueueType() QueueTypeOptions {
+	if i == nil {
+		return QueueTypeOptions("")
+	}
+	return i.QueueType
+}
+
+func (i *InputSqsSqs1) GetAwsAccountID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAccountID
+}
+
+func (i *InputSqsSqs1) GetCreateQueue() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateQueue
+}
+
+func (i *InputSqsSqs1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputSqsSqs1) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputSqsSqs1) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputSqsSqs1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSqsSqs1) GetSignatureVersion() *SignatureVersionOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputSqsSqs1) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputSqsSqs1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSqsSqs1) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputSqsSqs1) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputSqsSqs1) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputSqsSqs1) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputSqsSqs1) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputSqsSqs1) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputSqsSqs1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSqsSqs1) GetPollTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.PollTimeout
+}
+
+func (i *InputSqsSqs1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSqsSqs1) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputSqsSqs1) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+func (i *InputSqsSqs1) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+type InputSqsType string
+
+const (
+	InputSqsTypeInputSqsSqs1 InputSqsType = "InputSqs_Sqs_1"
+	InputSqsTypeInputSqsSqs2 InputSqsType = "InputSqs_Sqs_2"
+	InputSqsTypeInputSqsSqs3 InputSqsType = "InputSqs_Sqs_3"
+	InputSqsTypeInputSqsSqs4 InputSqsType = "InputSqs_Sqs_4"
+	InputSqsTypeInputSqsSqs5 InputSqsType = "InputSqs_Sqs_5"
+	InputSqsTypeInputSqsSqs6 InputSqsType = "InputSqs_Sqs_6"
+	InputSqsTypeInputSqsSqs7 InputSqsType = "InputSqs_Sqs_7"
+	InputSqsTypeInputSqsSqs8 InputSqsType = "InputSqs_Sqs_8"
+	InputSqsTypeInputSqsSqs9 InputSqsType = "InputSqs_Sqs_9"
+)
+
+type InputSqs struct {
+	InputSqsSqs1 *InputSqsSqs1 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs2 *InputSqsSqs2 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs3 *InputSqsSqs3 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs4 *InputSqsSqs4 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs5 *InputSqsSqs5 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs6 *InputSqsSqs6 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs7 *InputSqsSqs7 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs8 *InputSqsSqs8 `queryParam:"inline,name=InputSqs"`
+	InputSqsSqs9 *InputSqsSqs9 `queryParam:"inline,name=InputSqs"`
+
+	Type InputSqsType
+}
+
+func CreateInputSqsInputSqsSqs1(inputSqsSqs1 InputSqsSqs1) InputSqs {
+	typ := InputSqsTypeInputSqsSqs1
+
+	return InputSqs{
+		InputSqsSqs1: &inputSqsSqs1,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs2(inputSqsSqs2 InputSqsSqs2) InputSqs {
+	typ := InputSqsTypeInputSqsSqs2
+
+	return InputSqs{
+		InputSqsSqs2: &inputSqsSqs2,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs3(inputSqsSqs3 InputSqsSqs3) InputSqs {
+	typ := InputSqsTypeInputSqsSqs3
+
+	return InputSqs{
+		InputSqsSqs3: &inputSqsSqs3,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs4(inputSqsSqs4 InputSqsSqs4) InputSqs {
+	typ := InputSqsTypeInputSqsSqs4
+
+	return InputSqs{
+		InputSqsSqs4: &inputSqsSqs4,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs5(inputSqsSqs5 InputSqsSqs5) InputSqs {
+	typ := InputSqsTypeInputSqsSqs5
+
+	return InputSqs{
+		InputSqsSqs5: &inputSqsSqs5,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs6(inputSqsSqs6 InputSqsSqs6) InputSqs {
+	typ := InputSqsTypeInputSqsSqs6
+
+	return InputSqs{
+		InputSqsSqs6: &inputSqsSqs6,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs7(inputSqsSqs7 InputSqsSqs7) InputSqs {
+	typ := InputSqsTypeInputSqsSqs7
+
+	return InputSqs{
+		InputSqsSqs7: &inputSqsSqs7,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs8(inputSqsSqs8 InputSqsSqs8) InputSqs {
+	typ := InputSqsTypeInputSqsSqs8
+
+	return InputSqs{
+		InputSqsSqs8: &inputSqsSqs8,
+		Type:         typ,
+	}
+}
+
+func CreateInputSqsInputSqsSqs9(inputSqsSqs9 InputSqsSqs9) InputSqs {
+	typ := InputSqsTypeInputSqsSqs9
+
+	return InputSqs{
+		InputSqsSqs9: &inputSqsSqs9,
+		Type:         typ,
+	}
+}
+
+func (u *InputSqs) UnmarshalJSON(data []byte) error {
+
+	var inputSqsSqs2 InputSqsSqs2 = InputSqsSqs2{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs2, "", true, nil); err == nil {
+		u.InputSqsSqs2 = &inputSqsSqs2
+		u.Type = InputSqsTypeInputSqsSqs2
+		return nil
+	}
+
+	var inputSqsSqs4 InputSqsSqs4 = InputSqsSqs4{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs4, "", true, nil); err == nil {
+		u.InputSqsSqs4 = &inputSqsSqs4
+		u.Type = InputSqsTypeInputSqsSqs4
+		return nil
+	}
+
+	var inputSqsSqs6 InputSqsSqs6 = InputSqsSqs6{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs6, "", true, nil); err == nil {
+		u.InputSqsSqs6 = &inputSqsSqs6
+		u.Type = InputSqsTypeInputSqsSqs6
+		return nil
+	}
+
+	var inputSqsSqs7 InputSqsSqs7 = InputSqsSqs7{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs7, "", true, nil); err == nil {
+		u.InputSqsSqs7 = &inputSqsSqs7
+		u.Type = InputSqsTypeInputSqsSqs7
+		return nil
+	}
+
+	var inputSqsSqs1 InputSqsSqs1 = InputSqsSqs1{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs1, "", true, nil); err == nil {
+		u.InputSqsSqs1 = &inputSqsSqs1
+		u.Type = InputSqsTypeInputSqsSqs1
+		return nil
+	}
+
+	var inputSqsSqs3 InputSqsSqs3 = InputSqsSqs3{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs3, "", true, nil); err == nil {
+		u.InputSqsSqs3 = &inputSqsSqs3
+		u.Type = InputSqsTypeInputSqsSqs3
+		return nil
+	}
+
+	var inputSqsSqs5 InputSqsSqs5 = InputSqsSqs5{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs5, "", true, nil); err == nil {
+		u.InputSqsSqs5 = &inputSqsSqs5
+		u.Type = InputSqsTypeInputSqsSqs5
+		return nil
+	}
+
+	var inputSqsSqs8 InputSqsSqs8 = InputSqsSqs8{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs8, "", true, nil); err == nil {
+		u.InputSqsSqs8 = &inputSqsSqs8
+		u.Type = InputSqsTypeInputSqsSqs8
+		return nil
+	}
+
+	var inputSqsSqs9 InputSqsSqs9 = InputSqsSqs9{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSqs9, "", true, nil); err == nil {
+		u.InputSqsSqs9 = &inputSqsSqs9
+		u.Type = InputSqsTypeInputSqsSqs9
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSqs", string(data))
+}
+
+func (u InputSqs) MarshalJSON() ([]byte, error) {
+	if u.InputSqsSqs1 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs1, "", true)
+	}
+
+	if u.InputSqsSqs2 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs2, "", true)
+	}
+
+	if u.InputSqsSqs3 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs3, "", true)
+	}
+
+	if u.InputSqsSqs4 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs4, "", true)
+	}
+
+	if u.InputSqsSqs5 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs5, "", true)
+	}
+
+	if u.InputSqsSqs6 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs6, "", true)
+	}
+
+	if u.InputSqsSqs7 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs7, "", true)
+	}
+
+	if u.InputSqsSqs8 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs8, "", true)
+	}
+
+	if u.InputSqsSqs9 != nil {
+		return utils.MarshalJSON(u.InputSqsSqs9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSqs: all fields are null")
 }

@@ -4,225 +4,39 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputDlS3Type string
+type OutputDlS3Type11 string
 
 const (
-	OutputDlS3TypeDlS3 OutputDlS3Type = "dl_s3"
+	OutputDlS3Type11DlS3 OutputDlS3Type11 = "dl_s3"
 )
 
-func (e OutputDlS3Type) ToPointer() *OutputDlS3Type {
+func (e OutputDlS3Type11) ToPointer() *OutputDlS3Type11 {
 	return &e
 }
-func (e *OutputDlS3Type) UnmarshalJSON(data []byte) error {
+func (e *OutputDlS3Type11) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dl_s3":
-		*e = OutputDlS3Type(v)
+		*e = OutputDlS3Type11(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputDlS3Type: %v", v)
+		return fmt.Errorf("invalid value for OutputDlS3Type11: %v", v)
 	}
 }
 
-// OutputDlS3AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputDlS3AuthenticationMethod string
-
-const (
-	OutputDlS3AuthenticationMethodAuto   OutputDlS3AuthenticationMethod = "auto"
-	OutputDlS3AuthenticationMethodManual OutputDlS3AuthenticationMethod = "manual"
-	OutputDlS3AuthenticationMethodSecret OutputDlS3AuthenticationMethod = "secret"
-)
-
-func (e OutputDlS3AuthenticationMethod) ToPointer() *OutputDlS3AuthenticationMethod {
-	return &e
-}
-
-// OutputDlS3SignatureVersion - Signature version to use for signing S3 requests
-type OutputDlS3SignatureVersion string
-
-const (
-	OutputDlS3SignatureVersionV2 OutputDlS3SignatureVersion = "v2"
-	OutputDlS3SignatureVersionV4 OutputDlS3SignatureVersion = "v4"
-)
-
-func (e OutputDlS3SignatureVersion) ToPointer() *OutputDlS3SignatureVersion {
-	return &e
-}
-
-// OutputDlS3ObjectACL - Object ACL to assign to uploaded objects
-type OutputDlS3ObjectACL string
-
-const (
-	OutputDlS3ObjectACLPrivate                OutputDlS3ObjectACL = "private"
-	OutputDlS3ObjectACLPublicRead             OutputDlS3ObjectACL = "public-read"
-	OutputDlS3ObjectACLPublicReadWrite        OutputDlS3ObjectACL = "public-read-write"
-	OutputDlS3ObjectACLAuthenticatedRead      OutputDlS3ObjectACL = "authenticated-read"
-	OutputDlS3ObjectACLAwsExecRead            OutputDlS3ObjectACL = "aws-exec-read"
-	OutputDlS3ObjectACLBucketOwnerRead        OutputDlS3ObjectACL = "bucket-owner-read"
-	OutputDlS3ObjectACLBucketOwnerFullControl OutputDlS3ObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputDlS3ObjectACL) ToPointer() *OutputDlS3ObjectACL {
-	return &e
-}
-
-// OutputDlS3StorageClass - Storage class to select for uploaded objects
-type OutputDlS3StorageClass string
-
-const (
-	OutputDlS3StorageClassStandard           OutputDlS3StorageClass = "STANDARD"
-	OutputDlS3StorageClassReducedRedundancy  OutputDlS3StorageClass = "REDUCED_REDUNDANCY"
-	OutputDlS3StorageClassStandardIa         OutputDlS3StorageClass = "STANDARD_IA"
-	OutputDlS3StorageClassOnezoneIa          OutputDlS3StorageClass = "ONEZONE_IA"
-	OutputDlS3StorageClassIntelligentTiering OutputDlS3StorageClass = "INTELLIGENT_TIERING"
-	OutputDlS3StorageClassGlacier            OutputDlS3StorageClass = "GLACIER"
-	OutputDlS3StorageClassGlacierIr          OutputDlS3StorageClass = "GLACIER_IR"
-	OutputDlS3StorageClassDeepArchive        OutputDlS3StorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputDlS3StorageClass) ToPointer() *OutputDlS3StorageClass {
-	return &e
-}
-
-type OutputDlS3ServerSideEncryptionForUploadedObjects string
-
-const (
-	OutputDlS3ServerSideEncryptionForUploadedObjectsAes256 OutputDlS3ServerSideEncryptionForUploadedObjects = "AES256"
-	OutputDlS3ServerSideEncryptionForUploadedObjectsAwsKms OutputDlS3ServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputDlS3ServerSideEncryptionForUploadedObjects) ToPointer() *OutputDlS3ServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// OutputDlS3DataFormat - Format of the output data
-type OutputDlS3DataFormat string
-
-const (
-	OutputDlS3DataFormatJSON    OutputDlS3DataFormat = "json"
-	OutputDlS3DataFormatRaw     OutputDlS3DataFormat = "raw"
-	OutputDlS3DataFormatParquet OutputDlS3DataFormat = "parquet"
-)
-
-func (e OutputDlS3DataFormat) ToPointer() *OutputDlS3DataFormat {
-	return &e
-}
-
-// OutputDlS3BackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputDlS3BackpressureBehavior string
-
-const (
-	OutputDlS3BackpressureBehaviorBlock OutputDlS3BackpressureBehavior = "block"
-	OutputDlS3BackpressureBehaviorDrop  OutputDlS3BackpressureBehavior = "drop"
-)
-
-func (e OutputDlS3BackpressureBehavior) ToPointer() *OutputDlS3BackpressureBehavior {
-	return &e
-}
-
-// OutputDlS3DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputDlS3DiskSpaceProtection string
-
-const (
-	OutputDlS3DiskSpaceProtectionBlock OutputDlS3DiskSpaceProtection = "block"
-	OutputDlS3DiskSpaceProtectionDrop  OutputDlS3DiskSpaceProtection = "drop"
-)
-
-func (e OutputDlS3DiskSpaceProtection) ToPointer() *OutputDlS3DiskSpaceProtection {
-	return &e
-}
-
-// OutputDlS3Compression - Data compression format to apply to HTTP content before it is delivered
-type OutputDlS3Compression string
-
-const (
-	OutputDlS3CompressionNone OutputDlS3Compression = "none"
-	OutputDlS3CompressionGzip OutputDlS3Compression = "gzip"
-)
-
-func (e OutputDlS3Compression) ToPointer() *OutputDlS3Compression {
-	return &e
-}
-
-// OutputDlS3CompressionLevel - Compression level to apply before moving files to final destination
-type OutputDlS3CompressionLevel string
-
-const (
-	OutputDlS3CompressionLevelBestSpeed       OutputDlS3CompressionLevel = "best_speed"
-	OutputDlS3CompressionLevelNormal          OutputDlS3CompressionLevel = "normal"
-	OutputDlS3CompressionLevelBestCompression OutputDlS3CompressionLevel = "best_compression"
-)
-
-func (e OutputDlS3CompressionLevel) ToPointer() *OutputDlS3CompressionLevel {
-	return &e
-}
-
-// OutputDlS3ParquetVersion - Determines which data types are supported and how they are represented
-type OutputDlS3ParquetVersion string
-
-const (
-	OutputDlS3ParquetVersionParquet10 OutputDlS3ParquetVersion = "PARQUET_1_0"
-	OutputDlS3ParquetVersionParquet24 OutputDlS3ParquetVersion = "PARQUET_2_4"
-	OutputDlS3ParquetVersionParquet26 OutputDlS3ParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputDlS3ParquetVersion) ToPointer() *OutputDlS3ParquetVersion {
-	return &e
-}
-
-// OutputDlS3DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputDlS3DataPageVersion string
-
-const (
-	OutputDlS3DataPageVersionDataPageV1 OutputDlS3DataPageVersion = "DATA_PAGE_V1"
-	OutputDlS3DataPageVersionDataPageV2 OutputDlS3DataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputDlS3DataPageVersion) ToPointer() *OutputDlS3DataPageVersion {
-	return &e
-}
-
-type OutputDlS3KeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputDlS3KeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputDlS3KeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputDlS3KeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputDlS3KeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputDlS3 struct {
+type OutputDlS3DlS311 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
 	// Unique ID for this output
-	ID   *string        `json:"id,omitempty"`
-	Type OutputDlS3Type `json:"type"`
+	ID   *string          `json:"id,omitempty"`
+	Type OutputDlS3Type11 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -238,11 +52,11 @@ type OutputDlS3 struct {
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputDlS3AuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *OutputDlS3SignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -262,16 +76,15 @@ type OutputDlS3 struct {
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
 	DestPath *string `default:"" json:"destPath"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputDlS3ObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputDlS3StorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputDlS3ServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	KmsKeyID string `json:"kmsKeyId"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
 	// Format of the output data
-	Format *OutputDlS3DataFormat `default:"json" json:"format"`
+	Format *Format1Options `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -284,12 +97,12 @@ type OutputDlS3 struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputDlS3BackpressureBehavior `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputDlS3DiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -307,16 +120,18 @@ type OutputDlS3 struct {
 	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputDlS3Compression `default:"gzip" json:"compress"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputDlS3CompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputDlS3ParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputDlS3DataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -324,7 +139,7 @@ type OutputDlS3 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputDlS3KeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -339,433 +154,6531 @@ type OutputDlS3 struct {
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
 
-func (o OutputDlS3) MarshalJSON() ([]byte, error) {
+func (o OutputDlS3DlS311) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputDlS3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+func (o *OutputDlS3DlS311) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type", "bucket", "kmsKeyId"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputDlS3) GetID() *string {
+func (o *OutputDlS3DlS311) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS311) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *OutputDlS3) GetType() OutputDlS3Type {
+func (o *OutputDlS3DlS311) GetType() OutputDlS3Type11 {
 	if o == nil {
-		return OutputDlS3Type("")
+		return OutputDlS3Type11("")
 	}
 	return o.Type
 }
 
-func (o *OutputDlS3) GetPipeline() *string {
+func (o *OutputDlS3DlS311) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *OutputDlS3) GetSystemFields() []string {
+func (o *OutputDlS3DlS311) GetSystemFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SystemFields
 }
 
-func (o *OutputDlS3) GetEnvironment() *string {
+func (o *OutputDlS3DlS311) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *OutputDlS3) GetStreamtags() []string {
+func (o *OutputDlS3DlS311) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *OutputDlS3) GetBucket() string {
+func (o *OutputDlS3DlS311) GetBucket() string {
 	if o == nil {
 		return ""
 	}
 	return o.Bucket
 }
 
-func (o *OutputDlS3) GetRegion() *string {
+func (o *OutputDlS3DlS311) GetRegion() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Region
 }
 
-func (o *OutputDlS3) GetAwsSecretKey() *string {
+func (o *OutputDlS3DlS311) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputDlS3) GetAwsAuthenticationMethod() *OutputDlS3AuthenticationMethod {
+func (o *OutputDlS3DlS311) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputDlS3) GetEndpoint() *string {
+func (o *OutputDlS3DlS311) GetEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Endpoint
 }
 
-func (o *OutputDlS3) GetSignatureVersion() *OutputDlS3SignatureVersion {
+func (o *OutputDlS3DlS311) GetSignatureVersion() *SignatureVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputDlS3) GetReuseConnections() *bool {
+func (o *OutputDlS3DlS311) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputDlS3) GetRejectUnauthorized() *bool {
+func (o *OutputDlS3DlS311) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputDlS3) GetEnableAssumeRole() *bool {
+func (o *OutputDlS3DlS311) GetEnableAssumeRole() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableAssumeRole
 }
 
-func (o *OutputDlS3) GetAssumeRoleArn() *string {
+func (o *OutputDlS3DlS311) GetAssumeRoleArn() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleArn
 }
 
-func (o *OutputDlS3) GetAssumeRoleExternalID() *string {
+func (o *OutputDlS3DlS311) GetAssumeRoleExternalID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleExternalID
 }
 
-func (o *OutputDlS3) GetDurationSeconds() *float64 {
+func (o *OutputDlS3DlS311) GetDurationSeconds() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DurationSeconds
 }
 
-func (o *OutputDlS3) GetStagePath() *string {
+func (o *OutputDlS3DlS311) GetStagePath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.StagePath
 }
 
-func (o *OutputDlS3) GetAddIDToStagePath() *bool {
+func (o *OutputDlS3DlS311) GetAddIDToStagePath() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AddIDToStagePath
 }
 
-func (o *OutputDlS3) GetDestPath() *string {
+func (o *OutputDlS3DlS311) GetDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DestPath
 }
 
-func (o *OutputDlS3) GetObjectACL() *OutputDlS3ObjectACL {
+func (o *OutputDlS3DlS311) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputDlS3) GetStorageClass() *OutputDlS3StorageClass {
+func (o *OutputDlS3DlS311) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputDlS3) GetServerSideEncryption() *OutputDlS3ServerSideEncryptionForUploadedObjects {
+func (o *OutputDlS3DlS311) GetKmsKeyID() string {
 	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputDlS3) GetKmsKeyID() *string {
-	if o == nil {
-		return nil
+		return ""
 	}
 	return o.KmsKeyID
 }
 
-func (o *OutputDlS3) GetRemoveEmptyDirs() *bool {
+func (o *OutputDlS3DlS311) GetRemoveEmptyDirs() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RemoveEmptyDirs
 }
 
-func (o *OutputDlS3) GetFormat() *OutputDlS3DataFormat {
+func (o *OutputDlS3DlS311) GetFormat() *Format1Options {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputDlS3) GetBaseFileName() *string {
+func (o *OutputDlS3DlS311) GetBaseFileName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.BaseFileName
 }
 
-func (o *OutputDlS3) GetFileNameSuffix() *string {
+func (o *OutputDlS3DlS311) GetFileNameSuffix() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FileNameSuffix
 }
 
-func (o *OutputDlS3) GetMaxFileSizeMB() *float64 {
+func (o *OutputDlS3DlS311) GetMaxFileSizeMB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileSizeMB
 }
 
-func (o *OutputDlS3) GetMaxOpenFiles() *float64 {
+func (o *OutputDlS3DlS311) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxOpenFiles
 }
 
-func (o *OutputDlS3) GetHeaderLine() *string {
+func (o *OutputDlS3DlS311) GetHeaderLine() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HeaderLine
 }
 
-func (o *OutputDlS3) GetWriteHighWaterMark() *float64 {
+func (o *OutputDlS3DlS311) GetWriteHighWaterMark() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDlS3) GetOnBackpressure() *OutputDlS3BackpressureBehavior {
+func (o *OutputDlS3DlS311) GetOnBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputDlS3) GetDeadletterEnabled() *bool {
+func (o *OutputDlS3DlS311) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputDlS3) GetOnDiskFullBackpressure() *OutputDlS3DiskSpaceProtection {
+func (o *OutputDlS3DlS311) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputDlS3) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputDlS3DlS311) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputDlS3) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputDlS3DlS311) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputDlS3) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputDlS3DlS311) GetMaxConcurrentFileParts() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentFileParts
 }
 
-func (o *OutputDlS3) GetVerifyPermissions() *bool {
+func (o *OutputDlS3DlS311) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
 }
 
-func (o *OutputDlS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (o *OutputDlS3DlS311) GetMaxClosingFilesToBackpressure() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputDlS3) GetPartitioningFields() []string {
+func (o *OutputDlS3DlS311) GetPartitioningFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.PartitioningFields
 }
 
-func (o *OutputDlS3) GetDescription() *string {
+func (o *OutputDlS3DlS311) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputDlS3) GetAwsAPIKey() *string {
+func (o *OutputDlS3DlS311) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputDlS3) GetAwsSecret() *string {
+func (o *OutputDlS3DlS311) GetAwsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputDlS3) GetCompress() *OutputDlS3Compression {
+func (o *OutputDlS3DlS311) GetCompress() *PqCompressOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDlS3) GetCompressionLevel() *OutputDlS3CompressionLevel {
+func (o *OutputDlS3DlS311) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
 	return o.CompressionLevel
 }
 
-func (o *OutputDlS3) GetAutomaticSchema() *bool {
+func (o *OutputDlS3DlS311) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputDlS3) GetParquetVersion() *OutputDlS3ParquetVersion {
+func (o *OutputDlS3DlS311) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS311) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputDlS3) GetParquetDataPageVersion() *OutputDlS3DataPageVersion {
+func (o *OutputDlS3DlS311) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputDlS3) GetParquetRowGroupLength() *float64 {
+func (o *OutputDlS3DlS311) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputDlS3) GetParquetPageSize() *string {
+func (o *OutputDlS3DlS311) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputDlS3) GetShouldLogInvalidRows() *bool {
+func (o *OutputDlS3DlS311) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputDlS3) GetKeyValueMetadata() []OutputDlS3KeyValueMetadatum {
+func (o *OutputDlS3DlS311) GetKeyValueMetadata() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputDlS3) GetEnableStatistics() *bool {
+func (o *OutputDlS3DlS311) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputDlS3) GetEnableWritePageIndex() *bool {
+func (o *OutputDlS3DlS311) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputDlS3) GetEnablePageChecksum() *bool {
+func (o *OutputDlS3DlS311) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputDlS3) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputDlS3DlS311) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputDlS3) GetDeadletterPath() *string {
+func (o *OutputDlS3DlS311) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputDlS3) GetMaxRetryNum() *float64 {
+func (o *OutputDlS3DlS311) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+type OutputDlS3Type10 string
+
+const (
+	OutputDlS3Type10DlS3 OutputDlS3Type10 = "dl_s3"
+)
+
+func (e OutputDlS3Type10) ToPointer() *OutputDlS3Type10 {
+	return &e
+}
+func (e *OutputDlS3Type10) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type10(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type10: %v", v)
+	}
+}
+
+type OutputDlS3DlS310 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputDlS3Type10 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS310) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS310) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS310) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS310) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS310) GetType() OutputDlS3Type10 {
+	if o == nil {
+		return OutputDlS3Type10("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS310) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS310) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS310) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS310) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS310) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS310) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS310) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS310) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS310) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS310) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS310) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS310) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS310) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS310) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS310) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS310) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS310) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS310) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS310) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS310) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS310) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS310) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS310) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS310) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS310) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS310) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS310) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS310) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS310) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS310) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS310) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS310) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS310) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS310) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS310) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS310) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS310) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS310) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS310) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS310) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS310) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS310) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS310) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS310) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS310) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS310) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS310) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS310) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS310) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS310) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS310) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS310) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS310) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS310) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS310) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS310) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS310) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS310) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type9 string
+
+const (
+	OutputDlS3Type9DlS3 OutputDlS3Type9 = "dl_s3"
+)
+
+func (e OutputDlS3Type9) ToPointer() *OutputDlS3Type9 {
+	return &e
+}
+func (e *OutputDlS3Type9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type9: %v", v)
+	}
+}
+
+type OutputDlS3DlS39 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS39) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS39) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS39) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS39) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS39) GetType() OutputDlS3Type9 {
+	if o == nil {
+		return OutputDlS3Type9("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS39) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS39) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS39) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS39) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS39) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS39) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS39) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS39) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS39) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS39) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS39) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS39) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS39) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS39) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS39) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS39) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS39) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS39) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS39) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS39) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS39) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS39) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS39) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS39) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS39) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS39) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS39) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS39) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS39) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS39) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS39) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS39) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS39) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS39) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS39) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS39) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS39) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS39) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS39) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS39) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS39) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS39) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS39) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS39) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS39) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS39) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS39) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS39) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS39) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS39) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS39) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS39) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS39) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS39) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS39) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS39) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS39) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS39) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type8 string
+
+const (
+	OutputDlS3Type8DlS3 OutputDlS3Type8 = "dl_s3"
+)
+
+func (e OutputDlS3Type8) ToPointer() *OutputDlS3Type8 {
+	return &e
+}
+func (e *OutputDlS3Type8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type8: %v", v)
+	}
+}
+
+type OutputDlS3DlS38 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS38) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS38) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS38) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS38) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS38) GetType() OutputDlS3Type8 {
+	if o == nil {
+		return OutputDlS3Type8("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS38) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS38) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS38) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS38) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS38) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS38) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS38) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS38) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS38) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS38) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS38) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS38) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS38) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS38) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS38) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS38) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS38) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS38) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS38) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS38) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS38) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS38) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS38) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS38) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS38) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS38) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS38) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS38) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS38) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS38) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS38) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS38) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS38) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS38) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS38) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS38) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS38) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS38) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS38) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS38) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS38) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS38) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS38) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS38) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS38) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS38) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS38) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS38) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS38) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS38) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS38) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS38) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS38) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS38) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS38) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS38) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS38) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS38) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type7 string
+
+const (
+	OutputDlS3Type7DlS3 OutputDlS3Type7 = "dl_s3"
+)
+
+func (e OutputDlS3Type7) ToPointer() *OutputDlS3Type7 {
+	return &e
+}
+func (e *OutputDlS3Type7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type7: %v", v)
+	}
+}
+
+type OutputDlS3DlS37 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS37) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS37) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS37) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS37) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS37) GetType() OutputDlS3Type7 {
+	if o == nil {
+		return OutputDlS3Type7("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS37) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS37) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS37) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS37) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS37) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS37) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS37) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS37) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS37) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS37) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS37) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS37) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS37) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS37) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS37) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS37) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS37) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS37) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS37) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS37) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS37) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS37) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS37) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS37) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS37) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS37) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS37) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS37) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS37) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS37) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS37) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS37) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS37) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS37) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS37) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS37) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS37) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS37) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS37) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS37) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS37) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS37) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS37) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS37) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS37) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS37) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS37) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS37) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS37) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS37) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS37) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS37) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS37) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS37) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS37) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS37) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS37) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS37) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type6 string
+
+const (
+	OutputDlS3Type6DlS3 OutputDlS3Type6 = "dl_s3"
+)
+
+func (e OutputDlS3Type6) ToPointer() *OutputDlS3Type6 {
+	return &e
+}
+func (e *OutputDlS3Type6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type6: %v", v)
+	}
+}
+
+type OutputDlS3DlS36 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS36) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS36) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS36) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS36) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS36) GetType() OutputDlS3Type6 {
+	if o == nil {
+		return OutputDlS3Type6("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS36) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS36) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS36) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS36) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS36) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS36) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS36) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS36) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS36) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS36) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS36) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS36) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS36) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS36) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS36) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS36) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS36) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS36) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS36) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS36) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS36) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS36) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS36) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS36) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS36) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS36) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS36) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS36) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS36) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS36) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS36) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS36) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS36) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS36) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS36) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS36) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS36) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS36) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS36) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS36) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS36) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS36) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS36) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS36) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS36) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS36) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS36) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS36) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS36) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS36) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS36) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS36) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS36) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS36) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS36) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS36) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS36) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS36) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type5 string
+
+const (
+	OutputDlS3Type5DlS3 OutputDlS3Type5 = "dl_s3"
+)
+
+func (e OutputDlS3Type5) ToPointer() *OutputDlS3Type5 {
+	return &e
+}
+func (e *OutputDlS3Type5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type5: %v", v)
+	}
+}
+
+type OutputDlS3DlS35 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows bool `json:"shouldLogInvalidRows"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS35) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS35) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "shouldLogInvalidRows", "keyValueMetadata"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS35) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS35) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS35) GetType() OutputDlS3Type5 {
+	if o == nil {
+		return OutputDlS3Type5("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS35) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS35) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS35) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS35) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS35) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS35) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS35) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS35) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS35) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS35) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS35) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS35) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS35) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS35) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS35) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS35) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS35) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS35) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS35) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS35) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS35) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS35) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS35) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS35) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS35) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS35) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS35) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS35) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS35) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS35) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS35) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS35) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS35) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS35) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS35) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS35) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS35) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS35) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS35) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS35) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS35) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS35) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS35) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS35) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS35) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS35) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS35) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS35) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS35) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS35) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS35) GetShouldLogInvalidRows() bool {
+	if o == nil {
+		return false
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS35) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return []TagsType{}
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS35) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS35) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS35) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS35) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS35) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS35) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type4 string
+
+const (
+	OutputDlS3Type4DlS3 OutputDlS3Type4 = "dl_s3"
+)
+
+func (e OutputDlS3Type4) ToPointer() *OutputDlS3Type4 {
+	return &e
+}
+func (e *OutputDlS3Type4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type4: %v", v)
+	}
+}
+
+type OutputDlS3DlS34 struct {
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS34) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS34) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS34) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS34) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS34) GetType() OutputDlS3Type4 {
+	if o == nil {
+		return OutputDlS3Type4("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS34) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS34) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS34) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS34) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS34) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS34) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS34) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS34) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS34) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS34) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS34) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS34) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS34) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS34) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS34) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS34) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS34) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS34) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS34) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS34) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS34) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS34) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS34) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS34) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS34) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS34) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS34) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS34) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS34) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS34) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS34) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS34) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS34) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS34) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS34) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS34) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS34) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS34) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS34) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS34) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS34) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS34) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS34) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS34) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS34) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS34) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS34) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS34) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS34) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS34) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS34) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS34) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS34) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS34) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS34) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS34) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS34) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS34) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type3 string
+
+const (
+	OutputDlS3Type3DlS3 OutputDlS3Type3 = "dl_s3"
+)
+
+func (e OutputDlS3Type3) ToPointer() *OutputDlS3Type3 {
+	return &e
+}
+func (e *OutputDlS3Type3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type3: %v", v)
+	}
+}
+
+type OutputDlS3DlS33 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS33) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS33) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS33) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS33) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS33) GetType() OutputDlS3Type3 {
+	if o == nil {
+		return OutputDlS3Type3("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS33) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS33) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS33) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS33) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS33) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS33) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS33) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS33) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS33) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS33) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS33) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS33) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS33) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS33) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS33) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS33) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS33) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS33) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS33) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS33) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS33) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS33) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS33) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS33) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS33) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS33) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS33) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS33) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS33) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS33) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS33) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS33) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS33) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS33) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS33) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS33) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS33) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS33) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS33) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS33) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS33) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS33) GetAwsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS33) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS33) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS33) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS33) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS33) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS33) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS33) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS33) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS33) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS33) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS33) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS33) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS33) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS33) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS33) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS33) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type2 string
+
+const (
+	OutputDlS3Type2DlS3 OutputDlS3Type2 = "dl_s3"
+)
+
+func (e OutputDlS3Type2) ToPointer() *OutputDlS3Type2 {
+	return &e
+}
+func (e *OutputDlS3Type2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type2: %v", v)
+	}
+}
+
+type OutputDlS3DlS32 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey string `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS32) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS32) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS32) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS32) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS32) GetType() OutputDlS3Type2 {
+	if o == nil {
+		return OutputDlS3Type2("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS32) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS32) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS32) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS32) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS32) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS32) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS32) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS32) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS32) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS32) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS32) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS32) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS32) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS32) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS32) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS32) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS32) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS32) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS32) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS32) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS32) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS32) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS32) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS32) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS32) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS32) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS32) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS32) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS32) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS32) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS32) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS32) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS32) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS32) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS32) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS32) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS32) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS32) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS32) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS32) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS32) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS32) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS32) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS32) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS32) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS32) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS32) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS32) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS32) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS32) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS32) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS32) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS32) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS32) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS32) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS32) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS32) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS32) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type1 string
+
+const (
+	OutputDlS3Type1DlS3 OutputDlS3Type1 = "dl_s3"
+)
+
+func (e OutputDlS3Type1) ToPointer() *OutputDlS3Type1 {
+	return &e
+}
+func (e *OutputDlS3Type1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "dl_s3":
+		*e = OutputDlS3Type1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputDlS3Type1: %v", v)
+	}
+}
+
+type OutputDlS3DlS31 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string         `json:"id,omitempty"`
+	Type OutputDlS3Type1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `default:"" json:"destPath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Format of the output data
+	Format *Format1Options `default:"json" json:"format"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+	PartitioningFields []string `json:"partitioningFields,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputDlS3DlS31) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDlS3DlS31) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDlS3DlS31) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputDlS3DlS31) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputDlS3DlS31) GetType() OutputDlS3Type1 {
+	if o == nil {
+		return OutputDlS3Type1("")
+	}
+	return o.Type
+}
+
+func (o *OutputDlS3DlS31) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputDlS3DlS31) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputDlS3DlS31) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputDlS3DlS31) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputDlS3DlS31) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputDlS3DlS31) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputDlS3DlS31) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputDlS3DlS31) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputDlS3DlS31) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputDlS3DlS31) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputDlS3DlS31) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputDlS3DlS31) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputDlS3DlS31) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputDlS3DlS31) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputDlS3DlS31) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputDlS3DlS31) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputDlS3DlS31) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputDlS3DlS31) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputDlS3DlS31) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputDlS3DlS31) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputDlS3DlS31) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputDlS3DlS31) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputDlS3DlS31) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputDlS3DlS31) GetFormat() *Format1Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputDlS3DlS31) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputDlS3DlS31) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputDlS3DlS31) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputDlS3DlS31) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputDlS3DlS31) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputDlS3DlS31) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputDlS3DlS31) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputDlS3DlS31) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputDlS3DlS31) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputDlS3DlS31) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputDlS3DlS31) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputDlS3DlS31) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputDlS3DlS31) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputDlS3DlS31) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputDlS3DlS31) GetPartitioningFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.PartitioningFields
+}
+
+func (o *OutputDlS3DlS31) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputDlS3DlS31) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputDlS3DlS31) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputDlS3DlS31) GetCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputDlS3DlS31) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputDlS3DlS31) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputDlS3DlS31) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputDlS3DlS31) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputDlS3DlS31) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputDlS3DlS31) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputDlS3DlS31) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputDlS3DlS31) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputDlS3DlS31) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputDlS3DlS31) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputDlS3DlS31) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputDlS3DlS31) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputDlS3DlS31) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3DlS31) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputDlS3DlS31) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputDlS3Type string
+
+const (
+	OutputDlS3TypeOutputDlS3DlS31  OutputDlS3Type = "OutputDlS3_DlS3_1"
+	OutputDlS3TypeOutputDlS3DlS32  OutputDlS3Type = "OutputDlS3_DlS3_2"
+	OutputDlS3TypeOutputDlS3DlS33  OutputDlS3Type = "OutputDlS3_DlS3_3"
+	OutputDlS3TypeOutputDlS3DlS34  OutputDlS3Type = "OutputDlS3_DlS3_4"
+	OutputDlS3TypeOutputDlS3DlS35  OutputDlS3Type = "OutputDlS3_DlS3_5"
+	OutputDlS3TypeOutputDlS3DlS36  OutputDlS3Type = "OutputDlS3_DlS3_6"
+	OutputDlS3TypeOutputDlS3DlS37  OutputDlS3Type = "OutputDlS3_DlS3_7"
+	OutputDlS3TypeOutputDlS3DlS38  OutputDlS3Type = "OutputDlS3_DlS3_8"
+	OutputDlS3TypeOutputDlS3DlS39  OutputDlS3Type = "OutputDlS3_DlS3_9"
+	OutputDlS3TypeOutputDlS3DlS310 OutputDlS3Type = "OutputDlS3_DlS3_10"
+	OutputDlS3TypeOutputDlS3DlS311 OutputDlS3Type = "OutputDlS3_DlS3_11"
+)
+
+type OutputDlS3 struct {
+	OutputDlS3DlS31  *OutputDlS3DlS31  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS32  *OutputDlS3DlS32  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS33  *OutputDlS3DlS33  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS34  *OutputDlS3DlS34  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS35  *OutputDlS3DlS35  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS36  *OutputDlS3DlS36  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS37  *OutputDlS3DlS37  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS38  *OutputDlS3DlS38  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS39  *OutputDlS3DlS39  `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS310 *OutputDlS3DlS310 `queryParam:"inline,name=OutputDlS3"`
+	OutputDlS3DlS311 *OutputDlS3DlS311 `queryParam:"inline,name=OutputDlS3"`
+
+	Type OutputDlS3Type
+}
+
+func CreateOutputDlS3OutputDlS3DlS31(outputDlS3DlS31 OutputDlS3DlS31) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS31
+
+	return OutputDlS3{
+		OutputDlS3DlS31: &outputDlS3DlS31,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS32(outputDlS3DlS32 OutputDlS3DlS32) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS32
+
+	return OutputDlS3{
+		OutputDlS3DlS32: &outputDlS3DlS32,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS33(outputDlS3DlS33 OutputDlS3DlS33) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS33
+
+	return OutputDlS3{
+		OutputDlS3DlS33: &outputDlS3DlS33,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS34(outputDlS3DlS34 OutputDlS3DlS34) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS34
+
+	return OutputDlS3{
+		OutputDlS3DlS34: &outputDlS3DlS34,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS35(outputDlS3DlS35 OutputDlS3DlS35) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS35
+
+	return OutputDlS3{
+		OutputDlS3DlS35: &outputDlS3DlS35,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS36(outputDlS3DlS36 OutputDlS3DlS36) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS36
+
+	return OutputDlS3{
+		OutputDlS3DlS36: &outputDlS3DlS36,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS37(outputDlS3DlS37 OutputDlS3DlS37) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS37
+
+	return OutputDlS3{
+		OutputDlS3DlS37: &outputDlS3DlS37,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS38(outputDlS3DlS38 OutputDlS3DlS38) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS38
+
+	return OutputDlS3{
+		OutputDlS3DlS38: &outputDlS3DlS38,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS39(outputDlS3DlS39 OutputDlS3DlS39) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS39
+
+	return OutputDlS3{
+		OutputDlS3DlS39: &outputDlS3DlS39,
+		Type:            typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS310(outputDlS3DlS310 OutputDlS3DlS310) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS310
+
+	return OutputDlS3{
+		OutputDlS3DlS310: &outputDlS3DlS310,
+		Type:             typ,
+	}
+}
+
+func CreateOutputDlS3OutputDlS3DlS311(outputDlS3DlS311 OutputDlS3DlS311) OutputDlS3 {
+	typ := OutputDlS3TypeOutputDlS3DlS311
+
+	return OutputDlS3{
+		OutputDlS3DlS311: &outputDlS3DlS311,
+		Type:             typ,
+	}
+}
+
+func (u *OutputDlS3) UnmarshalJSON(data []byte) error {
+
+	var outputDlS3DlS35 OutputDlS3DlS35 = OutputDlS3DlS35{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS35, "", true, nil); err == nil {
+		u.OutputDlS3DlS35 = &outputDlS3DlS35
+		u.Type = OutputDlS3TypeOutputDlS3DlS35
+		return nil
+	}
+
+	var outputDlS3DlS311 OutputDlS3DlS311 = OutputDlS3DlS311{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS311, "", true, nil); err == nil {
+		u.OutputDlS3DlS311 = &outputDlS3DlS311
+		u.Type = OutputDlS3TypeOutputDlS3DlS311
+		return nil
+	}
+
+	var outputDlS3DlS32 OutputDlS3DlS32 = OutputDlS3DlS32{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS32, "", true, nil); err == nil {
+		u.OutputDlS3DlS32 = &outputDlS3DlS32
+		u.Type = OutputDlS3TypeOutputDlS3DlS32
+		return nil
+	}
+
+	var outputDlS3DlS33 OutputDlS3DlS33 = OutputDlS3DlS33{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS33, "", true, nil); err == nil {
+		u.OutputDlS3DlS33 = &outputDlS3DlS33
+		u.Type = OutputDlS3TypeOutputDlS3DlS33
+		return nil
+	}
+
+	var outputDlS3DlS310 OutputDlS3DlS310 = OutputDlS3DlS310{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS310, "", true, nil); err == nil {
+		u.OutputDlS3DlS310 = &outputDlS3DlS310
+		u.Type = OutputDlS3TypeOutputDlS3DlS310
+		return nil
+	}
+
+	var outputDlS3DlS31 OutputDlS3DlS31 = OutputDlS3DlS31{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS31, "", true, nil); err == nil {
+		u.OutputDlS3DlS31 = &outputDlS3DlS31
+		u.Type = OutputDlS3TypeOutputDlS3DlS31
+		return nil
+	}
+
+	var outputDlS3DlS34 OutputDlS3DlS34 = OutputDlS3DlS34{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS34, "", true, nil); err == nil {
+		u.OutputDlS3DlS34 = &outputDlS3DlS34
+		u.Type = OutputDlS3TypeOutputDlS3DlS34
+		return nil
+	}
+
+	var outputDlS3DlS36 OutputDlS3DlS36 = OutputDlS3DlS36{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS36, "", true, nil); err == nil {
+		u.OutputDlS3DlS36 = &outputDlS3DlS36
+		u.Type = OutputDlS3TypeOutputDlS3DlS36
+		return nil
+	}
+
+	var outputDlS3DlS37 OutputDlS3DlS37 = OutputDlS3DlS37{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS37, "", true, nil); err == nil {
+		u.OutputDlS3DlS37 = &outputDlS3DlS37
+		u.Type = OutputDlS3TypeOutputDlS3DlS37
+		return nil
+	}
+
+	var outputDlS3DlS38 OutputDlS3DlS38 = OutputDlS3DlS38{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS38, "", true, nil); err == nil {
+		u.OutputDlS3DlS38 = &outputDlS3DlS38
+		u.Type = OutputDlS3TypeOutputDlS3DlS38
+		return nil
+	}
+
+	var outputDlS3DlS39 OutputDlS3DlS39 = OutputDlS3DlS39{}
+	if err := utils.UnmarshalJSON(data, &outputDlS3DlS39, "", true, nil); err == nil {
+		u.OutputDlS3DlS39 = &outputDlS3DlS39
+		u.Type = OutputDlS3TypeOutputDlS3DlS39
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputDlS3", string(data))
+}
+
+func (u OutputDlS3) MarshalJSON() ([]byte, error) {
+	if u.OutputDlS3DlS31 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS31, "", true)
+	}
+
+	if u.OutputDlS3DlS32 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS32, "", true)
+	}
+
+	if u.OutputDlS3DlS33 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS33, "", true)
+	}
+
+	if u.OutputDlS3DlS34 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS34, "", true)
+	}
+
+	if u.OutputDlS3DlS35 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS35, "", true)
+	}
+
+	if u.OutputDlS3DlS36 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS36, "", true)
+	}
+
+	if u.OutputDlS3DlS37 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS37, "", true)
+	}
+
+	if u.OutputDlS3DlS38 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS38, "", true)
+	}
+
+	if u.OutputDlS3DlS39 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS39, "", true)
+	}
+
+	if u.OutputDlS3DlS310 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS310, "", true)
+	}
+
+	if u.OutputDlS3DlS311 != nil {
+		return utils.MarshalJSON(u.OutputDlS3DlS311, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputDlS3: all fields are null")
 }

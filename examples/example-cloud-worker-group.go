@@ -69,16 +69,16 @@ func main() {
 		log.Fatalf("Error checking for existing worker group: %v", err)
 	}
 
-	if getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse.CountedConfigGroup != nil &&
+		getResponse.CountedConfigGroup.Items != nil &&
+		len(getResponse.CountedConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Try different group id.\n", WORKER_GROUP_ID)
 		return
 	}
 
 	// Create the Worker Group
 	awsProvider := components.CloudProviderAws
-	group := components.ConfigGroup{
+	groupCreateRequest := components.GroupCreateRequest{
 		ID:                  WORKER_GROUP_ID,
 		Name:                criblcontrolplanesdkgo.String("my-aws-worker-group"),
 		OnPrem:              criblcontrolplanesdkgo.Bool(false),
@@ -86,34 +86,37 @@ func main() {
 		Provisioned:         criblcontrolplanesdkgo.Bool(false),
 		IsFleet:             criblcontrolplanesdkgo.Bool(false),
 		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: criblcontrolplanesdkgo.Float64(2048), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+		EstimatedIngestRate: components.EstimatedIngestRateOptionsRate24MbPerSec.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
 		Cloud: &components.ConfigGroupCloud{
 			Provider: &awsProvider,
 			Region:   "us-east-1",
 		},
 	}
 
-	createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, group)
+	createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, groupCreateRequest)
 	if err != nil {
 		log.Fatalf("Error creating Worker Group: %v", err)
 	}
 
-	if createResponse.Object == nil {
+	if createResponse.CountedConfigGroup == nil {
 		log.Fatal("No response received when creating Worker Group")
 	}
 
 	fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 
 	// Scale and provision the Worker Group
-	group.EstimatedIngestRate = criblcontrolplanesdkgo.Float64(4096) // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
-	group.Provisioned = criblcontrolplanesdkgo.Bool(true)
+	group := components.ConfigGroup{
+		ID:                  WORKER_GROUP_ID,
+		EstimatedIngestRate: components.EstimatedIngestRateOptionsRate48MbPerSec.ToPointer(), // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+		Provisioned:         criblcontrolplanesdkgo.Bool(true),
+	}
 
 	updateResponse, err := client.Groups.Update(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, group)
 	if err != nil {
 		log.Fatalf("Error updating Worker Group: %v", err)
 	}
 
-	if updateResponse.Object == nil {
+	if updateResponse.CountedConfigGroup == nil {
 		log.Fatal("No response received when updating Worker Group")
 	}
 

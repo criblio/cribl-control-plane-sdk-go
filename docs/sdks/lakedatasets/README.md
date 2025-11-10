@@ -59,9 +59,13 @@ func main() {
         },
         DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
         Description: criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-        Format: components.CriblLakeDatasetFormatDdss.ToPointer(),
+        Format: components.FormatOptionsDdss.ToPointer(),
         HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
         ID: "<id>",
+        Metrics: &components.LakeDatasetMetrics{
+            CurrentSizeBytes: 6170.04,
+            MetricsDate: "<value>",
+        },
         RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
         SearchConfig: &components.LakeDatasetSearchConfig{
             Datatypes: []string{
@@ -89,7 +93,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -147,7 +151,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -204,7 +208,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -262,7 +266,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }
@@ -337,9 +341,13 @@ func main() {
         },
         DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](836.59),
         Description: criblcontrolplanesdkgo.Pointer("highlight phew ponder but winding"),
-        Format: components.CriblLakeDatasetUpdateFormatJSON.ToPointer(),
+        Format: components.FormatOptionsJSON.ToPointer(),
         HTTPDAUsed: criblcontrolplanesdkgo.Pointer(true),
         ID: criblcontrolplanesdkgo.Pointer("<id>"),
+        Metrics: &components.LakeDatasetMetrics{
+            CurrentSizeBytes: 6237.74,
+            MetricsDate: "<value>",
+        },
         RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](602.09),
         SearchConfig: &components.LakeDatasetSearchConfig{
             Datatypes: []string{
@@ -367,7 +375,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedCriblLakeDataset != nil {
         // handle response
     }
 }

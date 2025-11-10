@@ -31,41 +31,6 @@ func (e *OutputRingType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputRingDataFormat - Format of the output data.
-type OutputRingDataFormat string
-
-const (
-	OutputRingDataFormatJSON OutputRingDataFormat = "json"
-	OutputRingDataFormatRaw  OutputRingDataFormat = "raw"
-)
-
-func (e OutputRingDataFormat) ToPointer() *OutputRingDataFormat {
-	return &e
-}
-
-type OutputRingDataCompressionFormat string
-
-const (
-	OutputRingDataCompressionFormatNone OutputRingDataCompressionFormat = "none"
-	OutputRingDataCompressionFormatGzip OutputRingDataCompressionFormat = "gzip"
-)
-
-func (e OutputRingDataCompressionFormat) ToPointer() *OutputRingDataCompressionFormat {
-	return &e
-}
-
-// OutputRingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputRingBackpressureBehavior string
-
-const (
-	OutputRingBackpressureBehaviorBlock OutputRingBackpressureBehavior = "block"
-	OutputRingBackpressureBehaviorDrop  OutputRingBackpressureBehavior = "drop"
-)
-
-func (e OutputRingBackpressureBehavior) ToPointer() *OutputRingBackpressureBehavior {
-	return &e
-}
-
 type OutputRing struct {
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
@@ -78,20 +43,21 @@ type OutputRing struct {
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Format of the output data.
-	Format *OutputRingDataFormat `default:"json" json:"format"`
+	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
+	Format *Format2Options `default:"json" json:"format"`
 	// JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
 	PartitionExpr *string `json:"partitionExpr,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                          `default:"24h" json:"maxDataTime"`
-	Compress    *OutputRingDataCompressionFormat `default:"gzip" json:"compress"`
+	MaxDataTime *string `default:"24h" json:"maxDataTime"`
+	// Codec to use to compress the persisted data
+	Compress *PqCompressOptions `default:"none" json:"compress"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitempty"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputRingBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                         `json:"description,omitempty"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                  `json:"description,omitempty"`
 }
 
 func (o OutputRing) MarshalJSON() ([]byte, error) {
@@ -147,7 +113,7 @@ func (o *OutputRing) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputRing) GetFormat() *OutputRingDataFormat {
+func (o *OutputRing) GetFormat() *Format2Options {
 	if o == nil {
 		return nil
 	}
@@ -175,7 +141,7 @@ func (o *OutputRing) GetMaxDataTime() *string {
 	return o.MaxDataTime
 }
 
-func (o *OutputRing) GetCompress() *OutputRingDataCompressionFormat {
+func (o *OutputRing) GetCompress() *PqCompressOptions {
 	if o == nil {
 		return nil
 	}
@@ -189,7 +155,7 @@ func (o *OutputRing) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputRing) GetOnBackpressure() *OutputRingBackpressureBehavior {
+func (o *OutputRing) GetOnBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}

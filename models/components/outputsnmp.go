@@ -3,70 +3,13 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputSnmpType string
-
-const (
-	OutputSnmpTypeSnmp OutputSnmpType = "snmp"
-)
-
-func (e OutputSnmpType) ToPointer() *OutputSnmpType {
-	return &e
-}
-func (e *OutputSnmpType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "snmp":
-		*e = OutputSnmpType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnmpType: %v", v)
-	}
-}
-
-type OutputSnmpHost struct {
-	// Destination host
-	Host string `json:"host"`
-	// Destination port, default is 162
-	Port *float64 `default:"162" json:"port"`
-}
-
-func (o OutputSnmpHost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSnmpHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSnmpHost) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputSnmpHost) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
 
 type OutputSnmp struct {
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
-	Type OutputSnmpType `json:"type"`
+	Type TypeSnmpOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -76,7 +19,7 @@ type OutputSnmp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// One or more SNMP destinations to forward traps to
-	Hosts []OutputSnmpHost `json:"hosts"`
+	Hosts []Hosts1Type `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
 	Description         *string  `json:"description,omitempty"`
@@ -100,9 +43,9 @@ func (o *OutputSnmp) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSnmp) GetType() OutputSnmpType {
+func (o *OutputSnmp) GetType() TypeSnmpOption {
 	if o == nil {
-		return OutputSnmpType("")
+		return TypeSnmpOption("")
 	}
 	return o.Type
 }
@@ -135,9 +78,9 @@ func (o *OutputSnmp) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputSnmp) GetHosts() []OutputSnmpHost {
+func (o *OutputSnmp) GetHosts() []Hosts1Type {
 	if o == nil {
-		return []OutputSnmpHost{}
+		return []Hosts1Type{}
 	}
 	return o.Hosts
 }

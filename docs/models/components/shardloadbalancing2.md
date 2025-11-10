@@ -1,0 +1,11 @@
+# ShardLoadBalancing2
+
+The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `ShardLoadBalancing2ConsistentHashing` | ConsistentHashing                      |
+| `ShardLoadBalancing2RoundRobin`        | RoundRobin                             |

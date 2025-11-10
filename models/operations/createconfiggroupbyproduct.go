@@ -7,10 +7,10 @@ import (
 )
 
 type CreateConfigGroupByProductRequest struct {
-	// Name of the Cribl product to add the Worker Group or Edge Fleet to.
+	// required Name of the Cribl product to add the Worker Group or Edge Fleet to.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// ConfigGroup object
-	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
+	// GroupCreateRequest object
+	GroupCreateRequest components.GroupCreateRequest `request:"mediaType=application/json"`
 }
 
 func (c *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore {
@@ -20,38 +20,17 @@ func (c *CreateConfigGroupByProductRequest) GetProduct() components.ProductsCore
 	return c.Product
 }
 
-func (c *CreateConfigGroupByProductRequest) GetConfigGroup() components.ConfigGroup {
+func (c *CreateConfigGroupByProductRequest) GetGroupCreateRequest() components.GroupCreateRequest {
 	if c == nil {
-		return components.ConfigGroup{}
+		return components.GroupCreateRequest{}
 	}
-	return c.ConfigGroup
-}
-
-// CreateConfigGroupByProductResponseBody - a list of ConfigGroup objects
-type CreateConfigGroupByProductResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (c *CreateConfigGroupByProductResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
-	if c == nil {
-		return nil
-	}
-	return c.Items
+	return c.GroupCreateRequest
 }
 
 type CreateConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *CreateConfigGroupByProductResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (c *CreateConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (c *CreateConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetada
 	return c.HTTPMeta
 }
 
-func (c *CreateConfigGroupByProductResponse) GetObject() *CreateConfigGroupByProductResponseBody {
+func (c *CreateConfigGroupByProductResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedConfigGroup
 }

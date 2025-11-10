@@ -4,286 +4,83 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputXsiamType string
+type OutputXsiamType6 string
 
 const (
-	OutputXsiamTypeXsiam OutputXsiamType = "xsiam"
+	OutputXsiamType6Xsiam OutputXsiamType6 = "xsiam"
 )
 
-func (e OutputXsiamType) ToPointer() *OutputXsiamType {
+func (e OutputXsiamType6) ToPointer() *OutputXsiamType6 {
 	return &e
 }
-func (e *OutputXsiamType) UnmarshalJSON(data []byte) error {
+func (e *OutputXsiamType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "xsiam":
-		*e = OutputXsiamType(v)
+		*e = OutputXsiamType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputXsiamType: %v", v)
+		return fmt.Errorf("invalid value for OutputXsiamType6: %v", v)
 	}
 }
 
-type OutputXsiamExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputXsiamExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputXsiamExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputXsiamExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputXsiamExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputXsiamFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputXsiamFailedRequestLoggingMode string
+// OutputXsiamAuthenticationMethod6 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod6 string
 
 const (
-	OutputXsiamFailedRequestLoggingModePayload           OutputXsiamFailedRequestLoggingMode = "payload"
-	OutputXsiamFailedRequestLoggingModePayloadAndHeaders OutputXsiamFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputXsiamFailedRequestLoggingModeNone              OutputXsiamFailedRequestLoggingMode = "none"
+	OutputXsiamAuthenticationMethod6Token  OutputXsiamAuthenticationMethod6 = "token"
+	OutputXsiamAuthenticationMethod6Secret OutputXsiamAuthenticationMethod6 = "secret"
 )
 
-func (e OutputXsiamFailedRequestLoggingMode) ToPointer() *OutputXsiamFailedRequestLoggingMode {
+func (e OutputXsiamAuthenticationMethod6) ToPointer() *OutputXsiamAuthenticationMethod6 {
 	return &e
 }
 
-// OutputXsiamAuthenticationMethod - Enter a token directly, or provide a secret referencing a token
-type OutputXsiamAuthenticationMethod string
-
-const (
-	OutputXsiamAuthenticationMethodToken  OutputXsiamAuthenticationMethod = "token"
-	OutputXsiamAuthenticationMethodSecret OutputXsiamAuthenticationMethod = "secret"
-)
-
-func (e OutputXsiamAuthenticationMethod) ToPointer() *OutputXsiamAuthenticationMethod {
-	return &e
-}
-
-type OutputXsiamResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputXsiamResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputXsiamResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputXsiamResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputXsiamResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputXsiamResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputXsiamResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputXsiamTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputXsiamTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputXsiamTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputXsiamTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputXsiamTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputXsiamTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputXsiamTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputXsiamBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputXsiamBackpressureBehavior string
-
-const (
-	OutputXsiamBackpressureBehaviorBlock OutputXsiamBackpressureBehavior = "block"
-	OutputXsiamBackpressureBehaviorDrop  OutputXsiamBackpressureBehavior = "drop"
-	OutputXsiamBackpressureBehaviorQueue OutputXsiamBackpressureBehavior = "queue"
-)
-
-func (e OutputXsiamBackpressureBehavior) ToPointer() *OutputXsiamBackpressureBehavior {
-	return &e
-}
-
-type OutputXsiamURL struct {
+type URL6 struct {
 	URL any `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `default:"1" json:"weight"`
 }
 
-func (o OutputXsiamURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (u URL6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
 }
 
-func (o *OutputXsiamURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
+func (u *URL6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputXsiamURL) GetURL() any {
-	if o == nil {
+func (u *URL6) GetURL() any {
+	if u == nil {
 		return nil
 	}
-	return o.URL
+	return u.URL
 }
 
-func (o *OutputXsiamURL) GetWeight() *float64 {
-	if o == nil {
+func (u *URL6) GetWeight() *float64 {
+	if u == nil {
 		return nil
 	}
-	return o.Weight
+	return u.Weight
 }
 
-// OutputXsiamCompression - Codec to use to compress the persisted data
-type OutputXsiamCompression string
-
-const (
-	OutputXsiamCompressionNone OutputXsiamCompression = "none"
-	OutputXsiamCompressionGzip OutputXsiamCompression = "gzip"
-)
-
-func (e OutputXsiamCompression) ToPointer() *OutputXsiamCompression {
-	return &e
-}
-
-// OutputXsiamQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputXsiamQueueFullBehavior string
-
-const (
-	OutputXsiamQueueFullBehaviorBlock OutputXsiamQueueFullBehavior = "block"
-	OutputXsiamQueueFullBehaviorDrop  OutputXsiamQueueFullBehavior = "drop"
-)
-
-func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior {
-	return &e
-}
-
-// OutputXsiamMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputXsiamMode string
-
-const (
-	OutputXsiamModeError        OutputXsiamMode = "error"
-	OutputXsiamModeBackpressure OutputXsiamMode = "backpressure"
-	OutputXsiamModeAlways       OutputXsiamMode = "always"
-)
-
-func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
-	return &e
-}
-
-type OutputXsiamPqControls struct {
-}
-
-func (o OutputXsiamPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputXsiamPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputXsiam struct {
+type OutputXsiamXsiam6 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string         `json:"id,omitempty"`
-	Type OutputXsiamType `json:"type"`
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType6 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -309,22 +106,20 @@ type OutputXsiam struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputXsiamExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputXsiamFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Enter a token directly, or provide a secret referencing a token
-	AuthType *OutputXsiamAuthenticationMethod `default:"token" json:"authType"`
+	AuthType *OutputXsiamAuthenticationMethod6 `default:"token" json:"authType"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputXsiamResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputXsiamTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// Maximum number of requests to limit to per second
 	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputXsiamBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -333,8 +128,8 @@ type OutputXsiam struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool            `default:"false" json:"excludeSelf"`
-	Urls        []OutputXsiamURL `json:"urls,omitempty"`
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL6 `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -343,6 +138,16 @@ type OutputXsiam struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -350,294 +155,2791 @@ type OutputXsiam struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputXsiamCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputXsiamQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputXsiamMode       `default:"error" json:"pqMode"`
-	PqControls *OutputXsiamPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputXsiam) MarshalJSON() ([]byte, error) {
+func (o OutputXsiamXsiam6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputXsiam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputXsiamXsiam6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputXsiam) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputXsiam) GetType() OutputXsiamType {
-	if o == nil {
-		return OutputXsiamType("")
-	}
-	return o.Type
-}
-
-func (o *OutputXsiam) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputXsiam) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputXsiam) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputXsiam) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputXsiam) GetLoadBalanced() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
-}
-
-func (o *OutputXsiam) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputXsiam) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputXsiam) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputXsiam) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputXsiam) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputXsiam) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputXsiam) GetExtraHTTPHeaders() []OutputXsiamExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputXsiam) GetFailedRequestLoggingMode() *OutputXsiamFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputXsiam) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputXsiam) GetAuthType() *OutputXsiamAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputXsiam) GetResponseRetrySettings() []OutputXsiamResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputXsiam) GetTimeoutRetrySettings() *OutputXsiamTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputXsiam) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputXsiam) GetThrottleRateReqPerSec() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.ThrottleRateReqPerSec
-}
-
-func (o *OutputXsiam) GetOnBackpressure() *OutputXsiamBackpressureBehavior {
+func (o *OutputXsiamXsiam6) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputXsiam) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputXsiamXsiam6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam6) GetType() OutputXsiamType6 {
+	if o == nil {
+		return OutputXsiamType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam6) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam6) GetAuthType() *OutputXsiamAuthenticationMethod6 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam6) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam6) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputXsiam) GetDescription() *string {
+func (o *OutputXsiamXsiam6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputXsiam) GetURL() *string {
+func (o *OutputXsiamXsiam6) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *OutputXsiam) GetUseRoundRobinDNS() *bool {
+func (o *OutputXsiamXsiam6) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputXsiam) GetExcludeSelf() *bool {
+func (o *OutputXsiamXsiam6) GetExcludeSelf() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeSelf
 }
 
-func (o *OutputXsiam) GetUrls() []OutputXsiamURL {
+func (o *OutputXsiamXsiam6) GetUrls() []URL6 {
 	if o == nil {
 		return nil
 	}
 	return o.Urls
 }
 
-func (o *OutputXsiam) GetDNSResolvePeriodSec() *float64 {
+func (o *OutputXsiamXsiam6) GetDNSResolvePeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
 }
 
-func (o *OutputXsiam) GetLoadBalanceStatsPeriodSec() *float64 {
+func (o *OutputXsiamXsiam6) GetLoadBalanceStatsPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
 }
 
-func (o *OutputXsiam) GetToken() *string {
+func (o *OutputXsiamXsiam6) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputXsiam) GetTextSecret() *string {
+func (o *OutputXsiamXsiam6) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputXsiam) GetPqMaxFileSize() *string {
+func (o *OutputXsiamXsiam6) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputXsiam) GetPqMaxSize() *string {
+func (o *OutputXsiamXsiam6) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputXsiam) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputXsiam) GetPqCompress() *OutputXsiamCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputXsiam) GetPqOnBackpressure() *OutputXsiamQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputXsiam) GetPqMode() *OutputXsiamMode {
+func (o *OutputXsiamXsiam6) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputXsiam) GetPqControls() *OutputXsiamPqControls {
+func (o *OutputXsiamXsiam6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam6) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputXsiamType5 string
+
+const (
+	OutputXsiamType5Xsiam OutputXsiamType5 = "xsiam"
+)
+
+func (e OutputXsiamType5) ToPointer() *OutputXsiamType5 {
+	return &e
+}
+func (e *OutputXsiamType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xsiam":
+		*e = OutputXsiamType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputXsiamType5: %v", v)
+	}
+}
+
+// OutputXsiamAuthenticationMethod5 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod5 string
+
+const (
+	OutputXsiamAuthenticationMethod5Token  OutputXsiamAuthenticationMethod5 = "token"
+	OutputXsiamAuthenticationMethod5Secret OutputXsiamAuthenticationMethod5 = "secret"
+)
+
+func (e OutputXsiamAuthenticationMethod5) ToPointer() *OutputXsiamAuthenticationMethod5 {
+	return &e
+}
+
+type URL5 struct {
+	URL any `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (u URL5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *URL5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *URL5) GetURL() any {
+	if u == nil {
+		return nil
+	}
+	return u.URL
+}
+
+func (u *URL5) GetWeight() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Weight
+}
+
+type OutputXsiamXsiam5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter a token directly, or provide a secret referencing a token
+	AuthType *OutputXsiamAuthenticationMethod5 `default:"token" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Maximum number of requests to limit to per second
+	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+	URL *string `default:"http://localhost:8088/logs/v1/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL5 `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// XSIAM authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputXsiamXsiam5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputXsiamXsiam5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputXsiamXsiam5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputXsiamXsiam5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam5) GetType() OutputXsiamType5 {
+	if o == nil {
+		return OutputXsiamType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam5) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam5) GetAuthType() *OutputXsiamAuthenticationMethod5 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam5) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputXsiamXsiam5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputXsiamXsiam5) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputXsiamXsiam5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputXsiamXsiam5) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputXsiamXsiam5) GetUrls() []URL5 {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputXsiamXsiam5) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputXsiamXsiam5) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputXsiamXsiam5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputXsiamXsiam5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputXsiamXsiam5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiamXsiam5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiamXsiam5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiamXsiam5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam5) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+// OutputXsiamAuthenticationMethod4 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod4 string
+
+const (
+	OutputXsiamAuthenticationMethod4Token  OutputXsiamAuthenticationMethod4 = "token"
+	OutputXsiamAuthenticationMethod4Secret OutputXsiamAuthenticationMethod4 = "secret"
+)
+
+func (e OutputXsiamAuthenticationMethod4) ToPointer() *OutputXsiamAuthenticationMethod4 {
+	return &e
+}
+
+type OutputXsiamType4 string
+
+const (
+	OutputXsiamType4Xsiam OutputXsiamType4 = "xsiam"
+)
+
+func (e OutputXsiamType4) ToPointer() *OutputXsiamType4 {
+	return &e
+}
+func (e *OutputXsiamType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xsiam":
+		*e = OutputXsiamType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputXsiamType4: %v", v)
+	}
+}
+
+type URL4 struct {
+	URL any `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (u URL4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *URL4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *URL4) GetURL() any {
+	if u == nil {
+		return nil
+	}
+	return u.URL
+}
+
+func (u *URL4) GetWeight() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Weight
+}
+
+type OutputXsiamXsiam4 struct {
+	// Enter a token directly, or provide a secret referencing a token
+	AuthType *OutputXsiamAuthenticationMethod4 `default:"token" json:"authType"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Maximum number of requests to limit to per second
+	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+	URL *string `default:"http://localhost:8088/logs/v1/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL4 `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// XSIAM authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputXsiamXsiam4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputXsiamXsiam4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputXsiamXsiam4) GetAuthType() *OutputXsiamAuthenticationMethod4 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam4) GetType() OutputXsiamType4 {
+	if o == nil {
+		return OutputXsiamType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam4) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam4) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputXsiamXsiam4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputXsiamXsiam4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputXsiamXsiam4) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputXsiamXsiam4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputXsiamXsiam4) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputXsiamXsiam4) GetUrls() []URL4 {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputXsiamXsiam4) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputXsiamXsiam4) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputXsiamXsiam4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputXsiamXsiam4) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputXsiamXsiam4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiamXsiam4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiamXsiam4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiamXsiam4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// OutputXsiamAuthenticationMethod3 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod3 string
+
+const (
+	OutputXsiamAuthenticationMethod3Token  OutputXsiamAuthenticationMethod3 = "token"
+	OutputXsiamAuthenticationMethod3Secret OutputXsiamAuthenticationMethod3 = "secret"
+)
+
+func (e OutputXsiamAuthenticationMethod3) ToPointer() *OutputXsiamAuthenticationMethod3 {
+	return &e
+}
+
+type OutputXsiamType3 string
+
+const (
+	OutputXsiamType3Xsiam OutputXsiamType3 = "xsiam"
+)
+
+func (e OutputXsiamType3) ToPointer() *OutputXsiamType3 {
+	return &e
+}
+func (e *OutputXsiamType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xsiam":
+		*e = OutputXsiamType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputXsiamType3: %v", v)
+	}
+}
+
+type URL3 struct {
+	URL any `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (u URL3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *URL3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *URL3) GetURL() any {
+	if u == nil {
+		return nil
+	}
+	return u.URL
+}
+
+func (u *URL3) GetWeight() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Weight
+}
+
+type OutputXsiamXsiam3 struct {
+	// Enter a token directly, or provide a secret referencing a token
+	AuthType *OutputXsiamAuthenticationMethod3 `default:"token" json:"authType"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Maximum number of requests to limit to per second
+	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+	URL *string `default:"http://localhost:8088/logs/v1/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL3 `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// XSIAM authentication token
+	Token string `json:"token"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputXsiamXsiam3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputXsiamXsiam3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputXsiamXsiam3) GetAuthType() *OutputXsiamAuthenticationMethod3 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam3) GetType() OutputXsiamType3 {
+	if o == nil {
+		return OutputXsiamType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam3) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam3) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputXsiamXsiam3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputXsiamXsiam3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputXsiamXsiam3) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputXsiamXsiam3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputXsiamXsiam3) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputXsiamXsiam3) GetUrls() []URL3 {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputXsiamXsiam3) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputXsiamXsiam3) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputXsiamXsiam3) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputXsiamXsiam3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputXsiamXsiam3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiamXsiam3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiamXsiam3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiamXsiam3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputXsiamType2 string
+
+const (
+	OutputXsiamType2Xsiam OutputXsiamType2 = "xsiam"
+)
+
+func (e OutputXsiamType2) ToPointer() *OutputXsiamType2 {
+	return &e
+}
+func (e *OutputXsiamType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xsiam":
+		*e = OutputXsiamType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputXsiamType2: %v", v)
+	}
+}
+
+// OutputXsiamAuthenticationMethod2 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod2 string
+
+const (
+	OutputXsiamAuthenticationMethod2Token  OutputXsiamAuthenticationMethod2 = "token"
+	OutputXsiamAuthenticationMethod2Secret OutputXsiamAuthenticationMethod2 = "secret"
+)
+
+func (e OutputXsiamAuthenticationMethod2) ToPointer() *OutputXsiamAuthenticationMethod2 {
+	return &e
+}
+
+type URL2 struct {
+	URL any `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (u URL2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *URL2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *URL2) GetURL() any {
+	if u == nil {
+		return nil
+	}
+	return u.URL
+}
+
+func (u *URL2) GetWeight() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Weight
+}
+
+type OutputXsiamXsiam2 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter a token directly, or provide a secret referencing a token
+	AuthType *OutputXsiamAuthenticationMethod2 `default:"token" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Maximum number of requests to limit to per second
+	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+	URL *string `default:"http://localhost:8088/logs/v1/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL2 `json:"urls"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// XSIAM authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputXsiamXsiam2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputXsiamXsiam2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "urls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputXsiamXsiam2) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam2) GetType() OutputXsiamType2 {
+	if o == nil {
+		return OutputXsiamType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam2) GetAuthType() *OutputXsiamAuthenticationMethod2 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam2) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputXsiamXsiam2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputXsiamXsiam2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputXsiamXsiam2) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputXsiamXsiam2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputXsiamXsiam2) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputXsiamXsiam2) GetUrls() []URL2 {
+	if o == nil {
+		return []URL2{}
+	}
+	return o.Urls
+}
+
+func (o *OutputXsiamXsiam2) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputXsiamXsiam2) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputXsiamXsiam2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputXsiamXsiam2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputXsiamXsiam2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiamXsiam2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiamXsiam2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiamXsiam2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputXsiamType1 string
+
+const (
+	OutputXsiamType1Xsiam OutputXsiamType1 = "xsiam"
+)
+
+func (e OutputXsiamType1) ToPointer() *OutputXsiamType1 {
+	return &e
+}
+func (e *OutputXsiamType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "xsiam":
+		*e = OutputXsiamType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputXsiamType1: %v", v)
+	}
+}
+
+// OutputXsiamAuthenticationMethod1 - Enter a token directly, or provide a secret referencing a token
+type OutputXsiamAuthenticationMethod1 string
+
+const (
+	OutputXsiamAuthenticationMethod1Token  OutputXsiamAuthenticationMethod1 = "token"
+	OutputXsiamAuthenticationMethod1Secret OutputXsiamAuthenticationMethod1 = "secret"
+)
+
+func (e OutputXsiamAuthenticationMethod1) ToPointer() *OutputXsiamAuthenticationMethod1 {
+	return &e
+}
+
+type URL1 struct {
+	URL any `json:"url"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (u URL1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *URL1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *URL1) GetURL() any {
+	if u == nil {
+		return nil
+	}
+	return u.URL
+}
+
+func (u *URL1) GetWeight() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.Weight
+}
+
+type OutputXsiamXsiam1 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"false" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string          `json:"id,omitempty"`
+	Type OutputXsiamType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Enter a token directly, or provide a secret referencing a token
+	AuthType *OutputXsiamAuthenticationMethod1 `default:"token" json:"authType"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Maximum number of requests to limit to per second
+	ThrottleRateReqPerSec *int64 `default:"400" json:"throttleRateReqPerSec"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+	URL *string `default:"http://localhost:8088/logs/v1/event" json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool  `default:"false" json:"excludeSelf"`
+	Urls        []URL1 `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// XSIAM authentication token
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputXsiamXsiam1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputXsiamXsiam1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputXsiamXsiam1) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputXsiamXsiam1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputXsiamXsiam1) GetType() OutputXsiamType1 {
+	if o == nil {
+		return OutputXsiamType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputXsiamXsiam1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputXsiamXsiam1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputXsiamXsiam1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputXsiamXsiam1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputXsiamXsiam1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputXsiamXsiam1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputXsiamXsiam1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputXsiamXsiam1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputXsiamXsiam1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputXsiamXsiam1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputXsiamXsiam1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputXsiamXsiam1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputXsiamXsiam1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputXsiamXsiam1) GetAuthType() *OutputXsiamAuthenticationMethod1 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputXsiamXsiam1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputXsiamXsiam1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputXsiamXsiam1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputXsiamXsiam1) GetThrottleRateReqPerSec() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRateReqPerSec
+}
+
+func (o *OutputXsiamXsiam1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputXsiamXsiam1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputXsiamXsiam1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputXsiamXsiam1) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputXsiamXsiam1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputXsiamXsiam1) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputXsiamXsiam1) GetUrls() []URL1 {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputXsiamXsiam1) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputXsiamXsiam1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputXsiamXsiam1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputXsiamXsiam1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputXsiamXsiam1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputXsiamXsiam1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputXsiamXsiam1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputXsiamXsiam1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputXsiamXsiam1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputXsiamXsiam1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputXsiamXsiam1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputXsiamXsiam1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputXsiamXsiam1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputXsiamXsiam1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputXsiamXsiam1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputXsiamType string
+
+const (
+	OutputXsiamTypeOutputXsiamXsiam1 OutputXsiamType = "OutputXsiam_Xsiam_1"
+	OutputXsiamTypeOutputXsiamXsiam2 OutputXsiamType = "OutputXsiam_Xsiam_2"
+	OutputXsiamTypeOutputXsiamXsiam3 OutputXsiamType = "OutputXsiam_Xsiam_3"
+	OutputXsiamTypeOutputXsiamXsiam4 OutputXsiamType = "OutputXsiam_Xsiam_4"
+	OutputXsiamTypeOutputXsiamXsiam5 OutputXsiamType = "OutputXsiam_Xsiam_5"
+	OutputXsiamTypeOutputXsiamXsiam6 OutputXsiamType = "OutputXsiam_Xsiam_6"
+)
+
+type OutputXsiam struct {
+	OutputXsiamXsiam1 *OutputXsiamXsiam1 `queryParam:"inline,name=OutputXsiam"`
+	OutputXsiamXsiam2 *OutputXsiamXsiam2 `queryParam:"inline,name=OutputXsiam"`
+	OutputXsiamXsiam3 *OutputXsiamXsiam3 `queryParam:"inline,name=OutputXsiam"`
+	OutputXsiamXsiam4 *OutputXsiamXsiam4 `queryParam:"inline,name=OutputXsiam"`
+	OutputXsiamXsiam5 *OutputXsiamXsiam5 `queryParam:"inline,name=OutputXsiam"`
+	OutputXsiamXsiam6 *OutputXsiamXsiam6 `queryParam:"inline,name=OutputXsiam"`
+
+	Type OutputXsiamType
+}
+
+func CreateOutputXsiamOutputXsiamXsiam1(outputXsiamXsiam1 OutputXsiamXsiam1) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam1
+
+	return OutputXsiam{
+		OutputXsiamXsiam1: &outputXsiamXsiam1,
+		Type:              typ,
+	}
+}
+
+func CreateOutputXsiamOutputXsiamXsiam2(outputXsiamXsiam2 OutputXsiamXsiam2) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam2
+
+	return OutputXsiam{
+		OutputXsiamXsiam2: &outputXsiamXsiam2,
+		Type:              typ,
+	}
+}
+
+func CreateOutputXsiamOutputXsiamXsiam3(outputXsiamXsiam3 OutputXsiamXsiam3) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam3
+
+	return OutputXsiam{
+		OutputXsiamXsiam3: &outputXsiamXsiam3,
+		Type:              typ,
+	}
+}
+
+func CreateOutputXsiamOutputXsiamXsiam4(outputXsiamXsiam4 OutputXsiamXsiam4) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam4
+
+	return OutputXsiam{
+		OutputXsiamXsiam4: &outputXsiamXsiam4,
+		Type:              typ,
+	}
+}
+
+func CreateOutputXsiamOutputXsiamXsiam5(outputXsiamXsiam5 OutputXsiamXsiam5) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam5
+
+	return OutputXsiam{
+		OutputXsiamXsiam5: &outputXsiamXsiam5,
+		Type:              typ,
+	}
+}
+
+func CreateOutputXsiamOutputXsiamXsiam6(outputXsiamXsiam6 OutputXsiamXsiam6) OutputXsiam {
+	typ := OutputXsiamTypeOutputXsiamXsiam6
+
+	return OutputXsiam{
+		OutputXsiamXsiam6: &outputXsiamXsiam6,
+		Type:              typ,
+	}
+}
+
+func (u *OutputXsiam) UnmarshalJSON(data []byte) error {
+
+	var outputXsiamXsiam2 OutputXsiamXsiam2 = OutputXsiamXsiam2{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam2, "", true, nil); err == nil {
+		u.OutputXsiamXsiam2 = &outputXsiamXsiam2
+		u.Type = OutputXsiamTypeOutputXsiamXsiam2
+		return nil
+	}
+
+	var outputXsiamXsiam3 OutputXsiamXsiam3 = OutputXsiamXsiam3{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam3, "", true, nil); err == nil {
+		u.OutputXsiamXsiam3 = &outputXsiamXsiam3
+		u.Type = OutputXsiamTypeOutputXsiamXsiam3
+		return nil
+	}
+
+	var outputXsiamXsiam4 OutputXsiamXsiam4 = OutputXsiamXsiam4{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam4, "", true, nil); err == nil {
+		u.OutputXsiamXsiam4 = &outputXsiamXsiam4
+		u.Type = OutputXsiamTypeOutputXsiamXsiam4
+		return nil
+	}
+
+	var outputXsiamXsiam6 OutputXsiamXsiam6 = OutputXsiamXsiam6{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam6, "", true, nil); err == nil {
+		u.OutputXsiamXsiam6 = &outputXsiamXsiam6
+		u.Type = OutputXsiamTypeOutputXsiamXsiam6
+		return nil
+	}
+
+	var outputXsiamXsiam1 OutputXsiamXsiam1 = OutputXsiamXsiam1{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam1, "", true, nil); err == nil {
+		u.OutputXsiamXsiam1 = &outputXsiamXsiam1
+		u.Type = OutputXsiamTypeOutputXsiamXsiam1
+		return nil
+	}
+
+	var outputXsiamXsiam5 OutputXsiamXsiam5 = OutputXsiamXsiam5{}
+	if err := utils.UnmarshalJSON(data, &outputXsiamXsiam5, "", true, nil); err == nil {
+		u.OutputXsiamXsiam5 = &outputXsiamXsiam5
+		u.Type = OutputXsiamTypeOutputXsiamXsiam5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputXsiam", string(data))
+}
+
+func (u OutputXsiam) MarshalJSON() ([]byte, error) {
+	if u.OutputXsiamXsiam1 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam1, "", true)
+	}
+
+	if u.OutputXsiamXsiam2 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam2, "", true)
+	}
+
+	if u.OutputXsiamXsiam3 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam3, "", true)
+	}
+
+	if u.OutputXsiamXsiam4 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam4, "", true)
+	}
+
+	if u.OutputXsiamXsiam5 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam5, "", true)
+	}
+
+	if u.OutputXsiamXsiam6 != nil {
+		return utils.MarshalJSON(u.OutputXsiamXsiam6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputXsiam: all fields are null")
 }

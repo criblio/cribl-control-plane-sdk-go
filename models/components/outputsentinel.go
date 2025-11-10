@@ -4,278 +4,77 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSentinelType string
+// EndpointConfiguration8 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration8 string
 
 const (
-	OutputSentinelTypeSentinel OutputSentinelType = "sentinel"
+	// EndpointConfiguration8URL URL
+	EndpointConfiguration8URL EndpointConfiguration8 = "url"
+	// EndpointConfiguration8ID ID
+	EndpointConfiguration8ID EndpointConfiguration8 = "ID"
 )
 
-func (e OutputSentinelType) ToPointer() *OutputSentinelType {
+func (e EndpointConfiguration8) ToPointer() *EndpointConfiguration8 {
 	return &e
 }
-func (e *OutputSentinelType) UnmarshalJSON(data []byte) error {
+
+type OutputSentinelType8 string
+
+const (
+	OutputSentinelType8Sentinel OutputSentinelType8 = "sentinel"
+)
+
+func (e OutputSentinelType8) ToPointer() *OutputSentinelType8 {
+	return &e
+}
+func (e *OutputSentinelType8) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sentinel":
-		*e = OutputSentinelType(v)
+		*e = OutputSentinelType8(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputSentinelType: %v", v)
+		return fmt.Errorf("invalid value for OutputSentinelType8: %v", v)
 	}
 }
 
-type OutputSentinelExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSentinelExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputSentinelExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputSentinelFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputSentinelFailedRequestLoggingMode string
+type AuthTypeEnum8 string
 
 const (
-	OutputSentinelFailedRequestLoggingModePayload           OutputSentinelFailedRequestLoggingMode = "payload"
-	OutputSentinelFailedRequestLoggingModePayloadAndHeaders OutputSentinelFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSentinelFailedRequestLoggingModeNone              OutputSentinelFailedRequestLoggingMode = "none"
+	AuthTypeEnum8Oauth AuthTypeEnum8 = "oauth"
 )
 
-func (e OutputSentinelFailedRequestLoggingMode) ToPointer() *OutputSentinelFailedRequestLoggingMode {
+func (e AuthTypeEnum8) ToPointer() *AuthTypeEnum8 {
 	return &e
 }
 
-type OutputSentinelResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSentinelResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputSentinelResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSentinelResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSentinelResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputSentinelTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSentinelTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSentinelTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputSentinelTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSentinelTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSentinelTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputSentinelBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSentinelBackpressureBehavior string
+type OutputSentinelFormat8 string
 
 const (
-	OutputSentinelBackpressureBehaviorBlock OutputSentinelBackpressureBehavior = "block"
-	OutputSentinelBackpressureBehaviorDrop  OutputSentinelBackpressureBehavior = "drop"
-	OutputSentinelBackpressureBehaviorQueue OutputSentinelBackpressureBehavior = "queue"
+	OutputSentinelFormat8Ndjson    OutputSentinelFormat8 = "ndjson"
+	OutputSentinelFormat8JSONArray OutputSentinelFormat8 = "json_array"
+	OutputSentinelFormat8Custom    OutputSentinelFormat8 = "custom"
+	OutputSentinelFormat8Advanced  OutputSentinelFormat8 = "advanced"
 )
 
-func (e OutputSentinelBackpressureBehavior) ToPointer() *OutputSentinelBackpressureBehavior {
+func (e OutputSentinelFormat8) ToPointer() *OutputSentinelFormat8 {
 	return &e
 }
 
-type AuthType string
-
-const (
-	AuthTypeOauth AuthType = "oauth"
-)
-
-func (e AuthType) ToPointer() *AuthType {
-	return &e
-}
-
-// EndpointConfiguration - Enter the data collection endpoint URL or the individual ID
-type EndpointConfiguration string
-
-const (
-	EndpointConfigurationURL EndpointConfiguration = "url"
-	EndpointConfigurationID  EndpointConfiguration = "ID"
-)
-
-func (e EndpointConfiguration) ToPointer() *EndpointConfiguration {
-	return &e
-}
-
-type OutputSentinelFormat string
-
-const (
-	OutputSentinelFormatNdjson    OutputSentinelFormat = "ndjson"
-	OutputSentinelFormatJSONArray OutputSentinelFormat = "json_array"
-	OutputSentinelFormatCustom    OutputSentinelFormat = "custom"
-	OutputSentinelFormatAdvanced  OutputSentinelFormat = "advanced"
-)
-
-func (e OutputSentinelFormat) ToPointer() *OutputSentinelFormat {
-	return &e
-}
-
-// OutputSentinelCompression - Codec to use to compress the persisted data
-type OutputSentinelCompression string
-
-const (
-	OutputSentinelCompressionNone OutputSentinelCompression = "none"
-	OutputSentinelCompressionGzip OutputSentinelCompression = "gzip"
-)
-
-func (e OutputSentinelCompression) ToPointer() *OutputSentinelCompression {
-	return &e
-}
-
-// OutputSentinelQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSentinelQueueFullBehavior string
-
-const (
-	OutputSentinelQueueFullBehaviorBlock OutputSentinelQueueFullBehavior = "block"
-	OutputSentinelQueueFullBehaviorDrop  OutputSentinelQueueFullBehavior = "drop"
-)
-
-func (e OutputSentinelQueueFullBehavior) ToPointer() *OutputSentinelQueueFullBehavior {
-	return &e
-}
-
-// OutputSentinelMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSentinelMode string
-
-const (
-	OutputSentinelModeError        OutputSentinelMode = "error"
-	OutputSentinelModeBackpressure OutputSentinelMode = "backpressure"
-	OutputSentinelModeAlways       OutputSentinelMode = "always"
-)
-
-func (e OutputSentinelMode) ToPointer() *OutputSentinelMode {
-	return &e
-}
-
-type OutputSentinelPqControls struct {
-}
-
-func (o OutputSentinelPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSentinelPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSentinel struct {
+type OutputSentinelSentinel8 struct {
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration8 `default:"url" json:"endpointURLConfiguration"`
 	// Unique ID for this output
-	ID   *string            `json:"id,omitempty"`
-	Type OutputSentinelType `json:"type"`
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType8 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -303,21 +102,21 @@ type OutputSentinel struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []OutputSentinelExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputSentinelFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputSentinelResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputSentinelTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSentinelBackpressureBehavior `default:"block" json:"onBackpressure"`
-	AuthType       *AuthType                           `json:"authType,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum8         `json:"authType,omitempty"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
@@ -326,12 +125,10 @@ type OutputSentinel struct {
 	ClientID string `json:"client_id"`
 	// Scope to pass in the OAuth request
 	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
-	// Enter the data collection endpoint URL or the individual ID
-	EndpointURLConfiguration *EndpointConfiguration `default:"url" json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64              `json:"totalMemoryLimitKB,omitempty"`
-	Description        *string               `json:"description,omitempty"`
-	Format             *OutputSentinelFormat `json:"format,omitempty"`
+	TotalMemoryLimitKB *float64               `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string                `json:"description,omitempty"`
+	Format             *OutputSentinelFormat8 `json:"format,omitempty"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
 	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
 	// Whether to drop events when the source expression evaluates to null
@@ -348,6 +145,16 @@ type OutputSentinel struct {
 	FormatEventCode *string `json:"formatEventCode,omitempty"`
 	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -355,12 +162,1122 @@ type OutputSentinel struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSentinelCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSentinelQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID string `json:"dcrID"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint string `json:"dceEndpoint"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName string `json:"streamName"`
+}
+
+func (o OutputSentinelSentinel8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secret", "client_id", "dcrID", "dceEndpoint", "streamName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel8) GetEndpointURLConfiguration() *EndpointConfiguration8 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel8) GetType() OutputSentinelType8 {
+	if o == nil {
+		return OutputSentinelType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel8) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel8) GetAuthType() *AuthTypeEnum8 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel8) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel8) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel8) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel8) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel8) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel8) GetFormat() *OutputSentinelFormat8 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel8) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel8) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel8) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel8) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel8) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel8) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel8) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel8) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel8) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel8) GetDcrID() string {
+	if o == nil {
+		return ""
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel8) GetDceEndpoint() string {
+	if o == nil {
+		return ""
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel8) GetStreamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.StreamName
+}
+
+// EndpointConfiguration7 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration7 string
+
+const (
+	// EndpointConfiguration7URL URL
+	EndpointConfiguration7URL EndpointConfiguration7 = "url"
+	// EndpointConfiguration7ID ID
+	EndpointConfiguration7ID EndpointConfiguration7 = "ID"
+)
+
+func (e EndpointConfiguration7) ToPointer() *EndpointConfiguration7 {
+	return &e
+}
+
+type OutputSentinelType7 string
+
+const (
+	OutputSentinelType7Sentinel OutputSentinelType7 = "sentinel"
+)
+
+func (e OutputSentinelType7) ToPointer() *OutputSentinelType7 {
+	return &e
+}
+func (e *OutputSentinelType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType7: %v", v)
+	}
+}
+
+type AuthTypeEnum7 string
+
+const (
+	AuthTypeEnum7Oauth AuthTypeEnum7 = "oauth"
+)
+
+func (e AuthTypeEnum7) ToPointer() *AuthTypeEnum7 {
+	return &e
+}
+
+type OutputSentinelFormat7 string
+
+const (
+	OutputSentinelFormat7Ndjson    OutputSentinelFormat7 = "ndjson"
+	OutputSentinelFormat7JSONArray OutputSentinelFormat7 = "json_array"
+	OutputSentinelFormat7Custom    OutputSentinelFormat7 = "custom"
+	OutputSentinelFormat7Advanced  OutputSentinelFormat7 = "advanced"
+)
+
+func (e OutputSentinelFormat7) ToPointer() *OutputSentinelFormat7 {
+	return &e
+}
+
+type OutputSentinelSentinel7 struct {
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration7 `default:"url" json:"endpointURLConfiguration"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum7         `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64               `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string                `json:"description,omitempty"`
+	Format             *OutputSentinelFormat7 `json:"format,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSentinelMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSentinelPqControls `json:"pqControls,omitempty"`
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL string `json:"url"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secret", "client_id", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel7) GetEndpointURLConfiguration() *EndpointConfiguration7 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel7) GetType() OutputSentinelType7 {
+	if o == nil {
+		return OutputSentinelType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel7) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel7) GetAuthType() *AuthTypeEnum7 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel7) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel7) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel7) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel7) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel7) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel7) GetFormat() *OutputSentinelFormat7 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel7) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel7) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel7) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel7) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel7) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel7) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel7) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel7) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel7) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel7) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel7) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel7) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelType6 string
+
+const (
+	OutputSentinelType6Sentinel OutputSentinelType6 = "sentinel"
+)
+
+func (e OutputSentinelType6) ToPointer() *OutputSentinelType6 {
+	return &e
+}
+func (e *OutputSentinelType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType6: %v", v)
+	}
+}
+
+type AuthTypeEnum6 string
+
+const (
+	AuthTypeEnum6Oauth AuthTypeEnum6 = "oauth"
+)
+
+func (e AuthTypeEnum6) ToPointer() *AuthTypeEnum6 {
+	return &e
+}
+
+// EndpointConfiguration6 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration6 string
+
+const (
+	// EndpointConfiguration6URL URL
+	EndpointConfiguration6URL EndpointConfiguration6 = "url"
+	// EndpointConfiguration6ID ID
+	EndpointConfiguration6ID EndpointConfiguration6 = "ID"
+)
+
+func (e EndpointConfiguration6) ToPointer() *EndpointConfiguration6 {
+	return &e
+}
+
+type OutputSentinelFormat6 string
+
+const (
+	OutputSentinelFormat6Ndjson    OutputSentinelFormat6 = "ndjson"
+	OutputSentinelFormat6JSONArray OutputSentinelFormat6 = "json_array"
+	OutputSentinelFormat6Custom    OutputSentinelFormat6 = "custom"
+	OutputSentinelFormat6Advanced  OutputSentinelFormat6 = "advanced"
+)
+
+func (e OutputSentinelFormat6) ToPointer() *OutputSentinelFormat6 {
+	return &e
+}
+
+type OutputSentinelSentinel6 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	AuthType                      *AuthTypeEnum6 `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration6 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64               `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string                `json:"description,omitempty"`
+	Format             *OutputSentinelFormat6 `json:"format,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitempty"`
 	// Immutable ID for the Data Collection Rule (DCR)
@@ -371,363 +1288,3366 @@ type OutputSentinel struct {
 	StreamName *string `json:"streamName,omitempty"`
 }
 
-func (o OutputSentinel) MarshalJSON() ([]byte, error) {
+func (o OutputSentinelSentinel6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSentinel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secret", "client_id"}); err != nil {
+func (o *OutputSentinelSentinel6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secret", "client_id", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSentinel) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSentinel) GetType() OutputSentinelType {
-	if o == nil {
-		return OutputSentinelType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSentinel) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSentinel) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSentinel) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSentinel) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSentinel) GetKeepAlive() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.KeepAlive
-}
-
-func (o *OutputSentinel) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputSentinel) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputSentinel) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputSentinel) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputSentinel) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSentinel) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputSentinel) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputSentinel) GetExtraHTTPHeaders() []OutputSentinelExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputSentinel) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputSentinel) GetFailedRequestLoggingMode() *OutputSentinelFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputSentinel) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputSentinel) GetResponseRetrySettings() []OutputSentinelResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputSentinel) GetTimeoutRetrySettings() *OutputSentinelTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputSentinel) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputSentinel) GetOnBackpressure() *OutputSentinelBackpressureBehavior {
+func (o *OutputSentinelSentinel6) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSentinel) GetAuthType() *AuthType {
+func (o *OutputSentinelSentinel6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel6) GetType() OutputSentinelType6 {
+	if o == nil {
+		return OutputSentinelType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel6) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel6) GetAuthType() *AuthTypeEnum6 {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputSentinel) GetLoginURL() string {
+func (o *OutputSentinelSentinel6) GetLoginURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.LoginURL
 }
 
-func (o *OutputSentinel) GetSecret() string {
+func (o *OutputSentinelSentinel6) GetSecret() string {
 	if o == nil {
 		return ""
 	}
 	return o.Secret
 }
 
-func (o *OutputSentinel) GetClientID() string {
+func (o *OutputSentinelSentinel6) GetClientID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ClientID
 }
 
-func (o *OutputSentinel) GetScope() *string {
+func (o *OutputSentinelSentinel6) GetScope() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Scope
 }
 
-func (o *OutputSentinel) GetEndpointURLConfiguration() *EndpointConfiguration {
+func (o *OutputSentinelSentinel6) GetEndpointURLConfiguration() *EndpointConfiguration6 {
 	if o == nil {
 		return nil
 	}
 	return o.EndpointURLConfiguration
 }
 
-func (o *OutputSentinel) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputSentinelSentinel6) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputSentinel) GetDescription() *string {
+func (o *OutputSentinelSentinel6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSentinel) GetFormat() *OutputSentinelFormat {
+func (o *OutputSentinelSentinel6) GetFormat() *OutputSentinelFormat6 {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputSentinel) GetCustomSourceExpression() *string {
+func (o *OutputSentinelSentinel6) GetCustomSourceExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomSourceExpression
 }
 
-func (o *OutputSentinel) GetCustomDropWhenNull() *bool {
+func (o *OutputSentinelSentinel6) GetCustomDropWhenNull() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.CustomDropWhenNull
 }
 
-func (o *OutputSentinel) GetCustomEventDelimiter() *string {
+func (o *OutputSentinelSentinel6) GetCustomEventDelimiter() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomEventDelimiter
 }
 
-func (o *OutputSentinel) GetCustomContentType() *string {
+func (o *OutputSentinelSentinel6) GetCustomContentType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomContentType
 }
 
-func (o *OutputSentinel) GetCustomPayloadExpression() *string {
+func (o *OutputSentinelSentinel6) GetCustomPayloadExpression() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CustomPayloadExpression
 }
 
-func (o *OutputSentinel) GetAdvancedContentType() *string {
+func (o *OutputSentinelSentinel6) GetAdvancedContentType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AdvancedContentType
 }
 
-func (o *OutputSentinel) GetFormatEventCode() *string {
+func (o *OutputSentinelSentinel6) GetFormatEventCode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FormatEventCode
 }
 
-func (o *OutputSentinel) GetFormatPayloadCode() *string {
+func (o *OutputSentinelSentinel6) GetFormatPayloadCode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FormatPayloadCode
 }
 
-func (o *OutputSentinel) GetPqMaxFileSize() *string {
+func (o *OutputSentinelSentinel6) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSentinel) GetPqMaxSize() *string {
+func (o *OutputSentinelSentinel6) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSentinel) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSentinel) GetPqCompress() *OutputSentinelCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSentinel) GetPqOnBackpressure() *OutputSentinelQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSentinel) GetPqMode() *OutputSentinelMode {
+func (o *OutputSentinelSentinel6) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSentinel) GetPqControls() *OutputSentinelPqControls {
+func (o *OutputSentinelSentinel6) GetPqMaxBufferSize() *float64 {
 	if o == nil {
 		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel6) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
 	}
 	return o.PqControls
 }
 
-func (o *OutputSentinel) GetURL() *string {
+func (o *OutputSentinelSentinel6) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *OutputSentinel) GetDcrID() *string {
+func (o *OutputSentinelSentinel6) GetDcrID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DcrID
 }
 
-func (o *OutputSentinel) GetDceEndpoint() *string {
+func (o *OutputSentinelSentinel6) GetDceEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DceEndpoint
 }
 
-func (o *OutputSentinel) GetStreamName() *string {
+func (o *OutputSentinelSentinel6) GetStreamName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.StreamName
+}
+
+type OutputSentinelType5 string
+
+const (
+	OutputSentinelType5Sentinel OutputSentinelType5 = "sentinel"
+)
+
+func (e OutputSentinelType5) ToPointer() *OutputSentinelType5 {
+	return &e
+}
+func (e *OutputSentinelType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType5: %v", v)
+	}
+}
+
+type AuthTypeEnum5 string
+
+const (
+	AuthTypeEnum5Oauth AuthTypeEnum5 = "oauth"
+)
+
+func (e AuthTypeEnum5) ToPointer() *AuthTypeEnum5 {
+	return &e
+}
+
+// EndpointConfiguration5 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration5 string
+
+const (
+	// EndpointConfiguration5URL URL
+	EndpointConfiguration5URL EndpointConfiguration5 = "url"
+	// EndpointConfiguration5ID ID
+	EndpointConfiguration5ID EndpointConfiguration5 = "ID"
+)
+
+func (e EndpointConfiguration5) ToPointer() *EndpointConfiguration5 {
+	return &e
+}
+
+type OutputSentinelFormat5 string
+
+const (
+	OutputSentinelFormat5Ndjson    OutputSentinelFormat5 = "ndjson"
+	OutputSentinelFormat5JSONArray OutputSentinelFormat5 = "json_array"
+	OutputSentinelFormat5Custom    OutputSentinelFormat5 = "custom"
+	OutputSentinelFormat5Advanced  OutputSentinelFormat5 = "advanced"
+)
+
+func (e OutputSentinelFormat5) ToPointer() *OutputSentinelFormat5 {
+	return &e
+}
+
+type OutputSentinelSentinel5 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool          `default:"false" json:"responseHonorRetryAfterHeader"`
+	AuthType                      *AuthTypeEnum5 `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration5 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64               `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string                `json:"description,omitempty"`
+	Format             *OutputSentinelFormat5 `json:"format,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "loginUrl", "secret", "client_id"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel5) GetType() OutputSentinelType5 {
+	if o == nil {
+		return OutputSentinelType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel5) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel5) GetAuthType() *AuthTypeEnum5 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel5) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel5) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel5) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel5) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel5) GetEndpointURLConfiguration() *EndpointConfiguration5 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel5) GetFormat() *OutputSentinelFormat5 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel5) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel5) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel5) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel5) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel5) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel5) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel5) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel5) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel5) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel5) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel5) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel5) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelFormat4 string
+
+const (
+	OutputSentinelFormat4Ndjson    OutputSentinelFormat4 = "ndjson"
+	OutputSentinelFormat4JSONArray OutputSentinelFormat4 = "json_array"
+	OutputSentinelFormat4Custom    OutputSentinelFormat4 = "custom"
+	OutputSentinelFormat4Advanced  OutputSentinelFormat4 = "advanced"
+)
+
+func (e OutputSentinelFormat4) ToPointer() *OutputSentinelFormat4 {
+	return &e
+}
+
+type OutputSentinelType4 string
+
+const (
+	OutputSentinelType4Sentinel OutputSentinelType4 = "sentinel"
+)
+
+func (e OutputSentinelType4) ToPointer() *OutputSentinelType4 {
+	return &e
+}
+func (e *OutputSentinelType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType4: %v", v)
+	}
+}
+
+type AuthTypeEnum4 string
+
+const (
+	AuthTypeEnum4Oauth AuthTypeEnum4 = "oauth"
+)
+
+func (e AuthTypeEnum4) ToPointer() *AuthTypeEnum4 {
+	return &e
+}
+
+// EndpointConfiguration4 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration4 string
+
+const (
+	// EndpointConfiguration4URL URL
+	EndpointConfiguration4URL EndpointConfiguration4 = "url"
+	// EndpointConfiguration4ID ID
+	EndpointConfiguration4ID EndpointConfiguration4 = "ID"
+)
+
+func (e EndpointConfiguration4) ToPointer() *EndpointConfiguration4 {
+	return &e
+}
+
+type OutputSentinelSentinel4 struct {
+	Format OutputSentinelFormat4 `json:"format"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum4         `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration4 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode string `json:"formatEventCode"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode string `json:"formatPayloadCode"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"format", "type", "loginUrl", "secret", "client_id", "formatEventCode", "formatPayloadCode"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel4) GetFormat() OutputSentinelFormat4 {
+	if o == nil {
+		return OutputSentinelFormat4("")
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel4) GetType() OutputSentinelType4 {
+	if o == nil {
+		return OutputSentinelType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel4) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel4) GetAuthType() *AuthTypeEnum4 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel4) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel4) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel4) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel4) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel4) GetEndpointURLConfiguration() *EndpointConfiguration4 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel4) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel4) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel4) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel4) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel4) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel4) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel4) GetFormatEventCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel4) GetFormatPayloadCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel4) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel4) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel4) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel4) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelFormat3 string
+
+const (
+	OutputSentinelFormat3Ndjson    OutputSentinelFormat3 = "ndjson"
+	OutputSentinelFormat3JSONArray OutputSentinelFormat3 = "json_array"
+	OutputSentinelFormat3Custom    OutputSentinelFormat3 = "custom"
+	OutputSentinelFormat3Advanced  OutputSentinelFormat3 = "advanced"
+)
+
+func (e OutputSentinelFormat3) ToPointer() *OutputSentinelFormat3 {
+	return &e
+}
+
+type OutputSentinelType3 string
+
+const (
+	OutputSentinelType3Sentinel OutputSentinelType3 = "sentinel"
+)
+
+func (e OutputSentinelType3) ToPointer() *OutputSentinelType3 {
+	return &e
+}
+func (e *OutputSentinelType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType3: %v", v)
+	}
+}
+
+type AuthTypeEnum3 string
+
+const (
+	AuthTypeEnum3Oauth AuthTypeEnum3 = "oauth"
+)
+
+func (e AuthTypeEnum3) ToPointer() *AuthTypeEnum3 {
+	return &e
+}
+
+// EndpointConfiguration3 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration3 string
+
+const (
+	// EndpointConfiguration3URL URL
+	EndpointConfiguration3URL EndpointConfiguration3 = "url"
+	// EndpointConfiguration3ID ID
+	EndpointConfiguration3ID EndpointConfiguration3 = "ID"
+)
+
+func (e EndpointConfiguration3) ToPointer() *EndpointConfiguration3 {
+	return &e
+}
+
+type OutputSentinelSentinel3 struct {
+	Format OutputSentinelFormat3 `json:"format"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum3         `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration3 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"format", "type", "loginUrl", "secret", "client_id"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel3) GetFormat() OutputSentinelFormat3 {
+	if o == nil {
+		return OutputSentinelFormat3("")
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel3) GetType() OutputSentinelType3 {
+	if o == nil {
+		return OutputSentinelType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel3) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel3) GetAuthType() *AuthTypeEnum3 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel3) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel3) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel3) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel3) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel3) GetEndpointURLConfiguration() *EndpointConfiguration3 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel3) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel3) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel3) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel3) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel3) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel3) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel3) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel3) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel3) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel3) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel3) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel3) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelFormat2 string
+
+const (
+	OutputSentinelFormat2Ndjson    OutputSentinelFormat2 = "ndjson"
+	OutputSentinelFormat2JSONArray OutputSentinelFormat2 = "json_array"
+	OutputSentinelFormat2Custom    OutputSentinelFormat2 = "custom"
+	OutputSentinelFormat2Advanced  OutputSentinelFormat2 = "advanced"
+)
+
+func (e OutputSentinelFormat2) ToPointer() *OutputSentinelFormat2 {
+	return &e
+}
+
+type OutputSentinelType2 string
+
+const (
+	OutputSentinelType2Sentinel OutputSentinelType2 = "sentinel"
+)
+
+func (e OutputSentinelType2) ToPointer() *OutputSentinelType2 {
+	return &e
+}
+func (e *OutputSentinelType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType2: %v", v)
+	}
+}
+
+type AuthTypeEnum2 string
+
+const (
+	AuthTypeEnum2Oauth AuthTypeEnum2 = "oauth"
+)
+
+func (e AuthTypeEnum2) ToPointer() *AuthTypeEnum2 {
+	return &e
+}
+
+// EndpointConfiguration2 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration2 string
+
+const (
+	// EndpointConfiguration2URL URL
+	EndpointConfiguration2URL EndpointConfiguration2 = "url"
+	// EndpointConfiguration2ID ID
+	EndpointConfiguration2ID EndpointConfiguration2 = "ID"
+)
+
+func (e EndpointConfiguration2) ToPointer() *EndpointConfiguration2 {
+	return &e
+}
+
+type OutputSentinelSentinel2 struct {
+	Format OutputSentinelFormat2 `json:"format"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum2         `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration2 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"format", "type", "loginUrl", "secret", "client_id"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel2) GetFormat() OutputSentinelFormat2 {
+	if o == nil {
+		return OutputSentinelFormat2("")
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel2) GetType() OutputSentinelType2 {
+	if o == nil {
+		return OutputSentinelType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel2) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel2) GetAuthType() *AuthTypeEnum2 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel2) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel2) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel2) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel2) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel2) GetEndpointURLConfiguration() *EndpointConfiguration2 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel2) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel2) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel2) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel2) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel2) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel2) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel2) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel2) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel2) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel2) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel2) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel2) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelFormat1 string
+
+const (
+	OutputSentinelFormat1Ndjson    OutputSentinelFormat1 = "ndjson"
+	OutputSentinelFormat1JSONArray OutputSentinelFormat1 = "json_array"
+	OutputSentinelFormat1Custom    OutputSentinelFormat1 = "custom"
+	OutputSentinelFormat1Advanced  OutputSentinelFormat1 = "advanced"
+)
+
+func (e OutputSentinelFormat1) ToPointer() *OutputSentinelFormat1 {
+	return &e
+}
+
+type OutputSentinelType1 string
+
+const (
+	OutputSentinelType1Sentinel OutputSentinelType1 = "sentinel"
+)
+
+func (e OutputSentinelType1) ToPointer() *OutputSentinelType1 {
+	return &e
+}
+func (e *OutputSentinelType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sentinel":
+		*e = OutputSentinelType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSentinelType1: %v", v)
+	}
+}
+
+type AuthTypeEnum1 string
+
+const (
+	AuthTypeEnum1Oauth AuthTypeEnum1 = "oauth"
+)
+
+func (e AuthTypeEnum1) ToPointer() *AuthTypeEnum1 {
+	return &e
+}
+
+// EndpointConfiguration1 - Enter the data collection endpoint URL or the individual ID
+type EndpointConfiguration1 string
+
+const (
+	// EndpointConfiguration1URL URL
+	EndpointConfiguration1URL EndpointConfiguration1 = "url"
+	// EndpointConfiguration1ID ID
+	EndpointConfiguration1ID EndpointConfiguration1 = "ID"
+)
+
+func (e EndpointConfiguration1) ToPointer() *EndpointConfiguration1 {
+	return &e
+}
+
+type OutputSentinelSentinel1 struct {
+	Format OutputSentinelFormat1 `json:"format"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputSentinelType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Disable to close the connection immediately after sending the outgoing request
+	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+	MaxPayloadSizeKB *float64 `default:"1000" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	AuthType       *AuthTypeEnum1         `json:"authType,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+	ClientID string `json:"client_id"`
+	// Scope to pass in the OAuth request
+	Scope *string `default:"https://monitor.azure.com/.default" json:"scope"`
+	// Enter the data collection endpoint URL or the individual ID
+	EndpointURLConfiguration *EndpointConfiguration1 `default:"url" json:"endpointURLConfiguration"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+	CustomSourceExpression *string `default:"__httpOut" json:"customSourceExpression"`
+	// Whether to drop events when the source expression evaluates to null
+	CustomDropWhenNull *bool `default:"false" json:"customDropWhenNull"`
+	// Delimiter string to insert between individual events. Defaults to newline character.
+	CustomEventDelimiter *string `default:"\\n" json:"customEventDelimiter"`
+	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
+	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	// HTTP content-type header value
+	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
+	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatEventCode *string `json:"formatEventCode,omitempty"`
+	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatPayloadCode *string `json:"formatPayloadCode,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	// URL to send events to. Can be overwritten by an event's __url field.
+	URL *string `json:"url,omitempty"`
+	// Immutable ID for the Data Collection Rule (DCR)
+	DcrID *string `json:"dcrID,omitempty"`
+	// Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+	DceEndpoint *string `json:"dceEndpoint,omitempty"`
+	// The name of the stream (Sentinel table) in which to store the events
+	StreamName *string `json:"streamName,omitempty"`
+}
+
+func (o OutputSentinelSentinel1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSentinelSentinel1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"format", "type", "loginUrl", "secret", "client_id"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSentinelSentinel1) GetFormat() OutputSentinelFormat1 {
+	if o == nil {
+		return OutputSentinelFormat1("")
+	}
+	return o.Format
+}
+
+func (o *OutputSentinelSentinel1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSentinelSentinel1) GetType() OutputSentinelType1 {
+	if o == nil {
+		return OutputSentinelType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputSentinelSentinel1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSentinelSentinel1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSentinelSentinel1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSentinelSentinel1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSentinelSentinel1) GetKeepAlive() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.KeepAlive
+}
+
+func (o *OutputSentinelSentinel1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSentinelSentinel1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSentinelSentinel1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSentinelSentinel1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSentinelSentinel1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSentinelSentinel1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSentinelSentinel1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSentinelSentinel1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSentinelSentinel1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSentinelSentinel1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSentinelSentinel1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSentinelSentinel1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSentinelSentinel1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSentinelSentinel1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelSentinel1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSentinelSentinel1) GetAuthType() *AuthTypeEnum1 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputSentinelSentinel1) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputSentinelSentinel1) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputSentinelSentinel1) GetClientID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ClientID
+}
+
+func (o *OutputSentinelSentinel1) GetScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Scope
+}
+
+func (o *OutputSentinelSentinel1) GetEndpointURLConfiguration() *EndpointConfiguration1 {
+	if o == nil {
+		return nil
+	}
+	return o.EndpointURLConfiguration
+}
+
+func (o *OutputSentinelSentinel1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSentinelSentinel1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSentinelSentinel1) GetCustomSourceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSourceExpression
+}
+
+func (o *OutputSentinelSentinel1) GetCustomDropWhenNull() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.CustomDropWhenNull
+}
+
+func (o *OutputSentinelSentinel1) GetCustomEventDelimiter() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomEventDelimiter
+}
+
+func (o *OutputSentinelSentinel1) GetCustomContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomContentType
+}
+
+func (o *OutputSentinelSentinel1) GetCustomPayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomPayloadExpression
+}
+
+func (o *OutputSentinelSentinel1) GetAdvancedContentType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AdvancedContentType
+}
+
+func (o *OutputSentinelSentinel1) GetFormatEventCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatEventCode
+}
+
+func (o *OutputSentinelSentinel1) GetFormatPayloadCode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FormatPayloadCode
+}
+
+func (o *OutputSentinelSentinel1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelSentinel1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelSentinel1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelSentinel1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelSentinel1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSentinelSentinel1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSentinelSentinel1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSentinelSentinel1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSentinelSentinel1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSentinelSentinel1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSentinelSentinel1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputSentinelSentinel1) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputSentinelSentinel1) GetDcrID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DcrID
+}
+
+func (o *OutputSentinelSentinel1) GetDceEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DceEndpoint
+}
+
+func (o *OutputSentinelSentinel1) GetStreamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreamName
+}
+
+type OutputSentinelType string
+
+const (
+	OutputSentinelTypeOutputSentinelSentinel1 OutputSentinelType = "OutputSentinel_Sentinel_1"
+	OutputSentinelTypeOutputSentinelSentinel2 OutputSentinelType = "OutputSentinel_Sentinel_2"
+	OutputSentinelTypeOutputSentinelSentinel3 OutputSentinelType = "OutputSentinel_Sentinel_3"
+	OutputSentinelTypeOutputSentinelSentinel4 OutputSentinelType = "OutputSentinel_Sentinel_4"
+	OutputSentinelTypeOutputSentinelSentinel5 OutputSentinelType = "OutputSentinel_Sentinel_5"
+	OutputSentinelTypeOutputSentinelSentinel6 OutputSentinelType = "OutputSentinel_Sentinel_6"
+	OutputSentinelTypeOutputSentinelSentinel7 OutputSentinelType = "OutputSentinel_Sentinel_7"
+	OutputSentinelTypeOutputSentinelSentinel8 OutputSentinelType = "OutputSentinel_Sentinel_8"
+)
+
+type OutputSentinel struct {
+	OutputSentinelSentinel1 *OutputSentinelSentinel1 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel2 *OutputSentinelSentinel2 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel3 *OutputSentinelSentinel3 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel4 *OutputSentinelSentinel4 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel5 *OutputSentinelSentinel5 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel6 *OutputSentinelSentinel6 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel7 *OutputSentinelSentinel7 `queryParam:"inline,name=OutputSentinel"`
+	OutputSentinelSentinel8 *OutputSentinelSentinel8 `queryParam:"inline,name=OutputSentinel"`
+
+	Type OutputSentinelType
+}
+
+func CreateOutputSentinelOutputSentinelSentinel1(outputSentinelSentinel1 OutputSentinelSentinel1) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel1
+
+	return OutputSentinel{
+		OutputSentinelSentinel1: &outputSentinelSentinel1,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel2(outputSentinelSentinel2 OutputSentinelSentinel2) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel2
+
+	return OutputSentinel{
+		OutputSentinelSentinel2: &outputSentinelSentinel2,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel3(outputSentinelSentinel3 OutputSentinelSentinel3) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel3
+
+	return OutputSentinel{
+		OutputSentinelSentinel3: &outputSentinelSentinel3,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel4(outputSentinelSentinel4 OutputSentinelSentinel4) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel4
+
+	return OutputSentinel{
+		OutputSentinelSentinel4: &outputSentinelSentinel4,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel5(outputSentinelSentinel5 OutputSentinelSentinel5) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel5
+
+	return OutputSentinel{
+		OutputSentinelSentinel5: &outputSentinelSentinel5,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel6(outputSentinelSentinel6 OutputSentinelSentinel6) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel6
+
+	return OutputSentinel{
+		OutputSentinelSentinel6: &outputSentinelSentinel6,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel7(outputSentinelSentinel7 OutputSentinelSentinel7) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel7
+
+	return OutputSentinel{
+		OutputSentinelSentinel7: &outputSentinelSentinel7,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputSentinelOutputSentinelSentinel8(outputSentinelSentinel8 OutputSentinelSentinel8) OutputSentinel {
+	typ := OutputSentinelTypeOutputSentinelSentinel8
+
+	return OutputSentinel{
+		OutputSentinelSentinel8: &outputSentinelSentinel8,
+		Type:                    typ,
+	}
+}
+
+func (u *OutputSentinel) UnmarshalJSON(data []byte) error {
+
+	var outputSentinelSentinel4 OutputSentinelSentinel4 = OutputSentinelSentinel4{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel4, "", true, nil); err == nil {
+		u.OutputSentinelSentinel4 = &outputSentinelSentinel4
+		u.Type = OutputSentinelTypeOutputSentinelSentinel4
+		return nil
+	}
+
+	var outputSentinelSentinel8 OutputSentinelSentinel8 = OutputSentinelSentinel8{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel8, "", true, nil); err == nil {
+		u.OutputSentinelSentinel8 = &outputSentinelSentinel8
+		u.Type = OutputSentinelTypeOutputSentinelSentinel8
+		return nil
+	}
+
+	var outputSentinelSentinel1 OutputSentinelSentinel1 = OutputSentinelSentinel1{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel1, "", true, nil); err == nil {
+		u.OutputSentinelSentinel1 = &outputSentinelSentinel1
+		u.Type = OutputSentinelTypeOutputSentinelSentinel1
+		return nil
+	}
+
+	var outputSentinelSentinel2 OutputSentinelSentinel2 = OutputSentinelSentinel2{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel2, "", true, nil); err == nil {
+		u.OutputSentinelSentinel2 = &outputSentinelSentinel2
+		u.Type = OutputSentinelTypeOutputSentinelSentinel2
+		return nil
+	}
+
+	var outputSentinelSentinel3 OutputSentinelSentinel3 = OutputSentinelSentinel3{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel3, "", true, nil); err == nil {
+		u.OutputSentinelSentinel3 = &outputSentinelSentinel3
+		u.Type = OutputSentinelTypeOutputSentinelSentinel3
+		return nil
+	}
+
+	var outputSentinelSentinel6 OutputSentinelSentinel6 = OutputSentinelSentinel6{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel6, "", true, nil); err == nil {
+		u.OutputSentinelSentinel6 = &outputSentinelSentinel6
+		u.Type = OutputSentinelTypeOutputSentinelSentinel6
+		return nil
+	}
+
+	var outputSentinelSentinel7 OutputSentinelSentinel7 = OutputSentinelSentinel7{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel7, "", true, nil); err == nil {
+		u.OutputSentinelSentinel7 = &outputSentinelSentinel7
+		u.Type = OutputSentinelTypeOutputSentinelSentinel7
+		return nil
+	}
+
+	var outputSentinelSentinel5 OutputSentinelSentinel5 = OutputSentinelSentinel5{}
+	if err := utils.UnmarshalJSON(data, &outputSentinelSentinel5, "", true, nil); err == nil {
+		u.OutputSentinelSentinel5 = &outputSentinelSentinel5
+		u.Type = OutputSentinelTypeOutputSentinelSentinel5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSentinel", string(data))
+}
+
+func (u OutputSentinel) MarshalJSON() ([]byte, error) {
+	if u.OutputSentinelSentinel1 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel1, "", true)
+	}
+
+	if u.OutputSentinelSentinel2 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel2, "", true)
+	}
+
+	if u.OutputSentinelSentinel3 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel3, "", true)
+	}
+
+	if u.OutputSentinelSentinel4 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel4, "", true)
+	}
+
+	if u.OutputSentinelSentinel5 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel5, "", true)
+	}
+
+	if u.OutputSentinelSentinel6 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel6, "", true)
+	}
+
+	if u.OutputSentinelSentinel7 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel7, "", true)
+	}
+
+	if u.OutputSentinelSentinel8 != nil {
+		return utils.MarshalJSON(u.OutputSentinelSentinel8, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSentinel: all fields are null")
 }

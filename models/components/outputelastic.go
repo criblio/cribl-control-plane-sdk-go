@@ -3,376 +3,47 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputElasticType string
+// ElasticVersion4 - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+type ElasticVersion4 string
 
 const (
-	OutputElasticTypeElastic OutputElasticType = "elastic"
+	// ElasticVersion4Auto Auto
+	ElasticVersion4Auto ElasticVersion4 = "auto"
+	// ElasticVersion4Six 6.x
+	ElasticVersion4Six ElasticVersion4 = "6"
+	// ElasticVersion4Seven 7.x
+	ElasticVersion4Seven ElasticVersion4 = "7"
 )
 
-func (e OutputElasticType) ToPointer() *OutputElasticType {
-	return &e
-}
-func (e *OutputElasticType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "elastic":
-		*e = OutputElasticType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputElasticType: %v", v)
-	}
-}
-
-type OutputElasticExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputElasticExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputElasticExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputElasticFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputElasticFailedRequestLoggingMode string
-
-const (
-	OutputElasticFailedRequestLoggingModePayload           OutputElasticFailedRequestLoggingMode = "payload"
-	OutputElasticFailedRequestLoggingModePayloadAndHeaders OutputElasticFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticFailedRequestLoggingModeNone              OutputElasticFailedRequestLoggingMode = "none"
-)
-
-func (e OutputElasticFailedRequestLoggingMode) ToPointer() *OutputElasticFailedRequestLoggingMode {
+func (e ElasticVersion4) ToPointer() *ElasticVersion4 {
 	return &e
 }
 
-type OutputElasticResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputElasticResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputElasticResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputElasticResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputElasticResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputElasticTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputElasticTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputElasticTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputElasticTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputElasticTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputElasticExtraParam struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputElasticExtraParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticExtraParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticExtraParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputElasticExtraParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputElasticAuthenticationMethod - Enter credentials directly, or select a stored secret
-type OutputElasticAuthenticationMethod string
+// WriteAction4 - Action to use when writing events. Must be set to `Create` when writing to a data stream.
+type WriteAction4 string
 
 const (
-	OutputElasticAuthenticationMethodManual       OutputElasticAuthenticationMethod = "manual"
-	OutputElasticAuthenticationMethodSecret       OutputElasticAuthenticationMethod = "secret"
-	OutputElasticAuthenticationMethodManualAPIKey OutputElasticAuthenticationMethod = "manualAPIKey"
-	OutputElasticAuthenticationMethodTextSecret   OutputElasticAuthenticationMethod = "textSecret"
+	// WriteAction4Index Index
+	WriteAction4Index WriteAction4 = "index"
+	// WriteAction4Create Create
+	WriteAction4Create WriteAction4 = "create"
 )
 
-func (e OutputElasticAuthenticationMethod) ToPointer() *OutputElasticAuthenticationMethod {
+func (e WriteAction4) ToPointer() *WriteAction4 {
 	return &e
 }
 
-type OutputElasticAuth struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *OutputElasticAuthenticationMethod `default:"manual" json:"authType"`
-}
-
-func (o OutputElasticAuth) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticAuth) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputElasticAuth) GetAuthType() *OutputElasticAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-// ElasticVersion - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
-type ElasticVersion string
-
-const (
-	ElasticVersionAuto  ElasticVersion = "auto"
-	ElasticVersionSix   ElasticVersion = "6"
-	ElasticVersionSeven ElasticVersion = "7"
-)
-
-func (e ElasticVersion) ToPointer() *ElasticVersion {
-	return &e
-}
-
-// WriteAction - Action to use when writing events. Must be set to `Create` when writing to a data stream.
-type WriteAction string
-
-const (
-	WriteActionIndex  WriteAction = "index"
-	WriteActionCreate WriteAction = "create"
-)
-
-func (e WriteAction) ToPointer() *WriteAction {
-	return &e
-}
-
-// OutputElasticBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputElasticBackpressureBehavior string
-
-const (
-	OutputElasticBackpressureBehaviorBlock OutputElasticBackpressureBehavior = "block"
-	OutputElasticBackpressureBehaviorDrop  OutputElasticBackpressureBehavior = "drop"
-	OutputElasticBackpressureBehaviorQueue OutputElasticBackpressureBehavior = "queue"
-)
-
-func (e OutputElasticBackpressureBehavior) ToPointer() *OutputElasticBackpressureBehavior {
-	return &e
-}
-
-type OutputElasticURL struct {
-	// The URL to an Elastic node to send events to. Example: http://elastic:9200/_bulk
-	URL string `json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputElasticURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputElasticURL) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputElasticURL) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-// OutputElasticCompression - Codec to use to compress the persisted data
-type OutputElasticCompression string
-
-const (
-	OutputElasticCompressionNone OutputElasticCompression = "none"
-	OutputElasticCompressionGzip OutputElasticCompression = "gzip"
-)
-
-func (e OutputElasticCompression) ToPointer() *OutputElasticCompression {
-	return &e
-}
-
-// OutputElasticQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputElasticQueueFullBehavior string
-
-const (
-	OutputElasticQueueFullBehaviorBlock OutputElasticQueueFullBehavior = "block"
-	OutputElasticQueueFullBehaviorDrop  OutputElasticQueueFullBehavior = "drop"
-)
-
-func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehavior {
-	return &e
-}
-
-// OutputElasticMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputElasticMode string
-
-const (
-	OutputElasticModeError        OutputElasticMode = "error"
-	OutputElasticModeBackpressure OutputElasticMode = "backpressure"
-	OutputElasticModeAlways       OutputElasticMode = "always"
-)
-
-func (e OutputElasticMode) ToPointer() *OutputElasticMode {
-	return &e
-}
-
-type OutputElasticPqControls struct {
-}
-
-func (o OutputElasticPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputElasticPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputElastic struct {
+type OutputElasticElastic4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string           `json:"id,omitempty"`
-	Type OutputElasticType `json:"type"`
+	Type TypeElasticOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -404,42 +75,50 @@ type OutputElastic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputElasticExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputElasticFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputElasticResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputElasticTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                     `default:"true" json:"responseHonorRetryAfterHeader"`
-	ExtraParams                   []OutputElasticExtraParam `json:"extraParams,omitempty"`
-	Auth                          *OutputElasticAuth        `json:"auth,omitempty"`
+	ResponseHonorRetryAfterHeader *bool           `default:"true" json:"responseHonorRetryAfterHeader"`
+	ExtraParams                   []Metadata1Type `json:"extraParams,omitempty"`
+	Auth                          *AuthType       `json:"auth,omitempty"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
-	ElasticVersion *ElasticVersion `default:"auto" json:"elasticVersion"`
+	ElasticVersion *ElasticVersion4 `default:"auto" json:"elasticVersion"`
 	// Optional Elasticsearch destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
 	IncludeDocID *bool `default:"false" json:"includeDocId"`
 	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
-	WriteAction *WriteAction `default:"create" json:"writeAction"`
+	WriteAction *WriteAction4 `default:"create" json:"writeAction"`
 	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
-	RetryPartialErrors *bool `default:"false" json:"retryPartialErrors"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputElasticBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                            `json:"description,omitempty"`
+	RetryPartialErrors *bool   `default:"false" json:"retryPartialErrors"`
+	Description        *string `json:"description,omitempty"`
 	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
 	URL *string `json:"url,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool              `default:"false" json:"excludeSelf"`
-	Urls        []OutputElasticURL `json:"urls,omitempty"`
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -447,329 +126,1875 @@ type OutputElastic struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputElasticCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputElasticQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputElasticMode       `default:"error" json:"pqMode"`
-	PqControls *OutputElasticPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputElastic) MarshalJSON() ([]byte, error) {
+func (o OutputElasticElastic4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputElastic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "index"}); err != nil {
+func (o *OutputElasticElastic4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "index", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputElastic) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputElastic) GetType() OutputElasticType {
-	if o == nil {
-		return OutputElasticType("")
-	}
-	return o.Type
-}
-
-func (o *OutputElastic) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputElastic) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputElastic) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputElastic) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputElastic) GetLoadBalanced() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanced
-}
-
-func (o *OutputElastic) GetIndex() string {
-	if o == nil {
-		return ""
-	}
-	return o.Index
-}
-
-func (o *OutputElastic) GetDocType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DocType
-}
-
-func (o *OutputElastic) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputElastic) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputElastic) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputElastic) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputElastic) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputElastic) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputElastic) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputElastic) GetExtraHTTPHeaders() []OutputElasticExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputElastic) GetFailedRequestLoggingMode() *OutputElasticFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputElastic) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputElastic) GetResponseRetrySettings() []OutputElasticResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputElastic) GetTimeoutRetrySettings() *OutputElasticTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputElastic) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputElastic) GetExtraParams() []OutputElasticExtraParam {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraParams
-}
-
-func (o *OutputElastic) GetAuth() *OutputElasticAuth {
-	if o == nil {
-		return nil
-	}
-	return o.Auth
-}
-
-func (o *OutputElastic) GetElasticVersion() *ElasticVersion {
-	if o == nil {
-		return nil
-	}
-	return o.ElasticVersion
-}
-
-func (o *OutputElastic) GetElasticPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ElasticPipeline
-}
-
-func (o *OutputElastic) GetIncludeDocID() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IncludeDocID
-}
-
-func (o *OutputElastic) GetWriteAction() *WriteAction {
-	if o == nil {
-		return nil
-	}
-	return o.WriteAction
-}
-
-func (o *OutputElastic) GetRetryPartialErrors() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RetryPartialErrors
-}
-
-func (o *OutputElastic) GetOnBackpressure() *OutputElasticBackpressureBehavior {
+func (o *OutputElasticElastic4) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputElastic) GetDescription() *string {
+func (o *OutputElasticElastic4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputElasticElastic4) GetType() TypeElasticOption {
+	if o == nil {
+		return TypeElasticOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputElasticElastic4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputElasticElastic4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputElasticElastic4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputElasticElastic4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputElasticElastic4) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputElasticElastic4) GetIndex() string {
+	if o == nil {
+		return ""
+	}
+	return o.Index
+}
+
+func (o *OutputElasticElastic4) GetDocType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DocType
+}
+
+func (o *OutputElasticElastic4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputElasticElastic4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputElasticElastic4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputElasticElastic4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputElasticElastic4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputElasticElastic4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputElasticElastic4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputElasticElastic4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputElasticElastic4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputElasticElastic4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputElasticElastic4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputElasticElastic4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputElasticElastic4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputElasticElastic4) GetExtraParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraParams
+}
+
+func (o *OutputElasticElastic4) GetAuth() *AuthType {
+	if o == nil {
+		return nil
+	}
+	return o.Auth
+}
+
+func (o *OutputElasticElastic4) GetElasticVersion() *ElasticVersion4 {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticVersion
+}
+
+func (o *OutputElasticElastic4) GetElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticPipeline
+}
+
+func (o *OutputElasticElastic4) GetIncludeDocID() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IncludeDocID
+}
+
+func (o *OutputElasticElastic4) GetWriteAction() *WriteAction4 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteAction
+}
+
+func (o *OutputElasticElastic4) GetRetryPartialErrors() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RetryPartialErrors
+}
+
+func (o *OutputElasticElastic4) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputElastic) GetURL() *string {
+func (o *OutputElasticElastic4) GetURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.URL
 }
 
-func (o *OutputElastic) GetUseRoundRobinDNS() *bool {
+func (o *OutputElasticElastic4) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputElastic) GetExcludeSelf() *bool {
+func (o *OutputElasticElastic4) GetExcludeSelf() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeSelf
 }
 
-func (o *OutputElastic) GetUrls() []OutputElasticURL {
+func (o *OutputElasticElastic4) GetUrls() []UrlsType {
 	if o == nil {
 		return nil
 	}
 	return o.Urls
 }
 
-func (o *OutputElastic) GetDNSResolvePeriodSec() *float64 {
+func (o *OutputElasticElastic4) GetDNSResolvePeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
 }
 
-func (o *OutputElastic) GetLoadBalanceStatsPeriodSec() *float64 {
+func (o *OutputElasticElastic4) GetLoadBalanceStatsPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
 }
 
-func (o *OutputElastic) GetPqMaxFileSize() *string {
+func (o *OutputElasticElastic4) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputElastic) GetPqMaxSize() *string {
+func (o *OutputElasticElastic4) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputElastic) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputElastic) GetPqCompress() *OutputElasticCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputElastic) GetPqOnBackpressure() *OutputElasticQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputElastic) GetPqMode() *OutputElasticMode {
+func (o *OutputElasticElastic4) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputElastic) GetPqControls() *OutputElasticPqControls {
+func (o *OutputElasticElastic4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElasticElastic4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputElasticElastic4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputElasticElastic4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputElasticElastic4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputElasticElastic4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputElasticElastic4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputElasticElastic4) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+// ElasticVersion3 - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+type ElasticVersion3 string
+
+const (
+	// ElasticVersion3Auto Auto
+	ElasticVersion3Auto ElasticVersion3 = "auto"
+	// ElasticVersion3Six 6.x
+	ElasticVersion3Six ElasticVersion3 = "6"
+	// ElasticVersion3Seven 7.x
+	ElasticVersion3Seven ElasticVersion3 = "7"
+)
+
+func (e ElasticVersion3) ToPointer() *ElasticVersion3 {
+	return &e
+}
+
+// WriteAction3 - Action to use when writing events. Must be set to `Create` when writing to a data stream.
+type WriteAction3 string
+
+const (
+	// WriteAction3Index Index
+	WriteAction3Index WriteAction3 = "index"
+	// WriteAction3Create Create
+	WriteAction3Create WriteAction3 = "create"
+)
+
+func (e WriteAction3) ToPointer() *WriteAction3 {
+	return &e
+}
+
+type OutputElasticElastic3 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string           `json:"id,omitempty"`
+	Type TypeElasticOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Index or data stream to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
+	Index string `json:"index"`
+	// Document type to use for events. Can be overwritten by an event's __type field.
+	DocType *string `json:"docType,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool           `default:"true" json:"responseHonorRetryAfterHeader"`
+	ExtraParams                   []Metadata1Type `json:"extraParams,omitempty"`
+	Auth                          *AuthType       `json:"auth,omitempty"`
+	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+	ElasticVersion *ElasticVersion3 `default:"auto" json:"elasticVersion"`
+	// Optional Elasticsearch destination pipeline
+	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
+	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
+	IncludeDocID *bool `default:"false" json:"includeDocId"`
+	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
+	WriteAction *WriteAction3 `default:"create" json:"writeAction"`
+	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
+	RetryPartialErrors *bool   `default:"false" json:"retryPartialErrors"`
+	Description        *string `json:"description,omitempty"`
+	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
+	URL *string `json:"url,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputElasticElastic3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputElasticElastic3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "index"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputElasticElastic3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputElasticElastic3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputElasticElastic3) GetType() TypeElasticOption {
+	if o == nil {
+		return TypeElasticOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputElasticElastic3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputElasticElastic3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputElasticElastic3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputElasticElastic3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputElasticElastic3) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputElasticElastic3) GetIndex() string {
+	if o == nil {
+		return ""
+	}
+	return o.Index
+}
+
+func (o *OutputElasticElastic3) GetDocType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DocType
+}
+
+func (o *OutputElasticElastic3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputElasticElastic3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputElasticElastic3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputElasticElastic3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputElasticElastic3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputElasticElastic3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputElasticElastic3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputElasticElastic3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputElasticElastic3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputElasticElastic3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputElasticElastic3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputElasticElastic3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputElasticElastic3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputElasticElastic3) GetExtraParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraParams
+}
+
+func (o *OutputElasticElastic3) GetAuth() *AuthType {
+	if o == nil {
+		return nil
+	}
+	return o.Auth
+}
+
+func (o *OutputElasticElastic3) GetElasticVersion() *ElasticVersion3 {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticVersion
+}
+
+func (o *OutputElasticElastic3) GetElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticPipeline
+}
+
+func (o *OutputElasticElastic3) GetIncludeDocID() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IncludeDocID
+}
+
+func (o *OutputElasticElastic3) GetWriteAction() *WriteAction3 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteAction
+}
+
+func (o *OutputElasticElastic3) GetRetryPartialErrors() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RetryPartialErrors
+}
+
+func (o *OutputElasticElastic3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputElasticElastic3) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputElasticElastic3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputElasticElastic3) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputElasticElastic3) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputElasticElastic3) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputElasticElastic3) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputElasticElastic3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputElasticElastic3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputElasticElastic3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputElasticElastic3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElasticElastic3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputElasticElastic3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputElasticElastic3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputElasticElastic3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputElasticElastic3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputElasticElastic3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputElasticElastic3) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+// ElasticVersion2 - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+type ElasticVersion2 string
+
+const (
+	// ElasticVersion2Auto Auto
+	ElasticVersion2Auto ElasticVersion2 = "auto"
+	// ElasticVersion2Six 6.x
+	ElasticVersion2Six ElasticVersion2 = "6"
+	// ElasticVersion2Seven 7.x
+	ElasticVersion2Seven ElasticVersion2 = "7"
+)
+
+func (e ElasticVersion2) ToPointer() *ElasticVersion2 {
+	return &e
+}
+
+// WriteAction2 - Action to use when writing events. Must be set to `Create` when writing to a data stream.
+type WriteAction2 string
+
+const (
+	// WriteAction2Index Index
+	WriteAction2Index WriteAction2 = "index"
+	// WriteAction2Create Create
+	WriteAction2Create WriteAction2 = "create"
+)
+
+func (e WriteAction2) ToPointer() *WriteAction2 {
+	return &e
+}
+
+type OutputElasticElastic2 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string           `json:"id,omitempty"`
+	Type TypeElasticOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Index or data stream to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
+	Index string `json:"index"`
+	// Document type to use for events. Can be overwritten by an event's __type field.
+	DocType *string `json:"docType,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool           `default:"true" json:"responseHonorRetryAfterHeader"`
+	ExtraParams                   []Metadata1Type `json:"extraParams,omitempty"`
+	Auth                          *AuthType       `json:"auth,omitempty"`
+	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+	ElasticVersion *ElasticVersion2 `default:"auto" json:"elasticVersion"`
+	// Optional Elasticsearch destination pipeline
+	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
+	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
+	IncludeDocID *bool `default:"false" json:"includeDocId"`
+	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
+	WriteAction *WriteAction2 `default:"create" json:"writeAction"`
+	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
+	RetryPartialErrors *bool `default:"false" json:"retryPartialErrors"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
+	URL *string `json:"url,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputElasticElastic2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputElasticElastic2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "index", "urls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputElasticElastic2) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputElasticElastic2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputElasticElastic2) GetType() TypeElasticOption {
+	if o == nil {
+		return TypeElasticOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputElasticElastic2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputElasticElastic2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputElasticElastic2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputElasticElastic2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputElasticElastic2) GetIndex() string {
+	if o == nil {
+		return ""
+	}
+	return o.Index
+}
+
+func (o *OutputElasticElastic2) GetDocType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DocType
+}
+
+func (o *OutputElasticElastic2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputElasticElastic2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputElasticElastic2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputElasticElastic2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputElasticElastic2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputElasticElastic2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputElasticElastic2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputElasticElastic2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputElasticElastic2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputElasticElastic2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputElasticElastic2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputElasticElastic2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputElasticElastic2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputElasticElastic2) GetExtraParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraParams
+}
+
+func (o *OutputElasticElastic2) GetAuth() *AuthType {
+	if o == nil {
+		return nil
+	}
+	return o.Auth
+}
+
+func (o *OutputElasticElastic2) GetElasticVersion() *ElasticVersion2 {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticVersion
+}
+
+func (o *OutputElasticElastic2) GetElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticPipeline
+}
+
+func (o *OutputElasticElastic2) GetIncludeDocID() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IncludeDocID
+}
+
+func (o *OutputElasticElastic2) GetWriteAction() *WriteAction2 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteAction
+}
+
+func (o *OutputElasticElastic2) GetRetryPartialErrors() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RetryPartialErrors
+}
+
+func (o *OutputElasticElastic2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputElasticElastic2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputElasticElastic2) GetURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.URL
+}
+
+func (o *OutputElasticElastic2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputElasticElastic2) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputElasticElastic2) GetUrls() []UrlsType {
+	if o == nil {
+		return []UrlsType{}
+	}
+	return o.Urls
+}
+
+func (o *OutputElasticElastic2) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputElasticElastic2) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputElasticElastic2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputElasticElastic2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputElasticElastic2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputElasticElastic2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElasticElastic2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputElasticElastic2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputElasticElastic2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputElasticElastic2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputElasticElastic2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputElasticElastic2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputElasticElastic2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// ElasticVersion1 - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+type ElasticVersion1 string
+
+const (
+	// ElasticVersion1Auto Auto
+	ElasticVersion1Auto ElasticVersion1 = "auto"
+	// ElasticVersion1Six 6.x
+	ElasticVersion1Six ElasticVersion1 = "6"
+	// ElasticVersion1Seven 7.x
+	ElasticVersion1Seven ElasticVersion1 = "7"
+)
+
+func (e ElasticVersion1) ToPointer() *ElasticVersion1 {
+	return &e
+}
+
+// WriteAction1 - Action to use when writing events. Must be set to `Create` when writing to a data stream.
+type WriteAction1 string
+
+const (
+	// WriteAction1Index Index
+	WriteAction1Index WriteAction1 = "index"
+	// WriteAction1Create Create
+	WriteAction1Create WriteAction1 = "create"
+)
+
+func (e WriteAction1) ToPointer() *WriteAction1 {
+	return &e
+}
+
+type OutputElasticElastic1 struct {
+	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// Unique ID for this output
+	ID   *string           `json:"id,omitempty"`
+	Type TypeElasticOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Index or data stream to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
+	Index string `json:"index"`
+	// Document type to use for events. Can be overwritten by an event's __type field.
+	DocType *string `json:"docType,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool           `default:"true" json:"responseHonorRetryAfterHeader"`
+	ExtraParams                   []Metadata1Type `json:"extraParams,omitempty"`
+	Auth                          *AuthType       `json:"auth,omitempty"`
+	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+	ElasticVersion *ElasticVersion1 `default:"auto" json:"elasticVersion"`
+	// Optional Elasticsearch destination pipeline
+	ElasticPipeline *string `json:"elasticPipeline,omitempty"`
+	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
+	IncludeDocID *bool `default:"false" json:"includeDocId"`
+	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
+	WriteAction *WriteAction1 `default:"create" json:"writeAction"`
+	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
+	RetryPartialErrors *bool `default:"false" json:"retryPartialErrors"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
+	URL string `json:"url"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool      `default:"false" json:"excludeSelf"`
+	Urls        []UrlsType `json:"urls,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputElasticElastic1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputElasticElastic1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "index", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputElasticElastic1) GetLoadBalanced() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanced
+}
+
+func (o *OutputElasticElastic1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputElasticElastic1) GetType() TypeElasticOption {
+	if o == nil {
+		return TypeElasticOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputElasticElastic1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputElasticElastic1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputElasticElastic1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputElasticElastic1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputElasticElastic1) GetIndex() string {
+	if o == nil {
+		return ""
+	}
+	return o.Index
+}
+
+func (o *OutputElasticElastic1) GetDocType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DocType
+}
+
+func (o *OutputElasticElastic1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputElasticElastic1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputElasticElastic1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputElasticElastic1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputElasticElastic1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputElasticElastic1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputElasticElastic1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputElasticElastic1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputElasticElastic1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputElasticElastic1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputElasticElastic1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputElasticElastic1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputElasticElastic1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputElasticElastic1) GetExtraParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraParams
+}
+
+func (o *OutputElasticElastic1) GetAuth() *AuthType {
+	if o == nil {
+		return nil
+	}
+	return o.Auth
+}
+
+func (o *OutputElasticElastic1) GetElasticVersion() *ElasticVersion1 {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticVersion
+}
+
+func (o *OutputElasticElastic1) GetElasticPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ElasticPipeline
+}
+
+func (o *OutputElasticElastic1) GetIncludeDocID() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IncludeDocID
+}
+
+func (o *OutputElasticElastic1) GetWriteAction() *WriteAction1 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteAction
+}
+
+func (o *OutputElasticElastic1) GetRetryPartialErrors() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RetryPartialErrors
+}
+
+func (o *OutputElasticElastic1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputElasticElastic1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputElasticElastic1) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputElasticElastic1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputElasticElastic1) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputElasticElastic1) GetUrls() []UrlsType {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
+}
+
+func (o *OutputElasticElastic1) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputElasticElastic1) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputElasticElastic1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputElasticElastic1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputElasticElastic1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputElasticElastic1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElasticElastic1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputElasticElastic1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputElasticElastic1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputElasticElastic1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputElasticElastic1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputElasticElastic1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputElasticElastic1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputElasticType string
+
+const (
+	OutputElasticTypeOutputElasticElastic1 OutputElasticType = "OutputElastic_Elastic_1"
+	OutputElasticTypeOutputElasticElastic2 OutputElasticType = "OutputElastic_Elastic_2"
+	OutputElasticTypeOutputElasticElastic3 OutputElasticType = "OutputElastic_Elastic_3"
+	OutputElasticTypeOutputElasticElastic4 OutputElasticType = "OutputElastic_Elastic_4"
+)
+
+type OutputElastic struct {
+	OutputElasticElastic1 *OutputElasticElastic1 `queryParam:"inline,name=OutputElastic"`
+	OutputElasticElastic2 *OutputElasticElastic2 `queryParam:"inline,name=OutputElastic"`
+	OutputElasticElastic3 *OutputElasticElastic3 `queryParam:"inline,name=OutputElastic"`
+	OutputElasticElastic4 *OutputElasticElastic4 `queryParam:"inline,name=OutputElastic"`
+
+	Type OutputElasticType
+}
+
+func CreateOutputElasticOutputElasticElastic1(outputElasticElastic1 OutputElasticElastic1) OutputElastic {
+	typ := OutputElasticTypeOutputElasticElastic1
+
+	return OutputElastic{
+		OutputElasticElastic1: &outputElasticElastic1,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputElasticOutputElasticElastic2(outputElasticElastic2 OutputElasticElastic2) OutputElastic {
+	typ := OutputElasticTypeOutputElasticElastic2
+
+	return OutputElastic{
+		OutputElasticElastic2: &outputElasticElastic2,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputElasticOutputElasticElastic3(outputElasticElastic3 OutputElasticElastic3) OutputElastic {
+	typ := OutputElasticTypeOutputElasticElastic3
+
+	return OutputElastic{
+		OutputElasticElastic3: &outputElasticElastic3,
+		Type:                  typ,
+	}
+}
+
+func CreateOutputElasticOutputElasticElastic4(outputElasticElastic4 OutputElasticElastic4) OutputElastic {
+	typ := OutputElasticTypeOutputElasticElastic4
+
+	return OutputElastic{
+		OutputElasticElastic4: &outputElasticElastic4,
+		Type:                  typ,
+	}
+}
+
+func (u *OutputElastic) UnmarshalJSON(data []byte) error {
+
+	var outputElasticElastic1 OutputElasticElastic1 = OutputElasticElastic1{}
+	if err := utils.UnmarshalJSON(data, &outputElasticElastic1, "", true, nil); err == nil {
+		u.OutputElasticElastic1 = &outputElasticElastic1
+		u.Type = OutputElasticTypeOutputElasticElastic1
+		return nil
+	}
+
+	var outputElasticElastic2 OutputElasticElastic2 = OutputElasticElastic2{}
+	if err := utils.UnmarshalJSON(data, &outputElasticElastic2, "", true, nil); err == nil {
+		u.OutputElasticElastic2 = &outputElasticElastic2
+		u.Type = OutputElasticTypeOutputElasticElastic2
+		return nil
+	}
+
+	var outputElasticElastic4 OutputElasticElastic4 = OutputElasticElastic4{}
+	if err := utils.UnmarshalJSON(data, &outputElasticElastic4, "", true, nil); err == nil {
+		u.OutputElasticElastic4 = &outputElasticElastic4
+		u.Type = OutputElasticTypeOutputElasticElastic4
+		return nil
+	}
+
+	var outputElasticElastic3 OutputElasticElastic3 = OutputElasticElastic3{}
+	if err := utils.UnmarshalJSON(data, &outputElasticElastic3, "", true, nil); err == nil {
+		u.OutputElasticElastic3 = &outputElasticElastic3
+		u.Type = OutputElasticTypeOutputElasticElastic3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputElastic", string(data))
+}
+
+func (u OutputElastic) MarshalJSON() ([]byte, error) {
+	if u.OutputElasticElastic1 != nil {
+		return utils.MarshalJSON(u.OutputElasticElastic1, "", true)
+	}
+
+	if u.OutputElasticElastic2 != nil {
+		return utils.MarshalJSON(u.OutputElasticElastic2, "", true)
+	}
+
+	if u.OutputElasticElastic3 != nil {
+		return utils.MarshalJSON(u.OutputElasticElastic3, "", true)
+	}
+
+	if u.OutputElasticElastic4 != nil {
+		return utils.MarshalJSON(u.OutputElasticElastic4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputElastic: all fields are null")
 }

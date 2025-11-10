@@ -4,670 +4,1491 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSystemStateType string
+type InputSystemStateType4 string
 
 const (
-	InputSystemStateTypeSystemState InputSystemStateType = "system_state"
+	InputSystemStateType4SystemState InputSystemStateType4 = "system_state"
 )
 
-func (e InputSystemStateType) ToPointer() *InputSystemStateType {
+func (e InputSystemStateType4) ToPointer() *InputSystemStateType4 {
 	return &e
 }
-func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
+func (e *InputSystemStateType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "system_state":
-		*e = InputSystemStateType(v)
+		*e = InputSystemStateType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputSystemStateType: %v", v)
+		return fmt.Errorf("invalid value for InputSystemStateType4: %v", v)
 	}
 }
 
-type InputSystemStateConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSystemStateConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStateConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStateConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemStateConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSystemStateMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSystemStateMode string
-
-const (
-	InputSystemStateModeSmart  InputSystemStateMode = "smart"
-	InputSystemStateModeAlways InputSystemStateMode = "always"
-)
-
-func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
-	return &e
-}
-
-// InputSystemStateCompression - Codec to use to compress the persisted data
-type InputSystemStateCompression string
-
-const (
-	InputSystemStateCompressionNone InputSystemStateCompression = "none"
-	InputSystemStateCompressionGzip InputSystemStateCompression = "gzip"
-)
-
-func (e InputSystemStateCompression) ToPointer() *InputSystemStateCompression {
-	return &e
-}
-
-type InputSystemStatePqControls struct {
-}
-
-func (i InputSystemStatePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSystemStatePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSystemStateMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSystemStateCompression `default:"none" json:"compress"`
-	PqControls *InputSystemStatePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSystemStatePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStatePq) GetMode() *InputSystemStateMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSystemStatePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSystemStatePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSystemStatePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSystemStatePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSystemStatePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSystemStatePq) GetCompress() *InputSystemStateCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSystemStatePq) GetPqControls() *InputSystemStatePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputSystemStateMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSystemStateMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStateMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStateMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSystemStateMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// HostsFile - Creates events based on entries collected from the hosts file
-type HostsFile struct {
+// HostsFile4 - Creates events based on entries collected from the hosts file
+type HostsFile4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (h HostsFile) MarshalJSON() ([]byte, error) {
+func (h HostsFile4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(h, "", false)
 }
 
-func (h *HostsFile) UnmarshalJSON(data []byte) error {
+func (h *HostsFile4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HostsFile) GetEnable() *bool {
+func (h *HostsFile4) GetEnable() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.Enable
 }
 
-// Interfaces - Creates events for each of the host’s network interfaces
-type Interfaces struct {
+// Interfaces4 - Creates events for each of the host’s network interfaces
+type Interfaces4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (i Interfaces) MarshalJSON() ([]byte, error) {
+func (i Interfaces4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *Interfaces) UnmarshalJSON(data []byte) error {
+func (i *Interfaces4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *Interfaces) GetEnable() *bool {
+func (i *Interfaces4) GetEnable() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Enable
 }
 
-// DisksAndFileSystems - Creates events for physical disks, partitions, and file systems
-type DisksAndFileSystems struct {
+// DisksAndFileSystems4 - Creates events for physical disks, partitions, and file systems
+type DisksAndFileSystems4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
+func (d DisksAndFileSystems4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(d, "", false)
 }
 
-func (d *DisksAndFileSystems) UnmarshalJSON(data []byte) error {
+func (d *DisksAndFileSystems4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (d *DisksAndFileSystems) GetEnable() *bool {
+func (d *DisksAndFileSystems4) GetEnable() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.Enable
 }
 
-// HostInfo - Creates events based on the host system’s current state
-type HostInfo struct {
+// HostInfo4 - Creates events based on the host system’s current state
+type HostInfo4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (h HostInfo) MarshalJSON() ([]byte, error) {
+func (h HostInfo4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(h, "", false)
 }
 
-func (h *HostInfo) UnmarshalJSON(data []byte) error {
+func (h *HostInfo4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HostInfo) GetEnable() *bool {
+func (h *HostInfo4) GetEnable() *bool {
 	if h == nil {
 		return nil
 	}
 	return h.Enable
 }
 
-// InputSystemStateRoutes - Creates events based on entries collected from the host’s network routes
-type InputSystemStateRoutes struct {
+// InputSystemStateRoutes4 - Creates events based on entries collected from the host’s network routes
+type InputSystemStateRoutes4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (i InputSystemStateRoutes) MarshalJSON() ([]byte, error) {
+func (i InputSystemStateRoutes4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemStateRoutes) UnmarshalJSON(data []byte) error {
+func (i *InputSystemStateRoutes4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStateRoutes) GetEnable() *bool {
+func (i *InputSystemStateRoutes4) GetEnable() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Enable
 }
 
-// DNS - Creates events for DNS resolvers and search entries
-type DNS struct {
+// DNS4 - Creates events for DNS resolvers and search entries
+type DNS4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (d DNS) MarshalJSON() ([]byte, error) {
+func (d DNS4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(d, "", false)
 }
 
-func (d *DNS) UnmarshalJSON(data []byte) error {
+func (d *DNS4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (d *DNS) GetEnable() *bool {
+func (d *DNS4) GetEnable() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.Enable
 }
 
-// UsersAndGroups - Creates events for local users and groups
-type UsersAndGroups struct {
+// UsersAndGroups4 - Creates events for local users and groups
+type UsersAndGroups4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
+func (u UsersAndGroups4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(u, "", false)
 }
 
-func (u *UsersAndGroups) UnmarshalJSON(data []byte) error {
+func (u *UsersAndGroups4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UsersAndGroups) GetEnable() *bool {
+func (u *UsersAndGroups4) GetEnable() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.Enable
 }
 
-// Firewall - Creates events for Firewall rules entries
-type Firewall struct {
+// Firewall4 - Creates events for Firewall rules entries
+type Firewall4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (f Firewall) MarshalJSON() ([]byte, error) {
+func (f Firewall4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *Firewall) UnmarshalJSON(data []byte) error {
+func (f *Firewall4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *Firewall) GetEnable() *bool {
+func (f *Firewall4) GetEnable() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Enable
 }
 
-// Services - Creates events from the list of services
-type Services struct {
+// Services4 - Creates events from the list of services
+type Services4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (s Services) MarshalJSON() ([]byte, error) {
+func (s Services4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *Services) UnmarshalJSON(data []byte) error {
+func (s *Services4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *Services) GetEnable() *bool {
+func (s *Services4) GetEnable() *bool {
 	if s == nil {
 		return nil
 	}
 	return s.Enable
 }
 
-// ListeningPorts - Creates events from list of listening ports
-type ListeningPorts struct {
+// ListeningPorts4 - Creates events from list of listening ports
+type ListeningPorts4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (l ListeningPorts) MarshalJSON() ([]byte, error) {
+func (l ListeningPorts4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *ListeningPorts) UnmarshalJSON(data []byte) error {
+func (l *ListeningPorts4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *ListeningPorts) GetEnable() *bool {
+func (l *ListeningPorts4) GetEnable() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Enable
 }
 
-// LoggedInUsers - Creates events from list of logged-in users
-type LoggedInUsers struct {
+// LoggedInUsers4 - Creates events from list of logged-in users
+type LoggedInUsers4 struct {
 	Enable *bool `default:"true" json:"enable"`
 }
 
-func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
+func (l LoggedInUsers4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *LoggedInUsers) UnmarshalJSON(data []byte) error {
+func (l *LoggedInUsers4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LoggedInUsers) GetEnable() *bool {
+func (l *LoggedInUsers4) GetEnable() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.Enable
 }
 
-type Collectors struct {
+type Collectors4 struct {
 	// Creates events based on entries collected from the hosts file
-	Hostsfile *HostsFile `json:"hostsfile,omitempty"`
+	Hostsfile *HostsFile4 `json:"hostsfile,omitempty"`
 	// Creates events for each of the host’s network interfaces
-	Interfaces *Interfaces `json:"interfaces,omitempty"`
+	Interfaces *Interfaces4 `json:"interfaces,omitempty"`
 	// Creates events for physical disks, partitions, and file systems
-	Disk *DisksAndFileSystems `json:"disk,omitempty"`
+	Disk *DisksAndFileSystems4 `json:"disk,omitempty"`
 	// Creates events based on the host system’s current state
-	Metadata *HostInfo `json:"metadata,omitempty"`
+	Metadata *HostInfo4 `json:"metadata,omitempty"`
 	// Creates events based on entries collected from the host’s network routes
-	Routes *InputSystemStateRoutes `json:"routes,omitempty"`
+	Routes *InputSystemStateRoutes4 `json:"routes,omitempty"`
 	// Creates events for DNS resolvers and search entries
-	DNS *DNS `json:"dns,omitempty"`
+	DNS *DNS4 `json:"dns,omitempty"`
 	// Creates events for local users and groups
-	User *UsersAndGroups `json:"user,omitempty"`
+	User *UsersAndGroups4 `json:"user,omitempty"`
 	// Creates events for Firewall rules entries
-	Firewall *Firewall `json:"firewall,omitempty"`
+	Firewall *Firewall4 `json:"firewall,omitempty"`
 	// Creates events from the list of services
-	Services *Services `json:"services,omitempty"`
+	Services *Services4 `json:"services,omitempty"`
 	// Creates events from list of listening ports
-	Ports *ListeningPorts `json:"ports,omitempty"`
+	Ports *ListeningPorts4 `json:"ports,omitempty"`
 	// Creates events from list of logged-in users
-	LoginUsers *LoggedInUsers `json:"loginUsers,omitempty"`
+	LoginUsers *LoggedInUsers4 `json:"loginUsers,omitempty"`
 }
 
-func (c Collectors) MarshalJSON() ([]byte, error) {
+func (c Collectors4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *Collectors) UnmarshalJSON(data []byte) error {
+func (c *Collectors4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Collectors) GetHostsfile() *HostsFile {
+func (c *Collectors4) GetHostsfile() *HostsFile4 {
 	if c == nil {
 		return nil
 	}
 	return c.Hostsfile
 }
 
-func (c *Collectors) GetInterfaces() *Interfaces {
+func (c *Collectors4) GetInterfaces() *Interfaces4 {
 	if c == nil {
 		return nil
 	}
 	return c.Interfaces
 }
 
-func (c *Collectors) GetDisk() *DisksAndFileSystems {
+func (c *Collectors4) GetDisk() *DisksAndFileSystems4 {
 	if c == nil {
 		return nil
 	}
 	return c.Disk
 }
 
-func (c *Collectors) GetMetadata() *HostInfo {
+func (c *Collectors4) GetMetadata() *HostInfo4 {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *Collectors) GetRoutes() *InputSystemStateRoutes {
+func (c *Collectors4) GetRoutes() *InputSystemStateRoutes4 {
 	if c == nil {
 		return nil
 	}
 	return c.Routes
 }
 
-func (c *Collectors) GetDNS() *DNS {
+func (c *Collectors4) GetDNS() *DNS4 {
 	if c == nil {
 		return nil
 	}
 	return c.DNS
 }
 
-func (c *Collectors) GetUser() *UsersAndGroups {
+func (c *Collectors4) GetUser() *UsersAndGroups4 {
 	if c == nil {
 		return nil
 	}
 	return c.User
 }
 
-func (c *Collectors) GetFirewall() *Firewall {
+func (c *Collectors4) GetFirewall() *Firewall4 {
 	if c == nil {
 		return nil
 	}
 	return c.Firewall
 }
 
-func (c *Collectors) GetServices() *Services {
+func (c *Collectors4) GetServices() *Services4 {
 	if c == nil {
 		return nil
 	}
 	return c.Services
 }
 
-func (c *Collectors) GetPorts() *ListeningPorts {
+func (c *Collectors4) GetPorts() *ListeningPorts4 {
 	if c == nil {
 		return nil
 	}
 	return c.Ports
 }
 
-func (c *Collectors) GetLoginUsers() *LoggedInUsers {
+func (c *Collectors4) GetLoginUsers() *LoggedInUsers4 {
 	if c == nil {
 		return nil
 	}
 	return c.LoginUsers
 }
 
-type InputSystemStateDataCompressionFormat string
-
-const (
-	InputSystemStateDataCompressionFormatNone InputSystemStateDataCompressionFormat = "none"
-	InputSystemStateDataCompressionFormatGzip InputSystemStateDataCompressionFormat = "gzip"
-)
-
-func (e InputSystemStateDataCompressionFormat) ToPointer() *InputSystemStateDataCompressionFormat {
-	return &e
+type InputSystemStateSystemState4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputSystemStateType4 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Collectors  *Collectors4      `json:"collectors,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
 }
 
-type InputSystemStatePersistence struct {
-	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
-	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
-	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
-	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                `default:"24h" json:"maxDataTime"`
-	Compress    *InputSystemStateDataCompressionFormat `default:"none" json:"compress"`
-	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-	DestPath *string `default:"$CRIBL_HOME/state/system_state" json:"destPath"`
-}
-
-func (i InputSystemStatePersistence) MarshalJSON() ([]byte, error) {
+func (i InputSystemStateSystemState4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemStatePersistence) UnmarshalJSON(data []byte) error {
+func (i *InputSystemStateSystemState4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateSystemState4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateSystemState4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateSystemState4) GetType() InputSystemStateType4 {
+	if i == nil {
+		return InputSystemStateType4("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateSystemState4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateSystemState4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateSystemState4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateSystemState4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateSystemState4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateSystemState4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateSystemState4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateSystemState4) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateSystemState4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateSystemState4) GetCollectors() *Collectors4 {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateSystemState4) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateSystemState4) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateSystemState4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemStateType3 string
+
+const (
+	InputSystemStateType3SystemState InputSystemStateType3 = "system_state"
+)
+
+func (e InputSystemStateType3) ToPointer() *InputSystemStateType3 {
+	return &e
+}
+func (e *InputSystemStateType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_state":
+		*e = InputSystemStateType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemStateType3: %v", v)
+	}
+}
+
+// HostsFile3 - Creates events based on entries collected from the hosts file
+type HostsFile3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostsFile3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostsFile3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostsFile3) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// Interfaces3 - Creates events for each of the host’s network interfaces
+type Interfaces3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i Interfaces3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Interfaces3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStatePersistence) GetEnable() *bool {
+func (i *Interfaces3) GetEnable() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Enable
 }
 
-func (i *InputSystemStatePersistence) GetTimeWindow() *string {
+// DisksAndFileSystems3 - Creates events for physical disks, partitions, and file systems
+type DisksAndFileSystems3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DisksAndFileSystems3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DisksAndFileSystems3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DisksAndFileSystems3) GetEnable() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Enable
+}
+
+// HostInfo3 - Creates events based on the host system’s current state
+type HostInfo3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostInfo3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostInfo3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostInfo3) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// InputSystemStateRoutes3 - Creates events based on entries collected from the host’s network routes
+type InputSystemStateRoutes3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i InputSystemStateRoutes3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateRoutes3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateRoutes3) GetEnable() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.TimeWindow
+	return i.Enable
 }
 
-func (i *InputSystemStatePersistence) GetMaxDataSize() *string {
-	if i == nil {
+// DNS3 - Creates events for DNS resolvers and search entries
+type DNS3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DNS3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DNS3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DNS3) GetEnable() *bool {
+	if d == nil {
 		return nil
 	}
-	return i.MaxDataSize
+	return d.Enable
 }
 
-func (i *InputSystemStatePersistence) GetMaxDataTime() *string {
-	if i == nil {
+// UsersAndGroups3 - Creates events for local users and groups
+type UsersAndGroups3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (u UsersAndGroups3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UsersAndGroups3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UsersAndGroups3) GetEnable() *bool {
+	if u == nil {
 		return nil
 	}
-	return i.MaxDataTime
+	return u.Enable
 }
 
-func (i *InputSystemStatePersistence) GetCompress() *InputSystemStateDataCompressionFormat {
-	if i == nil {
+// Firewall3 - Creates events for Firewall rules entries
+type Firewall3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (f Firewall3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *Firewall3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *Firewall3) GetEnable() *bool {
+	if f == nil {
 		return nil
 	}
-	return i.Compress
+	return f.Enable
 }
 
-func (i *InputSystemStatePersistence) GetDestPath() *string {
-	if i == nil {
+// Services3 - Creates events from the list of services
+type Services3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (s Services3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Services3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Services3) GetEnable() *bool {
+	if s == nil {
 		return nil
 	}
-	return i.DestPath
+	return s.Enable
 }
 
-type InputSystemState struct {
+// ListeningPorts3 - Creates events from list of listening ports
+type ListeningPorts3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l ListeningPorts3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListeningPorts3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *ListeningPorts3) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+// LoggedInUsers3 - Creates events from list of logged-in users
+type LoggedInUsers3 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l LoggedInUsers3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LoggedInUsers3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *LoggedInUsers3) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+type Collectors3 struct {
+	// Creates events based on entries collected from the hosts file
+	Hostsfile *HostsFile3 `json:"hostsfile,omitempty"`
+	// Creates events for each of the host’s network interfaces
+	Interfaces *Interfaces3 `json:"interfaces,omitempty"`
+	// Creates events for physical disks, partitions, and file systems
+	Disk *DisksAndFileSystems3 `json:"disk,omitempty"`
+	// Creates events based on the host system’s current state
+	Metadata *HostInfo3 `json:"metadata,omitempty"`
+	// Creates events based on entries collected from the host’s network routes
+	Routes *InputSystemStateRoutes3 `json:"routes,omitempty"`
+	// Creates events for DNS resolvers and search entries
+	DNS *DNS3 `json:"dns,omitempty"`
+	// Creates events for local users and groups
+	User *UsersAndGroups3 `json:"user,omitempty"`
+	// Creates events for Firewall rules entries
+	Firewall *Firewall3 `json:"firewall,omitempty"`
+	// Creates events from the list of services
+	Services *Services3 `json:"services,omitempty"`
+	// Creates events from list of listening ports
+	Ports *ListeningPorts3 `json:"ports,omitempty"`
+	// Creates events from list of logged-in users
+	LoginUsers *LoggedInUsers3 `json:"loginUsers,omitempty"`
+}
+
+func (c Collectors3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Collectors3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Collectors3) GetHostsfile() *HostsFile3 {
+	if c == nil {
+		return nil
+	}
+	return c.Hostsfile
+}
+
+func (c *Collectors3) GetInterfaces() *Interfaces3 {
+	if c == nil {
+		return nil
+	}
+	return c.Interfaces
+}
+
+func (c *Collectors3) GetDisk() *DisksAndFileSystems3 {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+func (c *Collectors3) GetMetadata() *HostInfo3 {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *Collectors3) GetRoutes() *InputSystemStateRoutes3 {
+	if c == nil {
+		return nil
+	}
+	return c.Routes
+}
+
+func (c *Collectors3) GetDNS() *DNS3 {
+	if c == nil {
+		return nil
+	}
+	return c.DNS
+}
+
+func (c *Collectors3) GetUser() *UsersAndGroups3 {
+	if c == nil {
+		return nil
+	}
+	return c.User
+}
+
+func (c *Collectors3) GetFirewall() *Firewall3 {
+	if c == nil {
+		return nil
+	}
+	return c.Firewall
+}
+
+func (c *Collectors3) GetServices() *Services3 {
+	if c == nil {
+		return nil
+	}
+	return c.Services
+}
+
+func (c *Collectors3) GetPorts() *ListeningPorts3 {
+	if c == nil {
+		return nil
+	}
+	return c.Ports
+}
+
+func (c *Collectors3) GetLoginUsers() *LoggedInUsers3 {
+	if c == nil {
+		return nil
+	}
+	return c.LoginUsers
+}
+
+type InputSystemStateSystemState3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string               `json:"id,omitempty"`
+	Type     InputSystemStateType3 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Collectors  *Collectors3      `json:"collectors,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputSystemStateSystemState3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateSystemState3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateSystemState3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateSystemState3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateSystemState3) GetType() InputSystemStateType3 {
+	if i == nil {
+		return InputSystemStateType3("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateSystemState3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateSystemState3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateSystemState3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateSystemState3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateSystemState3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateSystemState3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateSystemState3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateSystemState3) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateSystemState3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateSystemState3) GetCollectors() *Collectors3 {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateSystemState3) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateSystemState3) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateSystemState3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemStateType2 string
+
+const (
+	InputSystemStateType2SystemState InputSystemStateType2 = "system_state"
+)
+
+func (e InputSystemStateType2) ToPointer() *InputSystemStateType2 {
+	return &e
+}
+func (e *InputSystemStateType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_state":
+		*e = InputSystemStateType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemStateType2: %v", v)
+	}
+}
+
+// HostsFile2 - Creates events based on entries collected from the hosts file
+type HostsFile2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostsFile2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostsFile2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostsFile2) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// Interfaces2 - Creates events for each of the host’s network interfaces
+type Interfaces2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i Interfaces2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Interfaces2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *Interfaces2) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// DisksAndFileSystems2 - Creates events for physical disks, partitions, and file systems
+type DisksAndFileSystems2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DisksAndFileSystems2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DisksAndFileSystems2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DisksAndFileSystems2) GetEnable() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Enable
+}
+
+// HostInfo2 - Creates events based on the host system’s current state
+type HostInfo2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostInfo2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostInfo2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostInfo2) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// InputSystemStateRoutes2 - Creates events based on entries collected from the host’s network routes
+type InputSystemStateRoutes2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i InputSystemStateRoutes2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateRoutes2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateRoutes2) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// DNS2 - Creates events for DNS resolvers and search entries
+type DNS2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DNS2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DNS2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DNS2) GetEnable() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Enable
+}
+
+// UsersAndGroups2 - Creates events for local users and groups
+type UsersAndGroups2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (u UsersAndGroups2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UsersAndGroups2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UsersAndGroups2) GetEnable() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Enable
+}
+
+// Firewall2 - Creates events for Firewall rules entries
+type Firewall2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (f Firewall2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *Firewall2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *Firewall2) GetEnable() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Enable
+}
+
+// Services2 - Creates events from the list of services
+type Services2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (s Services2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Services2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Services2) GetEnable() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Enable
+}
+
+// ListeningPorts2 - Creates events from list of listening ports
+type ListeningPorts2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l ListeningPorts2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListeningPorts2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *ListeningPorts2) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+// LoggedInUsers2 - Creates events from list of logged-in users
+type LoggedInUsers2 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l LoggedInUsers2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LoggedInUsers2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *LoggedInUsers2) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+type Collectors2 struct {
+	// Creates events based on entries collected from the hosts file
+	Hostsfile *HostsFile2 `json:"hostsfile,omitempty"`
+	// Creates events for each of the host’s network interfaces
+	Interfaces *Interfaces2 `json:"interfaces,omitempty"`
+	// Creates events for physical disks, partitions, and file systems
+	Disk *DisksAndFileSystems2 `json:"disk,omitempty"`
+	// Creates events based on the host system’s current state
+	Metadata *HostInfo2 `json:"metadata,omitempty"`
+	// Creates events based on entries collected from the host’s network routes
+	Routes *InputSystemStateRoutes2 `json:"routes,omitempty"`
+	// Creates events for DNS resolvers and search entries
+	DNS *DNS2 `json:"dns,omitempty"`
+	// Creates events for local users and groups
+	User *UsersAndGroups2 `json:"user,omitempty"`
+	// Creates events for Firewall rules entries
+	Firewall *Firewall2 `json:"firewall,omitempty"`
+	// Creates events from the list of services
+	Services *Services2 `json:"services,omitempty"`
+	// Creates events from list of listening ports
+	Ports *ListeningPorts2 `json:"ports,omitempty"`
+	// Creates events from list of logged-in users
+	LoginUsers *LoggedInUsers2 `json:"loginUsers,omitempty"`
+}
+
+func (c Collectors2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Collectors2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Collectors2) GetHostsfile() *HostsFile2 {
+	if c == nil {
+		return nil
+	}
+	return c.Hostsfile
+}
+
+func (c *Collectors2) GetInterfaces() *Interfaces2 {
+	if c == nil {
+		return nil
+	}
+	return c.Interfaces
+}
+
+func (c *Collectors2) GetDisk() *DisksAndFileSystems2 {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+func (c *Collectors2) GetMetadata() *HostInfo2 {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *Collectors2) GetRoutes() *InputSystemStateRoutes2 {
+	if c == nil {
+		return nil
+	}
+	return c.Routes
+}
+
+func (c *Collectors2) GetDNS() *DNS2 {
+	if c == nil {
+		return nil
+	}
+	return c.DNS
+}
+
+func (c *Collectors2) GetUser() *UsersAndGroups2 {
+	if c == nil {
+		return nil
+	}
+	return c.User
+}
+
+func (c *Collectors2) GetFirewall() *Firewall2 {
+	if c == nil {
+		return nil
+	}
+	return c.Firewall
+}
+
+func (c *Collectors2) GetServices() *Services2 {
+	if c == nil {
+		return nil
+	}
+	return c.Services
+}
+
+func (c *Collectors2) GetPorts() *ListeningPorts2 {
+	if c == nil {
+		return nil
+	}
+	return c.Ports
+}
+
+func (c *Collectors2) GetLoginUsers() *LoggedInUsers2 {
+	if c == nil {
+		return nil
+	}
+	return c.LoginUsers
+}
+
+type InputSystemStateSystemState2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputSystemStateType2 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -675,138 +1496,786 @@ type InputSystemState struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSystemStateConnection `json:"connections,omitempty"`
-	Pq          *InputSystemStatePq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `default:"300" json:"interval"`
 	// Fields to add to events from this input
-	Metadata    []InputSystemStateMetadatum  `json:"metadata,omitempty"`
-	Collectors  *Collectors                  `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence `json:"persistence,omitempty"`
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Collectors  *Collectors2      `json:"collectors,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputSystemState) MarshalJSON() ([]byte, error) {
+func (i InputSystemStateSystemState2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemState) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputSystemStateSystemState2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemState) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemState) GetType() InputSystemStateType {
-	if i == nil {
-		return InputSystemStateType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemState) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemState) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemState) GetSendToRoutes() *bool {
+func (i *InputSystemStateSystemState2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemState) GetEnvironment() *string {
+func (i *InputSystemStateSystemState2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateSystemState2) GetType() InputSystemStateType2 {
+	if i == nil {
+		return InputSystemStateType2("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateSystemState2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateSystemState2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateSystemState2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemState) GetPqEnabled() *bool {
+func (i *InputSystemStateSystemState2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemState) GetStreamtags() []string {
+func (i *InputSystemStateSystemState2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemState) GetConnections() []InputSystemStateConnection {
+func (i *InputSystemStateSystemState2) GetConnections() []ConnectionsType {
 	if i == nil {
-		return nil
+		return []ConnectionsType{}
 	}
 	return i.Connections
 }
 
-func (i *InputSystemState) GetPq() *InputSystemStatePq {
+func (i *InputSystemStateSystemState2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemState) GetInterval() *float64 {
+func (i *InputSystemStateSystemState2) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemState) GetMetadata() []InputSystemStateMetadatum {
+func (i *InputSystemStateSystemState2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemState) GetCollectors() *Collectors {
+func (i *InputSystemStateSystemState2) GetCollectors() *Collectors2 {
 	if i == nil {
 		return nil
 	}
 	return i.Collectors
 }
 
-func (i *InputSystemState) GetPersistence() *InputSystemStatePersistence {
+func (i *InputSystemStateSystemState2) GetPersistence() *Persistence1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemState) GetDisableNativeModule() *bool {
+func (i *InputSystemStateSystemState2) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputSystemState) GetDescription() *string {
+func (i *InputSystemStateSystemState2) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSystemStateType1 string
+
+const (
+	InputSystemStateType1SystemState InputSystemStateType1 = "system_state"
+)
+
+func (e InputSystemStateType1) ToPointer() *InputSystemStateType1 {
+	return &e
+}
+func (e *InputSystemStateType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_state":
+		*e = InputSystemStateType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSystemStateType1: %v", v)
+	}
+}
+
+// HostsFile1 - Creates events based on entries collected from the hosts file
+type HostsFile1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostsFile1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostsFile1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostsFile1) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// Interfaces1 - Creates events for each of the host’s network interfaces
+type Interfaces1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i Interfaces1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *Interfaces1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *Interfaces1) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// DisksAndFileSystems1 - Creates events for physical disks, partitions, and file systems
+type DisksAndFileSystems1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DisksAndFileSystems1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DisksAndFileSystems1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DisksAndFileSystems1) GetEnable() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Enable
+}
+
+// HostInfo1 - Creates events based on the host system’s current state
+type HostInfo1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (h HostInfo1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostInfo1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (h *HostInfo1) GetEnable() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.Enable
+}
+
+// InputSystemStateRoutes1 - Creates events based on entries collected from the host’s network routes
+type InputSystemStateRoutes1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (i InputSystemStateRoutes1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateRoutes1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateRoutes1) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// DNS1 - Creates events for DNS resolvers and search entries
+type DNS1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (d DNS1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DNS1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DNS1) GetEnable() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Enable
+}
+
+// UsersAndGroups1 - Creates events for local users and groups
+type UsersAndGroups1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (u UsersAndGroups1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UsersAndGroups1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UsersAndGroups1) GetEnable() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Enable
+}
+
+// Firewall1 - Creates events for Firewall rules entries
+type Firewall1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (f Firewall1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *Firewall1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *Firewall1) GetEnable() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Enable
+}
+
+// Services1 - Creates events from the list of services
+type Services1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (s Services1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Services1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Services1) GetEnable() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Enable
+}
+
+// ListeningPorts1 - Creates events from list of listening ports
+type ListeningPorts1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l ListeningPorts1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListeningPorts1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *ListeningPorts1) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+// LoggedInUsers1 - Creates events from list of logged-in users
+type LoggedInUsers1 struct {
+	Enable *bool `default:"true" json:"enable"`
+}
+
+func (l LoggedInUsers1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LoggedInUsers1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *LoggedInUsers1) GetEnable() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.Enable
+}
+
+type Collectors1 struct {
+	// Creates events based on entries collected from the hosts file
+	Hostsfile *HostsFile1 `json:"hostsfile,omitempty"`
+	// Creates events for each of the host’s network interfaces
+	Interfaces *Interfaces1 `json:"interfaces,omitempty"`
+	// Creates events for physical disks, partitions, and file systems
+	Disk *DisksAndFileSystems1 `json:"disk,omitempty"`
+	// Creates events based on the host system’s current state
+	Metadata *HostInfo1 `json:"metadata,omitempty"`
+	// Creates events based on entries collected from the host’s network routes
+	Routes *InputSystemStateRoutes1 `json:"routes,omitempty"`
+	// Creates events for DNS resolvers and search entries
+	DNS *DNS1 `json:"dns,omitempty"`
+	// Creates events for local users and groups
+	User *UsersAndGroups1 `json:"user,omitempty"`
+	// Creates events for Firewall rules entries
+	Firewall *Firewall1 `json:"firewall,omitempty"`
+	// Creates events from the list of services
+	Services *Services1 `json:"services,omitempty"`
+	// Creates events from list of listening ports
+	Ports *ListeningPorts1 `json:"ports,omitempty"`
+	// Creates events from list of logged-in users
+	LoginUsers *LoggedInUsers1 `json:"loginUsers,omitempty"`
+}
+
+func (c Collectors1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Collectors1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Collectors1) GetHostsfile() *HostsFile1 {
+	if c == nil {
+		return nil
+	}
+	return c.Hostsfile
+}
+
+func (c *Collectors1) GetInterfaces() *Interfaces1 {
+	if c == nil {
+		return nil
+	}
+	return c.Interfaces
+}
+
+func (c *Collectors1) GetDisk() *DisksAndFileSystems1 {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+func (c *Collectors1) GetMetadata() *HostInfo1 {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *Collectors1) GetRoutes() *InputSystemStateRoutes1 {
+	if c == nil {
+		return nil
+	}
+	return c.Routes
+}
+
+func (c *Collectors1) GetDNS() *DNS1 {
+	if c == nil {
+		return nil
+	}
+	return c.DNS
+}
+
+func (c *Collectors1) GetUser() *UsersAndGroups1 {
+	if c == nil {
+		return nil
+	}
+	return c.User
+}
+
+func (c *Collectors1) GetFirewall() *Firewall1 {
+	if c == nil {
+		return nil
+	}
+	return c.Firewall
+}
+
+func (c *Collectors1) GetServices() *Services1 {
+	if c == nil {
+		return nil
+	}
+	return c.Services
+}
+
+func (c *Collectors1) GetPorts() *ListeningPorts1 {
+	if c == nil {
+		return nil
+	}
+	return c.Ports
+}
+
+func (c *Collectors1) GetLoginUsers() *LoggedInUsers1 {
+	if c == nil {
+		return nil
+	}
+	return c.LoginUsers
+}
+
+type InputSystemStateSystemState1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputSystemStateType1 `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Collectors  *Collectors1      `json:"collectors,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputSystemStateSystemState1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateSystemState1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateSystemState1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateSystemState1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateSystemState1) GetType() InputSystemStateType1 {
+	if i == nil {
+		return InputSystemStateType1("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateSystemState1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateSystemState1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateSystemState1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateSystemState1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateSystemState1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateSystemState1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateSystemState1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateSystemState1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateSystemState1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateSystemState1) GetCollectors() *Collectors1 {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateSystemState1) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateSystemState1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateSystemState1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemStateType string
+
+const (
+	InputSystemStateTypeInputSystemStateSystemState1 InputSystemStateType = "InputSystemState_SystemState_1"
+	InputSystemStateTypeInputSystemStateSystemState2 InputSystemStateType = "InputSystemState_SystemState_2"
+	InputSystemStateTypeInputSystemStateSystemState3 InputSystemStateType = "InputSystemState_SystemState_3"
+	InputSystemStateTypeInputSystemStateSystemState4 InputSystemStateType = "InputSystemState_SystemState_4"
+)
+
+type InputSystemState struct {
+	InputSystemStateSystemState1 *InputSystemStateSystemState1 `queryParam:"inline,name=InputSystemState"`
+	InputSystemStateSystemState2 *InputSystemStateSystemState2 `queryParam:"inline,name=InputSystemState"`
+	InputSystemStateSystemState3 *InputSystemStateSystemState3 `queryParam:"inline,name=InputSystemState"`
+	InputSystemStateSystemState4 *InputSystemStateSystemState4 `queryParam:"inline,name=InputSystemState"`
+
+	Type InputSystemStateType
+}
+
+func CreateInputSystemStateInputSystemStateSystemState1(inputSystemStateSystemState1 InputSystemStateSystemState1) InputSystemState {
+	typ := InputSystemStateTypeInputSystemStateSystemState1
+
+	return InputSystemState{
+		InputSystemStateSystemState1: &inputSystemStateSystemState1,
+		Type:                         typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateSystemState2(inputSystemStateSystemState2 InputSystemStateSystemState2) InputSystemState {
+	typ := InputSystemStateTypeInputSystemStateSystemState2
+
+	return InputSystemState{
+		InputSystemStateSystemState2: &inputSystemStateSystemState2,
+		Type:                         typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateSystemState3(inputSystemStateSystemState3 InputSystemStateSystemState3) InputSystemState {
+	typ := InputSystemStateTypeInputSystemStateSystemState3
+
+	return InputSystemState{
+		InputSystemStateSystemState3: &inputSystemStateSystemState3,
+		Type:                         typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateSystemState4(inputSystemStateSystemState4 InputSystemStateSystemState4) InputSystemState {
+	typ := InputSystemStateTypeInputSystemStateSystemState4
+
+	return InputSystemState{
+		InputSystemStateSystemState4: &inputSystemStateSystemState4,
+		Type:                         typ,
+	}
+}
+
+func (u *InputSystemState) UnmarshalJSON(data []byte) error {
+
+	var inputSystemStateSystemState2 InputSystemStateSystemState2 = InputSystemStateSystemState2{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateSystemState2, "", true, nil); err == nil {
+		u.InputSystemStateSystemState2 = &inputSystemStateSystemState2
+		u.Type = InputSystemStateTypeInputSystemStateSystemState2
+		return nil
+	}
+
+	var inputSystemStateSystemState4 InputSystemStateSystemState4 = InputSystemStateSystemState4{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateSystemState4, "", true, nil); err == nil {
+		u.InputSystemStateSystemState4 = &inputSystemStateSystemState4
+		u.Type = InputSystemStateTypeInputSystemStateSystemState4
+		return nil
+	}
+
+	var inputSystemStateSystemState1 InputSystemStateSystemState1 = InputSystemStateSystemState1{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateSystemState1, "", true, nil); err == nil {
+		u.InputSystemStateSystemState1 = &inputSystemStateSystemState1
+		u.Type = InputSystemStateTypeInputSystemStateSystemState1
+		return nil
+	}
+
+	var inputSystemStateSystemState3 InputSystemStateSystemState3 = InputSystemStateSystemState3{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateSystemState3, "", true, nil); err == nil {
+		u.InputSystemStateSystemState3 = &inputSystemStateSystemState3
+		u.Type = InputSystemStateTypeInputSystemStateSystemState3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSystemState", string(data))
+}
+
+func (u InputSystemState) MarshalJSON() ([]byte, error) {
+	if u.InputSystemStateSystemState1 != nil {
+		return utils.MarshalJSON(u.InputSystemStateSystemState1, "", true)
+	}
+
+	if u.InputSystemStateSystemState2 != nil {
+		return utils.MarshalJSON(u.InputSystemStateSystemState2, "", true)
+	}
+
+	if u.InputSystemStateSystemState3 != nil {
+		return utils.MarshalJSON(u.InputSystemStateSystemState3, "", true)
+	}
+
+	if u.InputSystemStateSystemState4 != nil {
+		return utils.MarshalJSON(u.InputSystemStateSystemState4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSystemState: all fields are null")
 }

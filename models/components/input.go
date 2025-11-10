@@ -3,6 +3,7 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -11,65 +12,65 @@ import (
 type InputUnionType string
 
 const (
-	InputUnionTypeInputCollection           InputUnionType = "InputCollection"
-	InputUnionTypeInputKafka                InputUnionType = "InputKafka"
-	InputUnionTypeInputMsk                  InputUnionType = "InputMsk"
-	InputUnionTypeInputHTTP                 InputUnionType = "InputHttp"
-	InputUnionTypeInputSplunk               InputUnionType = "InputSplunk"
-	InputUnionTypeInputSplunkSearch         InputUnionType = "InputSplunkSearch"
-	InputUnionTypeInputSplunkHec            InputUnionType = "InputSplunkHec"
-	InputUnionTypeInputAzureBlob            InputUnionType = "InputAzureBlob"
-	InputUnionTypeInputElastic              InputUnionType = "InputElastic"
-	InputUnionTypeInputConfluentCloud       InputUnionType = "InputConfluentCloud"
-	InputUnionTypeInputGrafana              InputUnionType = "InputGrafana"
-	InputUnionTypeInputLoki                 InputUnionType = "InputLoki"
-	InputUnionTypeInputPrometheusRw         InputUnionType = "InputPrometheusRw"
-	InputUnionTypeInputPrometheus           InputUnionType = "InputPrometheus"
-	InputUnionTypeInputEdgePrometheus       InputUnionType = "InputEdgePrometheus"
-	InputUnionTypeInputOffice365Mgmt        InputUnionType = "InputOffice365Mgmt"
-	InputUnionTypeInputOffice365Service     InputUnionType = "InputOffice365Service"
-	InputUnionTypeInputOffice365MsgTrace    InputUnionType = "InputOffice365MsgTrace"
-	InputUnionTypeInputEventhub             InputUnionType = "InputEventhub"
-	InputUnionTypeInputExec                 InputUnionType = "InputExec"
-	InputUnionTypeInputFirehose             InputUnionType = "InputFirehose"
-	InputUnionTypeInputGooglePubsub         InputUnionType = "InputGooglePubsub"
-	InputUnionTypeInputCribl                InputUnionType = "InputCribl"
-	InputUnionTypeInputCriblTCP             InputUnionType = "InputCriblTcp"
-	InputUnionTypeInputCriblHTTP            InputUnionType = "InputCriblHttp"
-	InputUnionTypeInputCriblLakeHTTP        InputUnionType = "InputCriblLakeHttp"
-	InputUnionTypeInputTcpjson              InputUnionType = "InputTcpjson"
-	InputUnionTypeInputSystemMetrics        InputUnionType = "InputSystemMetrics"
-	InputUnionTypeInputSystemState          InputUnionType = "InputSystemState"
-	InputUnionTypeInputKubeMetrics          InputUnionType = "InputKubeMetrics"
-	InputUnionTypeInputKubeLogs             InputUnionType = "InputKubeLogs"
-	InputUnionTypeInputKubeEvents           InputUnionType = "InputKubeEvents"
-	InputUnionTypeInputWindowsMetrics       InputUnionType = "InputWindowsMetrics"
-	InputUnionTypeInputCrowdstrike          InputUnionType = "InputCrowdstrike"
-	InputUnionTypeInputDatadogAgent         InputUnionType = "InputDatadogAgent"
-	InputUnionTypeInputDatagen              InputUnionType = "InputDatagen"
-	InputUnionTypeInputHTTPRaw              InputUnionType = "InputHttpRaw"
-	InputUnionTypeInputKinesis              InputUnionType = "InputKinesis"
-	InputUnionTypeInputCriblmetrics         InputUnionType = "InputCriblmetrics"
-	InputUnionTypeInputMetrics              InputUnionType = "InputMetrics"
-	InputUnionTypeInputS3                   InputUnionType = "InputS3"
-	InputUnionTypeInputS3Inventory          InputUnionType = "InputS3Inventory"
-	InputUnionTypeInputSnmp                 InputUnionType = "InputSnmp"
-	InputUnionTypeInputOpenTelemetry        InputUnionType = "InputOpenTelemetry"
-	InputUnionTypeInputModelDrivenTelemetry InputUnionType = "InputModelDrivenTelemetry"
-	InputUnionTypeInputSqs                  InputUnionType = "InputSqs"
-	InputUnionTypeInputSyslog               InputUnionType = "InputSyslog"
-	InputUnionTypeInputFile                 InputUnionType = "InputFile"
-	InputUnionTypeInputTCP                  InputUnionType = "InputTcp"
-	InputUnionTypeInputAppscope             InputUnionType = "InputAppscope"
-	InputUnionTypeInputWef                  InputUnionType = "InputWef"
-	InputUnionTypeInputWinEventLogs         InputUnionType = "InputWinEventLogs"
-	InputUnionTypeInputRawUDP               InputUnionType = "InputRawUdp"
-	InputUnionTypeInputJournalFiles         InputUnionType = "InputJournalFiles"
-	InputUnionTypeInputWiz                  InputUnionType = "InputWiz"
-	InputUnionTypeInputWizWebhook           InputUnionType = "InputWizWebhook"
-	InputUnionTypeInputNetflow              InputUnionType = "InputNetflow"
-	InputUnionTypeInputSecurityLake         InputUnionType = "InputSecurityLake"
-	InputUnionTypeInputZscalerHec           InputUnionType = "InputZscalerHec"
+	InputUnionTypeCollection           InputUnionType = "collection"
+	InputUnionTypeKafka                InputUnionType = "kafka"
+	InputUnionTypeMsk                  InputUnionType = "msk"
+	InputUnionTypeHTTP                 InputUnionType = "http"
+	InputUnionTypeSplunk               InputUnionType = "splunk"
+	InputUnionTypeSplunkSearch         InputUnionType = "splunk_search"
+	InputUnionTypeSplunkHec            InputUnionType = "splunk_hec"
+	InputUnionTypeAzureBlob            InputUnionType = "azure_blob"
+	InputUnionTypeElastic              InputUnionType = "elastic"
+	InputUnionTypeConfluentCloud       InputUnionType = "confluent_cloud"
+	InputUnionTypeGrafana              InputUnionType = "grafana"
+	InputUnionTypeLoki                 InputUnionType = "loki"
+	InputUnionTypePrometheusRw         InputUnionType = "prometheus_rw"
+	InputUnionTypePrometheus           InputUnionType = "prometheus"
+	InputUnionTypeEdgePrometheus       InputUnionType = "edge_prometheus"
+	InputUnionTypeOffice365Mgmt        InputUnionType = "office365_mgmt"
+	InputUnionTypeOffice365Service     InputUnionType = "office365_service"
+	InputUnionTypeOffice365MsgTrace    InputUnionType = "office365_msg_trace"
+	InputUnionTypeEventhub             InputUnionType = "eventhub"
+	InputUnionTypeExec                 InputUnionType = "exec"
+	InputUnionTypeFirehose             InputUnionType = "firehose"
+	InputUnionTypeGooglePubsub         InputUnionType = "google_pubsub"
+	InputUnionTypeCribl                InputUnionType = "cribl"
+	InputUnionTypeCriblTCP             InputUnionType = "cribl_tcp"
+	InputUnionTypeCriblHTTP            InputUnionType = "cribl_http"
+	InputUnionTypeCriblLakeHTTP        InputUnionType = "cribl_lake_http"
+	InputUnionTypeTcpjson              InputUnionType = "tcpjson"
+	InputUnionTypeSystemMetrics        InputUnionType = "system_metrics"
+	InputUnionTypeSystemState          InputUnionType = "system_state"
+	InputUnionTypeKubeMetrics          InputUnionType = "kube_metrics"
+	InputUnionTypeKubeLogs             InputUnionType = "kube_logs"
+	InputUnionTypeKubeEvents           InputUnionType = "kube_events"
+	InputUnionTypeWindowsMetrics       InputUnionType = "windows_metrics"
+	InputUnionTypeCrowdstrike          InputUnionType = "crowdstrike"
+	InputUnionTypeDatadogAgent         InputUnionType = "datadog_agent"
+	InputUnionTypeDatagen              InputUnionType = "datagen"
+	InputUnionTypeHTTPRaw              InputUnionType = "http_raw"
+	InputUnionTypeKinesis              InputUnionType = "kinesis"
+	InputUnionTypeCriblmetrics         InputUnionType = "criblmetrics"
+	InputUnionTypeMetrics              InputUnionType = "metrics"
+	InputUnionTypeS3                   InputUnionType = "s3"
+	InputUnionTypeS3Inventory          InputUnionType = "s3_inventory"
+	InputUnionTypeSnmp                 InputUnionType = "snmp"
+	InputUnionTypeOpenTelemetry        InputUnionType = "open_telemetry"
+	InputUnionTypeModelDrivenTelemetry InputUnionType = "model_driven_telemetry"
+	InputUnionTypeSqs                  InputUnionType = "sqs"
+	InputUnionTypeSyslog               InputUnionType = "syslog"
+	InputUnionTypeFile                 InputUnionType = "file"
+	InputUnionTypeTCP                  InputUnionType = "tcp"
+	InputUnionTypeAppscope             InputUnionType = "appscope"
+	InputUnionTypeWef                  InputUnionType = "wef"
+	InputUnionTypeWinEventLogs         InputUnionType = "win_event_logs"
+	InputUnionTypeRawUDP               InputUnionType = "raw_udp"
+	InputUnionTypeJournalFiles         InputUnionType = "journal_files"
+	InputUnionTypeWiz                  InputUnionType = "wiz"
+	InputUnionTypeWizWebhook           InputUnionType = "wiz_webhook"
+	InputUnionTypeNetflow              InputUnionType = "netflow"
+	InputUnionTypeSecurityLake         InputUnionType = "security_lake"
+	InputUnionTypeZscalerHec           InputUnionType = "zscaler_hec"
 )
 
 type Input struct {
@@ -92,7 +93,7 @@ type Input struct {
 	InputOffice365Service     *InputOffice365Service     `queryParam:"inline,name=Input"`
 	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline,name=Input"`
 	InputEventhub             *InputEventhub             `queryParam:"inline,name=Input"`
-	InputExec                 *InputExec                 `queryParam:"inline,name=Input"`
+	InputExecUnion            *InputExecUnion            `queryParam:"inline,name=Input"`
 	InputFirehose             *InputFirehose             `queryParam:"inline,name=Input"`
 	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline,name=Input"`
 	InputCribl                *InputCribl                `queryParam:"inline,name=Input"`
@@ -120,13 +121,13 @@ type Input struct {
 	InputModelDrivenTelemetry *InputModelDrivenTelemetry `queryParam:"inline,name=Input"`
 	InputSqs                  *InputSqs                  `queryParam:"inline,name=Input"`
 	InputSyslog               *InputSyslog               `queryParam:"inline,name=Input"`
-	InputFile                 *InputFile                 `queryParam:"inline,name=Input"`
+	InputFileUnion            *InputFileUnion            `queryParam:"inline,name=Input"`
 	InputTCP                  *InputTCP                  `queryParam:"inline,name=Input"`
 	InputAppscope             *InputAppscope             `queryParam:"inline,name=Input"`
 	InputWef                  *InputWef                  `queryParam:"inline,name=Input"`
 	InputWinEventLogs         *InputWinEventLogs         `queryParam:"inline,name=Input"`
 	InputRawUDP               *InputRawUDP               `queryParam:"inline,name=Input"`
-	InputJournalFiles         *InputJournalFiles         `queryParam:"inline,name=Input"`
+	InputJournalFilesUnion    *InputJournalFilesUnion    `queryParam:"inline,name=Input"`
 	InputWiz                  *InputWiz                  `queryParam:"inline,name=Input"`
 	InputWizWebhook           *InputWizWebhook           `queryParam:"inline,name=Input"`
 	InputNetflow              *InputNetflow              `queryParam:"inline,name=Input"`
@@ -136,949 +137,1079 @@ type Input struct {
 	Type InputUnionType
 }
 
-func CreateInputInputCollection(inputCollection InputCollection) Input {
-	typ := InputUnionTypeInputCollection
+func CreateInputCollection(collection InputCollection) Input {
+	typ := InputUnionTypeCollection
 
 	return Input{
-		InputCollection: &inputCollection,
+		InputCollection: &collection,
 		Type:            typ,
 	}
 }
 
-func CreateInputInputKafka(inputKafka InputKafka) Input {
-	typ := InputUnionTypeInputKafka
+func CreateInputKafka(kafka InputKafka) Input {
+	typ := InputUnionTypeKafka
 
 	return Input{
-		InputKafka: &inputKafka,
+		InputKafka: &kafka,
 		Type:       typ,
 	}
 }
 
-func CreateInputInputMsk(inputMsk InputMsk) Input {
-	typ := InputUnionTypeInputMsk
+func CreateInputMsk(msk InputMsk) Input {
+	typ := InputUnionTypeMsk
 
 	return Input{
-		InputMsk: &inputMsk,
+		InputMsk: &msk,
 		Type:     typ,
 	}
 }
 
-func CreateInputInputHTTP(inputHTTP InputHTTP) Input {
-	typ := InputUnionTypeInputHTTP
+func CreateInputHTTP(http InputHTTP) Input {
+	typ := InputUnionTypeHTTP
 
 	return Input{
-		InputHTTP: &inputHTTP,
+		InputHTTP: &http,
 		Type:      typ,
 	}
 }
 
-func CreateInputInputSplunk(inputSplunk InputSplunk) Input {
-	typ := InputUnionTypeInputSplunk
+func CreateInputSplunk(splunk InputSplunk) Input {
+	typ := InputUnionTypeSplunk
 
 	return Input{
-		InputSplunk: &inputSplunk,
+		InputSplunk: &splunk,
 		Type:        typ,
 	}
 }
 
-func CreateInputInputSplunkSearch(inputSplunkSearch InputSplunkSearch) Input {
-	typ := InputUnionTypeInputSplunkSearch
+func CreateInputSplunkSearch(splunkSearch InputSplunkSearch) Input {
+	typ := InputUnionTypeSplunkSearch
 
 	return Input{
-		InputSplunkSearch: &inputSplunkSearch,
+		InputSplunkSearch: &splunkSearch,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputSplunkHec(inputSplunkHec InputSplunkHec) Input {
-	typ := InputUnionTypeInputSplunkHec
+func CreateInputSplunkHec(splunkHec InputSplunkHec) Input {
+	typ := InputUnionTypeSplunkHec
 
 	return Input{
-		InputSplunkHec: &inputSplunkHec,
+		InputSplunkHec: &splunkHec,
 		Type:           typ,
 	}
 }
 
-func CreateInputInputAzureBlob(inputAzureBlob InputAzureBlob) Input {
-	typ := InputUnionTypeInputAzureBlob
+func CreateInputAzureBlob(azureBlob InputAzureBlob) Input {
+	typ := InputUnionTypeAzureBlob
 
 	return Input{
-		InputAzureBlob: &inputAzureBlob,
+		InputAzureBlob: &azureBlob,
 		Type:           typ,
 	}
 }
 
-func CreateInputInputElastic(inputElastic InputElastic) Input {
-	typ := InputUnionTypeInputElastic
+func CreateInputElastic(elastic InputElastic) Input {
+	typ := InputUnionTypeElastic
 
 	return Input{
-		InputElastic: &inputElastic,
+		InputElastic: &elastic,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputConfluentCloud(inputConfluentCloud InputConfluentCloud) Input {
-	typ := InputUnionTypeInputConfluentCloud
+func CreateInputConfluentCloud(confluentCloud InputConfluentCloud) Input {
+	typ := InputUnionTypeConfluentCloud
 
 	return Input{
-		InputConfluentCloud: &inputConfluentCloud,
+		InputConfluentCloud: &confluentCloud,
 		Type:                typ,
 	}
 }
 
-func CreateInputInputGrafana(inputGrafana InputGrafana) Input {
-	typ := InputUnionTypeInputGrafana
+func CreateInputGrafana(grafana InputGrafana) Input {
+	typ := InputUnionTypeGrafana
 
 	return Input{
-		InputGrafana: &inputGrafana,
+		InputGrafana: &grafana,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputLoki(inputLoki InputLoki) Input {
-	typ := InputUnionTypeInputLoki
+func CreateInputLoki(loki InputLoki) Input {
+	typ := InputUnionTypeLoki
 
 	return Input{
-		InputLoki: &inputLoki,
+		InputLoki: &loki,
 		Type:      typ,
 	}
 }
 
-func CreateInputInputPrometheusRw(inputPrometheusRw InputPrometheusRw) Input {
-	typ := InputUnionTypeInputPrometheusRw
+func CreateInputPrometheusRw(prometheusRw InputPrometheusRw) Input {
+	typ := InputUnionTypePrometheusRw
 
 	return Input{
-		InputPrometheusRw: &inputPrometheusRw,
+		InputPrometheusRw: &prometheusRw,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputPrometheus(inputPrometheus InputPrometheus) Input {
-	typ := InputUnionTypeInputPrometheus
+func CreateInputPrometheus(prometheus InputPrometheus) Input {
+	typ := InputUnionTypePrometheus
 
 	return Input{
-		InputPrometheus: &inputPrometheus,
+		InputPrometheus: &prometheus,
 		Type:            typ,
 	}
 }
 
-func CreateInputInputEdgePrometheus(inputEdgePrometheus InputEdgePrometheus) Input {
-	typ := InputUnionTypeInputEdgePrometheus
+func CreateInputEdgePrometheus(edgePrometheus InputEdgePrometheus) Input {
+	typ := InputUnionTypeEdgePrometheus
 
 	return Input{
-		InputEdgePrometheus: &inputEdgePrometheus,
+		InputEdgePrometheus: &edgePrometheus,
 		Type:                typ,
 	}
 }
 
-func CreateInputInputOffice365Mgmt(inputOffice365Mgmt InputOffice365Mgmt) Input {
-	typ := InputUnionTypeInputOffice365Mgmt
+func CreateInputOffice365Mgmt(office365Mgmt InputOffice365Mgmt) Input {
+	typ := InputUnionTypeOffice365Mgmt
 
 	return Input{
-		InputOffice365Mgmt: &inputOffice365Mgmt,
+		InputOffice365Mgmt: &office365Mgmt,
 		Type:               typ,
 	}
 }
 
-func CreateInputInputOffice365Service(inputOffice365Service InputOffice365Service) Input {
-	typ := InputUnionTypeInputOffice365Service
+func CreateInputOffice365Service(office365Service InputOffice365Service) Input {
+	typ := InputUnionTypeOffice365Service
 
 	return Input{
-		InputOffice365Service: &inputOffice365Service,
+		InputOffice365Service: &office365Service,
 		Type:                  typ,
 	}
 }
 
-func CreateInputInputOffice365MsgTrace(inputOffice365MsgTrace InputOffice365MsgTrace) Input {
-	typ := InputUnionTypeInputOffice365MsgTrace
+func CreateInputOffice365MsgTrace(office365MsgTrace InputOffice365MsgTrace) Input {
+	typ := InputUnionTypeOffice365MsgTrace
 
 	return Input{
-		InputOffice365MsgTrace: &inputOffice365MsgTrace,
+		InputOffice365MsgTrace: &office365MsgTrace,
 		Type:                   typ,
 	}
 }
 
-func CreateInputInputEventhub(inputEventhub InputEventhub) Input {
-	typ := InputUnionTypeInputEventhub
+func CreateInputEventhub(eventhub InputEventhub) Input {
+	typ := InputUnionTypeEventhub
 
 	return Input{
-		InputEventhub: &inputEventhub,
+		InputEventhub: &eventhub,
 		Type:          typ,
 	}
 }
 
-func CreateInputInputExec(inputExec InputExec) Input {
-	typ := InputUnionTypeInputExec
+func CreateInputExec(exec InputExecUnion) Input {
+	typ := InputUnionTypeExec
 
 	return Input{
-		InputExec: &inputExec,
-		Type:      typ,
-	}
-}
-
-func CreateInputInputFirehose(inputFirehose InputFirehose) Input {
-	typ := InputUnionTypeInputFirehose
-
-	return Input{
-		InputFirehose: &inputFirehose,
-		Type:          typ,
-	}
-}
-
-func CreateInputInputGooglePubsub(inputGooglePubsub InputGooglePubsub) Input {
-	typ := InputUnionTypeInputGooglePubsub
-
-	return Input{
-		InputGooglePubsub: &inputGooglePubsub,
-		Type:              typ,
-	}
-}
-
-func CreateInputInputCribl(inputCribl InputCribl) Input {
-	typ := InputUnionTypeInputCribl
-
-	return Input{
-		InputCribl: &inputCribl,
-		Type:       typ,
-	}
-}
-
-func CreateInputInputCriblTCP(inputCriblTCP InputCriblTCP) Input {
-	typ := InputUnionTypeInputCriblTCP
-
-	return Input{
-		InputCriblTCP: &inputCriblTCP,
-		Type:          typ,
-	}
-}
-
-func CreateInputInputCriblHTTP(inputCriblHTTP InputCriblHTTP) Input {
-	typ := InputUnionTypeInputCriblHTTP
-
-	return Input{
-		InputCriblHTTP: &inputCriblHTTP,
+		InputExecUnion: &exec,
 		Type:           typ,
 	}
 }
 
-func CreateInputInputCriblLakeHTTP(inputCriblLakeHTTP InputCriblLakeHTTP) Input {
-	typ := InputUnionTypeInputCriblLakeHTTP
+func CreateInputFirehose(firehose InputFirehose) Input {
+	typ := InputUnionTypeFirehose
 
 	return Input{
-		InputCriblLakeHTTP: &inputCriblLakeHTTP,
-		Type:               typ,
-	}
-}
-
-func CreateInputInputTcpjson(inputTcpjson InputTcpjson) Input {
-	typ := InputUnionTypeInputTcpjson
-
-	return Input{
-		InputTcpjson: &inputTcpjson,
-		Type:         typ,
-	}
-}
-
-func CreateInputInputSystemMetrics(inputSystemMetrics InputSystemMetrics) Input {
-	typ := InputUnionTypeInputSystemMetrics
-
-	return Input{
-		InputSystemMetrics: &inputSystemMetrics,
-		Type:               typ,
-	}
-}
-
-func CreateInputInputSystemState(inputSystemState InputSystemState) Input {
-	typ := InputUnionTypeInputSystemState
-
-	return Input{
-		InputSystemState: &inputSystemState,
-		Type:             typ,
-	}
-}
-
-func CreateInputInputKubeMetrics(inputKubeMetrics InputKubeMetrics) Input {
-	typ := InputUnionTypeInputKubeMetrics
-
-	return Input{
-		InputKubeMetrics: &inputKubeMetrics,
-		Type:             typ,
-	}
-}
-
-func CreateInputInputKubeLogs(inputKubeLogs InputKubeLogs) Input {
-	typ := InputUnionTypeInputKubeLogs
-
-	return Input{
-		InputKubeLogs: &inputKubeLogs,
+		InputFirehose: &firehose,
 		Type:          typ,
 	}
 }
 
-func CreateInputInputKubeEvents(inputKubeEvents InputKubeEvents) Input {
-	typ := InputUnionTypeInputKubeEvents
+func CreateInputGooglePubsub(googlePubsub InputGooglePubsub) Input {
+	typ := InputUnionTypeGooglePubsub
 
 	return Input{
-		InputKubeEvents: &inputKubeEvents,
+		InputGooglePubsub: &googlePubsub,
+		Type:              typ,
+	}
+}
+
+func CreateInputCribl(cribl InputCribl) Input {
+	typ := InputUnionTypeCribl
+
+	return Input{
+		InputCribl: &cribl,
+		Type:       typ,
+	}
+}
+
+func CreateInputCriblTCP(criblTCP InputCriblTCP) Input {
+	typ := InputUnionTypeCriblTCP
+
+	return Input{
+		InputCriblTCP: &criblTCP,
+		Type:          typ,
+	}
+}
+
+func CreateInputCriblHTTP(criblHTTP InputCriblHTTP) Input {
+	typ := InputUnionTypeCriblHTTP
+
+	return Input{
+		InputCriblHTTP: &criblHTTP,
+		Type:           typ,
+	}
+}
+
+func CreateInputCriblLakeHTTP(criblLakeHTTP InputCriblLakeHTTP) Input {
+	typ := InputUnionTypeCriblLakeHTTP
+
+	return Input{
+		InputCriblLakeHTTP: &criblLakeHTTP,
+		Type:               typ,
+	}
+}
+
+func CreateInputTcpjson(tcpjson InputTcpjson) Input {
+	typ := InputUnionTypeTcpjson
+
+	return Input{
+		InputTcpjson: &tcpjson,
+		Type:         typ,
+	}
+}
+
+func CreateInputSystemMetrics(systemMetrics InputSystemMetrics) Input {
+	typ := InputUnionTypeSystemMetrics
+
+	return Input{
+		InputSystemMetrics: &systemMetrics,
+		Type:               typ,
+	}
+}
+
+func CreateInputSystemState(systemState InputSystemState) Input {
+	typ := InputUnionTypeSystemState
+
+	return Input{
+		InputSystemState: &systemState,
+		Type:             typ,
+	}
+}
+
+func CreateInputKubeMetrics(kubeMetrics InputKubeMetrics) Input {
+	typ := InputUnionTypeKubeMetrics
+
+	return Input{
+		InputKubeMetrics: &kubeMetrics,
+		Type:             typ,
+	}
+}
+
+func CreateInputKubeLogs(kubeLogs InputKubeLogs) Input {
+	typ := InputUnionTypeKubeLogs
+
+	return Input{
+		InputKubeLogs: &kubeLogs,
+		Type:          typ,
+	}
+}
+
+func CreateInputKubeEvents(kubeEvents InputKubeEvents) Input {
+	typ := InputUnionTypeKubeEvents
+
+	return Input{
+		InputKubeEvents: &kubeEvents,
 		Type:            typ,
 	}
 }
 
-func CreateInputInputWindowsMetrics(inputWindowsMetrics InputWindowsMetrics) Input {
-	typ := InputUnionTypeInputWindowsMetrics
+func CreateInputWindowsMetrics(windowsMetrics InputWindowsMetrics) Input {
+	typ := InputUnionTypeWindowsMetrics
 
 	return Input{
-		InputWindowsMetrics: &inputWindowsMetrics,
+		InputWindowsMetrics: &windowsMetrics,
 		Type:                typ,
 	}
 }
 
-func CreateInputInputCrowdstrike(inputCrowdstrike InputCrowdstrike) Input {
-	typ := InputUnionTypeInputCrowdstrike
+func CreateInputCrowdstrike(crowdstrike InputCrowdstrike) Input {
+	typ := InputUnionTypeCrowdstrike
 
 	return Input{
-		InputCrowdstrike: &inputCrowdstrike,
+		InputCrowdstrike: &crowdstrike,
 		Type:             typ,
 	}
 }
 
-func CreateInputInputDatadogAgent(inputDatadogAgent InputDatadogAgent) Input {
-	typ := InputUnionTypeInputDatadogAgent
+func CreateInputDatadogAgent(datadogAgent InputDatadogAgent) Input {
+	typ := InputUnionTypeDatadogAgent
 
 	return Input{
-		InputDatadogAgent: &inputDatadogAgent,
+		InputDatadogAgent: &datadogAgent,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputDatagen(inputDatagen InputDatagen) Input {
-	typ := InputUnionTypeInputDatagen
+func CreateInputDatagen(datagen InputDatagen) Input {
+	typ := InputUnionTypeDatagen
 
 	return Input{
-		InputDatagen: &inputDatagen,
+		InputDatagen: &datagen,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputHTTPRaw(inputHTTPRaw InputHTTPRaw) Input {
-	typ := InputUnionTypeInputHTTPRaw
+func CreateInputHTTPRaw(httpRaw InputHTTPRaw) Input {
+	typ := InputUnionTypeHTTPRaw
 
 	return Input{
-		InputHTTPRaw: &inputHTTPRaw,
+		InputHTTPRaw: &httpRaw,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputKinesis(inputKinesis InputKinesis) Input {
-	typ := InputUnionTypeInputKinesis
+func CreateInputKinesis(kinesis InputKinesis) Input {
+	typ := InputUnionTypeKinesis
 
 	return Input{
-		InputKinesis: &inputKinesis,
+		InputKinesis: &kinesis,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputCriblmetrics(inputCriblmetrics InputCriblmetrics) Input {
-	typ := InputUnionTypeInputCriblmetrics
+func CreateInputCriblmetrics(criblmetrics InputCriblmetrics) Input {
+	typ := InputUnionTypeCriblmetrics
 
 	return Input{
-		InputCriblmetrics: &inputCriblmetrics,
+		InputCriblmetrics: &criblmetrics,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputMetrics(inputMetrics InputMetrics) Input {
-	typ := InputUnionTypeInputMetrics
+func CreateInputMetrics(metrics InputMetrics) Input {
+	typ := InputUnionTypeMetrics
 
 	return Input{
-		InputMetrics: &inputMetrics,
+		InputMetrics: &metrics,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputS3(inputS3 InputS3) Input {
-	typ := InputUnionTypeInputS3
+func CreateInputS3(s3 InputS3) Input {
+	typ := InputUnionTypeS3
 
 	return Input{
-		InputS3: &inputS3,
+		InputS3: &s3,
 		Type:    typ,
 	}
 }
 
-func CreateInputInputS3Inventory(inputS3Inventory InputS3Inventory) Input {
-	typ := InputUnionTypeInputS3Inventory
+func CreateInputS3Inventory(s3Inventory InputS3Inventory) Input {
+	typ := InputUnionTypeS3Inventory
 
 	return Input{
-		InputS3Inventory: &inputS3Inventory,
+		InputS3Inventory: &s3Inventory,
 		Type:             typ,
 	}
 }
 
-func CreateInputInputSnmp(inputSnmp InputSnmp) Input {
-	typ := InputUnionTypeInputSnmp
+func CreateInputSnmp(snmp InputSnmp) Input {
+	typ := InputUnionTypeSnmp
 
 	return Input{
-		InputSnmp: &inputSnmp,
+		InputSnmp: &snmp,
 		Type:      typ,
 	}
 }
 
-func CreateInputInputOpenTelemetry(inputOpenTelemetry InputOpenTelemetry) Input {
-	typ := InputUnionTypeInputOpenTelemetry
+func CreateInputOpenTelemetry(openTelemetry InputOpenTelemetry) Input {
+	typ := InputUnionTypeOpenTelemetry
 
 	return Input{
-		InputOpenTelemetry: &inputOpenTelemetry,
+		InputOpenTelemetry: &openTelemetry,
 		Type:               typ,
 	}
 }
 
-func CreateInputInputModelDrivenTelemetry(inputModelDrivenTelemetry InputModelDrivenTelemetry) Input {
-	typ := InputUnionTypeInputModelDrivenTelemetry
+func CreateInputModelDrivenTelemetry(modelDrivenTelemetry InputModelDrivenTelemetry) Input {
+	typ := InputUnionTypeModelDrivenTelemetry
 
 	return Input{
-		InputModelDrivenTelemetry: &inputModelDrivenTelemetry,
+		InputModelDrivenTelemetry: &modelDrivenTelemetry,
 		Type:                      typ,
 	}
 }
 
-func CreateInputInputSqs(inputSqs InputSqs) Input {
-	typ := InputUnionTypeInputSqs
+func CreateInputSqs(sqs InputSqs) Input {
+	typ := InputUnionTypeSqs
 
 	return Input{
-		InputSqs: &inputSqs,
+		InputSqs: &sqs,
 		Type:     typ,
 	}
 }
 
-func CreateInputInputSyslog(inputSyslog InputSyslog) Input {
-	typ := InputUnionTypeInputSyslog
+func CreateInputSyslog(syslog InputSyslog) Input {
+	typ := InputUnionTypeSyslog
 
 	return Input{
-		InputSyslog: &inputSyslog,
+		InputSyslog: &syslog,
 		Type:        typ,
 	}
 }
 
-func CreateInputInputFile(inputFile InputFile) Input {
-	typ := InputUnionTypeInputFile
+func CreateInputFile(file InputFileUnion) Input {
+	typ := InputUnionTypeFile
 
 	return Input{
-		InputFile: &inputFile,
-		Type:      typ,
+		InputFileUnion: &file,
+		Type:           typ,
 	}
 }
 
-func CreateInputInputTCP(inputTCP InputTCP) Input {
-	typ := InputUnionTypeInputTCP
+func CreateInputTCP(tcp InputTCP) Input {
+	typ := InputUnionTypeTCP
 
 	return Input{
-		InputTCP: &inputTCP,
+		InputTCP: &tcp,
 		Type:     typ,
 	}
 }
 
-func CreateInputInputAppscope(inputAppscope InputAppscope) Input {
-	typ := InputUnionTypeInputAppscope
+func CreateInputAppscope(appscope InputAppscope) Input {
+	typ := InputUnionTypeAppscope
 
 	return Input{
-		InputAppscope: &inputAppscope,
+		InputAppscope: &appscope,
 		Type:          typ,
 	}
 }
 
-func CreateInputInputWef(inputWef InputWef) Input {
-	typ := InputUnionTypeInputWef
+func CreateInputWef(wef InputWef) Input {
+	typ := InputUnionTypeWef
 
 	return Input{
-		InputWef: &inputWef,
+		InputWef: &wef,
 		Type:     typ,
 	}
 }
 
-func CreateInputInputWinEventLogs(inputWinEventLogs InputWinEventLogs) Input {
-	typ := InputUnionTypeInputWinEventLogs
+func CreateInputWinEventLogs(winEventLogs InputWinEventLogs) Input {
+	typ := InputUnionTypeWinEventLogs
 
 	return Input{
-		InputWinEventLogs: &inputWinEventLogs,
+		InputWinEventLogs: &winEventLogs,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputRawUDP(inputRawUDP InputRawUDP) Input {
-	typ := InputUnionTypeInputRawUDP
+func CreateInputRawUDP(rawUDP InputRawUDP) Input {
+	typ := InputUnionTypeRawUDP
 
 	return Input{
-		InputRawUDP: &inputRawUDP,
+		InputRawUDP: &rawUDP,
 		Type:        typ,
 	}
 }
 
-func CreateInputInputJournalFiles(inputJournalFiles InputJournalFiles) Input {
-	typ := InputUnionTypeInputJournalFiles
+func CreateInputJournalFiles(journalFiles InputJournalFilesUnion) Input {
+	typ := InputUnionTypeJournalFiles
 
 	return Input{
-		InputJournalFiles: &inputJournalFiles,
-		Type:              typ,
+		InputJournalFilesUnion: &journalFiles,
+		Type:                   typ,
 	}
 }
 
-func CreateInputInputWiz(inputWiz InputWiz) Input {
-	typ := InputUnionTypeInputWiz
+func CreateInputWiz(wiz InputWiz) Input {
+	typ := InputUnionTypeWiz
 
 	return Input{
-		InputWiz: &inputWiz,
+		InputWiz: &wiz,
 		Type:     typ,
 	}
 }
 
-func CreateInputInputWizWebhook(inputWizWebhook InputWizWebhook) Input {
-	typ := InputUnionTypeInputWizWebhook
+func CreateInputWizWebhook(wizWebhook InputWizWebhook) Input {
+	typ := InputUnionTypeWizWebhook
 
 	return Input{
-		InputWizWebhook: &inputWizWebhook,
+		InputWizWebhook: &wizWebhook,
 		Type:            typ,
 	}
 }
 
-func CreateInputInputNetflow(inputNetflow InputNetflow) Input {
-	typ := InputUnionTypeInputNetflow
+func CreateInputNetflow(netflow InputNetflow) Input {
+	typ := InputUnionTypeNetflow
 
 	return Input{
-		InputNetflow: &inputNetflow,
+		InputNetflow: &netflow,
 		Type:         typ,
 	}
 }
 
-func CreateInputInputSecurityLake(inputSecurityLake InputSecurityLake) Input {
-	typ := InputUnionTypeInputSecurityLake
+func CreateInputSecurityLake(securityLake InputSecurityLake) Input {
+	typ := InputUnionTypeSecurityLake
 
 	return Input{
-		InputSecurityLake: &inputSecurityLake,
+		InputSecurityLake: &securityLake,
 		Type:              typ,
 	}
 }
 
-func CreateInputInputZscalerHec(inputZscalerHec InputZscalerHec) Input {
-	typ := InputUnionTypeInputZscalerHec
+func CreateInputZscalerHec(zscalerHec InputZscalerHec) Input {
+	typ := InputUnionTypeZscalerHec
 
 	return Input{
-		InputZscalerHec: &inputZscalerHec,
+		InputZscalerHec: &zscalerHec,
 		Type:            typ,
 	}
 }
 
 func (u *Input) UnmarshalJSON(data []byte) error {
 
-	var inputMsk InputMsk = InputMsk{}
-	if err := utils.UnmarshalJSON(data, &inputMsk, "", true, nil); err == nil {
-		u.InputMsk = &inputMsk
-		u.Type = InputUnionTypeInputMsk
-		return nil
+	type discriminator struct {
+		Type string `json:"type"`
 	}
 
-	var inputWiz InputWiz = InputWiz{}
-	if err := utils.UnmarshalJSON(data, &inputWiz, "", true, nil); err == nil {
-		u.InputWiz = &inputWiz
-		u.Type = InputUnionTypeInputWiz
-		return nil
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
-	var inputKafka InputKafka = InputKafka{}
-	if err := utils.UnmarshalJSON(data, &inputKafka, "", true, nil); err == nil {
-		u.InputKafka = &inputKafka
-		u.Type = InputUnionTypeInputKafka
-		return nil
-	}
+	switch dis.Type {
+	case "collection":
+		inputCollection := new(InputCollection)
+		if err := utils.UnmarshalJSON(data, &inputCollection, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == collection) type InputCollection within Input: %w", string(data), err)
+		}
 
-	var inputConfluentCloud InputConfluentCloud = InputConfluentCloud{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloud, "", true, nil); err == nil {
-		u.InputConfluentCloud = &inputConfluentCloud
-		u.Type = InputUnionTypeInputConfluentCloud
+		u.InputCollection = inputCollection
+		u.Type = InputUnionTypeCollection
 		return nil
-	}
+	case "kafka":
+		inputKafka := new(InputKafka)
+		if err := utils.UnmarshalJSON(data, &inputKafka, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kafka) type InputKafka within Input: %w", string(data), err)
+		}
 
-	var inputOffice365Mgmt InputOffice365Mgmt = InputOffice365Mgmt{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, nil); err == nil {
-		u.InputOffice365Mgmt = &inputOffice365Mgmt
-		u.Type = InputUnionTypeInputOffice365Mgmt
+		u.InputKafka = inputKafka
+		u.Type = InputUnionTypeKafka
 		return nil
-	}
+	case "msk":
+		inputMsk := new(InputMsk)
+		if err := utils.UnmarshalJSON(data, &inputMsk, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == msk) type InputMsk within Input: %w", string(data), err)
+		}
 
-	var inputOffice365Service InputOffice365Service = InputOffice365Service{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, nil); err == nil {
-		u.InputOffice365Service = &inputOffice365Service
-		u.Type = InputUnionTypeInputOffice365Service
+		u.InputMsk = inputMsk
+		u.Type = InputUnionTypeMsk
 		return nil
-	}
+	case "http":
+		inputHTTP := new(InputHTTP)
+		if err := utils.UnmarshalJSON(data, &inputHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http) type InputHTTP within Input: %w", string(data), err)
+		}
 
-	var inputEventhub InputEventhub = InputEventhub{}
-	if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, nil); err == nil {
-		u.InputEventhub = &inputEventhub
-		u.Type = InputUnionTypeInputEventhub
+		u.InputHTTP = inputHTTP
+		u.Type = InputUnionTypeHTTP
 		return nil
-	}
+	case "splunk":
+		inputSplunk := new(InputSplunk)
+		if err := utils.UnmarshalJSON(data, &inputSplunk, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk) type InputSplunk within Input: %w", string(data), err)
+		}
 
-	var inputKinesis InputKinesis = InputKinesis{}
-	if err := utils.UnmarshalJSON(data, &inputKinesis, "", true, nil); err == nil {
-		u.InputKinesis = &inputKinesis
-		u.Type = InputUnionTypeInputKinesis
+		u.InputSplunk = inputSplunk
+		u.Type = InputUnionTypeSplunk
 		return nil
-	}
+	case "splunk_search":
+		inputSplunkSearch := new(InputSplunkSearch)
+		if err := utils.UnmarshalJSON(data, &inputSplunkSearch, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_search) type InputSplunkSearch within Input: %w", string(data), err)
+		}
 
-	var inputSqs InputSqs = InputSqs{}
-	if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err == nil {
-		u.InputSqs = &inputSqs
-		u.Type = InputUnionTypeInputSqs
+		u.InputSplunkSearch = inputSplunkSearch
+		u.Type = InputUnionTypeSplunkSearch
 		return nil
-	}
+	case "splunk_hec":
+		inputSplunkHec := new(InputSplunkHec)
+		if err := utils.UnmarshalJSON(data, &inputSplunkHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == splunk_hec) type InputSplunkHec within Input: %w", string(data), err)
+		}
 
-	var inputJournalFiles InputJournalFiles = InputJournalFiles{}
-	if err := utils.UnmarshalJSON(data, &inputJournalFiles, "", true, nil); err == nil {
-		u.InputJournalFiles = &inputJournalFiles
-		u.Type = InputUnionTypeInputJournalFiles
+		u.InputSplunkHec = inputSplunkHec
+		u.Type = InputUnionTypeSplunkHec
 		return nil
-	}
+	case "azure_blob":
+		inputAzureBlob := new(InputAzureBlob)
+		if err := utils.UnmarshalJSON(data, &inputAzureBlob, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == azure_blob) type InputAzureBlob within Input: %w", string(data), err)
+		}
 
-	var inputHTTP InputHTTP = InputHTTP{}
-	if err := utils.UnmarshalJSON(data, &inputHTTP, "", true, nil); err == nil {
-		u.InputHTTP = &inputHTTP
-		u.Type = InputUnionTypeInputHTTP
+		u.InputAzureBlob = inputAzureBlob
+		u.Type = InputUnionTypeAzureBlob
 		return nil
-	}
+	case "elastic":
+		inputElastic := new(InputElastic)
+		if err := utils.UnmarshalJSON(data, &inputElastic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == elastic) type InputElastic within Input: %w", string(data), err)
+		}
 
-	var inputSplunk InputSplunk = InputSplunk{}
-	if err := utils.UnmarshalJSON(data, &inputSplunk, "", true, nil); err == nil {
-		u.InputSplunk = &inputSplunk
-		u.Type = InputUnionTypeInputSplunk
+		u.InputElastic = inputElastic
+		u.Type = InputUnionTypeElastic
 		return nil
-	}
+	case "confluent_cloud":
+		inputConfluentCloud := new(InputConfluentCloud)
+		if err := utils.UnmarshalJSON(data, &inputConfluentCloud, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == confluent_cloud) type InputConfluentCloud within Input: %w", string(data), err)
+		}
 
-	var inputSplunkSearch InputSplunkSearch = InputSplunkSearch{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSearch, "", true, nil); err == nil {
-		u.InputSplunkSearch = &inputSplunkSearch
-		u.Type = InputUnionTypeInputSplunkSearch
+		u.InputConfluentCloud = inputConfluentCloud
+		u.Type = InputUnionTypeConfluentCloud
 		return nil
-	}
+	case "grafana":
+		inputGrafana := new(InputGrafana)
+		if err := utils.UnmarshalJSON(data, &inputGrafana, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == grafana) type InputGrafana within Input: %w", string(data), err)
+		}
 
-	var inputSplunkHec InputSplunkHec = InputSplunkHec{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkHec, "", true, nil); err == nil {
-		u.InputSplunkHec = &inputSplunkHec
-		u.Type = InputUnionTypeInputSplunkHec
+		u.InputGrafana = inputGrafana
+		u.Type = InputUnionTypeGrafana
 		return nil
-	}
+	case "loki":
+		inputLoki := new(InputLoki)
+		if err := utils.UnmarshalJSON(data, &inputLoki, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == loki) type InputLoki within Input: %w", string(data), err)
+		}
 
-	var inputAzureBlob InputAzureBlob = InputAzureBlob{}
-	if err := utils.UnmarshalJSON(data, &inputAzureBlob, "", true, nil); err == nil {
-		u.InputAzureBlob = &inputAzureBlob
-		u.Type = InputUnionTypeInputAzureBlob
+		u.InputLoki = inputLoki
+		u.Type = InputUnionTypeLoki
 		return nil
-	}
+	case "prometheus_rw":
+		inputPrometheusRw := new(InputPrometheusRw)
+		if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus_rw) type InputPrometheusRw within Input: %w", string(data), err)
+		}
 
-	var inputElastic InputElastic = InputElastic{}
-	if err := utils.UnmarshalJSON(data, &inputElastic, "", true, nil); err == nil {
-		u.InputElastic = &inputElastic
-		u.Type = InputUnionTypeInputElastic
+		u.InputPrometheusRw = inputPrometheusRw
+		u.Type = InputUnionTypePrometheusRw
 		return nil
-	}
+	case "prometheus":
+		inputPrometheus := new(InputPrometheus)
+		if err := utils.UnmarshalJSON(data, &inputPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == prometheus) type InputPrometheus within Input: %w", string(data), err)
+		}
 
-	var inputLoki InputLoki = InputLoki{}
-	if err := utils.UnmarshalJSON(data, &inputLoki, "", true, nil); err == nil {
-		u.InputLoki = &inputLoki
-		u.Type = InputUnionTypeInputLoki
+		u.InputPrometheus = inputPrometheus
+		u.Type = InputUnionTypePrometheus
 		return nil
-	}
+	case "edge_prometheus":
+		inputEdgePrometheus := new(InputEdgePrometheus)
+		if err := utils.UnmarshalJSON(data, &inputEdgePrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == edge_prometheus) type InputEdgePrometheus within Input: %w", string(data), err)
+		}
 
-	var inputPrometheusRw InputPrometheusRw = InputPrometheusRw{}
-	if err := utils.UnmarshalJSON(data, &inputPrometheusRw, "", true, nil); err == nil {
-		u.InputPrometheusRw = &inputPrometheusRw
-		u.Type = InputUnionTypeInputPrometheusRw
+		u.InputEdgePrometheus = inputEdgePrometheus
+		u.Type = InputUnionTypeEdgePrometheus
 		return nil
-	}
+	case "office365_mgmt":
+		inputOffice365Mgmt := new(InputOffice365Mgmt)
+		if err := utils.UnmarshalJSON(data, &inputOffice365Mgmt, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_mgmt) type InputOffice365Mgmt within Input: %w", string(data), err)
+		}
 
-	var inputExec InputExec = InputExec{}
-	if err := utils.UnmarshalJSON(data, &inputExec, "", true, nil); err == nil {
-		u.InputExec = &inputExec
-		u.Type = InputUnionTypeInputExec
+		u.InputOffice365Mgmt = inputOffice365Mgmt
+		u.Type = InputUnionTypeOffice365Mgmt
 		return nil
-	}
+	case "office365_service":
+		inputOffice365Service := new(InputOffice365Service)
+		if err := utils.UnmarshalJSON(data, &inputOffice365Service, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_service) type InputOffice365Service within Input: %w", string(data), err)
+		}
 
-	var inputFirehose InputFirehose = InputFirehose{}
-	if err := utils.UnmarshalJSON(data, &inputFirehose, "", true, nil); err == nil {
-		u.InputFirehose = &inputFirehose
-		u.Type = InputUnionTypeInputFirehose
+		u.InputOffice365Service = inputOffice365Service
+		u.Type = InputUnionTypeOffice365Service
 		return nil
-	}
+	case "office365_msg_trace":
+		inputOffice365MsgTrace := new(InputOffice365MsgTrace)
+		if err := utils.UnmarshalJSON(data, &inputOffice365MsgTrace, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == office365_msg_trace) type InputOffice365MsgTrace within Input: %w", string(data), err)
+		}
 
-	var inputGooglePubsub InputGooglePubsub = InputGooglePubsub{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, nil); err == nil {
-		u.InputGooglePubsub = &inputGooglePubsub
-		u.Type = InputUnionTypeInputGooglePubsub
+		u.InputOffice365MsgTrace = inputOffice365MsgTrace
+		u.Type = InputUnionTypeOffice365MsgTrace
 		return nil
-	}
+	case "eventhub":
+		inputEventhub := new(InputEventhub)
+		if err := utils.UnmarshalJSON(data, &inputEventhub, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == eventhub) type InputEventhub within Input: %w", string(data), err)
+		}
 
-	var inputCriblTCP InputCriblTCP = InputCriblTCP{}
-	if err := utils.UnmarshalJSON(data, &inputCriblTCP, "", true, nil); err == nil {
-		u.InputCriblTCP = &inputCriblTCP
-		u.Type = InputUnionTypeInputCriblTCP
+		u.InputEventhub = inputEventhub
+		u.Type = InputUnionTypeEventhub
 		return nil
-	}
+	case "exec":
+		inputExecUnion := new(InputExecUnion)
+		if err := utils.UnmarshalJSON(data, &inputExecUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == exec) type InputExecUnion within Input: %w", string(data), err)
+		}
 
-	var inputCriblHTTP InputCriblHTTP = InputCriblHTTP{}
-	if err := utils.UnmarshalJSON(data, &inputCriblHTTP, "", true, nil); err == nil {
-		u.InputCriblHTTP = &inputCriblHTTP
-		u.Type = InputUnionTypeInputCriblHTTP
+		u.InputExecUnion = inputExecUnion
+		u.Type = InputUnionTypeExec
 		return nil
-	}
+	case "firehose":
+		inputFirehose := new(InputFirehose)
+		if err := utils.UnmarshalJSON(data, &inputFirehose, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == firehose) type InputFirehose within Input: %w", string(data), err)
+		}
 
-	var inputCriblLakeHTTP InputCriblLakeHTTP = InputCriblLakeHTTP{}
-	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTP, "", true, nil); err == nil {
-		u.InputCriblLakeHTTP = &inputCriblLakeHTTP
-		u.Type = InputUnionTypeInputCriblLakeHTTP
+		u.InputFirehose = inputFirehose
+		u.Type = InputUnionTypeFirehose
 		return nil
-	}
+	case "google_pubsub":
+		inputGooglePubsub := new(InputGooglePubsub)
+		if err := utils.UnmarshalJSON(data, &inputGooglePubsub, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_pubsub) type InputGooglePubsub within Input: %w", string(data), err)
+		}
 
-	var inputTcpjson InputTcpjson = InputTcpjson{}
-	if err := utils.UnmarshalJSON(data, &inputTcpjson, "", true, nil); err == nil {
-		u.InputTcpjson = &inputTcpjson
-		u.Type = InputUnionTypeInputTcpjson
+		u.InputGooglePubsub = inputGooglePubsub
+		u.Type = InputUnionTypeGooglePubsub
 		return nil
-	}
+	case "cribl":
+		inputCribl := new(InputCribl)
+		if err := utils.UnmarshalJSON(data, &inputCribl, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl) type InputCribl within Input: %w", string(data), err)
+		}
 
-	var inputCrowdstrike InputCrowdstrike = InputCrowdstrike{}
-	if err := utils.UnmarshalJSON(data, &inputCrowdstrike, "", true, nil); err == nil {
-		u.InputCrowdstrike = &inputCrowdstrike
-		u.Type = InputUnionTypeInputCrowdstrike
+		u.InputCribl = inputCribl
+		u.Type = InputUnionTypeCribl
 		return nil
-	}
+	case "cribl_tcp":
+		inputCriblTCP := new(InputCriblTCP)
+		if err := utils.UnmarshalJSON(data, &inputCriblTCP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_tcp) type InputCriblTCP within Input: %w", string(data), err)
+		}
 
-	var inputDatadogAgent InputDatadogAgent = InputDatadogAgent{}
-	if err := utils.UnmarshalJSON(data, &inputDatadogAgent, "", true, nil); err == nil {
-		u.InputDatadogAgent = &inputDatadogAgent
-		u.Type = InputUnionTypeInputDatadogAgent
+		u.InputCriblTCP = inputCriblTCP
+		u.Type = InputUnionTypeCriblTCP
 		return nil
-	}
+	case "cribl_http":
+		inputCriblHTTP := new(InputCriblHTTP)
+		if err := utils.UnmarshalJSON(data, &inputCriblHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_http) type InputCriblHTTP within Input: %w", string(data), err)
+		}
 
-	var inputDatagen InputDatagen = InputDatagen{}
-	if err := utils.UnmarshalJSON(data, &inputDatagen, "", true, nil); err == nil {
-		u.InputDatagen = &inputDatagen
-		u.Type = InputUnionTypeInputDatagen
+		u.InputCriblHTTP = inputCriblHTTP
+		u.Type = InputUnionTypeCriblHTTP
 		return nil
-	}
+	case "cribl_lake_http":
+		inputCriblLakeHTTP := new(InputCriblLakeHTTP)
+		if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_lake_http) type InputCriblLakeHTTP within Input: %w", string(data), err)
+		}
 
-	var inputHTTPRaw InputHTTPRaw = InputHTTPRaw{}
-	if err := utils.UnmarshalJSON(data, &inputHTTPRaw, "", true, nil); err == nil {
-		u.InputHTTPRaw = &inputHTTPRaw
-		u.Type = InputUnionTypeInputHTTPRaw
+		u.InputCriblLakeHTTP = inputCriblLakeHTTP
+		u.Type = InputUnionTypeCriblLakeHTTP
 		return nil
-	}
+	case "tcpjson":
+		inputTcpjson := new(InputTcpjson)
+		if err := utils.UnmarshalJSON(data, &inputTcpjson, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcpjson) type InputTcpjson within Input: %w", string(data), err)
+		}
 
-	var inputS3 InputS3 = InputS3{}
-	if err := utils.UnmarshalJSON(data, &inputS3, "", true, nil); err == nil {
-		u.InputS3 = &inputS3
-		u.Type = InputUnionTypeInputS3
+		u.InputTcpjson = inputTcpjson
+		u.Type = InputUnionTypeTcpjson
 		return nil
-	}
+	case "system_metrics":
+		inputSystemMetrics := new(InputSystemMetrics)
+		if err := utils.UnmarshalJSON(data, &inputSystemMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_metrics) type InputSystemMetrics within Input: %w", string(data), err)
+		}
 
-	var inputS3Inventory InputS3Inventory = InputS3Inventory{}
-	if err := utils.UnmarshalJSON(data, &inputS3Inventory, "", true, nil); err == nil {
-		u.InputS3Inventory = &inputS3Inventory
-		u.Type = InputUnionTypeInputS3Inventory
+		u.InputSystemMetrics = inputSystemMetrics
+		u.Type = InputUnionTypeSystemMetrics
 		return nil
-	}
+	case "system_state":
+		inputSystemState := new(InputSystemState)
+		if err := utils.UnmarshalJSON(data, &inputSystemState, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == system_state) type InputSystemState within Input: %w", string(data), err)
+		}
 
-	var inputTCP InputTCP = InputTCP{}
-	if err := utils.UnmarshalJSON(data, &inputTCP, "", true, nil); err == nil {
-		u.InputTCP = &inputTCP
-		u.Type = InputUnionTypeInputTCP
+		u.InputSystemState = inputSystemState
+		u.Type = InputUnionTypeSystemState
 		return nil
-	}
+	case "kube_metrics":
+		inputKubeMetrics := new(InputKubeMetrics)
+		if err := utils.UnmarshalJSON(data, &inputKubeMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_metrics) type InputKubeMetrics within Input: %w", string(data), err)
+		}
 
-	var inputWef InputWef = InputWef{}
-	if err := utils.UnmarshalJSON(data, &inputWef, "", true, nil); err == nil {
-		u.InputWef = &inputWef
-		u.Type = InputUnionTypeInputWef
+		u.InputKubeMetrics = inputKubeMetrics
+		u.Type = InputUnionTypeKubeMetrics
 		return nil
-	}
+	case "kube_logs":
+		inputKubeLogs := new(InputKubeLogs)
+		if err := utils.UnmarshalJSON(data, &inputKubeLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_logs) type InputKubeLogs within Input: %w", string(data), err)
+		}
 
-	var inputWinEventLogs InputWinEventLogs = InputWinEventLogs{}
-	if err := utils.UnmarshalJSON(data, &inputWinEventLogs, "", true, nil); err == nil {
-		u.InputWinEventLogs = &inputWinEventLogs
-		u.Type = InputUnionTypeInputWinEventLogs
+		u.InputKubeLogs = inputKubeLogs
+		u.Type = InputUnionTypeKubeLogs
 		return nil
-	}
+	case "kube_events":
+		inputKubeEvents := new(InputKubeEvents)
+		if err := utils.UnmarshalJSON(data, &inputKubeEvents, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kube_events) type InputKubeEvents within Input: %w", string(data), err)
+		}
 
-	var inputRawUDP InputRawUDP = InputRawUDP{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, nil); err == nil {
-		u.InputRawUDP = &inputRawUDP
-		u.Type = InputUnionTypeInputRawUDP
+		u.InputKubeEvents = inputKubeEvents
+		u.Type = InputUnionTypeKubeEvents
 		return nil
-	}
+	case "windows_metrics":
+		inputWindowsMetrics := new(InputWindowsMetrics)
+		if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == windows_metrics) type InputWindowsMetrics within Input: %w", string(data), err)
+		}
 
-	var inputWizWebhook InputWizWebhook = InputWizWebhook{}
-	if err := utils.UnmarshalJSON(data, &inputWizWebhook, "", true, nil); err == nil {
-		u.InputWizWebhook = &inputWizWebhook
-		u.Type = InputUnionTypeInputWizWebhook
+		u.InputWindowsMetrics = inputWindowsMetrics
+		u.Type = InputUnionTypeWindowsMetrics
 		return nil
-	}
+	case "crowdstrike":
+		inputCrowdstrike := new(InputCrowdstrike)
+		if err := utils.UnmarshalJSON(data, &inputCrowdstrike, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == crowdstrike) type InputCrowdstrike within Input: %w", string(data), err)
+		}
 
-	var inputSecurityLake InputSecurityLake = InputSecurityLake{}
-	if err := utils.UnmarshalJSON(data, &inputSecurityLake, "", true, nil); err == nil {
-		u.InputSecurityLake = &inputSecurityLake
-		u.Type = InputUnionTypeInputSecurityLake
+		u.InputCrowdstrike = inputCrowdstrike
+		u.Type = InputUnionTypeCrowdstrike
 		return nil
-	}
+	case "datadog_agent":
+		inputDatadogAgent := new(InputDatadogAgent)
+		if err := utils.UnmarshalJSON(data, &inputDatadogAgent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datadog_agent) type InputDatadogAgent within Input: %w", string(data), err)
+		}
 
-	var inputZscalerHec InputZscalerHec = InputZscalerHec{}
-	if err := utils.UnmarshalJSON(data, &inputZscalerHec, "", true, nil); err == nil {
-		u.InputZscalerHec = &inputZscalerHec
-		u.Type = InputUnionTypeInputZscalerHec
+		u.InputDatadogAgent = inputDatadogAgent
+		u.Type = InputUnionTypeDatadogAgent
 		return nil
-	}
+	case "datagen":
+		inputDatagen := new(InputDatagen)
+		if err := utils.UnmarshalJSON(data, &inputDatagen, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == datagen) type InputDatagen within Input: %w", string(data), err)
+		}
 
-	var inputPrometheus InputPrometheus = InputPrometheus{}
-	if err := utils.UnmarshalJSON(data, &inputPrometheus, "", true, nil); err == nil {
-		u.InputPrometheus = &inputPrometheus
-		u.Type = InputUnionTypeInputPrometheus
+		u.InputDatagen = inputDatagen
+		u.Type = InputUnionTypeDatagen
 		return nil
-	}
+	case "http_raw":
+		inputHTTPRaw := new(InputHTTPRaw)
+		if err := utils.UnmarshalJSON(data, &inputHTTPRaw, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == http_raw) type InputHTTPRaw within Input: %w", string(data), err)
+		}
 
-	var inputEdgePrometheus InputEdgePrometheus = InputEdgePrometheus{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheus, "", true, nil); err == nil {
-		u.InputEdgePrometheus = &inputEdgePrometheus
-		u.Type = InputUnionTypeInputEdgePrometheus
+		u.InputHTTPRaw = inputHTTPRaw
+		u.Type = InputUnionTypeHTTPRaw
 		return nil
-	}
+	case "kinesis":
+		inputKinesis := new(InputKinesis)
+		if err := utils.UnmarshalJSON(data, &inputKinesis, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == kinesis) type InputKinesis within Input: %w", string(data), err)
+		}
 
-	var inputOffice365MsgTrace InputOffice365MsgTrace = InputOffice365MsgTrace{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTrace, "", true, nil); err == nil {
-		u.InputOffice365MsgTrace = &inputOffice365MsgTrace
-		u.Type = InputUnionTypeInputOffice365MsgTrace
+		u.InputKinesis = inputKinesis
+		u.Type = InputUnionTypeKinesis
 		return nil
-	}
+	case "criblmetrics":
+		inputCriblmetrics := new(InputCriblmetrics)
+		if err := utils.UnmarshalJSON(data, &inputCriblmetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == criblmetrics) type InputCriblmetrics within Input: %w", string(data), err)
+		}
 
-	var inputCribl InputCribl = InputCribl{}
-	if err := utils.UnmarshalJSON(data, &inputCribl, "", true, nil); err == nil {
-		u.InputCribl = &inputCribl
-		u.Type = InputUnionTypeInputCribl
+		u.InputCriblmetrics = inputCriblmetrics
+		u.Type = InputUnionTypeCriblmetrics
 		return nil
-	}
+	case "metrics":
+		inputMetrics := new(InputMetrics)
+		if err := utils.UnmarshalJSON(data, &inputMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == metrics) type InputMetrics within Input: %w", string(data), err)
+		}
 
-	var inputSystemMetrics InputSystemMetrics = InputSystemMetrics{}
-	if err := utils.UnmarshalJSON(data, &inputSystemMetrics, "", true, nil); err == nil {
-		u.InputSystemMetrics = &inputSystemMetrics
-		u.Type = InputUnionTypeInputSystemMetrics
+		u.InputMetrics = inputMetrics
+		u.Type = InputUnionTypeMetrics
 		return nil
-	}
+	case "s3":
+		inputS3 := new(InputS3)
+		if err := utils.UnmarshalJSON(data, &inputS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3) type InputS3 within Input: %w", string(data), err)
+		}
 
-	var inputSystemState InputSystemState = InputSystemState{}
-	if err := utils.UnmarshalJSON(data, &inputSystemState, "", true, nil); err == nil {
-		u.InputSystemState = &inputSystemState
-		u.Type = InputUnionTypeInputSystemState
+		u.InputS3 = inputS3
+		u.Type = InputUnionTypeS3
 		return nil
-	}
+	case "s3_inventory":
+		inputS3Inventory := new(InputS3Inventory)
+		if err := utils.UnmarshalJSON(data, &inputS3Inventory, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == s3_inventory) type InputS3Inventory within Input: %w", string(data), err)
+		}
 
-	var inputKubeMetrics InputKubeMetrics = InputKubeMetrics{}
-	if err := utils.UnmarshalJSON(data, &inputKubeMetrics, "", true, nil); err == nil {
-		u.InputKubeMetrics = &inputKubeMetrics
-		u.Type = InputUnionTypeInputKubeMetrics
+		u.InputS3Inventory = inputS3Inventory
+		u.Type = InputUnionTypeS3Inventory
 		return nil
-	}
+	case "snmp":
+		inputSnmp := new(InputSnmp)
+		if err := utils.UnmarshalJSON(data, &inputSnmp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snmp) type InputSnmp within Input: %w", string(data), err)
+		}
 
-	var inputKubeLogs InputKubeLogs = InputKubeLogs{}
-	if err := utils.UnmarshalJSON(data, &inputKubeLogs, "", true, nil); err == nil {
-		u.InputKubeLogs = &inputKubeLogs
-		u.Type = InputUnionTypeInputKubeLogs
+		u.InputSnmp = inputSnmp
+		u.Type = InputUnionTypeSnmp
 		return nil
-	}
+	case "open_telemetry":
+		inputOpenTelemetry := new(InputOpenTelemetry)
+		if err := utils.UnmarshalJSON(data, &inputOpenTelemetry, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == open_telemetry) type InputOpenTelemetry within Input: %w", string(data), err)
+		}
 
-	var inputKubeEvents InputKubeEvents = InputKubeEvents{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEvents, "", true, nil); err == nil {
-		u.InputKubeEvents = &inputKubeEvents
-		u.Type = InputUnionTypeInputKubeEvents
+		u.InputOpenTelemetry = inputOpenTelemetry
+		u.Type = InputUnionTypeOpenTelemetry
 		return nil
-	}
+	case "model_driven_telemetry":
+		inputModelDrivenTelemetry := new(InputModelDrivenTelemetry)
+		if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetry, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == model_driven_telemetry) type InputModelDrivenTelemetry within Input: %w", string(data), err)
+		}
 
-	var inputWindowsMetrics InputWindowsMetrics = InputWindowsMetrics{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetrics, "", true, nil); err == nil {
-		u.InputWindowsMetrics = &inputWindowsMetrics
-		u.Type = InputUnionTypeInputWindowsMetrics
+		u.InputModelDrivenTelemetry = inputModelDrivenTelemetry
+		u.Type = InputUnionTypeModelDrivenTelemetry
 		return nil
-	}
+	case "sqs":
+		inputSqs := new(InputSqs)
+		if err := utils.UnmarshalJSON(data, &inputSqs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sqs) type InputSqs within Input: %w", string(data), err)
+		}
 
-	var inputCriblmetrics InputCriblmetrics = InputCriblmetrics{}
-	if err := utils.UnmarshalJSON(data, &inputCriblmetrics, "", true, nil); err == nil {
-		u.InputCriblmetrics = &inputCriblmetrics
-		u.Type = InputUnionTypeInputCriblmetrics
+		u.InputSqs = inputSqs
+		u.Type = InputUnionTypeSqs
 		return nil
-	}
+	case "syslog":
+		inputSyslog := new(InputSyslog)
+		if err := utils.UnmarshalJSON(data, &inputSyslog, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == syslog) type InputSyslog within Input: %w", string(data), err)
+		}
 
-	var inputMetrics InputMetrics = InputMetrics{}
-	if err := utils.UnmarshalJSON(data, &inputMetrics, "", true, nil); err == nil {
-		u.InputMetrics = &inputMetrics
-		u.Type = InputUnionTypeInputMetrics
+		u.InputSyslog = inputSyslog
+		u.Type = InputUnionTypeSyslog
 		return nil
-	}
+	case "file":
+		inputFileUnion := new(InputFileUnion)
+		if err := utils.UnmarshalJSON(data, &inputFileUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type InputFileUnion within Input: %w", string(data), err)
+		}
 
-	var inputSnmp InputSnmp = InputSnmp{}
-	if err := utils.UnmarshalJSON(data, &inputSnmp, "", true, nil); err == nil {
-		u.InputSnmp = &inputSnmp
-		u.Type = InputUnionTypeInputSnmp
+		u.InputFileUnion = inputFileUnion
+		u.Type = InputUnionTypeFile
 		return nil
-	}
+	case "tcp":
+		inputTCP := new(InputTCP)
+		if err := utils.UnmarshalJSON(data, &inputTCP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tcp) type InputTCP within Input: %w", string(data), err)
+		}
 
-	var inputOpenTelemetry InputOpenTelemetry = InputOpenTelemetry{}
-	if err := utils.UnmarshalJSON(data, &inputOpenTelemetry, "", true, nil); err == nil {
-		u.InputOpenTelemetry = &inputOpenTelemetry
-		u.Type = InputUnionTypeInputOpenTelemetry
+		u.InputTCP = inputTCP
+		u.Type = InputUnionTypeTCP
 		return nil
-	}
+	case "appscope":
+		inputAppscope := new(InputAppscope)
+		if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == appscope) type InputAppscope within Input: %w", string(data), err)
+		}
 
-	var inputModelDrivenTelemetry InputModelDrivenTelemetry = InputModelDrivenTelemetry{}
-	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetry, "", true, nil); err == nil {
-		u.InputModelDrivenTelemetry = &inputModelDrivenTelemetry
-		u.Type = InputUnionTypeInputModelDrivenTelemetry
+		u.InputAppscope = inputAppscope
+		u.Type = InputUnionTypeAppscope
 		return nil
-	}
+	case "wef":
+		inputWef := new(InputWef)
+		if err := utils.UnmarshalJSON(data, &inputWef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wef) type InputWef within Input: %w", string(data), err)
+		}
 
-	var inputFile InputFile = InputFile{}
-	if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err == nil {
-		u.InputFile = &inputFile
-		u.Type = InputUnionTypeInputFile
+		u.InputWef = inputWef
+		u.Type = InputUnionTypeWef
 		return nil
-	}
+	case "win_event_logs":
+		inputWinEventLogs := new(InputWinEventLogs)
+		if err := utils.UnmarshalJSON(data, &inputWinEventLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == win_event_logs) type InputWinEventLogs within Input: %w", string(data), err)
+		}
 
-	var inputAppscope InputAppscope = InputAppscope{}
-	if err := utils.UnmarshalJSON(data, &inputAppscope, "", true, nil); err == nil {
-		u.InputAppscope = &inputAppscope
-		u.Type = InputUnionTypeInputAppscope
+		u.InputWinEventLogs = inputWinEventLogs
+		u.Type = InputUnionTypeWinEventLogs
 		return nil
-	}
+	case "raw_udp":
+		inputRawUDP := new(InputRawUDP)
+		if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == raw_udp) type InputRawUDP within Input: %w", string(data), err)
+		}
 
-	var inputNetflow InputNetflow = InputNetflow{}
-	if err := utils.UnmarshalJSON(data, &inputNetflow, "", true, nil); err == nil {
-		u.InputNetflow = &inputNetflow
-		u.Type = InputUnionTypeInputNetflow
+		u.InputRawUDP = inputRawUDP
+		u.Type = InputUnionTypeRawUDP
 		return nil
-	}
+	case "journal_files":
+		inputJournalFilesUnion := new(InputJournalFilesUnion)
+		if err := utils.UnmarshalJSON(data, &inputJournalFilesUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == journal_files) type InputJournalFilesUnion within Input: %w", string(data), err)
+		}
 
-	var inputCollection InputCollection = InputCollection{}
-	if err := utils.UnmarshalJSON(data, &inputCollection, "", true, nil); err == nil {
-		u.InputCollection = &inputCollection
-		u.Type = InputUnionTypeInputCollection
+		u.InputJournalFilesUnion = inputJournalFilesUnion
+		u.Type = InputUnionTypeJournalFiles
 		return nil
-	}
+	case "wiz":
+		inputWiz := new(InputWiz)
+		if err := utils.UnmarshalJSON(data, &inputWiz, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz) type InputWiz within Input: %w", string(data), err)
+		}
 
-	var inputGrafana InputGrafana = InputGrafana{}
-	if err := utils.UnmarshalJSON(data, &inputGrafana, "", true, nil); err == nil {
-		u.InputGrafana = &inputGrafana
-		u.Type = InputUnionTypeInputGrafana
+		u.InputWiz = inputWiz
+		u.Type = InputUnionTypeWiz
 		return nil
-	}
+	case "wiz_webhook":
+		inputWizWebhook := new(InputWizWebhook)
+		if err := utils.UnmarshalJSON(data, &inputWizWebhook, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz_webhook) type InputWizWebhook within Input: %w", string(data), err)
+		}
 
-	var inputSyslog InputSyslog = InputSyslog{}
-	if err := utils.UnmarshalJSON(data, &inputSyslog, "", true, nil); err == nil {
-		u.InputSyslog = &inputSyslog
-		u.Type = InputUnionTypeInputSyslog
+		u.InputWizWebhook = inputWizWebhook
+		u.Type = InputUnionTypeWizWebhook
+		return nil
+	case "netflow":
+		inputNetflow := new(InputNetflow)
+		if err := utils.UnmarshalJSON(data, &inputNetflow, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == netflow) type InputNetflow within Input: %w", string(data), err)
+		}
+
+		u.InputNetflow = inputNetflow
+		u.Type = InputUnionTypeNetflow
+		return nil
+	case "security_lake":
+		inputSecurityLake := new(InputSecurityLake)
+		if err := utils.UnmarshalJSON(data, &inputSecurityLake, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == security_lake) type InputSecurityLake within Input: %w", string(data), err)
+		}
+
+		u.InputSecurityLake = inputSecurityLake
+		u.Type = InputUnionTypeSecurityLake
+		return nil
+	case "zscaler_hec":
+		inputZscalerHec := new(InputZscalerHec)
+		if err := utils.UnmarshalJSON(data, &inputZscalerHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == zscaler_hec) type InputZscalerHec within Input: %w", string(data), err)
+		}
+
+		u.InputZscalerHec = inputZscalerHec
+		u.Type = InputUnionTypeZscalerHec
 		return nil
 	}
 
@@ -1162,8 +1293,8 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputEventhub, "", true)
 	}
 
-	if u.InputExec != nil {
-		return utils.MarshalJSON(u.InputExec, "", true)
+	if u.InputExecUnion != nil {
+		return utils.MarshalJSON(u.InputExecUnion, "", true)
 	}
 
 	if u.InputFirehose != nil {
@@ -1274,8 +1405,8 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputSyslog, "", true)
 	}
 
-	if u.InputFile != nil {
-		return utils.MarshalJSON(u.InputFile, "", true)
+	if u.InputFileUnion != nil {
+		return utils.MarshalJSON(u.InputFileUnion, "", true)
 	}
 
 	if u.InputTCP != nil {
@@ -1298,8 +1429,8 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputRawUDP, "", true)
 	}
 
-	if u.InputJournalFiles != nil {
-		return utils.MarshalJSON(u.InputJournalFiles, "", true)
+	if u.InputJournalFilesUnion != nil {
+		return utils.MarshalJSON(u.InputJournalFilesUnion, "", true)
 	}
 
 	if u.InputWiz != nil {

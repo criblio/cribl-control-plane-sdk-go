@@ -10,7 +10,7 @@ Actions related to Routes
 * [List](#list) - List all Routes
 * [Get](#get) - Get a Routing table
 * [Update](#update) - Update a Route
-* [Append](#append) - Append a Route to the end of the Routing table
+* [Append](#append) - Add a Route to the end of the Routing table
 
 ## List
 
@@ -44,7 +44,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedRoutes != nil {
         // handle response
     }
 }
@@ -100,7 +100,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedRoutes != nil {
         // handle response
     }
 }
@@ -172,7 +172,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedRoutes != nil {
         // handle response
     }
 }
@@ -200,7 +200,7 @@ func main() {
 
 ## Append
 
-Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+Add a Route to the end of the specified Routing table.
 
 ### Example Usage
 
@@ -230,7 +230,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedRoutes != nil {
         // handle response
     }
 }
@@ -238,12 +238,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                         | :heavy_check_mark:                                                                                            | The context to use for the request.                                                                           |
-| `id`                                                                                                          | *string*                                                                                                      | :heavy_check_mark:                                                                                            | The <code>id</code> of the Routing table to append the Route to. The supported value is <code>default</code>. |
-| `requestBody`                                                                                                 | [][components.RouteConf](../../models/components/routeconf.md)                                                | :heavy_check_mark:                                                                                            | RouteDefinitions object                                                                                       |
-| `opts`                                                                                                        | [][operations.Option](../../models/operations/option.md)                                                      | :heavy_minus_sign:                                                                                            | The options for this request.                                                                                 |
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
+| `id`                                                                                                       | *string*                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>. |
+| `requestBody`                                                                                              | [][components.RouteConf](../../models/components/routeconf.md)                                             | :heavy_check_mark:                                                                                         | RouteDefinitions object                                                                                    |
+| `opts`                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
 
 ### Response
 

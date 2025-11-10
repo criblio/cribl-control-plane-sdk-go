@@ -4,339 +4,62 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputInfluxdbType string
+type OutputInfluxdbType10 string
 
 const (
-	OutputInfluxdbTypeInfluxdb OutputInfluxdbType = "influxdb"
+	OutputInfluxdbType10Influxdb OutputInfluxdbType10 = "influxdb"
 )
 
-func (e OutputInfluxdbType) ToPointer() *OutputInfluxdbType {
+func (e OutputInfluxdbType10) ToPointer() *OutputInfluxdbType10 {
 	return &e
 }
-func (e *OutputInfluxdbType) UnmarshalJSON(data []byte) error {
+func (e *OutputInfluxdbType10) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "influxdb":
-		*e = OutputInfluxdbType(v)
+		*e = OutputInfluxdbType10(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputInfluxdbType: %v", v)
+		return fmt.Errorf("invalid value for OutputInfluxdbType10: %v", v)
 	}
 }
 
-// TimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-type TimestampPrecision string
+// TimestampPrecision10 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision10 string
 
 const (
-	TimestampPrecisionNs TimestampPrecision = "ns"
-	TimestampPrecisionU  TimestampPrecision = "u"
-	TimestampPrecisionMs TimestampPrecision = "ms"
-	TimestampPrecisionS  TimestampPrecision = "s"
-	TimestampPrecisionM  TimestampPrecision = "m"
-	TimestampPrecisionH  TimestampPrecision = "h"
+	// TimestampPrecision10Ns Nanoseconds
+	TimestampPrecision10Ns TimestampPrecision10 = "ns"
+	// TimestampPrecision10U Microseconds
+	TimestampPrecision10U TimestampPrecision10 = "u"
+	// TimestampPrecision10Ms Milliseconds
+	TimestampPrecision10Ms TimestampPrecision10 = "ms"
+	// TimestampPrecision10S Seconds
+	TimestampPrecision10S TimestampPrecision10 = "s"
+	// TimestampPrecision10M Minutes
+	TimestampPrecision10M TimestampPrecision10 = "m"
+	// TimestampPrecision10H Hours
+	TimestampPrecision10H TimestampPrecision10 = "h"
 )
 
-func (e TimestampPrecision) ToPointer() *TimestampPrecision {
+func (e TimestampPrecision10) ToPointer() *TimestampPrecision10 {
 	return &e
 }
 
-type OutputInfluxdbExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputInfluxdbExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputInfluxdbExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputInfluxdbExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputInfluxdbFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputInfluxdbFailedRequestLoggingMode string
-
-const (
-	OutputInfluxdbFailedRequestLoggingModePayload           OutputInfluxdbFailedRequestLoggingMode = "payload"
-	OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders OutputInfluxdbFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputInfluxdbFailedRequestLoggingModeNone              OutputInfluxdbFailedRequestLoggingMode = "none"
-)
-
-func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputInfluxdbResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputInfluxdbResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputInfluxdbResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputInfluxdbResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputInfluxdbResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputInfluxdbResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputInfluxdbTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputInfluxdbTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputInfluxdbTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputInfluxdbTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputInfluxdbTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputInfluxdbTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputInfluxdbBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputInfluxdbBackpressureBehavior string
-
-const (
-	OutputInfluxdbBackpressureBehaviorBlock OutputInfluxdbBackpressureBehavior = "block"
-	OutputInfluxdbBackpressureBehaviorDrop  OutputInfluxdbBackpressureBehavior = "drop"
-	OutputInfluxdbBackpressureBehaviorQueue OutputInfluxdbBackpressureBehavior = "queue"
-)
-
-func (e OutputInfluxdbBackpressureBehavior) ToPointer() *OutputInfluxdbBackpressureBehavior {
-	return &e
-}
-
-// OutputInfluxdbAuthenticationType - InfluxDB authentication type
-type OutputInfluxdbAuthenticationType string
-
-const (
-	OutputInfluxdbAuthenticationTypeNone              OutputInfluxdbAuthenticationType = "none"
-	OutputInfluxdbAuthenticationTypeBasic             OutputInfluxdbAuthenticationType = "basic"
-	OutputInfluxdbAuthenticationTypeCredentialsSecret OutputInfluxdbAuthenticationType = "credentialsSecret"
-	OutputInfluxdbAuthenticationTypeToken             OutputInfluxdbAuthenticationType = "token"
-	OutputInfluxdbAuthenticationTypeTextSecret        OutputInfluxdbAuthenticationType = "textSecret"
-	OutputInfluxdbAuthenticationTypeOauth             OutputInfluxdbAuthenticationType = "oauth"
-)
-
-func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticationType {
-	return &e
-}
-
-// OutputInfluxdbCompression - Codec to use to compress the persisted data
-type OutputInfluxdbCompression string
-
-const (
-	OutputInfluxdbCompressionNone OutputInfluxdbCompression = "none"
-	OutputInfluxdbCompressionGzip OutputInfluxdbCompression = "gzip"
-)
-
-func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
-	return &e
-}
-
-// OutputInfluxdbQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputInfluxdbQueueFullBehavior string
-
-const (
-	OutputInfluxdbQueueFullBehaviorBlock OutputInfluxdbQueueFullBehavior = "block"
-	OutputInfluxdbQueueFullBehaviorDrop  OutputInfluxdbQueueFullBehavior = "drop"
-)
-
-func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
-	return &e
-}
-
-// OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputInfluxdbMode string
-
-const (
-	OutputInfluxdbModeError        OutputInfluxdbMode = "error"
-	OutputInfluxdbModeBackpressure OutputInfluxdbMode = "backpressure"
-	OutputInfluxdbModeAlways       OutputInfluxdbMode = "always"
-)
-
-func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
-	return &e
-}
-
-type OutputInfluxdbPqControls struct {
-}
-
-func (o OutputInfluxdbPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputInfluxdbOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputInfluxdbOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputInfluxdbOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputInfluxdbOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputInfluxdbOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputInfluxdbOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputInfluxdbOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputInfluxdbOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputInfluxdbOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputInfluxdb struct {
+type OutputInfluxdbInfluxdb10 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
 	// Unique ID for this output
-	ID   *string            `json:"id,omitempty"`
-	Type OutputInfluxdbType `json:"type"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputInfluxdbType10 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -350,7 +73,7 @@ type OutputInfluxdb struct {
 	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
 	UseV2API *bool `default:"false" json:"useV2API"`
 	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-	TimestampPrecision *TimestampPrecision `default:"ms" json:"timestampPrecision"`
+	TimestampPrecision *TimestampPrecision10 `default:"ms" json:"timestampPrecision"`
 	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
 	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
 	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
@@ -372,29 +95,37 @@ type OutputInfluxdb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputInfluxdbExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputInfluxdbFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputInfluxdbResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputInfluxdbTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputInfluxdbBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// InfluxDB authentication type
-	AuthType    *OutputInfluxdbAuthenticationType `default:"none" json:"authType"`
-	Description *string                           `json:"description,omitempty"`
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
 	// Database to write to.
 	Database *string `json:"database,omitempty"`
 	// Bucket to write to.
 	Bucket *string `json:"bucket,omitempty"`
 	// Organization ID for this bucket.
 	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -402,14 +133,2212 @@ type OutputInfluxdb struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputInfluxdbCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputInfluxdbQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter name to pass in request body
+	SecretParamName string `json:"secretParamName"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName string `json:"tokenAttributeName"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders"`
+}
+
+func (o OutputInfluxdbInfluxdb10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "loginUrl", "secretParamName", "secret", "tokenAttributeName", "oauthParams", "oauthHeaders"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetType() OutputInfluxdbType10 {
+	if o == nil {
+		return OutputInfluxdbType10("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTimestampPrecision() *TimestampPrecision10 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetSecretParamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTokenAttributeName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb10) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType9 string
+
+const (
+	OutputInfluxdbType9Influxdb OutputInfluxdbType9 = "influxdb"
+)
+
+func (e OutputInfluxdbType9) ToPointer() *OutputInfluxdbType9 {
+	return &e
+}
+func (e *OutputInfluxdbType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType9: %v", v)
+	}
+}
+
+// TimestampPrecision9 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision9 string
+
+const (
+	// TimestampPrecision9Ns Nanoseconds
+	TimestampPrecision9Ns TimestampPrecision9 = "ns"
+	// TimestampPrecision9U Microseconds
+	TimestampPrecision9U TimestampPrecision9 = "u"
+	// TimestampPrecision9Ms Milliseconds
+	TimestampPrecision9Ms TimestampPrecision9 = "ms"
+	// TimestampPrecision9S Seconds
+	TimestampPrecision9S TimestampPrecision9 = "s"
+	// TimestampPrecision9M Minutes
+	TimestampPrecision9M TimestampPrecision9 = "m"
+	// TimestampPrecision9H Hours
+	TimestampPrecision9H TimestampPrecision9 = "h"
+)
+
+func (e TimestampPrecision9) ToPointer() *TimestampPrecision9 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb9 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision9 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputInfluxdbMode       `default:"error" json:"pqMode"`
-	PqControls *OutputInfluxdbPqControls `json:"pqControls,omitempty"`
-	Username   *string                   `json:"username,omitempty"`
-	Password   *string                   `json:"password,omitempty"`
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetType() OutputInfluxdbType9 {
+	if o == nil {
+		return OutputInfluxdbType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTimestampPrecision() *TimestampPrecision9 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb9) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType8 string
+
+const (
+	OutputInfluxdbType8Influxdb OutputInfluxdbType8 = "influxdb"
+)
+
+func (e OutputInfluxdbType8) ToPointer() *OutputInfluxdbType8 {
+	return &e
+}
+func (e *OutputInfluxdbType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType8: %v", v)
+	}
+}
+
+// TimestampPrecision8 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision8 string
+
+const (
+	// TimestampPrecision8Ns Nanoseconds
+	TimestampPrecision8Ns TimestampPrecision8 = "ns"
+	// TimestampPrecision8U Microseconds
+	TimestampPrecision8U TimestampPrecision8 = "u"
+	// TimestampPrecision8Ms Milliseconds
+	TimestampPrecision8Ms TimestampPrecision8 = "ms"
+	// TimestampPrecision8S Seconds
+	TimestampPrecision8S TimestampPrecision8 = "s"
+	// TimestampPrecision8M Minutes
+	TimestampPrecision8M TimestampPrecision8 = "m"
+	// TimestampPrecision8H Hours
+	TimestampPrecision8H TimestampPrecision8 = "h"
+)
+
+func (e TimestampPrecision8) ToPointer() *TimestampPrecision8 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb8 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision8 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetType() OutputInfluxdbType8 {
+	if o == nil {
+		return OutputInfluxdbType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTimestampPrecision() *TimestampPrecision8 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb8) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType7 string
+
+const (
+	OutputInfluxdbType7Influxdb OutputInfluxdbType7 = "influxdb"
+)
+
+func (e OutputInfluxdbType7) ToPointer() *OutputInfluxdbType7 {
+	return &e
+}
+func (e *OutputInfluxdbType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType7: %v", v)
+	}
+}
+
+// TimestampPrecision7 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision7 string
+
+const (
+	// TimestampPrecision7Ns Nanoseconds
+	TimestampPrecision7Ns TimestampPrecision7 = "ns"
+	// TimestampPrecision7U Microseconds
+	TimestampPrecision7U TimestampPrecision7 = "u"
+	// TimestampPrecision7Ms Milliseconds
+	TimestampPrecision7Ms TimestampPrecision7 = "ms"
+	// TimestampPrecision7S Seconds
+	TimestampPrecision7S TimestampPrecision7 = "s"
+	// TimestampPrecision7M Minutes
+	TimestampPrecision7M TimestampPrecision7 = "m"
+	// TimestampPrecision7H Hours
+	TimestampPrecision7H TimestampPrecision7 = "h"
+)
+
+func (e TimestampPrecision7) ToPointer() *TimestampPrecision7 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb7 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision7 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token string `json:"token"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetType() OutputInfluxdbType7 {
+	if o == nil {
+		return OutputInfluxdbType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTimestampPrecision() *TimestampPrecision7 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb7) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType6 string
+
+const (
+	OutputInfluxdbType6Influxdb OutputInfluxdbType6 = "influxdb"
+)
+
+func (e OutputInfluxdbType6) ToPointer() *OutputInfluxdbType6 {
+	return &e
+}
+func (e *OutputInfluxdbType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType6: %v", v)
+	}
+}
+
+// TimestampPrecision6 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision6 string
+
+const (
+	// TimestampPrecision6Ns Nanoseconds
+	TimestampPrecision6Ns TimestampPrecision6 = "ns"
+	// TimestampPrecision6U Microseconds
+	TimestampPrecision6U TimestampPrecision6 = "u"
+	// TimestampPrecision6Ms Milliseconds
+	TimestampPrecision6Ms TimestampPrecision6 = "ms"
+	// TimestampPrecision6S Seconds
+	TimestampPrecision6S TimestampPrecision6 = "s"
+	// TimestampPrecision6M Minutes
+	TimestampPrecision6M TimestampPrecision6 = "m"
+	// TimestampPrecision6H Hours
+	TimestampPrecision6H TimestampPrecision6 = "h"
+)
+
+func (e TimestampPrecision6) ToPointer() *TimestampPrecision6 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb6 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision6 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         string                   `json:"username"`
+	Password         string                   `json:"password"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -429,375 +2358,3392 @@ type OutputInfluxdb struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputInfluxdbOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputInfluxdbOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
 }
 
-func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
+func (o OutputInfluxdbInfluxdb6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputInfluxdb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+func (o *OutputInfluxdbInfluxdb6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "username", "password"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputInfluxdb) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputInfluxdb) GetType() OutputInfluxdbType {
-	if o == nil {
-		return OutputInfluxdbType("")
-	}
-	return o.Type
-}
-
-func (o *OutputInfluxdb) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputInfluxdb) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputInfluxdb) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputInfluxdb) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputInfluxdb) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputInfluxdb) GetUseV2API() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseV2API
-}
-
-func (o *OutputInfluxdb) GetTimestampPrecision() *TimestampPrecision {
-	if o == nil {
-		return nil
-	}
-	return o.TimestampPrecision
-}
-
-func (o *OutputInfluxdb) GetDynamicValueFieldName() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.DynamicValueFieldName
-}
-
-func (o *OutputInfluxdb) GetValueFieldName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ValueFieldName
-}
-
-func (o *OutputInfluxdb) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputInfluxdb) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputInfluxdb) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputInfluxdb) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputInfluxdb) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputInfluxdb) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputInfluxdb) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputInfluxdb) GetExtraHTTPHeaders() []OutputInfluxdbExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputInfluxdb) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputInfluxdb) GetFailedRequestLoggingMode() *OutputInfluxdbFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputInfluxdb) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputInfluxdb) GetResponseRetrySettings() []OutputInfluxdbResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputInfluxdb) GetTimeoutRetrySettings() *OutputInfluxdbTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputInfluxdb) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputInfluxdb) GetOnBackpressure() *OutputInfluxdbBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputInfluxdb) GetAuthType() *OutputInfluxdbAuthenticationType {
+func (o *OutputInfluxdbInfluxdb6) GetAuthType() *AuthTypeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputInfluxdb) GetDescription() *string {
+func (o *OutputInfluxdbInfluxdb6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetType() OutputInfluxdbType6 {
+	if o == nil {
+		return OutputInfluxdbType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetTimestampPrecision() *TimestampPrecision6 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputInfluxdb) GetDatabase() *string {
+func (o *OutputInfluxdbInfluxdb6) GetDatabase() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Database
 }
 
-func (o *OutputInfluxdb) GetBucket() *string {
+func (o *OutputInfluxdbInfluxdb6) GetBucket() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Bucket
 }
 
-func (o *OutputInfluxdb) GetOrg() *string {
+func (o *OutputInfluxdbInfluxdb6) GetOrg() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Org
 }
 
-func (o *OutputInfluxdb) GetPqMaxFileSize() *string {
+func (o *OutputInfluxdbInfluxdb6) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputInfluxdb) GetPqMaxSize() *string {
+func (o *OutputInfluxdbInfluxdb6) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputInfluxdb) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputInfluxdb) GetPqCompress() *OutputInfluxdbCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputInfluxdb) GetPqOnBackpressure() *OutputInfluxdbQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputInfluxdb) GetPqMode() *OutputInfluxdbMode {
+func (o *OutputInfluxdbInfluxdb6) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputInfluxdb) GetPqControls() *OutputInfluxdbPqControls {
+func (o *OutputInfluxdbInfluxdb6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb6) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputInfluxdb) GetUsername() *string {
+func (o *OutputInfluxdbInfluxdb6) GetUsername() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Username
 }
 
-func (o *OutputInfluxdb) GetPassword() *string {
+func (o *OutputInfluxdbInfluxdb6) GetPassword() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Password
 }
 
-func (o *OutputInfluxdb) GetToken() *string {
+func (o *OutputInfluxdbInfluxdb6) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputInfluxdb) GetCredentialsSecret() *string {
+func (o *OutputInfluxdbInfluxdb6) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputInfluxdb) GetTextSecret() *string {
+func (o *OutputInfluxdbInfluxdb6) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputInfluxdb) GetLoginURL() *string {
+func (o *OutputInfluxdbInfluxdb6) GetLoginURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LoginURL
 }
 
-func (o *OutputInfluxdb) GetSecretParamName() *string {
+func (o *OutputInfluxdbInfluxdb6) GetSecretParamName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SecretParamName
 }
 
-func (o *OutputInfluxdb) GetSecret() *string {
+func (o *OutputInfluxdbInfluxdb6) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputInfluxdb) GetTokenAttributeName() *string {
+func (o *OutputInfluxdbInfluxdb6) GetTokenAttributeName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TokenAttributeName
 }
 
-func (o *OutputInfluxdb) GetAuthHeaderExpr() *string {
+func (o *OutputInfluxdbInfluxdb6) GetAuthHeaderExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AuthHeaderExpr
 }
 
-func (o *OutputInfluxdb) GetTokenTimeoutSecs() *float64 {
+func (o *OutputInfluxdbInfluxdb6) GetTokenTimeoutSecs() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputInfluxdb) GetOauthParams() []OutputInfluxdbOauthParam {
+func (o *OutputInfluxdbInfluxdb6) GetOauthParams() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputInfluxdb) GetOauthHeaders() []OutputInfluxdbOauthHeader {
+func (o *OutputInfluxdbInfluxdb6) GetOauthHeaders() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthHeaders
+}
+
+type OutputInfluxdbType5 string
+
+const (
+	OutputInfluxdbType5Influxdb OutputInfluxdbType5 = "influxdb"
+)
+
+func (e OutputInfluxdbType5) ToPointer() *OutputInfluxdbType5 {
+	return &e
+}
+func (e *OutputInfluxdbType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType5: %v", v)
+	}
+}
+
+// TimestampPrecision5 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision5 string
+
+const (
+	// TimestampPrecision5Ns Nanoseconds
+	TimestampPrecision5Ns TimestampPrecision5 = "ns"
+	// TimestampPrecision5U Microseconds
+	TimestampPrecision5U TimestampPrecision5 = "u"
+	// TimestampPrecision5Ms Milliseconds
+	TimestampPrecision5Ms TimestampPrecision5 = "ms"
+	// TimestampPrecision5S Seconds
+	TimestampPrecision5S TimestampPrecision5 = "s"
+	// TimestampPrecision5M Minutes
+	TimestampPrecision5M TimestampPrecision5 = "m"
+	// TimestampPrecision5H Hours
+	TimestampPrecision5H TimestampPrecision5 = "h"
+)
+
+func (e TimestampPrecision5) ToPointer() *TimestampPrecision5 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb5 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision5 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetType() OutputInfluxdbType5 {
+	if o == nil {
+		return OutputInfluxdbType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTimestampPrecision() *TimestampPrecision5 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb5) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType4 string
+
+const (
+	OutputInfluxdbType4Influxdb OutputInfluxdbType4 = "influxdb"
+)
+
+func (e OutputInfluxdbType4) ToPointer() *OutputInfluxdbType4 {
+	return &e
+}
+func (e *OutputInfluxdbType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType4: %v", v)
+	}
+}
+
+// TimestampPrecision4 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision4 string
+
+const (
+	// TimestampPrecision4Ns Nanoseconds
+	TimestampPrecision4Ns TimestampPrecision4 = "ns"
+	// TimestampPrecision4U Microseconds
+	TimestampPrecision4U TimestampPrecision4 = "u"
+	// TimestampPrecision4Ms Milliseconds
+	TimestampPrecision4Ms TimestampPrecision4 = "ms"
+	// TimestampPrecision4S Seconds
+	TimestampPrecision4S TimestampPrecision4 = "s"
+	// TimestampPrecision4M Minutes
+	TimestampPrecision4M TimestampPrecision4 = "m"
+	// TimestampPrecision4H Hours
+	TimestampPrecision4H TimestampPrecision4 = "h"
+)
+
+func (e TimestampPrecision4) ToPointer() *TimestampPrecision4 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb4 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision4 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "pqControls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetType() OutputInfluxdbType4 {
+	if o == nil {
+		return OutputInfluxdbType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTimestampPrecision() *TimestampPrecision4 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb4) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType3 string
+
+const (
+	OutputInfluxdbType3Influxdb OutputInfluxdbType3 = "influxdb"
+)
+
+func (e OutputInfluxdbType3) ToPointer() *OutputInfluxdbType3 {
+	return &e
+}
+func (e *OutputInfluxdbType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType3: %v", v)
+	}
+}
+
+// TimestampPrecision3 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision3 string
+
+const (
+	// TimestampPrecision3Ns Nanoseconds
+	TimestampPrecision3Ns TimestampPrecision3 = "ns"
+	// TimestampPrecision3U Microseconds
+	TimestampPrecision3U TimestampPrecision3 = "u"
+	// TimestampPrecision3Ms Milliseconds
+	TimestampPrecision3Ms TimestampPrecision3 = "ms"
+	// TimestampPrecision3S Seconds
+	TimestampPrecision3S TimestampPrecision3 = "s"
+	// TimestampPrecision3M Minutes
+	TimestampPrecision3M TimestampPrecision3 = "m"
+	// TimestampPrecision3H Hours
+	TimestampPrecision3H TimestampPrecision3 = "h"
+)
+
+func (e TimestampPrecision3) ToPointer() *TimestampPrecision3 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb3 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision3 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetType() OutputInfluxdbType3 {
+	if o == nil {
+		return OutputInfluxdbType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTimestampPrecision() *TimestampPrecision3 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb3) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType2 string
+
+const (
+	OutputInfluxdbType2Influxdb OutputInfluxdbType2 = "influxdb"
+)
+
+func (e OutputInfluxdbType2) ToPointer() *OutputInfluxdbType2 {
+	return &e
+}
+func (e *OutputInfluxdbType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType2: %v", v)
+	}
+}
+
+// TimestampPrecision2 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision2 string
+
+const (
+	// TimestampPrecision2Ns Nanoseconds
+	TimestampPrecision2Ns TimestampPrecision2 = "ns"
+	// TimestampPrecision2U Microseconds
+	TimestampPrecision2U TimestampPrecision2 = "u"
+	// TimestampPrecision2Ms Milliseconds
+	TimestampPrecision2Ms TimestampPrecision2 = "ms"
+	// TimestampPrecision2S Seconds
+	TimestampPrecision2S TimestampPrecision2 = "s"
+	// TimestampPrecision2M Minutes
+	TimestampPrecision2M TimestampPrecision2 = "m"
+	// TimestampPrecision2H Hours
+	TimestampPrecision2H TimestampPrecision2 = "h"
+)
+
+func (e TimestampPrecision2) ToPointer() *TimestampPrecision2 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb2 struct {
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision2 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	// Database to write to.
+	Database *string `json:"database,omitempty"`
+	// Bucket to write to.
+	Bucket string `json:"bucket"`
+	// Organization ID for this bucket.
+	Org string `json:"org"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "bucket", "org"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetType() OutputInfluxdbType2 {
+	if o == nil {
+		return OutputInfluxdbType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTimestampPrecision() *TimestampPrecision2 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetOrg() string {
+	if o == nil {
+		return ""
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb2) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType1 string
+
+const (
+	OutputInfluxdbType1Influxdb OutputInfluxdbType1 = "influxdb"
+)
+
+func (e OutputInfluxdbType1) ToPointer() *OutputInfluxdbType1 {
+	return &e
+}
+func (e *OutputInfluxdbType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "influxdb":
+		*e = OutputInfluxdbType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputInfluxdbType1: %v", v)
+	}
+}
+
+// TimestampPrecision1 - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type TimestampPrecision1 string
+
+const (
+	// TimestampPrecision1Ns Nanoseconds
+	TimestampPrecision1Ns TimestampPrecision1 = "ns"
+	// TimestampPrecision1U Microseconds
+	TimestampPrecision1U TimestampPrecision1 = "u"
+	// TimestampPrecision1Ms Milliseconds
+	TimestampPrecision1Ms TimestampPrecision1 = "ms"
+	// TimestampPrecision1S Seconds
+	TimestampPrecision1S TimestampPrecision1 = "s"
+	// TimestampPrecision1M Minutes
+	TimestampPrecision1M TimestampPrecision1 = "m"
+	// TimestampPrecision1H Hours
+	TimestampPrecision1H TimestampPrecision1 = "h"
+)
+
+func (e TimestampPrecision1) ToPointer() *TimestampPrecision1 {
+	return &e
+}
+
+type OutputInfluxdbInfluxdb1 struct {
+	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
+	UseV2API *bool `default:"false" json:"useV2API"`
+	// Unique ID for this output
+	ID   *string             `json:"id,omitempty"`
+	Type OutputInfluxdbType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+	URL string `json:"url"`
+	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+	TimestampPrecision *TimestampPrecision1 `default:"ms" json:"timestampPrecision"`
+	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+	DynamicValueFieldName *bool `default:"true" json:"dynamicValueFieldName"`
+	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+	ValueFieldName *string `default:"value" json:"valueFieldName"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	// Database to write to.
+	Database string `json:"database"`
+	// Bucket to write to.
+	Bucket *string `json:"bucket,omitempty"`
+	// Organization ID for this bucket.
+	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+	Username         *string                  `json:"username,omitempty"`
+	Password         *string                  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (o OutputInfluxdbInfluxdb1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbInfluxdb1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetUseV2API() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseV2API
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetType() OutputInfluxdbType1 {
+	if o == nil {
+		return OutputInfluxdbType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTimestampPrecision() *TimestampPrecision1 {
+	if o == nil {
+		return nil
+	}
+	return o.TimestampPrecision
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetDynamicValueFieldName() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetValueFieldName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ValueFieldName
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetAuthType() *AuthTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetOrg() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Org
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputInfluxdbInfluxdb1) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+type OutputInfluxdbType string
+
+const (
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb1  OutputInfluxdbType = "OutputInfluxdb_Influxdb_1"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb2  OutputInfluxdbType = "OutputInfluxdb_Influxdb_2"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb3  OutputInfluxdbType = "OutputInfluxdb_Influxdb_3"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb4  OutputInfluxdbType = "OutputInfluxdb_Influxdb_4"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb5  OutputInfluxdbType = "OutputInfluxdb_Influxdb_5"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb6  OutputInfluxdbType = "OutputInfluxdb_Influxdb_6"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb7  OutputInfluxdbType = "OutputInfluxdb_Influxdb_7"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb8  OutputInfluxdbType = "OutputInfluxdb_Influxdb_8"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb9  OutputInfluxdbType = "OutputInfluxdb_Influxdb_9"
+	OutputInfluxdbTypeOutputInfluxdbInfluxdb10 OutputInfluxdbType = "OutputInfluxdb_Influxdb_10"
+)
+
+type OutputInfluxdb struct {
+	OutputInfluxdbInfluxdb1  *OutputInfluxdbInfluxdb1  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb2  *OutputInfluxdbInfluxdb2  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb3  *OutputInfluxdbInfluxdb3  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb4  *OutputInfluxdbInfluxdb4  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb5  *OutputInfluxdbInfluxdb5  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb6  *OutputInfluxdbInfluxdb6  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb7  *OutputInfluxdbInfluxdb7  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb8  *OutputInfluxdbInfluxdb8  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb9  *OutputInfluxdbInfluxdb9  `queryParam:"inline,name=OutputInfluxdb"`
+	OutputInfluxdbInfluxdb10 *OutputInfluxdbInfluxdb10 `queryParam:"inline,name=OutputInfluxdb"`
+
+	Type OutputInfluxdbType
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb1(outputInfluxdbInfluxdb1 OutputInfluxdbInfluxdb1) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb1
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb1: &outputInfluxdbInfluxdb1,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb2(outputInfluxdbInfluxdb2 OutputInfluxdbInfluxdb2) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb2
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb2: &outputInfluxdbInfluxdb2,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb3(outputInfluxdbInfluxdb3 OutputInfluxdbInfluxdb3) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb3
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb3: &outputInfluxdbInfluxdb3,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb4(outputInfluxdbInfluxdb4 OutputInfluxdbInfluxdb4) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb4
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb4: &outputInfluxdbInfluxdb4,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb5(outputInfluxdbInfluxdb5 OutputInfluxdbInfluxdb5) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb5
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb5: &outputInfluxdbInfluxdb5,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb6(outputInfluxdbInfluxdb6 OutputInfluxdbInfluxdb6) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb6
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb6: &outputInfluxdbInfluxdb6,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb7(outputInfluxdbInfluxdb7 OutputInfluxdbInfluxdb7) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb7
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb7: &outputInfluxdbInfluxdb7,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb8(outputInfluxdbInfluxdb8 OutputInfluxdbInfluxdb8) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb8
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb8: &outputInfluxdbInfluxdb8,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb9(outputInfluxdbInfluxdb9 OutputInfluxdbInfluxdb9) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb9
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb9: &outputInfluxdbInfluxdb9,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputInfluxdbOutputInfluxdbInfluxdb10(outputInfluxdbInfluxdb10 OutputInfluxdbInfluxdb10) OutputInfluxdb {
+	typ := OutputInfluxdbTypeOutputInfluxdbInfluxdb10
+
+	return OutputInfluxdb{
+		OutputInfluxdbInfluxdb10: &outputInfluxdbInfluxdb10,
+		Type:                     typ,
+	}
+}
+
+func (u *OutputInfluxdb) UnmarshalJSON(data []byte) error {
+
+	var outputInfluxdbInfluxdb10 OutputInfluxdbInfluxdb10 = OutputInfluxdbInfluxdb10{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb10, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb10 = &outputInfluxdbInfluxdb10
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb10
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb2 OutputInfluxdbInfluxdb2 = OutputInfluxdbInfluxdb2{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb2, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb2 = &outputInfluxdbInfluxdb2
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb2
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb6 OutputInfluxdbInfluxdb6 = OutputInfluxdbInfluxdb6{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb6, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb6 = &outputInfluxdbInfluxdb6
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb6
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb1 OutputInfluxdbInfluxdb1 = OutputInfluxdbInfluxdb1{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb1, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb1 = &outputInfluxdbInfluxdb1
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb1
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb4 OutputInfluxdbInfluxdb4 = OutputInfluxdbInfluxdb4{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb4, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb4 = &outputInfluxdbInfluxdb4
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb4
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb7 OutputInfluxdbInfluxdb7 = OutputInfluxdbInfluxdb7{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb7, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb7 = &outputInfluxdbInfluxdb7
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb7
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb8 OutputInfluxdbInfluxdb8 = OutputInfluxdbInfluxdb8{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb8, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb8 = &outputInfluxdbInfluxdb8
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb8
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb9 OutputInfluxdbInfluxdb9 = OutputInfluxdbInfluxdb9{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb9, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb9 = &outputInfluxdbInfluxdb9
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb9
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb3 OutputInfluxdbInfluxdb3 = OutputInfluxdbInfluxdb3{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb3, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb3 = &outputInfluxdbInfluxdb3
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb3
+		return nil
+	}
+
+	var outputInfluxdbInfluxdb5 OutputInfluxdbInfluxdb5 = OutputInfluxdbInfluxdb5{}
+	if err := utils.UnmarshalJSON(data, &outputInfluxdbInfluxdb5, "", true, nil); err == nil {
+		u.OutputInfluxdbInfluxdb5 = &outputInfluxdbInfluxdb5
+		u.Type = OutputInfluxdbTypeOutputInfluxdbInfluxdb5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputInfluxdb", string(data))
+}
+
+func (u OutputInfluxdb) MarshalJSON() ([]byte, error) {
+	if u.OutputInfluxdbInfluxdb1 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb1, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb2 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb2, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb3 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb3, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb4 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb4, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb5 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb5, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb6 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb6, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb7 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb7, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb8 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb8, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb9 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb9, "", true)
+	}
+
+	if u.OutputInfluxdbInfluxdb10 != nil {
+		return utils.MarshalJSON(u.OutputInfluxdbInfluxdb10, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputInfluxdb: all fields are null")
 }

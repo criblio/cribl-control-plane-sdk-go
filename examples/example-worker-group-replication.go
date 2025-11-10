@@ -54,14 +54,14 @@ func main() {
 		log.Fatalf("Error listing Worker Groups: %v", err)
 	}
 
-	if workerGroupsList.Object == nil ||
-		workerGroupsList.Object.Items == nil ||
-		len(workerGroupsList.Object.Items) == 0 {
+	if workerGroupsList.CountedConfigGroup == nil ||
+		workerGroupsList.CountedConfigGroup.Items == nil ||
+		len(workerGroupsList.CountedConfigGroup.Items) == 0 {
 		fmt.Println("❌ No Worker Groups found. Please create at least one Worker Group first.")
 		return
 	}
 
-	firstWorkerGroup := workerGroupsList.Object.Items[0]
+	firstWorkerGroup := workerGroupsList.CountedConfigGroup.Items[0]
 	fmt.Printf("📋 Found Worker Group to replicate: %s\n", firstWorkerGroup.ID)
 
 	// Replicate the first Worker Group
@@ -94,11 +94,11 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 		return nil, fmt.Errorf("failed to get Worker Group '%s': %w", sourceID, err)
 	}
 
-	if sourceResponse.Object == nil || len(sourceResponse.Object.Items) == 0 {
+	if sourceResponse.CountedConfigGroup == nil || len(sourceResponse.CountedConfigGroup.Items) == 0 {
 		return nil, fmt.Errorf("Worker Group %q not found", sourceID)
 	}
 
-	source := sourceResponse.Object.Items[0]
+	source := sourceResponse.CountedConfigGroup.Items[0]
 
 	// Generate a unique ID and name for the replica Worker Group
 	replicaID := fmt.Sprintf("%s-replica", sourceID)
@@ -108,10 +108,27 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 	fmt.Printf("Creating replica with ID: %s\n", replicaID)
 
 	// Create the replica Worker Group by copying configuration from source
-	replicaGroup := source
-	replicaGroup.ID = replicaID
-	replicaGroup.Name = criblcontrolplanesdkgo.String(replicaName)
-	replicaGroup.Description = criblcontrolplanesdkgo.String(replicaDescription)
+	replicaGroup := components.GroupCreateRequest{
+		ID:          replicaID,
+		Name:        criblcontrolplanesdkgo.String(replicaName),
+		Description: criblcontrolplanesdkgo.String(replicaDescription),
+		OnPrem:      source.OnPrem,
+		IsFleet:     source.IsFleet,
+		IsSearch:    source.IsSearch,
+		Cloud:       source.Cloud,
+		Git:         source.Git,
+		Inherits:    source.Inherits,
+		Tags:        source.Tags,
+		Streamtags:  source.Streamtags,
+		Type:        source.Type,
+		WorkerRemoteAccess: source.WorkerRemoteAccess,
+		Provisioned: source.Provisioned,
+		EstimatedIngestRate: source.EstimatedIngestRate,
+		WorkerCount: source.WorkerCount,
+		MaxWorkerAge: source.MaxWorkerAge,
+		UpgradeVersion: source.UpgradeVersion,
+		LookupDeployments: source.LookupDeployments,
+	}
 
 	// Create the replica Worker Group
 	result, err := client.Groups.Create(ctx, components.ProductsCoreStream, replicaGroup)
@@ -119,11 +136,11 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 		return nil, fmt.Errorf("Failed to create replica Worker Group: %w", err)
 	}
 
-	if result.Object == nil || len(result.Object.Items) == 0 {
+	if result.CountedConfigGroup == nil || len(result.CountedConfigGroup.Items) == 0 {
 		return nil, fmt.Errorf("Failed to create replica - no response received")
 	}
 
-	created := result.Object.Items[0]
+	created := result.CountedConfigGroup.Items[0]
 	fmt.Printf("Worker Group replicated: %s\n", created.ID)
 
 	return &created, nil

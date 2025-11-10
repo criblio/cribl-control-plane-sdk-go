@@ -4,255 +4,40 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSumoLogicType string
+type OutputSumoLogicType2 string
 
 const (
-	OutputSumoLogicTypeSumoLogic OutputSumoLogicType = "sumo_logic"
+	OutputSumoLogicType2SumoLogic OutputSumoLogicType2 = "sumo_logic"
 )
 
-func (e OutputSumoLogicType) ToPointer() *OutputSumoLogicType {
+func (e OutputSumoLogicType2) ToPointer() *OutputSumoLogicType2 {
 	return &e
 }
-func (e *OutputSumoLogicType) UnmarshalJSON(data []byte) error {
+func (e *OutputSumoLogicType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sumo_logic":
-		*e = OutputSumoLogicType(v)
+		*e = OutputSumoLogicType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputSumoLogicType: %v", v)
+		return fmt.Errorf("invalid value for OutputSumoLogicType2: %v", v)
 	}
 }
 
-// OutputSumoLogicDataFormat - Preserve the raw event format instead of JSONifying it
-type OutputSumoLogicDataFormat string
-
-const (
-	OutputSumoLogicDataFormatJSON OutputSumoLogicDataFormat = "json"
-	OutputSumoLogicDataFormatRaw  OutputSumoLogicDataFormat = "raw"
-)
-
-func (e OutputSumoLogicDataFormat) ToPointer() *OutputSumoLogicDataFormat {
-	return &e
-}
-
-type OutputSumoLogicExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSumoLogicExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSumoLogicExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSumoLogicExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputSumoLogicExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputSumoLogicFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputSumoLogicFailedRequestLoggingMode string
-
-const (
-	OutputSumoLogicFailedRequestLoggingModePayload           OutputSumoLogicFailedRequestLoggingMode = "payload"
-	OutputSumoLogicFailedRequestLoggingModePayloadAndHeaders OutputSumoLogicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSumoLogicFailedRequestLoggingModeNone              OutputSumoLogicFailedRequestLoggingMode = "none"
-)
-
-func (e OutputSumoLogicFailedRequestLoggingMode) ToPointer() *OutputSumoLogicFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputSumoLogicResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSumoLogicResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSumoLogicResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSumoLogicResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputSumoLogicResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSumoLogicResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSumoLogicResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputSumoLogicTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputSumoLogicTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSumoLogicTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSumoLogicTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputSumoLogicTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputSumoLogicTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputSumoLogicTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputSumoLogicBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSumoLogicBackpressureBehavior string
-
-const (
-	OutputSumoLogicBackpressureBehaviorBlock OutputSumoLogicBackpressureBehavior = "block"
-	OutputSumoLogicBackpressureBehaviorDrop  OutputSumoLogicBackpressureBehavior = "drop"
-	OutputSumoLogicBackpressureBehaviorQueue OutputSumoLogicBackpressureBehavior = "queue"
-)
-
-func (e OutputSumoLogicBackpressureBehavior) ToPointer() *OutputSumoLogicBackpressureBehavior {
-	return &e
-}
-
-// OutputSumoLogicCompression - Codec to use to compress the persisted data
-type OutputSumoLogicCompression string
-
-const (
-	OutputSumoLogicCompressionNone OutputSumoLogicCompression = "none"
-	OutputSumoLogicCompressionGzip OutputSumoLogicCompression = "gzip"
-)
-
-func (e OutputSumoLogicCompression) ToPointer() *OutputSumoLogicCompression {
-	return &e
-}
-
-// OutputSumoLogicQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSumoLogicQueueFullBehavior string
-
-const (
-	OutputSumoLogicQueueFullBehaviorBlock OutputSumoLogicQueueFullBehavior = "block"
-	OutputSumoLogicQueueFullBehaviorDrop  OutputSumoLogicQueueFullBehavior = "drop"
-)
-
-func (e OutputSumoLogicQueueFullBehavior) ToPointer() *OutputSumoLogicQueueFullBehavior {
-	return &e
-}
-
-// OutputSumoLogicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSumoLogicMode string
-
-const (
-	OutputSumoLogicModeError        OutputSumoLogicMode = "error"
-	OutputSumoLogicModeBackpressure OutputSumoLogicMode = "backpressure"
-	OutputSumoLogicModeAlways       OutputSumoLogicMode = "always"
-)
-
-func (e OutputSumoLogicMode) ToPointer() *OutputSumoLogicMode {
-	return &e
-}
-
-type OutputSumoLogicPqControls struct {
-}
-
-func (o OutputSumoLogicPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSumoLogicPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputSumoLogic struct {
+type OutputSumoLogicSumoLogic2 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
-	Type OutputSumoLogicType `json:"type"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputSumoLogicType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -267,8 +52,8 @@ type OutputSumoLogic struct {
 	CustomSource *string `json:"customSource,omitempty"`
 	// Override the source category configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceCategory field.
 	CustomCategory *string `json:"customCategory,omitempty"`
-	// Preserve the raw event format instead of JSONifying it
-	Format *OutputSumoLogicDataFormat `default:"json" json:"format"`
+	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
+	Format *Format2Options `default:"json" json:"format"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -286,23 +71,31 @@ type OutputSumoLogic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputSumoLogicExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputSumoLogicFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputSumoLogicResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputSumoLogicTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSumoLogicBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -310,259 +103,725 @@ type OutputSumoLogic struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSumoLogicCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSumoLogicQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSumoLogicMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSumoLogicPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputSumoLogic) MarshalJSON() ([]byte, error) {
+func (o OutputSumoLogicSumoLogic2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSumoLogic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+func (o *OutputSumoLogicSumoLogic2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSumoLogic) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSumoLogic) GetType() OutputSumoLogicType {
-	if o == nil {
-		return OutputSumoLogicType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSumoLogic) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSumoLogic) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSumoLogic) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSumoLogic) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSumoLogic) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputSumoLogic) GetCustomSource() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CustomSource
-}
-
-func (o *OutputSumoLogic) GetCustomCategory() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CustomCategory
-}
-
-func (o *OutputSumoLogic) GetFormat() *OutputSumoLogicDataFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
-}
-
-func (o *OutputSumoLogic) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputSumoLogic) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputSumoLogic) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputSumoLogic) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputSumoLogic) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSumoLogic) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputSumoLogic) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputSumoLogic) GetExtraHTTPHeaders() []OutputSumoLogicExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputSumoLogic) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputSumoLogic) GetFailedRequestLoggingMode() *OutputSumoLogicFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputSumoLogic) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputSumoLogic) GetResponseRetrySettings() []OutputSumoLogicResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputSumoLogic) GetTimeoutRetrySettings() *OutputSumoLogicTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputSumoLogic) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputSumoLogic) GetOnBackpressure() *OutputSumoLogicBackpressureBehavior {
+func (o *OutputSumoLogicSumoLogic2) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSumoLogic) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputSumoLogicSumoLogic2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetType() OutputSumoLogicType2 {
+	if o == nil {
+		return OutputSumoLogicType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetCustomSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetCustomCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomCategory
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetFormat() *Format2Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputSumoLogic) GetDescription() *string {
+func (o *OutputSumoLogicSumoLogic2) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSumoLogic) GetPqMaxFileSize() *string {
+func (o *OutputSumoLogicSumoLogic2) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputSumoLogic) GetPqMaxSize() *string {
+func (o *OutputSumoLogicSumoLogic2) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputSumoLogic) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputSumoLogic) GetPqCompress() *OutputSumoLogicCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputSumoLogic) GetPqOnBackpressure() *OutputSumoLogicQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputSumoLogic) GetPqMode() *OutputSumoLogicMode {
+func (o *OutputSumoLogicSumoLogic2) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputSumoLogic) GetPqControls() *OutputSumoLogicPqControls {
+func (o *OutputSumoLogicSumoLogic2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSumoLogicSumoLogic2) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputSumoLogicType1 string
+
+const (
+	OutputSumoLogicType1SumoLogic OutputSumoLogicType1 = "sumo_logic"
+)
+
+func (e OutputSumoLogicType1) ToPointer() *OutputSumoLogicType1 {
+	return &e
+}
+func (e *OutputSumoLogicType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sumo_logic":
+		*e = OutputSumoLogicType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputSumoLogicType1: %v", v)
+	}
+}
+
+type OutputSumoLogicSumoLogic1 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputSumoLogicType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Sumo Logic HTTP collector URL to which events should be sent
+	URL string `json:"url"`
+	// Override the source name configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceName field.
+	CustomSource *string `json:"customSource,omitempty"`
+	// Override the source category configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceCategory field.
+	CustomCategory *string `json:"customCategory,omitempty"`
+	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
+	Format *Format2Options `default:"json" json:"format"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"1024" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputSumoLogicSumoLogic1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSumoLogicSumoLogic1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetType() OutputSumoLogicType1 {
+	if o == nil {
+		return OutputSumoLogicType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetCustomSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetCustomCategory() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CustomCategory
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetFormat() *Format2Options {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputSumoLogicSumoLogic1) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputSumoLogicType string
+
+const (
+	OutputSumoLogicTypeOutputSumoLogicSumoLogic1 OutputSumoLogicType = "OutputSumoLogic_SumoLogic_1"
+	OutputSumoLogicTypeOutputSumoLogicSumoLogic2 OutputSumoLogicType = "OutputSumoLogic_SumoLogic_2"
+)
+
+type OutputSumoLogic struct {
+	OutputSumoLogicSumoLogic1 *OutputSumoLogicSumoLogic1 `queryParam:"inline,name=OutputSumoLogic"`
+	OutputSumoLogicSumoLogic2 *OutputSumoLogicSumoLogic2 `queryParam:"inline,name=OutputSumoLogic"`
+
+	Type OutputSumoLogicType
+}
+
+func CreateOutputSumoLogicOutputSumoLogicSumoLogic1(outputSumoLogicSumoLogic1 OutputSumoLogicSumoLogic1) OutputSumoLogic {
+	typ := OutputSumoLogicTypeOutputSumoLogicSumoLogic1
+
+	return OutputSumoLogic{
+		OutputSumoLogicSumoLogic1: &outputSumoLogicSumoLogic1,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputSumoLogicOutputSumoLogicSumoLogic2(outputSumoLogicSumoLogic2 OutputSumoLogicSumoLogic2) OutputSumoLogic {
+	typ := OutputSumoLogicTypeOutputSumoLogicSumoLogic2
+
+	return OutputSumoLogic{
+		OutputSumoLogicSumoLogic2: &outputSumoLogicSumoLogic2,
+		Type:                      typ,
+	}
+}
+
+func (u *OutputSumoLogic) UnmarshalJSON(data []byte) error {
+
+	var outputSumoLogicSumoLogic2 OutputSumoLogicSumoLogic2 = OutputSumoLogicSumoLogic2{}
+	if err := utils.UnmarshalJSON(data, &outputSumoLogicSumoLogic2, "", true, nil); err == nil {
+		u.OutputSumoLogicSumoLogic2 = &outputSumoLogicSumoLogic2
+		u.Type = OutputSumoLogicTypeOutputSumoLogicSumoLogic2
+		return nil
+	}
+
+	var outputSumoLogicSumoLogic1 OutputSumoLogicSumoLogic1 = OutputSumoLogicSumoLogic1{}
+	if err := utils.UnmarshalJSON(data, &outputSumoLogicSumoLogic1, "", true, nil); err == nil {
+		u.OutputSumoLogicSumoLogic1 = &outputSumoLogicSumoLogic1
+		u.Type = OutputSumoLogicTypeOutputSumoLogicSumoLogic1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSumoLogic", string(data))
+}
+
+func (u OutputSumoLogic) MarshalJSON() ([]byte, error) {
+	if u.OutputSumoLogicSumoLogic1 != nil {
+		return utils.MarshalJSON(u.OutputSumoLogicSumoLogic1, "", true)
+	}
+
+	if u.OutputSumoLogicSumoLogic2 != nil {
+		return utils.MarshalJSON(u.OutputSumoLogicSumoLogic2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSumoLogic: all fields are null")
 }

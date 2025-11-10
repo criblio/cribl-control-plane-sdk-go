@@ -4,235 +4,52 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputRawUDPType string
+type InputRawUDPType4 string
 
 const (
-	InputRawUDPTypeRawUDP InputRawUDPType = "raw_udp"
+	InputRawUDPType4RawUDP InputRawUDPType4 = "raw_udp"
 )
 
-func (e InputRawUDPType) ToPointer() *InputRawUDPType {
+func (e InputRawUDPType4) ToPointer() *InputRawUDPType4 {
 	return &e
 }
-func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
+func (e *InputRawUDPType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "raw_udp":
-		*e = InputRawUDPType(v)
+		*e = InputRawUDPType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputRawUDPType: %v", v)
+		return fmt.Errorf("invalid value for InputRawUDPType4: %v", v)
 	}
 }
 
-type InputRawUDPConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputRawUDPConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDPConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputRawUDPMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputRawUDPMode string
-
-const (
-	InputRawUDPModeSmart  InputRawUDPMode = "smart"
-	InputRawUDPModeAlways InputRawUDPMode = "always"
-)
-
-func (e InputRawUDPMode) ToPointer() *InputRawUDPMode {
-	return &e
-}
-
-// InputRawUDPCompression - Codec to use to compress the persisted data
-type InputRawUDPCompression string
-
-const (
-	InputRawUDPCompressionNone InputRawUDPCompression = "none"
-	InputRawUDPCompressionGzip InputRawUDPCompression = "gzip"
-)
-
-func (e InputRawUDPCompression) ToPointer() *InputRawUDPCompression {
-	return &e
-}
-
-type InputRawUDPPqControls struct {
-}
-
-func (i InputRawUDPPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputRawUDPPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputRawUDPMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputRawUDPCompression `default:"none" json:"compress"`
-	PqControls *InputRawUDPPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputRawUDPPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPPq) GetMode() *InputRawUDPMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputRawUDPPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputRawUDPPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputRawUDPPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputRawUDPPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputRawUDPPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputRawUDPPq) GetCompress() *InputRawUDPCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputRawUDPPq) GetPqControls() *InputRawUDPPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputRawUDPMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputRawUDPMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputRawUDPMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputRawUDP struct {
+type InputRawUDPRawUDP4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string         `json:"id,omitempty"`
-	Type     InputRawUDPType `json:"type"`
-	Disabled *bool           `default:"false" json:"disabled"`
+	ID       *string          `json:"id,omitempty"`
+	Type     InputRawUDPType4 `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputRawUDPConnection `json:"connections,omitempty"`
-	Pq          *InputRawUDPPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -248,150 +65,869 @@ type InputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputRawUDPMetadatum `json:"metadata,omitempty"`
-	Description *string                `json:"description,omitempty"`
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
 }
 
-func (i InputRawUDP) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPRawUDP4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDP) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+func (i *InputRawUDPRawUDP4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputRawUDP) GetType() InputRawUDPType {
-	if i == nil {
-		return InputRawUDPType("")
-	}
-	return i.Type
-}
-
-func (i *InputRawUDP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputRawUDP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDP) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputRawUDP) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputRawUDP) GetPqEnabled() *bool {
+func (i *InputRawUDPRawUDP4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDP) GetStreamtags() []string {
+func (i *InputRawUDPRawUDP4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPRawUDP4) GetType() InputRawUDPType4 {
+	if i == nil {
+		return InputRawUDPType4("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPRawUDP4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPRawUDP4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPRawUDP4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPRawUDP4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPRawUDP4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputRawUDP) GetConnections() []InputRawUDPConnection {
+func (i *InputRawUDPRawUDP4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDP) GetPq() *InputRawUDPPq {
+func (i *InputRawUDPRawUDP4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDP) GetHost() *string {
+func (i *InputRawUDPRawUDP4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDP) GetPort() float64 {
+func (i *InputRawUDPRawUDP4) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDP) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPRawUDP4) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDP) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPRawUDP4) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDP) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPRawUDP4) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDP) GetIngestRawBytes() *bool {
+func (i *InputRawUDPRawUDP4) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDP) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPRawUDP4) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDP) GetMetadata() []InputRawUDPMetadatum {
+func (i *InputRawUDPRawUDP4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDP) GetDescription() *string {
+func (i *InputRawUDPRawUDP4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputRawUDPType3 string
+
+const (
+	InputRawUDPType3RawUDP InputRawUDPType3 = "raw_udp"
+)
+
+func (e InputRawUDPType3) ToPointer() *InputRawUDPType3 {
+	return &e
+}
+func (e *InputRawUDPType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "raw_udp":
+		*e = InputRawUDPType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputRawUDPType3: %v", v)
+	}
+}
+
+type InputRawUDPRawUDP3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputRawUDPType3 `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPRawUDP3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPRawUDP3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPRawUDP3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPRawUDP3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPRawUDP3) GetType() InputRawUDPType3 {
+	if i == nil {
+		return InputRawUDPType3("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPRawUDP3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPRawUDP3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPRawUDP3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPRawUDP3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPRawUDP3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPRawUDP3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPRawUDP3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPRawUDP3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPRawUDP3) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPRawUDP3) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPRawUDP3) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPRawUDP3) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPRawUDP3) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPRawUDP3) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPRawUDP3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPRawUDP3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPType2 string
+
+const (
+	InputRawUDPType2RawUDP InputRawUDPType2 = "raw_udp"
+)
+
+func (e InputRawUDPType2) ToPointer() *InputRawUDPType2 {
+	return &e
+}
+func (e *InputRawUDPType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "raw_udp":
+		*e = InputRawUDPType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputRawUDPType2: %v", v)
+	}
+}
+
+type InputRawUDPRawUDP2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputRawUDPType2 `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPRawUDP2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPRawUDP2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPRawUDP2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPRawUDP2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPRawUDP2) GetType() InputRawUDPType2 {
+	if i == nil {
+		return InputRawUDPType2("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPRawUDP2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPRawUDP2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPRawUDP2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPRawUDP2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPRawUDP2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPRawUDP2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPRawUDP2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPRawUDP2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPRawUDP2) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPRawUDP2) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPRawUDP2) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPRawUDP2) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPRawUDP2) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPRawUDP2) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPRawUDP2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPRawUDP2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPType1 string
+
+const (
+	InputRawUDPType1RawUDP InputRawUDPType1 = "raw_udp"
+)
+
+func (e InputRawUDPType1) ToPointer() *InputRawUDPType1 {
+	return &e
+}
+func (e *InputRawUDPType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "raw_udp":
+		*e = InputRawUDPType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputRawUDPType1: %v", v)
+	}
+}
+
+type InputRawUDPRawUDP1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputRawUDPType1 `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type `json:"metadata,omitempty"`
+	Description *string         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPRawUDP1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPRawUDP1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPRawUDP1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPRawUDP1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPRawUDP1) GetType() InputRawUDPType1 {
+	if i == nil {
+		return InputRawUDPType1("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPRawUDP1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPRawUDP1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPRawUDP1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPRawUDP1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPRawUDP1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPRawUDP1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPRawUDP1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPRawUDP1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPRawUDP1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPRawUDP1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPRawUDP1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPRawUDP1) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPRawUDP1) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPRawUDP1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPRawUDP1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPRawUDP1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPType string
+
+const (
+	InputRawUDPTypeInputRawUDPRawUDP1 InputRawUDPType = "InputRawUdp_RawUDP_1"
+	InputRawUDPTypeInputRawUDPRawUDP2 InputRawUDPType = "InputRawUdp_RawUDP_2"
+	InputRawUDPTypeInputRawUDPRawUDP3 InputRawUDPType = "InputRawUdp_RawUDP_3"
+	InputRawUDPTypeInputRawUDPRawUDP4 InputRawUDPType = "InputRawUdp_RawUDP_4"
+)
+
+type InputRawUDP struct {
+	InputRawUDPRawUDP1 *InputRawUDPRawUDP1 `queryParam:"inline,name=InputRawUdp"`
+	InputRawUDPRawUDP2 *InputRawUDPRawUDP2 `queryParam:"inline,name=InputRawUdp"`
+	InputRawUDPRawUDP3 *InputRawUDPRawUDP3 `queryParam:"inline,name=InputRawUdp"`
+	InputRawUDPRawUDP4 *InputRawUDPRawUDP4 `queryParam:"inline,name=InputRawUdp"`
+
+	Type InputRawUDPType
+}
+
+func CreateInputRawUDPInputRawUDPRawUDP1(inputRawUDPRawUDP1 InputRawUDPRawUDP1) InputRawUDP {
+	typ := InputRawUDPTypeInputRawUDPRawUDP1
+
+	return InputRawUDP{
+		InputRawUDPRawUDP1: &inputRawUDPRawUDP1,
+		Type:               typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPRawUDP2(inputRawUDPRawUDP2 InputRawUDPRawUDP2) InputRawUDP {
+	typ := InputRawUDPTypeInputRawUDPRawUDP2
+
+	return InputRawUDP{
+		InputRawUDPRawUDP2: &inputRawUDPRawUDP2,
+		Type:               typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPRawUDP3(inputRawUDPRawUDP3 InputRawUDPRawUDP3) InputRawUDP {
+	typ := InputRawUDPTypeInputRawUDPRawUDP3
+
+	return InputRawUDP{
+		InputRawUDPRawUDP3: &inputRawUDPRawUDP3,
+		Type:               typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPRawUDP4(inputRawUDPRawUDP4 InputRawUDPRawUDP4) InputRawUDP {
+	typ := InputRawUDPTypeInputRawUDPRawUDP4
+
+	return InputRawUDP{
+		InputRawUDPRawUDP4: &inputRawUDPRawUDP4,
+		Type:               typ,
+	}
+}
+
+func (u *InputRawUDP) UnmarshalJSON(data []byte) error {
+
+	var inputRawUDPRawUDP2 InputRawUDPRawUDP2 = InputRawUDPRawUDP2{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPRawUDP2, "", true, nil); err == nil {
+		u.InputRawUDPRawUDP2 = &inputRawUDPRawUDP2
+		u.Type = InputRawUDPTypeInputRawUDPRawUDP2
+		return nil
+	}
+
+	var inputRawUDPRawUDP4 InputRawUDPRawUDP4 = InputRawUDPRawUDP4{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPRawUDP4, "", true, nil); err == nil {
+		u.InputRawUDPRawUDP4 = &inputRawUDPRawUDP4
+		u.Type = InputRawUDPTypeInputRawUDPRawUDP4
+		return nil
+	}
+
+	var inputRawUDPRawUDP1 InputRawUDPRawUDP1 = InputRawUDPRawUDP1{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPRawUDP1, "", true, nil); err == nil {
+		u.InputRawUDPRawUDP1 = &inputRawUDPRawUDP1
+		u.Type = InputRawUDPTypeInputRawUDPRawUDP1
+		return nil
+	}
+
+	var inputRawUDPRawUDP3 InputRawUDPRawUDP3 = InputRawUDPRawUDP3{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPRawUDP3, "", true, nil); err == nil {
+		u.InputRawUDPRawUDP3 = &inputRawUDPRawUDP3
+		u.Type = InputRawUDPTypeInputRawUDPRawUDP3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputRawUDP", string(data))
+}
+
+func (u InputRawUDP) MarshalJSON() ([]byte, error) {
+	if u.InputRawUDPRawUDP1 != nil {
+		return utils.MarshalJSON(u.InputRawUDPRawUDP1, "", true)
+	}
+
+	if u.InputRawUDPRawUDP2 != nil {
+		return utils.MarshalJSON(u.InputRawUDPRawUDP2, "", true)
+	}
+
+	if u.InputRawUDPRawUDP3 != nil {
+		return utils.MarshalJSON(u.InputRawUDPRawUDP3, "", true)
+	}
+
+	if u.InputRawUDPRawUDP4 != nil {
+		return utils.MarshalJSON(u.InputRawUDPRawUDP4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputRawUDP: all fields are null")
 }

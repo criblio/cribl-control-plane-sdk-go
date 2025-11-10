@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -97,62 +97,63 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
-        components.InputTCP{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputTCPTypeTCP,
-            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-                "<value 3>",
-            },
-            Connections: []components.InputTCPConnection{
-                components.InputTCPConnection{
-                    Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Output: "<value>",
-                },
-            },
-            Pq: &components.InputTCPPq{
-                PqControls: &components.InputTCPPqControls{},
-            },
-            Port: 301.76,
-            TLS: &components.InputTCPTLSSettingsServerSide{
-                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
-                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
-                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                RejectUnauthorized: "<value>",
-                CommonNameRegex: "<value>",
-                MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
-                MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
-            },
-            Metadata: []components.InputTCPMetadatum{
-                components.InputTCPMetadatum{
-                    Name: "<value>",
-                    Value: "<value>",
-                },
-            },
-            BreakerRulesets: []string{
-                "<value 1>",
-            },
-            Preprocess: &components.InputTCPPreprocess{
-                Command: criblcontrolplanesdkgo.Pointer("<value>"),
-                Args: []string{
+    res, err := s.Sources.Create(ctx, components.CreateInputTCP(
+        components.CreateInputTCPInputTCPTCP1(
+            components.InputTCPTCP1{
+                ID: criblcontrolplanesdkgo.Pointer("<id>"),
+                Type: components.InputTCPType1TCP,
+                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
                 },
+                Connections: []components.ConnectionsType{
+                    components.ConnectionsType{
+                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Output: "<value>",
+                    },
+                },
+                Pq: &components.PqType{
+                    PqControls: &components.PqControls{},
+                },
+                Port: 301.76,
+                TLS: &components.Tls2Type{
+                    CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                    PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                    Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                    CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                    CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                    MinVersion: components.Tls2TypeMinimumTLSVersionTlSv1.ToPointer(),
+                    MaxVersion: components.Tls2TypeMaximumTLSVersionTlSv11.ToPointer(),
+                },
+                Metadata: []components.Metadata1Type{
+                    components.Metadata1Type{
+                        Name: "<value>",
+                        Value: "<value>",
+                    },
+                },
+                BreakerRulesets: []string{
+                    "<value 1>",
+                },
+                Preprocess: &components.PreprocessType{
+                    Command: criblcontrolplanesdkgo.Pointer("<value>"),
+                    Args: []string{
+                        "<value 1>",
+                        "<value 2>",
+                        "<value 3>",
+                    },
+                },
+                Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
+                TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
             },
-            Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
-        },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -209,7 +210,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -262,44 +263,46 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
-        components.InputKubeEvents{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputKubeEventsTypeKubeEvents,
-            Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-            Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Streamtags: []string{
-                "<value 1>",
-                "<value 2>",
-            },
-            Connections: []components.InputKubeEventsConnection{
-                components.InputKubeEventsConnection{
-                    Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Output: "<value>",
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
+        components.CreateInputKubeEventsInputKubeEventsKubeEvents1(
+            components.InputKubeEventsKubeEvents1{
+                ID: criblcontrolplanesdkgo.Pointer("<id>"),
+                Type: components.InputKubeEventsType1KubeEvents,
+                Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                Streamtags: []string{
+                    "<value 1>",
+                    "<value 2>",
                 },
-            },
-            Pq: &components.InputKubeEventsPq{
-                PqControls: &components.InputKubeEventsPqControls{},
-            },
-            Rules: []components.InputKubeEventsRule{
-                components.InputKubeEventsRule{
-                    Filter: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("invite meh corny incidentally down"),
+                Connections: []components.ConnectionsType{
+                    components.ConnectionsType{
+                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Output: "<value>",
+                    },
                 },
-            },
-            Metadata: []components.InputKubeEventsMetadatum{
-                components.InputKubeEventsMetadatum{
-                    Name: "<value>",
-                    Value: "<value>",
+                Pq: &components.PqType{
+                    PqControls: &components.PqControls{},
                 },
+                Rules: []components.PodFilterType{
+                    components.PodFilterType{
+                        Filter: "<value>",
+                        Description: criblcontrolplanesdkgo.Pointer("invite meh corny incidentally down"),
+                    },
+                },
+                Metadata: []components.Metadata1Type{
+                    components.Metadata1Type{
+                        Name: "<value>",
+                        Value: "<value>",
+                    },
+                },
+                Description: criblcontrolplanesdkgo.Pointer("gown deployment portray gah mindless carp stabilise"),
             },
-            Description: criblcontrolplanesdkgo.Pointer("gown deployment portray gah mindless carp stabilise"),
-        },
+        ),
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -357,7 +360,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }

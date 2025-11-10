@@ -1,0 +1,9 @@
+# InputWindowsMetricsHost3
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `Mode`                                                                                          | [*components.InputWindowsMetricsMode3](../../models/components/inputwindowsmetricsmode3.md)     | :heavy_minus_sign:                                                                              | Select level of detail for host metrics                                                         |
+| `Custom`                                                                                        | [*components.InputWindowsMetricsCustom3](../../models/components/inputwindowsmetricscustom3.md) | :heavy_minus_sign:                                                                              | N/A                                                                                             |

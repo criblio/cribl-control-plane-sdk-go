@@ -4,143 +4,39 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputCriblLakeType string
+type OutputCriblLakeType6 string
 
 const (
-	OutputCriblLakeTypeCriblLake OutputCriblLakeType = "cribl_lake"
+	OutputCriblLakeType6CriblLake OutputCriblLakeType6 = "cribl_lake"
 )
 
-func (e OutputCriblLakeType) ToPointer() *OutputCriblLakeType {
+func (e OutputCriblLakeType6) ToPointer() *OutputCriblLakeType6 {
 	return &e
 }
-func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
+func (e *OutputCriblLakeType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl_lake":
-		*e = OutputCriblLakeType(v)
+		*e = OutputCriblLakeType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputCriblLakeType: %v", v)
+		return fmt.Errorf("invalid value for OutputCriblLakeType6: %v", v)
 	}
 }
 
-// OutputCriblLakeSignatureVersion - Signature version to use for signing S3 requests
-type OutputCriblLakeSignatureVersion string
-
-const (
-	OutputCriblLakeSignatureVersionV2 OutputCriblLakeSignatureVersion = "v2"
-	OutputCriblLakeSignatureVersionV4 OutputCriblLakeSignatureVersion = "v4"
-)
-
-func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVersion {
-	return &e
-}
-
-// OutputCriblLakeObjectACL - Object ACL to assign to uploaded objects
-type OutputCriblLakeObjectACL string
-
-const (
-	OutputCriblLakeObjectACLPrivate                OutputCriblLakeObjectACL = "private"
-	OutputCriblLakeObjectACLPublicRead             OutputCriblLakeObjectACL = "public-read"
-	OutputCriblLakeObjectACLPublicReadWrite        OutputCriblLakeObjectACL = "public-read-write"
-	OutputCriblLakeObjectACLAuthenticatedRead      OutputCriblLakeObjectACL = "authenticated-read"
-	OutputCriblLakeObjectACLAwsExecRead            OutputCriblLakeObjectACL = "aws-exec-read"
-	OutputCriblLakeObjectACLBucketOwnerRead        OutputCriblLakeObjectACL = "bucket-owner-read"
-	OutputCriblLakeObjectACLBucketOwnerFullControl OutputCriblLakeObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
-	return &e
-}
-
-// OutputCriblLakeStorageClass - Storage class to select for uploaded objects
-type OutputCriblLakeStorageClass string
-
-const (
-	OutputCriblLakeStorageClassStandard           OutputCriblLakeStorageClass = "STANDARD"
-	OutputCriblLakeStorageClassReducedRedundancy  OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputCriblLakeStorageClassStandardIa         OutputCriblLakeStorageClass = "STANDARD_IA"
-	OutputCriblLakeStorageClassOnezoneIa          OutputCriblLakeStorageClass = "ONEZONE_IA"
-	OutputCriblLakeStorageClassIntelligentTiering OutputCriblLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputCriblLakeStorageClassGlacier            OutputCriblLakeStorageClass = "GLACIER"
-	OutputCriblLakeStorageClassGlacierIr          OutputCriblLakeStorageClass = "GLACIER_IR"
-	OutputCriblLakeStorageClassDeepArchive        OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
-	return &e
-}
-
-type OutputCriblLakeServerSideEncryptionForUploadedObjects string
-
-const (
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 OutputCriblLakeServerSideEncryptionForUploadedObjects = "AES256"
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms OutputCriblLakeServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// OutputCriblLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCriblLakeBackpressureBehavior string
-
-const (
-	OutputCriblLakeBackpressureBehaviorBlock OutputCriblLakeBackpressureBehavior = "block"
-	OutputCriblLakeBackpressureBehaviorDrop  OutputCriblLakeBackpressureBehavior = "drop"
-)
-
-func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpressureBehavior {
-	return &e
-}
-
-// OutputCriblLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputCriblLakeDiskSpaceProtection string
-
-const (
-	OutputCriblLakeDiskSpaceProtectionBlock OutputCriblLakeDiskSpaceProtection = "block"
-	OutputCriblLakeDiskSpaceProtectionDrop  OutputCriblLakeDiskSpaceProtection = "drop"
-)
-
-func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpaceProtection {
-	return &e
-}
-
-type AwsAuthenticationMethod string
-
-const (
-	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
-	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
-	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
-)
-
-func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
-	return &e
-}
-
-type OutputCriblLakeFormat string
-
-const (
-	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
-	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
-	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
-)
-
-func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
-	return &e
-}
-
-type OutputCriblLake struct {
+type OutputCriblLakeCriblLake6 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
 	// Unique ID for this output
-	ID   *string             `json:"id,omitempty"`
-	Type OutputCriblLakeType `json:"type"`
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType6 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -157,8 +53,8 @@ type OutputCriblLake struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *OutputCriblLakeSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -178,10 +74,446 @@ type OutputCriblLake struct {
 	// Lake dataset to send the data to.
 	DestPath *string `json:"destPath,omitempty"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputCriblLakeObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputCriblLakeStorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputCriblLakeServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID string `json:"kmsKeyId"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputCriblLakeCriblLake6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblLakeCriblLake6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type", "kmsKeyId"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblLakeCriblLake6) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblLakeCriblLake6) GetType() OutputCriblLakeType6 {
+	if o == nil {
+		return OutputCriblLakeType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblLakeCriblLake6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblLakeCriblLake6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblLakeCriblLake6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblLakeCriblLake6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblLakeCriblLake6) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLakeCriblLake6) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLakeCriblLake6) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCriblLakeCriblLake6) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCriblLakeCriblLake6) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputCriblLakeCriblLake6) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLakeCriblLake6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLakeCriblLake6) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCriblLakeCriblLake6) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCriblLakeCriblLake6) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCriblLakeCriblLake6) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCriblLakeCriblLake6) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputCriblLakeCriblLake6) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputCriblLakeCriblLake6) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLakeCriblLake6) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputCriblLakeCriblLake6) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputCriblLakeCriblLake6) GetKmsKeyID() string {
+	if o == nil {
+		return ""
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLakeCriblLake6) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputCriblLakeCriblLake6) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputCriblLakeCriblLake6) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputCriblLakeCriblLake6) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputCriblLakeCriblLake6) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputCriblLakeCriblLake6) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake6) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputCriblLakeCriblLake6) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake6) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake6) GetAwsAuthenticationMethod() *MethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCriblLakeCriblLake6) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputCriblLakeCriblLake6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblLakeCriblLake6) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLakeCriblLake6) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputCriblLakeCriblLake6) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType5 string
+
+const (
+	OutputCriblLakeType5CriblLake OutputCriblLakeType5 = "cribl_lake"
+)
+
+func (e OutputCriblLakeType5) ToPointer() *OutputCriblLakeType5 {
+	return &e
+}
+func (e *OutputCriblLakeType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake":
+		*e = OutputCriblLakeType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCriblLakeType5: %v", v)
+	}
+}
+
+type OutputCriblLakeCriblLake5 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitempty"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitempty"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
@@ -198,12 +530,12 @@ type OutputCriblLake struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCriblLakeBackpressureBehavior `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputCriblLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -211,9 +543,9 @@ type OutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                 `default:"100" json:"maxClosingFilesToBackpressure"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	Format                        *OutputCriblLakeFormat   `json:"format,omitempty"`
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
 	Description            *string  `json:"description,omitempty"`
@@ -225,328 +557,2227 @@ type OutputCriblLake struct {
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
 
-func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
+func (o OutputCriblLakeCriblLake5) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputCriblLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+func (o *OutputCriblLakeCriblLake5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputCriblLake) GetID() *string {
+func (o *OutputCriblLakeCriblLake5) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake5) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *OutputCriblLake) GetType() OutputCriblLakeType {
+func (o *OutputCriblLakeCriblLake5) GetType() OutputCriblLakeType5 {
 	if o == nil {
-		return OutputCriblLakeType("")
+		return OutputCriblLakeType5("")
 	}
 	return o.Type
 }
 
-func (o *OutputCriblLake) GetPipeline() *string {
+func (o *OutputCriblLakeCriblLake5) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *OutputCriblLake) GetSystemFields() []string {
+func (o *OutputCriblLakeCriblLake5) GetSystemFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SystemFields
 }
 
-func (o *OutputCriblLake) GetEnvironment() *string {
+func (o *OutputCriblLakeCriblLake5) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *OutputCriblLake) GetStreamtags() []string {
+func (o *OutputCriblLakeCriblLake5) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *OutputCriblLake) GetBucket() *string {
+func (o *OutputCriblLakeCriblLake5) GetBucket() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Bucket
 }
 
-func (o *OutputCriblLake) GetRegion() *string {
+func (o *OutputCriblLakeCriblLake5) GetRegion() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Region
 }
 
-func (o *OutputCriblLake) GetAwsSecretKey() *string {
+func (o *OutputCriblLakeCriblLake5) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecretKey
 }
 
-func (o *OutputCriblLake) GetEndpoint() *string {
+func (o *OutputCriblLakeCriblLake5) GetEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Endpoint
 }
 
-func (o *OutputCriblLake) GetSignatureVersion() *OutputCriblLakeSignatureVersion {
+func (o *OutputCriblLakeCriblLake5) GetSignatureVersion() *SignatureVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputCriblLake) GetReuseConnections() *bool {
+func (o *OutputCriblLakeCriblLake5) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ReuseConnections
 }
 
-func (o *OutputCriblLake) GetRejectUnauthorized() *bool {
+func (o *OutputCriblLakeCriblLake5) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputCriblLake) GetEnableAssumeRole() *bool {
+func (o *OutputCriblLakeCriblLake5) GetEnableAssumeRole() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableAssumeRole
 }
 
-func (o *OutputCriblLake) GetAssumeRoleArn() *string {
+func (o *OutputCriblLakeCriblLake5) GetAssumeRoleArn() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleArn
 }
 
-func (o *OutputCriblLake) GetAssumeRoleExternalID() *string {
+func (o *OutputCriblLakeCriblLake5) GetAssumeRoleExternalID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssumeRoleExternalID
 }
 
-func (o *OutputCriblLake) GetDurationSeconds() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetDurationSeconds() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.DurationSeconds
 }
 
-func (o *OutputCriblLake) GetStagePath() *string {
+func (o *OutputCriblLakeCriblLake5) GetStagePath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.StagePath
 }
 
-func (o *OutputCriblLake) GetAddIDToStagePath() *bool {
+func (o *OutputCriblLakeCriblLake5) GetAddIDToStagePath() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AddIDToStagePath
 }
 
-func (o *OutputCriblLake) GetDestPath() *string {
+func (o *OutputCriblLakeCriblLake5) GetDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DestPath
 }
 
-func (o *OutputCriblLake) GetObjectACL() *OutputCriblLakeObjectACL {
+func (o *OutputCriblLakeCriblLake5) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputCriblLake) GetStorageClass() *OutputCriblLakeStorageClass {
+func (o *OutputCriblLakeCriblLake5) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputCriblLake) GetServerSideEncryption() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputCriblLake) GetKmsKeyID() *string {
+func (o *OutputCriblLakeCriblLake5) GetKmsKeyID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.KmsKeyID
 }
 
-func (o *OutputCriblLake) GetRemoveEmptyDirs() *bool {
+func (o *OutputCriblLakeCriblLake5) GetRemoveEmptyDirs() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RemoveEmptyDirs
 }
 
-func (o *OutputCriblLake) GetBaseFileName() *string {
+func (o *OutputCriblLakeCriblLake5) GetBaseFileName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.BaseFileName
 }
 
-func (o *OutputCriblLake) GetFileNameSuffix() *string {
+func (o *OutputCriblLakeCriblLake5) GetFileNameSuffix() *string {
 	if o == nil {
 		return nil
 	}
 	return o.FileNameSuffix
 }
 
-func (o *OutputCriblLake) GetMaxFileSizeMB() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxFileSizeMB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileSizeMB
 }
 
-func (o *OutputCriblLake) GetMaxOpenFiles() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxOpenFiles
 }
 
-func (o *OutputCriblLake) GetHeaderLine() *string {
+func (o *OutputCriblLakeCriblLake5) GetHeaderLine() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HeaderLine
 }
 
-func (o *OutputCriblLake) GetWriteHighWaterMark() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetWriteHighWaterMark() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCriblLake) GetOnBackpressure() *OutputCriblLakeBackpressureBehavior {
+func (o *OutputCriblLakeCriblLake5) GetOnBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputCriblLake) GetDeadletterEnabled() *bool {
+func (o *OutputCriblLakeCriblLake5) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputCriblLake) GetOnDiskFullBackpressure() *OutputCriblLakeDiskSpaceProtection {
+func (o *OutputCriblLakeCriblLake5) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputCriblLake) GetVerifyPermissions() *bool {
+func (o *OutputCriblLakeCriblLake5) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
 }
 
-func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxClosingFilesToBackpressure() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
+func (o *OutputCriblLakeCriblLake5) GetAwsAuthenticationMethod() *MethodOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *OutputCriblLakeFormat {
+func (o *OutputCriblLakeCriblLake5) GetFormat() *FormatOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputCriblLake) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxConcurrentFileParts() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentFileParts
 }
 
-func (o *OutputCriblLake) GetDescription() *string {
+func (o *OutputCriblLakeCriblLake5) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputCriblLake) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputCriblLake) GetDeadletterPath() *string {
+func (o *OutputCriblLakeCriblLake5) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputCriblLake) GetMaxRetryNum() *float64 {
+func (o *OutputCriblLakeCriblLake5) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType4 string
+
+const (
+	OutputCriblLakeType4CriblLake OutputCriblLakeType4 = "cribl_lake"
+)
+
+func (e OutputCriblLakeType4) ToPointer() *OutputCriblLakeType4 {
+	return &e
+}
+func (e *OutputCriblLakeType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake":
+		*e = OutputCriblLakeType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCriblLakeType4: %v", v)
+	}
+}
+
+type OutputCriblLakeCriblLake4 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitempty"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitempty"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputCriblLakeCriblLake4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblLakeCriblLake4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblLakeCriblLake4) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputCriblLakeCriblLake4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblLakeCriblLake4) GetType() OutputCriblLakeType4 {
+	if o == nil {
+		return OutputCriblLakeType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblLakeCriblLake4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblLakeCriblLake4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblLakeCriblLake4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblLakeCriblLake4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblLakeCriblLake4) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLakeCriblLake4) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLakeCriblLake4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCriblLakeCriblLake4) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCriblLakeCriblLake4) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputCriblLakeCriblLake4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLakeCriblLake4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLakeCriblLake4) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCriblLakeCriblLake4) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCriblLakeCriblLake4) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCriblLakeCriblLake4) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCriblLakeCriblLake4) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputCriblLakeCriblLake4) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputCriblLakeCriblLake4) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLakeCriblLake4) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputCriblLakeCriblLake4) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputCriblLakeCriblLake4) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake4) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLakeCriblLake4) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputCriblLakeCriblLake4) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputCriblLakeCriblLake4) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputCriblLakeCriblLake4) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputCriblLakeCriblLake4) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputCriblLakeCriblLake4) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake4) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake4) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake4) GetAwsAuthenticationMethod() *MethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCriblLakeCriblLake4) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputCriblLakeCriblLake4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblLakeCriblLake4) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLakeCriblLake4) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputCriblLakeCriblLake4) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType3 string
+
+const (
+	OutputCriblLakeType3CriblLake OutputCriblLakeType3 = "cribl_lake"
+)
+
+func (e OutputCriblLakeType3) ToPointer() *OutputCriblLakeType3 {
+	return &e
+}
+func (e *OutputCriblLakeType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake":
+		*e = OutputCriblLakeType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCriblLakeType3: %v", v)
+	}
+}
+
+type OutputCriblLakeCriblLake3 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitempty"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitempty"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputCriblLakeCriblLake3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblLakeCriblLake3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblLakeCriblLake3) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputCriblLakeCriblLake3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblLakeCriblLake3) GetType() OutputCriblLakeType3 {
+	if o == nil {
+		return OutputCriblLakeType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblLakeCriblLake3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblLakeCriblLake3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblLakeCriblLake3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblLakeCriblLake3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblLakeCriblLake3) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLakeCriblLake3) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLakeCriblLake3) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCriblLakeCriblLake3) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCriblLakeCriblLake3) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputCriblLakeCriblLake3) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLakeCriblLake3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLakeCriblLake3) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCriblLakeCriblLake3) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCriblLakeCriblLake3) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCriblLakeCriblLake3) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCriblLakeCriblLake3) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputCriblLakeCriblLake3) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputCriblLakeCriblLake3) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLakeCriblLake3) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputCriblLakeCriblLake3) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputCriblLakeCriblLake3) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake3) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLakeCriblLake3) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputCriblLakeCriblLake3) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputCriblLakeCriblLake3) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputCriblLakeCriblLake3) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputCriblLakeCriblLake3) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputCriblLakeCriblLake3) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake3) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake3) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake3) GetAwsAuthenticationMethod() *MethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCriblLakeCriblLake3) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputCriblLakeCriblLake3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblLakeCriblLake3) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLakeCriblLake3) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputCriblLakeCriblLake3) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType2 string
+
+const (
+	OutputCriblLakeType2CriblLake OutputCriblLakeType2 = "cribl_lake"
+)
+
+func (e OutputCriblLakeType2) ToPointer() *OutputCriblLakeType2 {
+	return &e
+}
+func (e *OutputCriblLakeType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake":
+		*e = OutputCriblLakeType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCriblLakeType2: %v", v)
+	}
+}
+
+type OutputCriblLakeCriblLake2 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitempty"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitempty"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputCriblLakeCriblLake2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblLakeCriblLake2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblLakeCriblLake2) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputCriblLakeCriblLake2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblLakeCriblLake2) GetType() OutputCriblLakeType2 {
+	if o == nil {
+		return OutputCriblLakeType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblLakeCriblLake2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblLakeCriblLake2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblLakeCriblLake2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblLakeCriblLake2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblLakeCriblLake2) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLakeCriblLake2) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLakeCriblLake2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCriblLakeCriblLake2) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCriblLakeCriblLake2) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputCriblLakeCriblLake2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLakeCriblLake2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLakeCriblLake2) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCriblLakeCriblLake2) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCriblLakeCriblLake2) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCriblLakeCriblLake2) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCriblLakeCriblLake2) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputCriblLakeCriblLake2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputCriblLakeCriblLake2) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLakeCriblLake2) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputCriblLakeCriblLake2) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputCriblLakeCriblLake2) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake2) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLakeCriblLake2) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputCriblLakeCriblLake2) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputCriblLakeCriblLake2) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputCriblLakeCriblLake2) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputCriblLakeCriblLake2) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake2) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputCriblLakeCriblLake2) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake2) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake2) GetAwsAuthenticationMethod() *MethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCriblLakeCriblLake2) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputCriblLakeCriblLake2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblLakeCriblLake2) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLakeCriblLake2) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputCriblLakeCriblLake2) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType1 string
+
+const (
+	OutputCriblLakeType1CriblLake OutputCriblLakeType1 = "cribl_lake"
+)
+
+func (e OutputCriblLakeType1) ToPointer() *OutputCriblLakeType1 {
+	return &e
+}
+func (e *OutputCriblLakeType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cribl_lake":
+		*e = OutputCriblLakeType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputCriblLakeType1: %v", v)
+	}
+}
+
+type OutputCriblLakeCriblLake1 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string              `json:"id,omitempty"`
+	Type OutputCriblLakeType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitempty"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitempty"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitempty"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"300" json:"maxFileIdleTimeSec"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *MethodOptions `json:"awsAuthenticationMethod,omitempty"`
+	Format                        *FormatOptions `json:"format,omitempty"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
+	Description            *string  `json:"description,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputCriblLakeCriblLake1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputCriblLakeCriblLake1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputCriblLakeCriblLake1) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputCriblLakeCriblLake1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputCriblLakeCriblLake1) GetType() OutputCriblLakeType1 {
+	if o == nil {
+		return OutputCriblLakeType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputCriblLakeCriblLake1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputCriblLakeCriblLake1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputCriblLakeCriblLake1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputCriblLakeCriblLake1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputCriblLakeCriblLake1) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLakeCriblLake1) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLakeCriblLake1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputCriblLakeCriblLake1) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputCriblLakeCriblLake1) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputCriblLakeCriblLake1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLakeCriblLake1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLakeCriblLake1) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputCriblLakeCriblLake1) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputCriblLakeCriblLake1) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputCriblLakeCriblLake1) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputCriblLakeCriblLake1) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputCriblLakeCriblLake1) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputCriblLakeCriblLake1) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLakeCriblLake1) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputCriblLakeCriblLake1) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputCriblLakeCriblLake1) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputCriblLakeCriblLake1) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLakeCriblLake1) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputCriblLakeCriblLake1) GetFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FileNameSuffix
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputCriblLakeCriblLake1) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputCriblLakeCriblLake1) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputCriblLakeCriblLake1) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake1) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputCriblLakeCriblLake1) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputCriblLakeCriblLake1) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputCriblLakeCriblLake1) GetAwsAuthenticationMethod() *MethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputCriblLakeCriblLake1) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputCriblLakeCriblLake1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputCriblLakeCriblLake1) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLakeCriblLake1) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputCriblLakeCriblLake1) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputCriblLakeType string
+
+const (
+	OutputCriblLakeTypeOutputCriblLakeCriblLake1 OutputCriblLakeType = "OutputCriblLake_CriblLake_1"
+	OutputCriblLakeTypeOutputCriblLakeCriblLake2 OutputCriblLakeType = "OutputCriblLake_CriblLake_2"
+	OutputCriblLakeTypeOutputCriblLakeCriblLake3 OutputCriblLakeType = "OutputCriblLake_CriblLake_3"
+	OutputCriblLakeTypeOutputCriblLakeCriblLake4 OutputCriblLakeType = "OutputCriblLake_CriblLake_4"
+	OutputCriblLakeTypeOutputCriblLakeCriblLake5 OutputCriblLakeType = "OutputCriblLake_CriblLake_5"
+	OutputCriblLakeTypeOutputCriblLakeCriblLake6 OutputCriblLakeType = "OutputCriblLake_CriblLake_6"
+)
+
+type OutputCriblLake struct {
+	OutputCriblLakeCriblLake1 *OutputCriblLakeCriblLake1 `queryParam:"inline,name=OutputCriblLake"`
+	OutputCriblLakeCriblLake2 *OutputCriblLakeCriblLake2 `queryParam:"inline,name=OutputCriblLake"`
+	OutputCriblLakeCriblLake3 *OutputCriblLakeCriblLake3 `queryParam:"inline,name=OutputCriblLake"`
+	OutputCriblLakeCriblLake4 *OutputCriblLakeCriblLake4 `queryParam:"inline,name=OutputCriblLake"`
+	OutputCriblLakeCriblLake5 *OutputCriblLakeCriblLake5 `queryParam:"inline,name=OutputCriblLake"`
+	OutputCriblLakeCriblLake6 *OutputCriblLakeCriblLake6 `queryParam:"inline,name=OutputCriblLake"`
+
+	Type OutputCriblLakeType
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake1(outputCriblLakeCriblLake1 OutputCriblLakeCriblLake1) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake1
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake1: &outputCriblLakeCriblLake1,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake2(outputCriblLakeCriblLake2 OutputCriblLakeCriblLake2) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake2
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake2: &outputCriblLakeCriblLake2,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake3(outputCriblLakeCriblLake3 OutputCriblLakeCriblLake3) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake3
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake3: &outputCriblLakeCriblLake3,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake4(outputCriblLakeCriblLake4 OutputCriblLakeCriblLake4) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake4
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake4: &outputCriblLakeCriblLake4,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake5(outputCriblLakeCriblLake5 OutputCriblLakeCriblLake5) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake5
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake5: &outputCriblLakeCriblLake5,
+		Type:                      typ,
+	}
+}
+
+func CreateOutputCriblLakeOutputCriblLakeCriblLake6(outputCriblLakeCriblLake6 OutputCriblLakeCriblLake6) OutputCriblLake {
+	typ := OutputCriblLakeTypeOutputCriblLakeCriblLake6
+
+	return OutputCriblLake{
+		OutputCriblLakeCriblLake6: &outputCriblLakeCriblLake6,
+		Type:                      typ,
+	}
+}
+
+func (u *OutputCriblLake) UnmarshalJSON(data []byte) error {
+
+	var outputCriblLakeCriblLake6 OutputCriblLakeCriblLake6 = OutputCriblLakeCriblLake6{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake6, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake6 = &outputCriblLakeCriblLake6
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake6
+		return nil
+	}
+
+	var outputCriblLakeCriblLake5 OutputCriblLakeCriblLake5 = OutputCriblLakeCriblLake5{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake5, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake5 = &outputCriblLakeCriblLake5
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake5
+		return nil
+	}
+
+	var outputCriblLakeCriblLake1 OutputCriblLakeCriblLake1 = OutputCriblLakeCriblLake1{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake1, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake1 = &outputCriblLakeCriblLake1
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake1
+		return nil
+	}
+
+	var outputCriblLakeCriblLake2 OutputCriblLakeCriblLake2 = OutputCriblLakeCriblLake2{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake2, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake2 = &outputCriblLakeCriblLake2
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake2
+		return nil
+	}
+
+	var outputCriblLakeCriblLake3 OutputCriblLakeCriblLake3 = OutputCriblLakeCriblLake3{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake3, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake3 = &outputCriblLakeCriblLake3
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake3
+		return nil
+	}
+
+	var outputCriblLakeCriblLake4 OutputCriblLakeCriblLake4 = OutputCriblLakeCriblLake4{}
+	if err := utils.UnmarshalJSON(data, &outputCriblLakeCriblLake4, "", true, nil); err == nil {
+		u.OutputCriblLakeCriblLake4 = &outputCriblLakeCriblLake4
+		u.Type = OutputCriblLakeTypeOutputCriblLakeCriblLake4
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputCriblLake", string(data))
+}
+
+func (u OutputCriblLake) MarshalJSON() ([]byte, error) {
+	if u.OutputCriblLakeCriblLake1 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake1, "", true)
+	}
+
+	if u.OutputCriblLakeCriblLake2 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake2, "", true)
+	}
+
+	if u.OutputCriblLakeCriblLake3 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake3, "", true)
+	}
+
+	if u.OutputCriblLakeCriblLake4 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake4, "", true)
+	}
+
+	if u.OutputCriblLakeCriblLake5 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake5, "", true)
+	}
+
+	if u.OutputCriblLakeCriblLake6 != nil {
+		return utils.MarshalJSON(u.OutputCriblLakeCriblLake6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputCriblLake: all fields are null")
 }

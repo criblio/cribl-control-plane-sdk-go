@@ -4,489 +4,53 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSplunkSearchType string
+type InputSplunkSearchType10 string
 
 const (
-	InputSplunkSearchTypeSplunkSearch InputSplunkSearchType = "splunk_search"
+	InputSplunkSearchType10SplunkSearch InputSplunkSearchType10 = "splunk_search"
 )
 
-func (e InputSplunkSearchType) ToPointer() *InputSplunkSearchType {
+func (e InputSplunkSearchType10) ToPointer() *InputSplunkSearchType10 {
 	return &e
 }
-func (e *InputSplunkSearchType) UnmarshalJSON(data []byte) error {
+func (e *InputSplunkSearchType10) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "splunk_search":
-		*e = InputSplunkSearchType(v)
+		*e = InputSplunkSearchType10(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputSplunkSearchType: %v", v)
+		return fmt.Errorf("invalid value for InputSplunkSearchType10: %v", v)
 	}
 }
 
-type InputSplunkSearchConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSplunkSearchConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkSearchConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSplunkSearchMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSplunkSearchMode string
+// OutputMode10 - Format of the returned output
+type OutputMode10 string
 
 const (
-	InputSplunkSearchModeSmart  InputSplunkSearchMode = "smart"
-	InputSplunkSearchModeAlways InputSplunkSearchMode = "always"
+	OutputMode10Csv  OutputMode10 = "csv"
+	OutputMode10JSON OutputMode10 = "json"
 )
 
-func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
+func (e OutputMode10) ToPointer() *OutputMode10 {
 	return &e
 }
 
-// InputSplunkSearchCompression - Codec to use to compress the persisted data
-type InputSplunkSearchCompression string
-
-const (
-	InputSplunkSearchCompressionNone InputSplunkSearchCompression = "none"
-	InputSplunkSearchCompressionGzip InputSplunkSearchCompression = "gzip"
-)
-
-func (e InputSplunkSearchCompression) ToPointer() *InputSplunkSearchCompression {
-	return &e
-}
-
-type InputSplunkSearchPqControls struct {
-}
-
-func (i InputSplunkSearchPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSplunkSearchPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSplunkSearchMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSplunkSearchCompression `default:"none" json:"compress"`
-	PqControls *InputSplunkSearchPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSplunkSearchPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchPq) GetMode() *InputSplunkSearchMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSplunkSearchPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSplunkSearchPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSplunkSearchPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSplunkSearchPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSplunkSearchPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSplunkSearchPq) GetCompress() *InputSplunkSearchCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSplunkSearchPq) GetPqControls() *InputSplunkSearchPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// OutputMode - Format of the returned output
-type OutputMode string
-
-const (
-	OutputModeCsv  OutputMode = "csv"
-	OutputModeJSON OutputMode = "json"
-)
-
-func (e OutputMode) ToPointer() *OutputMode {
-	return &e
-}
-
-type EndpointParam struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (e EndpointParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EndpointParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EndpointParam) GetName() string {
-	if e == nil {
-		return ""
-	}
-	return e.Name
-}
-
-func (e *EndpointParam) GetValue() string {
-	if e == nil {
-		return ""
-	}
-	return e.Value
-}
-
-type EndpointHeader struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (e EndpointHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EndpointHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EndpointHeader) GetName() string {
-	if e == nil {
-		return ""
-	}
-	return e.Name
-}
-
-func (e *EndpointHeader) GetValue() string {
-	if e == nil {
-		return ""
-	}
-	return e.Value
-}
-
-// InputSplunkSearchLogLevel - Collector runtime log level (verbosity)
-type InputSplunkSearchLogLevel string
-
-const (
-	InputSplunkSearchLogLevelError InputSplunkSearchLogLevel = "error"
-	InputSplunkSearchLogLevelWarn  InputSplunkSearchLogLevel = "warn"
-	InputSplunkSearchLogLevelInfo  InputSplunkSearchLogLevel = "info"
-	InputSplunkSearchLogLevelDebug InputSplunkSearchLogLevel = "debug"
-)
-
-func (e InputSplunkSearchLogLevel) ToPointer() *InputSplunkSearchLogLevel {
-	return &e
-}
-
-type InputSplunkSearchMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSplunkSearchMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSplunkSearchMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputSplunkSearchRetryType - The algorithm to use when performing HTTP retries
-type InputSplunkSearchRetryType string
-
-const (
-	InputSplunkSearchRetryTypeNone    InputSplunkSearchRetryType = "none"
-	InputSplunkSearchRetryTypeBackoff InputSplunkSearchRetryType = "backoff"
-	InputSplunkSearchRetryTypeStatic  InputSplunkSearchRetryType = "static"
-)
-
-func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {
-	return &e
-}
-
-type InputSplunkSearchRetryRules struct {
-	// The algorithm to use when performing HTTP retries
-	Type *InputSplunkSearchRetryType `default:"backoff" json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `default:"1000" json:"interval"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `default:"5" json:"limit"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `default:"2" json:"multiplier"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `default:"true" json:"enableHeader"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
-}
-
-func (i InputSplunkSearchRetryRules) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchRetryRules) GetType() *InputSplunkSearchRetryType {
-	if i == nil {
-		return nil
-	}
-	return i.Type
-}
-
-func (i *InputSplunkSearchRetryRules) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputSplunkSearchRetryRules) GetLimit() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Limit
-}
-
-func (i *InputSplunkSearchRetryRules) GetMultiplier() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Multiplier
-}
-
-func (i *InputSplunkSearchRetryRules) GetCodes() []float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Codes
-}
-
-func (i *InputSplunkSearchRetryRules) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputSplunkSearchRetryRules) GetRetryConnectTimeout() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectTimeout
-}
-
-func (i *InputSplunkSearchRetryRules) GetRetryConnectReset() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectReset
-}
-
-// InputSplunkSearchAuthenticationType - Splunk Search authentication type
-type InputSplunkSearchAuthenticationType string
-
-const (
-	InputSplunkSearchAuthenticationTypeNone              InputSplunkSearchAuthenticationType = "none"
-	InputSplunkSearchAuthenticationTypeBasic             InputSplunkSearchAuthenticationType = "basic"
-	InputSplunkSearchAuthenticationTypeCredentialsSecret InputSplunkSearchAuthenticationType = "credentialsSecret"
-	InputSplunkSearchAuthenticationTypeToken             InputSplunkSearchAuthenticationType = "token"
-	InputSplunkSearchAuthenticationTypeTextSecret        InputSplunkSearchAuthenticationType = "textSecret"
-	InputSplunkSearchAuthenticationTypeOauth             InputSplunkSearchAuthenticationType = "oauth"
-)
-
-func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
-	return &e
-}
-
-type InputSplunkSearchOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (i InputSplunkSearchOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchOauthParam) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSplunkSearchOauthParam) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputSplunkSearchOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (i InputSplunkSearchOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSearchOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSearchOauthHeader) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSplunkSearchOauthHeader) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputSplunkSearch struct {
+type InputSplunkSearchSplunkSearch10 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputSplunkSearchType10 `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -498,8 +62,8 @@ type InputSplunkSearch struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSplunkSearchConnection `json:"connections,omitempty"`
-	Pq          *InputSplunkSearchPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -513,13 +77,13 @@ type InputSplunkSearch struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputMode10 `default:"json" json:"outputMode"`
 	// Optional request parameters to send to the endpoint
-	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
-	EndpointHeaders []EndpointHeader `json:"endpointHeaders,omitempty"`
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
 	// Collector runtime log level (verbosity)
-	LogLevel *InputSplunkSearchLogLevel `json:"logLevel,omitempty"`
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
 	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
@@ -539,17 +103,1911 @@ type InputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
 	// Fields to add to events from this input
-	Metadata   []InputSplunkSearchMetadatum `json:"metadata,omitempty"`
-	RetryRules *InputSplunkSearchRetryRules `json:"retryRules,omitempty"`
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            *string  `json:"username,omitempty"`
+	Password            *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter name to pass in request body
+	SecretParamName string `json:"secretParamName"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName string `json:"tokenAttributeName"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders"`
+}
+
+func (i InputSplunkSearchSplunkSearch10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search", "loginUrl", "secretParamName", "secret", "tokenAttributeName", "oauthParams", "oauthHeaders"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetType() InputSplunkSearchType10 {
+	if i == nil {
+		return InputSplunkSearchType10("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetOutputMode() *OutputMode10 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetLoginURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetSecretParamName() string {
+	if i == nil {
+		return ""
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetTokenAttributeName() string {
+	if i == nil {
+		return ""
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return []Metadata1Type{}
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch10) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return []Metadata1Type{}
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType9 string
+
+const (
+	InputSplunkSearchType9SplunkSearch InputSplunkSearchType9 = "splunk_search"
+)
+
+func (e InputSplunkSearchType9) ToPointer() *InputSplunkSearchType9 {
+	return &e
+}
+func (e *InputSplunkSearchType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType9: %v", v)
+	}
+}
+
+// OutputMode9 - Format of the returned output
+type OutputMode9 string
+
+const (
+	OutputMode9Csv  OutputMode9 = "csv"
+	OutputMode9JSON OutputMode9 = "json"
+)
+
+func (e OutputMode9) ToPointer() *OutputMode9 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch9 struct {
 	// Splunk Search authentication type
-	AuthType    *InputSplunkSearchAuthenticationType `default:"basic" json:"authType"`
-	Description *string                              `json:"description,omitempty"`
-	Username    *string                              `json:"username,omitempty"`
-	Password    *string                              `json:"password,omitempty"`
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType9 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode9 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            *string  `json:"username,omitempty"`
+	Password            *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetType() InputSplunkSearchType9 {
+	if i == nil {
+		return InputSplunkSearchType9("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetOutputMode() *OutputMode9 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetTextSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch9) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType8 string
+
+const (
+	InputSplunkSearchType8SplunkSearch InputSplunkSearchType8 = "splunk_search"
+)
+
+func (e InputSplunkSearchType8) ToPointer() *InputSplunkSearchType8 {
+	return &e
+}
+func (e *InputSplunkSearchType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType8: %v", v)
+	}
+}
+
+// OutputMode8 - Format of the returned output
+type OutputMode8 string
+
+const (
+	OutputMode8Csv  OutputMode8 = "csv"
+	OutputMode8JSON OutputMode8 = "json"
+)
+
+func (e OutputMode8) ToPointer() *OutputMode8 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch8 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType8 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode8 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            *string  `json:"username,omitempty"`
+	Password            *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetType() InputSplunkSearchType8 {
+	if i == nil {
+		return InputSplunkSearchType8("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetOutputMode() *OutputMode8 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetCredentialsSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch8) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType7 string
+
+const (
+	InputSplunkSearchType7SplunkSearch InputSplunkSearchType7 = "splunk_search"
+)
+
+func (e InputSplunkSearchType7) ToPointer() *InputSplunkSearchType7 {
+	return &e
+}
+func (e *InputSplunkSearchType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType7: %v", v)
+	}
+}
+
+// OutputMode7 - Format of the returned output
+type OutputMode7 string
+
+const (
+	OutputMode7Csv  OutputMode7 = "csv"
+	OutputMode7JSON OutputMode7 = "json"
+)
+
+func (e OutputMode7) ToPointer() *OutputMode7 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch7 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType7 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode7 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            *string  `json:"username,omitempty"`
+	Password            *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token string `json:"token"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetType() InputSplunkSearchType7 {
+	if i == nil {
+		return InputSplunkSearchType7("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetOutputMode() *OutputMode7 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetToken() string {
+	if i == nil {
+		return ""
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch7) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType6 string
+
+const (
+	InputSplunkSearchType6SplunkSearch InputSplunkSearchType6 = "splunk_search"
+)
+
+func (e InputSplunkSearchType6) ToPointer() *InputSplunkSearchType6 {
+	return &e
+}
+func (e *InputSplunkSearchType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType6: %v", v)
+	}
+}
+
+// OutputMode6 - Format of the returned output
+type OutputMode6 string
+
+const (
+	OutputMode6Csv  OutputMode6 = "csv"
+	OutputMode6JSON OutputMode6 = "json"
+)
+
+func (e OutputMode6) ToPointer() *OutputMode6 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch6 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType6 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode6 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            string   `json:"username"`
+	Password            string   `json:"password"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -569,354 +2027,2963 @@ type InputSplunkSearch struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []InputSplunkSearchOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []InputSplunkSearchOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
+func (i InputSplunkSearchSplunkSearch6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+func (i *InputSplunkSearchSplunkSearch6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search", "username", "password"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearch) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkSearch) GetType() InputSplunkSearchType {
-	if i == nil {
-		return InputSplunkSearchType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkSearch) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkSearch) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkSearch) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkSearch) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkSearch) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSplunkSearch) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkSearch) GetConnections() []InputSplunkSearchConnection {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkSearch) GetPq() *InputSplunkSearchPq {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSplunkSearch) GetSearchHead() *string {
-	if i == nil {
-		return nil
-	}
-	return i.SearchHead
-}
-
-func (i *InputSplunkSearch) GetSearch() string {
-	if i == nil {
-		return ""
-	}
-	return i.Search
-}
-
-func (i *InputSplunkSearch) GetEarliest() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Earliest
-}
-
-func (i *InputSplunkSearch) GetLatest() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Latest
-}
-
-func (i *InputSplunkSearch) GetCronSchedule() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CronSchedule
-}
-
-func (i *InputSplunkSearch) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputSplunkSearch) GetOutputMode() *OutputMode {
-	if i == nil {
-		return nil
-	}
-	return i.OutputMode
-}
-
-func (i *InputSplunkSearch) GetEndpointParams() []EndpointParam {
-	if i == nil {
-		return nil
-	}
-	return i.EndpointParams
-}
-
-func (i *InputSplunkSearch) GetEndpointHeaders() []EndpointHeader {
-	if i == nil {
-		return nil
-	}
-	return i.EndpointHeaders
-}
-
-func (i *InputSplunkSearch) GetLogLevel() *InputSplunkSearchLogLevel {
-	if i == nil {
-		return nil
-	}
-	return i.LogLevel
-}
-
-func (i *InputSplunkSearch) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputSplunkSearch) GetUseRoundRobinDNS() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UseRoundRobinDNS
-}
-
-func (i *InputSplunkSearch) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSplunkSearch) GetEncoding() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Encoding
-}
-
-func (i *InputSplunkSearch) GetKeepAliveTime() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTime
-}
-
-func (i *InputSplunkSearch) GetJobTimeout() *string {
-	if i == nil {
-		return nil
-	}
-	return i.JobTimeout
-}
-
-func (i *InputSplunkSearch) GetMaxMissedKeepAlives() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxMissedKeepAlives
-}
-
-func (i *InputSplunkSearch) GetTTL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TTL
-}
-
-func (i *InputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IgnoreGroupJobsLimit
-}
-
-func (i *InputSplunkSearch) GetMetadata() []InputSplunkSearchMetadatum {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSplunkSearch) GetRetryRules() *InputSplunkSearchRetryRules {
-	if i == nil {
-		return nil
-	}
-	return i.RetryRules
-}
-
-func (i *InputSplunkSearch) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputSplunkSearch) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputSplunkSearch) GetAuthType() *InputSplunkSearchAuthenticationType {
+func (i *InputSplunkSearchSplunkSearch6) GetAuthType() *AuthTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputSplunkSearch) GetDescription() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetType() InputSplunkSearchType6 {
+	if i == nil {
+		return InputSplunkSearchType6("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetOutputMode() *OutputMode6 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch6) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSearch) GetUsername() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetUsername() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Username
 }
 
-func (i *InputSplunkSearch) GetPassword() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetPassword() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Password
 }
 
-func (i *InputSplunkSearch) GetToken() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputSplunkSearch) GetCredentialsSecret() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputSplunkSearch) GetTextSecret() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputSplunkSearch) GetLoginURL() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputSplunkSearch) GetSecretParamName() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputSplunkSearch) GetSecret() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputSplunkSearch) GetTokenAttributeName() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputSplunkSearch) GetAuthHeaderExpr() *string {
+func (i *InputSplunkSearchSplunkSearch6) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
+func (i *InputSplunkSearchSplunkSearch6) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearch) GetOauthParams() []InputSplunkSearchOauthParam {
+func (i *InputSplunkSearchSplunkSearch6) GetOauthParams() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearch) GetOauthHeaders() []InputSplunkSearchOauthHeader {
+func (i *InputSplunkSearchSplunkSearch6) GetOauthHeaders() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
+}
+
+type InputSplunkSearchType5 string
+
+const (
+	InputSplunkSearchType5SplunkSearch InputSplunkSearchType5 = "splunk_search"
+)
+
+func (e InputSplunkSearchType5) ToPointer() *InputSplunkSearchType5 {
+	return &e
+}
+func (e *InputSplunkSearchType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType5: %v", v)
+	}
+}
+
+// OutputMode5 - Format of the returned output
+type OutputMode5 string
+
+const (
+	OutputMode5Csv  OutputMode5 = "csv"
+	OutputMode5JSON OutputMode5 = "json"
+)
+
+func (e OutputMode5) ToPointer() *OutputMode5 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch5 struct {
+	// Splunk Search authentication type
+	AuthType *AuthTypeOptions `default:"basic" json:"authType"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType5 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode5 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	Username            *string  `json:"username,omitempty"`
+	Password            *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetType() InputSplunkSearchType5 {
+	if i == nil {
+		return InputSplunkSearchType5("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetOutputMode() *OutputMode5 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch5) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType4 string
+
+const (
+	InputSplunkSearchType4SplunkSearch InputSplunkSearchType4 = "splunk_search"
+)
+
+func (e InputSplunkSearchType4) ToPointer() *InputSplunkSearchType4 {
+	return &e
+}
+func (e *InputSplunkSearchType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType4: %v", v)
+	}
+}
+
+// OutputMode4 - Format of the returned output
+type OutputMode4 string
+
+const (
+	OutputMode4Csv  OutputMode4 = "csv"
+	OutputMode4JSON OutputMode4 = "json"
+)
+
+func (e OutputMode4) ToPointer() *OutputMode4 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType4 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode4 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	Username    *string          `json:"username,omitempty"`
+	Password    *string          `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetType() InputSplunkSearchType4 {
+	if i == nil {
+		return InputSplunkSearchType4("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetOutputMode() *OutputMode4 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch4) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType3 string
+
+const (
+	InputSplunkSearchType3SplunkSearch InputSplunkSearchType3 = "splunk_search"
+)
+
+func (e InputSplunkSearchType3) ToPointer() *InputSplunkSearchType3 {
+	return &e
+}
+func (e *InputSplunkSearchType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType3: %v", v)
+	}
+}
+
+// OutputMode3 - Format of the returned output
+type OutputMode3 string
+
+const (
+	OutputMode3Csv  OutputMode3 = "csv"
+	OutputMode3JSON OutputMode3 = "json"
+)
+
+func (e OutputMode3) ToPointer() *OutputMode3 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType3 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode3 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	Username    *string          `json:"username,omitempty"`
+	Password    *string          `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetType() InputSplunkSearchType3 {
+	if i == nil {
+		return InputSplunkSearchType3("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetOutputMode() *OutputMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch3) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType2 string
+
+const (
+	InputSplunkSearchType2SplunkSearch InputSplunkSearchType2 = "splunk_search"
+)
+
+func (e InputSplunkSearchType2) ToPointer() *InputSplunkSearchType2 {
+	return &e
+}
+func (e *InputSplunkSearchType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType2: %v", v)
+	}
+}
+
+// OutputMode2 - Format of the returned output
+type OutputMode2 string
+
+const (
+	OutputMode2Csv  OutputMode2 = "csv"
+	OutputMode2JSON OutputMode2 = "json"
+)
+
+func (e OutputMode2) ToPointer() *OutputMode2 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType2 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode2 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	Username    *string          `json:"username,omitempty"`
+	Password    *string          `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetType() InputSplunkSearchType2 {
+	if i == nil {
+		return InputSplunkSearchType2("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetOutputMode() *OutputMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch2) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType1 string
+
+const (
+	InputSplunkSearchType1SplunkSearch InputSplunkSearchType1 = "splunk_search"
+)
+
+func (e InputSplunkSearchType1) ToPointer() *InputSplunkSearchType1 {
+	return &e
+}
+func (e *InputSplunkSearchType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk_search":
+		*e = InputSplunkSearchType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputSplunkSearchType1: %v", v)
+	}
+}
+
+// OutputMode1 - Format of the returned output
+type OutputMode1 string
+
+const (
+	OutputMode1Csv  OutputMode1 = "csv"
+	OutputMode1JSON OutputMode1 = "json"
+)
+
+func (e OutputMode1) ToPointer() *OutputMode1 {
+	return &e
+}
+
+type InputSplunkSearchSplunkSearch1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSplunkSearchType1 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `default:"-16m@m" json:"earliest"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `default:"-1m@m" json:"latest"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputMode1 `default:"json" json:"outputMode"`
+	// Optional request parameters to send to the endpoint
+	EndpointParams []Metadata1Type `json:"endpointParams,omitempty"`
+	// Optional request headers to send to the endpoint
+	EndpointHeaders []Metadata1Type `json:"endpointHeaders,omitempty"`
+	// Collector runtime log level (verbosity)
+	LogLevel *LogLevelOptions `json:"logLevel,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []Metadata1Type `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType `json:"retryRules,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Splunk Search authentication type
+	AuthType    *AuthTypeOptions `default:"basic" json:"authType"`
+	Description *string          `json:"description,omitempty"`
+	Username    *string          `json:"username,omitempty"`
+	Password    *string          `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputSplunkSearchSplunkSearch1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchSplunkSearch1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetType() InputSplunkSearchType1 {
+	if i == nil {
+		return InputSplunkSearchType1("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetSearchHead() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SearchHead
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetSearch() string {
+	if i == nil {
+		return ""
+	}
+	return i.Search
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetOutputMode() *OutputMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.OutputMode
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEndpointParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointParams
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEndpointHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointHeaders
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetEncoding() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Encoding
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetAuthType() *AuthTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetOauthParams() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputSplunkSearchSplunkSearch1) GetOauthHeaders() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputSplunkSearchType string
+
+const (
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch1  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_1"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch2  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_2"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch3  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_3"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch4  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_4"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch5  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_5"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch6  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_6"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch7  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_7"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch8  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_8"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch9  InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_9"
+	InputSplunkSearchTypeInputSplunkSearchSplunkSearch10 InputSplunkSearchType = "InputSplunkSearch_SplunkSearch_10"
+)
+
+type InputSplunkSearch struct {
+	InputSplunkSearchSplunkSearch1  *InputSplunkSearchSplunkSearch1  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch2  *InputSplunkSearchSplunkSearch2  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch3  *InputSplunkSearchSplunkSearch3  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch4  *InputSplunkSearchSplunkSearch4  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch5  *InputSplunkSearchSplunkSearch5  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch6  *InputSplunkSearchSplunkSearch6  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch7  *InputSplunkSearchSplunkSearch7  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch8  *InputSplunkSearchSplunkSearch8  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch9  *InputSplunkSearchSplunkSearch9  `queryParam:"inline,name=InputSplunkSearch"`
+	InputSplunkSearchSplunkSearch10 *InputSplunkSearchSplunkSearch10 `queryParam:"inline,name=InputSplunkSearch"`
+
+	Type InputSplunkSearchType
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch1(inputSplunkSearchSplunkSearch1 InputSplunkSearchSplunkSearch1) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch1
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch1: &inputSplunkSearchSplunkSearch1,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch2(inputSplunkSearchSplunkSearch2 InputSplunkSearchSplunkSearch2) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch2
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch2: &inputSplunkSearchSplunkSearch2,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch3(inputSplunkSearchSplunkSearch3 InputSplunkSearchSplunkSearch3) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch3
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch3: &inputSplunkSearchSplunkSearch3,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch4(inputSplunkSearchSplunkSearch4 InputSplunkSearchSplunkSearch4) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch4
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch4: &inputSplunkSearchSplunkSearch4,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch5(inputSplunkSearchSplunkSearch5 InputSplunkSearchSplunkSearch5) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch5
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch5: &inputSplunkSearchSplunkSearch5,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch6(inputSplunkSearchSplunkSearch6 InputSplunkSearchSplunkSearch6) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch6
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch6: &inputSplunkSearchSplunkSearch6,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch7(inputSplunkSearchSplunkSearch7 InputSplunkSearchSplunkSearch7) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch7
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch7: &inputSplunkSearchSplunkSearch7,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch8(inputSplunkSearchSplunkSearch8 InputSplunkSearchSplunkSearch8) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch8
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch8: &inputSplunkSearchSplunkSearch8,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch9(inputSplunkSearchSplunkSearch9 InputSplunkSearchSplunkSearch9) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch9
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch9: &inputSplunkSearchSplunkSearch9,
+		Type:                           typ,
+	}
+}
+
+func CreateInputSplunkSearchInputSplunkSearchSplunkSearch10(inputSplunkSearchSplunkSearch10 InputSplunkSearchSplunkSearch10) InputSplunkSearch {
+	typ := InputSplunkSearchTypeInputSplunkSearchSplunkSearch10
+
+	return InputSplunkSearch{
+		InputSplunkSearchSplunkSearch10: &inputSplunkSearchSplunkSearch10,
+		Type:                            typ,
+	}
+}
+
+func (u *InputSplunkSearch) UnmarshalJSON(data []byte) error {
+
+	var inputSplunkSearchSplunkSearch10 InputSplunkSearchSplunkSearch10 = InputSplunkSearchSplunkSearch10{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch10, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch10 = &inputSplunkSearchSplunkSearch10
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch10
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch6 InputSplunkSearchSplunkSearch6 = InputSplunkSearchSplunkSearch6{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch6, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch6 = &inputSplunkSearchSplunkSearch6
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch6
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch2 InputSplunkSearchSplunkSearch2 = InputSplunkSearchSplunkSearch2{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch2, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch2 = &inputSplunkSearchSplunkSearch2
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch2
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch4 InputSplunkSearchSplunkSearch4 = InputSplunkSearchSplunkSearch4{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch4, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch4 = &inputSplunkSearchSplunkSearch4
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch4
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch7 InputSplunkSearchSplunkSearch7 = InputSplunkSearchSplunkSearch7{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch7, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch7 = &inputSplunkSearchSplunkSearch7
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch7
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch8 InputSplunkSearchSplunkSearch8 = InputSplunkSearchSplunkSearch8{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch8, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch8 = &inputSplunkSearchSplunkSearch8
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch8
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch9 InputSplunkSearchSplunkSearch9 = InputSplunkSearchSplunkSearch9{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch9, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch9 = &inputSplunkSearchSplunkSearch9
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch9
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch1 InputSplunkSearchSplunkSearch1 = InputSplunkSearchSplunkSearch1{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch1, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch1 = &inputSplunkSearchSplunkSearch1
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch1
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch3 InputSplunkSearchSplunkSearch3 = InputSplunkSearchSplunkSearch3{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch3, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch3 = &inputSplunkSearchSplunkSearch3
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch3
+		return nil
+	}
+
+	var inputSplunkSearchSplunkSearch5 InputSplunkSearchSplunkSearch5 = InputSplunkSearchSplunkSearch5{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSplunkSearch5, "", true, nil); err == nil {
+		u.InputSplunkSearchSplunkSearch5 = &inputSplunkSearchSplunkSearch5
+		u.Type = InputSplunkSearchTypeInputSplunkSearchSplunkSearch5
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSplunkSearch", string(data))
+}
+
+func (u InputSplunkSearch) MarshalJSON() ([]byte, error) {
+	if u.InputSplunkSearchSplunkSearch1 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch1, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch2 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch2, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch3 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch3, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch4 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch4, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch5 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch5, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch6 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch6, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch7 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch7, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch8 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch8, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch9 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch9, "", true)
+	}
+
+	if u.InputSplunkSearchSplunkSearch10 != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSplunkSearch10, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSplunkSearch: all fields are null")
 }

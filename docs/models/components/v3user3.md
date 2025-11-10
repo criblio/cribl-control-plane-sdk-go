@@ -1,0 +1,11 @@
+# V3User3
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `Name`                                                                                    | *string*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| `AuthProtocol`                                                                            | [*components.AuthenticationProtocol3](../../models/components/authenticationprotocol3.md) | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| `AuthKey`                                                                                 | *any*                                                                                     | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| `PrivProtocol`                                                                            | **string*                                                                                 | :heavy_minus_sign:                                                                        | N/A                                                                                       |

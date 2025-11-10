@@ -4,408 +4,41 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputTCPType string
+type InputTCPType6 string
 
 const (
-	InputTCPTypeTCP InputTCPType = "tcp"
+	InputTCPType6TCP InputTCPType6 = "tcp"
 )
 
-func (e InputTCPType) ToPointer() *InputTCPType {
+func (e InputTCPType6) ToPointer() *InputTCPType6 {
 	return &e
 }
-func (e *InputTCPType) UnmarshalJSON(data []byte) error {
+func (e *InputTCPType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "tcp":
-		*e = InputTCPType(v)
+		*e = InputTCPType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputTCPType: %v", v)
+		return fmt.Errorf("invalid value for InputTCPType6: %v", v)
 	}
 }
 
-type InputTCPConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputTCPConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTCPConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputTCPMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputTCPMode string
-
-const (
-	InputTCPModeSmart  InputTCPMode = "smart"
-	InputTCPModeAlways InputTCPMode = "always"
-)
-
-func (e InputTCPMode) ToPointer() *InputTCPMode {
-	return &e
-}
-
-// InputTCPCompression - Codec to use to compress the persisted data
-type InputTCPCompression string
-
-const (
-	InputTCPCompressionNone InputTCPCompression = "none"
-	InputTCPCompressionGzip InputTCPCompression = "gzip"
-)
-
-func (e InputTCPCompression) ToPointer() *InputTCPCompression {
-	return &e
-}
-
-type InputTCPPqControls struct {
-}
-
-func (i InputTCPPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputTCPPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputTCPMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputTCPCompression `default:"none" json:"compress"`
-	PqControls *InputTCPPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputTCPPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPPq) GetMode() *InputTCPMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputTCPPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputTCPPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputTCPPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputTCPPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputTCPPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputTCPPq) GetCompress() *InputTCPCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputTCPPq) GetPqControls() *InputTCPPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputTCPMinimumTLSVersion string
-
-const (
-	InputTCPMinimumTLSVersionTlSv1  InputTCPMinimumTLSVersion = "TLSv1"
-	InputTCPMinimumTLSVersionTlSv11 InputTCPMinimumTLSVersion = "TLSv1.1"
-	InputTCPMinimumTLSVersionTlSv12 InputTCPMinimumTLSVersion = "TLSv1.2"
-	InputTCPMinimumTLSVersionTlSv13 InputTCPMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputTCPMinimumTLSVersion) ToPointer() *InputTCPMinimumTLSVersion {
-	return &e
-}
-
-type InputTCPMaximumTLSVersion string
-
-const (
-	InputTCPMaximumTLSVersionTlSv1  InputTCPMaximumTLSVersion = "TLSv1"
-	InputTCPMaximumTLSVersionTlSv11 InputTCPMaximumTLSVersion = "TLSv1.1"
-	InputTCPMaximumTLSVersionTlSv12 InputTCPMaximumTLSVersion = "TLSv1.2"
-	InputTCPMaximumTLSVersionTlSv13 InputTCPMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputTCPMaximumTLSVersion) ToPointer() *InputTCPMaximumTLSVersion {
-	return &e
-}
-
-type InputTCPTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                      `default:"false" json:"requestCert"`
-	RejectUnauthorized any                        `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                        `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputTCPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputTCPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetMinVersion() *InputTCPMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetMaxVersion() *InputTCPMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputTCPMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputTCPMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputTCPMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputTCPPreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (i InputTCPPreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPPreprocess) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCPPreprocess) GetCommand() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Command
-}
-
-func (i *InputTCPPreprocess) GetArgs() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Args
-}
-
-// InputTCPAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type InputTCPAuthenticationMethod string
-
-const (
-	InputTCPAuthenticationMethodManual InputTCPAuthenticationMethod = "manual"
-	InputTCPAuthenticationMethodSecret InputTCPAuthenticationMethod = "secret"
-)
-
-func (e InputTCPAuthenticationMethod) ToPointer() *InputTCPAuthenticationMethod {
-	return &e
-}
-
-type InputTCP struct {
+type InputTCPTCP6 struct {
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool `default:"false" json:"enableHeader"`
 	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputTCPType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType6 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -417,13 +50,13 @@ type InputTCP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputTCPConnection `json:"connections,omitempty"`
-	Pq          *InputTCPPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                        `json:"port"`
-	TLS  *InputTCPTLSSettingsServerSide `json:"tls,omitempty"`
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -437,208 +70,1790 @@ type InputTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
 	// Fields to add to events from this input
-	Metadata []InputTCPMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool               `default:"false" json:"enableHeader"`
-	Preprocess   *InputTCPPreprocess `json:"preprocess,omitempty"`
-	Description  *string             `json:"description,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *InputTCPAuthenticationMethod `default:"manual" json:"authType"`
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	Description         *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputTCP) MarshalJSON() ([]byte, error) {
+func (i InputTCPTCP6) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputTCP) UnmarshalJSON(data []byte) error {
+func (i *InputTCPTCP6) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputTCP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTCP) GetType() InputTCPType {
-	if i == nil {
-		return InputTCPType("")
-	}
-	return i.Type
-}
-
-func (i *InputTCP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTCP) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTCP) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTCP) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTCP) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTCP) GetConnections() []InputTCPConnection {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTCP) GetPq() *InputTCPPq {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTCP) GetHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputTCP) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTCP) GetTLS() *InputTCPTLSSettingsServerSide {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTCP) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTCP) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTCP) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTCP) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTCP) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTCP) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTCP) GetMetadata() []InputTCPMetadatum {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTCP) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputTCP) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputTCP) GetEnableHeader() *bool {
+func (i *InputTCPTCP6) GetEnableHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHeader
 }
 
-func (i *InputTCP) GetPreprocess() *InputTCPPreprocess {
+func (i *InputTCPTCP6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP6) GetType() InputTCPType6 {
+	if i == nil {
+		return InputTCPType6("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP6) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP6) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP6) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP6) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP6) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP6) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP6) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP6) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP6) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP6) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP6) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP6) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputTCP) GetDescription() *string {
+func (i *InputTCPTCP6) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputTCP) GetAuthType() *InputTCPAuthenticationMethod {
+func (i *InputTCPTCP6) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP6) GetAuthType() *AuthType2Options {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
+}
+
+func (i *InputTCPTCP6) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType5 string
+
+const (
+	InputTCPType5TCP InputTCPType5 = "tcp"
+)
+
+func (e InputTCPType5) ToPointer() *InputTCPType5 {
+	return &e
+}
+func (e *InputTCPType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcp":
+		*e = InputTCPType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputTCPType5: %v", v)
+	}
+}
+
+type InputTCPTCP5 struct {
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool `default:"false" json:"enableHeader"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType5 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `default:"10000" json:"staleChannelFlushMs"`
+	Preprocess          *PreprocessType `json:"preprocess,omitempty"`
+	Description         *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputTCPTCP5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTCP5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTCP5) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputTCPTCP5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP5) GetType() InputTCPType5 {
+	if i == nil {
+		return InputTCPType5("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP5) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP5) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP5) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP5) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP5) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP5) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP5) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP5) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP5) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP5) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP5) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP5) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputTCPTCP5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputTCPTCP5) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP5) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputTCPTCP5) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType4 string
+
+const (
+	InputTCPType4TCP InputTCPType4 = "tcp"
+)
+
+func (e InputTCPType4) ToPointer() *InputTCPType4 {
+	return &e
+}
+func (e *InputTCPType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcp":
+		*e = InputTCPType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputTCPType4: %v", v)
+	}
+}
+
+type InputTCPTCP4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType4 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool           `default:"false" json:"enableHeader"`
+	Preprocess   *PreprocessType `json:"preprocess,omitempty"`
+	Description  *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputTCPTCP4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTCP4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTCP4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP4) GetType() InputTCPType4 {
+	if i == nil {
+		return InputTCPType4("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP4) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP4) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP4) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP4) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP4) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP4) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP4) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP4) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP4) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP4) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputTCPTCP4) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputTCPTCP4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputTCPTCP4) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP4) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputTCPTCP4) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType3 string
+
+const (
+	InputTCPType3TCP InputTCPType3 = "tcp"
+)
+
+func (e InputTCPType3) ToPointer() *InputTCPType3 {
+	return &e
+}
+func (e *InputTCPType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcp":
+		*e = InputTCPType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputTCPType3: %v", v)
+	}
+}
+
+type InputTCPTCP3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType3 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool           `default:"false" json:"enableHeader"`
+	Preprocess   *PreprocessType `json:"preprocess,omitempty"`
+	Description  *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputTCPTCP3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTCP3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTCP3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP3) GetType() InputTCPType3 {
+	if i == nil {
+		return InputTCPType3("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP3) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP3) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP3) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP3) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP3) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP3) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP3) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP3) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP3) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputTCPTCP3) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputTCPTCP3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputTCPTCP3) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP3) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputTCPTCP3) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType2 string
+
+const (
+	InputTCPType2TCP InputTCPType2 = "tcp"
+)
+
+func (e InputTCPType2) ToPointer() *InputTCPType2 {
+	return &e
+}
+func (e *InputTCPType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcp":
+		*e = InputTCPType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputTCPType2: %v", v)
+	}
+}
+
+type InputTCPTCP2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType2 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool           `default:"false" json:"enableHeader"`
+	Preprocess   *PreprocessType `json:"preprocess,omitempty"`
+	Description  *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputTCPTCP2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTCP2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTCP2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP2) GetType() InputTCPType2 {
+	if i == nil {
+		return InputTCPType2("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP2) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP2) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP2) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP2) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP2) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP2) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP2) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP2) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP2) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP2) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputTCPTCP2) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputTCPTCP2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputTCPTCP2) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP2) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputTCPTCP2) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType1 string
+
+const (
+	InputTCPType1TCP InputTCPType1 = "tcp"
+)
+
+func (e InputTCPType1) ToPointer() *InputTCPType1 {
+	return &e
+}
+func (e *InputTCPType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tcp":
+		*e = InputTCPType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputTCPType1: %v", v)
+	}
+}
+
+type InputTCPTCP1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputTCPType1 `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+	EnableHeader *bool           `default:"false" json:"enableHeader"`
+	Preprocess   *PreprocessType `json:"preprocess,omitempty"`
+	Description  *string         `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputTCPTCP1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTCP1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTCP1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCPTCP1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputTCPTCP1) GetType() InputTCPType1 {
+	if i == nil {
+		return InputTCPType1("")
+	}
+	return i.Type
+}
+
+func (i *InputTCPTCP1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTCP1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPTCP1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputTCPTCP1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputTCPTCP1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputTCPTCP1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputTCPTCP1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputTCPTCP1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputTCPTCP1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputTCPTCP1) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputTCPTCP1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputTCPTCP1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputTCPTCP1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputTCPTCP1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputTCPTCP1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputTCPTCP1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputTCPTCP1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputTCPTCP1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputTCPTCP1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputTCPTCP1) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputTCPTCP1) GetPreprocess() *PreprocessType {
+	if i == nil {
+		return nil
+	}
+	return i.Preprocess
+}
+
+func (i *InputTCPTCP1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputTCPTCP1) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputTCPTCP1) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputTCPTCP1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputTCPType string
+
+const (
+	InputTCPTypeInputTCPTCP1 InputTCPType = "InputTcp_TCP_1"
+	InputTCPTypeInputTCPTCP2 InputTCPType = "InputTcp_TCP_2"
+	InputTCPTypeInputTCPTCP3 InputTCPType = "InputTcp_TCP_3"
+	InputTCPTypeInputTCPTCP4 InputTCPType = "InputTcp_TCP_4"
+	InputTCPTypeInputTCPTCP5 InputTCPType = "InputTcp_TCP_5"
+	InputTCPTypeInputTCPTCP6 InputTCPType = "InputTcp_TCP_6"
+)
+
+type InputTCP struct {
+	InputTCPTCP1 *InputTCPTCP1 `queryParam:"inline,name=InputTcp"`
+	InputTCPTCP2 *InputTCPTCP2 `queryParam:"inline,name=InputTcp"`
+	InputTCPTCP3 *InputTCPTCP3 `queryParam:"inline,name=InputTcp"`
+	InputTCPTCP4 *InputTCPTCP4 `queryParam:"inline,name=InputTcp"`
+	InputTCPTCP5 *InputTCPTCP5 `queryParam:"inline,name=InputTcp"`
+	InputTCPTCP6 *InputTCPTCP6 `queryParam:"inline,name=InputTcp"`
+
+	Type InputTCPType
+}
+
+func CreateInputTCPInputTCPTCP1(inputTCPTCP1 InputTCPTCP1) InputTCP {
+	typ := InputTCPTypeInputTCPTCP1
+
+	return InputTCP{
+		InputTCPTCP1: &inputTCPTCP1,
+		Type:         typ,
+	}
+}
+
+func CreateInputTCPInputTCPTCP2(inputTCPTCP2 InputTCPTCP2) InputTCP {
+	typ := InputTCPTypeInputTCPTCP2
+
+	return InputTCP{
+		InputTCPTCP2: &inputTCPTCP2,
+		Type:         typ,
+	}
+}
+
+func CreateInputTCPInputTCPTCP3(inputTCPTCP3 InputTCPTCP3) InputTCP {
+	typ := InputTCPTypeInputTCPTCP3
+
+	return InputTCP{
+		InputTCPTCP3: &inputTCPTCP3,
+		Type:         typ,
+	}
+}
+
+func CreateInputTCPInputTCPTCP4(inputTCPTCP4 InputTCPTCP4) InputTCP {
+	typ := InputTCPTypeInputTCPTCP4
+
+	return InputTCP{
+		InputTCPTCP4: &inputTCPTCP4,
+		Type:         typ,
+	}
+}
+
+func CreateInputTCPInputTCPTCP5(inputTCPTCP5 InputTCPTCP5) InputTCP {
+	typ := InputTCPTypeInputTCPTCP5
+
+	return InputTCP{
+		InputTCPTCP5: &inputTCPTCP5,
+		Type:         typ,
+	}
+}
+
+func CreateInputTCPInputTCPTCP6(inputTCPTCP6 InputTCPTCP6) InputTCP {
+	typ := InputTCPTypeInputTCPTCP6
+
+	return InputTCP{
+		InputTCPTCP6: &inputTCPTCP6,
+		Type:         typ,
+	}
+}
+
+func (u *InputTCP) UnmarshalJSON(data []byte) error {
+
+	var inputTCPTCP2 InputTCPTCP2 = InputTCPTCP2{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP2, "", true, nil); err == nil {
+		u.InputTCPTCP2 = &inputTCPTCP2
+		u.Type = InputTCPTypeInputTCPTCP2
+		return nil
+	}
+
+	var inputTCPTCP4 InputTCPTCP4 = InputTCPTCP4{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP4, "", true, nil); err == nil {
+		u.InputTCPTCP4 = &inputTCPTCP4
+		u.Type = InputTCPTypeInputTCPTCP4
+		return nil
+	}
+
+	var inputTCPTCP1 InputTCPTCP1 = InputTCPTCP1{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP1, "", true, nil); err == nil {
+		u.InputTCPTCP1 = &inputTCPTCP1
+		u.Type = InputTCPTypeInputTCPTCP1
+		return nil
+	}
+
+	var inputTCPTCP3 InputTCPTCP3 = InputTCPTCP3{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP3, "", true, nil); err == nil {
+		u.InputTCPTCP3 = &inputTCPTCP3
+		u.Type = InputTCPTypeInputTCPTCP3
+		return nil
+	}
+
+	var inputTCPTCP5 InputTCPTCP5 = InputTCPTCP5{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP5, "", true, nil); err == nil {
+		u.InputTCPTCP5 = &inputTCPTCP5
+		u.Type = InputTCPTypeInputTCPTCP5
+		return nil
+	}
+
+	var inputTCPTCP6 InputTCPTCP6 = InputTCPTCP6{}
+	if err := utils.UnmarshalJSON(data, &inputTCPTCP6, "", true, nil); err == nil {
+		u.InputTCPTCP6 = &inputTCPTCP6
+		u.Type = InputTCPTypeInputTCPTCP6
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputTCP", string(data))
+}
+
+func (u InputTCP) MarshalJSON() ([]byte, error) {
+	if u.InputTCPTCP1 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP1, "", true)
+	}
+
+	if u.InputTCPTCP2 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP2, "", true)
+	}
+
+	if u.InputTCPTCP3 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP3, "", true)
+	}
+
+	if u.InputTCPTCP4 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP4, "", true)
+	}
+
+	if u.InputTCPTCP5 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP5, "", true)
+	}
+
+	if u.InputTCPTCP6 != nil {
+		return utils.MarshalJSON(u.InputTCPTCP6, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputTCP: all fields are null")
 }

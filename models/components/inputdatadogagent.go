@@ -4,406 +4,89 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputDatadogAgentType string
+type InputDatadogAgentType4 string
 
 const (
-	InputDatadogAgentTypeDatadogAgent InputDatadogAgentType = "datadog_agent"
+	InputDatadogAgentType4DatadogAgent InputDatadogAgentType4 = "datadog_agent"
 )
 
-func (e InputDatadogAgentType) ToPointer() *InputDatadogAgentType {
+func (e InputDatadogAgentType4) ToPointer() *InputDatadogAgentType4 {
 	return &e
 }
-func (e *InputDatadogAgentType) UnmarshalJSON(data []byte) error {
+func (e *InputDatadogAgentType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "datadog_agent":
-		*e = InputDatadogAgentType(v)
+		*e = InputDatadogAgentType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputDatadogAgentType: %v", v)
+		return fmt.Errorf("invalid value for InputDatadogAgentType4: %v", v)
 	}
 }
 
-type InputDatadogAgentConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputDatadogAgentConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputDatadogAgentConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputDatadogAgentConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputDatadogAgentConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputDatadogAgentMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputDatadogAgentMode string
-
-const (
-	InputDatadogAgentModeSmart  InputDatadogAgentMode = "smart"
-	InputDatadogAgentModeAlways InputDatadogAgentMode = "always"
-)
-
-func (e InputDatadogAgentMode) ToPointer() *InputDatadogAgentMode {
-	return &e
-}
-
-// InputDatadogAgentCompression - Codec to use to compress the persisted data
-type InputDatadogAgentCompression string
-
-const (
-	InputDatadogAgentCompressionNone InputDatadogAgentCompression = "none"
-	InputDatadogAgentCompressionGzip InputDatadogAgentCompression = "gzip"
-)
-
-func (e InputDatadogAgentCompression) ToPointer() *InputDatadogAgentCompression {
-	return &e
-}
-
-type InputDatadogAgentPqControls struct {
-}
-
-func (i InputDatadogAgentPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputDatadogAgentPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputDatadogAgentPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputDatadogAgentMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputDatadogAgentCompression `default:"none" json:"compress"`
-	PqControls *InputDatadogAgentPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputDatadogAgentPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputDatadogAgentPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputDatadogAgentPq) GetMode() *InputDatadogAgentMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputDatadogAgentPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputDatadogAgentPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputDatadogAgentPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputDatadogAgentPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputDatadogAgentPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputDatadogAgentPq) GetCompress() *InputDatadogAgentCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputDatadogAgentPq) GetPqControls() *InputDatadogAgentPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputDatadogAgentMinimumTLSVersion string
-
-const (
-	InputDatadogAgentMinimumTLSVersionTlSv1  InputDatadogAgentMinimumTLSVersion = "TLSv1"
-	InputDatadogAgentMinimumTLSVersionTlSv11 InputDatadogAgentMinimumTLSVersion = "TLSv1.1"
-	InputDatadogAgentMinimumTLSVersionTlSv12 InputDatadogAgentMinimumTLSVersion = "TLSv1.2"
-	InputDatadogAgentMinimumTLSVersionTlSv13 InputDatadogAgentMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputDatadogAgentMinimumTLSVersion) ToPointer() *InputDatadogAgentMinimumTLSVersion {
-	return &e
-}
-
-type InputDatadogAgentMaximumTLSVersion string
-
-const (
-	InputDatadogAgentMaximumTLSVersionTlSv1  InputDatadogAgentMaximumTLSVersion = "TLSv1"
-	InputDatadogAgentMaximumTLSVersionTlSv11 InputDatadogAgentMaximumTLSVersion = "TLSv1.1"
-	InputDatadogAgentMaximumTLSVersionTlSv12 InputDatadogAgentMaximumTLSVersion = "TLSv1.2"
-	InputDatadogAgentMaximumTLSVersionTlSv13 InputDatadogAgentMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputDatadogAgentMaximumTLSVersion) ToPointer() *InputDatadogAgentMaximumTLSVersion {
-	return &e
-}
-
-type InputDatadogAgentTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                               `default:"false" json:"requestCert"`
-	RejectUnauthorized any                                 `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                                 `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputDatadogAgentMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputDatadogAgentMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputDatadogAgentTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetMinVersion() *InputDatadogAgentMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputDatadogAgentTLSSettingsServerSide) GetMaxVersion() *InputDatadogAgentMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputDatadogAgentMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputDatadogAgentMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputDatadogAgentMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputDatadogAgentMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputDatadogAgentMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputDatadogAgentProxyMode struct {
+type InputDatadogAgentProxyMode4 struct {
 	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
 	Enabled *bool `default:"false" json:"enabled"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
 	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
 }
 
-func (i InputDatadogAgentProxyMode) MarshalJSON() ([]byte, error) {
+func (i InputDatadogAgentProxyMode4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatadogAgentProxyMode) UnmarshalJSON(data []byte) error {
+func (i *InputDatadogAgentProxyMode4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatadogAgentProxyMode) GetEnabled() *bool {
+func (i *InputDatadogAgentProxyMode4) GetEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Enabled
 }
 
-func (i *InputDatadogAgentProxyMode) GetRejectUnauthorized() *bool {
+func (i *InputDatadogAgentProxyMode4) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-type InputDatadogAgent struct {
+type InputDatadogAgentDatadogAgent4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputDatadogAgentType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                `json:"id,omitempty"`
+	Type     InputDatadogAgentType4 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputDatadogAgentConnection `json:"connections,omitempty"`
-	Pq          *InputDatadogAgentPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                                 `json:"port"`
-	TLS  *InputDatadogAgentTLSSettingsServerSide `json:"tls,omitempty"`
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -429,214 +112,1266 @@ type InputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
 	// Fields to add to events from this input
-	Metadata    []InputDatadogAgentMetadatum `json:"metadata,omitempty"`
-	ProxyMode   *InputDatadogAgentProxyMode  `json:"proxyMode,omitempty"`
+	Metadata    []Metadata1Type              `json:"metadata,omitempty"`
+	ProxyMode   *InputDatadogAgentProxyMode4 `json:"proxyMode,omitempty"`
 	Description *string                      `json:"description,omitempty"`
 }
 
-func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
+func (i InputDatadogAgentDatadogAgent4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatadogAgent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+func (i *InputDatadogAgentDatadogAgent4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatadogAgent) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputDatadogAgent) GetType() InputDatadogAgentType {
-	if i == nil {
-		return InputDatadogAgentType("")
-	}
-	return i.Type
-}
-
-func (i *InputDatadogAgent) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputDatadogAgent) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputDatadogAgent) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputDatadogAgent) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputDatadogAgent) GetPqEnabled() *bool {
+func (i *InputDatadogAgentDatadogAgent4) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatadogAgent) GetStreamtags() []string {
+func (i *InputDatadogAgentDatadogAgent4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetType() InputDatadogAgentType4 {
+	if i == nil {
+		return InputDatadogAgentType4("")
+	}
+	return i.Type
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentDatadogAgent4) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgent) GetConnections() []InputDatadogAgentConnection {
+func (i *InputDatadogAgentDatadogAgent4) GetConnections() []ConnectionsType {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputDatadogAgent) GetPq() *InputDatadogAgentPq {
+func (i *InputDatadogAgentDatadogAgent4) GetPq() PqType {
 	if i == nil {
-		return nil
+		return PqType{}
 	}
 	return i.Pq
 }
 
-func (i *InputDatadogAgent) GetHost() *string {
+func (i *InputDatadogAgentDatadogAgent4) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputDatadogAgent) GetPort() float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputDatadogAgent) GetTLS() *InputDatadogAgentTLSSettingsServerSide {
+func (i *InputDatadogAgentDatadogAgent4) GetTLS() *Tls2Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputDatadogAgent) GetMaxActiveReq() *float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputDatadogAgent) GetMaxRequestsPerSocket() *int64 {
+func (i *InputDatadogAgentDatadogAgent4) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputDatadogAgent) GetEnableProxyHeader() *bool {
+func (i *InputDatadogAgentDatadogAgent4) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputDatadogAgent) GetCaptureHeaders() *bool {
+func (i *InputDatadogAgentDatadogAgent4) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputDatadogAgent) GetActivityLogSampleRate() *float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputDatadogAgent) GetRequestTimeout() *float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputDatadogAgent) GetSocketTimeout() *float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputDatadogAgent) GetKeepAliveTimeout() *float64 {
+func (i *InputDatadogAgentDatadogAgent4) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputDatadogAgent) GetEnableHealthCheck() *bool {
+func (i *InputDatadogAgentDatadogAgent4) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputDatadogAgent) GetIPAllowlistRegex() *string {
+func (i *InputDatadogAgentDatadogAgent4) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputDatadogAgent) GetIPDenylistRegex() *string {
+func (i *InputDatadogAgentDatadogAgent4) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputDatadogAgent) GetExtractMetrics() *bool {
+func (i *InputDatadogAgentDatadogAgent4) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgent) GetMetadata() []InputDatadogAgentMetadatum {
+func (i *InputDatadogAgentDatadogAgent4) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatadogAgent) GetProxyMode() *InputDatadogAgentProxyMode {
+func (i *InputDatadogAgentDatadogAgent4) GetProxyMode() *InputDatadogAgentProxyMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputDatadogAgent) GetDescription() *string {
+func (i *InputDatadogAgentDatadogAgent4) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputDatadogAgentType3 string
+
+const (
+	InputDatadogAgentType3DatadogAgent InputDatadogAgentType3 = "datadog_agent"
+)
+
+func (e InputDatadogAgentType3) ToPointer() *InputDatadogAgentType3 {
+	return &e
+}
+func (e *InputDatadogAgentType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog_agent":
+		*e = InputDatadogAgentType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputDatadogAgentType3: %v", v)
+	}
+}
+
+type InputDatadogAgentProxyMode3 struct {
+	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+	Enabled *bool `default:"false" json:"enabled"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+}
+
+func (i InputDatadogAgentProxyMode3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentProxyMode3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentProxyMode3) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputDatadogAgentProxyMode3) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+type InputDatadogAgentDatadogAgent3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputDatadogAgentType3 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type              `json:"metadata,omitempty"`
+	ProxyMode   *InputDatadogAgentProxyMode3 `json:"proxyMode,omitempty"`
+	Description *string                      `json:"description,omitempty"`
+}
+
+func (i InputDatadogAgentDatadogAgent3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentDatadogAgent3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetType() InputDatadogAgentType3 {
+	if i == nil {
+		return InputDatadogAgentType3("")
+	}
+	return i.Type
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetProxyMode() *InputDatadogAgentProxyMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputDatadogAgentDatadogAgent3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputDatadogAgentType2 string
+
+const (
+	InputDatadogAgentType2DatadogAgent InputDatadogAgentType2 = "datadog_agent"
+)
+
+func (e InputDatadogAgentType2) ToPointer() *InputDatadogAgentType2 {
+	return &e
+}
+func (e *InputDatadogAgentType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog_agent":
+		*e = InputDatadogAgentType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputDatadogAgentType2: %v", v)
+	}
+}
+
+type InputDatadogAgentProxyMode2 struct {
+	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+	Enabled *bool `default:"false" json:"enabled"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+}
+
+func (i InputDatadogAgentProxyMode2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentProxyMode2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentProxyMode2) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputDatadogAgentProxyMode2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+type InputDatadogAgentDatadogAgent2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputDatadogAgentType2 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type              `json:"metadata,omitempty"`
+	ProxyMode   *InputDatadogAgentProxyMode2 `json:"proxyMode,omitempty"`
+	Description *string                      `json:"description,omitempty"`
+}
+
+func (i InputDatadogAgentDatadogAgent2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentDatadogAgent2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetType() InputDatadogAgentType2 {
+	if i == nil {
+		return InputDatadogAgentType2("")
+	}
+	return i.Type
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetProxyMode() *InputDatadogAgentProxyMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputDatadogAgentDatadogAgent2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputDatadogAgentType1 string
+
+const (
+	InputDatadogAgentType1DatadogAgent InputDatadogAgentType1 = "datadog_agent"
+)
+
+func (e InputDatadogAgentType1) ToPointer() *InputDatadogAgentType1 {
+	return &e
+}
+func (e *InputDatadogAgentType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "datadog_agent":
+		*e = InputDatadogAgentType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputDatadogAgentType1: %v", v)
+	}
+}
+
+type InputDatadogAgentProxyMode1 struct {
+	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+	Enabled *bool `default:"false" json:"enabled"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+}
+
+func (i InputDatadogAgentProxyMode1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentProxyMode1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentProxyMode1) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputDatadogAgentProxyMode1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+type InputDatadogAgentDatadogAgent1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputDatadogAgentType1 `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64   `json:"port"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type              `json:"metadata,omitempty"`
+	ProxyMode   *InputDatadogAgentProxyMode1 `json:"proxyMode,omitempty"`
+	Description *string                      `json:"description,omitempty"`
+}
+
+func (i InputDatadogAgentDatadogAgent1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentDatadogAgent1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetType() InputDatadogAgentType1 {
+	if i == nil {
+		return InputDatadogAgentType1("")
+	}
+	return i.Type
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetProxyMode() *InputDatadogAgentProxyMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputDatadogAgentDatadogAgent1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputDatadogAgentType string
+
+const (
+	InputDatadogAgentTypeInputDatadogAgentDatadogAgent1 InputDatadogAgentType = "InputDatadogAgent_DatadogAgent_1"
+	InputDatadogAgentTypeInputDatadogAgentDatadogAgent2 InputDatadogAgentType = "InputDatadogAgent_DatadogAgent_2"
+	InputDatadogAgentTypeInputDatadogAgentDatadogAgent3 InputDatadogAgentType = "InputDatadogAgent_DatadogAgent_3"
+	InputDatadogAgentTypeInputDatadogAgentDatadogAgent4 InputDatadogAgentType = "InputDatadogAgent_DatadogAgent_4"
+)
+
+type InputDatadogAgent struct {
+	InputDatadogAgentDatadogAgent1 *InputDatadogAgentDatadogAgent1 `queryParam:"inline,name=InputDatadogAgent"`
+	InputDatadogAgentDatadogAgent2 *InputDatadogAgentDatadogAgent2 `queryParam:"inline,name=InputDatadogAgent"`
+	InputDatadogAgentDatadogAgent3 *InputDatadogAgentDatadogAgent3 `queryParam:"inline,name=InputDatadogAgent"`
+	InputDatadogAgentDatadogAgent4 *InputDatadogAgentDatadogAgent4 `queryParam:"inline,name=InputDatadogAgent"`
+
+	Type InputDatadogAgentType
+}
+
+func CreateInputDatadogAgentInputDatadogAgentDatadogAgent1(inputDatadogAgentDatadogAgent1 InputDatadogAgentDatadogAgent1) InputDatadogAgent {
+	typ := InputDatadogAgentTypeInputDatadogAgentDatadogAgent1
+
+	return InputDatadogAgent{
+		InputDatadogAgentDatadogAgent1: &inputDatadogAgentDatadogAgent1,
+		Type:                           typ,
+	}
+}
+
+func CreateInputDatadogAgentInputDatadogAgentDatadogAgent2(inputDatadogAgentDatadogAgent2 InputDatadogAgentDatadogAgent2) InputDatadogAgent {
+	typ := InputDatadogAgentTypeInputDatadogAgentDatadogAgent2
+
+	return InputDatadogAgent{
+		InputDatadogAgentDatadogAgent2: &inputDatadogAgentDatadogAgent2,
+		Type:                           typ,
+	}
+}
+
+func CreateInputDatadogAgentInputDatadogAgentDatadogAgent3(inputDatadogAgentDatadogAgent3 InputDatadogAgentDatadogAgent3) InputDatadogAgent {
+	typ := InputDatadogAgentTypeInputDatadogAgentDatadogAgent3
+
+	return InputDatadogAgent{
+		InputDatadogAgentDatadogAgent3: &inputDatadogAgentDatadogAgent3,
+		Type:                           typ,
+	}
+}
+
+func CreateInputDatadogAgentInputDatadogAgentDatadogAgent4(inputDatadogAgentDatadogAgent4 InputDatadogAgentDatadogAgent4) InputDatadogAgent {
+	typ := InputDatadogAgentTypeInputDatadogAgentDatadogAgent4
+
+	return InputDatadogAgent{
+		InputDatadogAgentDatadogAgent4: &inputDatadogAgentDatadogAgent4,
+		Type:                           typ,
+	}
+}
+
+func (u *InputDatadogAgent) UnmarshalJSON(data []byte) error {
+
+	var inputDatadogAgentDatadogAgent2 InputDatadogAgentDatadogAgent2 = InputDatadogAgentDatadogAgent2{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentDatadogAgent2, "", true, nil); err == nil {
+		u.InputDatadogAgentDatadogAgent2 = &inputDatadogAgentDatadogAgent2
+		u.Type = InputDatadogAgentTypeInputDatadogAgentDatadogAgent2
+		return nil
+	}
+
+	var inputDatadogAgentDatadogAgent4 InputDatadogAgentDatadogAgent4 = InputDatadogAgentDatadogAgent4{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentDatadogAgent4, "", true, nil); err == nil {
+		u.InputDatadogAgentDatadogAgent4 = &inputDatadogAgentDatadogAgent4
+		u.Type = InputDatadogAgentTypeInputDatadogAgentDatadogAgent4
+		return nil
+	}
+
+	var inputDatadogAgentDatadogAgent1 InputDatadogAgentDatadogAgent1 = InputDatadogAgentDatadogAgent1{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentDatadogAgent1, "", true, nil); err == nil {
+		u.InputDatadogAgentDatadogAgent1 = &inputDatadogAgentDatadogAgent1
+		u.Type = InputDatadogAgentTypeInputDatadogAgentDatadogAgent1
+		return nil
+	}
+
+	var inputDatadogAgentDatadogAgent3 InputDatadogAgentDatadogAgent3 = InputDatadogAgentDatadogAgent3{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentDatadogAgent3, "", true, nil); err == nil {
+		u.InputDatadogAgentDatadogAgent3 = &inputDatadogAgentDatadogAgent3
+		u.Type = InputDatadogAgentTypeInputDatadogAgentDatadogAgent3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputDatadogAgent", string(data))
+}
+
+func (u InputDatadogAgent) MarshalJSON() ([]byte, error) {
+	if u.InputDatadogAgentDatadogAgent1 != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentDatadogAgent1, "", true)
+	}
+
+	if u.InputDatadogAgentDatadogAgent2 != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentDatadogAgent2, "", true)
+	}
+
+	if u.InputDatadogAgentDatadogAgent3 != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentDatadogAgent3, "", true)
+	}
+
+	if u.InputDatadogAgentDatadogAgent4 != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentDatadogAgent4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputDatadogAgent: all fields are null")
 }

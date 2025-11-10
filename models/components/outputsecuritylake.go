@@ -3,188 +3,17 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSecurityLakeType string
-
-const (
-	OutputSecurityLakeTypeSecurityLake OutputSecurityLakeType = "security_lake"
-)
-
-func (e OutputSecurityLakeType) ToPointer() *OutputSecurityLakeType {
-	return &e
-}
-func (e *OutputSecurityLakeType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "security_lake":
-		*e = OutputSecurityLakeType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeType: %v", v)
-	}
-}
-
-// OutputSecurityLakeAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputSecurityLakeAuthenticationMethod string
-
-const (
-	OutputSecurityLakeAuthenticationMethodAuto   OutputSecurityLakeAuthenticationMethod = "auto"
-	OutputSecurityLakeAuthenticationMethodManual OutputSecurityLakeAuthenticationMethod = "manual"
-	OutputSecurityLakeAuthenticationMethodSecret OutputSecurityLakeAuthenticationMethod = "secret"
-)
-
-func (e OutputSecurityLakeAuthenticationMethod) ToPointer() *OutputSecurityLakeAuthenticationMethod {
-	return &e
-}
-
-// OutputSecurityLakeSignatureVersion - Signature version to use for signing Amazon Security Lake requests
-type OutputSecurityLakeSignatureVersion string
-
-const (
-	OutputSecurityLakeSignatureVersionV2 OutputSecurityLakeSignatureVersion = "v2"
-	OutputSecurityLakeSignatureVersionV4 OutputSecurityLakeSignatureVersion = "v4"
-)
-
-func (e OutputSecurityLakeSignatureVersion) ToPointer() *OutputSecurityLakeSignatureVersion {
-	return &e
-}
-
-// OutputSecurityLakeObjectACL - Object ACL to assign to uploaded objects
-type OutputSecurityLakeObjectACL string
-
-const (
-	OutputSecurityLakeObjectACLPrivate                OutputSecurityLakeObjectACL = "private"
-	OutputSecurityLakeObjectACLPublicRead             OutputSecurityLakeObjectACL = "public-read"
-	OutputSecurityLakeObjectACLPublicReadWrite        OutputSecurityLakeObjectACL = "public-read-write"
-	OutputSecurityLakeObjectACLAuthenticatedRead      OutputSecurityLakeObjectACL = "authenticated-read"
-	OutputSecurityLakeObjectACLAwsExecRead            OutputSecurityLakeObjectACL = "aws-exec-read"
-	OutputSecurityLakeObjectACLBucketOwnerRead        OutputSecurityLakeObjectACL = "bucket-owner-read"
-	OutputSecurityLakeObjectACLBucketOwnerFullControl OutputSecurityLakeObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputSecurityLakeObjectACL) ToPointer() *OutputSecurityLakeObjectACL {
-	return &e
-}
-
-// OutputSecurityLakeStorageClass - Storage class to select for uploaded objects
-type OutputSecurityLakeStorageClass string
-
-const (
-	OutputSecurityLakeStorageClassStandard           OutputSecurityLakeStorageClass = "STANDARD"
-	OutputSecurityLakeStorageClassReducedRedundancy  OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputSecurityLakeStorageClassStandardIa         OutputSecurityLakeStorageClass = "STANDARD_IA"
-	OutputSecurityLakeStorageClassOnezoneIa          OutputSecurityLakeStorageClass = "ONEZONE_IA"
-	OutputSecurityLakeStorageClassIntelligentTiering OutputSecurityLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputSecurityLakeStorageClassGlacier            OutputSecurityLakeStorageClass = "GLACIER"
-	OutputSecurityLakeStorageClassGlacierIr          OutputSecurityLakeStorageClass = "GLACIER_IR"
-	OutputSecurityLakeStorageClassDeepArchive        OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageClass {
-	return &e
-}
-
-type OutputSecurityLakeServerSideEncryptionForUploadedObjects string
-
-const (
-	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 OutputSecurityLakeServerSideEncryptionForUploadedObjects = "AES256"
-	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms OutputSecurityLakeServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputSecurityLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// OutputSecurityLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSecurityLakeBackpressureBehavior string
-
-const (
-	OutputSecurityLakeBackpressureBehaviorBlock OutputSecurityLakeBackpressureBehavior = "block"
-	OutputSecurityLakeBackpressureBehaviorDrop  OutputSecurityLakeBackpressureBehavior = "drop"
-)
-
-func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeBackpressureBehavior {
-	return &e
-}
-
-// OutputSecurityLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputSecurityLakeDiskSpaceProtection string
-
-const (
-	OutputSecurityLakeDiskSpaceProtectionBlock OutputSecurityLakeDiskSpaceProtection = "block"
-	OutputSecurityLakeDiskSpaceProtectionDrop  OutputSecurityLakeDiskSpaceProtection = "drop"
-)
-
-func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDiskSpaceProtection {
-	return &e
-}
-
-// OutputSecurityLakeParquetVersion - Determines which data types are supported and how they are represented
-type OutputSecurityLakeParquetVersion string
-
-const (
-	OutputSecurityLakeParquetVersionParquet10 OutputSecurityLakeParquetVersion = "PARQUET_1_0"
-	OutputSecurityLakeParquetVersionParquet24 OutputSecurityLakeParquetVersion = "PARQUET_2_4"
-	OutputSecurityLakeParquetVersionParquet26 OutputSecurityLakeParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputSecurityLakeParquetVersion) ToPointer() *OutputSecurityLakeParquetVersion {
-	return &e
-}
-
-// OutputSecurityLakeDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputSecurityLakeDataPageVersion string
-
-const (
-	OutputSecurityLakeDataPageVersionDataPageV1 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V1"
-	OutputSecurityLakeDataPageVersionDataPageV2 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputSecurityLakeDataPageVersion) ToPointer() *OutputSecurityLakeDataPageVersion {
-	return &e
-}
-
-type OutputSecurityLakeKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSecurityLakeKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputSecurityLake struct {
+type OutputSecurityLakeSecurityLake11 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// Unique ID for this output
 	ID   *string                `json:"id,omitempty"`
-	Type OutputSecurityLakeType `json:"type"`
+	Type TypeSecurityLakeOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -199,11 +28,11 @@ type OutputSecurityLake struct {
 	Region       string  `json:"region"`
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputSecurityLakeAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing Amazon Security Lake requests
-	SignatureVersion *OutputSecurityLakeSignatureVersion `default:"v4" json:"signatureVersion"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -221,10 +50,10 @@ type OutputSecurityLake struct {
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputSecurityLakeObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputSecurityLakeStorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputSecurityLakeServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
@@ -239,12 +68,10 @@ type OutputSecurityLake struct {
 	HeaderLine *string `default:"" json:"headerLine"`
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSecurityLakeBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
-	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputSecurityLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -262,9 +89,9 @@ type OutputSecurityLake struct {
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputSecurityLakeParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputSecurityLakeDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -272,7 +99,7 @@ type OutputSecurityLake struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputSecurityLakeKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -294,412 +121,5903 @@ type OutputSecurityLake struct {
 	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
 }
 
-func (o OutputSecurityLake) MarshalJSON() ([]byte, error) {
+func (o OutputSecurityLakeSecurityLake11) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputSecurityLake) UnmarshalJSON(data []byte) error {
+func (o *OutputSecurityLakeSecurityLake11) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputSecurityLake) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputSecurityLake) GetType() OutputSecurityLakeType {
-	if o == nil {
-		return OutputSecurityLakeType("")
-	}
-	return o.Type
-}
-
-func (o *OutputSecurityLake) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputSecurityLake) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputSecurityLake) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputSecurityLake) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputSecurityLake) GetBucket() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bucket
-}
-
-func (o *OutputSecurityLake) GetRegion() string {
-	if o == nil {
-		return ""
-	}
-	return o.Region
-}
-
-func (o *OutputSecurityLake) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
-}
-
-func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *OutputSecurityLakeAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputSecurityLake) GetEndpoint() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Endpoint
-}
-
-func (o *OutputSecurityLake) GetSignatureVersion() *OutputSecurityLakeSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
-func (o *OutputSecurityLake) GetReuseConnections() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ReuseConnections
-}
-
-func (o *OutputSecurityLake) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSecurityLake) GetEnableAssumeRole() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableAssumeRole
-}
-
-func (o *OutputSecurityLake) GetAssumeRoleArn() string {
-	if o == nil {
-		return ""
-	}
-	return o.AssumeRoleArn
-}
-
-func (o *OutputSecurityLake) GetAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AssumeRoleExternalID
-}
-
-func (o *OutputSecurityLake) GetDurationSeconds() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DurationSeconds
-}
-
-func (o *OutputSecurityLake) GetStagePath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.StagePath
-}
-
-func (o *OutputSecurityLake) GetAddIDToStagePath() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AddIDToStagePath
-}
-
-func (o *OutputSecurityLake) GetObjectACL() *OutputSecurityLakeObjectACL {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
-}
-
-func (o *OutputSecurityLake) GetStorageClass() *OutputSecurityLakeStorageClass {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputSecurityLake) GetServerSideEncryption() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputSecurityLake) GetKmsKeyID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KmsKeyID
-}
-
-func (o *OutputSecurityLake) GetRemoveEmptyDirs() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RemoveEmptyDirs
-}
-
-func (o *OutputSecurityLake) GetBaseFileName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BaseFileName
-}
-
-func (o *OutputSecurityLake) GetMaxFileSizeMB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxFileSizeMB
-}
-
-func (o *OutputSecurityLake) GetMaxOpenFiles() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxOpenFiles
-}
-
-func (o *OutputSecurityLake) GetHeaderLine() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HeaderLine
-}
-
-func (o *OutputSecurityLake) GetWriteHighWaterMark() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.WriteHighWaterMark
-}
-
-func (o *OutputSecurityLake) GetOnBackpressure() *OutputSecurityLakeBackpressureBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
-func (o *OutputSecurityLake) GetDeadletterEnabled() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetDeadletterEnabled() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterEnabled
 }
 
-func (o *OutputSecurityLake) GetOnDiskFullBackpressure() *OutputSecurityLakeDiskSpaceProtection {
+func (o *OutputSecurityLakeSecurityLake11) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake11) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnDiskFullBackpressure
 }
 
-func (o *OutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileOpenTimeSec
 }
 
-func (o *OutputSecurityLake) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetMaxFileIdleTimeSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxFileIdleTimeSec
 }
 
-func (o *OutputSecurityLake) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetMaxConcurrentFileParts() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxConcurrentFileParts
 }
 
-func (o *OutputSecurityLake) GetVerifyPermissions() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
 }
 
-func (o *OutputSecurityLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetMaxClosingFilesToBackpressure() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxClosingFilesToBackpressure
 }
 
-func (o *OutputSecurityLake) GetAccountID() string {
+func (o *OutputSecurityLakeSecurityLake11) GetAccountID() string {
 	if o == nil {
 		return ""
 	}
 	return o.AccountID
 }
 
-func (o *OutputSecurityLake) GetCustomSource() string {
+func (o *OutputSecurityLakeSecurityLake11) GetCustomSource() string {
 	if o == nil {
 		return ""
 	}
 	return o.CustomSource
 }
 
-func (o *OutputSecurityLake) GetAutomaticSchema() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetAutomaticSchema() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AutomaticSchema
 }
 
-func (o *OutputSecurityLake) GetParquetVersion() *OutputSecurityLakeParquetVersion {
+func (o *OutputSecurityLakeSecurityLake11) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputSecurityLake) GetParquetDataPageVersion() *OutputSecurityLakeDataPageVersion {
+func (o *OutputSecurityLakeSecurityLake11) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetDataPageVersion
 }
 
-func (o *OutputSecurityLake) GetParquetRowGroupLength() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetParquetRowGroupLength() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetRowGroupLength
 }
 
-func (o *OutputSecurityLake) GetParquetPageSize() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetParquetPageSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetPageSize
 }
 
-func (o *OutputSecurityLake) GetShouldLogInvalidRows() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetShouldLogInvalidRows() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputSecurityLake) GetKeyValueMetadata() []OutputSecurityLakeKeyValueMetadatum {
+func (o *OutputSecurityLakeSecurityLake11) GetKeyValueMetadata() []TagsType {
 	if o == nil {
 		return nil
 	}
 	return o.KeyValueMetadata
 }
 
-func (o *OutputSecurityLake) GetEnableStatistics() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetEnableStatistics() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableStatistics
 }
 
-func (o *OutputSecurityLake) GetEnableWritePageIndex() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetEnableWritePageIndex() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnableWritePageIndex
 }
 
-func (o *OutputSecurityLake) GetEnablePageChecksum() *bool {
+func (o *OutputSecurityLakeSecurityLake11) GetEnablePageChecksum() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.EnablePageChecksum
 }
 
-func (o *OutputSecurityLake) GetDescription() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputSecurityLake) GetAwsAPIKey() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAPIKey
 }
 
-func (o *OutputSecurityLake) GetAwsSecret() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetAwsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AwsSecret
 }
 
-func (o *OutputSecurityLake) GetEmptyDirCleanupSec() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetEmptyDirCleanupSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
 }
 
-func (o *OutputSecurityLake) GetParquetSchema() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetParquetSchema() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetSchema
 }
 
-func (o *OutputSecurityLake) GetDeadletterPath() *string {
+func (o *OutputSecurityLakeSecurityLake11) GetDeadletterPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DeadletterPath
 }
 
-func (o *OutputSecurityLake) GetMaxRetryNum() *float64 {
+func (o *OutputSecurityLakeSecurityLake11) GetMaxRetryNum() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake10 struct {
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake10) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake9 struct {
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake9) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake8 struct {
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema string `json:"parquetSchema"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource", "parquetSchema"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetParquetSchema() string {
+	if o == nil {
+		return ""
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake8) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake7 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake7) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake6 struct {
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake6) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake5 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID string `json:"kmsKeyId"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type", "bucket", "region", "assumeRoleArn", "kmsKeyId", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetKmsKeyID() string {
+	if o == nil {
+		return ""
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake5) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake4 struct {
+	ServerSideEncryption ServerSideEncryptionOptions `json:"serverSideEncryption"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptions `json:"storageClass,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"serverSideEncryption", "type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetServerSideEncryption() ServerSideEncryptionOptions {
+	if o == nil {
+		return ServerSideEncryptionOptions("")
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake4) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake3 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret string `json:"awsSecret"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource", "awsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetAwsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake3) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake2 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey string `json:"awsApiKey"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource", "awsApiKey"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAwsAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake2) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeSecurityLake1 struct {
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AwsAuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type TypeSecurityLakeOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the Amazon Security Lake is located.
+	Region       string  `json:"region"`
+	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
+	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing MSK cluster requests
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access S3
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn string `json:"assumeRoleArn"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
+	// Storage class to select for uploaded objects
+	StorageClass         *StorageClassOptions         `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID *string `json:"kmsKeyId,omitempty"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `default:"" json:"headerLine"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *PqOnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnDiskFullBackpressure *PqOnBackpressureOptions `default:"block" json:"onDiskFullBackpressure"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `default:"4" json:"maxConcurrentFileParts"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `default:"100" json:"maxClosingFilesToBackpressure"`
+	// ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+	AccountID string `json:"accountId"`
+	// Name of the custom source configured in Amazon Security Lake
+	CustomSource string `json:"customSource"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *ParquetDataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []TagsType `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool   `default:"false" json:"enablePageChecksum"`
+	Description        *string `json:"description,omitempty"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+}
+
+func (o OutputSecurityLakeSecurityLake1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSecurityLakeSecurityLake1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "assumeRoleArn", "accountId", "customSource"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAwsAuthenticationMethod() *AwsAuthenticationMethodOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetType() TypeSecurityLakeOption {
+	if o == nil {
+		return TypeSecurityLakeOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetRegion() string {
+	if o == nil {
+		return ""
+	}
+	return o.Region
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Endpoint
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetSignatureVersion() *SignatureVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.SignatureVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAssumeRoleArn() string {
+	if o == nil {
+		return ""
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetStagePath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetObjectACL() *ObjectACLOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ObjectACL
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetStorageClass() *StorageClassOptions {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetServerSideEncryption() *ServerSideEncryptionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.BaseFileName
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxFileSizeMB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileSizeMB
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxOpenFiles() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOpenFiles
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetHeaderLine() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HeaderLine
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetWriteHighWaterMark() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteHighWaterMark
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetOnDiskFullBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAccountID() string {
+	if o == nil {
+		return ""
+	}
+	return o.AccountID
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetCustomSource() string {
+	if o == nil {
+		return ""
+	}
+	return o.CustomSource
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetParquetDataPageVersion() *ParquetDataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetKeyValueMetadata() []TagsType {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAwsAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAPIKey
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputSecurityLakeSecurityLake1) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+type OutputSecurityLakeType string
+
+const (
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake1  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_1"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake2  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_2"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake3  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_3"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake4  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_4"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake5  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_5"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake6  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_6"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake7  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_7"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake8  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_8"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake9  OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_9"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake10 OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_10"
+	OutputSecurityLakeTypeOutputSecurityLakeSecurityLake11 OutputSecurityLakeType = "OutputSecurityLake_SecurityLake_11"
+)
+
+type OutputSecurityLake struct {
+	OutputSecurityLakeSecurityLake1  *OutputSecurityLakeSecurityLake1  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake2  *OutputSecurityLakeSecurityLake2  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake3  *OutputSecurityLakeSecurityLake3  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake4  *OutputSecurityLakeSecurityLake4  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake5  *OutputSecurityLakeSecurityLake5  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake6  *OutputSecurityLakeSecurityLake6  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake7  *OutputSecurityLakeSecurityLake7  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake8  *OutputSecurityLakeSecurityLake8  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake9  *OutputSecurityLakeSecurityLake9  `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake10 *OutputSecurityLakeSecurityLake10 `queryParam:"inline,name=OutputSecurityLake"`
+	OutputSecurityLakeSecurityLake11 *OutputSecurityLakeSecurityLake11 `queryParam:"inline,name=OutputSecurityLake"`
+
+	Type OutputSecurityLakeType
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake1(outputSecurityLakeSecurityLake1 OutputSecurityLakeSecurityLake1) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake1
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake1: &outputSecurityLakeSecurityLake1,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake2(outputSecurityLakeSecurityLake2 OutputSecurityLakeSecurityLake2) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake2
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake2: &outputSecurityLakeSecurityLake2,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake3(outputSecurityLakeSecurityLake3 OutputSecurityLakeSecurityLake3) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake3
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake3: &outputSecurityLakeSecurityLake3,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake4(outputSecurityLakeSecurityLake4 OutputSecurityLakeSecurityLake4) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake4
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake4: &outputSecurityLakeSecurityLake4,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake5(outputSecurityLakeSecurityLake5 OutputSecurityLakeSecurityLake5) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake5
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake5: &outputSecurityLakeSecurityLake5,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake6(outputSecurityLakeSecurityLake6 OutputSecurityLakeSecurityLake6) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake6
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake6: &outputSecurityLakeSecurityLake6,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake7(outputSecurityLakeSecurityLake7 OutputSecurityLakeSecurityLake7) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake7
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake7: &outputSecurityLakeSecurityLake7,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake8(outputSecurityLakeSecurityLake8 OutputSecurityLakeSecurityLake8) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake8
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake8: &outputSecurityLakeSecurityLake8,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake9(outputSecurityLakeSecurityLake9 OutputSecurityLakeSecurityLake9) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake9
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake9: &outputSecurityLakeSecurityLake9,
+		Type:                            typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake10(outputSecurityLakeSecurityLake10 OutputSecurityLakeSecurityLake10) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake10
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake10: &outputSecurityLakeSecurityLake10,
+		Type:                             typ,
+	}
+}
+
+func CreateOutputSecurityLakeOutputSecurityLakeSecurityLake11(outputSecurityLakeSecurityLake11 OutputSecurityLakeSecurityLake11) OutputSecurityLake {
+	typ := OutputSecurityLakeTypeOutputSecurityLakeSecurityLake11
+
+	return OutputSecurityLake{
+		OutputSecurityLakeSecurityLake11: &outputSecurityLakeSecurityLake11,
+		Type:                             typ,
+	}
+}
+
+func (u *OutputSecurityLake) UnmarshalJSON(data []byte) error {
+
+	var outputSecurityLakeSecurityLake5 OutputSecurityLakeSecurityLake5 = OutputSecurityLakeSecurityLake5{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake5, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake5 = &outputSecurityLakeSecurityLake5
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake5
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake2 OutputSecurityLakeSecurityLake2 = OutputSecurityLakeSecurityLake2{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake2, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake2 = &outputSecurityLakeSecurityLake2
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake2
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake3 OutputSecurityLakeSecurityLake3 = OutputSecurityLakeSecurityLake3{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake3, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake3 = &outputSecurityLakeSecurityLake3
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake3
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake4 OutputSecurityLakeSecurityLake4 = OutputSecurityLakeSecurityLake4{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake4, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake4 = &outputSecurityLakeSecurityLake4
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake4
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake8 OutputSecurityLakeSecurityLake8 = OutputSecurityLakeSecurityLake8{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake8, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake8 = &outputSecurityLakeSecurityLake8
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake8
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake1 OutputSecurityLakeSecurityLake1 = OutputSecurityLakeSecurityLake1{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake1, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake1 = &outputSecurityLakeSecurityLake1
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake1
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake6 OutputSecurityLakeSecurityLake6 = OutputSecurityLakeSecurityLake6{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake6, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake6 = &outputSecurityLakeSecurityLake6
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake6
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake7 OutputSecurityLakeSecurityLake7 = OutputSecurityLakeSecurityLake7{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake7, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake7 = &outputSecurityLakeSecurityLake7
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake7
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake9 OutputSecurityLakeSecurityLake9 = OutputSecurityLakeSecurityLake9{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake9, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake9 = &outputSecurityLakeSecurityLake9
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake9
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake10 OutputSecurityLakeSecurityLake10 = OutputSecurityLakeSecurityLake10{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake10, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake10 = &outputSecurityLakeSecurityLake10
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake10
+		return nil
+	}
+
+	var outputSecurityLakeSecurityLake11 OutputSecurityLakeSecurityLake11 = OutputSecurityLakeSecurityLake11{}
+	if err := utils.UnmarshalJSON(data, &outputSecurityLakeSecurityLake11, "", true, nil); err == nil {
+		u.OutputSecurityLakeSecurityLake11 = &outputSecurityLakeSecurityLake11
+		u.Type = OutputSecurityLakeTypeOutputSecurityLakeSecurityLake11
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputSecurityLake", string(data))
+}
+
+func (u OutputSecurityLake) MarshalJSON() ([]byte, error) {
+	if u.OutputSecurityLakeSecurityLake1 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake1, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake2 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake2, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake3 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake3, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake4 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake4, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake5 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake5, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake6 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake6, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake7 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake7, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake8 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake8, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake9 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake9, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake10 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake10, "", true)
+	}
+
+	if u.OutputSecurityLakeSecurityLake11 != nil {
+		return utils.MarshalJSON(u.OutputSecurityLakeSecurityLake11, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputSecurityLake: all fields are null")
 }

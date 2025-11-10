@@ -4,263 +4,123 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWindowsMetricsType string
+type InputWindowsMetricsType4 string
 
 const (
-	InputWindowsMetricsTypeWindowsMetrics InputWindowsMetricsType = "windows_metrics"
+	InputWindowsMetricsType4WindowsMetrics InputWindowsMetricsType4 = "windows_metrics"
 )
 
-func (e InputWindowsMetricsType) ToPointer() *InputWindowsMetricsType {
+func (e InputWindowsMetricsType4) ToPointer() *InputWindowsMetricsType4 {
 	return &e
 }
-func (e *InputWindowsMetricsType) UnmarshalJSON(data []byte) error {
+func (e *InputWindowsMetricsType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "windows_metrics":
-		*e = InputWindowsMetricsType(v)
+		*e = InputWindowsMetricsType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputWindowsMetricsType: %v", v)
+		return fmt.Errorf("invalid value for InputWindowsMetricsType4: %v", v)
 	}
 }
 
-type InputWindowsMetricsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWindowsMetricsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWindowsMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWindowsMetricsPqMode string
+// InputWindowsMetricsMode4 - Select level of detail for host metrics
+type InputWindowsMetricsMode4 string
 
 const (
-	InputWindowsMetricsPqModeSmart  InputWindowsMetricsPqMode = "smart"
-	InputWindowsMetricsPqModeAlways InputWindowsMetricsPqMode = "always"
+	// InputWindowsMetricsMode4Basic Basic
+	InputWindowsMetricsMode4Basic InputWindowsMetricsMode4 = "basic"
+	// InputWindowsMetricsMode4All All
+	InputWindowsMetricsMode4All InputWindowsMetricsMode4 = "all"
+	// InputWindowsMetricsMode4Custom Custom
+	InputWindowsMetricsMode4Custom InputWindowsMetricsMode4 = "custom"
+	// InputWindowsMetricsMode4Disabled Disabled
+	InputWindowsMetricsMode4Disabled InputWindowsMetricsMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
+func (e InputWindowsMetricsMode4) ToPointer() *InputWindowsMetricsMode4 {
 	return &e
 }
 
-// InputWindowsMetricsCompression - Codec to use to compress the persisted data
-type InputWindowsMetricsCompression string
+// InputWindowsMetricsSystemMode4 - Select the level of details for system metrics
+type InputWindowsMetricsSystemMode4 string
 
 const (
-	InputWindowsMetricsCompressionNone InputWindowsMetricsCompression = "none"
-	InputWindowsMetricsCompressionGzip InputWindowsMetricsCompression = "gzip"
+	// InputWindowsMetricsSystemMode4Basic Basic
+	InputWindowsMetricsSystemMode4Basic InputWindowsMetricsSystemMode4 = "basic"
+	// InputWindowsMetricsSystemMode4All All
+	InputWindowsMetricsSystemMode4All InputWindowsMetricsSystemMode4 = "all"
+	// InputWindowsMetricsSystemMode4Custom Custom
+	InputWindowsMetricsSystemMode4Custom InputWindowsMetricsSystemMode4 = "custom"
+	// InputWindowsMetricsSystemMode4Disabled Disabled
+	InputWindowsMetricsSystemMode4Disabled InputWindowsMetricsSystemMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsCompression) ToPointer() *InputWindowsMetricsCompression {
+func (e InputWindowsMetricsSystemMode4) ToPointer() *InputWindowsMetricsSystemMode4 {
 	return &e
 }
 
-type InputWindowsMetricsPqControls struct {
-}
-
-func (i InputWindowsMetricsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWindowsMetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWindowsMetricsPqMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWindowsMetricsCompression `default:"none" json:"compress"`
-	PqControls *InputWindowsMetricsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWindowsMetricsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsPq) GetMode() *InputWindowsMetricsPqMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWindowsMetricsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWindowsMetricsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWindowsMetricsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWindowsMetricsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWindowsMetricsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWindowsMetricsPq) GetCompress() *InputWindowsMetricsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWindowsMetricsPq) GetPqControls() *InputWindowsMetricsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputWindowsMetricsHostMode - Select level of detail for host metrics
-type InputWindowsMetricsHostMode string
-
-const (
-	InputWindowsMetricsHostModeBasic    InputWindowsMetricsHostMode = "basic"
-	InputWindowsMetricsHostModeAll      InputWindowsMetricsHostMode = "all"
-	InputWindowsMetricsHostModeCustom   InputWindowsMetricsHostMode = "custom"
-	InputWindowsMetricsHostModeDisabled InputWindowsMetricsHostMode = "disabled"
-)
-
-func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
-	return &e
-}
-
-// InputWindowsMetricsSystemMode - Select the level of details for system metrics
-type InputWindowsMetricsSystemMode string
-
-const (
-	InputWindowsMetricsSystemModeBasic    InputWindowsMetricsSystemMode = "basic"
-	InputWindowsMetricsSystemModeAll      InputWindowsMetricsSystemMode = "all"
-	InputWindowsMetricsSystemModeCustom   InputWindowsMetricsSystemMode = "custom"
-	InputWindowsMetricsSystemModeDisabled InputWindowsMetricsSystemMode = "disabled"
-)
-
-func (e InputWindowsMetricsSystemMode) ToPointer() *InputWindowsMetricsSystemMode {
-	return &e
-}
-
-type InputWindowsMetricsSystem struct {
+type InputWindowsMetricsSystem4 struct {
 	// Select the level of details for system metrics
-	Mode *InputWindowsMetricsSystemMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsSystemMode4 `default:"basic" json:"mode"`
 	// Generate metrics for all system information
 	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputWindowsMetricsSystem) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsSystem4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsSystem) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsSystem4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsSystem) GetMode() *InputWindowsMetricsSystemMode {
+func (i *InputWindowsMetricsSystem4) GetMode() *InputWindowsMetricsSystemMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsSystem) GetDetail() *bool {
+func (i *InputWindowsMetricsSystem4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-// InputWindowsMetricsCPUMode - Select the level of details for CPU metrics
-type InputWindowsMetricsCPUMode string
+// InputWindowsMetricsCPUMode4 - Select the level of details for CPU metrics
+type InputWindowsMetricsCPUMode4 string
 
 const (
-	InputWindowsMetricsCPUModeBasic    InputWindowsMetricsCPUMode = "basic"
-	InputWindowsMetricsCPUModeAll      InputWindowsMetricsCPUMode = "all"
-	InputWindowsMetricsCPUModeCustom   InputWindowsMetricsCPUMode = "custom"
-	InputWindowsMetricsCPUModeDisabled InputWindowsMetricsCPUMode = "disabled"
+	// InputWindowsMetricsCPUMode4Basic Basic
+	InputWindowsMetricsCPUMode4Basic InputWindowsMetricsCPUMode4 = "basic"
+	// InputWindowsMetricsCPUMode4All All
+	InputWindowsMetricsCPUMode4All InputWindowsMetricsCPUMode4 = "all"
+	// InputWindowsMetricsCPUMode4Custom Custom
+	InputWindowsMetricsCPUMode4Custom InputWindowsMetricsCPUMode4 = "custom"
+	// InputWindowsMetricsCPUMode4Disabled Disabled
+	InputWindowsMetricsCPUMode4Disabled InputWindowsMetricsCPUMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsCPUMode) ToPointer() *InputWindowsMetricsCPUMode {
+func (e InputWindowsMetricsCPUMode4) ToPointer() *InputWindowsMetricsCPUMode4 {
 	return &e
 }
 
-type InputWindowsMetricsCPU struct {
+type InputWindowsMetricsCPU4 struct {
 	// Select the level of details for CPU metrics
-	Mode *InputWindowsMetricsCPUMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsCPUMode4 `default:"basic" json:"mode"`
 	// Generate metrics for each CPU
 	PerCPU *bool `default:"false" json:"perCpu"`
 	// Generate metrics for all CPU states
@@ -269,474 +129,1532 @@ type InputWindowsMetricsCPU struct {
 	Time *bool `default:"false" json:"time"`
 }
 
-func (i InputWindowsMetricsCPU) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsCPU4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsCPU) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsCPU4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsCPU) GetMode() *InputWindowsMetricsCPUMode {
+func (i *InputWindowsMetricsCPU4) GetMode() *InputWindowsMetricsCPUMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsCPU) GetPerCPU() *bool {
+func (i *InputWindowsMetricsCPU4) GetPerCPU() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerCPU
 }
 
-func (i *InputWindowsMetricsCPU) GetDetail() *bool {
+func (i *InputWindowsMetricsCPU4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-func (i *InputWindowsMetricsCPU) GetTime() *bool {
+func (i *InputWindowsMetricsCPU4) GetTime() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Time
 }
 
-// InputWindowsMetricsMemoryMode - Select the level of details for memory metrics
-type InputWindowsMetricsMemoryMode string
+// InputWindowsMetricsMemoryMode4 - Select the level of details for memory metrics
+type InputWindowsMetricsMemoryMode4 string
 
 const (
-	InputWindowsMetricsMemoryModeBasic    InputWindowsMetricsMemoryMode = "basic"
-	InputWindowsMetricsMemoryModeAll      InputWindowsMetricsMemoryMode = "all"
-	InputWindowsMetricsMemoryModeCustom   InputWindowsMetricsMemoryMode = "custom"
-	InputWindowsMetricsMemoryModeDisabled InputWindowsMetricsMemoryMode = "disabled"
+	// InputWindowsMetricsMemoryMode4Basic Basic
+	InputWindowsMetricsMemoryMode4Basic InputWindowsMetricsMemoryMode4 = "basic"
+	// InputWindowsMetricsMemoryMode4All All
+	InputWindowsMetricsMemoryMode4All InputWindowsMetricsMemoryMode4 = "all"
+	// InputWindowsMetricsMemoryMode4Custom Custom
+	InputWindowsMetricsMemoryMode4Custom InputWindowsMetricsMemoryMode4 = "custom"
+	// InputWindowsMetricsMemoryMode4Disabled Disabled
+	InputWindowsMetricsMemoryMode4Disabled InputWindowsMetricsMemoryMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsMemoryMode) ToPointer() *InputWindowsMetricsMemoryMode {
+func (e InputWindowsMetricsMemoryMode4) ToPointer() *InputWindowsMetricsMemoryMode4 {
 	return &e
 }
 
-type InputWindowsMetricsMemory struct {
+type InputWindowsMetricsMemory4 struct {
 	// Select the level of details for memory metrics
-	Mode *InputWindowsMetricsMemoryMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsMemoryMode4 `default:"basic" json:"mode"`
 	// Generate metrics for all memory states
 	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputWindowsMetricsMemory) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsMemory4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsMemory) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsMemory4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsMemory) GetMode() *InputWindowsMetricsMemoryMode {
+func (i *InputWindowsMetricsMemory4) GetMode() *InputWindowsMetricsMemoryMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsMemory) GetDetail() *bool {
+func (i *InputWindowsMetricsMemory4) GetDetail() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Detail
 }
 
-// InputWindowsMetricsNetworkMode - Select the level of details for network metrics
-type InputWindowsMetricsNetworkMode string
+// InputWindowsMetricsNetworkMode4 - Select the level of details for network metrics
+type InputWindowsMetricsNetworkMode4 string
 
 const (
-	InputWindowsMetricsNetworkModeBasic    InputWindowsMetricsNetworkMode = "basic"
-	InputWindowsMetricsNetworkModeAll      InputWindowsMetricsNetworkMode = "all"
-	InputWindowsMetricsNetworkModeCustom   InputWindowsMetricsNetworkMode = "custom"
-	InputWindowsMetricsNetworkModeDisabled InputWindowsMetricsNetworkMode = "disabled"
+	// InputWindowsMetricsNetworkMode4Basic Basic
+	InputWindowsMetricsNetworkMode4Basic InputWindowsMetricsNetworkMode4 = "basic"
+	// InputWindowsMetricsNetworkMode4All All
+	InputWindowsMetricsNetworkMode4All InputWindowsMetricsNetworkMode4 = "all"
+	// InputWindowsMetricsNetworkMode4Custom Custom
+	InputWindowsMetricsNetworkMode4Custom InputWindowsMetricsNetworkMode4 = "custom"
+	// InputWindowsMetricsNetworkMode4Disabled Disabled
+	InputWindowsMetricsNetworkMode4Disabled InputWindowsMetricsNetworkMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsNetworkMode) ToPointer() *InputWindowsMetricsNetworkMode {
+func (e InputWindowsMetricsNetworkMode4) ToPointer() *InputWindowsMetricsNetworkMode4 {
 	return &e
 }
 
-type InputWindowsMetricsNetwork struct {
+type InputWindowsMetricsNetwork4 struct {
 	// Select the level of details for network metrics
-	Mode *InputWindowsMetricsNetworkMode `default:"basic" json:"mode"`
+	Mode *InputWindowsMetricsNetworkMode4 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
-func (i InputWindowsMetricsNetwork) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsNetwork4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsNetwork) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsNetwork4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsNetwork) GetMode() *InputWindowsMetricsNetworkMode {
+func (i *InputWindowsMetricsNetwork4) GetMode() *InputWindowsMetricsNetworkMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsNetwork) GetDevices() []string {
+func (i *InputWindowsMetricsNetwork4) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsNetwork4) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputWindowsMetricsNetwork4) GetDevices() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Devices
 }
 
-func (i *InputWindowsMetricsNetwork) GetPerInterface() *bool {
+func (i *InputWindowsMetricsNetwork4) GetPerInterface() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerInterface
 }
 
-func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
-// InputWindowsMetricsDiskMode - Select the level of details for disk metrics
-type InputWindowsMetricsDiskMode string
+// InputWindowsMetricsDiskMode4 - Select the level of details for disk metrics
+type InputWindowsMetricsDiskMode4 string
 
 const (
-	InputWindowsMetricsDiskModeBasic    InputWindowsMetricsDiskMode = "basic"
-	InputWindowsMetricsDiskModeAll      InputWindowsMetricsDiskMode = "all"
-	InputWindowsMetricsDiskModeCustom   InputWindowsMetricsDiskMode = "custom"
-	InputWindowsMetricsDiskModeDisabled InputWindowsMetricsDiskMode = "disabled"
+	// InputWindowsMetricsDiskMode4Basic Basic
+	InputWindowsMetricsDiskMode4Basic InputWindowsMetricsDiskMode4 = "basic"
+	// InputWindowsMetricsDiskMode4All All
+	InputWindowsMetricsDiskMode4All InputWindowsMetricsDiskMode4 = "all"
+	// InputWindowsMetricsDiskMode4Custom Custom
+	InputWindowsMetricsDiskMode4Custom InputWindowsMetricsDiskMode4 = "custom"
+	// InputWindowsMetricsDiskMode4Disabled Disabled
+	InputWindowsMetricsDiskMode4Disabled InputWindowsMetricsDiskMode4 = "disabled"
 )
 
-func (e InputWindowsMetricsDiskMode) ToPointer() *InputWindowsMetricsDiskMode {
+func (e InputWindowsMetricsDiskMode4) ToPointer() *InputWindowsMetricsDiskMode4 {
 	return &e
 }
 
-type InputWindowsMetricsDisk struct {
+type InputWindowsMetricsDisk4 struct {
 	// Select the level of details for disk metrics
-	Mode *InputWindowsMetricsDiskMode `default:"basic" json:"mode"`
-	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-	Volumes []string `json:"volumes,omitempty"`
+	Mode *InputWindowsMetricsDiskMode4 `default:"basic" json:"mode"`
 	// Generate separate metrics for each volume
 	PerVolume *bool `default:"false" json:"perVolume"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+	Volumes []string `json:"volumes,omitempty"`
 }
 
-func (i InputWindowsMetricsDisk) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsDisk4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsDisk) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsDisk4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsDisk) GetMode() *InputWindowsMetricsDiskMode {
+func (i *InputWindowsMetricsDisk4) GetMode() *InputWindowsMetricsDiskMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsDisk) GetVolumes() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Volumes
-}
-
-func (i *InputWindowsMetricsDisk) GetPerVolume() *bool {
+func (i *InputWindowsMetricsDisk4) GetPerVolume() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerVolume
 }
 
-type InputWindowsMetricsCustom struct {
-	System  *InputWindowsMetricsSystem  `json:"system,omitempty"`
-	CPU     *InputWindowsMetricsCPU     `json:"cpu,omitempty"`
-	Memory  *InputWindowsMetricsMemory  `json:"memory,omitempty"`
-	Network *InputWindowsMetricsNetwork `json:"network,omitempty"`
-	Disk    *InputWindowsMetricsDisk    `json:"disk,omitempty"`
+func (i *InputWindowsMetricsDisk4) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
 }
 
-func (i InputWindowsMetricsCustom) MarshalJSON() ([]byte, error) {
+func (i *InputWindowsMetricsDisk4) GetVolumes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Volumes
+}
+
+type InputWindowsMetricsCustom4 struct {
+	System  *InputWindowsMetricsSystem4  `json:"system,omitempty"`
+	CPU     *InputWindowsMetricsCPU4     `json:"cpu,omitempty"`
+	Memory  *InputWindowsMetricsMemory4  `json:"memory,omitempty"`
+	Network *InputWindowsMetricsNetwork4 `json:"network,omitempty"`
+	Disk    *InputWindowsMetricsDisk4    `json:"disk,omitempty"`
+}
+
+func (i InputWindowsMetricsCustom4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsCustom) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsCustom4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsCustom) GetSystem() *InputWindowsMetricsSystem {
+func (i *InputWindowsMetricsCustom4) GetSystem() *InputWindowsMetricsSystem4 {
 	if i == nil {
 		return nil
 	}
 	return i.System
 }
 
-func (i *InputWindowsMetricsCustom) GetCPU() *InputWindowsMetricsCPU {
+func (i *InputWindowsMetricsCustom4) GetCPU() *InputWindowsMetricsCPU4 {
 	if i == nil {
 		return nil
 	}
 	return i.CPU
 }
 
-func (i *InputWindowsMetricsCustom) GetMemory() *InputWindowsMetricsMemory {
+func (i *InputWindowsMetricsCustom4) GetMemory() *InputWindowsMetricsMemory4 {
 	if i == nil {
 		return nil
 	}
 	return i.Memory
 }
 
-func (i *InputWindowsMetricsCustom) GetNetwork() *InputWindowsMetricsNetwork {
+func (i *InputWindowsMetricsCustom4) GetNetwork() *InputWindowsMetricsNetwork4 {
 	if i == nil {
 		return nil
 	}
 	return i.Network
 }
 
-func (i *InputWindowsMetricsCustom) GetDisk() *InputWindowsMetricsDisk {
+func (i *InputWindowsMetricsCustom4) GetDisk() *InputWindowsMetricsDisk4 {
 	if i == nil {
 		return nil
 	}
 	return i.Disk
 }
 
-type InputWindowsMetricsHost struct {
+type InputWindowsMetricsHost4 struct {
 	// Select level of detail for host metrics
-	Mode   *InputWindowsMetricsHostMode `default:"basic" json:"mode"`
-	Custom *InputWindowsMetricsCustom   `json:"custom,omitempty"`
+	Mode   *InputWindowsMetricsMode4   `default:"basic" json:"mode"`
+	Custom *InputWindowsMetricsCustom4 `json:"custom,omitempty"`
 }
 
-func (i InputWindowsMetricsHost) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsHost4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsHost) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsHost4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsHost) GetMode() *InputWindowsMetricsHostMode {
+func (i *InputWindowsMetricsHost4) GetMode() *InputWindowsMetricsMode4 {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsHost) GetCustom() *InputWindowsMetricsCustom {
+func (i *InputWindowsMetricsHost4) GetCustom() *InputWindowsMetricsCustom4 {
 	if i == nil {
 		return nil
 	}
 	return i.Custom
 }
 
-type InputWindowsMetricsSet struct {
-	Name            string `json:"name"`
-	Filter          string `json:"filter"`
-	IncludeChildren *bool  `default:"false" json:"includeChildren"`
-}
-
-func (i InputWindowsMetricsSet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsSet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "filter"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsSet) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWindowsMetricsSet) GetFilter() string {
-	if i == nil {
-		return ""
-	}
-	return i.Filter
-}
-
-func (i *InputWindowsMetricsSet) GetIncludeChildren() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeChildren
-}
-
-type InputWindowsMetricsProcess struct {
-	// Configure sets to collect process metrics
-	Sets []InputWindowsMetricsSet `json:"sets,omitempty"`
-}
-
-func (i InputWindowsMetricsProcess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsProcess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsProcess) GetSets() []InputWindowsMetricsSet {
-	if i == nil {
-		return nil
-	}
-	return i.Sets
-}
-
-type InputWindowsMetricsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWindowsMetricsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWindowsMetricsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputWindowsMetricsDataCompressionFormat string
-
-const (
-	InputWindowsMetricsDataCompressionFormatNone InputWindowsMetricsDataCompressionFormat = "none"
-	InputWindowsMetricsDataCompressionFormatGzip InputWindowsMetricsDataCompressionFormat = "gzip"
-)
-
-func (e InputWindowsMetricsDataCompressionFormat) ToPointer() *InputWindowsMetricsDataCompressionFormat {
-	return &e
-}
-
-type InputWindowsMetricsPersistence struct {
-	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
-	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
-	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
-	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                   `default:"24h" json:"maxDataTime"`
-	Compress    *InputWindowsMetricsDataCompressionFormat `default:"gzip" json:"compress"`
-	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
-	DestPath *string `default:"$CRIBL_HOME/state/windows_metrics" json:"destPath"`
-}
-
-func (i InputWindowsMetricsPersistence) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPersistence) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsPersistence) GetEnable() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Enable
-}
-
-func (i *InputWindowsMetricsPersistence) GetTimeWindow() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TimeWindow
-}
-
-func (i *InputWindowsMetricsPersistence) GetMaxDataSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxDataSize
-}
-
-func (i *InputWindowsMetricsPersistence) GetMaxDataTime() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxDataTime
-}
-
-func (i *InputWindowsMetricsPersistence) GetCompress() *InputWindowsMetricsDataCompressionFormat {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWindowsMetricsPersistence) GetDestPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.DestPath
-}
-
-type InputWindowsMetrics struct {
+type InputWindowsMetricsWindowsMetrics4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	ID       *string                  `json:"id,omitempty"`
+	Type     InputWindowsMetricsType4 `json:"type"`
+	Disabled *bool                    `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval *float64                  `default:"10" json:"interval"`
+	Host     *InputWindowsMetricsHost4 `json:"host,omitempty"`
+	Process  *ProcessType              `json:"process,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputWindowsMetricsWindowsMetrics4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetType() InputWindowsMetricsType4 {
+	if i == nil {
+		return InputWindowsMetricsType4("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetHost() *InputWindowsMetricsHost4 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWindowsMetricsWindowsMetrics4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputWindowsMetricsType3 string
+
+const (
+	InputWindowsMetricsType3WindowsMetrics InputWindowsMetricsType3 = "windows_metrics"
+)
+
+func (e InputWindowsMetricsType3) ToPointer() *InputWindowsMetricsType3 {
+	return &e
+}
+func (e *InputWindowsMetricsType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "windows_metrics":
+		*e = InputWindowsMetricsType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWindowsMetricsType3: %v", v)
+	}
+}
+
+// InputWindowsMetricsMode3 - Select level of detail for host metrics
+type InputWindowsMetricsMode3 string
+
+const (
+	// InputWindowsMetricsMode3Basic Basic
+	InputWindowsMetricsMode3Basic InputWindowsMetricsMode3 = "basic"
+	// InputWindowsMetricsMode3All All
+	InputWindowsMetricsMode3All InputWindowsMetricsMode3 = "all"
+	// InputWindowsMetricsMode3Custom Custom
+	InputWindowsMetricsMode3Custom InputWindowsMetricsMode3 = "custom"
+	// InputWindowsMetricsMode3Disabled Disabled
+	InputWindowsMetricsMode3Disabled InputWindowsMetricsMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsMode3) ToPointer() *InputWindowsMetricsMode3 {
+	return &e
+}
+
+// InputWindowsMetricsSystemMode3 - Select the level of details for system metrics
+type InputWindowsMetricsSystemMode3 string
+
+const (
+	// InputWindowsMetricsSystemMode3Basic Basic
+	InputWindowsMetricsSystemMode3Basic InputWindowsMetricsSystemMode3 = "basic"
+	// InputWindowsMetricsSystemMode3All All
+	InputWindowsMetricsSystemMode3All InputWindowsMetricsSystemMode3 = "all"
+	// InputWindowsMetricsSystemMode3Custom Custom
+	InputWindowsMetricsSystemMode3Custom InputWindowsMetricsSystemMode3 = "custom"
+	// InputWindowsMetricsSystemMode3Disabled Disabled
+	InputWindowsMetricsSystemMode3Disabled InputWindowsMetricsSystemMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsSystemMode3) ToPointer() *InputWindowsMetricsSystemMode3 {
+	return &e
+}
+
+type InputWindowsMetricsSystem3 struct {
+	// Select the level of details for system metrics
+	Mode *InputWindowsMetricsSystemMode3 `default:"basic" json:"mode"`
+	// Generate metrics for all system information
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsSystem3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsSystem3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsSystem3) GetMode() *InputWindowsMetricsSystemMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsSystem3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsCPUMode3 - Select the level of details for CPU metrics
+type InputWindowsMetricsCPUMode3 string
+
+const (
+	// InputWindowsMetricsCPUMode3Basic Basic
+	InputWindowsMetricsCPUMode3Basic InputWindowsMetricsCPUMode3 = "basic"
+	// InputWindowsMetricsCPUMode3All All
+	InputWindowsMetricsCPUMode3All InputWindowsMetricsCPUMode3 = "all"
+	// InputWindowsMetricsCPUMode3Custom Custom
+	InputWindowsMetricsCPUMode3Custom InputWindowsMetricsCPUMode3 = "custom"
+	// InputWindowsMetricsCPUMode3Disabled Disabled
+	InputWindowsMetricsCPUMode3Disabled InputWindowsMetricsCPUMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsCPUMode3) ToPointer() *InputWindowsMetricsCPUMode3 {
+	return &e
+}
+
+type InputWindowsMetricsCPU3 struct {
+	// Select the level of details for CPU metrics
+	Mode *InputWindowsMetricsCPUMode3 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputWindowsMetricsCPU3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCPU3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCPU3) GetMode() *InputWindowsMetricsCPUMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsCPU3) GetPerCPU() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerCPU
+}
+
+func (i *InputWindowsMetricsCPU3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsCPU3) GetTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Time
+}
+
+// InputWindowsMetricsMemoryMode3 - Select the level of details for memory metrics
+type InputWindowsMetricsMemoryMode3 string
+
+const (
+	// InputWindowsMetricsMemoryMode3Basic Basic
+	InputWindowsMetricsMemoryMode3Basic InputWindowsMetricsMemoryMode3 = "basic"
+	// InputWindowsMetricsMemoryMode3All All
+	InputWindowsMetricsMemoryMode3All InputWindowsMetricsMemoryMode3 = "all"
+	// InputWindowsMetricsMemoryMode3Custom Custom
+	InputWindowsMetricsMemoryMode3Custom InputWindowsMetricsMemoryMode3 = "custom"
+	// InputWindowsMetricsMemoryMode3Disabled Disabled
+	InputWindowsMetricsMemoryMode3Disabled InputWindowsMetricsMemoryMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsMemoryMode3) ToPointer() *InputWindowsMetricsMemoryMode3 {
+	return &e
+}
+
+type InputWindowsMetricsMemory3 struct {
+	// Select the level of details for memory metrics
+	Mode *InputWindowsMetricsMemoryMode3 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsMemory3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsMemory3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsMemory3) GetMode() *InputWindowsMetricsMemoryMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsMemory3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsNetworkMode3 - Select the level of details for network metrics
+type InputWindowsMetricsNetworkMode3 string
+
+const (
+	// InputWindowsMetricsNetworkMode3Basic Basic
+	InputWindowsMetricsNetworkMode3Basic InputWindowsMetricsNetworkMode3 = "basic"
+	// InputWindowsMetricsNetworkMode3All All
+	InputWindowsMetricsNetworkMode3All InputWindowsMetricsNetworkMode3 = "all"
+	// InputWindowsMetricsNetworkMode3Custom Custom
+	InputWindowsMetricsNetworkMode3Custom InputWindowsMetricsNetworkMode3 = "custom"
+	// InputWindowsMetricsNetworkMode3Disabled Disabled
+	InputWindowsMetricsNetworkMode3Disabled InputWindowsMetricsNetworkMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsNetworkMode3) ToPointer() *InputWindowsMetricsNetworkMode3 {
+	return &e
+}
+
+type InputWindowsMetricsNetwork3 struct {
+	// Select the level of details for network metrics
+	Mode *InputWindowsMetricsNetworkMode3 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputWindowsMetricsNetwork3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsNetwork3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsNetwork3) GetMode() *InputWindowsMetricsNetworkMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsNetwork3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsNetwork3) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputWindowsMetricsNetwork3) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputWindowsMetricsNetwork3) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputWindowsMetricsDiskMode3 - Select the level of details for disk metrics
+type InputWindowsMetricsDiskMode3 string
+
+const (
+	// InputWindowsMetricsDiskMode3Basic Basic
+	InputWindowsMetricsDiskMode3Basic InputWindowsMetricsDiskMode3 = "basic"
+	// InputWindowsMetricsDiskMode3All All
+	InputWindowsMetricsDiskMode3All InputWindowsMetricsDiskMode3 = "all"
+	// InputWindowsMetricsDiskMode3Custom Custom
+	InputWindowsMetricsDiskMode3Custom InputWindowsMetricsDiskMode3 = "custom"
+	// InputWindowsMetricsDiskMode3Disabled Disabled
+	InputWindowsMetricsDiskMode3Disabled InputWindowsMetricsDiskMode3 = "disabled"
+)
+
+func (e InputWindowsMetricsDiskMode3) ToPointer() *InputWindowsMetricsDiskMode3 {
+	return &e
+}
+
+type InputWindowsMetricsDisk3 struct {
+	// Select the level of details for disk metrics
+	Mode *InputWindowsMetricsDiskMode3 `default:"basic" json:"mode"`
+	// Generate separate metrics for each volume
+	PerVolume *bool `default:"false" json:"perVolume"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+	Volumes []string `json:"volumes,omitempty"`
+}
+
+func (i InputWindowsMetricsDisk3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsDisk3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsDisk3) GetMode() *InputWindowsMetricsDiskMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsDisk3) GetPerVolume() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerVolume
+}
+
+func (i *InputWindowsMetricsDisk3) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsDisk3) GetVolumes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Volumes
+}
+
+type InputWindowsMetricsCustom3 struct {
+	System  *InputWindowsMetricsSystem3  `json:"system,omitempty"`
+	CPU     *InputWindowsMetricsCPU3     `json:"cpu,omitempty"`
+	Memory  *InputWindowsMetricsMemory3  `json:"memory,omitempty"`
+	Network *InputWindowsMetricsNetwork3 `json:"network,omitempty"`
+	Disk    *InputWindowsMetricsDisk3    `json:"disk,omitempty"`
+}
+
+func (i InputWindowsMetricsCustom3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCustom3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCustom3) GetSystem() *InputWindowsMetricsSystem3 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputWindowsMetricsCustom3) GetCPU() *InputWindowsMetricsCPU3 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputWindowsMetricsCustom3) GetMemory() *InputWindowsMetricsMemory3 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputWindowsMetricsCustom3) GetNetwork() *InputWindowsMetricsNetwork3 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputWindowsMetricsCustom3) GetDisk() *InputWindowsMetricsDisk3 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputWindowsMetricsHost3 struct {
+	// Select level of detail for host metrics
+	Mode   *InputWindowsMetricsMode3   `default:"basic" json:"mode"`
+	Custom *InputWindowsMetricsCustom3 `json:"custom,omitempty"`
+}
+
+func (i InputWindowsMetricsHost3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsHost3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsHost3) GetMode() *InputWindowsMetricsMode3 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsHost3) GetCustom() *InputWindowsMetricsCustom3 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+type InputWindowsMetricsWindowsMetrics3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                  `json:"id,omitempty"`
+	Type     InputWindowsMetricsType3 `json:"type"`
+	Disabled *bool                    `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval *float64                  `default:"10" json:"interval"`
+	Host     *InputWindowsMetricsHost3 `json:"host,omitempty"`
+	Process  *ProcessType              `json:"process,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputWindowsMetricsWindowsMetrics3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetType() InputWindowsMetricsType3 {
+	if i == nil {
+		return InputWindowsMetricsType3("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetHost() *InputWindowsMetricsHost3 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWindowsMetricsWindowsMetrics3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputWindowsMetricsType2 string
+
+const (
+	InputWindowsMetricsType2WindowsMetrics InputWindowsMetricsType2 = "windows_metrics"
+)
+
+func (e InputWindowsMetricsType2) ToPointer() *InputWindowsMetricsType2 {
+	return &e
+}
+func (e *InputWindowsMetricsType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "windows_metrics":
+		*e = InputWindowsMetricsType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWindowsMetricsType2: %v", v)
+	}
+}
+
+// InputWindowsMetricsMode2 - Select level of detail for host metrics
+type InputWindowsMetricsMode2 string
+
+const (
+	// InputWindowsMetricsMode2Basic Basic
+	InputWindowsMetricsMode2Basic InputWindowsMetricsMode2 = "basic"
+	// InputWindowsMetricsMode2All All
+	InputWindowsMetricsMode2All InputWindowsMetricsMode2 = "all"
+	// InputWindowsMetricsMode2Custom Custom
+	InputWindowsMetricsMode2Custom InputWindowsMetricsMode2 = "custom"
+	// InputWindowsMetricsMode2Disabled Disabled
+	InputWindowsMetricsMode2Disabled InputWindowsMetricsMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsMode2) ToPointer() *InputWindowsMetricsMode2 {
+	return &e
+}
+
+// InputWindowsMetricsSystemMode2 - Select the level of details for system metrics
+type InputWindowsMetricsSystemMode2 string
+
+const (
+	// InputWindowsMetricsSystemMode2Basic Basic
+	InputWindowsMetricsSystemMode2Basic InputWindowsMetricsSystemMode2 = "basic"
+	// InputWindowsMetricsSystemMode2All All
+	InputWindowsMetricsSystemMode2All InputWindowsMetricsSystemMode2 = "all"
+	// InputWindowsMetricsSystemMode2Custom Custom
+	InputWindowsMetricsSystemMode2Custom InputWindowsMetricsSystemMode2 = "custom"
+	// InputWindowsMetricsSystemMode2Disabled Disabled
+	InputWindowsMetricsSystemMode2Disabled InputWindowsMetricsSystemMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsSystemMode2) ToPointer() *InputWindowsMetricsSystemMode2 {
+	return &e
+}
+
+type InputWindowsMetricsSystem2 struct {
+	// Select the level of details for system metrics
+	Mode *InputWindowsMetricsSystemMode2 `default:"basic" json:"mode"`
+	// Generate metrics for all system information
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsSystem2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsSystem2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsSystem2) GetMode() *InputWindowsMetricsSystemMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsSystem2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsCPUMode2 - Select the level of details for CPU metrics
+type InputWindowsMetricsCPUMode2 string
+
+const (
+	// InputWindowsMetricsCPUMode2Basic Basic
+	InputWindowsMetricsCPUMode2Basic InputWindowsMetricsCPUMode2 = "basic"
+	// InputWindowsMetricsCPUMode2All All
+	InputWindowsMetricsCPUMode2All InputWindowsMetricsCPUMode2 = "all"
+	// InputWindowsMetricsCPUMode2Custom Custom
+	InputWindowsMetricsCPUMode2Custom InputWindowsMetricsCPUMode2 = "custom"
+	// InputWindowsMetricsCPUMode2Disabled Disabled
+	InputWindowsMetricsCPUMode2Disabled InputWindowsMetricsCPUMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsCPUMode2) ToPointer() *InputWindowsMetricsCPUMode2 {
+	return &e
+}
+
+type InputWindowsMetricsCPU2 struct {
+	// Select the level of details for CPU metrics
+	Mode *InputWindowsMetricsCPUMode2 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputWindowsMetricsCPU2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCPU2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCPU2) GetMode() *InputWindowsMetricsCPUMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsCPU2) GetPerCPU() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerCPU
+}
+
+func (i *InputWindowsMetricsCPU2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsCPU2) GetTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Time
+}
+
+// InputWindowsMetricsMemoryMode2 - Select the level of details for memory metrics
+type InputWindowsMetricsMemoryMode2 string
+
+const (
+	// InputWindowsMetricsMemoryMode2Basic Basic
+	InputWindowsMetricsMemoryMode2Basic InputWindowsMetricsMemoryMode2 = "basic"
+	// InputWindowsMetricsMemoryMode2All All
+	InputWindowsMetricsMemoryMode2All InputWindowsMetricsMemoryMode2 = "all"
+	// InputWindowsMetricsMemoryMode2Custom Custom
+	InputWindowsMetricsMemoryMode2Custom InputWindowsMetricsMemoryMode2 = "custom"
+	// InputWindowsMetricsMemoryMode2Disabled Disabled
+	InputWindowsMetricsMemoryMode2Disabled InputWindowsMetricsMemoryMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsMemoryMode2) ToPointer() *InputWindowsMetricsMemoryMode2 {
+	return &e
+}
+
+type InputWindowsMetricsMemory2 struct {
+	// Select the level of details for memory metrics
+	Mode *InputWindowsMetricsMemoryMode2 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsMemory2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsMemory2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsMemory2) GetMode() *InputWindowsMetricsMemoryMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsMemory2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsNetworkMode2 - Select the level of details for network metrics
+type InputWindowsMetricsNetworkMode2 string
+
+const (
+	// InputWindowsMetricsNetworkMode2Basic Basic
+	InputWindowsMetricsNetworkMode2Basic InputWindowsMetricsNetworkMode2 = "basic"
+	// InputWindowsMetricsNetworkMode2All All
+	InputWindowsMetricsNetworkMode2All InputWindowsMetricsNetworkMode2 = "all"
+	// InputWindowsMetricsNetworkMode2Custom Custom
+	InputWindowsMetricsNetworkMode2Custom InputWindowsMetricsNetworkMode2 = "custom"
+	// InputWindowsMetricsNetworkMode2Disabled Disabled
+	InputWindowsMetricsNetworkMode2Disabled InputWindowsMetricsNetworkMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsNetworkMode2) ToPointer() *InputWindowsMetricsNetworkMode2 {
+	return &e
+}
+
+type InputWindowsMetricsNetwork2 struct {
+	// Select the level of details for network metrics
+	Mode *InputWindowsMetricsNetworkMode2 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputWindowsMetricsNetwork2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsNetwork2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsNetwork2) GetMode() *InputWindowsMetricsNetworkMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsNetwork2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsNetwork2) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputWindowsMetricsNetwork2) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputWindowsMetricsNetwork2) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputWindowsMetricsDiskMode2 - Select the level of details for disk metrics
+type InputWindowsMetricsDiskMode2 string
+
+const (
+	// InputWindowsMetricsDiskMode2Basic Basic
+	InputWindowsMetricsDiskMode2Basic InputWindowsMetricsDiskMode2 = "basic"
+	// InputWindowsMetricsDiskMode2All All
+	InputWindowsMetricsDiskMode2All InputWindowsMetricsDiskMode2 = "all"
+	// InputWindowsMetricsDiskMode2Custom Custom
+	InputWindowsMetricsDiskMode2Custom InputWindowsMetricsDiskMode2 = "custom"
+	// InputWindowsMetricsDiskMode2Disabled Disabled
+	InputWindowsMetricsDiskMode2Disabled InputWindowsMetricsDiskMode2 = "disabled"
+)
+
+func (e InputWindowsMetricsDiskMode2) ToPointer() *InputWindowsMetricsDiskMode2 {
+	return &e
+}
+
+type InputWindowsMetricsDisk2 struct {
+	// Select the level of details for disk metrics
+	Mode *InputWindowsMetricsDiskMode2 `default:"basic" json:"mode"`
+	// Generate separate metrics for each volume
+	PerVolume *bool `default:"false" json:"perVolume"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+	Volumes []string `json:"volumes,omitempty"`
+}
+
+func (i InputWindowsMetricsDisk2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsDisk2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsDisk2) GetMode() *InputWindowsMetricsDiskMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsDisk2) GetPerVolume() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerVolume
+}
+
+func (i *InputWindowsMetricsDisk2) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsDisk2) GetVolumes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Volumes
+}
+
+type InputWindowsMetricsCustom2 struct {
+	System  *InputWindowsMetricsSystem2  `json:"system,omitempty"`
+	CPU     *InputWindowsMetricsCPU2     `json:"cpu,omitempty"`
+	Memory  *InputWindowsMetricsMemory2  `json:"memory,omitempty"`
+	Network *InputWindowsMetricsNetwork2 `json:"network,omitempty"`
+	Disk    *InputWindowsMetricsDisk2    `json:"disk,omitempty"`
+}
+
+func (i InputWindowsMetricsCustom2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCustom2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCustom2) GetSystem() *InputWindowsMetricsSystem2 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputWindowsMetricsCustom2) GetCPU() *InputWindowsMetricsCPU2 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputWindowsMetricsCustom2) GetMemory() *InputWindowsMetricsMemory2 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputWindowsMetricsCustom2) GetNetwork() *InputWindowsMetricsNetwork2 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputWindowsMetricsCustom2) GetDisk() *InputWindowsMetricsDisk2 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputWindowsMetricsHost2 struct {
+	// Select level of detail for host metrics
+	Mode   *InputWindowsMetricsMode2   `default:"basic" json:"mode"`
+	Custom *InputWindowsMetricsCustom2 `json:"custom,omitempty"`
+}
+
+func (i InputWindowsMetricsHost2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsHost2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsHost2) GetMode() *InputWindowsMetricsMode2 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsHost2) GetCustom() *InputWindowsMetricsCustom2 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+type InputWindowsMetricsWindowsMetrics2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                  `json:"id,omitempty"`
+	Type     InputWindowsMetricsType2 `json:"type"`
+	Disabled *bool                    `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -744,146 +1662,852 @@ type InputWindowsMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWindowsMetricsConnection `json:"connections,omitempty"`
-	Pq          *InputWindowsMetricsPq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                    `default:"10" json:"interval"`
-	Host     *InputWindowsMetricsHost    `json:"host,omitempty"`
-	Process  *InputWindowsMetricsProcess `json:"process,omitempty"`
+	Interval *float64                  `default:"10" json:"interval"`
+	Host     *InputWindowsMetricsHost2 `json:"host,omitempty"`
+	Process  *ProcessType              `json:"process,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputWindowsMetricsMetadatum  `json:"metadata,omitempty"`
-	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsWindowsMetrics2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputWindowsMetricsWindowsMetrics2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetrics) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetrics) GetSendToRoutes() *bool {
+func (i *InputWindowsMetricsWindowsMetrics2) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWindowsMetrics) GetEnvironment() *string {
+func (i *InputWindowsMetricsWindowsMetrics2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsWindowsMetrics2) GetType() InputWindowsMetricsType2 {
+	if i == nil {
+		return InputWindowsMetricsType2("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsWindowsMetrics2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsWindowsMetrics2) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWindowsMetrics) GetPqEnabled() *bool {
+func (i *InputWindowsMetricsWindowsMetrics2) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWindowsMetrics) GetStreamtags() []string {
+func (i *InputWindowsMetricsWindowsMetrics2) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetrics) GetConnections() []InputWindowsMetricsConnection {
+func (i *InputWindowsMetricsWindowsMetrics2) GetConnections() []ConnectionsType {
 	if i == nil {
-		return nil
+		return []ConnectionsType{}
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetrics) GetPq() *InputWindowsMetricsPq {
+func (i *InputWindowsMetricsWindowsMetrics2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetrics) GetInterval() *float64 {
+func (i *InputWindowsMetricsWindowsMetrics2) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetrics) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetricsWindowsMetrics2) GetHost() *InputWindowsMetricsHost2 {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetrics) GetProcess() *InputWindowsMetricsProcess {
+func (i *InputWindowsMetricsWindowsMetrics2) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetrics) GetMetadata() []InputWindowsMetricsMetadatum {
+func (i *InputWindowsMetricsWindowsMetrics2) GetMetadata() []Metadata1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetrics) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetricsWindowsMetrics2) GetPersistence() *Persistence1Type {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetrics) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetricsWindowsMetrics2) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetrics) GetDescription() *string {
+func (i *InputWindowsMetricsWindowsMetrics2) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputWindowsMetricsType1 string
+
+const (
+	InputWindowsMetricsType1WindowsMetrics InputWindowsMetricsType1 = "windows_metrics"
+)
+
+func (e InputWindowsMetricsType1) ToPointer() *InputWindowsMetricsType1 {
+	return &e
+}
+func (e *InputWindowsMetricsType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "windows_metrics":
+		*e = InputWindowsMetricsType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputWindowsMetricsType1: %v", v)
+	}
+}
+
+// InputWindowsMetricsMode1 - Select level of detail for host metrics
+type InputWindowsMetricsMode1 string
+
+const (
+	// InputWindowsMetricsMode1Basic Basic
+	InputWindowsMetricsMode1Basic InputWindowsMetricsMode1 = "basic"
+	// InputWindowsMetricsMode1All All
+	InputWindowsMetricsMode1All InputWindowsMetricsMode1 = "all"
+	// InputWindowsMetricsMode1Custom Custom
+	InputWindowsMetricsMode1Custom InputWindowsMetricsMode1 = "custom"
+	// InputWindowsMetricsMode1Disabled Disabled
+	InputWindowsMetricsMode1Disabled InputWindowsMetricsMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsMode1) ToPointer() *InputWindowsMetricsMode1 {
+	return &e
+}
+
+// InputWindowsMetricsSystemMode1 - Select the level of details for system metrics
+type InputWindowsMetricsSystemMode1 string
+
+const (
+	// InputWindowsMetricsSystemMode1Basic Basic
+	InputWindowsMetricsSystemMode1Basic InputWindowsMetricsSystemMode1 = "basic"
+	// InputWindowsMetricsSystemMode1All All
+	InputWindowsMetricsSystemMode1All InputWindowsMetricsSystemMode1 = "all"
+	// InputWindowsMetricsSystemMode1Custom Custom
+	InputWindowsMetricsSystemMode1Custom InputWindowsMetricsSystemMode1 = "custom"
+	// InputWindowsMetricsSystemMode1Disabled Disabled
+	InputWindowsMetricsSystemMode1Disabled InputWindowsMetricsSystemMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsSystemMode1) ToPointer() *InputWindowsMetricsSystemMode1 {
+	return &e
+}
+
+type InputWindowsMetricsSystem1 struct {
+	// Select the level of details for system metrics
+	Mode *InputWindowsMetricsSystemMode1 `default:"basic" json:"mode"`
+	// Generate metrics for all system information
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsSystem1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsSystem1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsSystem1) GetMode() *InputWindowsMetricsSystemMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsSystem1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsCPUMode1 - Select the level of details for CPU metrics
+type InputWindowsMetricsCPUMode1 string
+
+const (
+	// InputWindowsMetricsCPUMode1Basic Basic
+	InputWindowsMetricsCPUMode1Basic InputWindowsMetricsCPUMode1 = "basic"
+	// InputWindowsMetricsCPUMode1All All
+	InputWindowsMetricsCPUMode1All InputWindowsMetricsCPUMode1 = "all"
+	// InputWindowsMetricsCPUMode1Custom Custom
+	InputWindowsMetricsCPUMode1Custom InputWindowsMetricsCPUMode1 = "custom"
+	// InputWindowsMetricsCPUMode1Disabled Disabled
+	InputWindowsMetricsCPUMode1Disabled InputWindowsMetricsCPUMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsCPUMode1) ToPointer() *InputWindowsMetricsCPUMode1 {
+	return &e
+}
+
+type InputWindowsMetricsCPU1 struct {
+	// Select the level of details for CPU metrics
+	Mode *InputWindowsMetricsCPUMode1 `default:"basic" json:"mode"`
+	// Generate metrics for each CPU
+	PerCPU *bool `default:"false" json:"perCpu"`
+	// Generate metrics for all CPU states
+	Detail *bool `default:"false" json:"detail"`
+	// Generate raw, monotonic CPU time counters
+	Time *bool `default:"false" json:"time"`
+}
+
+func (i InputWindowsMetricsCPU1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCPU1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCPU1) GetMode() *InputWindowsMetricsCPUMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsCPU1) GetPerCPU() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerCPU
+}
+
+func (i *InputWindowsMetricsCPU1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsCPU1) GetTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Time
+}
+
+// InputWindowsMetricsMemoryMode1 - Select the level of details for memory metrics
+type InputWindowsMetricsMemoryMode1 string
+
+const (
+	// InputWindowsMetricsMemoryMode1Basic Basic
+	InputWindowsMetricsMemoryMode1Basic InputWindowsMetricsMemoryMode1 = "basic"
+	// InputWindowsMetricsMemoryMode1All All
+	InputWindowsMetricsMemoryMode1All InputWindowsMetricsMemoryMode1 = "all"
+	// InputWindowsMetricsMemoryMode1Custom Custom
+	InputWindowsMetricsMemoryMode1Custom InputWindowsMetricsMemoryMode1 = "custom"
+	// InputWindowsMetricsMemoryMode1Disabled Disabled
+	InputWindowsMetricsMemoryMode1Disabled InputWindowsMetricsMemoryMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsMemoryMode1) ToPointer() *InputWindowsMetricsMemoryMode1 {
+	return &e
+}
+
+type InputWindowsMetricsMemory1 struct {
+	// Select the level of details for memory metrics
+	Mode *InputWindowsMetricsMemoryMode1 `default:"basic" json:"mode"`
+	// Generate metrics for all memory states
+	Detail *bool `default:"false" json:"detail"`
+}
+
+func (i InputWindowsMetricsMemory1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsMemory1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsMemory1) GetMode() *InputWindowsMetricsMemoryMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsMemory1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+// InputWindowsMetricsNetworkMode1 - Select the level of details for network metrics
+type InputWindowsMetricsNetworkMode1 string
+
+const (
+	// InputWindowsMetricsNetworkMode1Basic Basic
+	InputWindowsMetricsNetworkMode1Basic InputWindowsMetricsNetworkMode1 = "basic"
+	// InputWindowsMetricsNetworkMode1All All
+	InputWindowsMetricsNetworkMode1All InputWindowsMetricsNetworkMode1 = "all"
+	// InputWindowsMetricsNetworkMode1Custom Custom
+	InputWindowsMetricsNetworkMode1Custom InputWindowsMetricsNetworkMode1 = "custom"
+	// InputWindowsMetricsNetworkMode1Disabled Disabled
+	InputWindowsMetricsNetworkMode1Disabled InputWindowsMetricsNetworkMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsNetworkMode1) ToPointer() *InputWindowsMetricsNetworkMode1 {
+	return &e
+}
+
+type InputWindowsMetricsNetwork1 struct {
+	// Select the level of details for network metrics
+	Mode *InputWindowsMetricsNetworkMode1 `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
+	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
+	Devices []string `json:"devices,omitempty"`
+	// Generate separate metrics for each interface
+	PerInterface *bool `default:"false" json:"perInterface"`
+}
+
+func (i InputWindowsMetricsNetwork1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsNetwork1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsNetwork1) GetMode() *InputWindowsMetricsNetworkMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsNetwork1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsNetwork1) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
+func (i *InputWindowsMetricsNetwork1) GetDevices() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Devices
+}
+
+func (i *InputWindowsMetricsNetwork1) GetPerInterface() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerInterface
+}
+
+// InputWindowsMetricsDiskMode1 - Select the level of details for disk metrics
+type InputWindowsMetricsDiskMode1 string
+
+const (
+	// InputWindowsMetricsDiskMode1Basic Basic
+	InputWindowsMetricsDiskMode1Basic InputWindowsMetricsDiskMode1 = "basic"
+	// InputWindowsMetricsDiskMode1All All
+	InputWindowsMetricsDiskMode1All InputWindowsMetricsDiskMode1 = "all"
+	// InputWindowsMetricsDiskMode1Custom Custom
+	InputWindowsMetricsDiskMode1Custom InputWindowsMetricsDiskMode1 = "custom"
+	// InputWindowsMetricsDiskMode1Disabled Disabled
+	InputWindowsMetricsDiskMode1Disabled InputWindowsMetricsDiskMode1 = "disabled"
+)
+
+func (e InputWindowsMetricsDiskMode1) ToPointer() *InputWindowsMetricsDiskMode1 {
+	return &e
+}
+
+type InputWindowsMetricsDisk1 struct {
+	// Select the level of details for disk metrics
+	Mode *InputWindowsMetricsDiskMode1 `default:"basic" json:"mode"`
+	// Generate separate metrics for each volume
+	PerVolume *bool `default:"false" json:"perVolume"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+	Volumes []string `json:"volumes,omitempty"`
+}
+
+func (i InputWindowsMetricsDisk1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsDisk1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsDisk1) GetMode() *InputWindowsMetricsDiskMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsDisk1) GetPerVolume() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PerVolume
+}
+
+func (i *InputWindowsMetricsDisk1) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsDisk1) GetVolumes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Volumes
+}
+
+type InputWindowsMetricsCustom1 struct {
+	System  *InputWindowsMetricsSystem1  `json:"system,omitempty"`
+	CPU     *InputWindowsMetricsCPU1     `json:"cpu,omitempty"`
+	Memory  *InputWindowsMetricsMemory1  `json:"memory,omitempty"`
+	Network *InputWindowsMetricsNetwork1 `json:"network,omitempty"`
+	Disk    *InputWindowsMetricsDisk1    `json:"disk,omitempty"`
+}
+
+func (i InputWindowsMetricsCustom1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsCustom1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsCustom1) GetSystem() *InputWindowsMetricsSystem1 {
+	if i == nil {
+		return nil
+	}
+	return i.System
+}
+
+func (i *InputWindowsMetricsCustom1) GetCPU() *InputWindowsMetricsCPU1 {
+	if i == nil {
+		return nil
+	}
+	return i.CPU
+}
+
+func (i *InputWindowsMetricsCustom1) GetMemory() *InputWindowsMetricsMemory1 {
+	if i == nil {
+		return nil
+	}
+	return i.Memory
+}
+
+func (i *InputWindowsMetricsCustom1) GetNetwork() *InputWindowsMetricsNetwork1 {
+	if i == nil {
+		return nil
+	}
+	return i.Network
+}
+
+func (i *InputWindowsMetricsCustom1) GetDisk() *InputWindowsMetricsDisk1 {
+	if i == nil {
+		return nil
+	}
+	return i.Disk
+}
+
+type InputWindowsMetricsHost1 struct {
+	// Select level of detail for host metrics
+	Mode   *InputWindowsMetricsMode1   `default:"basic" json:"mode"`
+	Custom *InputWindowsMetricsCustom1 `json:"custom,omitempty"`
+}
+
+func (i InputWindowsMetricsHost1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsHost1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsHost1) GetMode() *InputWindowsMetricsMode1 {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputWindowsMetricsHost1) GetCustom() *InputWindowsMetricsCustom1 {
+	if i == nil {
+		return nil
+	}
+	return i.Custom
+}
+
+type InputWindowsMetricsWindowsMetrics1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                  `json:"id,omitempty"`
+	Type     InputWindowsMetricsType1 `json:"type"`
+	Disabled *bool                    `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval *float64                  `default:"10" json:"interval"`
+	Host     *InputWindowsMetricsHost1 `json:"host,omitempty"`
+	Process  *ProcessType              `json:"process,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []Metadata1Type   `json:"metadata,omitempty"`
+	Persistence *Persistence1Type `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputWindowsMetricsWindowsMetrics1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetType() InputWindowsMetricsType1 {
+	if i == nil {
+		return InputWindowsMetricsType1("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetHost() *InputWindowsMetricsHost1 {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWindowsMetricsWindowsMetrics1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputWindowsMetricsType string
+
+const (
+	InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics1 InputWindowsMetricsType = "InputWindowsMetrics_WindowsMetrics_1"
+	InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics2 InputWindowsMetricsType = "InputWindowsMetrics_WindowsMetrics_2"
+	InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics3 InputWindowsMetricsType = "InputWindowsMetrics_WindowsMetrics_3"
+	InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics4 InputWindowsMetricsType = "InputWindowsMetrics_WindowsMetrics_4"
+)
+
+type InputWindowsMetrics struct {
+	InputWindowsMetricsWindowsMetrics1 *InputWindowsMetricsWindowsMetrics1 `queryParam:"inline,name=InputWindowsMetrics"`
+	InputWindowsMetricsWindowsMetrics2 *InputWindowsMetricsWindowsMetrics2 `queryParam:"inline,name=InputWindowsMetrics"`
+	InputWindowsMetricsWindowsMetrics3 *InputWindowsMetricsWindowsMetrics3 `queryParam:"inline,name=InputWindowsMetrics"`
+	InputWindowsMetricsWindowsMetrics4 *InputWindowsMetricsWindowsMetrics4 `queryParam:"inline,name=InputWindowsMetrics"`
+
+	Type InputWindowsMetricsType
+}
+
+func CreateInputWindowsMetricsInputWindowsMetricsWindowsMetrics1(inputWindowsMetricsWindowsMetrics1 InputWindowsMetricsWindowsMetrics1) InputWindowsMetrics {
+	typ := InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics1
+
+	return InputWindowsMetrics{
+		InputWindowsMetricsWindowsMetrics1: &inputWindowsMetricsWindowsMetrics1,
+		Type:                               typ,
+	}
+}
+
+func CreateInputWindowsMetricsInputWindowsMetricsWindowsMetrics2(inputWindowsMetricsWindowsMetrics2 InputWindowsMetricsWindowsMetrics2) InputWindowsMetrics {
+	typ := InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics2
+
+	return InputWindowsMetrics{
+		InputWindowsMetricsWindowsMetrics2: &inputWindowsMetricsWindowsMetrics2,
+		Type:                               typ,
+	}
+}
+
+func CreateInputWindowsMetricsInputWindowsMetricsWindowsMetrics3(inputWindowsMetricsWindowsMetrics3 InputWindowsMetricsWindowsMetrics3) InputWindowsMetrics {
+	typ := InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics3
+
+	return InputWindowsMetrics{
+		InputWindowsMetricsWindowsMetrics3: &inputWindowsMetricsWindowsMetrics3,
+		Type:                               typ,
+	}
+}
+
+func CreateInputWindowsMetricsInputWindowsMetricsWindowsMetrics4(inputWindowsMetricsWindowsMetrics4 InputWindowsMetricsWindowsMetrics4) InputWindowsMetrics {
+	typ := InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics4
+
+	return InputWindowsMetrics{
+		InputWindowsMetricsWindowsMetrics4: &inputWindowsMetricsWindowsMetrics4,
+		Type:                               typ,
+	}
+}
+
+func (u *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
+
+	var inputWindowsMetricsWindowsMetrics2 InputWindowsMetricsWindowsMetrics2 = InputWindowsMetricsWindowsMetrics2{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsWindowsMetrics2, "", true, nil); err == nil {
+		u.InputWindowsMetricsWindowsMetrics2 = &inputWindowsMetricsWindowsMetrics2
+		u.Type = InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics2
+		return nil
+	}
+
+	var inputWindowsMetricsWindowsMetrics4 InputWindowsMetricsWindowsMetrics4 = InputWindowsMetricsWindowsMetrics4{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsWindowsMetrics4, "", true, nil); err == nil {
+		u.InputWindowsMetricsWindowsMetrics4 = &inputWindowsMetricsWindowsMetrics4
+		u.Type = InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics4
+		return nil
+	}
+
+	var inputWindowsMetricsWindowsMetrics1 InputWindowsMetricsWindowsMetrics1 = InputWindowsMetricsWindowsMetrics1{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsWindowsMetrics1, "", true, nil); err == nil {
+		u.InputWindowsMetricsWindowsMetrics1 = &inputWindowsMetricsWindowsMetrics1
+		u.Type = InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics1
+		return nil
+	}
+
+	var inputWindowsMetricsWindowsMetrics3 InputWindowsMetricsWindowsMetrics3 = InputWindowsMetricsWindowsMetrics3{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsWindowsMetrics3, "", true, nil); err == nil {
+		u.InputWindowsMetricsWindowsMetrics3 = &inputWindowsMetricsWindowsMetrics3
+		u.Type = InputWindowsMetricsTypeInputWindowsMetricsWindowsMetrics3
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWindowsMetrics", string(data))
+}
+
+func (u InputWindowsMetrics) MarshalJSON() ([]byte, error) {
+	if u.InputWindowsMetricsWindowsMetrics1 != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsWindowsMetrics1, "", true)
+	}
+
+	if u.InputWindowsMetricsWindowsMetrics2 != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsWindowsMetrics2, "", true)
+	}
+
+	if u.InputWindowsMetricsWindowsMetrics3 != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsWindowsMetrics3, "", true)
+	}
+
+	if u.InputWindowsMetricsWindowsMetrics4 != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsWindowsMetrics4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWindowsMetrics: all fields are null")
 }

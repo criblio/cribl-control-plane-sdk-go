@@ -3,300 +3,36 @@
 package components
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputLokiType string
+type OutputLokiAuthenticationType9 string
 
 const (
-	OutputLokiTypeLoki OutputLokiType = "loki"
+	// OutputLokiAuthenticationType9None None
+	OutputLokiAuthenticationType9None OutputLokiAuthenticationType9 = "none"
+	// OutputLokiAuthenticationType9Token Auth token
+	OutputLokiAuthenticationType9Token OutputLokiAuthenticationType9 = "token"
+	// OutputLokiAuthenticationType9TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType9TextSecret OutputLokiAuthenticationType9 = "textSecret"
+	// OutputLokiAuthenticationType9Basic Basic
+	OutputLokiAuthenticationType9Basic OutputLokiAuthenticationType9 = "basic"
+	// OutputLokiAuthenticationType9CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType9CredentialsSecret OutputLokiAuthenticationType9 = "credentialsSecret"
 )
 
-func (e OutputLokiType) ToPointer() *OutputLokiType {
-	return &e
-}
-func (e *OutputLokiType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "loki":
-		*e = OutputLokiType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputLokiType: %v", v)
-	}
-}
-
-// OutputLokiMessageFormat - Format to use when sending logs to Loki (Protobuf or JSON)
-type OutputLokiMessageFormat string
-
-const (
-	OutputLokiMessageFormatProtobuf OutputLokiMessageFormat = "protobuf"
-	OutputLokiMessageFormatJSON     OutputLokiMessageFormat = "json"
-)
-
-func (e OutputLokiMessageFormat) ToPointer() *OutputLokiMessageFormat {
+func (e OutputLokiAuthenticationType9) ToPointer() *OutputLokiAuthenticationType9 {
 	return &e
 }
 
-type OutputLokiLabel struct {
-	Name  *string `default:"" json:"name"`
-	Value string  `json:"value"`
-}
-
-func (o OutputLokiLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputLokiLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputLokiLabel) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputLokiLabel) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputLokiAuthenticationType string
-
-const (
-	OutputLokiAuthenticationTypeNone              OutputLokiAuthenticationType = "none"
-	OutputLokiAuthenticationTypeToken             OutputLokiAuthenticationType = "token"
-	OutputLokiAuthenticationTypeTextSecret        OutputLokiAuthenticationType = "textSecret"
-	OutputLokiAuthenticationTypeBasic             OutputLokiAuthenticationType = "basic"
-	OutputLokiAuthenticationTypeCredentialsSecret OutputLokiAuthenticationType = "credentialsSecret"
-)
-
-func (e OutputLokiAuthenticationType) ToPointer() *OutputLokiAuthenticationType {
-	return &e
-}
-
-type OutputLokiExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputLokiExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputLokiExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputLokiExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputLokiExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputLokiFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputLokiFailedRequestLoggingMode string
-
-const (
-	OutputLokiFailedRequestLoggingModePayload           OutputLokiFailedRequestLoggingMode = "payload"
-	OutputLokiFailedRequestLoggingModePayloadAndHeaders OutputLokiFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputLokiFailedRequestLoggingModeNone              OutputLokiFailedRequestLoggingMode = "none"
-)
-
-func (e OutputLokiFailedRequestLoggingMode) ToPointer() *OutputLokiFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputLokiResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputLokiResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputLokiResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputLokiResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputLokiResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputLokiResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputLokiResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputLokiTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputLokiTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputLokiTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputLokiTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputLokiTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputLokiTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputLokiTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputLokiBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputLokiBackpressureBehavior string
-
-const (
-	OutputLokiBackpressureBehaviorBlock OutputLokiBackpressureBehavior = "block"
-	OutputLokiBackpressureBehaviorDrop  OutputLokiBackpressureBehavior = "drop"
-	OutputLokiBackpressureBehaviorQueue OutputLokiBackpressureBehavior = "queue"
-)
-
-func (e OutputLokiBackpressureBehavior) ToPointer() *OutputLokiBackpressureBehavior {
-	return &e
-}
-
-// OutputLokiCompression - Codec to use to compress the persisted data
-type OutputLokiCompression string
-
-const (
-	OutputLokiCompressionNone OutputLokiCompression = "none"
-	OutputLokiCompressionGzip OutputLokiCompression = "gzip"
-)
-
-func (e OutputLokiCompression) ToPointer() *OutputLokiCompression {
-	return &e
-}
-
-// OutputLokiQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputLokiQueueFullBehavior string
-
-const (
-	OutputLokiQueueFullBehaviorBlock OutputLokiQueueFullBehavior = "block"
-	OutputLokiQueueFullBehaviorDrop  OutputLokiQueueFullBehavior = "drop"
-)
-
-func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
-	return &e
-}
-
-// OutputLokiMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputLokiMode string
-
-const (
-	OutputLokiModeError        OutputLokiMode = "error"
-	OutputLokiModeBackpressure OutputLokiMode = "backpressure"
-	OutputLokiModeAlways       OutputLokiMode = "always"
-)
-
-func (e OutputLokiMode) ToPointer() *OutputLokiMode {
-	return &e
-}
-
-type OutputLokiPqControls struct {
-}
-
-func (o OutputLokiPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputLokiPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputLoki struct {
+type OutputLokiLoki9 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
-	Type OutputLokiType `json:"type"`
+	Type TypeLokiOption `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
@@ -310,10 +46,10 @@ type OutputLoki struct {
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
 	Message *string `json:"message,omitempty"`
 	// Format to use when sending logs to Loki (Protobuf or JSON)
-	MessageFormat *OutputLokiMessageFormat `default:"protobuf" json:"messageFormat"`
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []OutputLokiLabel             `json:"labels,omitempty"`
-	AuthType *OutputLokiAuthenticationType `default:"none" json:"authType"`
+	Labels   []Metadata1Type                `json:"labels,omitempty"`
+	AuthType *OutputLokiAuthenticationType9 `default:"none" json:"authType"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `default:"1" json:"concurrency"`
 	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
@@ -329,22 +65,20 @@ type OutputLoki struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
 	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputLokiExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputLokiFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputLokiResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputLokiTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
 	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputLokiBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -360,6 +94,16 @@ type OutputLoki struct {
 	Password *string `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -367,308 +111,4031 @@ type OutputLoki struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputLokiCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputLokiQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputLokiMode       `default:"error" json:"pqMode"`
-	PqControls *OutputLokiPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputLoki) MarshalJSON() ([]byte, error) {
+func (o OutputLokiLoki9) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputLoki) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+func (o *OutputLokiLoki9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputLoki) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputLoki) GetType() OutputLokiType {
-	if o == nil {
-		return OutputLokiType("")
-	}
-	return o.Type
-}
-
-func (o *OutputLoki) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputLoki) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputLoki) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputLoki) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputLoki) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputLoki) GetMessage() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Message
-}
-
-func (o *OutputLoki) GetMessageFormat() *OutputLokiMessageFormat {
-	if o == nil {
-		return nil
-	}
-	return o.MessageFormat
-}
-
-func (o *OutputLoki) GetLabels() []OutputLokiLabel {
-	if o == nil {
-		return nil
-	}
-	return o.Labels
-}
-
-func (o *OutputLoki) GetAuthType() *OutputLokiAuthenticationType {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputLoki) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputLoki) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputLoki) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputLoki) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputLoki) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputLoki) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputLoki) GetExtraHTTPHeaders() []OutputLokiExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputLoki) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputLoki) GetFailedRequestLoggingMode() *OutputLokiFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputLoki) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputLoki) GetResponseRetrySettings() []OutputLokiResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputLoki) GetTimeoutRetrySettings() *OutputLokiTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputLoki) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputLoki) GetEnableDynamicHeaders() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableDynamicHeaders
-}
-
-func (o *OutputLoki) GetOnBackpressure() *OutputLokiBackpressureBehavior {
+func (o *OutputLokiLoki9) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputLoki) GetTotalMemoryLimitKB() *float64 {
+func (o *OutputLokiLoki9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki9) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki9) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki9) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki9) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki9) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki9) GetAuthType() *OutputLokiAuthenticationType9 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki9) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki9) GetTotalMemoryLimitKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TotalMemoryLimitKB
 }
 
-func (o *OutputLoki) GetDescription() *string {
+func (o *OutputLokiLoki9) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputLoki) GetCompress() *bool {
+func (o *OutputLokiLoki9) GetCompress() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputLoki) GetToken() *string {
+func (o *OutputLokiLoki9) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputLoki) GetTextSecret() *string {
+func (o *OutputLokiLoki9) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputLoki) GetUsername() *string {
+func (o *OutputLokiLoki9) GetUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Username
 }
 
-func (o *OutputLoki) GetPassword() *string {
+func (o *OutputLokiLoki9) GetPassword() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Password
 }
 
-func (o *OutputLoki) GetCredentialsSecret() *string {
+func (o *OutputLokiLoki9) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputLoki) GetPqMaxFileSize() *string {
+func (o *OutputLokiLoki9) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputLoki) GetPqMaxSize() *string {
+func (o *OutputLokiLoki9) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputLoki) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputLoki) GetPqCompress() *OutputLokiCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputLoki) GetPqOnBackpressure() *OutputLokiQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputLoki) GetPqMode() *OutputLokiMode {
+func (o *OutputLokiLoki9) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputLoki) GetPqControls() *OutputLokiPqControls {
+func (o *OutputLokiLoki9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki9) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType8 string
+
+const (
+	// OutputLokiAuthenticationType8None None
+	OutputLokiAuthenticationType8None OutputLokiAuthenticationType8 = "none"
+	// OutputLokiAuthenticationType8Token Auth token
+	OutputLokiAuthenticationType8Token OutputLokiAuthenticationType8 = "token"
+	// OutputLokiAuthenticationType8TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType8TextSecret OutputLokiAuthenticationType8 = "textSecret"
+	// OutputLokiAuthenticationType8Basic Basic
+	OutputLokiAuthenticationType8Basic OutputLokiAuthenticationType8 = "basic"
+	// OutputLokiAuthenticationType8CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType8CredentialsSecret OutputLokiAuthenticationType8 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType8) ToPointer() *OutputLokiAuthenticationType8 {
+	return &e
+}
+
+type OutputLokiLoki8 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels   []Metadata1Type                `json:"labels,omitempty"`
+	AuthType *OutputLokiAuthenticationType8 `default:"none" json:"authType"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki8) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki8) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki8) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki8) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki8) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki8) GetAuthType() *OutputLokiAuthenticationType8 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki8) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki8) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki8) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki8) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki8) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki8) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki8) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki8) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+type OutputLokiAuthenticationType7 string
+
+const (
+	// OutputLokiAuthenticationType7None None
+	OutputLokiAuthenticationType7None OutputLokiAuthenticationType7 = "none"
+	// OutputLokiAuthenticationType7Token Auth token
+	OutputLokiAuthenticationType7Token OutputLokiAuthenticationType7 = "token"
+	// OutputLokiAuthenticationType7TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType7TextSecret OutputLokiAuthenticationType7 = "textSecret"
+	// OutputLokiAuthenticationType7Basic Basic
+	OutputLokiAuthenticationType7Basic OutputLokiAuthenticationType7 = "basic"
+	// OutputLokiAuthenticationType7CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType7CredentialsSecret OutputLokiAuthenticationType7 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType7) ToPointer() *OutputLokiAuthenticationType7 {
+	return &e
+}
+
+type OutputLokiLoki7 struct {
+	AuthType *OutputLokiAuthenticationType7 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels []Metadata1Type `json:"labels,omitempty"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki7) GetAuthType() *OutputLokiAuthenticationType7 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki7) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki7) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki7) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki7) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki7) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki7) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki7) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki7) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki7) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki7) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki7) GetCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType6 string
+
+const (
+	// OutputLokiAuthenticationType6None None
+	OutputLokiAuthenticationType6None OutputLokiAuthenticationType6 = "none"
+	// OutputLokiAuthenticationType6Token Auth token
+	OutputLokiAuthenticationType6Token OutputLokiAuthenticationType6 = "token"
+	// OutputLokiAuthenticationType6TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType6TextSecret OutputLokiAuthenticationType6 = "textSecret"
+	// OutputLokiAuthenticationType6Basic Basic
+	OutputLokiAuthenticationType6Basic OutputLokiAuthenticationType6 = "basic"
+	// OutputLokiAuthenticationType6CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType6CredentialsSecret OutputLokiAuthenticationType6 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType6) ToPointer() *OutputLokiAuthenticationType6 {
+	return &e
+}
+
+type OutputLokiLoki6 struct {
+	AuthType *OutputLokiAuthenticationType6 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels []Metadata1Type `json:"labels,omitempty"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username string `json:"username"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password string `json:"password"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "username", "password"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki6) GetAuthType() *OutputLokiAuthenticationType6 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki6) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki6) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki6) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki6) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki6) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki6) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki6) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki6) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki6) GetUsername() string {
+	if o == nil {
+		return ""
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki6) GetPassword() string {
+	if o == nil {
+		return ""
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki6) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType5 string
+
+const (
+	// OutputLokiAuthenticationType5None None
+	OutputLokiAuthenticationType5None OutputLokiAuthenticationType5 = "none"
+	// OutputLokiAuthenticationType5Token Auth token
+	OutputLokiAuthenticationType5Token OutputLokiAuthenticationType5 = "token"
+	// OutputLokiAuthenticationType5TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType5TextSecret OutputLokiAuthenticationType5 = "textSecret"
+	// OutputLokiAuthenticationType5Basic Basic
+	OutputLokiAuthenticationType5Basic OutputLokiAuthenticationType5 = "basic"
+	// OutputLokiAuthenticationType5CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType5CredentialsSecret OutputLokiAuthenticationType5 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType5) ToPointer() *OutputLokiAuthenticationType5 {
+	return &e
+}
+
+type OutputLokiLoki5 struct {
+	AuthType *OutputLokiAuthenticationType5 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels []Metadata1Type `json:"labels,omitempty"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki5) GetAuthType() *OutputLokiAuthenticationType5 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki5) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki5) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki5) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki5) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki5) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki5) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki5) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki5) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki5) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki5) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki5) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType4 string
+
+const (
+	// OutputLokiAuthenticationType4None None
+	OutputLokiAuthenticationType4None OutputLokiAuthenticationType4 = "none"
+	// OutputLokiAuthenticationType4Token Auth token
+	OutputLokiAuthenticationType4Token OutputLokiAuthenticationType4 = "token"
+	// OutputLokiAuthenticationType4TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType4TextSecret OutputLokiAuthenticationType4 = "textSecret"
+	// OutputLokiAuthenticationType4Basic Basic
+	OutputLokiAuthenticationType4Basic OutputLokiAuthenticationType4 = "basic"
+	// OutputLokiAuthenticationType4CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType4CredentialsSecret OutputLokiAuthenticationType4 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType4) ToPointer() *OutputLokiAuthenticationType4 {
+	return &e
+}
+
+type OutputLokiLoki4 struct {
+	AuthType *OutputLokiAuthenticationType4 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels []Metadata1Type `json:"labels,omitempty"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token string `json:"token"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki4) GetAuthType() *OutputLokiAuthenticationType4 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki4) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki4) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki4) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki4) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki4) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki4) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki4) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki4) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki4) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki4) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki4) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType3 string
+
+const (
+	// OutputLokiAuthenticationType3None None
+	OutputLokiAuthenticationType3None OutputLokiAuthenticationType3 = "none"
+	// OutputLokiAuthenticationType3Token Auth token
+	OutputLokiAuthenticationType3Token OutputLokiAuthenticationType3 = "token"
+	// OutputLokiAuthenticationType3TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType3TextSecret OutputLokiAuthenticationType3 = "textSecret"
+	// OutputLokiAuthenticationType3Basic Basic
+	OutputLokiAuthenticationType3Basic OutputLokiAuthenticationType3 = "basic"
+	// OutputLokiAuthenticationType3CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType3CredentialsSecret OutputLokiAuthenticationType3 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType3) ToPointer() *OutputLokiAuthenticationType3 {
+	return &e
+}
+
+type OutputLokiLoki3 struct {
+	AuthType *OutputLokiAuthenticationType3 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels []Metadata1Type `json:"labels,omitempty"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki3) GetAuthType() *OutputLokiAuthenticationType3 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki3) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki3) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki3) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki3) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki3) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki3) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki3) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki3) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki3) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki3) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki3) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType2 string
+
+const (
+	// OutputLokiAuthenticationType2None None
+	OutputLokiAuthenticationType2None OutputLokiAuthenticationType2 = "none"
+	// OutputLokiAuthenticationType2Token Auth token
+	OutputLokiAuthenticationType2Token OutputLokiAuthenticationType2 = "token"
+	// OutputLokiAuthenticationType2TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType2TextSecret OutputLokiAuthenticationType2 = "textSecret"
+	// OutputLokiAuthenticationType2Basic Basic
+	OutputLokiAuthenticationType2Basic OutputLokiAuthenticationType2 = "basic"
+	// OutputLokiAuthenticationType2CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType2CredentialsSecret OutputLokiAuthenticationType2 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType2) ToPointer() *OutputLokiAuthenticationType2 {
+	return &e
+}
+
+type OutputLokiLoki2 struct {
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels   []Metadata1Type                `json:"labels,omitempty"`
+	AuthType *OutputLokiAuthenticationType2 `default:"none" json:"authType"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki2) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki2) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki2) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki2) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki2) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki2) GetAuthType() *OutputLokiAuthenticationType2 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki2) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki2) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki2) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki2) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki2) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiAuthenticationType1 string
+
+const (
+	// OutputLokiAuthenticationType1None None
+	OutputLokiAuthenticationType1None OutputLokiAuthenticationType1 = "none"
+	// OutputLokiAuthenticationType1Token Auth token
+	OutputLokiAuthenticationType1Token OutputLokiAuthenticationType1 = "token"
+	// OutputLokiAuthenticationType1TextSecret Auth token (text secret)
+	OutputLokiAuthenticationType1TextSecret OutputLokiAuthenticationType1 = "textSecret"
+	// OutputLokiAuthenticationType1Basic Basic
+	OutputLokiAuthenticationType1Basic OutputLokiAuthenticationType1 = "basic"
+	// OutputLokiAuthenticationType1CredentialsSecret Basic (credentials secret)
+	OutputLokiAuthenticationType1CredentialsSecret OutputLokiAuthenticationType1 = "credentialsSecret"
+)
+
+func (e OutputLokiAuthenticationType1) ToPointer() *OutputLokiAuthenticationType1 {
+	return &e
+}
+
+type OutputLokiLoki1 struct {
+	// Format to use when sending logs to Loki (Protobuf or JSON)
+	MessageFormat *MessageFormatOptions `default:"protobuf" json:"messageFormat"`
+	// Unique ID for this output
+	ID   *string        `json:"id,omitempty"`
+	Type TypeLokiOption `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// The endpoint to send logs to
+	URL string `json:"url"`
+	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+	Message *string `json:"message,omitempty"`
+	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+	Labels   []Metadata1Type                `json:"labels,omitempty"`
+	AuthType *OutputLokiAuthenticationType1 `default:"none" json:"authType"`
+	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+	Concurrency *float64 `default:"1" json:"concurrency"`
+	// Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+	FlushPeriodSec *float64 `default:"15" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
+	// Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+	EnableDynamicHeaders *bool `default:"false" json:"enableDynamicHeaders"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
+	Description        *string  `json:"description,omitempty"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+	Token *string `json:"token,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Username for authentication
+	Username *string `json:"username,omitempty"`
+	// Password (API key in Grafana Cloud domain) for authentication
+	Password *string `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputLokiLoki1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputLokiLoki1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputLokiLoki1) GetMessageFormat() *MessageFormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MessageFormat
+}
+
+func (o *OutputLokiLoki1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputLokiLoki1) GetType() TypeLokiOption {
+	if o == nil {
+		return TypeLokiOption("")
+	}
+	return o.Type
+}
+
+func (o *OutputLokiLoki1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputLokiLoki1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputLokiLoki1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputLokiLoki1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputLokiLoki1) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputLokiLoki1) GetMessage() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Message
+}
+
+func (o *OutputLokiLoki1) GetLabels() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.Labels
+}
+
+func (o *OutputLokiLoki1) GetAuthType() *OutputLokiAuthenticationType1 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputLokiLoki1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputLokiLoki1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputLokiLoki1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputLokiLoki1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputLokiLoki1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputLokiLoki1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputLokiLoki1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputLokiLoki1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputLokiLoki1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputLokiLoki1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputLokiLoki1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputLokiLoki1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputLokiLoki1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLokiLoki1) GetEnableDynamicHeaders() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableDynamicHeaders
+}
+
+func (o *OutputLokiLoki1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputLokiLoki1) GetTotalMemoryLimitKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalMemoryLimitKB
+}
+
+func (o *OutputLokiLoki1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputLokiLoki1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputLokiLoki1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputLokiLoki1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputLokiLoki1) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputLokiLoki1) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputLokiLoki1) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputLokiLoki1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputLokiLoki1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputLokiLoki1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputLokiLoki1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputLokiLoki1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputLokiLoki1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputLokiLoki1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputLokiLoki1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputLokiLoki1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputLokiLoki1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputLokiLoki1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputLokiType string
+
+const (
+	OutputLokiTypeOutputLokiLoki1 OutputLokiType = "OutputLoki_Loki_1"
+	OutputLokiTypeOutputLokiLoki2 OutputLokiType = "OutputLoki_Loki_2"
+	OutputLokiTypeOutputLokiLoki3 OutputLokiType = "OutputLoki_Loki_3"
+	OutputLokiTypeOutputLokiLoki4 OutputLokiType = "OutputLoki_Loki_4"
+	OutputLokiTypeOutputLokiLoki5 OutputLokiType = "OutputLoki_Loki_5"
+	OutputLokiTypeOutputLokiLoki6 OutputLokiType = "OutputLoki_Loki_6"
+	OutputLokiTypeOutputLokiLoki7 OutputLokiType = "OutputLoki_Loki_7"
+	OutputLokiTypeOutputLokiLoki8 OutputLokiType = "OutputLoki_Loki_8"
+	OutputLokiTypeOutputLokiLoki9 OutputLokiType = "OutputLoki_Loki_9"
+)
+
+type OutputLoki struct {
+	OutputLokiLoki1 *OutputLokiLoki1 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki2 *OutputLokiLoki2 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki3 *OutputLokiLoki3 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki4 *OutputLokiLoki4 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki5 *OutputLokiLoki5 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki6 *OutputLokiLoki6 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki7 *OutputLokiLoki7 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki8 *OutputLokiLoki8 `queryParam:"inline,name=OutputLoki"`
+	OutputLokiLoki9 *OutputLokiLoki9 `queryParam:"inline,name=OutputLoki"`
+
+	Type OutputLokiType
+}
+
+func CreateOutputLokiOutputLokiLoki1(outputLokiLoki1 OutputLokiLoki1) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki1
+
+	return OutputLoki{
+		OutputLokiLoki1: &outputLokiLoki1,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki2(outputLokiLoki2 OutputLokiLoki2) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki2
+
+	return OutputLoki{
+		OutputLokiLoki2: &outputLokiLoki2,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki3(outputLokiLoki3 OutputLokiLoki3) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki3
+
+	return OutputLoki{
+		OutputLokiLoki3: &outputLokiLoki3,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki4(outputLokiLoki4 OutputLokiLoki4) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki4
+
+	return OutputLoki{
+		OutputLokiLoki4: &outputLokiLoki4,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki5(outputLokiLoki5 OutputLokiLoki5) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki5
+
+	return OutputLoki{
+		OutputLokiLoki5: &outputLokiLoki5,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki6(outputLokiLoki6 OutputLokiLoki6) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki6
+
+	return OutputLoki{
+		OutputLokiLoki6: &outputLokiLoki6,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki7(outputLokiLoki7 OutputLokiLoki7) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki7
+
+	return OutputLoki{
+		OutputLokiLoki7: &outputLokiLoki7,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki8(outputLokiLoki8 OutputLokiLoki8) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki8
+
+	return OutputLoki{
+		OutputLokiLoki8: &outputLokiLoki8,
+		Type:            typ,
+	}
+}
+
+func CreateOutputLokiOutputLokiLoki9(outputLokiLoki9 OutputLokiLoki9) OutputLoki {
+	typ := OutputLokiTypeOutputLokiLoki9
+
+	return OutputLoki{
+		OutputLokiLoki9: &outputLokiLoki9,
+		Type:            typ,
+	}
+}
+
+func (u *OutputLoki) UnmarshalJSON(data []byte) error {
+
+	var outputLokiLoki6 OutputLokiLoki6 = OutputLokiLoki6{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki6, "", true, nil); err == nil {
+		u.OutputLokiLoki6 = &outputLokiLoki6
+		u.Type = OutputLokiTypeOutputLokiLoki6
+		return nil
+	}
+
+	var outputLokiLoki4 OutputLokiLoki4 = OutputLokiLoki4{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki4, "", true, nil); err == nil {
+		u.OutputLokiLoki4 = &outputLokiLoki4
+		u.Type = OutputLokiTypeOutputLokiLoki4
+		return nil
+	}
+
+	var outputLokiLoki5 OutputLokiLoki5 = OutputLokiLoki5{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki5, "", true, nil); err == nil {
+		u.OutputLokiLoki5 = &outputLokiLoki5
+		u.Type = OutputLokiTypeOutputLokiLoki5
+		return nil
+	}
+
+	var outputLokiLoki7 OutputLokiLoki7 = OutputLokiLoki7{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki7, "", true, nil); err == nil {
+		u.OutputLokiLoki7 = &outputLokiLoki7
+		u.Type = OutputLokiTypeOutputLokiLoki7
+		return nil
+	}
+
+	var outputLokiLoki9 OutputLokiLoki9 = OutputLokiLoki9{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki9, "", true, nil); err == nil {
+		u.OutputLokiLoki9 = &outputLokiLoki9
+		u.Type = OutputLokiTypeOutputLokiLoki9
+		return nil
+	}
+
+	var outputLokiLoki1 OutputLokiLoki1 = OutputLokiLoki1{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki1, "", true, nil); err == nil {
+		u.OutputLokiLoki1 = &outputLokiLoki1
+		u.Type = OutputLokiTypeOutputLokiLoki1
+		return nil
+	}
+
+	var outputLokiLoki2 OutputLokiLoki2 = OutputLokiLoki2{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki2, "", true, nil); err == nil {
+		u.OutputLokiLoki2 = &outputLokiLoki2
+		u.Type = OutputLokiTypeOutputLokiLoki2
+		return nil
+	}
+
+	var outputLokiLoki3 OutputLokiLoki3 = OutputLokiLoki3{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki3, "", true, nil); err == nil {
+		u.OutputLokiLoki3 = &outputLokiLoki3
+		u.Type = OutputLokiTypeOutputLokiLoki3
+		return nil
+	}
+
+	var outputLokiLoki8 OutputLokiLoki8 = OutputLokiLoki8{}
+	if err := utils.UnmarshalJSON(data, &outputLokiLoki8, "", true, nil); err == nil {
+		u.OutputLokiLoki8 = &outputLokiLoki8
+		u.Type = OutputLokiTypeOutputLokiLoki8
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputLoki", string(data))
+}
+
+func (u OutputLoki) MarshalJSON() ([]byte, error) {
+	if u.OutputLokiLoki1 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki1, "", true)
+	}
+
+	if u.OutputLokiLoki2 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki2, "", true)
+	}
+
+	if u.OutputLokiLoki3 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki3, "", true)
+	}
+
+	if u.OutputLokiLoki4 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki4, "", true)
+	}
+
+	if u.OutputLokiLoki5 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki5, "", true)
+	}
+
+	if u.OutputLokiLoki6 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki6, "", true)
+	}
+
+	if u.OutputLokiLoki7 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki7, "", true)
+	}
+
+	if u.OutputLokiLoki8 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki8, "", true)
+	}
+
+	if u.OutputLokiLoki9 != nil {
+		return utils.MarshalJSON(u.OutputLokiLoki9, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputLoki: all fields are null")
 }

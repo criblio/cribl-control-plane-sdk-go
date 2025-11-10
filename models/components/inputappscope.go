@@ -4,218 +4,35 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputAppscopeType string
+type InputAppscopeType8 string
 
 const (
-	InputAppscopeTypeAppscope InputAppscopeType = "appscope"
+	InputAppscopeType8Appscope InputAppscopeType8 = "appscope"
 )
 
-func (e InputAppscopeType) ToPointer() *InputAppscopeType {
+func (e InputAppscopeType8) ToPointer() *InputAppscopeType8 {
 	return &e
 }
-func (e *InputAppscopeType) UnmarshalJSON(data []byte) error {
+func (e *InputAppscopeType8) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "appscope":
-		*e = InputAppscopeType(v)
+		*e = InputAppscopeType8(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputAppscopeType: %v", v)
+		return fmt.Errorf("invalid value for InputAppscopeType8: %v", v)
 	}
 }
 
-type InputAppscopeConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputAppscopeConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopeConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputAppscopeConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAppscopeConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputAppscopeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputAppscopeMode string
-
-const (
-	InputAppscopeModeSmart  InputAppscopeMode = "smart"
-	InputAppscopeModeAlways InputAppscopeMode = "always"
-)
-
-func (e InputAppscopeMode) ToPointer() *InputAppscopeMode {
-	return &e
-}
-
-// InputAppscopeCompression - Codec to use to compress the persisted data
-type InputAppscopeCompression string
-
-const (
-	InputAppscopeCompressionNone InputAppscopeCompression = "none"
-	InputAppscopeCompressionGzip InputAppscopeCompression = "gzip"
-)
-
-func (e InputAppscopeCompression) ToPointer() *InputAppscopeCompression {
-	return &e
-}
-
-type InputAppscopePqControls struct {
-}
-
-func (i InputAppscopePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputAppscopePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputAppscopeMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputAppscopeCompression `default:"none" json:"compress"`
-	PqControls *InputAppscopePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputAppscopePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputAppscopePq) GetMode() *InputAppscopeMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputAppscopePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputAppscopePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputAppscopePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputAppscopePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputAppscopePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputAppscopePq) GetCompress() *InputAppscopeCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputAppscopePq) GetPqControls() *InputAppscopePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputAppscopeMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputAppscopeMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopeMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputAppscopeMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputAppscopeMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type Allow struct {
+type Allow8 struct {
 	// Specify the name of a process or family of processes.
 	Procname string `json:"procname"`
 	// Specify a string to substring-match against process command-line.
@@ -224,299 +41,77 @@ type Allow struct {
 	Config string `json:"config"`
 }
 
-func (a Allow) MarshalJSON() ([]byte, error) {
+func (a Allow8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(a, "", false)
 }
 
-func (a *Allow) UnmarshalJSON(data []byte) error {
+func (a *Allow8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *Allow) GetProcname() string {
+func (a *Allow8) GetProcname() string {
 	if a == nil {
 		return ""
 	}
 	return a.Procname
 }
 
-func (a *Allow) GetArg() *string {
+func (a *Allow8) GetArg() *string {
 	if a == nil {
 		return nil
 	}
 	return a.Arg
 }
 
-func (a *Allow) GetConfig() string {
+func (a *Allow8) GetConfig() string {
 	if a == nil {
 		return ""
 	}
 	return a.Config
 }
 
-type InputAppscopeFilter struct {
+type InputAppscopeFilter8 struct {
 	// Specify processes that AppScope should be loaded into, and the config to use.
-	Allow []Allow `json:"allow,omitempty"`
+	Allow []Allow8 `json:"allow,omitempty"`
 	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
 	TransportURL *string `json:"transportURL,omitempty"`
 }
 
-func (i InputAppscopeFilter) MarshalJSON() ([]byte, error) {
+func (i InputAppscopeFilter8) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscopeFilter) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopeFilter8) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscopeFilter) GetAllow() []Allow {
+func (i *InputAppscopeFilter8) GetAllow() []Allow8 {
 	if i == nil {
 		return nil
 	}
 	return i.Allow
 }
 
-func (i *InputAppscopeFilter) GetTransportURL() *string {
+func (i *InputAppscopeFilter8) GetTransportURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TransportURL
 }
 
-type InputAppscopeDataCompressionFormat string
-
-const (
-	InputAppscopeDataCompressionFormatNone InputAppscopeDataCompressionFormat = "none"
-	InputAppscopeDataCompressionFormatGzip InputAppscopeDataCompressionFormat = "gzip"
-)
-
-func (e InputAppscopeDataCompressionFormat) ToPointer() *InputAppscopeDataCompressionFormat {
-	return &e
-}
-
-type InputAppscopePersistence struct {
-	// Spool events and metrics on disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
-	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
-	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
-	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                             `default:"24h" json:"maxDataTime"`
-	Compress    *InputAppscopeDataCompressionFormat `default:"gzip" json:"compress"`
-	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
-	DestPath *string `default:"$CRIBL_HOME/state/appscope" json:"destPath"`
-}
-
-func (i InputAppscopePersistence) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopePersistence) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputAppscopePersistence) GetEnable() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Enable
-}
-
-func (i *InputAppscopePersistence) GetTimeWindow() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TimeWindow
-}
-
-func (i *InputAppscopePersistence) GetMaxDataSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxDataSize
-}
-
-func (i *InputAppscopePersistence) GetMaxDataTime() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxDataTime
-}
-
-func (i *InputAppscopePersistence) GetCompress() *InputAppscopeDataCompressionFormat {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputAppscopePersistence) GetDestPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.DestPath
-}
-
-// InputAppscopeAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type InputAppscopeAuthenticationMethod string
-
-const (
-	InputAppscopeAuthenticationMethodManual InputAppscopeAuthenticationMethod = "manual"
-	InputAppscopeAuthenticationMethodSecret InputAppscopeAuthenticationMethod = "secret"
-)
-
-func (e InputAppscopeAuthenticationMethod) ToPointer() *InputAppscopeAuthenticationMethod {
-	return &e
-}
-
-type InputAppscopeMinimumTLSVersion string
-
-const (
-	InputAppscopeMinimumTLSVersionTlSv1  InputAppscopeMinimumTLSVersion = "TLSv1"
-	InputAppscopeMinimumTLSVersionTlSv11 InputAppscopeMinimumTLSVersion = "TLSv1.1"
-	InputAppscopeMinimumTLSVersionTlSv12 InputAppscopeMinimumTLSVersion = "TLSv1.2"
-	InputAppscopeMinimumTLSVersionTlSv13 InputAppscopeMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputAppscopeMinimumTLSVersion) ToPointer() *InputAppscopeMinimumTLSVersion {
-	return &e
-}
-
-type InputAppscopeMaximumTLSVersion string
-
-const (
-	InputAppscopeMaximumTLSVersionTlSv1  InputAppscopeMaximumTLSVersion = "TLSv1"
-	InputAppscopeMaximumTLSVersionTlSv11 InputAppscopeMaximumTLSVersion = "TLSv1.1"
-	InputAppscopeMaximumTLSVersionTlSv12 InputAppscopeMaximumTLSVersion = "TLSv1.2"
-	InputAppscopeMaximumTLSVersionTlSv13 InputAppscopeMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputAppscopeMaximumTLSVersion) ToPointer() *InputAppscopeMaximumTLSVersion {
-	return &e
-}
-
-type InputAppscopeTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                           `default:"false" json:"requestCert"`
-	RejectUnauthorized any                             `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                             `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputAppscopeMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputAppscopeMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputAppscopeTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetMinVersion() *InputAppscopeMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputAppscopeTLSSettingsServerSide) GetMaxVersion() *InputAppscopeMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputAppscope struct {
+type InputAppscopeAppscope8 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
 	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputAppscopeType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType8 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -528,8 +123,8 @@ type InputAppscope struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputAppscopeConnection `json:"connections,omitempty"`
-	Pq          *InputAppscopePq          `json:"pq,omitempty"`
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -543,23 +138,403 @@ type InputAppscope struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
 	// Fields to add to events from this input
-	Metadata []InputAppscopeMetadatum `json:"metadata,omitempty"`
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                     `default:"false" json:"enableUnixPath"`
-	Filter         *InputAppscopeFilter      `json:"filter,omitempty"`
-	Persistence    *InputAppscopePersistence `json:"persistence,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputAppscopeAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                            `json:"description,omitempty"`
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter8 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	Description    *string               `json:"description,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `json:"host,omitempty"`
 	// Port to listen on
-	Port *float64                            `json:"port,omitempty"`
-	TLS  *InputAppscopeTLSSettingsServerSide `json:"tls,omitempty"`
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+}
+
+func (i InputAppscopeAppscope8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope8) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope8) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope8) GetType() InputAppscopeType8 {
+	if i == nil {
+		return InputAppscopeType8("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope8) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope8) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope8) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope8) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope8) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope8) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope8) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope8) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope8) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope8) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope8) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope8) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope8) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope8) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope8) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope8) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope8) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope8) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope8) GetFilter() *InputAppscopeFilter8 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope8) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope8) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope8) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope8) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope8) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope8) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope8) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope8) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope8) GetTextSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType7 string
+
+const (
+	InputAppscopeType7Appscope InputAppscopeType7 = "appscope"
+)
+
+func (e InputAppscopeType7) ToPointer() *InputAppscopeType7 {
+	return &e
+}
+func (e *InputAppscopeType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType7: %v", v)
+	}
+}
+
+type Allow7 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow7) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow7) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow7) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter7 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow7 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter7) GetAllow() []Allow7 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter7) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope7 struct {
+	// Enter credentials directly, or select a stored secret
+	AuthType *AuthType2Options `default:"manual" json:"authType"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType7 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter7 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	Description    *string               `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
 	// Path to the UNIX domain socket to listen on.
 	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
@@ -570,230 +545,2717 @@ type InputAppscope struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscope) MarshalJSON() ([]byte, error) {
+func (i InputAppscopeAppscope7) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscope) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopeAppscope7) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscope) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputAppscope) GetType() InputAppscopeType {
-	if i == nil {
-		return InputAppscopeType("")
-	}
-	return i.Type
-}
-
-func (i *InputAppscope) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAppscope) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAppscope) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputAppscope) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputAppscope) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputAppscope) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputAppscope) GetConnections() []InputAppscopeConnection {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputAppscope) GetPq() *InputAppscopePq {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputAppscope) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputAppscope) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputAppscope) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputAppscope) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputAppscope) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputAppscope) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputAppscope) GetMetadata() []InputAppscopeMetadatum {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputAppscope) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputAppscope) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputAppscope) GetEnableUnixPath() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableUnixPath
-}
-
-func (i *InputAppscope) GetFilter() *InputAppscopeFilter {
-	if i == nil {
-		return nil
-	}
-	return i.Filter
-}
-
-func (i *InputAppscope) GetPersistence() *InputAppscopePersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputAppscope) GetAuthType() *InputAppscopeAuthenticationMethod {
+func (i *InputAppscopeAppscope7) GetAuthType() *AuthType2Options {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscope) GetDescription() *string {
+func (i *InputAppscopeAppscope7) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope7) GetType() InputAppscopeType7 {
+	if i == nil {
+		return InputAppscopeType7("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope7) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope7) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope7) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope7) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope7) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope7) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope7) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope7) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope7) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope7) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope7) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope7) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope7) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope7) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope7) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope7) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope7) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope7) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope7) GetFilter() *InputAppscopeFilter7 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope7) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope7) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscope) GetHost() *string {
+func (i *InputAppscopeAppscope7) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscope) GetPort() *float64 {
+func (i *InputAppscopeAppscope7) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscope) GetTLS() *InputAppscopeTLSSettingsServerSide {
+func (i *InputAppscopeAppscope7) GetTLS() *Tls2Type {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscope) GetUnixSocketPath() *string {
+func (i *InputAppscopeAppscope7) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscope) GetUnixSocketPerms() *string {
+func (i *InputAppscopeAppscope7) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscope) GetAuthToken() *string {
+func (i *InputAppscopeAppscope7) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscope) GetTextSecret() *string {
+func (i *InputAppscopeAppscope7) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
+}
+
+type InputAppscopeType6 string
+
+const (
+	InputAppscopeType6Appscope InputAppscopeType6 = "appscope"
+)
+
+func (e InputAppscopeType6) ToPointer() *InputAppscopeType6 {
+	return &e
+}
+func (e *InputAppscopeType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType6: %v", v)
+	}
+}
+
+type Allow6 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow6) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow6) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow6) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter6 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow6 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter6) GetAllow() []Allow6 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter6) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope6 struct {
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool `default:"false" json:"enableUnixPath"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType6 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64              `default:"10000" json:"staleChannelFlushMs"`
+	Filter              *InputAppscopeFilter6 `json:"filter,omitempty"`
+	Persistence         *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms string `json:"unixSocketPerms"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "unixSocketPerms"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope6) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope6) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope6) GetType() InputAppscopeType6 {
+	if i == nil {
+		return InputAppscopeType6("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope6) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope6) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope6) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope6) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope6) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope6) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope6) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope6) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope6) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope6) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope6) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope6) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope6) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope6) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope6) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope6) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope6) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope6) GetFilter() *InputAppscopeFilter6 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope6) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope6) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope6) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope6) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope6) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope6) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope6) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope6) GetUnixSocketPerms() string {
+	if i == nil {
+		return ""
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope6) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope6) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType5 string
+
+const (
+	InputAppscopeType5Appscope InputAppscopeType5 = "appscope"
+)
+
+func (e InputAppscopeType5) ToPointer() *InputAppscopeType5 {
+	return &e
+}
+func (e *InputAppscopeType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType5: %v", v)
+	}
+}
+
+type Allow5 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow5) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow5) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow5) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter5 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow5 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter5) GetAllow() []Allow5 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter5) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope5 struct {
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool `default:"false" json:"enableUnixPath"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType5 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64              `default:"10000" json:"staleChannelFlushMs"`
+	Filter              *InputAppscopeFilter5 `json:"filter,omitempty"`
+	Persistence         *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64  `json:"port"`
+	TLS  Tls2Type `json:"tls"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "tls"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope5) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope5) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope5) GetType() InputAppscopeType5 {
+	if i == nil {
+		return InputAppscopeType5("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope5) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope5) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope5) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope5) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope5) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope5) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope5) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope5) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope5) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope5) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope5) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope5) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope5) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope5) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope5) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope5) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope5) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope5) GetFilter() *InputAppscopeFilter5 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope5) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope5) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope5) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope5) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope5) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope5) GetTLS() Tls2Type {
+	if i == nil {
+		return Tls2Type{}
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope5) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope5) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope5) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope5) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType4 string
+
+const (
+	InputAppscopeType4Appscope InputAppscopeType4 = "appscope"
+)
+
+func (e InputAppscopeType4) ToPointer() *InputAppscopeType4 {
+	return &e
+}
+func (e *InputAppscopeType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType4: %v", v)
+	}
+}
+
+type Allow4 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow4) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow4) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow4) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter4 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow4 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter4) GetAllow() []Allow4 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter4) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope4 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType4 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          PqType            `json:"pq"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter4 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "pq"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope4) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope4) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope4) GetType() InputAppscopeType4 {
+	if i == nil {
+		return InputAppscopeType4("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope4) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope4) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope4) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope4) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope4) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope4) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope4) GetPq() PqType {
+	if i == nil {
+		return PqType{}
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope4) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope4) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope4) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope4) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope4) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope4) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope4) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope4) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope4) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope4) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope4) GetFilter() *InputAppscopeFilter4 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope4) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope4) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope4) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope4) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope4) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope4) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope4) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope4) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope4) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope4) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType3 string
+
+const (
+	InputAppscopeType3Appscope InputAppscopeType3 = "appscope"
+)
+
+func (e InputAppscopeType3) ToPointer() *InputAppscopeType3 {
+	return &e
+}
+func (e *InputAppscopeType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType3: %v", v)
+	}
+}
+
+type Allow3 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow3) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow3) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow3) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter3 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow3 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter3) GetAllow() []Allow3 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter3) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope3 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType3 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter3 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope3) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope3) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope3) GetType() InputAppscopeType3 {
+	if i == nil {
+		return InputAppscopeType3("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope3) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope3) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope3) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope3) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope3) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope3) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope3) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope3) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope3) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope3) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope3) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope3) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope3) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope3) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope3) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope3) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope3) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope3) GetFilter() *InputAppscopeFilter3 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope3) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope3) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope3) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope3) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope3) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope3) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope3) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope3) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope3) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope3) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType2 string
+
+const (
+	InputAppscopeType2Appscope InputAppscopeType2 = "appscope"
+)
+
+func (e InputAppscopeType2) ToPointer() *InputAppscopeType2 {
+	return &e
+}
+func (e *InputAppscopeType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType2: %v", v)
+	}
+}
+
+type Allow2 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow2) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow2) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow2) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter2 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow2 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter2) GetAllow() []Allow2 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter2) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope2 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType2 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter2 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "connections"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope2) GetType() InputAppscopeType2 {
+	if i == nil {
+		return InputAppscopeType2("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope2) GetConnections() []ConnectionsType {
+	if i == nil {
+		return []ConnectionsType{}
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope2) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope2) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope2) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope2) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope2) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope2) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope2) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope2) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope2) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope2) GetFilter() *InputAppscopeFilter2 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope2) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope2) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope2) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope2) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope2) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope2) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope2) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope2) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope2) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType1 string
+
+const (
+	InputAppscopeType1Appscope InputAppscopeType1 = "appscope"
+)
+
+func (e InputAppscopeType1) ToPointer() *InputAppscopeType1 {
+	return &e
+}
+func (e *InputAppscopeType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "appscope":
+		*e = InputAppscopeType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAppscopeType1: %v", v)
+	}
+}
+
+type Allow1 struct {
+	// Specify the name of a process or family of processes.
+	Procname string `json:"procname"`
+	// Specify a string to substring-match against process command-line.
+	Arg *string `json:"arg,omitempty"`
+	// Choose a config to apply to processes that match the process name and/or argument.
+	Config string `json:"config"`
+}
+
+func (a Allow1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Allow1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"procname", "config"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (a *Allow1) GetProcname() string {
+	if a == nil {
+		return ""
+	}
+	return a.Procname
+}
+
+func (a *Allow1) GetArg() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Arg
+}
+
+func (a *Allow1) GetConfig() string {
+	if a == nil {
+		return ""
+	}
+	return a.Config
+}
+
+type InputAppscopeFilter1 struct {
+	// Specify processes that AppScope should be loaded into, and the config to use.
+	Allow []Allow1 `json:"allow,omitempty"`
+	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+	TransportURL *string `json:"transportURL,omitempty"`
+}
+
+func (i InputAppscopeFilter1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeFilter1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeFilter1) GetAllow() []Allow1 {
+	if i == nil {
+		return nil
+	}
+	return i.Allow
+}
+
+func (i *InputAppscopeFilter1) GetTransportURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TransportURL
+}
+
+type InputAppscopeAppscope1 struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAppscopeType1 `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionsType `json:"connections,omitempty"`
+	Pq          *PqType           `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []Metadata1Type `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                 `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter1 `json:"filter,omitempty"`
+	Persistence    *Persistence1Type     `json:"persistence,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType    *AuthType2Options `default:"manual" json:"authType"`
+	Description *string           `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64  `json:"port,omitempty"`
+	TLS  *Tls2Type `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeAppscope1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeAppscope1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeAppscope1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeAppscope1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeAppscope1) GetType() InputAppscopeType1 {
+	if i == nil {
+		return InputAppscopeType1("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeAppscope1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeAppscope1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeAppscope1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeAppscope1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeAppscope1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeAppscope1) GetConnections() []ConnectionsType {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeAppscope1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeAppscope1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeAppscope1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeAppscope1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeAppscope1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeAppscope1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeAppscope1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeAppscope1) GetMetadata() []Metadata1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeAppscope1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeAppscope1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeAppscope1) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeAppscope1) GetFilter() *InputAppscopeFilter1 {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeAppscope1) GetPersistence() *Persistence1Type {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeAppscope1) GetAuthType() *AuthType2Options {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeAppscope1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeAppscope1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeAppscope1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeAppscope1) GetTLS() *Tls2Type {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeAppscope1) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeAppscope1) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeAppscope1) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeAppscope1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeType string
+
+const (
+	InputAppscopeTypeInputAppscopeAppscope1 InputAppscopeType = "InputAppscope_Appscope_1"
+	InputAppscopeTypeInputAppscopeAppscope2 InputAppscopeType = "InputAppscope_Appscope_2"
+	InputAppscopeTypeInputAppscopeAppscope3 InputAppscopeType = "InputAppscope_Appscope_3"
+	InputAppscopeTypeInputAppscopeAppscope4 InputAppscopeType = "InputAppscope_Appscope_4"
+	InputAppscopeTypeInputAppscopeAppscope5 InputAppscopeType = "InputAppscope_Appscope_5"
+	InputAppscopeTypeInputAppscopeAppscope6 InputAppscopeType = "InputAppscope_Appscope_6"
+	InputAppscopeTypeInputAppscopeAppscope7 InputAppscopeType = "InputAppscope_Appscope_7"
+	InputAppscopeTypeInputAppscopeAppscope8 InputAppscopeType = "InputAppscope_Appscope_8"
+)
+
+type InputAppscope struct {
+	InputAppscopeAppscope1 *InputAppscopeAppscope1 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope2 *InputAppscopeAppscope2 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope3 *InputAppscopeAppscope3 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope4 *InputAppscopeAppscope4 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope5 *InputAppscopeAppscope5 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope6 *InputAppscopeAppscope6 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope7 *InputAppscopeAppscope7 `queryParam:"inline,name=InputAppscope"`
+	InputAppscopeAppscope8 *InputAppscopeAppscope8 `queryParam:"inline,name=InputAppscope"`
+
+	Type InputAppscopeType
+}
+
+func CreateInputAppscopeInputAppscopeAppscope1(inputAppscopeAppscope1 InputAppscopeAppscope1) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope1
+
+	return InputAppscope{
+		InputAppscopeAppscope1: &inputAppscopeAppscope1,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope2(inputAppscopeAppscope2 InputAppscopeAppscope2) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope2
+
+	return InputAppscope{
+		InputAppscopeAppscope2: &inputAppscopeAppscope2,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope3(inputAppscopeAppscope3 InputAppscopeAppscope3) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope3
+
+	return InputAppscope{
+		InputAppscopeAppscope3: &inputAppscopeAppscope3,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope4(inputAppscopeAppscope4 InputAppscopeAppscope4) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope4
+
+	return InputAppscope{
+		InputAppscopeAppscope4: &inputAppscopeAppscope4,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope5(inputAppscopeAppscope5 InputAppscopeAppscope5) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope5
+
+	return InputAppscope{
+		InputAppscopeAppscope5: &inputAppscopeAppscope5,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope6(inputAppscopeAppscope6 InputAppscopeAppscope6) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope6
+
+	return InputAppscope{
+		InputAppscopeAppscope6: &inputAppscopeAppscope6,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope7(inputAppscopeAppscope7 InputAppscopeAppscope7) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope7
+
+	return InputAppscope{
+		InputAppscopeAppscope7: &inputAppscopeAppscope7,
+		Type:                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeAppscope8(inputAppscopeAppscope8 InputAppscopeAppscope8) InputAppscope {
+	typ := InputAppscopeTypeInputAppscopeAppscope8
+
+	return InputAppscope{
+		InputAppscopeAppscope8: &inputAppscopeAppscope8,
+		Type:                   typ,
+	}
+}
+
+func (u *InputAppscope) UnmarshalJSON(data []byte) error {
+
+	var inputAppscopeAppscope5 InputAppscopeAppscope5 = InputAppscopeAppscope5{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope5, "", true, nil); err == nil {
+		u.InputAppscopeAppscope5 = &inputAppscopeAppscope5
+		u.Type = InputAppscopeTypeInputAppscopeAppscope5
+		return nil
+	}
+
+	var inputAppscopeAppscope2 InputAppscopeAppscope2 = InputAppscopeAppscope2{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope2, "", true, nil); err == nil {
+		u.InputAppscopeAppscope2 = &inputAppscopeAppscope2
+		u.Type = InputAppscopeTypeInputAppscopeAppscope2
+		return nil
+	}
+
+	var inputAppscopeAppscope4 InputAppscopeAppscope4 = InputAppscopeAppscope4{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope4, "", true, nil); err == nil {
+		u.InputAppscopeAppscope4 = &inputAppscopeAppscope4
+		u.Type = InputAppscopeTypeInputAppscopeAppscope4
+		return nil
+	}
+
+	var inputAppscopeAppscope6 InputAppscopeAppscope6 = InputAppscopeAppscope6{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope6, "", true, nil); err == nil {
+		u.InputAppscopeAppscope6 = &inputAppscopeAppscope6
+		u.Type = InputAppscopeTypeInputAppscopeAppscope6
+		return nil
+	}
+
+	var inputAppscopeAppscope8 InputAppscopeAppscope8 = InputAppscopeAppscope8{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope8, "", true, nil); err == nil {
+		u.InputAppscopeAppscope8 = &inputAppscopeAppscope8
+		u.Type = InputAppscopeTypeInputAppscopeAppscope8
+		return nil
+	}
+
+	var inputAppscopeAppscope1 InputAppscopeAppscope1 = InputAppscopeAppscope1{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope1, "", true, nil); err == nil {
+		u.InputAppscopeAppscope1 = &inputAppscopeAppscope1
+		u.Type = InputAppscopeTypeInputAppscopeAppscope1
+		return nil
+	}
+
+	var inputAppscopeAppscope3 InputAppscopeAppscope3 = InputAppscopeAppscope3{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope3, "", true, nil); err == nil {
+		u.InputAppscopeAppscope3 = &inputAppscopeAppscope3
+		u.Type = InputAppscopeTypeInputAppscopeAppscope3
+		return nil
+	}
+
+	var inputAppscopeAppscope7 InputAppscopeAppscope7 = InputAppscopeAppscope7{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeAppscope7, "", true, nil); err == nil {
+		u.InputAppscopeAppscope7 = &inputAppscopeAppscope7
+		u.Type = InputAppscopeTypeInputAppscopeAppscope7
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputAppscope", string(data))
+}
+
+func (u InputAppscope) MarshalJSON() ([]byte, error) {
+	if u.InputAppscopeAppscope1 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope1, "", true)
+	}
+
+	if u.InputAppscopeAppscope2 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope2, "", true)
+	}
+
+	if u.InputAppscopeAppscope3 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope3, "", true)
+	}
+
+	if u.InputAppscopeAppscope4 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope4, "", true)
+	}
+
+	if u.InputAppscopeAppscope5 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope5, "", true)
+	}
+
+	if u.InputAppscopeAppscope6 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope6, "", true)
+	}
+
+	if u.InputAppscopeAppscope7 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope7, "", true)
+	}
+
+	if u.InputAppscopeAppscope8 != nil {
+		return utils.MarshalJSON(u.InputAppscopeAppscope8, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputAppscope: all fields are null")
 }

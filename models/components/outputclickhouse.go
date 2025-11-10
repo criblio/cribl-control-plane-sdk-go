@@ -4,411 +4,79 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputClickHouseType string
+type OutputClickHouseType13 string
 
 const (
-	OutputClickHouseTypeClickHouse OutputClickHouseType = "click_house"
+	OutputClickHouseType13ClickHouse OutputClickHouseType13 = "click_house"
 )
 
-func (e OutputClickHouseType) ToPointer() *OutputClickHouseType {
+func (e OutputClickHouseType13) ToPointer() *OutputClickHouseType13 {
 	return &e
 }
-func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
+func (e *OutputClickHouseType13) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "click_house":
-		*e = OutputClickHouseType(v)
+		*e = OutputClickHouseType13(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputClickHouseType: %v", v)
+		return fmt.Errorf("invalid value for OutputClickHouseType13: %v", v)
 	}
 }
 
-type OutputClickHouseAuthenticationType string
+type OutputClickHouseAuthenticationType13 string
 
 const (
-	OutputClickHouseAuthenticationTypeNone               OutputClickHouseAuthenticationType = "none"
-	OutputClickHouseAuthenticationTypeBasic              OutputClickHouseAuthenticationType = "basic"
-	OutputClickHouseAuthenticationTypeCredentialsSecret  OutputClickHouseAuthenticationType = "credentialsSecret"
-	OutputClickHouseAuthenticationTypeSslUserCertificate OutputClickHouseAuthenticationType = "sslUserCertificate"
-	OutputClickHouseAuthenticationTypeToken              OutputClickHouseAuthenticationType = "token"
-	OutputClickHouseAuthenticationTypeTextSecret         OutputClickHouseAuthenticationType = "textSecret"
-	OutputClickHouseAuthenticationTypeOauth              OutputClickHouseAuthenticationType = "oauth"
+	OutputClickHouseAuthenticationType13None               OutputClickHouseAuthenticationType13 = "none"
+	OutputClickHouseAuthenticationType13Basic              OutputClickHouseAuthenticationType13 = "basic"
+	OutputClickHouseAuthenticationType13CredentialsSecret  OutputClickHouseAuthenticationType13 = "credentialsSecret"
+	OutputClickHouseAuthenticationType13SslUserCertificate OutputClickHouseAuthenticationType13 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType13Token              OutputClickHouseAuthenticationType13 = "token"
+	OutputClickHouseAuthenticationType13TextSecret         OutputClickHouseAuthenticationType13 = "textSecret"
+	OutputClickHouseAuthenticationType13Oauth              OutputClickHouseAuthenticationType13 = "oauth"
 )
 
-func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthenticationType {
+func (e OutputClickHouseAuthenticationType13) ToPointer() *OutputClickHouseAuthenticationType13 {
 	return &e
 }
 
-// OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-type OutputClickHouseFormat string
+// OutputClickHouseFormat13 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat13 string
 
 const (
-	OutputClickHouseFormatJSONCompactEachRowWithNames OutputClickHouseFormat = "json-compact-each-row-with-names"
-	OutputClickHouseFormatJSONEachRow                 OutputClickHouseFormat = "json-each-row"
+	// OutputClickHouseFormat13JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat13JSONCompactEachRowWithNames OutputClickHouseFormat13 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat13JSONEachRow JSONEachRow
+	OutputClickHouseFormat13JSONEachRow OutputClickHouseFormat13 = "json-each-row"
 )
 
-func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
+func (e OutputClickHouseFormat13) ToPointer() *OutputClickHouseFormat13 {
 	return &e
 }
 
-// MappingType - How event fields are mapped to ClickHouse columns.
-type MappingType string
+// MappingType13 - How event fields are mapped to ClickHouse columns.
+type MappingType13 string
 
 const (
-	MappingTypeAutomatic MappingType = "automatic"
-	MappingTypeCustom    MappingType = "custom"
+	// MappingType13Automatic Automatic
+	MappingType13Automatic MappingType13 = "automatic"
+	// MappingType13Custom Custom
+	MappingType13Custom MappingType13 = "custom"
 )
 
-func (e MappingType) ToPointer() *MappingType {
+func (e MappingType13) ToPointer() *MappingType13 {
 	return &e
 }
 
-type OutputClickHouseMinimumTLSVersion string
-
-const (
-	OutputClickHouseMinimumTLSVersionTlSv1  OutputClickHouseMinimumTLSVersion = "TLSv1"
-	OutputClickHouseMinimumTLSVersionTlSv11 OutputClickHouseMinimumTLSVersion = "TLSv1.1"
-	OutputClickHouseMinimumTLSVersionTlSv12 OutputClickHouseMinimumTLSVersion = "TLSv1.2"
-	OutputClickHouseMinimumTLSVersionTlSv13 OutputClickHouseMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputClickHouseMinimumTLSVersion) ToPointer() *OutputClickHouseMinimumTLSVersion {
-	return &e
-}
-
-type OutputClickHouseMaximumTLSVersion string
-
-const (
-	OutputClickHouseMaximumTLSVersionTlSv1  OutputClickHouseMaximumTLSVersion = "TLSv1"
-	OutputClickHouseMaximumTLSVersionTlSv11 OutputClickHouseMaximumTLSVersion = "TLSv1.1"
-	OutputClickHouseMaximumTLSVersionTlSv12 OutputClickHouseMaximumTLSVersion = "TLSv1.2"
-	OutputClickHouseMaximumTLSVersionTlSv13 OutputClickHouseMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputClickHouseMaximumTLSVersion) ToPointer() *OutputClickHouseMaximumTLSVersion {
-	return &e
-}
-
-type OutputClickHouseTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                            `json:"passphrase,omitempty"`
-	MinVersion *OutputClickHouseMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputClickHouseMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputClickHouseTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetMinVersion() *OutputClickHouseMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetMaxVersion() *OutputClickHouseMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-type OutputClickHouseExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputClickHouseExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputClickHouseFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputClickHouseFailedRequestLoggingMode string
-
-const (
-	OutputClickHouseFailedRequestLoggingModePayload           OutputClickHouseFailedRequestLoggingMode = "payload"
-	OutputClickHouseFailedRequestLoggingModePayloadAndHeaders OutputClickHouseFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputClickHouseFailedRequestLoggingModeNone              OutputClickHouseFailedRequestLoggingMode = "none"
-)
-
-func (e OutputClickHouseFailedRequestLoggingMode) ToPointer() *OutputClickHouseFailedRequestLoggingMode {
-	return &e
-}
-
-type OutputClickHouseResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputClickHouseResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputClickHouseTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputClickHouseTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputClickHouseBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputClickHouseBackpressureBehavior string
-
-const (
-	OutputClickHouseBackpressureBehaviorBlock OutputClickHouseBackpressureBehavior = "block"
-	OutputClickHouseBackpressureBehaviorDrop  OutputClickHouseBackpressureBehavior = "drop"
-	OutputClickHouseBackpressureBehaviorQueue OutputClickHouseBackpressureBehavior = "queue"
-)
-
-func (e OutputClickHouseBackpressureBehavior) ToPointer() *OutputClickHouseBackpressureBehavior {
-	return &e
-}
-
-type OutputClickHouseOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputClickHouseOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputClickHouseOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputClickHouseOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type ColumnMapping struct {
+type ColumnMapping13 struct {
 	// Name of the column in ClickHouse that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the ClickHouse database
@@ -417,93 +85,44 @@ type ColumnMapping struct {
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (c ColumnMapping) MarshalJSON() ([]byte, error) {
+func (c ColumnMapping13) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *ColumnMapping) UnmarshalJSON(data []byte) error {
+func (c *ColumnMapping13) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ColumnMapping) GetColumnName() string {
+func (c *ColumnMapping13) GetColumnName() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnName
 }
 
-func (c *ColumnMapping) GetColumnType() *string {
+func (c *ColumnMapping13) GetColumnType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ColumnType
 }
 
-func (c *ColumnMapping) GetColumnValueExpression() string {
+func (c *ColumnMapping13) GetColumnValueExpression() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnValueExpression
 }
 
-// OutputClickHouseCompression - Codec to use to compress the persisted data
-type OutputClickHouseCompression string
-
-const (
-	OutputClickHouseCompressionNone OutputClickHouseCompression = "none"
-	OutputClickHouseCompressionGzip OutputClickHouseCompression = "gzip"
-)
-
-func (e OutputClickHouseCompression) ToPointer() *OutputClickHouseCompression {
-	return &e
-}
-
-// OutputClickHouseQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputClickHouseQueueFullBehavior string
-
-const (
-	OutputClickHouseQueueFullBehaviorBlock OutputClickHouseQueueFullBehavior = "block"
-	OutputClickHouseQueueFullBehaviorDrop  OutputClickHouseQueueFullBehavior = "drop"
-)
-
-func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFullBehavior {
-	return &e
-}
-
-// OutputClickHouseMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputClickHouseMode string
-
-const (
-	OutputClickHouseModeError        OutputClickHouseMode = "error"
-	OutputClickHouseModeBackpressure OutputClickHouseMode = "backpressure"
-	OutputClickHouseModeAlways       OutputClickHouseMode = "always"
-)
-
-func (e OutputClickHouseMode) ToPointer() *OutputClickHouseMode {
-	return &e
-}
-
-type OutputClickHousePqControls struct {
-}
-
-func (o OutputClickHousePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHousePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type OutputClickHouse struct {
+type OutputClickHouseClickHouse13 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
 	// Unique ID for this output
-	ID   *string              `json:"id,omitempty"`
-	Type OutputClickHouseType `json:"type"`
+	ID   *string                `json:"id,omitempty"`
+	Type OutputClickHouseType13 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -513,18 +132,18 @@ type OutputClickHouse struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                              `json:"url"`
-	AuthType *OutputClickHouseAuthenticationType `default:"none" json:"authType"`
-	Database string                              `json:"database"`
+	URL      string                                `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType13 `default:"none" json:"authType"`
+	Database string                                `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *OutputClickHouseFormat `default:"json-compact-each-row-with-names" json:"format"`
+	Format *OutputClickHouseFormat13 `default:"json-compact-each-row-with-names" json:"format"`
 	// How event fields are mapped to ClickHouse columns.
-	MappingType *MappingType `default:"automatic" json:"mappingType"`
+	MappingType *MappingType13 `default:"automatic" json:"mappingType"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
-	AsyncInserts *bool                                  `default:"false" json:"asyncInserts"`
-	TLS          *OutputClickHouseTLSSettingsClientSide `json:"tls,omitempty"`
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -542,25 +161,23 @@ type OutputClickHouse struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputClickHouseExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputClickHouseFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputClickHouseResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputClickHouseTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputClickHouseBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                               `json:"description,omitempty"`
-	Username       *string                               `json:"username,omitempty"`
-	Password       *string                               `json:"password,omitempty"`
+	DumpFormatErrorsToDisk *bool   `default:"false" json:"dumpFormatErrorsToDisk"`
+	Description            *string `json:"description,omitempty"`
+	Username               *string `json:"username,omitempty"`
+	Password               *string `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -580,9 +197,9 @@ type OutputClickHouse struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputClickHouseOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputClickHouseOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitempty"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
@@ -590,8 +207,18 @@ type OutputClickHouse struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string         `json:"describeTable,omitempty"`
-	ColumnMappings []ColumnMapping `json:"columnMappings,omitempty"`
+	DescribeTable  *string           `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping13 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -599,413 +226,8592 @@ type OutputClickHouse struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputClickHouseCompression `default:"none" json:"pqCompress"`
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputClickHouseQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputClickHouseMode       `default:"error" json:"pqMode"`
-	PqControls *OutputClickHousePqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       MetadataType             `json:"pqControls"`
 }
 
-func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
+func (o OutputClickHouseClickHouse13) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHouse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+func (o *OutputClickHouseClickHouse13) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "pqControls"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputClickHouse) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputClickHouse) GetType() OutputClickHouseType {
-	if o == nil {
-		return OutputClickHouseType("")
-	}
-	return o.Type
-}
-
-func (o *OutputClickHouse) GetPipeline() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Pipeline
-}
-
-func (o *OutputClickHouse) GetSystemFields() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SystemFields
-}
-
-func (o *OutputClickHouse) GetEnvironment() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Environment
-}
-
-func (o *OutputClickHouse) GetStreamtags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Streamtags
-}
-
-func (o *OutputClickHouse) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputClickHouse) GetAuthType() *OutputClickHouseAuthenticationType {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputClickHouse) GetDatabase() string {
-	if o == nil {
-		return ""
-	}
-	return o.Database
-}
-
-func (o *OutputClickHouse) GetTableName() string {
-	if o == nil {
-		return ""
-	}
-	return o.TableName
-}
-
-func (o *OutputClickHouse) GetFormat() *OutputClickHouseFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
-}
-
-func (o *OutputClickHouse) GetMappingType() *MappingType {
-	if o == nil {
-		return nil
-	}
-	return o.MappingType
-}
-
-func (o *OutputClickHouse) GetAsyncInserts() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AsyncInserts
-}
-
-func (o *OutputClickHouse) GetTLS() *OutputClickHouseTLSSettingsClientSide {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputClickHouse) GetConcurrency() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Concurrency
-}
-
-func (o *OutputClickHouse) GetMaxPayloadSizeKB() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadSizeKB
-}
-
-func (o *OutputClickHouse) GetMaxPayloadEvents() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxPayloadEvents
-}
-
-func (o *OutputClickHouse) GetCompress() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputClickHouse) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputClickHouse) GetTimeoutSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutSec
-}
-
-func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.FlushPeriodSec
-}
-
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []OutputClickHouseExtraHTTPHeader {
-	if o == nil {
-		return nil
-	}
-	return o.ExtraHTTPHeaders
-}
-
-func (o *OutputClickHouse) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputClickHouse) GetFailedRequestLoggingMode() *OutputClickHouseFailedRequestLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.FailedRequestLoggingMode
-}
-
-func (o *OutputClickHouse) GetSafeHeaders() []string {
-	if o == nil {
-		return nil
-	}
-	return o.SafeHeaders
-}
-
-func (o *OutputClickHouse) GetResponseRetrySettings() []OutputClickHouseResponseRetrySetting {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseRetrySettings
-}
-
-func (o *OutputClickHouse) GetTimeoutRetrySettings() *OutputClickHouseTimeoutRetrySettings {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetrySettings
-}
-
-func (o *OutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ResponseHonorRetryAfterHeader
-}
-
-func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.DumpFormatErrorsToDisk
-}
-
-func (o *OutputClickHouse) GetOnBackpressure() *OutputClickHouseBackpressureBehavior {
+func (o *OutputClickHouseClickHouse13) GetOnBackpressure() *OnBackpressureOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputClickHouse) GetDescription() *string {
+func (o *OutputClickHouseClickHouse13) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse13) GetType() OutputClickHouseType13 {
+	if o == nil {
+		return OutputClickHouseType13("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse13) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse13) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse13) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse13) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse13) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse13) GetAuthType() *OutputClickHouseAuthenticationType13 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse13) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse13) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse13) GetFormat() *OutputClickHouseFormat13 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse13) GetMappingType() *MappingType13 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse13) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse13) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse13) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse13) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse13) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse13) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse13) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse13) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse13) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse13) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse13) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse13) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse13) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse13) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse13) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse13) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse13) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse13) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputClickHouse) GetUsername() *string {
+func (o *OutputClickHouseClickHouse13) GetUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Username
 }
 
-func (o *OutputClickHouse) GetPassword() *string {
+func (o *OutputClickHouseClickHouse13) GetPassword() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetToken() *string {
+func (o *OutputClickHouseClickHouse13) GetToken() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Token
 }
 
-func (o *OutputClickHouse) GetCredentialsSecret() *string {
+func (o *OutputClickHouseClickHouse13) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputClickHouse) GetTextSecret() *string {
+func (o *OutputClickHouseClickHouse13) GetTextSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TextSecret
 }
 
-func (o *OutputClickHouse) GetLoginURL() *string {
+func (o *OutputClickHouseClickHouse13) GetLoginURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.LoginURL
 }
 
-func (o *OutputClickHouse) GetSecretParamName() *string {
+func (o *OutputClickHouseClickHouse13) GetSecretParamName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SecretParamName
 }
 
-func (o *OutputClickHouse) GetSecret() *string {
+func (o *OutputClickHouseClickHouse13) GetSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Secret
 }
 
-func (o *OutputClickHouse) GetTokenAttributeName() *string {
+func (o *OutputClickHouseClickHouse13) GetTokenAttributeName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TokenAttributeName
 }
 
-func (o *OutputClickHouse) GetAuthHeaderExpr() *string {
+func (o *OutputClickHouseClickHouse13) GetAuthHeaderExpr() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AuthHeaderExpr
 }
 
-func (o *OutputClickHouse) GetTokenTimeoutSecs() *float64 {
+func (o *OutputClickHouseClickHouse13) GetTokenTimeoutSecs() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputClickHouse) GetOauthParams() []OutputClickHouseOauthParam {
+func (o *OutputClickHouseClickHouse13) GetOauthParams() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputClickHouse) GetOauthHeaders() []OutputClickHouseOauthHeader {
+func (o *OutputClickHouseClickHouse13) GetOauthHeaders() []Metadata1Type {
 	if o == nil {
 		return nil
 	}
 	return o.OauthHeaders
 }
 
-func (o *OutputClickHouse) GetSQLUsername() *string {
+func (o *OutputClickHouseClickHouse13) GetSQLUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SQLUsername
 }
 
-func (o *OutputClickHouse) GetWaitForAsyncInserts() *bool {
+func (o *OutputClickHouseClickHouse13) GetWaitForAsyncInserts() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.WaitForAsyncInserts
 }
 
-func (o *OutputClickHouse) GetExcludeMappingFields() []string {
+func (o *OutputClickHouseClickHouse13) GetExcludeMappingFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeMappingFields
 }
 
-func (o *OutputClickHouse) GetDescribeTable() *string {
+func (o *OutputClickHouseClickHouse13) GetDescribeTable() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DescribeTable
 }
 
-func (o *OutputClickHouse) GetColumnMappings() []ColumnMapping {
+func (o *OutputClickHouseClickHouse13) GetColumnMappings() []ColumnMapping13 {
 	if o == nil {
 		return nil
 	}
 	return o.ColumnMappings
 }
 
-func (o *OutputClickHouse) GetPqMaxFileSize() *string {
+func (o *OutputClickHouseClickHouse13) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxFileSize
+	return o.PqStrictOrdering
 }
 
-func (o *OutputClickHouse) GetPqMaxSize() *string {
+func (o *OutputClickHouseClickHouse13) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
-	return o.PqMaxSize
+	return o.PqRatePerSec
 }
 
-func (o *OutputClickHouse) GetPqPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PqPath
-}
-
-func (o *OutputClickHouse) GetPqCompress() *OutputClickHouseCompression {
-	if o == nil {
-		return nil
-	}
-	return o.PqCompress
-}
-
-func (o *OutputClickHouse) GetPqOnBackpressure() *OutputClickHouseQueueFullBehavior {
-	if o == nil {
-		return nil
-	}
-	return o.PqOnBackpressure
-}
-
-func (o *OutputClickHouse) GetPqMode() *OutputClickHouseMode {
+func (o *OutputClickHouseClickHouse13) GetPqMode() *PqModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
+func (o *OutputClickHouseClickHouse13) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse13) GetPqControls() MetadataType {
+	if o == nil {
+		return MetadataType{}
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseType12 string
+
+const (
+	OutputClickHouseType12ClickHouse OutputClickHouseType12 = "click_house"
+)
+
+func (e OutputClickHouseType12) ToPointer() *OutputClickHouseType12 {
+	return &e
+}
+func (e *OutputClickHouseType12) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType12(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType12: %v", v)
+	}
+}
+
+type OutputClickHouseAuthenticationType12 string
+
+const (
+	OutputClickHouseAuthenticationType12None               OutputClickHouseAuthenticationType12 = "none"
+	OutputClickHouseAuthenticationType12Basic              OutputClickHouseAuthenticationType12 = "basic"
+	OutputClickHouseAuthenticationType12CredentialsSecret  OutputClickHouseAuthenticationType12 = "credentialsSecret"
+	OutputClickHouseAuthenticationType12SslUserCertificate OutputClickHouseAuthenticationType12 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType12Token              OutputClickHouseAuthenticationType12 = "token"
+	OutputClickHouseAuthenticationType12TextSecret         OutputClickHouseAuthenticationType12 = "textSecret"
+	OutputClickHouseAuthenticationType12Oauth              OutputClickHouseAuthenticationType12 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType12) ToPointer() *OutputClickHouseAuthenticationType12 {
+	return &e
+}
+
+// OutputClickHouseFormat12 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat12 string
+
+const (
+	// OutputClickHouseFormat12JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat12JSONCompactEachRowWithNames OutputClickHouseFormat12 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat12JSONEachRow JSONEachRow
+	OutputClickHouseFormat12JSONEachRow OutputClickHouseFormat12 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat12) ToPointer() *OutputClickHouseFormat12 {
+	return &e
+}
+
+// MappingType12 - How event fields are mapped to ClickHouse columns.
+type MappingType12 string
+
+const (
+	// MappingType12Automatic Automatic
+	MappingType12Automatic MappingType12 = "automatic"
+	// MappingType12Custom Custom
+	MappingType12Custom MappingType12 = "custom"
+)
+
+func (e MappingType12) ToPointer() *MappingType12 {
+	return &e
+}
+
+type ColumnMapping12 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping12) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping12) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping12) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping12) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping12) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse12 struct {
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type OutputClickHouseType12 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                                `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType12 `default:"none" json:"authType"`
+	Database string                                `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat12 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType12 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool   `default:"false" json:"dumpFormatErrorsToDisk"`
+	Description            *string `json:"description,omitempty"`
+	Username               *string `json:"username,omitempty"`
+	Password               *string `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string           `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping12 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse12) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse12) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse12) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse12) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse12) GetType() OutputClickHouseType12 {
+	if o == nil {
+		return OutputClickHouseType12("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse12) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse12) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse12) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse12) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse12) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse12) GetAuthType() *OutputClickHouseAuthenticationType12 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse12) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse12) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse12) GetFormat() *OutputClickHouseFormat12 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse12) GetMappingType() *MappingType12 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse12) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse12) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse12) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse12) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse12) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse12) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse12) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse12) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse12) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse12) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse12) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse12) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse12) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse12) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse12) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse12) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse12) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse12) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse12) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse12) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse12) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse12) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse12) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse12) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse12) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse12) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse12) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse12) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse12) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse12) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse12) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse12) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse12) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse12) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse12) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse12) GetColumnMappings() []ColumnMapping12 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse12) GetPqControls() *MetadataType {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+// MappingType11 - How event fields are mapped to ClickHouse columns.
+type MappingType11 string
+
+const (
+	// MappingType11Automatic Automatic
+	MappingType11Automatic MappingType11 = "automatic"
+	// MappingType11Custom Custom
+	MappingType11Custom MappingType11 = "custom"
+)
+
+func (e MappingType11) ToPointer() *MappingType11 {
+	return &e
+}
+
+type OutputClickHouseType11 string
+
+const (
+	OutputClickHouseType11ClickHouse OutputClickHouseType11 = "click_house"
+)
+
+func (e OutputClickHouseType11) ToPointer() *OutputClickHouseType11 {
+	return &e
+}
+func (e *OutputClickHouseType11) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType11(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType11: %v", v)
+	}
+}
+
+type OutputClickHouseAuthenticationType11 string
+
+const (
+	OutputClickHouseAuthenticationType11None               OutputClickHouseAuthenticationType11 = "none"
+	OutputClickHouseAuthenticationType11Basic              OutputClickHouseAuthenticationType11 = "basic"
+	OutputClickHouseAuthenticationType11CredentialsSecret  OutputClickHouseAuthenticationType11 = "credentialsSecret"
+	OutputClickHouseAuthenticationType11SslUserCertificate OutputClickHouseAuthenticationType11 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType11Token              OutputClickHouseAuthenticationType11 = "token"
+	OutputClickHouseAuthenticationType11TextSecret         OutputClickHouseAuthenticationType11 = "textSecret"
+	OutputClickHouseAuthenticationType11Oauth              OutputClickHouseAuthenticationType11 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType11) ToPointer() *OutputClickHouseAuthenticationType11 {
+	return &e
+}
+
+// OutputClickHouseFormat11 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat11 string
+
+const (
+	// OutputClickHouseFormat11JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat11JSONCompactEachRowWithNames OutputClickHouseFormat11 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat11JSONEachRow JSONEachRow
+	OutputClickHouseFormat11JSONEachRow OutputClickHouseFormat11 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat11) ToPointer() *OutputClickHouseFormat11 {
+	return &e
+}
+
+type ColumnMapping11 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping11) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping11) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping11) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse11 struct {
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType11 `default:"automatic" json:"mappingType"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type OutputClickHouseType11 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                                `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType11 `default:"none" json:"authType"`
+	Database string                                `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat11 `default:"json-compact-each-row-with-names" json:"format"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  string            `json:"describeTable"`
+	ColumnMappings []ColumnMapping11 `json:"columnMappings"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse11) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse11) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "describeTable", "columnMappings"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse11) GetMappingType() *MappingType11 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse11) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse11) GetType() OutputClickHouseType11 {
+	if o == nil {
+		return OutputClickHouseType11("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse11) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse11) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse11) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse11) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse11) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse11) GetAuthType() *OutputClickHouseAuthenticationType11 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse11) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse11) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse11) GetFormat() *OutputClickHouseFormat11 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse11) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse11) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse11) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse11) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse11) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse11) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse11) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse11) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse11) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse11) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse11) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse11) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse11) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse11) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse11) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse11) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse11) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse11) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse11) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse11) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse11) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse11) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse11) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse11) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse11) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse11) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse11) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse11) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse11) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse11) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse11) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse11) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse11) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse11) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse11) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse11) GetDescribeTable() string {
+	if o == nil {
+		return ""
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse11) GetColumnMappings() []ColumnMapping11 {
+	if o == nil {
+		return []ColumnMapping11{}
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse11) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+// MappingType10 - How event fields are mapped to ClickHouse columns.
+type MappingType10 string
+
+const (
+	// MappingType10Automatic Automatic
+	MappingType10Automatic MappingType10 = "automatic"
+	// MappingType10Custom Custom
+	MappingType10Custom MappingType10 = "custom"
+)
+
+func (e MappingType10) ToPointer() *MappingType10 {
+	return &e
+}
+
+type OutputClickHouseType10 string
+
+const (
+	OutputClickHouseType10ClickHouse OutputClickHouseType10 = "click_house"
+)
+
+func (e OutputClickHouseType10) ToPointer() *OutputClickHouseType10 {
+	return &e
+}
+func (e *OutputClickHouseType10) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType10(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType10: %v", v)
+	}
+}
+
+type OutputClickHouseAuthenticationType10 string
+
+const (
+	OutputClickHouseAuthenticationType10None               OutputClickHouseAuthenticationType10 = "none"
+	OutputClickHouseAuthenticationType10Basic              OutputClickHouseAuthenticationType10 = "basic"
+	OutputClickHouseAuthenticationType10CredentialsSecret  OutputClickHouseAuthenticationType10 = "credentialsSecret"
+	OutputClickHouseAuthenticationType10SslUserCertificate OutputClickHouseAuthenticationType10 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType10Token              OutputClickHouseAuthenticationType10 = "token"
+	OutputClickHouseAuthenticationType10TextSecret         OutputClickHouseAuthenticationType10 = "textSecret"
+	OutputClickHouseAuthenticationType10Oauth              OutputClickHouseAuthenticationType10 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType10) ToPointer() *OutputClickHouseAuthenticationType10 {
+	return &e
+}
+
+// OutputClickHouseFormat10 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat10 string
+
+const (
+	// OutputClickHouseFormat10JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat10JSONCompactEachRowWithNames OutputClickHouseFormat10 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat10JSONEachRow JSONEachRow
+	OutputClickHouseFormat10JSONEachRow OutputClickHouseFormat10 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat10) ToPointer() *OutputClickHouseFormat10 {
+	return &e
+}
+
+type ColumnMapping10 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping10) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping10) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping10) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse10 struct {
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType10 `default:"automatic" json:"mappingType"`
+	// Unique ID for this output
+	ID   *string                `json:"id,omitempty"`
+	Type OutputClickHouseType10 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                                `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType10 `default:"none" json:"authType"`
+	Database string                                `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat10 `default:"json-compact-each-row-with-names" json:"format"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string           `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping10 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse10) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse10) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "excludeMappingFields"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse10) GetMappingType() *MappingType10 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse10) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse10) GetType() OutputClickHouseType10 {
+	if o == nil {
+		return OutputClickHouseType10("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse10) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse10) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse10) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse10) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse10) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse10) GetAuthType() *OutputClickHouseAuthenticationType10 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse10) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse10) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse10) GetFormat() *OutputClickHouseFormat10 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse10) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse10) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse10) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse10) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse10) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse10) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse10) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse10) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse10) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse10) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse10) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse10) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse10) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse10) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse10) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse10) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse10) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse10) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse10) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse10) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse10) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse10) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse10) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse10) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse10) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse10) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse10) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse10) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse10) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse10) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse10) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse10) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse10) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse10) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse10) GetExcludeMappingFields() []string {
+	if o == nil {
+		return []string{}
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse10) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse10) GetColumnMappings() []ColumnMapping10 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse10) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseType9 string
+
+const (
+	OutputClickHouseType9ClickHouse OutputClickHouseType9 = "click_house"
+)
+
+func (e OutputClickHouseType9) ToPointer() *OutputClickHouseType9 {
+	return &e
+}
+func (e *OutputClickHouseType9) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType9(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType9: %v", v)
+	}
+}
+
+type OutputClickHouseAuthenticationType9 string
+
+const (
+	OutputClickHouseAuthenticationType9None               OutputClickHouseAuthenticationType9 = "none"
+	OutputClickHouseAuthenticationType9Basic              OutputClickHouseAuthenticationType9 = "basic"
+	OutputClickHouseAuthenticationType9CredentialsSecret  OutputClickHouseAuthenticationType9 = "credentialsSecret"
+	OutputClickHouseAuthenticationType9SslUserCertificate OutputClickHouseAuthenticationType9 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType9Token              OutputClickHouseAuthenticationType9 = "token"
+	OutputClickHouseAuthenticationType9TextSecret         OutputClickHouseAuthenticationType9 = "textSecret"
+	OutputClickHouseAuthenticationType9Oauth              OutputClickHouseAuthenticationType9 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType9) ToPointer() *OutputClickHouseAuthenticationType9 {
+	return &e
+}
+
+// OutputClickHouseFormat9 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat9 string
+
+const (
+	// OutputClickHouseFormat9JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat9JSONCompactEachRowWithNames OutputClickHouseFormat9 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat9JSONEachRow JSONEachRow
+	OutputClickHouseFormat9JSONEachRow OutputClickHouseFormat9 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat9) ToPointer() *OutputClickHouseFormat9 {
+	return &e
+}
+
+// MappingType9 - How event fields are mapped to ClickHouse columns.
+type MappingType9 string
+
+const (
+	// MappingType9Automatic Automatic
+	MappingType9Automatic MappingType9 = "automatic"
+	// MappingType9Custom Custom
+	MappingType9Custom MappingType9 = "custom"
+)
+
+func (e MappingType9) ToPointer() *MappingType9 {
+	return &e
+}
+
+type ColumnMapping9 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping9) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping9) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping9) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse9 struct {
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool `default:"false" json:"asyncInserts"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType9 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                               `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType9 `default:"none" json:"authType"`
+	Database string                               `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat9 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType9 `default:"automatic" json:"mappingType"`
+	TLS         *Tls4Type     `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping9 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse9) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse9) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse9) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse9) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse9) GetType() OutputClickHouseType9 {
+	if o == nil {
+		return OutputClickHouseType9("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse9) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse9) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse9) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse9) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse9) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse9) GetAuthType() *OutputClickHouseAuthenticationType9 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse9) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse9) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse9) GetFormat() *OutputClickHouseFormat9 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse9) GetMappingType() *MappingType9 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse9) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse9) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse9) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse9) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse9) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse9) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse9) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse9) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse9) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse9) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse9) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse9) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse9) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse9) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse9) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse9) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse9) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse9) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse9) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse9) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse9) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse9) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse9) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse9) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse9) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse9) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse9) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse9) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse9) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse9) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse9) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse9) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse9) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse9) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse9) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse9) GetColumnMappings() []ColumnMapping9 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse9) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseType8 string
+
+const (
+	OutputClickHouseType8ClickHouse OutputClickHouseType8 = "click_house"
+)
+
+func (e OutputClickHouseType8) ToPointer() *OutputClickHouseType8 {
+	return &e
+}
+func (e *OutputClickHouseType8) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType8(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType8: %v", v)
+	}
+}
+
+type OutputClickHouseAuthenticationType8 string
+
+const (
+	OutputClickHouseAuthenticationType8None               OutputClickHouseAuthenticationType8 = "none"
+	OutputClickHouseAuthenticationType8Basic              OutputClickHouseAuthenticationType8 = "basic"
+	OutputClickHouseAuthenticationType8CredentialsSecret  OutputClickHouseAuthenticationType8 = "credentialsSecret"
+	OutputClickHouseAuthenticationType8SslUserCertificate OutputClickHouseAuthenticationType8 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType8Token              OutputClickHouseAuthenticationType8 = "token"
+	OutputClickHouseAuthenticationType8TextSecret         OutputClickHouseAuthenticationType8 = "textSecret"
+	OutputClickHouseAuthenticationType8Oauth              OutputClickHouseAuthenticationType8 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType8) ToPointer() *OutputClickHouseAuthenticationType8 {
+	return &e
+}
+
+// OutputClickHouseFormat8 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat8 string
+
+const (
+	// OutputClickHouseFormat8JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat8JSONCompactEachRowWithNames OutputClickHouseFormat8 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat8JSONEachRow JSONEachRow
+	OutputClickHouseFormat8JSONEachRow OutputClickHouseFormat8 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat8) ToPointer() *OutputClickHouseFormat8 {
+	return &e
+}
+
+// MappingType8 - How event fields are mapped to ClickHouse columns.
+type MappingType8 string
+
+const (
+	// MappingType8Automatic Automatic
+	MappingType8Automatic MappingType8 = "automatic"
+	// MappingType8Custom Custom
+	MappingType8Custom MappingType8 = "custom"
+)
+
+func (e MappingType8) ToPointer() *MappingType8 {
+	return &e
+}
+
+type ColumnMapping8 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping8) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping8) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping8) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse8 struct {
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool `default:"false" json:"asyncInserts"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType8 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                               `json:"url"`
+	AuthType *OutputClickHouseAuthenticationType8 `default:"none" json:"authType"`
+	Database string                               `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat8 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType8 `default:"automatic" json:"mappingType"`
+	TLS         *Tls4Type     `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping8 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse8) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse8) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse8) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse8) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse8) GetType() OutputClickHouseType8 {
+	if o == nil {
+		return OutputClickHouseType8("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse8) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse8) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse8) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse8) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse8) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse8) GetAuthType() *OutputClickHouseAuthenticationType8 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse8) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse8) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse8) GetFormat() *OutputClickHouseFormat8 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse8) GetMappingType() *MappingType8 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse8) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse8) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse8) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse8) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse8) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse8) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse8) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse8) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse8) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse8) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse8) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse8) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse8) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse8) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse8) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse8) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse8) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse8) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse8) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse8) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse8) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse8) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse8) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse8) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse8) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse8) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse8) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse8) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse8) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse8) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse8) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse8) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse8) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse8) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse8) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse8) GetColumnMappings() []ColumnMapping8 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse8) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType7 string
+
+const (
+	OutputClickHouseAuthenticationType7None               OutputClickHouseAuthenticationType7 = "none"
+	OutputClickHouseAuthenticationType7Basic              OutputClickHouseAuthenticationType7 = "basic"
+	OutputClickHouseAuthenticationType7CredentialsSecret  OutputClickHouseAuthenticationType7 = "credentialsSecret"
+	OutputClickHouseAuthenticationType7SslUserCertificate OutputClickHouseAuthenticationType7 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType7Token              OutputClickHouseAuthenticationType7 = "token"
+	OutputClickHouseAuthenticationType7TextSecret         OutputClickHouseAuthenticationType7 = "textSecret"
+	OutputClickHouseAuthenticationType7Oauth              OutputClickHouseAuthenticationType7 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType7) ToPointer() *OutputClickHouseAuthenticationType7 {
+	return &e
+}
+
+type OutputClickHouseType7 string
+
+const (
+	OutputClickHouseType7ClickHouse OutputClickHouseType7 = "click_house"
+)
+
+func (e OutputClickHouseType7) ToPointer() *OutputClickHouseType7 {
+	return &e
+}
+func (e *OutputClickHouseType7) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType7(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType7: %v", v)
+	}
+}
+
+// OutputClickHouseFormat7 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat7 string
+
+const (
+	// OutputClickHouseFormat7JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat7JSONCompactEachRowWithNames OutputClickHouseFormat7 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat7JSONEachRow JSONEachRow
+	OutputClickHouseFormat7JSONEachRow OutputClickHouseFormat7 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat7) ToPointer() *OutputClickHouseFormat7 {
+	return &e
+}
+
+// MappingType7 - How event fields are mapped to ClickHouse columns.
+type MappingType7 string
+
+const (
+	// MappingType7Automatic Automatic
+	MappingType7Automatic MappingType7 = "automatic"
+	// MappingType7Custom Custom
+	MappingType7Custom MappingType7 = "custom"
+)
+
+func (e MappingType7) ToPointer() *MappingType7 {
+	return &e
+}
+
+type ColumnMapping7 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping7) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping7) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping7) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse7 struct {
+	AuthType *OutputClickHouseAuthenticationType7 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType7 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat7 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType7 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername string `json:"sqlUsername"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping7 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse7) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse7) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "sqlUsername"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse7) GetAuthType() *OutputClickHouseAuthenticationType7 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse7) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse7) GetType() OutputClickHouseType7 {
+	if o == nil {
+		return OutputClickHouseType7("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse7) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse7) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse7) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse7) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse7) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse7) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse7) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse7) GetFormat() *OutputClickHouseFormat7 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse7) GetMappingType() *MappingType7 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse7) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse7) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse7) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse7) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse7) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse7) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse7) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse7) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse7) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse7) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse7) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse7) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse7) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse7) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse7) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse7) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse7) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse7) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse7) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse7) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse7) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse7) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse7) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse7) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse7) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse7) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse7) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse7) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse7) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse7) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse7) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse7) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse7) GetSQLUsername() string {
+	if o == nil {
+		return ""
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse7) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse7) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse7) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse7) GetColumnMappings() []ColumnMapping7 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse7) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType6 string
+
+const (
+	OutputClickHouseAuthenticationType6None               OutputClickHouseAuthenticationType6 = "none"
+	OutputClickHouseAuthenticationType6Basic              OutputClickHouseAuthenticationType6 = "basic"
+	OutputClickHouseAuthenticationType6CredentialsSecret  OutputClickHouseAuthenticationType6 = "credentialsSecret"
+	OutputClickHouseAuthenticationType6SslUserCertificate OutputClickHouseAuthenticationType6 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType6Token              OutputClickHouseAuthenticationType6 = "token"
+	OutputClickHouseAuthenticationType6TextSecret         OutputClickHouseAuthenticationType6 = "textSecret"
+	OutputClickHouseAuthenticationType6Oauth              OutputClickHouseAuthenticationType6 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType6) ToPointer() *OutputClickHouseAuthenticationType6 {
+	return &e
+}
+
+type OutputClickHouseType6 string
+
+const (
+	OutputClickHouseType6ClickHouse OutputClickHouseType6 = "click_house"
+)
+
+func (e OutputClickHouseType6) ToPointer() *OutputClickHouseType6 {
+	return &e
+}
+func (e *OutputClickHouseType6) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType6(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType6: %v", v)
+	}
+}
+
+// OutputClickHouseFormat6 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat6 string
+
+const (
+	// OutputClickHouseFormat6JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat6JSONCompactEachRowWithNames OutputClickHouseFormat6 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat6JSONEachRow JSONEachRow
+	OutputClickHouseFormat6JSONEachRow OutputClickHouseFormat6 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat6) ToPointer() *OutputClickHouseFormat6 {
+	return &e
+}
+
+// MappingType6 - How event fields are mapped to ClickHouse columns.
+type MappingType6 string
+
+const (
+	// MappingType6Automatic Automatic
+	MappingType6Automatic MappingType6 = "automatic"
+	// MappingType6Custom Custom
+	MappingType6Custom MappingType6 = "custom"
+)
+
+func (e MappingType6) ToPointer() *MappingType6 {
+	return &e
+}
+
+type ColumnMapping6 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping6) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping6) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping6) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse6 struct {
+	AuthType *OutputClickHouseAuthenticationType6 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType6 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat6 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType6 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL string `json:"loginUrl"`
+	// Secret parameter name to pass in request body
+	SecretParamName string `json:"secretParamName"`
+	// Secret parameter value to pass in request body
+	Secret string `json:"secret"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName string `json:"tokenAttributeName"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping6 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse6) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse6) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "loginUrl", "secretParamName", "secret", "tokenAttributeName", "oauthParams", "oauthHeaders"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse6) GetAuthType() *OutputClickHouseAuthenticationType6 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse6) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse6) GetType() OutputClickHouseType6 {
+	if o == nil {
+		return OutputClickHouseType6("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse6) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse6) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse6) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse6) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse6) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse6) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse6) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse6) GetFormat() *OutputClickHouseFormat6 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse6) GetMappingType() *MappingType6 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse6) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse6) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse6) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse6) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse6) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse6) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse6) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse6) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse6) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse6) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse6) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse6) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse6) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse6) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse6) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse6) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse6) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse6) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse6) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse6) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse6) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse6) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse6) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse6) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse6) GetLoginURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse6) GetSecretParamName() string {
+	if o == nil {
+		return ""
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse6) GetSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse6) GetTokenAttributeName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse6) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse6) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse6) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse6) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return []Metadata1Type{}
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse6) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse6) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse6) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse6) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse6) GetColumnMappings() []ColumnMapping6 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse6) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType5 string
+
+const (
+	OutputClickHouseAuthenticationType5None               OutputClickHouseAuthenticationType5 = "none"
+	OutputClickHouseAuthenticationType5Basic              OutputClickHouseAuthenticationType5 = "basic"
+	OutputClickHouseAuthenticationType5CredentialsSecret  OutputClickHouseAuthenticationType5 = "credentialsSecret"
+	OutputClickHouseAuthenticationType5SslUserCertificate OutputClickHouseAuthenticationType5 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType5Token              OutputClickHouseAuthenticationType5 = "token"
+	OutputClickHouseAuthenticationType5TextSecret         OutputClickHouseAuthenticationType5 = "textSecret"
+	OutputClickHouseAuthenticationType5Oauth              OutputClickHouseAuthenticationType5 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType5) ToPointer() *OutputClickHouseAuthenticationType5 {
+	return &e
+}
+
+type OutputClickHouseType5 string
+
+const (
+	OutputClickHouseType5ClickHouse OutputClickHouseType5 = "click_house"
+)
+
+func (e OutputClickHouseType5) ToPointer() *OutputClickHouseType5 {
+	return &e
+}
+func (e *OutputClickHouseType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType5: %v", v)
+	}
+}
+
+// OutputClickHouseFormat5 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat5 string
+
+const (
+	// OutputClickHouseFormat5JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat5JSONCompactEachRowWithNames OutputClickHouseFormat5 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat5JSONEachRow JSONEachRow
+	OutputClickHouseFormat5JSONEachRow OutputClickHouseFormat5 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat5) ToPointer() *OutputClickHouseFormat5 {
+	return &e
+}
+
+// MappingType5 - How event fields are mapped to ClickHouse columns.
+type MappingType5 string
+
+const (
+	// MappingType5Automatic Automatic
+	MappingType5Automatic MappingType5 = "automatic"
+	// MappingType5Custom Custom
+	MappingType5Custom MappingType5 = "custom"
+)
+
+func (e MappingType5) ToPointer() *MappingType5 {
+	return &e
+}
+
+type ColumnMapping5 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping5) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping5) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping5) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse5 struct {
+	AuthType *OutputClickHouseAuthenticationType5 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType5 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat5 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType5 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret string `json:"textSecret"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping5 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse5) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse5) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "textSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse5) GetAuthType() *OutputClickHouseAuthenticationType5 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse5) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse5) GetType() OutputClickHouseType5 {
+	if o == nil {
+		return OutputClickHouseType5("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse5) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse5) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse5) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse5) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse5) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse5) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse5) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse5) GetFormat() *OutputClickHouseFormat5 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse5) GetMappingType() *MappingType5 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse5) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse5) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse5) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse5) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse5) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse5) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse5) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse5) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse5) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse5) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse5) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse5) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse5) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse5) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse5) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse5) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse5) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse5) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse5) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse5) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse5) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse5) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse5) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse5) GetTextSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse5) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse5) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse5) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse5) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse5) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse5) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse5) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse5) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse5) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse5) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse5) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse5) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse5) GetColumnMappings() []ColumnMapping5 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse5) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType4 string
+
+const (
+	OutputClickHouseAuthenticationType4None               OutputClickHouseAuthenticationType4 = "none"
+	OutputClickHouseAuthenticationType4Basic              OutputClickHouseAuthenticationType4 = "basic"
+	OutputClickHouseAuthenticationType4CredentialsSecret  OutputClickHouseAuthenticationType4 = "credentialsSecret"
+	OutputClickHouseAuthenticationType4SslUserCertificate OutputClickHouseAuthenticationType4 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType4Token              OutputClickHouseAuthenticationType4 = "token"
+	OutputClickHouseAuthenticationType4TextSecret         OutputClickHouseAuthenticationType4 = "textSecret"
+	OutputClickHouseAuthenticationType4Oauth              OutputClickHouseAuthenticationType4 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType4) ToPointer() *OutputClickHouseAuthenticationType4 {
+	return &e
+}
+
+type OutputClickHouseType4 string
+
+const (
+	OutputClickHouseType4ClickHouse OutputClickHouseType4 = "click_house"
+)
+
+func (e OutputClickHouseType4) ToPointer() *OutputClickHouseType4 {
+	return &e
+}
+func (e *OutputClickHouseType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType4: %v", v)
+	}
+}
+
+// OutputClickHouseFormat4 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat4 string
+
+const (
+	// OutputClickHouseFormat4JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat4JSONCompactEachRowWithNames OutputClickHouseFormat4 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat4JSONEachRow JSONEachRow
+	OutputClickHouseFormat4JSONEachRow OutputClickHouseFormat4 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat4) ToPointer() *OutputClickHouseFormat4 {
+	return &e
+}
+
+// MappingType4 - How event fields are mapped to ClickHouse columns.
+type MappingType4 string
+
+const (
+	// MappingType4Automatic Automatic
+	MappingType4Automatic MappingType4 = "automatic"
+	// MappingType4Custom Custom
+	MappingType4Custom MappingType4 = "custom"
+)
+
+func (e MappingType4) ToPointer() *MappingType4 {
+	return &e
+}
+
+type ColumnMapping4 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping4) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping4) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping4) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse4 struct {
+	AuthType *OutputClickHouseAuthenticationType4 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType4 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat4 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType4 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping4 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "credentialsSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse4) GetAuthType() *OutputClickHouseAuthenticationType4 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse4) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse4) GetType() OutputClickHouseType4 {
+	if o == nil {
+		return OutputClickHouseType4("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse4) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse4) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse4) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse4) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse4) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse4) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse4) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse4) GetFormat() *OutputClickHouseFormat4 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse4) GetMappingType() *MappingType4 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse4) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse4) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse4) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse4) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse4) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse4) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse4) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse4) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse4) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse4) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse4) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse4) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse4) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse4) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse4) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse4) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse4) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse4) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse4) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse4) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse4) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse4) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse4) GetCredentialsSecret() string {
+	if o == nil {
+		return ""
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse4) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse4) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse4) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse4) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse4) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse4) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse4) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse4) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse4) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse4) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse4) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse4) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse4) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse4) GetColumnMappings() []ColumnMapping4 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse4) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType3 string
+
+const (
+	OutputClickHouseAuthenticationType3None               OutputClickHouseAuthenticationType3 = "none"
+	OutputClickHouseAuthenticationType3Basic              OutputClickHouseAuthenticationType3 = "basic"
+	OutputClickHouseAuthenticationType3CredentialsSecret  OutputClickHouseAuthenticationType3 = "credentialsSecret"
+	OutputClickHouseAuthenticationType3SslUserCertificate OutputClickHouseAuthenticationType3 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType3Token              OutputClickHouseAuthenticationType3 = "token"
+	OutputClickHouseAuthenticationType3TextSecret         OutputClickHouseAuthenticationType3 = "textSecret"
+	OutputClickHouseAuthenticationType3Oauth              OutputClickHouseAuthenticationType3 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType3) ToPointer() *OutputClickHouseAuthenticationType3 {
+	return &e
+}
+
+type OutputClickHouseType3 string
+
+const (
+	OutputClickHouseType3ClickHouse OutputClickHouseType3 = "click_house"
+)
+
+func (e OutputClickHouseType3) ToPointer() *OutputClickHouseType3 {
+	return &e
+}
+func (e *OutputClickHouseType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType3: %v", v)
+	}
+}
+
+// OutputClickHouseFormat3 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat3 string
+
+const (
+	// OutputClickHouseFormat3JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat3JSONCompactEachRowWithNames OutputClickHouseFormat3 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat3JSONEachRow JSONEachRow
+	OutputClickHouseFormat3JSONEachRow OutputClickHouseFormat3 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat3) ToPointer() *OutputClickHouseFormat3 {
+	return &e
+}
+
+// MappingType3 - How event fields are mapped to ClickHouse columns.
+type MappingType3 string
+
+const (
+	// MappingType3Automatic Automatic
+	MappingType3Automatic MappingType3 = "automatic"
+	// MappingType3Custom Custom
+	MappingType3Custom MappingType3 = "custom"
+)
+
+func (e MappingType3) ToPointer() *MappingType3 {
+	return &e
+}
+
+type ColumnMapping3 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping3) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping3) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping3) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse3 struct {
+	AuthType *OutputClickHouseAuthenticationType3 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat3 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType3 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token string `json:"token"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping3 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "token"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse3) GetAuthType() *OutputClickHouseAuthenticationType3 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse3) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse3) GetType() OutputClickHouseType3 {
+	if o == nil {
+		return OutputClickHouseType3("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse3) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse3) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse3) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse3) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse3) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse3) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse3) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse3) GetFormat() *OutputClickHouseFormat3 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse3) GetMappingType() *MappingType3 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse3) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse3) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse3) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse3) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse3) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse3) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse3) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse3) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse3) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse3) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse3) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse3) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse3) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse3) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse3) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse3) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse3) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse3) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse3) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse3) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse3) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse3) GetToken() string {
+	if o == nil {
+		return ""
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse3) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse3) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse3) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse3) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse3) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse3) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse3) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse3) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse3) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse3) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse3) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse3) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse3) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse3) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse3) GetColumnMappings() []ColumnMapping3 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse3) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType2 string
+
+const (
+	OutputClickHouseAuthenticationType2None               OutputClickHouseAuthenticationType2 = "none"
+	OutputClickHouseAuthenticationType2Basic              OutputClickHouseAuthenticationType2 = "basic"
+	OutputClickHouseAuthenticationType2CredentialsSecret  OutputClickHouseAuthenticationType2 = "credentialsSecret"
+	OutputClickHouseAuthenticationType2SslUserCertificate OutputClickHouseAuthenticationType2 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType2Token              OutputClickHouseAuthenticationType2 = "token"
+	OutputClickHouseAuthenticationType2TextSecret         OutputClickHouseAuthenticationType2 = "textSecret"
+	OutputClickHouseAuthenticationType2Oauth              OutputClickHouseAuthenticationType2 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType2) ToPointer() *OutputClickHouseAuthenticationType2 {
+	return &e
+}
+
+type OutputClickHouseType2 string
+
+const (
+	OutputClickHouseType2ClickHouse OutputClickHouseType2 = "click_house"
+)
+
+func (e OutputClickHouseType2) ToPointer() *OutputClickHouseType2 {
+	return &e
+}
+func (e *OutputClickHouseType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType2: %v", v)
+	}
+}
+
+// OutputClickHouseFormat2 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat2 string
+
+const (
+	// OutputClickHouseFormat2JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat2JSONCompactEachRowWithNames OutputClickHouseFormat2 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat2JSONEachRow JSONEachRow
+	OutputClickHouseFormat2JSONEachRow OutputClickHouseFormat2 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat2) ToPointer() *OutputClickHouseFormat2 {
+	return &e
+}
+
+// MappingType2 - How event fields are mapped to ClickHouse columns.
+type MappingType2 string
+
+const (
+	// MappingType2Automatic Automatic
+	MappingType2Automatic MappingType2 = "automatic"
+	// MappingType2Custom Custom
+	MappingType2Custom MappingType2 = "custom"
+)
+
+func (e MappingType2) ToPointer() *MappingType2 {
+	return &e
+}
+
+type ColumnMapping2 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping2) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping2) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping2) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse2 struct {
+	AuthType *OutputClickHouseAuthenticationType2 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType2 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat2 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType2 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       string                 `json:"username"`
+	Password       string                 `json:"password"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping2 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName", "username", "password"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse2) GetAuthType() *OutputClickHouseAuthenticationType2 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse2) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse2) GetType() OutputClickHouseType2 {
+	if o == nil {
+		return OutputClickHouseType2("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse2) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse2) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse2) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse2) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse2) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse2) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse2) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse2) GetFormat() *OutputClickHouseFormat2 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse2) GetMappingType() *MappingType2 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse2) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse2) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse2) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse2) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse2) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse2) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse2) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse2) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse2) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse2) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse2) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse2) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse2) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse2) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse2) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse2) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse2) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse2) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse2) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse2) GetUsername() string {
+	if o == nil {
+		return ""
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse2) GetPassword() string {
+	if o == nil {
+		return ""
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse2) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse2) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse2) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse2) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse2) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse2) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse2) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse2) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse2) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse2) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse2) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse2) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse2) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse2) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse2) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse2) GetColumnMappings() []ColumnMapping2 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse2) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseAuthenticationType1 string
+
+const (
+	OutputClickHouseAuthenticationType1None               OutputClickHouseAuthenticationType1 = "none"
+	OutputClickHouseAuthenticationType1Basic              OutputClickHouseAuthenticationType1 = "basic"
+	OutputClickHouseAuthenticationType1CredentialsSecret  OutputClickHouseAuthenticationType1 = "credentialsSecret"
+	OutputClickHouseAuthenticationType1SslUserCertificate OutputClickHouseAuthenticationType1 = "sslUserCertificate"
+	OutputClickHouseAuthenticationType1Token              OutputClickHouseAuthenticationType1 = "token"
+	OutputClickHouseAuthenticationType1TextSecret         OutputClickHouseAuthenticationType1 = "textSecret"
+	OutputClickHouseAuthenticationType1Oauth              OutputClickHouseAuthenticationType1 = "oauth"
+)
+
+func (e OutputClickHouseAuthenticationType1) ToPointer() *OutputClickHouseAuthenticationType1 {
+	return &e
+}
+
+type OutputClickHouseType1 string
+
+const (
+	OutputClickHouseType1ClickHouse OutputClickHouseType1 = "click_house"
+)
+
+func (e OutputClickHouseType1) ToPointer() *OutputClickHouseType1 {
+	return &e
+}
+func (e *OutputClickHouseType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputClickHouseType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputClickHouseType1: %v", v)
+	}
+}
+
+// OutputClickHouseFormat1 - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type OutputClickHouseFormat1 string
+
+const (
+	// OutputClickHouseFormat1JSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	OutputClickHouseFormat1JSONCompactEachRowWithNames OutputClickHouseFormat1 = "json-compact-each-row-with-names"
+	// OutputClickHouseFormat1JSONEachRow JSONEachRow
+	OutputClickHouseFormat1JSONEachRow OutputClickHouseFormat1 = "json-each-row"
+)
+
+func (e OutputClickHouseFormat1) ToPointer() *OutputClickHouseFormat1 {
+	return &e
+}
+
+// MappingType1 - How event fields are mapped to ClickHouse columns.
+type MappingType1 string
+
+const (
+	// MappingType1Automatic Automatic
+	MappingType1Automatic MappingType1 = "automatic"
+	// MappingType1Custom Custom
+	MappingType1Custom MappingType1 = "custom"
+)
+
+func (e MappingType1) ToPointer() *MappingType1 {
+	return &e
+}
+
+type ColumnMapping1 struct {
+	// Name of the column in ClickHouse that will store field value
+	ColumnName string `json:"columnName"`
+	// Type of the column in the ClickHouse database
+	ColumnType *string `json:"columnType,omitempty"`
+	// JavaScript expression to compute value to be inserted into ClickHouse table
+	ColumnValueExpression string `json:"columnValueExpression"`
+}
+
+func (c ColumnMapping1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ColumnMapping1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"columnName", "columnValueExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ColumnMapping1) GetColumnName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnName
+}
+
+func (c *ColumnMapping1) GetColumnType() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ColumnType
+}
+
+func (c *ColumnMapping1) GetColumnValueExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.ColumnValueExpression
+}
+
+type OutputClickHouseClickHouse1 struct {
+	AuthType *OutputClickHouseAuthenticationType1 `default:"none" json:"authType"`
+	// Unique ID for this output
+	ID   *string               `json:"id,omitempty"`
+	Type OutputClickHouseType1 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string `json:"url"`
+	Database string `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *OutputClickHouseFormat1 `default:"json-compact-each-row-with-names" json:"format"`
+	// How event fields are mapped to ClickHouse columns.
+	MappingType *MappingType1 `default:"automatic" json:"mappingType"`
+	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	AsyncInserts *bool     `default:"false" json:"asyncInserts"`
+	TLS          *Tls4Type `json:"tls,omitempty"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `default:"5" json:"concurrency"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	// Compress the payload body before sending
+	Compress *bool `default:"true" json:"compress"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeadersType `json:"extraHttpHeaders,omitempty"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingsType `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType   `json:"timeoutRetrySettings,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *OnBackpressureOptions `default:"block" json:"onBackpressure"`
+	Description    *string                `json:"description,omitempty"`
+	Username       *string                `json:"username,omitempty"`
+	Password       *string                `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []Metadata1Type `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []Metadata1Type `json:"oauthHeaders,omitempty"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string          `json:"describeTable,omitempty"`
+	ColumnMappings []ColumnMapping1 `json:"columnMappings,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *PqModeOptions `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	// Codec to use to compress the persisted data
+	PqCompress *PqCompressOptions `default:"none" json:"pqCompress"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *PqOnBackpressureOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *MetadataType            `json:"pqControls,omitempty"`
+}
+
+func (o OutputClickHouseClickHouse1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputClickHouseClickHouse1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "url", "database", "tableName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputClickHouseClickHouse1) GetAuthType() *OutputClickHouseAuthenticationType1 {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputClickHouseClickHouse1) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputClickHouseClickHouse1) GetType() OutputClickHouseType1 {
+	if o == nil {
+		return OutputClickHouseType1("")
+	}
+	return o.Type
+}
+
+func (o *OutputClickHouseClickHouse1) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputClickHouseClickHouse1) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputClickHouseClickHouse1) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputClickHouseClickHouse1) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputClickHouseClickHouse1) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputClickHouseClickHouse1) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputClickHouseClickHouse1) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputClickHouseClickHouse1) GetFormat() *OutputClickHouseFormat1 {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputClickHouseClickHouse1) GetMappingType() *MappingType1 {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputClickHouseClickHouse1) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse1) GetTLS() *Tls4Type {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputClickHouseClickHouse1) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputClickHouseClickHouse1) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputClickHouseClickHouse1) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputClickHouseClickHouse1) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputClickHouseClickHouse1) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputClickHouseClickHouse1) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputClickHouseClickHouse1) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputClickHouseClickHouse1) GetExtraHTTPHeaders() []ExtraHTTPHeadersType {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputClickHouseClickHouse1) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputClickHouseClickHouse1) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputClickHouseClickHouse1) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputClickHouseClickHouse1) GetResponseRetrySettings() []ResponseRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse1) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputClickHouseClickHouse1) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputClickHouseClickHouse1) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouseClickHouse1) GetOnBackpressure() *OnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse1) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputClickHouseClickHouse1) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputClickHouseClickHouse1) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputClickHouseClickHouse1) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputClickHouseClickHouse1) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputClickHouseClickHouse1) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
+func (o *OutputClickHouseClickHouse1) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputClickHouseClickHouse1) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputClickHouseClickHouse1) GetSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Secret
+}
+
+func (o *OutputClickHouseClickHouse1) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputClickHouseClickHouse1) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputClickHouseClickHouse1) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputClickHouseClickHouse1) GetOauthParams() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputClickHouseClickHouse1) GetOauthHeaders() []Metadata1Type {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
+func (o *OutputClickHouseClickHouse1) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputClickHouseClickHouse1) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputClickHouseClickHouse1) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputClickHouseClickHouse1) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputClickHouseClickHouse1) GetColumnMappings() []ColumnMapping1 {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqMode() *PqModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqCompress() *PqCompressOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqOnBackpressure() *PqOnBackpressureOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputClickHouseClickHouse1) GetPqControls() *MetadataType {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+type OutputClickHouseType string
+
+const (
+	OutputClickHouseTypeOutputClickHouseClickHouse1  OutputClickHouseType = "OutputClickHouse_ClickHouse_1"
+	OutputClickHouseTypeOutputClickHouseClickHouse2  OutputClickHouseType = "OutputClickHouse_ClickHouse_2"
+	OutputClickHouseTypeOutputClickHouseClickHouse3  OutputClickHouseType = "OutputClickHouse_ClickHouse_3"
+	OutputClickHouseTypeOutputClickHouseClickHouse4  OutputClickHouseType = "OutputClickHouse_ClickHouse_4"
+	OutputClickHouseTypeOutputClickHouseClickHouse5  OutputClickHouseType = "OutputClickHouse_ClickHouse_5"
+	OutputClickHouseTypeOutputClickHouseClickHouse6  OutputClickHouseType = "OutputClickHouse_ClickHouse_6"
+	OutputClickHouseTypeOutputClickHouseClickHouse7  OutputClickHouseType = "OutputClickHouse_ClickHouse_7"
+	OutputClickHouseTypeOutputClickHouseClickHouse8  OutputClickHouseType = "OutputClickHouse_ClickHouse_8"
+	OutputClickHouseTypeOutputClickHouseClickHouse9  OutputClickHouseType = "OutputClickHouse_ClickHouse_9"
+	OutputClickHouseTypeOutputClickHouseClickHouse10 OutputClickHouseType = "OutputClickHouse_ClickHouse_10"
+	OutputClickHouseTypeOutputClickHouseClickHouse11 OutputClickHouseType = "OutputClickHouse_ClickHouse_11"
+	OutputClickHouseTypeOutputClickHouseClickHouse12 OutputClickHouseType = "OutputClickHouse_ClickHouse_12"
+	OutputClickHouseTypeOutputClickHouseClickHouse13 OutputClickHouseType = "OutputClickHouse_ClickHouse_13"
+)
+
+type OutputClickHouse struct {
+	OutputClickHouseClickHouse1  *OutputClickHouseClickHouse1  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse2  *OutputClickHouseClickHouse2  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse3  *OutputClickHouseClickHouse3  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse4  *OutputClickHouseClickHouse4  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse5  *OutputClickHouseClickHouse5  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse6  *OutputClickHouseClickHouse6  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse7  *OutputClickHouseClickHouse7  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse8  *OutputClickHouseClickHouse8  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse9  *OutputClickHouseClickHouse9  `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse10 *OutputClickHouseClickHouse10 `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse11 *OutputClickHouseClickHouse11 `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse12 *OutputClickHouseClickHouse12 `queryParam:"inline,name=OutputClickHouse"`
+	OutputClickHouseClickHouse13 *OutputClickHouseClickHouse13 `queryParam:"inline,name=OutputClickHouse"`
+
+	Type OutputClickHouseType
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse1(outputClickHouseClickHouse1 OutputClickHouseClickHouse1) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse1
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse1: &outputClickHouseClickHouse1,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse2(outputClickHouseClickHouse2 OutputClickHouseClickHouse2) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse2
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse2: &outputClickHouseClickHouse2,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse3(outputClickHouseClickHouse3 OutputClickHouseClickHouse3) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse3
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse3: &outputClickHouseClickHouse3,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse4(outputClickHouseClickHouse4 OutputClickHouseClickHouse4) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse4
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse4: &outputClickHouseClickHouse4,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse5(outputClickHouseClickHouse5 OutputClickHouseClickHouse5) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse5
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse5: &outputClickHouseClickHouse5,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse6(outputClickHouseClickHouse6 OutputClickHouseClickHouse6) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse6
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse6: &outputClickHouseClickHouse6,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse7(outputClickHouseClickHouse7 OutputClickHouseClickHouse7) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse7
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse7: &outputClickHouseClickHouse7,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse8(outputClickHouseClickHouse8 OutputClickHouseClickHouse8) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse8
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse8: &outputClickHouseClickHouse8,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse9(outputClickHouseClickHouse9 OutputClickHouseClickHouse9) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse9
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse9: &outputClickHouseClickHouse9,
+		Type:                        typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse10(outputClickHouseClickHouse10 OutputClickHouseClickHouse10) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse10
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse10: &outputClickHouseClickHouse10,
+		Type:                         typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse11(outputClickHouseClickHouse11 OutputClickHouseClickHouse11) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse11
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse11: &outputClickHouseClickHouse11,
+		Type:                         typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse12(outputClickHouseClickHouse12 OutputClickHouseClickHouse12) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse12
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse12: &outputClickHouseClickHouse12,
+		Type:                         typ,
+	}
+}
+
+func CreateOutputClickHouseOutputClickHouseClickHouse13(outputClickHouseClickHouse13 OutputClickHouseClickHouse13) OutputClickHouse {
+	typ := OutputClickHouseTypeOutputClickHouseClickHouse13
+
+	return OutputClickHouse{
+		OutputClickHouseClickHouse13: &outputClickHouseClickHouse13,
+		Type:                         typ,
+	}
+}
+
+func (u *OutputClickHouse) UnmarshalJSON(data []byte) error {
+
+	var outputClickHouseClickHouse6 OutputClickHouseClickHouse6 = OutputClickHouseClickHouse6{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse6, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse6 = &outputClickHouseClickHouse6
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse6
+		return nil
+	}
+
+	var outputClickHouseClickHouse2 OutputClickHouseClickHouse2 = OutputClickHouseClickHouse2{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse2, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse2 = &outputClickHouseClickHouse2
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse2
+		return nil
+	}
+
+	var outputClickHouseClickHouse11 OutputClickHouseClickHouse11 = OutputClickHouseClickHouse11{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse11, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse11 = &outputClickHouseClickHouse11
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse11
+		return nil
+	}
+
+	var outputClickHouseClickHouse3 OutputClickHouseClickHouse3 = OutputClickHouseClickHouse3{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse3, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse3 = &outputClickHouseClickHouse3
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse3
+		return nil
+	}
+
+	var outputClickHouseClickHouse4 OutputClickHouseClickHouse4 = OutputClickHouseClickHouse4{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse4, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse4 = &outputClickHouseClickHouse4
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse4
+		return nil
+	}
+
+	var outputClickHouseClickHouse5 OutputClickHouseClickHouse5 = OutputClickHouseClickHouse5{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse5, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse5 = &outputClickHouseClickHouse5
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse5
+		return nil
+	}
+
+	var outputClickHouseClickHouse7 OutputClickHouseClickHouse7 = OutputClickHouseClickHouse7{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse7, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse7 = &outputClickHouseClickHouse7
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse7
+		return nil
+	}
+
+	var outputClickHouseClickHouse10 OutputClickHouseClickHouse10 = OutputClickHouseClickHouse10{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse10, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse10 = &outputClickHouseClickHouse10
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse10
+		return nil
+	}
+
+	var outputClickHouseClickHouse13 OutputClickHouseClickHouse13 = OutputClickHouseClickHouse13{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse13, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse13 = &outputClickHouseClickHouse13
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse13
+		return nil
+	}
+
+	var outputClickHouseClickHouse1 OutputClickHouseClickHouse1 = OutputClickHouseClickHouse1{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse1, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse1 = &outputClickHouseClickHouse1
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse1
+		return nil
+	}
+
+	var outputClickHouseClickHouse8 OutputClickHouseClickHouse8 = OutputClickHouseClickHouse8{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse8, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse8 = &outputClickHouseClickHouse8
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse8
+		return nil
+	}
+
+	var outputClickHouseClickHouse9 OutputClickHouseClickHouse9 = OutputClickHouseClickHouse9{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse9, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse9 = &outputClickHouseClickHouse9
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse9
+		return nil
+	}
+
+	var outputClickHouseClickHouse12 OutputClickHouseClickHouse12 = OutputClickHouseClickHouse12{}
+	if err := utils.UnmarshalJSON(data, &outputClickHouseClickHouse12, "", true, nil); err == nil {
+		u.OutputClickHouseClickHouse12 = &outputClickHouseClickHouse12
+		u.Type = OutputClickHouseTypeOutputClickHouseClickHouse12
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputClickHouse", string(data))
+}
+
+func (u OutputClickHouse) MarshalJSON() ([]byte, error) {
+	if u.OutputClickHouseClickHouse1 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse1, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse2 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse2, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse3 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse3, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse4 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse4, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse5 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse5, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse6 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse6, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse7 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse7, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse8 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse8, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse9 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse9, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse10 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse10, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse11 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse11, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse12 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse12, "", true)
+	}
+
+	if u.OutputClickHouseClickHouse13 != nil {
+		return utils.MarshalJSON(u.OutputClickHouseClickHouse13, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputClickHouse: all fields are null")
 }

@@ -1,0 +1,9 @@
+# InputSystemMetricsSystem4
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Mode`                                                                                                | [*components.InputSystemMetricsSystemMode4](../../models/components/inputsystemmetricssystemmode4.md) | :heavy_minus_sign:                                                                                    | Select the level of detail for system metrics                                                         |
+| `Processes`                                                                                           | **bool*                                                                                               | :heavy_minus_sign:                                                                                    | Generate metrics for the numbers of processes in various states                                       |

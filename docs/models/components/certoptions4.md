@@ -1,0 +1,11 @@
+# CertOptions4
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `CertificateName`                                                                             | **string*                                                                                     | :heavy_minus_sign:                                                                            | The name of the predefined certificate.                                                       |
+| `PrivKeyPath`                                                                                 | *string*                                                                                      | :heavy_check_mark:                                                                            | Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.         |
+| `Passphrase`                                                                                  | **string*                                                                                     | :heavy_minus_sign:                                                                            | Passphrase to use to decrypt the private key.                                                 |
+| `CertPath`                                                                                    | *string*                                                                                      | :heavy_check_mark:                                                                            | Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS. |

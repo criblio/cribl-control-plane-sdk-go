@@ -1,9 +1,0 @@
-# InputSystemMetricsHost
-
-
-## Fields
-
-| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `Mode`                                                                                          | [*components.InputSystemMetricsHostMode](../../models/components/inputsystemmetricshostmode.md) | :heavy_minus_sign:                                                                              | Select level of detail for host metrics                                                         |
-| `Custom`                                                                                        | [*components.InputSystemMetricsCustom](../../models/components/inputsystemmetricscustom.md)     | :heavy_minus_sign:                                                                              | N/A                                                                                             |
