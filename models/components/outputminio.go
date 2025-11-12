@@ -35,8 +35,11 @@ func (e *OutputMinioType) UnmarshalJSON(data []byte) error {
 type OutputMinioAuthenticationMethod string
 
 const (
-	OutputMinioAuthenticationMethodAuto   OutputMinioAuthenticationMethod = "auto"
+	// OutputMinioAuthenticationMethodAuto Auto
+	OutputMinioAuthenticationMethodAuto OutputMinioAuthenticationMethod = "auto"
+	// OutputMinioAuthenticationMethodManual Manual
 	OutputMinioAuthenticationMethodManual OutputMinioAuthenticationMethod = "manual"
+	// OutputMinioAuthenticationMethodSecret Secret Key pair
 	OutputMinioAuthenticationMethodSecret OutputMinioAuthenticationMethod = "secret"
 )
 
@@ -60,12 +63,19 @@ func (e OutputMinioSignatureVersion) ToPointer() *OutputMinioSignatureVersion {
 type OutputMinioObjectACL string
 
 const (
-	OutputMinioObjectACLPrivate                OutputMinioObjectACL = "private"
-	OutputMinioObjectACLPublicRead             OutputMinioObjectACL = "public-read"
-	OutputMinioObjectACLPublicReadWrite        OutputMinioObjectACL = "public-read-write"
-	OutputMinioObjectACLAuthenticatedRead      OutputMinioObjectACL = "authenticated-read"
-	OutputMinioObjectACLAwsExecRead            OutputMinioObjectACL = "aws-exec-read"
-	OutputMinioObjectACLBucketOwnerRead        OutputMinioObjectACL = "bucket-owner-read"
+	// OutputMinioObjectACLPrivate Private
+	OutputMinioObjectACLPrivate OutputMinioObjectACL = "private"
+	// OutputMinioObjectACLPublicRead Public Read Only
+	OutputMinioObjectACLPublicRead OutputMinioObjectACL = "public-read"
+	// OutputMinioObjectACLPublicReadWrite Public Read/Write
+	OutputMinioObjectACLPublicReadWrite OutputMinioObjectACL = "public-read-write"
+	// OutputMinioObjectACLAuthenticatedRead Authenticated Read Only
+	OutputMinioObjectACLAuthenticatedRead OutputMinioObjectACL = "authenticated-read"
+	// OutputMinioObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputMinioObjectACLAwsExecRead OutputMinioObjectACL = "aws-exec-read"
+	// OutputMinioObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputMinioObjectACLBucketOwnerRead OutputMinioObjectACL = "bucket-owner-read"
+	// OutputMinioObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputMinioObjectACLBucketOwnerFullControl OutputMinioObjectACL = "bucket-owner-full-control"
 )
 
@@ -77,7 +87,9 @@ func (e OutputMinioObjectACL) ToPointer() *OutputMinioObjectACL {
 type OutputMinioStorageClass string
 
 const (
-	OutputMinioStorageClassStandard          OutputMinioStorageClass = "STANDARD"
+	// OutputMinioStorageClassStandard Standard
+	OutputMinioStorageClassStandard OutputMinioStorageClass = "STANDARD"
+	// OutputMinioStorageClassReducedRedundancy Reduced Redundancy Storage
 	OutputMinioStorageClassReducedRedundancy OutputMinioStorageClass = "REDUCED_REDUNDANCY"
 )
 
@@ -89,6 +101,7 @@ func (e OutputMinioStorageClass) ToPointer() *OutputMinioStorageClass {
 type ServerSideEncryption string
 
 const (
+	// ServerSideEncryptionAes256 Amazon S3 Managed Key
 	ServerSideEncryptionAes256 ServerSideEncryption = "AES256"
 )
 
@@ -100,8 +113,11 @@ func (e ServerSideEncryption) ToPointer() *ServerSideEncryption {
 type OutputMinioDataFormat string
 
 const (
-	OutputMinioDataFormatJSON    OutputMinioDataFormat = "json"
-	OutputMinioDataFormatRaw     OutputMinioDataFormat = "raw"
+	// OutputMinioDataFormatJSON JSON
+	OutputMinioDataFormatJSON OutputMinioDataFormat = "json"
+	// OutputMinioDataFormatRaw Raw
+	OutputMinioDataFormatRaw OutputMinioDataFormat = "raw"
+	// OutputMinioDataFormatParquet Parquet
 	OutputMinioDataFormatParquet OutputMinioDataFormat = "parquet"
 )
 
@@ -113,8 +129,10 @@ func (e OutputMinioDataFormat) ToPointer() *OutputMinioDataFormat {
 type OutputMinioBackpressureBehavior string
 
 const (
+	// OutputMinioBackpressureBehaviorBlock Block
 	OutputMinioBackpressureBehaviorBlock OutputMinioBackpressureBehavior = "block"
-	OutputMinioBackpressureBehaviorDrop  OutputMinioBackpressureBehavior = "drop"
+	// OutputMinioBackpressureBehaviorDrop Drop
+	OutputMinioBackpressureBehaviorDrop OutputMinioBackpressureBehavior = "drop"
 )
 
 func (e OutputMinioBackpressureBehavior) ToPointer() *OutputMinioBackpressureBehavior {
@@ -125,8 +143,10 @@ func (e OutputMinioBackpressureBehavior) ToPointer() *OutputMinioBackpressureBeh
 type OutputMinioDiskSpaceProtection string
 
 const (
+	// OutputMinioDiskSpaceProtectionBlock Block
 	OutputMinioDiskSpaceProtectionBlock OutputMinioDiskSpaceProtection = "block"
-	OutputMinioDiskSpaceProtectionDrop  OutputMinioDiskSpaceProtection = "drop"
+	// OutputMinioDiskSpaceProtectionDrop Drop
+	OutputMinioDiskSpaceProtectionDrop OutputMinioDiskSpaceProtection = "drop"
 )
 
 func (e OutputMinioDiskSpaceProtection) ToPointer() *OutputMinioDiskSpaceProtection {
@@ -149,8 +169,11 @@ func (e OutputMinioCompression) ToPointer() *OutputMinioCompression {
 type OutputMinioCompressionLevel string
 
 const (
-	OutputMinioCompressionLevelBestSpeed       OutputMinioCompressionLevel = "best_speed"
-	OutputMinioCompressionLevelNormal          OutputMinioCompressionLevel = "normal"
+	// OutputMinioCompressionLevelBestSpeed Best Speed
+	OutputMinioCompressionLevelBestSpeed OutputMinioCompressionLevel = "best_speed"
+	// OutputMinioCompressionLevelNormal Normal
+	OutputMinioCompressionLevelNormal OutputMinioCompressionLevel = "normal"
+	// OutputMinioCompressionLevelBestCompression Best Compression
 	OutputMinioCompressionLevelBestCompression OutputMinioCompressionLevel = "best_compression"
 )
 
@@ -162,8 +185,11 @@ func (e OutputMinioCompressionLevel) ToPointer() *OutputMinioCompressionLevel {
 type OutputMinioParquetVersion string
 
 const (
+	// OutputMinioParquetVersionParquet10 1.0
 	OutputMinioParquetVersionParquet10 OutputMinioParquetVersion = "PARQUET_1_0"
+	// OutputMinioParquetVersionParquet24 2.4
 	OutputMinioParquetVersionParquet24 OutputMinioParquetVersion = "PARQUET_2_4"
+	// OutputMinioParquetVersionParquet26 2.6
 	OutputMinioParquetVersionParquet26 OutputMinioParquetVersion = "PARQUET_2_6"
 )
 
@@ -175,7 +201,9 @@ func (e OutputMinioParquetVersion) ToPointer() *OutputMinioParquetVersion {
 type OutputMinioDataPageVersion string
 
 const (
+	// OutputMinioDataPageVersionDataPageV1 V1
 	OutputMinioDataPageVersionDataPageV1 OutputMinioDataPageVersion = "DATA_PAGE_V1"
+	// OutputMinioDataPageVersionDataPageV2 V2
 	OutputMinioDataPageVersionDataPageV2 OutputMinioDataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -296,6 +324,8 @@ type OutputMinio struct {
 	CompressionLevel *OutputMinioCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputMinioParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -625,6 +655,13 @@ func (o *OutputMinio) GetAutomaticSchema() *bool {
 		return nil
 	}
 	return o.AutomaticSchema
+}
+
+func (o *OutputMinio) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
 }
 
 func (o *OutputMinio) GetParquetVersion() *OutputMinioParquetVersion {

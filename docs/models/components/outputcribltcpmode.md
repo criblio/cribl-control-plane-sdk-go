@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                             | Value                            |
 | -------------------------------- | -------------------------------- |
 | `OutputCriblTCPModeError`        | error                            |
-| `OutputCriblTCPModeBackpressure` | backpressure                     |
 | `OutputCriblTCPModeAlways`       | always                           |
+| `OutputCriblTCPModeBackpressure` | backpressure                     |

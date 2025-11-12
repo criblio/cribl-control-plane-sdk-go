@@ -65,7 +65,9 @@ func (i *InputPrometheusConnection) GetOutput() string {
 type InputPrometheusMode string
 
 const (
-	InputPrometheusModeSmart  InputPrometheusMode = "smart"
+	// InputPrometheusModeSmart Smart
+	InputPrometheusModeSmart InputPrometheusMode = "smart"
+	// InputPrometheusModeAlways Always On
 	InputPrometheusModeAlways InputPrometheusMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputPrometheusMode) ToPointer() *InputPrometheusMode {
 type InputPrometheusCompression string
 
 const (
+	// InputPrometheusCompressionNone None
 	InputPrometheusCompressionNone InputPrometheusCompression = "none"
+	// InputPrometheusCompressionGzip Gzip
 	InputPrometheusCompressionGzip InputPrometheusCompression = "gzip"
 )
 
@@ -188,9 +192,12 @@ func (i *InputPrometheusPq) GetPqControls() *InputPrometheusPqControls {
 type InputPrometheusDiscoveryType string
 
 const (
+	// InputPrometheusDiscoveryTypeStatic Static
 	InputPrometheusDiscoveryTypeStatic InputPrometheusDiscoveryType = "static"
-	InputPrometheusDiscoveryTypeDNS    InputPrometheusDiscoveryType = "dns"
-	InputPrometheusDiscoveryTypeEc2    InputPrometheusDiscoveryType = "ec2"
+	// InputPrometheusDiscoveryTypeDNS DNS
+	InputPrometheusDiscoveryTypeDNS InputPrometheusDiscoveryType = "dns"
+	// InputPrometheusDiscoveryTypeEc2 AWS EC2
+	InputPrometheusDiscoveryTypeEc2 InputPrometheusDiscoveryType = "ec2"
 )
 
 func (e InputPrometheusDiscoveryType) ToPointer() *InputPrometheusDiscoveryType {
@@ -279,6 +286,22 @@ func (e MetricsProtocol) ToPointer() *MetricsProtocol {
 	return &e
 }
 
+// InputPrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type InputPrometheusAwsAuthenticationMethodAuthenticationMethod string
+
+const (
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto Auto
+	InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual Manual
+	InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
+	InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
+)
+
+func (e InputPrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
+	return &e
+}
+
 type InputPrometheusSearchFilter struct {
 	// Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
 	Name string `json:"Name"`
@@ -309,19 +332,6 @@ func (i *InputPrometheusSearchFilter) GetValues() []string {
 		return []string{}
 	}
 	return i.Values
-}
-
-// InputPrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputPrometheusAwsAuthenticationMethodAuthenticationMethod string
-
-const (
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodAuto   InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "auto"
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodManual InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "manual"
-	InputPrometheusAwsAuthenticationMethodAuthenticationMethodSecret InputPrometheusAwsAuthenticationMethodAuthenticationMethod = "secret"
-)
-
-func (e InputPrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
-	return &e
 }
 
 // InputPrometheusSignatureVersion - Signature version to use for signing EC2 requests
@@ -381,23 +391,26 @@ type InputPrometheus struct {
 	Description *string                                      `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
-	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
 	// DNS Record type to resolve
 	RecordType *InputPrometheusRecordType `default:"SRV" json:"recordType"`
+	// The port number in the metrics URL for discovered targets.
+	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	// List of DNS names to resolve
+	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
 	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
-	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
-	// EC2 Instance Search Filter
-	SearchFilter []InputPrometheusSearchFilter `json:"searchFilter,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *InputPrometheusAwsAuthenticationMethodAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                     `json:"awsSecretKey,omitempty"`
+	AwsAPIKey               *string                                                     `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
+	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	// EC2 Instance Search Filter
+	SearchFilter []InputPrometheusSearchFilter `json:"searchFilter,omitempty"`
+	AwsSecretKey *string                       `json:"awsSecretKey,omitempty"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitempty"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -601,18 +614,25 @@ func (i *InputPrometheus) GetTargetList() []string {
 	return i.TargetList
 }
 
-func (i *InputPrometheus) GetNameList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.NameList
-}
-
 func (i *InputPrometheus) GetRecordType() *InputPrometheusRecordType {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
+}
+
+func (i *InputPrometheus) GetScrapePort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapePort
+}
+
+func (i *InputPrometheus) GetNameList() []string {
+	if i == nil {
+		return nil
+	}
+	return i.NameList
 }
 
 func (i *InputPrometheus) GetScrapeProtocol() *MetricsProtocol {
@@ -629,6 +649,27 @@ func (i *InputPrometheus) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
+func (i *InputPrometheus) GetAwsAuthenticationMethod() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputPrometheus) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputPrometheus) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
 func (i *InputPrometheus) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
@@ -636,25 +677,11 @@ func (i *InputPrometheus) GetUsePublicIP() *bool {
 	return i.UsePublicIP
 }
 
-func (i *InputPrometheus) GetScrapePort() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePort
-}
-
 func (i *InputPrometheus) GetSearchFilter() []InputPrometheusSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
-}
-
-func (i *InputPrometheus) GetAwsAuthenticationMethod() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
 }
 
 func (i *InputPrometheus) GetAwsSecretKey() *string {

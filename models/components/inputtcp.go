@@ -65,7 +65,9 @@ func (i *InputTCPConnection) GetOutput() string {
 type InputTCPMode string
 
 const (
-	InputTCPModeSmart  InputTCPMode = "smart"
+	// InputTCPModeSmart Smart
+	InputTCPModeSmart InputTCPMode = "smart"
+	// InputTCPModeAlways Always On
 	InputTCPModeAlways InputTCPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputTCPMode) ToPointer() *InputTCPMode {
 type InputTCPCompression string
 
 const (
+	// InputTCPCompressionNone None
 	InputTCPCompressionNone InputTCPCompression = "none"
+	// InputTCPCompressionGzip Gzip
 	InputTCPCompressionGzip InputTCPCompression = "gzip"
 )
 
@@ -212,6 +216,12 @@ func (e InputTCPMaximumTLSVersion) ToPointer() *InputTCPMaximumTLSVersion {
 
 type InputTCPTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -221,13 +231,9 @@ type InputTCPTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                      `default:"false" json:"requestCert"`
-	RejectUnauthorized any                        `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                        `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputTCPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                    `json:"caPath,omitempty"`
+	MinVersion *InputTCPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputTCPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -246,6 +252,27 @@ func (i *InputTCPTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputTCPTLSSettingsServerSide) GetCertificateName() *string {
@@ -281,27 +308,6 @@ func (i *InputTCPTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputTCPTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputTCPTLSSettingsServerSide) GetMinVersion() *InputTCPMinimumTLSVersion {
@@ -446,8 +452,12 @@ type InputTCP struct {
 	EnableHeader *bool               `default:"false" json:"enableHeader"`
 	Preprocess   *InputTCPPreprocess `json:"preprocess,omitempty"`
 	Description  *string             `json:"description,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *InputTCPAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
 }
 
 func (i InputTCP) MarshalJSON() ([]byte, error) {
@@ -636,9 +646,23 @@ func (i *InputTCP) GetDescription() *string {
 	return i.Description
 }
 
+func (i *InputTCP) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
 func (i *InputTCP) GetAuthType() *InputTCPAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
+}
+
+func (i *InputTCP) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
 }

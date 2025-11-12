@@ -40,7 +40,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedGitCountResult != nil {
         // handle response
     }
 }
@@ -98,7 +98,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedGitFilesResponse != nil {
         // handle response
     }
 }

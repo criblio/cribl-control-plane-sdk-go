@@ -65,9 +65,12 @@ func (o *OutputHoneycombExtraHTTPHeader) GetValue() string {
 type OutputHoneycombFailedRequestLoggingMode string
 
 const (
-	OutputHoneycombFailedRequestLoggingModePayload           OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayload Payload
+	OutputHoneycombFailedRequestLoggingModePayload OutputHoneycombFailedRequestLoggingMode = "payload"
+	// OutputHoneycombFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputHoneycombFailedRequestLoggingModePayloadAndHeaders OutputHoneycombFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputHoneycombFailedRequestLoggingModeNone              OutputHoneycombFailedRequestLoggingMode = "none"
+	// OutputHoneycombFailedRequestLoggingModeNone None
+	OutputHoneycombFailedRequestLoggingModeNone OutputHoneycombFailedRequestLoggingMode = "none"
 )
 
 func (e OutputHoneycombFailedRequestLoggingMode) ToPointer() *OutputHoneycombFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputHoneycombTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputHoneycombBackpressureBehavior string
 
 const (
+	// OutputHoneycombBackpressureBehaviorBlock Block
 	OutputHoneycombBackpressureBehaviorBlock OutputHoneycombBackpressureBehavior = "block"
-	OutputHoneycombBackpressureBehaviorDrop  OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorDrop Drop
+	OutputHoneycombBackpressureBehaviorDrop OutputHoneycombBackpressureBehavior = "drop"
+	// OutputHoneycombBackpressureBehaviorQueue Persistent Queue
 	OutputHoneycombBackpressureBehaviorQueue OutputHoneycombBackpressureBehavior = "queue"
 )
 
@@ -198,11 +204,29 @@ func (e OutputHoneycombAuthenticationMethod) ToPointer() *OutputHoneycombAuthent
 	return &e
 }
 
+// OutputHoneycombMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputHoneycombMode string
+
+const (
+	// OutputHoneycombModeError Error
+	OutputHoneycombModeError OutputHoneycombMode = "error"
+	// OutputHoneycombModeAlways Backpressure
+	OutputHoneycombModeAlways OutputHoneycombMode = "always"
+	// OutputHoneycombModeBackpressure Always On
+	OutputHoneycombModeBackpressure OutputHoneycombMode = "backpressure"
+)
+
+func (e OutputHoneycombMode) ToPointer() *OutputHoneycombMode {
+	return &e
+}
+
 // OutputHoneycombCompression - Codec to use to compress the persisted data
 type OutputHoneycombCompression string
 
 const (
+	// OutputHoneycombCompressionNone None
 	OutputHoneycombCompressionNone OutputHoneycombCompression = "none"
+	// OutputHoneycombCompressionGzip Gzip
 	OutputHoneycombCompressionGzip OutputHoneycombCompression = "gzip"
 )
 
@@ -214,24 +238,13 @@ func (e OutputHoneycombCompression) ToPointer() *OutputHoneycombCompression {
 type OutputHoneycombQueueFullBehavior string
 
 const (
+	// OutputHoneycombQueueFullBehaviorBlock Block
 	OutputHoneycombQueueFullBehaviorBlock OutputHoneycombQueueFullBehavior = "block"
-	OutputHoneycombQueueFullBehaviorDrop  OutputHoneycombQueueFullBehavior = "drop"
+	// OutputHoneycombQueueFullBehaviorDrop Drop new data
+	OutputHoneycombQueueFullBehaviorDrop OutputHoneycombQueueFullBehavior = "drop"
 )
 
 func (e OutputHoneycombQueueFullBehavior) ToPointer() *OutputHoneycombQueueFullBehavior {
-	return &e
-}
-
-// OutputHoneycombMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputHoneycombMode string
-
-const (
-	OutputHoneycombModeError        OutputHoneycombMode = "error"
-	OutputHoneycombModeBackpressure OutputHoneycombMode = "backpressure"
-	OutputHoneycombModeAlways       OutputHoneycombMode = "always"
-)
-
-func (e OutputHoneycombMode) ToPointer() *OutputHoneycombMode {
 	return &e
 }
 
@@ -297,6 +310,16 @@ type OutputHoneycomb struct {
 	// Enter API key directly, or select a stored secret
 	AuthType    *OutputHoneycombAuthenticationMethod `default:"manual" json:"authType"`
 	Description *string                              `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputHoneycombMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -307,9 +330,7 @@ type OutputHoneycomb struct {
 	PqCompress *OutputHoneycombCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputHoneycombQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputHoneycombMode       `default:"error" json:"pqMode"`
-	PqControls *OutputHoneycombPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputHoneycombPqControls        `json:"pqControls,omitempty"`
 	// Team API key where the dataset belongs
 	Team *string `json:"team,omitempty"`
 	// Select or create a stored text secret
@@ -495,6 +516,41 @@ func (o *OutputHoneycomb) GetDescription() *string {
 	return o.Description
 }
 
+func (o *OutputHoneycomb) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputHoneycomb) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputHoneycomb) GetPqMode() *OutputHoneycombMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputHoneycomb) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputHoneycomb) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputHoneycomb) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -528,13 +584,6 @@ func (o *OutputHoneycomb) GetPqOnBackpressure() *OutputHoneycombQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputHoneycomb) GetPqMode() *OutputHoneycombMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputHoneycomb) GetPqControls() *OutputHoneycombPqControls {

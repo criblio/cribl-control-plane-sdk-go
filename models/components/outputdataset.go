@@ -35,13 +35,20 @@ func (e *OutputDatasetType) UnmarshalJSON(data []byte) error {
 type OutputDatasetSeverity string
 
 const (
-	OutputDatasetSeverityFinest  OutputDatasetSeverity = "finest"
-	OutputDatasetSeverityFiner   OutputDatasetSeverity = "finer"
-	OutputDatasetSeverityFine    OutputDatasetSeverity = "fine"
-	OutputDatasetSeverityInfo    OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityFinest 0 - finest
+	OutputDatasetSeverityFinest OutputDatasetSeverity = "finest"
+	// OutputDatasetSeverityFiner 1 - finer
+	OutputDatasetSeverityFiner OutputDatasetSeverity = "finer"
+	// OutputDatasetSeverityFine 2 - fine
+	OutputDatasetSeverityFine OutputDatasetSeverity = "fine"
+	// OutputDatasetSeverityInfo 3 - info
+	OutputDatasetSeverityInfo OutputDatasetSeverity = "info"
+	// OutputDatasetSeverityWarning 4 - warning
 	OutputDatasetSeverityWarning OutputDatasetSeverity = "warning"
-	OutputDatasetSeverityError   OutputDatasetSeverity = "error"
-	OutputDatasetSeverityFatal   OutputDatasetSeverity = "fatal"
+	// OutputDatasetSeverityError 5 - error
+	OutputDatasetSeverityError OutputDatasetSeverity = "error"
+	// OutputDatasetSeverityFatal 6 - fatal
+	OutputDatasetSeverityFatal OutputDatasetSeverity = "fatal"
 )
 
 func (e OutputDatasetSeverity) ToPointer() *OutputDatasetSeverity {
@@ -151,8 +158,11 @@ func (o *OutputDatasetTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type DataSetSite string
 
 const (
-	DataSetSiteUs     DataSetSite = "us"
-	DataSetSiteEu     DataSetSite = "eu"
+	// DataSetSiteUs US
+	DataSetSiteUs DataSetSite = "us"
+	// DataSetSiteEu Europe
+	DataSetSiteEu DataSetSite = "eu"
+	// DataSetSiteCustom Custom
 	DataSetSiteCustom DataSetSite = "custom"
 )
 
@@ -194,9 +204,12 @@ func (o *OutputDatasetExtraHTTPHeader) GetValue() string {
 type OutputDatasetFailedRequestLoggingMode string
 
 const (
-	OutputDatasetFailedRequestLoggingModePayload           OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayload Payload
+	OutputDatasetFailedRequestLoggingModePayload OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputDatasetFailedRequestLoggingModePayloadAndHeaders OutputDatasetFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputDatasetFailedRequestLoggingModeNone              OutputDatasetFailedRequestLoggingMode = "none"
+	// OutputDatasetFailedRequestLoggingModeNone None
+	OutputDatasetFailedRequestLoggingModeNone OutputDatasetFailedRequestLoggingMode = "none"
 )
 
 func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedRequestLoggingMode {
@@ -207,8 +220,11 @@ func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedR
 type OutputDatasetBackpressureBehavior string
 
 const (
+	// OutputDatasetBackpressureBehaviorBlock Block
 	OutputDatasetBackpressureBehaviorBlock OutputDatasetBackpressureBehavior = "block"
-	OutputDatasetBackpressureBehaviorDrop  OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorDrop Drop
+	OutputDatasetBackpressureBehaviorDrop OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorQueue Persistent Queue
 	OutputDatasetBackpressureBehaviorQueue OutputDatasetBackpressureBehavior = "queue"
 )
 
@@ -228,11 +244,29 @@ func (e OutputDatasetAuthenticationMethod) ToPointer() *OutputDatasetAuthenticat
 	return &e
 }
 
+// OutputDatasetMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDatasetMode string
+
+const (
+	// OutputDatasetModeError Error
+	OutputDatasetModeError OutputDatasetMode = "error"
+	// OutputDatasetModeAlways Backpressure
+	OutputDatasetModeAlways OutputDatasetMode = "always"
+	// OutputDatasetModeBackpressure Always On
+	OutputDatasetModeBackpressure OutputDatasetMode = "backpressure"
+)
+
+func (e OutputDatasetMode) ToPointer() *OutputDatasetMode {
+	return &e
+}
+
 // OutputDatasetCompression - Codec to use to compress the persisted data
 type OutputDatasetCompression string
 
 const (
+	// OutputDatasetCompressionNone None
 	OutputDatasetCompressionNone OutputDatasetCompression = "none"
+	// OutputDatasetCompressionGzip Gzip
 	OutputDatasetCompressionGzip OutputDatasetCompression = "gzip"
 )
 
@@ -244,24 +278,13 @@ func (e OutputDatasetCompression) ToPointer() *OutputDatasetCompression {
 type OutputDatasetQueueFullBehavior string
 
 const (
+	// OutputDatasetQueueFullBehaviorBlock Block
 	OutputDatasetQueueFullBehaviorBlock OutputDatasetQueueFullBehavior = "block"
-	OutputDatasetQueueFullBehaviorDrop  OutputDatasetQueueFullBehavior = "drop"
+	// OutputDatasetQueueFullBehaviorDrop Drop new data
+	OutputDatasetQueueFullBehaviorDrop OutputDatasetQueueFullBehavior = "drop"
 )
 
 func (e OutputDatasetQueueFullBehavior) ToPointer() *OutputDatasetQueueFullBehavior {
-	return &e
-}
-
-// OutputDatasetMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputDatasetMode string
-
-const (
-	OutputDatasetModeError        OutputDatasetMode = "error"
-	OutputDatasetModeBackpressure OutputDatasetMode = "backpressure"
-	OutputDatasetModeAlways       OutputDatasetMode = "always"
-)
-
-func (e OutputDatasetMode) ToPointer() *OutputDatasetMode {
 	return &e
 }
 
@@ -340,6 +363,16 @@ type OutputDataset struct {
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
 	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputDatasetMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -350,9 +383,7 @@ type OutputDataset struct {
 	PqCompress *OutputDatasetCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputDatasetQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputDatasetMode       `default:"error" json:"pqMode"`
-	PqControls *OutputDatasetPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputDatasetPqControls        `json:"pqControls,omitempty"`
 	// A 'Log Write Access' API key for the DataSet account
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -587,6 +618,41 @@ func (o *OutputDataset) GetCustomURL() *string {
 	return o.CustomURL
 }
 
+func (o *OutputDataset) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputDataset) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputDataset) GetPqMode() *OutputDatasetMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputDataset) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputDataset) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputDataset) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -620,13 +686,6 @@ func (o *OutputDataset) GetPqOnBackpressure() *OutputDatasetQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputDataset) GetPqMode() *OutputDatasetMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputDataset) GetPqControls() *OutputDatasetPqControls {

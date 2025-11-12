@@ -34,10 +34,14 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 type LogLocationType string
 
 const (
-	LogLocationTypeProject        LogLocationType = "project"
-	LogLocationTypeOrganization   LogLocationType = "organization"
+	// LogLocationTypeProject Project
+	LogLocationTypeProject LogLocationType = "project"
+	// LogLocationTypeOrganization Organization
+	LogLocationTypeOrganization LogLocationType = "organization"
+	// LogLocationTypeBillingAccount Billing Account
 	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	LogLocationTypeFolder         LogLocationType = "folder"
+	// LogLocationTypeFolder Folder
+	LogLocationTypeFolder LogLocationType = "folder"
 )
 
 func (e LogLocationType) ToPointer() *LogLocationType {
@@ -48,7 +52,9 @@ func (e LogLocationType) ToPointer() *LogLocationType {
 type PayloadFormat string
 
 const (
+	// PayloadFormatText Text
 	PayloadFormatText PayloadFormat = "text"
+	// PayloadFormatJSON JSON
 	PayloadFormatJSON PayloadFormat = "json"
 )
 
@@ -124,8 +130,11 @@ func (r *ResourceTypeLabel) GetValueExpression() string {
 type OutputGoogleCloudLoggingGoogleAuthenticationMethod string
 
 const (
-	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto   OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto Auto
+	OutputGoogleCloudLoggingGoogleAuthenticationMethodAuto OutputGoogleCloudLoggingGoogleAuthenticationMethod = "auto"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodManual Manual
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodManual OutputGoogleCloudLoggingGoogleAuthenticationMethod = "manual"
+	// OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret Secret
 	OutputGoogleCloudLoggingGoogleAuthenticationMethodSecret OutputGoogleCloudLoggingGoogleAuthenticationMethod = "secret"
 )
 
@@ -137,8 +146,11 @@ func (e OutputGoogleCloudLoggingGoogleAuthenticationMethod) ToPointer() *OutputG
 type OutputGoogleCloudLoggingBackpressureBehavior string
 
 const (
+	// OutputGoogleCloudLoggingBackpressureBehaviorBlock Block
 	OutputGoogleCloudLoggingBackpressureBehaviorBlock OutputGoogleCloudLoggingBackpressureBehavior = "block"
-	OutputGoogleCloudLoggingBackpressureBehaviorDrop  OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorDrop Drop
+	OutputGoogleCloudLoggingBackpressureBehaviorDrop OutputGoogleCloudLoggingBackpressureBehavior = "drop"
+	// OutputGoogleCloudLoggingBackpressureBehaviorQueue Persistent Queue
 	OutputGoogleCloudLoggingBackpressureBehaviorQueue OutputGoogleCloudLoggingBackpressureBehavior = "queue"
 )
 
@@ -146,11 +158,29 @@ func (e OutputGoogleCloudLoggingBackpressureBehavior) ToPointer() *OutputGoogleC
 	return &e
 }
 
+// OutputGoogleCloudLoggingMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGoogleCloudLoggingMode string
+
+const (
+	// OutputGoogleCloudLoggingModeError Error
+	OutputGoogleCloudLoggingModeError OutputGoogleCloudLoggingMode = "error"
+	// OutputGoogleCloudLoggingModeAlways Backpressure
+	OutputGoogleCloudLoggingModeAlways OutputGoogleCloudLoggingMode = "always"
+	// OutputGoogleCloudLoggingModeBackpressure Always On
+	OutputGoogleCloudLoggingModeBackpressure OutputGoogleCloudLoggingMode = "backpressure"
+)
+
+func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode {
+	return &e
+}
+
 // OutputGoogleCloudLoggingCompression - Codec to use to compress the persisted data
 type OutputGoogleCloudLoggingCompression string
 
 const (
+	// OutputGoogleCloudLoggingCompressionNone None
 	OutputGoogleCloudLoggingCompressionNone OutputGoogleCloudLoggingCompression = "none"
+	// OutputGoogleCloudLoggingCompressionGzip Gzip
 	OutputGoogleCloudLoggingCompressionGzip OutputGoogleCloudLoggingCompression = "gzip"
 )
 
@@ -162,24 +192,13 @@ func (e OutputGoogleCloudLoggingCompression) ToPointer() *OutputGoogleCloudLoggi
 type OutputGoogleCloudLoggingQueueFullBehavior string
 
 const (
+	// OutputGoogleCloudLoggingQueueFullBehaviorBlock Block
 	OutputGoogleCloudLoggingQueueFullBehaviorBlock OutputGoogleCloudLoggingQueueFullBehavior = "block"
-	OutputGoogleCloudLoggingQueueFullBehaviorDrop  OutputGoogleCloudLoggingQueueFullBehavior = "drop"
+	// OutputGoogleCloudLoggingQueueFullBehaviorDrop Drop new data
+	OutputGoogleCloudLoggingQueueFullBehaviorDrop OutputGoogleCloudLoggingQueueFullBehavior = "drop"
 )
 
 func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleCloudLoggingQueueFullBehavior {
-	return &e
-}
-
-// OutputGoogleCloudLoggingMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGoogleCloudLoggingMode string
-
-const (
-	OutputGoogleCloudLoggingModeError        OutputGoogleCloudLoggingMode = "error"
-	OutputGoogleCloudLoggingModeBackpressure OutputGoogleCloudLoggingMode = "backpressure"
-	OutputGoogleCloudLoggingModeAlways       OutputGoogleCloudLoggingMode = "always"
-)
-
-func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode {
 	return &e
 }
 
@@ -310,6 +329,16 @@ type OutputGoogleCloudLogging struct {
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
 	PayloadExpression *string `json:"payloadExpression,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputGoogleCloudLoggingMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -320,9 +349,7 @@ type OutputGoogleCloudLogging struct {
 	PqCompress *OutputGoogleCloudLoggingCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGoogleCloudLoggingQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGoogleCloudLoggingMode       `default:"error" json:"pqMode"`
-	PqControls *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputGoogleCloudLoggingPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -742,6 +769,41 @@ func (o *OutputGoogleCloudLogging) GetPayloadExpression() *string {
 	return o.PayloadExpression
 }
 
+func (o *OutputGoogleCloudLogging) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleCloudLogging) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleCloudLogging) GetPqMode() *OutputGoogleCloudLoggingMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleCloudLogging) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleCloudLogging) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputGoogleCloudLogging) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -775,13 +837,6 @@ func (o *OutputGoogleCloudLogging) GetPqOnBackpressure() *OutputGoogleCloudLoggi
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputGoogleCloudLogging) GetPqMode() *OutputGoogleCloudLoggingMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputGoogleCloudLogging) GetPqControls() *OutputGoogleCloudLoggingPqControls {

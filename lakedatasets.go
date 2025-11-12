@@ -211,12 +211,12 @@ func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDatas
 				return nil, err
 			}
 
-			var out operations.CreateCriblLakeDatasetByLakeIDResponseBody
+			var out components.CountedCriblLakeDataset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedCriblLakeDataset = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -448,12 +448,12 @@ func (s *LakeDatasets) List(ctx context.Context, lakeID string, opts ...operatio
 				return nil, err
 			}
 
-			var out operations.GetCriblLakeDatasetByLakeIDResponseBody
+			var out components.CountedCriblLakeDataset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedCriblLakeDataset = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -686,12 +686,12 @@ func (s *LakeDatasets) Delete(ctx context.Context, lakeID string, id string, opt
 				return nil, err
 			}
 
-			var out operations.DeleteCriblLakeDatasetByLakeIDAndIDResponseBody
+			var out components.CountedCriblLakeDataset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedCriblLakeDataset = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -924,12 +924,12 @@ func (s *LakeDatasets) Get(ctx context.Context, lakeID string, id string, opts .
 				return nil, err
 			}
 
-			var out operations.GetCriblLakeDatasetByLakeIDAndIDResponseBody
+			var out components.CountedCriblLakeDataset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedCriblLakeDataset = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1170,12 +1170,12 @@ func (s *LakeDatasets) Update(ctx context.Context, lakeID string, id string, cri
 				return nil, err
 			}
 
-			var out operations.UpdateCriblLakeDatasetByLakeIDAndIDResponseBody
+			var out components.CountedCriblLakeDataset
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedCriblLakeDataset = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

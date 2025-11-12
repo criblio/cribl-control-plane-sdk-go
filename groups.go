@@ -214,12 +214,12 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 				return nil, err
 			}
 
-			var out operations.ListConfigGroupByProductResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -280,10 +280,10 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 
 // Create a Worker Group or Edge Fleet for the specified Cribl product
 // Create a new Worker Group or Edge Fleet for the specified Cribl product.
-func (s *Groups) Create(ctx context.Context, product components.ProductsCore, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
+func (s *Groups) Create(ctx context.Context, product components.ProductsCore, groupCreateRequest components.GroupCreateRequest, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
 	request := operations.CreateConfigGroupByProductRequest{
-		Product:     product,
-		ConfigGroup: configGroup,
+		Product:            product,
+		GroupCreateRequest: groupCreateRequest,
 	}
 
 	o := operations.Options{}
@@ -318,7 +318,7 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, co
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ConfigGroup", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "GroupCreateRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -459,12 +459,12 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, co
 				return nil, err
 			}
 
-			var out operations.CreateConfigGroupByProductResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -702,12 +702,12 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -948,12 +948,12 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1186,12 +1186,12 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.DeleteConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1432,12 +1432,12 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupDeployByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

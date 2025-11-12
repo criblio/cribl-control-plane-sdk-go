@@ -200,12 +200,12 @@ func (s *Branches) List(ctx context.Context, opts ...operations.Option) (*operat
 				return nil, err
 			}
 
-			var out operations.GetVersionBranchResponseBody
+			var out components.CountedBranchInfo
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedBranchInfo = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

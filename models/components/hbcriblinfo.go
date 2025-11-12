@@ -45,11 +45,27 @@ func (c *Config) GetVersion() *string {
 	return c.Version
 }
 
+type DistMode string
+
+const (
+	DistModeEdge             DistMode = "edge"
+	DistModeWorker           DistMode = "worker"
+	DistModeSingle           DistMode = "single"
+	DistModeMaster           DistMode = "master"
+	DistModeManagedEdge      DistMode = "managed-edge"
+	DistModeOutpost          DistMode = "outpost"
+	DistModeSearchSupervisor DistMode = "search-supervisor"
+)
+
+func (e DistMode) ToPointer() *DistMode {
+	return &e
+}
+
 type HBCriblInfo struct {
 	Config            Config          `json:"config"`
 	DeploymentID      *string         `json:"deploymentId,omitempty"`
 	DisableSNIRouting *bool           `json:"disableSNIRouting,omitempty"`
-	DistMode          AppMode         `json:"distMode"`
+	DistMode          DistMode        `json:"distMode"`
 	EdgeNodes         *float64        `json:"edgeNodes,omitempty"`
 	Group             string          `json:"group"`
 	GUID              string          `json:"guid"`
@@ -84,9 +100,9 @@ func (h *HBCriblInfo) GetDisableSNIRouting() *bool {
 	return h.DisableSNIRouting
 }
 
-func (h *HBCriblInfo) GetDistMode() AppMode {
+func (h *HBCriblInfo) GetDistMode() DistMode {
 	if h == nil {
-		return AppMode("")
+		return DistMode("")
 	}
 	return h.DistMode
 }

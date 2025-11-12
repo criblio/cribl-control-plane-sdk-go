@@ -65,7 +65,9 @@ func (i *InputSystemMetricsConnection) GetOutput() string {
 type InputSystemMetricsPqMode string
 
 const (
-	InputSystemMetricsPqModeSmart  InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeSmart Smart
+	InputSystemMetricsPqModeSmart InputSystemMetricsPqMode = "smart"
+	// InputSystemMetricsPqModeAlways Always On
 	InputSystemMetricsPqModeAlways InputSystemMetricsPqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
 type InputSystemMetricsCompression string
 
 const (
+	// InputSystemMetricsCompressionNone None
 	InputSystemMetricsCompressionNone InputSystemMetricsCompression = "none"
+	// InputSystemMetricsCompressionGzip Gzip
 	InputSystemMetricsCompressionGzip InputSystemMetricsCompression = "gzip"
 )
 
@@ -188,9 +192,13 @@ func (i *InputSystemMetricsPq) GetPqControls() *InputSystemMetricsPqControls {
 type InputSystemMetricsHostMode string
 
 const (
-	InputSystemMetricsHostModeBasic    InputSystemMetricsHostMode = "basic"
-	InputSystemMetricsHostModeAll      InputSystemMetricsHostMode = "all"
-	InputSystemMetricsHostModeCustom   InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeBasic Basic
+	InputSystemMetricsHostModeBasic InputSystemMetricsHostMode = "basic"
+	// InputSystemMetricsHostModeAll All
+	InputSystemMetricsHostModeAll InputSystemMetricsHostMode = "all"
+	// InputSystemMetricsHostModeCustom Custom
+	InputSystemMetricsHostModeCustom InputSystemMetricsHostMode = "custom"
+	// InputSystemMetricsHostModeDisabled Disabled
 	InputSystemMetricsHostModeDisabled InputSystemMetricsHostMode = "disabled"
 )
 
@@ -202,9 +210,13 @@ func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
 type InputSystemMetricsSystemMode string
 
 const (
-	InputSystemMetricsSystemModeBasic    InputSystemMetricsSystemMode = "basic"
-	InputSystemMetricsSystemModeAll      InputSystemMetricsSystemMode = "all"
-	InputSystemMetricsSystemModeCustom   InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeBasic Basic
+	InputSystemMetricsSystemModeBasic InputSystemMetricsSystemMode = "basic"
+	// InputSystemMetricsSystemModeAll All
+	InputSystemMetricsSystemModeAll InputSystemMetricsSystemMode = "all"
+	// InputSystemMetricsSystemModeCustom Custom
+	InputSystemMetricsSystemModeCustom InputSystemMetricsSystemMode = "custom"
+	// InputSystemMetricsSystemModeDisabled Disabled
 	InputSystemMetricsSystemModeDisabled InputSystemMetricsSystemMode = "disabled"
 )
 
@@ -248,9 +260,13 @@ func (i *InputSystemMetricsSystem) GetProcesses() *bool {
 type InputSystemMetricsCPUMode string
 
 const (
-	InputSystemMetricsCPUModeBasic    InputSystemMetricsCPUMode = "basic"
-	InputSystemMetricsCPUModeAll      InputSystemMetricsCPUMode = "all"
-	InputSystemMetricsCPUModeCustom   InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeBasic Basic
+	InputSystemMetricsCPUModeBasic InputSystemMetricsCPUMode = "basic"
+	// InputSystemMetricsCPUModeAll All
+	InputSystemMetricsCPUModeAll InputSystemMetricsCPUMode = "all"
+	// InputSystemMetricsCPUModeCustom Custom
+	InputSystemMetricsCPUModeCustom InputSystemMetricsCPUMode = "custom"
+	// InputSystemMetricsCPUModeDisabled Disabled
 	InputSystemMetricsCPUModeDisabled InputSystemMetricsCPUMode = "disabled"
 )
 
@@ -312,9 +328,13 @@ func (i *InputSystemMetricsCPU) GetTime() *bool {
 type InputSystemMetricsMemoryMode string
 
 const (
-	InputSystemMetricsMemoryModeBasic    InputSystemMetricsMemoryMode = "basic"
-	InputSystemMetricsMemoryModeAll      InputSystemMetricsMemoryMode = "all"
-	InputSystemMetricsMemoryModeCustom   InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeBasic Basic
+	InputSystemMetricsMemoryModeBasic InputSystemMetricsMemoryMode = "basic"
+	// InputSystemMetricsMemoryModeAll All
+	InputSystemMetricsMemoryModeAll InputSystemMetricsMemoryMode = "all"
+	// InputSystemMetricsMemoryModeCustom Custom
+	InputSystemMetricsMemoryModeCustom InputSystemMetricsMemoryMode = "custom"
+	// InputSystemMetricsMemoryModeDisabled Disabled
 	InputSystemMetricsMemoryModeDisabled InputSystemMetricsMemoryMode = "disabled"
 )
 
@@ -358,9 +378,13 @@ func (i *InputSystemMetricsMemory) GetDetail() *bool {
 type InputSystemMetricsNetworkMode string
 
 const (
-	InputSystemMetricsNetworkModeBasic    InputSystemMetricsNetworkMode = "basic"
-	InputSystemMetricsNetworkModeAll      InputSystemMetricsNetworkMode = "all"
-	InputSystemMetricsNetworkModeCustom   InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeBasic Basic
+	InputSystemMetricsNetworkModeBasic InputSystemMetricsNetworkMode = "basic"
+	// InputSystemMetricsNetworkModeAll All
+	InputSystemMetricsNetworkModeAll InputSystemMetricsNetworkMode = "all"
+	// InputSystemMetricsNetworkModeCustom Custom
+	InputSystemMetricsNetworkModeCustom InputSystemMetricsNetworkMode = "custom"
+	// InputSystemMetricsNetworkModeDisabled Disabled
 	InputSystemMetricsNetworkModeDisabled InputSystemMetricsNetworkMode = "disabled"
 )
 
@@ -371,12 +395,14 @@ func (e InputSystemMetricsNetworkMode) ToPointer() *InputSystemMetricsNetworkMod
 type InputSystemMetricsNetwork struct {
 	// Select the level of detail for network metrics
 	Mode *InputSystemMetricsNetworkMode `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -397,6 +423,20 @@ func (i *InputSystemMetricsNetwork) GetMode() *InputSystemMetricsNetworkMode {
 	return i.Mode
 }
 
+func (i *InputSystemMetricsNetwork) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsNetwork) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
 func (i *InputSystemMetricsNetwork) GetDevices() []string {
 	if i == nil {
 		return nil
@@ -411,20 +451,17 @@ func (i *InputSystemMetricsNetwork) GetPerInterface() *bool {
 	return i.PerInterface
 }
 
-func (i *InputSystemMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
 // InputSystemMetricsDiskMode - Select the level of detail for disk metrics
 type InputSystemMetricsDiskMode string
 
 const (
-	InputSystemMetricsDiskModeBasic    InputSystemMetricsDiskMode = "basic"
-	InputSystemMetricsDiskModeAll      InputSystemMetricsDiskMode = "all"
-	InputSystemMetricsDiskModeCustom   InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeBasic Basic
+	InputSystemMetricsDiskModeBasic InputSystemMetricsDiskMode = "basic"
+	// InputSystemMetricsDiskModeAll All
+	InputSystemMetricsDiskModeAll InputSystemMetricsDiskMode = "all"
+	// InputSystemMetricsDiskModeCustom Custom
+	InputSystemMetricsDiskModeCustom InputSystemMetricsDiskMode = "custom"
+	// InputSystemMetricsDiskModeDisabled Disabled
 	InputSystemMetricsDiskModeDisabled InputSystemMetricsDiskMode = "disabled"
 )
 
@@ -435,6 +472,10 @@ func (e InputSystemMetricsDiskMode) ToPointer() *InputSystemMetricsDiskMode {
 type InputSystemMetricsDisk struct {
 	// Select the level of detail for disk metrics
 	Mode *InputSystemMetricsDiskMode `default:"basic" json:"mode"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate filesystem inode metrics
+	Inodes *bool `default:"false" json:"inodes"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
@@ -443,8 +484,6 @@ type InputSystemMetricsDisk struct {
 	Fstypes []string `json:"fstypes,omitempty"`
 	// Generate separate metrics for each device
 	PerDevice *bool `default:"false" json:"perDevice"`
-	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -463,6 +502,20 @@ func (i *InputSystemMetricsDisk) GetMode() *InputSystemMetricsDiskMode {
 		return nil
 	}
 	return i.Mode
+}
+
+func (i *InputSystemMetricsDisk) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputSystemMetricsDisk) GetInodes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Inodes
 }
 
 func (i *InputSystemMetricsDisk) GetDevices() []string {
@@ -491,13 +544,6 @@ func (i *InputSystemMetricsDisk) GetPerDevice() *bool {
 		return nil
 	}
 	return i.PerDevice
-}
-
-func (i *InputSystemMetricsDisk) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
 }
 
 type InputSystemMetricsCustom struct {
@@ -650,9 +696,13 @@ func (i *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
 type ContainerMode string
 
 const (
-	ContainerModeBasic    ContainerMode = "basic"
-	ContainerModeAll      ContainerMode = "all"
-	ContainerModeCustom   ContainerMode = "custom"
+	// ContainerModeBasic Basic
+	ContainerModeBasic ContainerMode = "basic"
+	// ContainerModeAll All
+	ContainerModeAll ContainerMode = "all"
+	// ContainerModeCustom Custom
+	ContainerModeCustom ContainerMode = "custom"
+	// ContainerModeDisabled Disabled
 	ContainerModeDisabled ContainerMode = "disabled"
 )
 

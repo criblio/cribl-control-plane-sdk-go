@@ -65,9 +65,12 @@ func (o *OutputElasticCloudExtraHTTPHeader) GetValue() string {
 type OutputElasticCloudFailedRequestLoggingMode string
 
 const (
-	OutputElasticCloudFailedRequestLoggingModePayload           OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayload Payload
+	OutputElasticCloudFailedRequestLoggingModePayload OutputElasticCloudFailedRequestLoggingMode = "payload"
+	// OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputElasticCloudFailedRequestLoggingModePayloadAndHeaders OutputElasticCloudFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticCloudFailedRequestLoggingModeNone              OutputElasticCloudFailedRequestLoggingMode = "none"
+	// OutputElasticCloudFailedRequestLoggingModeNone None
+	OutputElasticCloudFailedRequestLoggingModeNone OutputElasticCloudFailedRequestLoggingMode = "none"
 )
 
 func (e OutputElasticCloudFailedRequestLoggingMode) ToPointer() *OutputElasticCloudFailedRequestLoggingMode {
@@ -119,9 +122,17 @@ func (e OutputElasticCloudAuthenticationMethod) ToPointer() *OutputElasticCloudA
 }
 
 type OutputElasticCloudAuth struct {
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool   `default:"false" json:"disabled"`
+	Username *string `json:"username,omitempty"`
+	Password *string `json:"password,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *OutputElasticCloudAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Enter API key directly
+	ManualAPIKey *string `json:"manualAPIKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
 }
 
 func (o OutputElasticCloudAuth) MarshalJSON() ([]byte, error) {
@@ -142,11 +153,46 @@ func (o *OutputElasticCloudAuth) GetDisabled() *bool {
 	return o.Disabled
 }
 
+func (o *OutputElasticCloudAuth) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputElasticCloudAuth) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
 func (o *OutputElasticCloudAuth) GetAuthType() *OutputElasticCloudAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
+}
+
+func (o *OutputElasticCloudAuth) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputElasticCloudAuth) GetManualAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ManualAPIKey
+}
+
+func (o *OutputElasticCloudAuth) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
 }
 
 type OutputElasticCloudResponseRetrySetting struct {
@@ -252,8 +298,11 @@ func (o *OutputElasticCloudTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputElasticCloudBackpressureBehavior string
 
 const (
+	// OutputElasticCloudBackpressureBehaviorBlock Block
 	OutputElasticCloudBackpressureBehaviorBlock OutputElasticCloudBackpressureBehavior = "block"
-	OutputElasticCloudBackpressureBehaviorDrop  OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorDrop Drop
+	OutputElasticCloudBackpressureBehaviorDrop OutputElasticCloudBackpressureBehavior = "drop"
+	// OutputElasticCloudBackpressureBehaviorQueue Persistent Queue
 	OutputElasticCloudBackpressureBehaviorQueue OutputElasticCloudBackpressureBehavior = "queue"
 )
 
@@ -261,11 +310,29 @@ func (e OutputElasticCloudBackpressureBehavior) ToPointer() *OutputElasticCloudB
 	return &e
 }
 
+// OutputElasticCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputElasticCloudMode string
+
+const (
+	// OutputElasticCloudModeError Error
+	OutputElasticCloudModeError OutputElasticCloudMode = "error"
+	// OutputElasticCloudModeAlways Backpressure
+	OutputElasticCloudModeAlways OutputElasticCloudMode = "always"
+	// OutputElasticCloudModeBackpressure Always On
+	OutputElasticCloudModeBackpressure OutputElasticCloudMode = "backpressure"
+)
+
+func (e OutputElasticCloudMode) ToPointer() *OutputElasticCloudMode {
+	return &e
+}
+
 // OutputElasticCloudCompression - Codec to use to compress the persisted data
 type OutputElasticCloudCompression string
 
 const (
+	// OutputElasticCloudCompressionNone None
 	OutputElasticCloudCompressionNone OutputElasticCloudCompression = "none"
+	// OutputElasticCloudCompressionGzip Gzip
 	OutputElasticCloudCompressionGzip OutputElasticCloudCompression = "gzip"
 )
 
@@ -277,24 +344,13 @@ func (e OutputElasticCloudCompression) ToPointer() *OutputElasticCloudCompressio
 type OutputElasticCloudQueueFullBehavior string
 
 const (
+	// OutputElasticCloudQueueFullBehaviorBlock Block
 	OutputElasticCloudQueueFullBehaviorBlock OutputElasticCloudQueueFullBehavior = "block"
-	OutputElasticCloudQueueFullBehaviorDrop  OutputElasticCloudQueueFullBehavior = "drop"
+	// OutputElasticCloudQueueFullBehaviorDrop Drop new data
+	OutputElasticCloudQueueFullBehaviorDrop OutputElasticCloudQueueFullBehavior = "drop"
 )
 
 func (e OutputElasticCloudQueueFullBehavior) ToPointer() *OutputElasticCloudQueueFullBehavior {
-	return &e
-}
-
-// OutputElasticCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputElasticCloudMode string
-
-const (
-	OutputElasticCloudModeError        OutputElasticCloudMode = "error"
-	OutputElasticCloudModeBackpressure OutputElasticCloudMode = "backpressure"
-	OutputElasticCloudModeAlways       OutputElasticCloudMode = "always"
-)
-
-func (e OutputElasticCloudMode) ToPointer() *OutputElasticCloudMode {
 	return &e
 }
 
@@ -365,6 +421,16 @@ type OutputElasticCloud struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputElasticCloudBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                                 `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputElasticCloudMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -375,9 +441,7 @@ type OutputElasticCloud struct {
 	PqCompress *OutputElasticCloudCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputElasticCloudQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputElasticCloudMode       `default:"error" json:"pqMode"`
-	PqControls *OutputElasticCloudPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputElasticCloudPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputElasticCloud) MarshalJSON() ([]byte, error) {
@@ -580,6 +644,41 @@ func (o *OutputElasticCloud) GetDescription() *string {
 	return o.Description
 }
 
+func (o *OutputElasticCloud) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputElasticCloud) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputElasticCloud) GetPqMode() *OutputElasticCloudMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputElasticCloud) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElasticCloud) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputElasticCloud) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -613,13 +712,6 @@ func (o *OutputElasticCloud) GetPqOnBackpressure() *OutputElasticCloudQueueFullB
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputElasticCloud) GetPqMode() *OutputElasticCloudMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputElasticCloud) GetPqControls() *OutputElasticCloudPqControls {
