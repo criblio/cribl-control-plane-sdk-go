@@ -36,31 +36,10 @@ func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.Rbac
 	return g.Type
 }
 
-// GetConfigGroupACLTeamsByProductAndIDResponseBody - a list of TeamAccessControlList objects
-type GetConfigGroupACLTeamsByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                             `json:"count,omitempty"`
-	Items []components.TeamAccessControlList `json:"items,omitempty"`
-}
-
-func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetConfigGroupACLTeamsByProductAndIDResponseBody) GetItems() []components.TeamAccessControlList {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetConfigGroupACLTeamsByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of TeamAccessControlList objects
-	Object *GetConfigGroupACLTeamsByProductAndIDResponseBody
+	CountedTeamAccessControlList *components.CountedTeamAccessControlList
 }
 
 func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetHTTPMeta() components.
 	return g.HTTPMeta
 }
 
-func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetObject() *GetConfigGroupACLTeamsByProductAndIDResponseBody {
+func (g *GetConfigGroupACLTeamsByProductAndIDResponse) GetCountedTeamAccessControlList() *components.CountedTeamAccessControlList {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedTeamAccessControlList
 }

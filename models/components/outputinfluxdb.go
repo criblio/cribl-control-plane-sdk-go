@@ -35,12 +35,18 @@ func (e *OutputInfluxdbType) UnmarshalJSON(data []byte) error {
 type TimestampPrecision string
 
 const (
+	// TimestampPrecisionNs Nanoseconds
 	TimestampPrecisionNs TimestampPrecision = "ns"
-	TimestampPrecisionU  TimestampPrecision = "u"
+	// TimestampPrecisionU Microseconds
+	TimestampPrecisionU TimestampPrecision = "u"
+	// TimestampPrecisionMs Milliseconds
 	TimestampPrecisionMs TimestampPrecision = "ms"
-	TimestampPrecisionS  TimestampPrecision = "s"
-	TimestampPrecisionM  TimestampPrecision = "m"
-	TimestampPrecisionH  TimestampPrecision = "h"
+	// TimestampPrecisionS Seconds
+	TimestampPrecisionS TimestampPrecision = "s"
+	// TimestampPrecisionM Minutes
+	TimestampPrecisionM TimestampPrecision = "m"
+	// TimestampPrecisionH Hours
+	TimestampPrecisionH TimestampPrecision = "h"
 )
 
 func (e TimestampPrecision) ToPointer() *TimestampPrecision {
@@ -81,9 +87,12 @@ func (o *OutputInfluxdbExtraHTTPHeader) GetValue() string {
 type OutputInfluxdbFailedRequestLoggingMode string
 
 const (
-	OutputInfluxdbFailedRequestLoggingModePayload           OutputInfluxdbFailedRequestLoggingMode = "payload"
+	// OutputInfluxdbFailedRequestLoggingModePayload Payload
+	OutputInfluxdbFailedRequestLoggingModePayload OutputInfluxdbFailedRequestLoggingMode = "payload"
+	// OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders OutputInfluxdbFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputInfluxdbFailedRequestLoggingModeNone              OutputInfluxdbFailedRequestLoggingMode = "none"
+	// OutputInfluxdbFailedRequestLoggingModeNone None
+	OutputInfluxdbFailedRequestLoggingModeNone OutputInfluxdbFailedRequestLoggingMode = "none"
 )
 
 func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
@@ -193,8 +202,11 @@ func (o *OutputInfluxdbTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputInfluxdbBackpressureBehavior string
 
 const (
+	// OutputInfluxdbBackpressureBehaviorBlock Block
 	OutputInfluxdbBackpressureBehaviorBlock OutputInfluxdbBackpressureBehavior = "block"
-	OutputInfluxdbBackpressureBehaviorDrop  OutputInfluxdbBackpressureBehavior = "drop"
+	// OutputInfluxdbBackpressureBehaviorDrop Drop
+	OutputInfluxdbBackpressureBehaviorDrop OutputInfluxdbBackpressureBehavior = "drop"
+	// OutputInfluxdbBackpressureBehaviorQueue Persistent Queue
 	OutputInfluxdbBackpressureBehaviorQueue OutputInfluxdbBackpressureBehavior = "queue"
 )
 
@@ -218,11 +230,29 @@ func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticat
 	return &e
 }
 
+// OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputInfluxdbMode string
+
+const (
+	// OutputInfluxdbModeError Error
+	OutputInfluxdbModeError OutputInfluxdbMode = "error"
+	// OutputInfluxdbModeAlways Backpressure
+	OutputInfluxdbModeAlways OutputInfluxdbMode = "always"
+	// OutputInfluxdbModeBackpressure Always On
+	OutputInfluxdbModeBackpressure OutputInfluxdbMode = "backpressure"
+)
+
+func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
+	return &e
+}
+
 // OutputInfluxdbCompression - Codec to use to compress the persisted data
 type OutputInfluxdbCompression string
 
 const (
+	// OutputInfluxdbCompressionNone None
 	OutputInfluxdbCompressionNone OutputInfluxdbCompression = "none"
+	// OutputInfluxdbCompressionGzip Gzip
 	OutputInfluxdbCompressionGzip OutputInfluxdbCompression = "gzip"
 )
 
@@ -234,24 +264,13 @@ func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
 type OutputInfluxdbQueueFullBehavior string
 
 const (
+	// OutputInfluxdbQueueFullBehaviorBlock Block
 	OutputInfluxdbQueueFullBehaviorBlock OutputInfluxdbQueueFullBehavior = "block"
-	OutputInfluxdbQueueFullBehaviorDrop  OutputInfluxdbQueueFullBehavior = "drop"
+	// OutputInfluxdbQueueFullBehaviorDrop Drop new data
+	OutputInfluxdbQueueFullBehaviorDrop OutputInfluxdbQueueFullBehavior = "drop"
 )
 
 func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
-	return &e
-}
-
-// OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputInfluxdbMode string
-
-const (
-	OutputInfluxdbModeError        OutputInfluxdbMode = "error"
-	OutputInfluxdbModeBackpressure OutputInfluxdbMode = "backpressure"
-	OutputInfluxdbModeAlways       OutputInfluxdbMode = "always"
-)
-
-func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
 	return &e
 }
 
@@ -395,6 +414,16 @@ type OutputInfluxdb struct {
 	Bucket *string `json:"bucket,omitempty"`
 	// Organization ID for this bucket.
 	Org *string `json:"org,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputInfluxdbMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -405,11 +434,9 @@ type OutputInfluxdb struct {
 	PqCompress *OutputInfluxdbCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputInfluxdbQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputInfluxdbMode       `default:"error" json:"pqMode"`
-	PqControls *OutputInfluxdbPqControls `json:"pqControls,omitempty"`
-	Username   *string                   `json:"username,omitempty"`
-	Password   *string                   `json:"password,omitempty"`
+	PqControls       *OutputInfluxdbPqControls        `json:"pqControls,omitempty"`
+	Username         *string                          `json:"username,omitempty"`
+	Password         *string                          `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -662,6 +689,41 @@ func (o *OutputInfluxdb) GetOrg() *string {
 	return o.Org
 }
 
+func (o *OutputInfluxdb) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputInfluxdb) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputInfluxdb) GetPqMode() *OutputInfluxdbMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputInfluxdb) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputInfluxdb) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputInfluxdb) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -695,13 +757,6 @@ func (o *OutputInfluxdb) GetPqOnBackpressure() *OutputInfluxdbQueueFullBehavior 
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputInfluxdb) GetPqMode() *OutputInfluxdbMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputInfluxdb) GetPqControls() *OutputInfluxdbPqControls {

@@ -65,7 +65,9 @@ func (i *InputCriblLakeHTTPConnection) GetOutput() string {
 type InputCriblLakeHTTPMode string
 
 const (
-	InputCriblLakeHTTPModeSmart  InputCriblLakeHTTPMode = "smart"
+	// InputCriblLakeHTTPModeSmart Smart
+	InputCriblLakeHTTPModeSmart InputCriblLakeHTTPMode = "smart"
+	// InputCriblLakeHTTPModeAlways Always On
 	InputCriblLakeHTTPModeAlways InputCriblLakeHTTPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblLakeHTTPMode) ToPointer() *InputCriblLakeHTTPMode {
 type InputCriblLakeHTTPCompression string
 
 const (
+	// InputCriblLakeHTTPCompressionNone None
 	InputCriblLakeHTTPCompressionNone InputCriblLakeHTTPCompression = "none"
+	// InputCriblLakeHTTPCompressionGzip Gzip
 	InputCriblLakeHTTPCompressionGzip InputCriblLakeHTTPCompression = "gzip"
 )
 
@@ -212,6 +216,12 @@ func (e InputCriblLakeHTTPMaximumTLSVersion) ToPointer() *InputCriblLakeHTTPMaxi
 
 type InputCriblLakeHTTPTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -221,13 +231,9 @@ type InputCriblLakeHTTPTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                                `default:"false" json:"requestCert"`
-	RejectUnauthorized any                                  `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                                  `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputCriblLakeHTTPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputCriblLakeHTTPMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                              `json:"caPath,omitempty"`
+	MinVersion *InputCriblLakeHTTPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputCriblLakeHTTPMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputCriblLakeHTTPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -246,6 +252,27 @@ func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCertificateName() *string {
@@ -281,27 +308,6 @@ func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetMinVersion() *InputCriblLakeHTTPMinimumTLSVersion {

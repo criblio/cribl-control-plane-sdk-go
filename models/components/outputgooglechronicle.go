@@ -34,7 +34,9 @@ func (e *OutputGoogleChronicleType) UnmarshalJSON(data []byte) error {
 type OutputGoogleChronicleAPIVersion string
 
 const (
+	// OutputGoogleChronicleAPIVersionV1 V1
 	OutputGoogleChronicleAPIVersionV1 OutputGoogleChronicleAPIVersion = "v1"
+	// OutputGoogleChronicleAPIVersionV2 V2
 	OutputGoogleChronicleAPIVersionV2 OutputGoogleChronicleAPIVersion = "v2"
 )
 
@@ -45,9 +47,13 @@ func (e OutputGoogleChronicleAPIVersion) ToPointer() *OutputGoogleChronicleAPIVe
 type OutputGoogleChronicleAuthenticationMethod string
 
 const (
-	OutputGoogleChronicleAuthenticationMethodManual               OutputGoogleChronicleAuthenticationMethod = "manual"
-	OutputGoogleChronicleAuthenticationMethodSecret               OutputGoogleChronicleAuthenticationMethod = "secret"
-	OutputGoogleChronicleAuthenticationMethodServiceAccount       OutputGoogleChronicleAuthenticationMethod = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethodManual API key
+	OutputGoogleChronicleAuthenticationMethodManual OutputGoogleChronicleAuthenticationMethod = "manual"
+	// OutputGoogleChronicleAuthenticationMethodSecret API key secret
+	OutputGoogleChronicleAuthenticationMethodSecret OutputGoogleChronicleAuthenticationMethod = "secret"
+	// OutputGoogleChronicleAuthenticationMethodServiceAccount Service account credentials
+	OutputGoogleChronicleAuthenticationMethodServiceAccount OutputGoogleChronicleAuthenticationMethod = "serviceAccount"
+	// OutputGoogleChronicleAuthenticationMethodServiceAccountSecret Service account credentials secret
 	OutputGoogleChronicleAuthenticationMethodServiceAccountSecret OutputGoogleChronicleAuthenticationMethod = "serviceAccountSecret"
 )
 
@@ -157,8 +163,10 @@ func (o *OutputGoogleChronicleTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type SendEventsAs string
 
 const (
+	// SendEventsAsUnstructured Unstructured
 	SendEventsAsUnstructured SendEventsAs = "unstructured"
-	SendEventsAsUdm          SendEventsAs = "udm"
+	// SendEventsAsUdm UDM
+	SendEventsAsUdm SendEventsAs = "udm"
 )
 
 func (e SendEventsAs) ToPointer() *SendEventsAs {
@@ -199,9 +207,12 @@ func (o *OutputGoogleChronicleExtraHTTPHeader) GetValue() string {
 type OutputGoogleChronicleFailedRequestLoggingMode string
 
 const (
-	OutputGoogleChronicleFailedRequestLoggingModePayload           OutputGoogleChronicleFailedRequestLoggingMode = "payload"
+	// OutputGoogleChronicleFailedRequestLoggingModePayload Payload
+	OutputGoogleChronicleFailedRequestLoggingModePayload OutputGoogleChronicleFailedRequestLoggingMode = "payload"
+	// OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders OutputGoogleChronicleFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputGoogleChronicleFailedRequestLoggingModeNone              OutputGoogleChronicleFailedRequestLoggingMode = "none"
+	// OutputGoogleChronicleFailedRequestLoggingModeNone None
+	OutputGoogleChronicleFailedRequestLoggingModeNone OutputGoogleChronicleFailedRequestLoggingMode = "none"
 )
 
 func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogleChronicleFailedRequestLoggingMode {
@@ -212,8 +223,11 @@ func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogle
 type OutputGoogleChronicleBackpressureBehavior string
 
 const (
+	// OutputGoogleChronicleBackpressureBehaviorBlock Block
 	OutputGoogleChronicleBackpressureBehaviorBlock OutputGoogleChronicleBackpressureBehavior = "block"
-	OutputGoogleChronicleBackpressureBehaviorDrop  OutputGoogleChronicleBackpressureBehavior = "drop"
+	// OutputGoogleChronicleBackpressureBehaviorDrop Drop
+	OutputGoogleChronicleBackpressureBehaviorDrop OutputGoogleChronicleBackpressureBehavior = "drop"
+	// OutputGoogleChronicleBackpressureBehaviorQueue Persistent Queue
 	OutputGoogleChronicleBackpressureBehaviorQueue OutputGoogleChronicleBackpressureBehavior = "queue"
 )
 
@@ -281,11 +295,41 @@ func (o *OutputGoogleChronicleCustomLabel) GetValue() string {
 	return o.Value
 }
 
+// UDMType - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type UDMType string
+
+const (
+	UDMTypeEntities UDMType = "entities"
+	UDMTypeLogs     UDMType = "logs"
+)
+
+func (e UDMType) ToPointer() *UDMType {
+	return &e
+}
+
+// OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGoogleChronicleMode string
+
+const (
+	// OutputGoogleChronicleModeError Error
+	OutputGoogleChronicleModeError OutputGoogleChronicleMode = "error"
+	// OutputGoogleChronicleModeAlways Backpressure
+	OutputGoogleChronicleModeAlways OutputGoogleChronicleMode = "always"
+	// OutputGoogleChronicleModeBackpressure Always On
+	OutputGoogleChronicleModeBackpressure OutputGoogleChronicleMode = "backpressure"
+)
+
+func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
+	return &e
+}
+
 // OutputGoogleChronicleCompression - Codec to use to compress the persisted data
 type OutputGoogleChronicleCompression string
 
 const (
+	// OutputGoogleChronicleCompressionNone None
 	OutputGoogleChronicleCompressionNone OutputGoogleChronicleCompression = "none"
+	// OutputGoogleChronicleCompressionGzip Gzip
 	OutputGoogleChronicleCompressionGzip OutputGoogleChronicleCompression = "gzip"
 )
 
@@ -297,24 +341,13 @@ func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleComp
 type OutputGoogleChronicleQueueFullBehavior string
 
 const (
+	// OutputGoogleChronicleQueueFullBehaviorBlock Block
 	OutputGoogleChronicleQueueFullBehaviorBlock OutputGoogleChronicleQueueFullBehavior = "block"
-	OutputGoogleChronicleQueueFullBehaviorDrop  OutputGoogleChronicleQueueFullBehavior = "drop"
+	// OutputGoogleChronicleQueueFullBehaviorDrop Drop new data
+	OutputGoogleChronicleQueueFullBehaviorDrop OutputGoogleChronicleQueueFullBehavior = "drop"
 )
 
 func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
-	return &e
-}
-
-// OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGoogleChronicleMode string
-
-const (
-	OutputGoogleChronicleModeError        OutputGoogleChronicleMode = "error"
-	OutputGoogleChronicleModeBackpressure OutputGoogleChronicleMode = "backpressure"
-	OutputGoogleChronicleModeAlways       OutputGoogleChronicleMode = "always"
-)
-
-func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
 	return &e
 }
 
@@ -395,6 +428,8 @@ type OutputGoogleChronicle struct {
 	Namespace *string `json:"namespace,omitempty"`
 	// Custom labels to be added to every batch
 	CustomLabels []OutputGoogleChronicleCustomLabel `json:"customLabels,omitempty"`
+	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+	UdmType *UDMType `default:"logs" json:"udmType"`
 	// Organization's API key in Google SecOps
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -403,6 +438,16 @@ type OutputGoogleChronicle struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputGoogleChronicleMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -413,9 +458,7 @@ type OutputGoogleChronicle struct {
 	PqCompress *OutputGoogleChronicleCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputGoogleChronicleQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputGoogleChronicleMode       `default:"error" json:"pqMode"`
-	PqControls *OutputGoogleChroniclePqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputGoogleChroniclePqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
@@ -660,6 +703,13 @@ func (o *OutputGoogleChronicle) GetCustomLabels() []OutputGoogleChronicleCustomL
 	return o.CustomLabels
 }
 
+func (o *OutputGoogleChronicle) GetUdmType() *UDMType {
+	if o == nil {
+		return nil
+	}
+	return o.UdmType
+}
+
 func (o *OutputGoogleChronicle) GetAPIKey() *string {
 	if o == nil {
 		return nil
@@ -686,6 +736,41 @@ func (o *OutputGoogleChronicle) GetServiceAccountCredentialsSecret() *string {
 		return nil
 	}
 	return o.ServiceAccountCredentialsSecret
+}
+
+func (o *OutputGoogleChronicle) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputGoogleChronicle) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputGoogleChronicle) GetPqMode() *OutputGoogleChronicleMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputGoogleChronicle) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputGoogleChronicle) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
 }
 
 func (o *OutputGoogleChronicle) GetPqMaxFileSize() *string {
@@ -721,13 +806,6 @@ func (o *OutputGoogleChronicle) GetPqOnBackpressure() *OutputGoogleChronicleQueu
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputGoogleChronicle) GetPqMode() *OutputGoogleChronicleMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputGoogleChronicle) GetPqControls() *OutputGoogleChroniclePqControls {

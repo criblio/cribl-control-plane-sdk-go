@@ -65,7 +65,9 @@ func (i *InputWindowsMetricsConnection) GetOutput() string {
 type InputWindowsMetricsPqMode string
 
 const (
-	InputWindowsMetricsPqModeSmart  InputWindowsMetricsPqMode = "smart"
+	// InputWindowsMetricsPqModeSmart Smart
+	InputWindowsMetricsPqModeSmart InputWindowsMetricsPqMode = "smart"
+	// InputWindowsMetricsPqModeAlways Always On
 	InputWindowsMetricsPqModeAlways InputWindowsMetricsPqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
 type InputWindowsMetricsCompression string
 
 const (
+	// InputWindowsMetricsCompressionNone None
 	InputWindowsMetricsCompressionNone InputWindowsMetricsCompression = "none"
+	// InputWindowsMetricsCompressionGzip Gzip
 	InputWindowsMetricsCompressionGzip InputWindowsMetricsCompression = "gzip"
 )
 
@@ -188,9 +192,13 @@ func (i *InputWindowsMetricsPq) GetPqControls() *InputWindowsMetricsPqControls {
 type InputWindowsMetricsHostMode string
 
 const (
-	InputWindowsMetricsHostModeBasic    InputWindowsMetricsHostMode = "basic"
-	InputWindowsMetricsHostModeAll      InputWindowsMetricsHostMode = "all"
-	InputWindowsMetricsHostModeCustom   InputWindowsMetricsHostMode = "custom"
+	// InputWindowsMetricsHostModeBasic Basic
+	InputWindowsMetricsHostModeBasic InputWindowsMetricsHostMode = "basic"
+	// InputWindowsMetricsHostModeAll All
+	InputWindowsMetricsHostModeAll InputWindowsMetricsHostMode = "all"
+	// InputWindowsMetricsHostModeCustom Custom
+	InputWindowsMetricsHostModeCustom InputWindowsMetricsHostMode = "custom"
+	// InputWindowsMetricsHostModeDisabled Disabled
 	InputWindowsMetricsHostModeDisabled InputWindowsMetricsHostMode = "disabled"
 )
 
@@ -202,9 +210,13 @@ func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
 type InputWindowsMetricsSystemMode string
 
 const (
-	InputWindowsMetricsSystemModeBasic    InputWindowsMetricsSystemMode = "basic"
-	InputWindowsMetricsSystemModeAll      InputWindowsMetricsSystemMode = "all"
-	InputWindowsMetricsSystemModeCustom   InputWindowsMetricsSystemMode = "custom"
+	// InputWindowsMetricsSystemModeBasic Basic
+	InputWindowsMetricsSystemModeBasic InputWindowsMetricsSystemMode = "basic"
+	// InputWindowsMetricsSystemModeAll All
+	InputWindowsMetricsSystemModeAll InputWindowsMetricsSystemMode = "all"
+	// InputWindowsMetricsSystemModeCustom Custom
+	InputWindowsMetricsSystemModeCustom InputWindowsMetricsSystemMode = "custom"
+	// InputWindowsMetricsSystemModeDisabled Disabled
 	InputWindowsMetricsSystemModeDisabled InputWindowsMetricsSystemMode = "disabled"
 )
 
@@ -248,9 +260,13 @@ func (i *InputWindowsMetricsSystem) GetDetail() *bool {
 type InputWindowsMetricsCPUMode string
 
 const (
-	InputWindowsMetricsCPUModeBasic    InputWindowsMetricsCPUMode = "basic"
-	InputWindowsMetricsCPUModeAll      InputWindowsMetricsCPUMode = "all"
-	InputWindowsMetricsCPUModeCustom   InputWindowsMetricsCPUMode = "custom"
+	// InputWindowsMetricsCPUModeBasic Basic
+	InputWindowsMetricsCPUModeBasic InputWindowsMetricsCPUMode = "basic"
+	// InputWindowsMetricsCPUModeAll All
+	InputWindowsMetricsCPUModeAll InputWindowsMetricsCPUMode = "all"
+	// InputWindowsMetricsCPUModeCustom Custom
+	InputWindowsMetricsCPUModeCustom InputWindowsMetricsCPUMode = "custom"
+	// InputWindowsMetricsCPUModeDisabled Disabled
 	InputWindowsMetricsCPUModeDisabled InputWindowsMetricsCPUMode = "disabled"
 )
 
@@ -312,9 +328,13 @@ func (i *InputWindowsMetricsCPU) GetTime() *bool {
 type InputWindowsMetricsMemoryMode string
 
 const (
-	InputWindowsMetricsMemoryModeBasic    InputWindowsMetricsMemoryMode = "basic"
-	InputWindowsMetricsMemoryModeAll      InputWindowsMetricsMemoryMode = "all"
-	InputWindowsMetricsMemoryModeCustom   InputWindowsMetricsMemoryMode = "custom"
+	// InputWindowsMetricsMemoryModeBasic Basic
+	InputWindowsMetricsMemoryModeBasic InputWindowsMetricsMemoryMode = "basic"
+	// InputWindowsMetricsMemoryModeAll All
+	InputWindowsMetricsMemoryModeAll InputWindowsMetricsMemoryMode = "all"
+	// InputWindowsMetricsMemoryModeCustom Custom
+	InputWindowsMetricsMemoryModeCustom InputWindowsMetricsMemoryMode = "custom"
+	// InputWindowsMetricsMemoryModeDisabled Disabled
 	InputWindowsMetricsMemoryModeDisabled InputWindowsMetricsMemoryMode = "disabled"
 )
 
@@ -358,9 +378,13 @@ func (i *InputWindowsMetricsMemory) GetDetail() *bool {
 type InputWindowsMetricsNetworkMode string
 
 const (
-	InputWindowsMetricsNetworkModeBasic    InputWindowsMetricsNetworkMode = "basic"
-	InputWindowsMetricsNetworkModeAll      InputWindowsMetricsNetworkMode = "all"
-	InputWindowsMetricsNetworkModeCustom   InputWindowsMetricsNetworkMode = "custom"
+	// InputWindowsMetricsNetworkModeBasic Basic
+	InputWindowsMetricsNetworkModeBasic InputWindowsMetricsNetworkMode = "basic"
+	// InputWindowsMetricsNetworkModeAll All
+	InputWindowsMetricsNetworkModeAll InputWindowsMetricsNetworkMode = "all"
+	// InputWindowsMetricsNetworkModeCustom Custom
+	InputWindowsMetricsNetworkModeCustom InputWindowsMetricsNetworkMode = "custom"
+	// InputWindowsMetricsNetworkModeDisabled Disabled
 	InputWindowsMetricsNetworkModeDisabled InputWindowsMetricsNetworkMode = "disabled"
 )
 
@@ -371,12 +395,14 @@ func (e InputWindowsMetricsNetworkMode) ToPointer() *InputWindowsMetricsNetworkM
 type InputWindowsMetricsNetwork struct {
 	// Select the level of details for network metrics
 	Mode *InputWindowsMetricsNetworkMode `default:"basic" json:"mode"`
+	// Generate full network metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+	Protocols *bool `default:"false" json:"protocols"`
 	// Network interfaces to include/exclude. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
 	PerInterface *bool `default:"false" json:"perInterface"`
-	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
 }
 
 func (i InputWindowsMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -397,6 +423,20 @@ func (i *InputWindowsMetricsNetwork) GetMode() *InputWindowsMetricsNetworkMode {
 	return i.Mode
 }
 
+func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsNetwork) GetProtocols() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Protocols
+}
+
 func (i *InputWindowsMetricsNetwork) GetDevices() []string {
 	if i == nil {
 		return nil
@@ -411,20 +451,17 @@ func (i *InputWindowsMetricsNetwork) GetPerInterface() *bool {
 	return i.PerInterface
 }
 
-func (i *InputWindowsMetricsNetwork) GetDetail() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Detail
-}
-
 // InputWindowsMetricsDiskMode - Select the level of details for disk metrics
 type InputWindowsMetricsDiskMode string
 
 const (
-	InputWindowsMetricsDiskModeBasic    InputWindowsMetricsDiskMode = "basic"
-	InputWindowsMetricsDiskModeAll      InputWindowsMetricsDiskMode = "all"
-	InputWindowsMetricsDiskModeCustom   InputWindowsMetricsDiskMode = "custom"
+	// InputWindowsMetricsDiskModeBasic Basic
+	InputWindowsMetricsDiskModeBasic InputWindowsMetricsDiskMode = "basic"
+	// InputWindowsMetricsDiskModeAll All
+	InputWindowsMetricsDiskModeAll InputWindowsMetricsDiskMode = "all"
+	// InputWindowsMetricsDiskModeCustom Custom
+	InputWindowsMetricsDiskModeCustom InputWindowsMetricsDiskMode = "custom"
+	// InputWindowsMetricsDiskModeDisabled Disabled
 	InputWindowsMetricsDiskModeDisabled InputWindowsMetricsDiskMode = "disabled"
 )
 
@@ -435,10 +472,12 @@ func (e InputWindowsMetricsDiskMode) ToPointer() *InputWindowsMetricsDiskMode {
 type InputWindowsMetricsDisk struct {
 	// Select the level of details for disk metrics
 	Mode *InputWindowsMetricsDiskMode `default:"basic" json:"mode"`
-	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-	Volumes []string `json:"volumes,omitempty"`
 	// Generate separate metrics for each volume
 	PerVolume *bool `default:"false" json:"perVolume"`
+	// Generate full disk metrics
+	Detail *bool `default:"false" json:"detail"`
+	// Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+	Volumes []string `json:"volumes,omitempty"`
 }
 
 func (i InputWindowsMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -459,18 +498,25 @@ func (i *InputWindowsMetricsDisk) GetMode() *InputWindowsMetricsDiskMode {
 	return i.Mode
 }
 
-func (i *InputWindowsMetricsDisk) GetVolumes() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Volumes
-}
-
 func (i *InputWindowsMetricsDisk) GetPerVolume() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PerVolume
+}
+
+func (i *InputWindowsMetricsDisk) GetDetail() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Detail
+}
+
+func (i *InputWindowsMetricsDisk) GetVolumes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Volumes
 }
 
 type InputWindowsMetricsCustom struct {

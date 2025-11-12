@@ -6,390 +6,402 @@
 ### OutputDefault
 
 ```go
-output := components.CreateOutputOutputDefault(components.OutputDefault{/* values here */})
+output := components.CreateOutputDefault(components.OutputDefault{/* values here */})
 ```
 
 ### OutputWebhook
 
 ```go
-output := components.CreateOutputOutputWebhook(components.OutputWebhook{/* values here */})
+output := components.CreateOutputWebhook(components.OutputWebhook{/* values here */})
 ```
 
 ### OutputSentinel
 
 ```go
-output := components.CreateOutputOutputSentinel(components.OutputSentinel{/* values here */})
+output := components.CreateOutputSentinel(components.OutputSentinel{/* values here */})
 ```
 
 ### OutputDevnull
 
 ```go
-output := components.CreateOutputOutputDevnull(components.OutputDevnull{/* values here */})
+output := components.CreateOutputDevnull(components.OutputDevnull{/* values here */})
 ```
 
 ### OutputSyslog
 
 ```go
-output := components.CreateOutputOutputSyslog(components.OutputSyslog{/* values here */})
+output := components.CreateOutputSyslog(components.OutputSyslog{/* values here */})
 ```
 
 ### OutputSplunk
 
 ```go
-output := components.CreateOutputOutputSplunk(components.OutputSplunk{/* values here */})
+output := components.CreateOutputSplunk(components.OutputSplunk{/* values here */})
 ```
 
 ### OutputSplunkLb
 
 ```go
-output := components.CreateOutputOutputSplunkLb(components.OutputSplunkLb{/* values here */})
+output := components.CreateOutputSplunkLb(components.OutputSplunkLb{/* values here */})
 ```
 
 ### OutputSplunkHec
 
 ```go
-output := components.CreateOutputOutputSplunkHec(components.OutputSplunkHec{/* values here */})
+output := components.CreateOutputSplunkHec(components.OutputSplunkHec{/* values here */})
 ```
 
 ### OutputTcpjson
 
 ```go
-output := components.CreateOutputOutputTcpjson(components.OutputTcpjson{/* values here */})
+output := components.CreateOutputTcpjson(components.OutputTcpjson{/* values here */})
 ```
 
 ### OutputWavefront
 
 ```go
-output := components.CreateOutputOutputWavefront(components.OutputWavefront{/* values here */})
+output := components.CreateOutputWavefront(components.OutputWavefront{/* values here */})
 ```
 
 ### OutputSignalfx
 
 ```go
-output := components.CreateOutputOutputSignalfx(components.OutputSignalfx{/* values here */})
+output := components.CreateOutputSignalfx(components.OutputSignalfx{/* values here */})
 ```
 
 ### OutputFilesystem
 
 ```go
-output := components.CreateOutputOutputFilesystem(components.OutputFilesystem{/* values here */})
+output := components.CreateOutputFilesystem(components.OutputFilesystem{/* values here */})
 ```
 
 ### OutputS3
 
 ```go
-output := components.CreateOutputOutputS3(components.OutputS3{/* values here */})
+output := components.CreateOutputS3(components.OutputS3{/* values here */})
 ```
 
 ### OutputAzureBlob
 
 ```go
-output := components.CreateOutputOutputAzureBlob(components.OutputAzureBlob{/* values here */})
+output := components.CreateOutputAzureBlob(components.OutputAzureBlob{/* values here */})
 ```
 
 ### OutputAzureDataExplorer
 
 ```go
-output := components.CreateOutputOutputAzureDataExplorer(components.OutputAzureDataExplorer{/* values here */})
+output := components.CreateOutputAzureDataExplorer(components.OutputAzureDataExplorer{/* values here */})
 ```
 
 ### OutputAzureLogs
 
 ```go
-output := components.CreateOutputOutputAzureLogs(components.OutputAzureLogs{/* values here */})
+output := components.CreateOutputAzureLogs(components.OutputAzureLogs{/* values here */})
 ```
 
 ### OutputKinesis
 
 ```go
-output := components.CreateOutputOutputKinesis(components.OutputKinesis{/* values here */})
+output := components.CreateOutputKinesis(components.OutputKinesis{/* values here */})
 ```
 
 ### OutputHoneycomb
 
 ```go
-output := components.CreateOutputOutputHoneycomb(components.OutputHoneycomb{/* values here */})
+output := components.CreateOutputHoneycomb(components.OutputHoneycomb{/* values here */})
 ```
 
 ### OutputAzureEventhub
 
 ```go
-output := components.CreateOutputOutputAzureEventhub(components.OutputAzureEventhub{/* values here */})
+output := components.CreateOutputAzureEventhub(components.OutputAzureEventhub{/* values here */})
 ```
 
 ### OutputGoogleChronicle
 
 ```go
-output := components.CreateOutputOutputGoogleChronicle(components.OutputGoogleChronicle{/* values here */})
+output := components.CreateOutputGoogleChronicle(components.OutputGoogleChronicle{/* values here */})
 ```
 
 ### OutputGoogleCloudStorage
 
 ```go
-output := components.CreateOutputOutputGoogleCloudStorage(components.OutputGoogleCloudStorage{/* values here */})
+output := components.CreateOutputGoogleCloudStorage(components.OutputGoogleCloudStorage{/* values here */})
 ```
 
 ### OutputGoogleCloudLogging
 
 ```go
-output := components.CreateOutputOutputGoogleCloudLogging(components.OutputGoogleCloudLogging{/* values here */})
+output := components.CreateOutputGoogleCloudLogging(components.OutputGoogleCloudLogging{/* values here */})
 ```
 
 ### OutputGooglePubsub
 
 ```go
-output := components.CreateOutputOutputGooglePubsub(components.OutputGooglePubsub{/* values here */})
+output := components.CreateOutputGooglePubsub(components.OutputGooglePubsub{/* values here */})
 ```
 
 ### OutputExabeam
 
 ```go
-output := components.CreateOutputOutputExabeam(components.OutputExabeam{/* values here */})
+output := components.CreateOutputExabeam(components.OutputExabeam{/* values here */})
 ```
 
 ### OutputKafka
 
 ```go
-output := components.CreateOutputOutputKafka(components.OutputKafka{/* values here */})
+output := components.CreateOutputKafka(components.OutputKafka{/* values here */})
 ```
 
 ### OutputConfluentCloud
 
 ```go
-output := components.CreateOutputOutputConfluentCloud(components.OutputConfluentCloud{/* values here */})
+output := components.CreateOutputConfluentCloud(components.OutputConfluentCloud{/* values here */})
 ```
 
 ### OutputMsk
 
 ```go
-output := components.CreateOutputOutputMsk(components.OutputMsk{/* values here */})
+output := components.CreateOutputMsk(components.OutputMsk{/* values here */})
 ```
 
 ### OutputElastic
 
 ```go
-output := components.CreateOutputOutputElastic(components.OutputElastic{/* values here */})
+output := components.CreateOutputElastic(components.OutputElastic{/* values here */})
 ```
 
 ### OutputElasticCloud
 
 ```go
-output := components.CreateOutputOutputElasticCloud(components.OutputElasticCloud{/* values here */})
+output := components.CreateOutputElasticCloud(components.OutputElasticCloud{/* values here */})
 ```
 
 ### OutputNewrelic
 
 ```go
-output := components.CreateOutputOutputNewrelic(components.OutputNewrelic{/* values here */})
+output := components.CreateOutputNewrelic(components.OutputNewrelic{/* values here */})
 ```
 
 ### OutputNewrelicEvents
 
 ```go
-output := components.CreateOutputOutputNewrelicEvents(components.OutputNewrelicEvents{/* values here */})
+output := components.CreateOutputNewrelicEvents(components.OutputNewrelicEvents{/* values here */})
 ```
 
 ### OutputInfluxdb
 
 ```go
-output := components.CreateOutputOutputInfluxdb(components.OutputInfluxdb{/* values here */})
+output := components.CreateOutputInfluxdb(components.OutputInfluxdb{/* values here */})
 ```
 
 ### OutputCloudwatch
 
 ```go
-output := components.CreateOutputOutputCloudwatch(components.OutputCloudwatch{/* values here */})
+output := components.CreateOutputCloudwatch(components.OutputCloudwatch{/* values here */})
 ```
 
 ### OutputMinio
 
 ```go
-output := components.CreateOutputOutputMinio(components.OutputMinio{/* values here */})
+output := components.CreateOutputMinio(components.OutputMinio{/* values here */})
 ```
 
 ### OutputStatsd
 
 ```go
-output := components.CreateOutputOutputStatsd(components.OutputStatsd{/* values here */})
+output := components.CreateOutputStatsd(components.OutputStatsd{/* values here */})
 ```
 
 ### OutputStatsdExt
 
 ```go
-output := components.CreateOutputOutputStatsdExt(components.OutputStatsdExt{/* values here */})
+output := components.CreateOutputStatsdExt(components.OutputStatsdExt{/* values here */})
 ```
 
 ### OutputGraphite
 
 ```go
-output := components.CreateOutputOutputGraphite(components.OutputGraphite{/* values here */})
+output := components.CreateOutputGraphite(components.OutputGraphite{/* values here */})
 ```
 
 ### OutputRouter
 
 ```go
-output := components.CreateOutputOutputRouter(components.OutputRouter{/* values here */})
+output := components.CreateOutputRouter(components.OutputRouter{/* values here */})
 ```
 
 ### OutputSns
 
 ```go
-output := components.CreateOutputOutputSns(components.OutputSns{/* values here */})
+output := components.CreateOutputSns(components.OutputSns{/* values here */})
 ```
 
 ### OutputSqs
 
 ```go
-output := components.CreateOutputOutputSqs(components.OutputSqs{/* values here */})
+output := components.CreateOutputSqs(components.OutputSqs{/* values here */})
 ```
 
 ### OutputSnmp
 
 ```go
-output := components.CreateOutputOutputSnmp(components.OutputSnmp{/* values here */})
+output := components.CreateOutputSnmp(components.OutputSnmp{/* values here */})
 ```
 
 ### OutputSumoLogic
 
 ```go
-output := components.CreateOutputOutputSumoLogic(components.OutputSumoLogic{/* values here */})
+output := components.CreateOutputSumoLogic(components.OutputSumoLogic{/* values here */})
 ```
 
 ### OutputDatadog
 
 ```go
-output := components.CreateOutputOutputDatadog(components.OutputDatadog{/* values here */})
+output := components.CreateOutputDatadog(components.OutputDatadog{/* values here */})
 ```
 
 ### OutputGrafanaCloud
 
 ```go
-output := components.CreateOutputOutputGrafanaCloud(components.OutputGrafanaCloud{/* values here */})
+output := components.CreateOutputGrafanaCloud(components.OutputGrafanaCloud{/* values here */})
 ```
 
 ### OutputLoki
 
 ```go
-output := components.CreateOutputOutputLoki(components.OutputLoki{/* values here */})
+output := components.CreateOutputLoki(components.OutputLoki{/* values here */})
 ```
 
 ### OutputPrometheus
 
 ```go
-output := components.CreateOutputOutputPrometheus(components.OutputPrometheus{/* values here */})
+output := components.CreateOutputPrometheus(components.OutputPrometheus{/* values here */})
 ```
 
 ### OutputRing
 
 ```go
-output := components.CreateOutputOutputRing(components.OutputRing{/* values here */})
+output := components.CreateOutputRing(components.OutputRing{/* values here */})
 ```
 
 ### OutputOpenTelemetry
 
 ```go
-output := components.CreateOutputOutputOpenTelemetry(components.OutputOpenTelemetry{/* values here */})
+output := components.CreateOutputOpenTelemetry(components.OutputOpenTelemetry{/* values here */})
 ```
 
 ### OutputServiceNow
 
 ```go
-output := components.CreateOutputOutputServiceNow(components.OutputServiceNow{/* values here */})
+output := components.CreateOutputServiceNow(components.OutputServiceNow{/* values here */})
 ```
 
 ### OutputDataset
 
 ```go
-output := components.CreateOutputOutputDataset(components.OutputDataset{/* values here */})
+output := components.CreateOutputDataset(components.OutputDataset{/* values here */})
 ```
 
 ### OutputCriblTCP
 
 ```go
-output := components.CreateOutputOutputCriblTCP(components.OutputCriblTCP{/* values here */})
+output := components.CreateOutputCriblTCP(components.OutputCriblTCP{/* values here */})
 ```
 
 ### OutputCriblHTTP
 
 ```go
-output := components.CreateOutputOutputCriblHTTP(components.OutputCriblHTTP{/* values here */})
+output := components.CreateOutputCriblHTTP(components.OutputCriblHTTP{/* values here */})
 ```
 
 ### OutputHumioHec
 
 ```go
-output := components.CreateOutputOutputHumioHec(components.OutputHumioHec{/* values here */})
+output := components.CreateOutputHumioHec(components.OutputHumioHec{/* values here */})
 ```
 
 ### OutputCrowdstrikeNextGenSiem
 
 ```go
-output := components.CreateOutputOutputCrowdstrikeNextGenSiem(components.OutputCrowdstrikeNextGenSiem{/* values here */})
+output := components.CreateOutputCrowdstrikeNextGenSiem(components.OutputCrowdstrikeNextGenSiem{/* values here */})
 ```
 
 ### OutputDlS3
 
 ```go
-output := components.CreateOutputOutputDlS3(components.OutputDlS3{/* values here */})
+output := components.CreateOutputDlS3(components.OutputDlS3{/* values here */})
 ```
 
 ### OutputSecurityLake
 
 ```go
-output := components.CreateOutputOutputSecurityLake(components.OutputSecurityLake{/* values here */})
+output := components.CreateOutputSecurityLake(components.OutputSecurityLake{/* values here */})
 ```
 
 ### OutputCriblLake
 
 ```go
-output := components.CreateOutputOutputCriblLake(components.OutputCriblLake{/* values here */})
+output := components.CreateOutputCriblLake(components.OutputCriblLake{/* values here */})
 ```
 
 ### OutputDiskSpool
 
 ```go
-output := components.CreateOutputOutputDiskSpool(components.OutputDiskSpool{/* values here */})
+output := components.CreateOutputDiskSpool(components.OutputDiskSpool{/* values here */})
 ```
 
 ### OutputClickHouse
 
 ```go
-output := components.CreateOutputOutputClickHouse(components.OutputClickHouse{/* values here */})
+output := components.CreateOutputClickHouse(components.OutputClickHouse{/* values here */})
 ```
 
 ### OutputXsiam
 
 ```go
-output := components.CreateOutputOutputXsiam(components.OutputXsiam{/* values here */})
+output := components.CreateOutputXsiam(components.OutputXsiam{/* values here */})
 ```
 
 ### OutputNetflow
 
 ```go
-output := components.CreateOutputOutputNetflow(components.OutputNetflow{/* values here */})
+output := components.CreateOutputNetflow(components.OutputNetflow{/* values here */})
 ```
 
 ### OutputDynatraceHTTP
 
 ```go
-output := components.CreateOutputOutputDynatraceHTTP(components.OutputDynatraceHTTP{/* values here */})
+output := components.CreateOutputDynatraceHTTP(components.OutputDynatraceHTTP{/* values here */})
 ```
 
 ### OutputDynatraceOtlp
 
 ```go
-output := components.CreateOutputOutputDynatraceOtlp(components.OutputDynatraceOtlp{/* values here */})
+output := components.CreateOutputDynatraceOtlp(components.OutputDynatraceOtlp{/* values here */})
 ```
 
 ### OutputSentinelOneAiSiem
 
 ```go
-output := components.CreateOutputOutputSentinelOneAiSiem(components.OutputSentinelOneAiSiem{/* values here */})
+output := components.CreateOutputSentinelOneAiSiem(components.OutputSentinelOneAiSiem{/* values here */})
 ```
 
 ### OutputChronicle
 
 ```go
-output := components.CreateOutputOutputChronicle(components.OutputChronicle{/* values here */})
+output := components.CreateOutputChronicle(components.OutputChronicle{/* values here */})
+```
+
+### OutputDatabricks
+
+```go
+output := components.CreateOutputDatabricks(components.OutputDatabricks{/* values here */})
+```
+
+### OutputMicrosoftFabric
+
+```go
+output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabric{/* values here */})
 ```
 
