@@ -3,15 +3,15 @@
 package components
 
 type PackInstallInfoTags struct {
-	DataType   []string `json:"dataType"`
+	DataType   []string `json:"dataType,omitempty"`
 	Domain     []string `json:"domain,omitempty"`
 	Streamtags []string `json:"streamtags,omitempty"`
-	Technology []string `json:"technology"`
+	Technology []string `json:"technology,omitempty"`
 }
 
 func (p *PackInstallInfoTags) GetDataType() []string {
 	if p == nil {
-		return []string{}
+		return nil
 	}
 	return p.DataType
 }
@@ -32,13 +32,14 @@ func (p *PackInstallInfoTags) GetStreamtags() []string {
 
 func (p *PackInstallInfoTags) GetTechnology() []string {
 	if p == nil {
-		return []string{}
+		return nil
 	}
 	return p.Technology
 }
 
 type PackInstallInfo struct {
 	Author              *string              `json:"author,omitempty"`
+	Dependencies        map[string]string    `json:"dependencies,omitempty"`
 	Description         *string              `json:"description,omitempty"`
 	DisplayName         *string              `json:"displayName,omitempty"`
 	Exports             []string             `json:"exports,omitempty"`
@@ -60,6 +61,13 @@ func (p *PackInstallInfo) GetAuthor() *string {
 		return nil
 	}
 	return p.Author
+}
+
+func (p *PackInstallInfo) GetDependencies() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.Dependencies
 }
 
 func (p *PackInstallInfo) GetDescription() *string {

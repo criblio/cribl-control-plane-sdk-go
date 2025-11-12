@@ -125,9 +125,11 @@ type RunnableJobExecutorRunSettings struct {
 	//
 	//
 	//
+	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
+	//
 	//
 	//
 	//
@@ -255,14 +257,15 @@ func (r *RunnableJobExecutorRunSettings) GetMaxTaskSize() *string {
 type RunnableJobExecutorSchedule struct {
 	// Enable to configure scheduling for this Collector
 	Enabled *bool `json:"enabled,omitempty"`
+	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+	Skippable *bool `default:"true" json:"skippable"`
+	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
+	ResumeMissed *bool `default:"false" json:"resumeMissed"`
 	// A cron schedule on which to run this job
 	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64 `default:"1" json:"maxConcurrentRuns"`
-	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable    *bool                           `default:"true" json:"skippable"`
-	ResumeMissed any                             `json:"resumeMissed,omitempty"`
-	Run          *RunnableJobExecutorRunSettings `json:"run,omitempty"`
+	MaxConcurrentRuns *float64                        `default:"1" json:"maxConcurrentRuns"`
+	Run               *RunnableJobExecutorRunSettings `json:"run,omitempty"`
 }
 
 func (r RunnableJobExecutorSchedule) MarshalJSON() ([]byte, error) {
@@ -283,6 +286,20 @@ func (r *RunnableJobExecutorSchedule) GetEnabled() *bool {
 	return r.Enabled
 }
 
+func (r *RunnableJobExecutorSchedule) GetSkippable() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Skippable
+}
+
+func (r *RunnableJobExecutorSchedule) GetResumeMissed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ResumeMissed
+}
+
 func (r *RunnableJobExecutorSchedule) GetCronSchedule() *string {
 	if r == nil {
 		return nil
@@ -295,20 +312,6 @@ func (r *RunnableJobExecutorSchedule) GetMaxConcurrentRuns() *float64 {
 		return nil
 	}
 	return r.MaxConcurrentRuns
-}
-
-func (r *RunnableJobExecutorSchedule) GetSkippable() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Skippable
-}
-
-func (r *RunnableJobExecutorSchedule) GetResumeMissed() any {
-	if r == nil {
-		return nil
-	}
-	return r.ResumeMissed
 }
 
 func (r *RunnableJobExecutorSchedule) GetRun() *RunnableJobExecutorRunSettings {

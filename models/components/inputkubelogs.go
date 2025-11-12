@@ -65,7 +65,9 @@ func (i *InputKubeLogsConnection) GetOutput() string {
 type InputKubeLogsMode string
 
 const (
-	InputKubeLogsModeSmart  InputKubeLogsMode = "smart"
+	// InputKubeLogsModeSmart Smart
+	InputKubeLogsModeSmart InputKubeLogsMode = "smart"
+	// InputKubeLogsModeAlways Always On
 	InputKubeLogsModeAlways InputKubeLogsMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKubeLogsMode) ToPointer() *InputKubeLogsMode {
 type InputKubeLogsPqCompression string
 
 const (
+	// InputKubeLogsPqCompressionNone None
 	InputKubeLogsPqCompressionNone InputKubeLogsPqCompression = "none"
+	// InputKubeLogsPqCompressionGzip Gzip
 	InputKubeLogsPqCompressionGzip InputKubeLogsPqCompression = "gzip"
 )
 

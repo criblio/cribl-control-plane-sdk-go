@@ -35,7 +35,9 @@ func (e *OutputSyslogType) UnmarshalJSON(data []byte) error {
 type OutputSyslogProtocol string
 
 const (
+	// OutputSyslogProtocolTCP TCP
 	OutputSyslogProtocolTCP OutputSyslogProtocol = "tcp"
+	// OutputSyslogProtocolUDP UDP
 	OutputSyslogProtocolUDP OutputSyslogProtocol = "udp"
 )
 
@@ -79,13 +81,21 @@ func (e Facility) ToPointer() *Facility {
 type OutputSyslogSeverity int64
 
 const (
-	OutputSyslogSeverityZero  OutputSyslogSeverity = 0
-	OutputSyslogSeverityOne   OutputSyslogSeverity = 1
-	OutputSyslogSeverityTwo   OutputSyslogSeverity = 2
+	// OutputSyslogSeverityZero emergency
+	OutputSyslogSeverityZero OutputSyslogSeverity = 0
+	// OutputSyslogSeverityOne alert
+	OutputSyslogSeverityOne OutputSyslogSeverity = 1
+	// OutputSyslogSeverityTwo critical
+	OutputSyslogSeverityTwo OutputSyslogSeverity = 2
+	// OutputSyslogSeverityThree error
 	OutputSyslogSeverityThree OutputSyslogSeverity = 3
-	OutputSyslogSeverityFour  OutputSyslogSeverity = 4
-	OutputSyslogSeverityFive  OutputSyslogSeverity = 5
-	OutputSyslogSeveritySix   OutputSyslogSeverity = 6
+	// OutputSyslogSeverityFour warning
+	OutputSyslogSeverityFour OutputSyslogSeverity = 4
+	// OutputSyslogSeverityFive notice
+	OutputSyslogSeverityFive OutputSyslogSeverity = 5
+	// OutputSyslogSeveritySix info
+	OutputSyslogSeveritySix OutputSyslogSeverity = 6
+	// OutputSyslogSeveritySeven debug
 	OutputSyslogSeveritySeven OutputSyslogSeverity = 7
 )
 
@@ -97,7 +107,9 @@ func (e OutputSyslogSeverity) ToPointer() *OutputSyslogSeverity {
 type OutputSyslogMessageFormat string
 
 const (
+	// OutputSyslogMessageFormatRfc3164 RFC3164
 	OutputSyslogMessageFormatRfc3164 OutputSyslogMessageFormat = "rfc3164"
+	// OutputSyslogMessageFormatRfc5424 RFC5424
 	OutputSyslogMessageFormatRfc5424 OutputSyslogMessageFormat = "rfc5424"
 )
 
@@ -109,12 +121,85 @@ func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 type TimestampFormat string
 
 const (
-	TimestampFormatSyslog  TimestampFormat = "syslog"
+	// TimestampFormatSyslog Syslog
+	TimestampFormatSyslog TimestampFormat = "syslog"
+	// TimestampFormatIso8601 ISO8601
 	TimestampFormatIso8601 TimestampFormat = "iso8601"
 )
 
 func (e TimestampFormat) ToPointer() *TimestampFormat {
 	return &e
+}
+
+// OutputSyslogTLS - Whether to inherit TLS configs from group setting or disable TLS
+type OutputSyslogTLS string
+
+const (
+	OutputSyslogTLSInherit OutputSyslogTLS = "inherit"
+	OutputSyslogTLSOff     OutputSyslogTLS = "off"
+)
+
+func (e OutputSyslogTLS) ToPointer() *OutputSyslogTLS {
+	return &e
+}
+
+type OutputSyslogHost struct {
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port float64 `json:"port"`
+	// Whether to inherit TLS configs from group setting or disable TLS
+	TLS *OutputSyslogTLS `default:"inherit" json:"tls"`
+	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
+	Servername *string `json:"servername,omitempty"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (o OutputSyslogHost) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSyslogHost) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSyslogHost) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSyslogHost) GetPort() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Port
+}
+
+func (o *OutputSyslogHost) GetTLS() *OutputSyslogTLS {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSyslogHost) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputSyslogHost) GetWeight() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Weight
 }
 
 type OutputSyslogMinimumTLSVersion string
@@ -249,8 +334,11 @@ func (o *OutputSyslogTLSSettingsClientSide) GetMaxVersion() *OutputSyslogMaximum
 type OutputSyslogBackpressureBehavior string
 
 const (
+	// OutputSyslogBackpressureBehaviorBlock Block
 	OutputSyslogBackpressureBehaviorBlock OutputSyslogBackpressureBehavior = "block"
-	OutputSyslogBackpressureBehaviorDrop  OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorDrop Drop
+	OutputSyslogBackpressureBehaviorDrop OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorQueue Persistent Queue
 	OutputSyslogBackpressureBehaviorQueue OutputSyslogBackpressureBehavior = "queue"
 )
 
@@ -258,11 +346,29 @@ func (e OutputSyslogBackpressureBehavior) ToPointer() *OutputSyslogBackpressureB
 	return &e
 }
 
+// OutputSyslogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSyslogMode string
+
+const (
+	// OutputSyslogModeError Error
+	OutputSyslogModeError OutputSyslogMode = "error"
+	// OutputSyslogModeAlways Backpressure
+	OutputSyslogModeAlways OutputSyslogMode = "always"
+	// OutputSyslogModeBackpressure Always On
+	OutputSyslogModeBackpressure OutputSyslogMode = "backpressure"
+)
+
+func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {
+	return &e
+}
+
 // OutputSyslogCompression - Codec to use to compress the persisted data
 type OutputSyslogCompression string
 
 const (
+	// OutputSyslogCompressionNone None
 	OutputSyslogCompressionNone OutputSyslogCompression = "none"
+	// OutputSyslogCompressionGzip Gzip
 	OutputSyslogCompressionGzip OutputSyslogCompression = "gzip"
 )
 
@@ -274,24 +380,13 @@ func (e OutputSyslogCompression) ToPointer() *OutputSyslogCompression {
 type OutputSyslogQueueFullBehavior string
 
 const (
+	// OutputSyslogQueueFullBehaviorBlock Block
 	OutputSyslogQueueFullBehaviorBlock OutputSyslogQueueFullBehavior = "block"
-	OutputSyslogQueueFullBehaviorDrop  OutputSyslogQueueFullBehavior = "drop"
+	// OutputSyslogQueueFullBehaviorDrop Drop new data
+	OutputSyslogQueueFullBehaviorDrop OutputSyslogQueueFullBehavior = "drop"
 )
 
 func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavior {
-	return &e
-}
-
-// OutputSyslogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSyslogMode string
-
-const (
-	OutputSyslogModeError        OutputSyslogMode = "error"
-	OutputSyslogModeBackpressure OutputSyslogMode = "backpressure"
-	OutputSyslogModeAlways       OutputSyslogMode = "always"
-)
-
-func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {
 	return &e
 }
 
@@ -307,92 +402,6 @@ func (o *OutputSyslogPqControls) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-// OutputSyslogTLS - Whether to inherit TLS configs from group setting or disable TLS
-type OutputSyslogTLS string
-
-const (
-	OutputSyslogTLSInherit OutputSyslogTLS = "inherit"
-	OutputSyslogTLSOff     OutputSyslogTLS = "off"
-)
-
-func (e OutputSyslogTLS) ToPointer() *OutputSyslogTLS {
-	return &e
-}
-func (e *OutputSyslogTLS) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "inherit":
-		fallthrough
-	case "off":
-		*e = OutputSyslogTLS(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogTLS: %v", v)
-	}
-}
-
-type OutputSyslogHost struct {
-	// The hostname of the receiver
-	Host string `json:"host"`
-	// The port to connect to on the provided host
-	Port *float64 `default:"9997" json:"port"`
-	// Whether to inherit TLS configs from group setting or disable TLS
-	TLS *OutputSyslogTLS `default:"inherit" json:"tls"`
-	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-	Servername *string `json:"servername,omitempty"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputSyslogHost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSyslogHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSyslogHost) GetHost() string {
-	if o == nil {
-		return ""
-	}
-	return o.Host
-}
-
-func (o *OutputSyslogHost) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
-
-func (o *OutputSyslogHost) GetTLS() *OutputSyslogTLS {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputSyslogHost) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputSyslogHost) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
 }
 
 type OutputSyslog struct {
@@ -428,6 +437,20 @@ type OutputSyslog struct {
 	Description       *string `json:"description,omitempty"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
 	LoadBalanced *bool `default:"true" json:"loadBalanced"`
+	// The hostname of the receiver
+	Host *string `json:"host,omitempty"`
+	// The port to connect to on the provided host
+	Port *float64 `json:"port,omitempty"`
+	// Exclude all IPs of the current host from the list of any resolved hostnames
+	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
+	// Set of hosts to load-balance data to
+	Hosts []OutputSyslogHost `json:"hosts,omitempty"`
+	// The interval in which to re-resolve any hostnames and pick up destinations from A records
+	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
+	// How far back in time to keep traffic stats for load balancing purposes
+	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
@@ -435,14 +458,22 @@ type OutputSyslog struct {
 	TLS          *OutputSyslogTLSSettingsClientSide `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputSyslogBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// The hostname of the receiver
-	Host *string `json:"host,omitempty"`
-	// The port to connect to on the provided host
-	Port *float64 `json:"port,omitempty"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
 	MaxRecordSize *float64 `default:"1500" json:"maxRecordSize"`
 	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
 	UDPDNSResolvePeriodSec *float64 `default:"0" json:"udpDnsResolvePeriodSec"`
+	// Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool `default:"false" json:"enableIpSpoofing"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputSyslogMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -453,19 +484,7 @@ type OutputSyslog struct {
 	PqCompress *OutputSyslogCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputSyslogQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSyslogMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSyslogPqControls `json:"pqControls,omitempty"`
-	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
-	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
-	// Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
-	MaxConcurrentSenders *float64 `default:"0" json:"maxConcurrentSenders"`
-	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
-	// Set of hosts to load-balance data to.
-	Hosts []OutputSyslogHost `json:"hosts,omitempty"`
+	PqControls       *OutputSyslogPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -598,6 +617,55 @@ func (o *OutputSyslog) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
+func (o *OutputSyslog) GetHost() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Host
+}
+
+func (o *OutputSyslog) GetPort() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Port
+}
+
+func (o *OutputSyslog) GetExcludeSelf() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeSelf
+}
+
+func (o *OutputSyslog) GetHosts() []OutputSyslogHost {
+	if o == nil {
+		return nil
+	}
+	return o.Hosts
+}
+
+func (o *OutputSyslog) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputSyslog) GetLoadBalanceStatsPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputSyslog) GetMaxConcurrentSenders() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentSenders
+}
+
 func (o *OutputSyslog) GetConnectionTimeout() *float64 {
 	if o == nil {
 		return nil
@@ -626,20 +694,6 @@ func (o *OutputSyslog) GetOnBackpressure() *OutputSyslogBackpressureBehavior {
 	return o.OnBackpressure
 }
 
-func (o *OutputSyslog) GetHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Host
-}
-
-func (o *OutputSyslog) GetPort() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Port
-}
-
 func (o *OutputSyslog) GetMaxRecordSize() *float64 {
 	if o == nil {
 		return nil
@@ -652,6 +706,48 @@ func (o *OutputSyslog) GetUDPDNSResolvePeriodSec() *float64 {
 		return nil
 	}
 	return o.UDPDNSResolvePeriodSec
+}
+
+func (o *OutputSyslog) GetEnableIPSpoofing() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableIPSpoofing
+}
+
+func (o *OutputSyslog) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSyslog) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSyslog) GetPqMode() *OutputSyslogMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSyslog) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSyslog) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
 }
 
 func (o *OutputSyslog) GetPqMaxFileSize() *string {
@@ -689,51 +785,9 @@ func (o *OutputSyslog) GetPqOnBackpressure() *OutputSyslogQueueFullBehavior {
 	return o.PqOnBackpressure
 }
 
-func (o *OutputSyslog) GetPqMode() *OutputSyslogMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
 func (o *OutputSyslog) GetPqControls() *OutputSyslogPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputSyslog) GetDNSResolvePeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DNSResolvePeriodSec
-}
-
-func (o *OutputSyslog) GetLoadBalanceStatsPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanceStatsPeriodSec
-}
-
-func (o *OutputSyslog) GetMaxConcurrentSenders() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxConcurrentSenders
-}
-
-func (o *OutputSyslog) GetExcludeSelf() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExcludeSelf
-}
-
-func (o *OutputSyslog) GetHosts() []OutputSyslogHost {
-	if o == nil {
-		return nil
-	}
-	return o.Hosts
 }

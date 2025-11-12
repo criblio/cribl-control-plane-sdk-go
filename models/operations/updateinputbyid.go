@@ -27,31 +27,246 @@ func (u *UpdateInputByIDRequest) GetInput() components.Input {
 	return u.Input
 }
 
-// UpdateInputByIDResponseBody - a list of Source objects
-type UpdateInputByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64             `json:"count,omitempty"`
-	Items []components.Input `json:"items,omitempty"`
+func (u *UpdateInputByIDRequest) GetInputCollection() *components.InputCollection {
+	return u.GetInput().InputCollection
 }
 
-func (u *UpdateInputByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
+func (u *UpdateInputByIDRequest) GetInputKafka() *components.InputKafka {
+	return u.GetInput().InputKafka
 }
 
-func (u *UpdateInputByIDResponseBody) GetItems() []components.Input {
-	if u == nil {
-		return nil
-	}
-	return u.Items
+func (u *UpdateInputByIDRequest) GetInputMsk() *components.InputMsk {
+	return u.GetInput().InputMsk
+}
+
+func (u *UpdateInputByIDRequest) GetInputHTTP() *components.InputHTTP {
+	return u.GetInput().InputHTTP
+}
+
+func (u *UpdateInputByIDRequest) GetInputSplunk() *components.InputSplunk {
+	return u.GetInput().InputSplunk
+}
+
+func (u *UpdateInputByIDRequest) GetInputSplunkSearch() *components.InputSplunkSearch {
+	return u.GetInput().InputSplunkSearch
+}
+
+func (u *UpdateInputByIDRequest) GetInputSplunkHec() *components.InputSplunkHec {
+	return u.GetInput().InputSplunkHec
+}
+
+func (u *UpdateInputByIDRequest) GetInputAzureBlob() *components.InputAzureBlob {
+	return u.GetInput().InputAzureBlob
+}
+
+func (u *UpdateInputByIDRequest) GetInputElastic() *components.InputElastic {
+	return u.GetInput().InputElastic
+}
+
+func (u *UpdateInputByIDRequest) GetInputConfluentCloud() *components.InputConfluentCloud {
+	return u.GetInput().InputConfluentCloud
+}
+
+func (u *UpdateInputByIDRequest) GetInputGrafana() *components.InputGrafana {
+	return u.GetInput().InputGrafana
+}
+
+func (u *UpdateInputByIDRequest) GetInputLoki() *components.InputLoki {
+	return u.GetInput().InputLoki
+}
+
+func (u *UpdateInputByIDRequest) GetInputPrometheusRw() *components.InputPrometheusRw {
+	return u.GetInput().InputPrometheusRw
+}
+
+func (u *UpdateInputByIDRequest) GetInputPrometheus() *components.InputPrometheus {
+	return u.GetInput().InputPrometheus
+}
+
+func (u *UpdateInputByIDRequest) GetInputEdgePrometheus() *components.InputEdgePrometheus {
+	return u.GetInput().InputEdgePrometheus
+}
+
+func (u *UpdateInputByIDRequest) GetInputOffice365Mgmt() *components.InputOffice365Mgmt {
+	return u.GetInput().InputOffice365Mgmt
+}
+
+func (u *UpdateInputByIDRequest) GetInputOffice365Service() *components.InputOffice365Service {
+	return u.GetInput().InputOffice365Service
+}
+
+func (u *UpdateInputByIDRequest) GetInputOffice365MsgTrace() *components.InputOffice365MsgTrace {
+	return u.GetInput().InputOffice365MsgTrace
+}
+
+func (u *UpdateInputByIDRequest) GetInputEventhub() *components.InputEventhub {
+	return u.GetInput().InputEventhub
+}
+
+func (u *UpdateInputByIDRequest) GetInputExec() *components.InputExec {
+	return u.GetInput().InputExec
+}
+
+func (u *UpdateInputByIDRequest) GetInputFirehose() *components.InputFirehose {
+	return u.GetInput().InputFirehose
+}
+
+func (u *UpdateInputByIDRequest) GetInputGooglePubsub() *components.InputGooglePubsub {
+	return u.GetInput().InputGooglePubsub
+}
+
+func (u *UpdateInputByIDRequest) GetInputCribl() *components.InputCribl {
+	return u.GetInput().InputCribl
+}
+
+func (u *UpdateInputByIDRequest) GetInputCriblTCP() *components.InputCriblTCP {
+	return u.GetInput().InputCriblTCP
+}
+
+func (u *UpdateInputByIDRequest) GetInputCriblHTTP() *components.InputCriblHTTP {
+	return u.GetInput().InputCriblHTTP
+}
+
+func (u *UpdateInputByIDRequest) GetInputCriblLakeHTTP() *components.InputCriblLakeHTTP {
+	return u.GetInput().InputCriblLakeHTTP
+}
+
+func (u *UpdateInputByIDRequest) GetInputTcpjson() *components.InputTcpjson {
+	return u.GetInput().InputTcpjson
+}
+
+func (u *UpdateInputByIDRequest) GetInputSystemMetrics() *components.InputSystemMetrics {
+	return u.GetInput().InputSystemMetrics
+}
+
+func (u *UpdateInputByIDRequest) GetInputSystemState() *components.InputSystemState {
+	return u.GetInput().InputSystemState
+}
+
+func (u *UpdateInputByIDRequest) GetInputKubeMetrics() *components.InputKubeMetrics {
+	return u.GetInput().InputKubeMetrics
+}
+
+func (u *UpdateInputByIDRequest) GetInputKubeLogs() *components.InputKubeLogs {
+	return u.GetInput().InputKubeLogs
+}
+
+func (u *UpdateInputByIDRequest) GetInputKubeEvents() *components.InputKubeEvents {
+	return u.GetInput().InputKubeEvents
+}
+
+func (u *UpdateInputByIDRequest) GetInputWindowsMetrics() *components.InputWindowsMetrics {
+	return u.GetInput().InputWindowsMetrics
+}
+
+func (u *UpdateInputByIDRequest) GetInputCrowdstrike() *components.InputCrowdstrike {
+	return u.GetInput().InputCrowdstrike
+}
+
+func (u *UpdateInputByIDRequest) GetInputDatadogAgent() *components.InputDatadogAgent {
+	return u.GetInput().InputDatadogAgent
+}
+
+func (u *UpdateInputByIDRequest) GetInputDatagen() *components.InputDatagen {
+	return u.GetInput().InputDatagen
+}
+
+func (u *UpdateInputByIDRequest) GetInputHTTPRaw() *components.InputHTTPRaw {
+	return u.GetInput().InputHTTPRaw
+}
+
+func (u *UpdateInputByIDRequest) GetInputKinesis() *components.InputKinesis {
+	return u.GetInput().InputKinesis
+}
+
+func (u *UpdateInputByIDRequest) GetInputCriblmetrics() *components.InputCriblmetrics {
+	return u.GetInput().InputCriblmetrics
+}
+
+func (u *UpdateInputByIDRequest) GetInputMetrics() *components.InputMetrics {
+	return u.GetInput().InputMetrics
+}
+
+func (u *UpdateInputByIDRequest) GetInputS3() *components.InputS3 {
+	return u.GetInput().InputS3
+}
+
+func (u *UpdateInputByIDRequest) GetInputS3Inventory() *components.InputS3Inventory {
+	return u.GetInput().InputS3Inventory
+}
+
+func (u *UpdateInputByIDRequest) GetInputSnmp() *components.InputSnmp {
+	return u.GetInput().InputSnmp
+}
+
+func (u *UpdateInputByIDRequest) GetInputOpenTelemetry() *components.InputOpenTelemetry {
+	return u.GetInput().InputOpenTelemetry
+}
+
+func (u *UpdateInputByIDRequest) GetInputModelDrivenTelemetry() *components.InputModelDrivenTelemetry {
+	return u.GetInput().InputModelDrivenTelemetry
+}
+
+func (u *UpdateInputByIDRequest) GetInputSqs() *components.InputSqs {
+	return u.GetInput().InputSqs
+}
+
+func (u *UpdateInputByIDRequest) GetInputSyslog() *components.InputSyslog {
+	return u.GetInput().InputSyslog
+}
+
+func (u *UpdateInputByIDRequest) GetInputFile() *components.InputFile {
+	return u.GetInput().InputFile
+}
+
+func (u *UpdateInputByIDRequest) GetInputTCP() *components.InputTCP {
+	return u.GetInput().InputTCP
+}
+
+func (u *UpdateInputByIDRequest) GetInputAppscope() *components.InputAppscope {
+	return u.GetInput().InputAppscope
+}
+
+func (u *UpdateInputByIDRequest) GetInputWef() *components.InputWef {
+	return u.GetInput().InputWef
+}
+
+func (u *UpdateInputByIDRequest) GetInputWinEventLogs() *components.InputWinEventLogs {
+	return u.GetInput().InputWinEventLogs
+}
+
+func (u *UpdateInputByIDRequest) GetInputRawUDP() *components.InputRawUDP {
+	return u.GetInput().InputRawUDP
+}
+
+func (u *UpdateInputByIDRequest) GetInputJournalFiles() *components.InputJournalFiles {
+	return u.GetInput().InputJournalFiles
+}
+
+func (u *UpdateInputByIDRequest) GetInputWiz() *components.InputWiz {
+	return u.GetInput().InputWiz
+}
+
+func (u *UpdateInputByIDRequest) GetInputWizWebhook() *components.InputWizWebhook {
+	return u.GetInput().InputWizWebhook
+}
+
+func (u *UpdateInputByIDRequest) GetInputNetflow() *components.InputNetflow {
+	return u.GetInput().InputNetflow
+}
+
+func (u *UpdateInputByIDRequest) GetInputSecurityLake() *components.InputSecurityLake {
+	return u.GetInput().InputSecurityLake
+}
+
+func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
+	return u.GetInput().InputZscalerHec
 }
 
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	Object *UpdateInputByIDResponseBody
+	CountedInput *components.CountedInput
 }
 
 func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +276,9 @@ func (u *UpdateInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateInputByIDResponse) GetObject() *UpdateInputByIDResponseBody {
+func (u *UpdateInputByIDResponse) GetCountedInput() *components.CountedInput {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedInput
 }

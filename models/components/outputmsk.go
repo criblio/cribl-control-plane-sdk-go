@@ -35,8 +35,11 @@ func (e *OutputMskType) UnmarshalJSON(data []byte) error {
 type OutputMskAcknowledgments int64
 
 const (
-	OutputMskAcknowledgmentsOne    OutputMskAcknowledgments = 1
-	OutputMskAcknowledgmentsZero   OutputMskAcknowledgments = 0
+	// OutputMskAcknowledgmentsOne Leader
+	OutputMskAcknowledgmentsOne OutputMskAcknowledgments = 1
+	// OutputMskAcknowledgmentsZero None
+	OutputMskAcknowledgmentsZero OutputMskAcknowledgments = 0
+	// OutputMskAcknowledgmentsMinus1 All
 	OutputMskAcknowledgmentsMinus1 OutputMskAcknowledgments = -1
 )
 
@@ -48,8 +51,11 @@ func (e OutputMskAcknowledgments) ToPointer() *OutputMskAcknowledgments {
 type OutputMskRecordDataFormat string
 
 const (
-	OutputMskRecordDataFormatJSON     OutputMskRecordDataFormat = "json"
-	OutputMskRecordDataFormatRaw      OutputMskRecordDataFormat = "raw"
+	// OutputMskRecordDataFormatJSON JSON
+	OutputMskRecordDataFormatJSON OutputMskRecordDataFormat = "json"
+	// OutputMskRecordDataFormatRaw Field _raw
+	OutputMskRecordDataFormatRaw OutputMskRecordDataFormat = "raw"
+	// OutputMskRecordDataFormatProtobuf Protobuf
 	OutputMskRecordDataFormatProtobuf OutputMskRecordDataFormat = "protobuf"
 )
 
@@ -61,25 +67,19 @@ func (e OutputMskRecordDataFormat) ToPointer() *OutputMskRecordDataFormat {
 type OutputMskCompression string
 
 const (
-	OutputMskCompressionNone   OutputMskCompression = "none"
-	OutputMskCompressionGzip   OutputMskCompression = "gzip"
+	// OutputMskCompressionNone None
+	OutputMskCompressionNone OutputMskCompression = "none"
+	// OutputMskCompressionGzip Gzip
+	OutputMskCompressionGzip OutputMskCompression = "gzip"
+	// OutputMskCompressionSnappy Snappy
 	OutputMskCompressionSnappy OutputMskCompression = "snappy"
-	OutputMskCompressionLz4    OutputMskCompression = "lz4"
+	// OutputMskCompressionLz4 LZ4
+	OutputMskCompressionLz4 OutputMskCompression = "lz4"
+	// OutputMskCompressionZstd ZSTD
+	OutputMskCompressionZstd OutputMskCompression = "zstd"
 )
 
 func (e OutputMskCompression) ToPointer() *OutputMskCompression {
-	return &e
-}
-
-// OutputMskSchemaType - The schema format used to encode and decode event data
-type OutputMskSchemaType string
-
-const (
-	OutputMskSchemaTypeAvro OutputMskSchemaType = "avro"
-	OutputMskSchemaTypeJSON OutputMskSchemaType = "json"
-)
-
-func (e OutputMskSchemaType) ToPointer() *OutputMskSchemaType {
 	return &e
 }
 
@@ -247,8 +247,6 @@ type OutputMskKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *OutputMskSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -287,13 +285,6 @@ func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *str
 		return nil
 	}
 	return o.SchemaRegistryURL
-}
-
-func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaType() *OutputMskSchemaType {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaType
 }
 
 func (o *OutputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -349,8 +340,11 @@ func (o *OutputMskKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID() *
 type OutputMskAuthenticationMethod string
 
 const (
-	OutputMskAuthenticationMethodAuto   OutputMskAuthenticationMethod = "auto"
+	// OutputMskAuthenticationMethodAuto Auto
+	OutputMskAuthenticationMethodAuto OutputMskAuthenticationMethod = "auto"
+	// OutputMskAuthenticationMethodManual Manual
 	OutputMskAuthenticationMethodManual OutputMskAuthenticationMethod = "manual"
+	// OutputMskAuthenticationMethodSecret Secret Key pair
 	OutputMskAuthenticationMethodSecret OutputMskAuthenticationMethod = "secret"
 )
 
@@ -502,8 +496,11 @@ func (o *OutputMskTLSSettingsClientSide) GetMaxVersion() *OutputMskMaximumTLSVer
 type OutputMskBackpressureBehavior string
 
 const (
+	// OutputMskBackpressureBehaviorBlock Block
 	OutputMskBackpressureBehaviorBlock OutputMskBackpressureBehavior = "block"
-	OutputMskBackpressureBehaviorDrop  OutputMskBackpressureBehavior = "drop"
+	// OutputMskBackpressureBehaviorDrop Drop
+	OutputMskBackpressureBehaviorDrop OutputMskBackpressureBehavior = "drop"
+	// OutputMskBackpressureBehaviorQueue Persistent Queue
 	OutputMskBackpressureBehaviorQueue OutputMskBackpressureBehavior = "queue"
 )
 
@@ -511,11 +508,29 @@ func (e OutputMskBackpressureBehavior) ToPointer() *OutputMskBackpressureBehavio
 	return &e
 }
 
+// OutputMskMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputMskMode string
+
+const (
+	// OutputMskModeError Error
+	OutputMskModeError OutputMskMode = "error"
+	// OutputMskModeAlways Backpressure
+	OutputMskModeAlways OutputMskMode = "always"
+	// OutputMskModeBackpressure Always On
+	OutputMskModeBackpressure OutputMskMode = "backpressure"
+)
+
+func (e OutputMskMode) ToPointer() *OutputMskMode {
+	return &e
+}
+
 // OutputMskPqCompressCompression - Codec to use to compress the persisted data
 type OutputMskPqCompressCompression string
 
 const (
+	// OutputMskPqCompressCompressionNone None
 	OutputMskPqCompressCompressionNone OutputMskPqCompressCompression = "none"
+	// OutputMskPqCompressCompressionGzip Gzip
 	OutputMskPqCompressCompressionGzip OutputMskPqCompressCompression = "gzip"
 )
 
@@ -527,24 +542,13 @@ func (e OutputMskPqCompressCompression) ToPointer() *OutputMskPqCompressCompress
 type OutputMskQueueFullBehavior string
 
 const (
+	// OutputMskQueueFullBehaviorBlock Block
 	OutputMskQueueFullBehaviorBlock OutputMskQueueFullBehavior = "block"
-	OutputMskQueueFullBehaviorDrop  OutputMskQueueFullBehavior = "drop"
+	// OutputMskQueueFullBehaviorDrop Drop new data
+	OutputMskQueueFullBehaviorDrop OutputMskQueueFullBehavior = "drop"
 )
 
 func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
-	return &e
-}
-
-// OutputMskMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputMskMode string
-
-const (
-	OutputMskModeError        OutputMskMode = "error"
-	OutputMskModeBackpressure OutputMskMode = "backpressure"
-	OutputMskModeAlways       OutputMskMode = "always"
-)
-
-func (e OutputMskMode) ToPointer() *OutputMskMode {
 	return &e
 }
 
@@ -637,6 +641,18 @@ type OutputMsk struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
+	// Select the type of object you want the Protobuf definitions to use for event encoding
+	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputMskMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -647,9 +663,7 @@ type OutputMsk struct {
 	PqCompress *OutputMskPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputMskQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputMskMode       `default:"error" json:"pqMode"`
-	PqControls *OutputMskPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputMskPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {
@@ -943,6 +957,48 @@ func (o *OutputMsk) GetProtobufLibraryID() *string {
 	return o.ProtobufLibraryID
 }
 
+func (o *OutputMsk) GetProtobufEncodingID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProtobufEncodingID
+}
+
+func (o *OutputMsk) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputMsk) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputMsk) GetPqMode() *OutputMskMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputMsk) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputMsk) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputMsk) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -976,13 +1032,6 @@ func (o *OutputMsk) GetPqOnBackpressure() *OutputMskQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputMsk) GetPqMode() *OutputMskMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputMsk) GetPqControls() *OutputMskPqControls {

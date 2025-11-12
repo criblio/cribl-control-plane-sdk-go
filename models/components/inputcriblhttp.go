@@ -65,7 +65,9 @@ func (i *InputCriblHTTPConnection) GetOutput() string {
 type InputCriblHTTPMode string
 
 const (
-	InputCriblHTTPModeSmart  InputCriblHTTPMode = "smart"
+	// InputCriblHTTPModeSmart Smart
+	InputCriblHTTPModeSmart InputCriblHTTPMode = "smart"
+	// InputCriblHTTPModeAlways Always On
 	InputCriblHTTPModeAlways InputCriblHTTPMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputCriblHTTPMode) ToPointer() *InputCriblHTTPMode {
 type InputCriblHTTPCompression string
 
 const (
+	// InputCriblHTTPCompressionNone None
 	InputCriblHTTPCompressionNone InputCriblHTTPCompression = "none"
+	// InputCriblHTTPCompressionGzip Gzip
 	InputCriblHTTPCompressionGzip InputCriblHTTPCompression = "gzip"
 )
 
@@ -184,6 +188,46 @@ func (i *InputCriblHTTPPq) GetPqControls() *InputCriblHTTPPqControls {
 	return i.PqControls
 }
 
+type InputCriblHTTPAuthToken struct {
+	// Select or create a stored text secret
+	TokenSecret string `json:"tokenSecret"`
+	Enabled     *bool  `default:"true" json:"enabled"`
+	// Optional token description
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCriblHTTPAuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblHTTPAuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"tokenSecret"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblHTTPAuthToken) GetTokenSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TokenSecret
+}
+
+func (i *InputCriblHTTPAuthToken) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputCriblHTTPAuthToken) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
 type InputCriblHTTPMinimumTLSVersion string
 
 const (
@@ -212,6 +256,12 @@ func (e InputCriblHTTPMaximumTLSVersion) ToPointer() *InputCriblHTTPMaximumTLSVe
 
 type InputCriblHTTPTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -221,13 +271,9 @@ type InputCriblHTTPTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                            `default:"false" json:"requestCert"`
-	RejectUnauthorized any                              `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                              `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputCriblHTTPMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputCriblHTTPMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                          `json:"caPath,omitempty"`
+	MinVersion *InputCriblHTTPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputCriblHTTPMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputCriblHTTPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -246,6 +292,27 @@ func (i *InputCriblHTTPTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputCriblHTTPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputCriblHTTPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputCriblHTTPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputCriblHTTPTLSSettingsServerSide) GetCertificateName() *string {
@@ -281,27 +348,6 @@ func (i *InputCriblHTTPTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputCriblHTTPTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputCriblHTTPTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputCriblHTTPTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputCriblHTTPTLSSettingsServerSide) GetMinVersion() *InputCriblHTTPMinimumTLSVersion {
@@ -371,8 +417,8 @@ type InputCriblHTTP struct {
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                             `json:"authTokens,omitempty"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+	AuthTokens []InputCriblHTTPAuthToken            `json:"authTokens,omitempty"`
 	TLS        *InputCriblHTTPTLSSettingsServerSide `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
@@ -496,7 +542,7 @@ func (i *InputCriblHTTP) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputCriblHTTP) GetAuthTokens() []string {
+func (i *InputCriblHTTP) GetAuthTokens() []InputCriblHTTPAuthToken {
 	if i == nil {
 		return nil
 	}

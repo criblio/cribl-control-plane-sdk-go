@@ -65,9 +65,12 @@ func (o *OutputPrometheusExtraHTTPHeader) GetValue() string {
 type OutputPrometheusFailedRequestLoggingMode string
 
 const (
-	OutputPrometheusFailedRequestLoggingModePayload           OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayload Payload
+	OutputPrometheusFailedRequestLoggingModePayload OutputPrometheusFailedRequestLoggingMode = "payload"
+	// OutputPrometheusFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputPrometheusFailedRequestLoggingModePayloadAndHeaders OutputPrometheusFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputPrometheusFailedRequestLoggingModeNone              OutputPrometheusFailedRequestLoggingMode = "none"
+	// OutputPrometheusFailedRequestLoggingModeNone None
+	OutputPrometheusFailedRequestLoggingModeNone OutputPrometheusFailedRequestLoggingMode = "none"
 )
 
 func (e OutputPrometheusFailedRequestLoggingMode) ToPointer() *OutputPrometheusFailedRequestLoggingMode {
@@ -177,8 +180,11 @@ func (o *OutputPrometheusTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputPrometheusBackpressureBehavior string
 
 const (
+	// OutputPrometheusBackpressureBehaviorBlock Block
 	OutputPrometheusBackpressureBehaviorBlock OutputPrometheusBackpressureBehavior = "block"
-	OutputPrometheusBackpressureBehaviorDrop  OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorDrop Drop
+	OutputPrometheusBackpressureBehaviorDrop OutputPrometheusBackpressureBehavior = "drop"
+	// OutputPrometheusBackpressureBehaviorQueue Persistent Queue
 	OutputPrometheusBackpressureBehaviorQueue OutputPrometheusBackpressureBehavior = "queue"
 )
 
@@ -202,11 +208,29 @@ func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthent
 	return &e
 }
 
+// OutputPrometheusMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputPrometheusMode string
+
+const (
+	// OutputPrometheusModeError Error
+	OutputPrometheusModeError OutputPrometheusMode = "error"
+	// OutputPrometheusModeAlways Backpressure
+	OutputPrometheusModeAlways OutputPrometheusMode = "always"
+	// OutputPrometheusModeBackpressure Always On
+	OutputPrometheusModeBackpressure OutputPrometheusMode = "backpressure"
+)
+
+func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {
+	return &e
+}
+
 // OutputPrometheusCompression - Codec to use to compress the persisted data
 type OutputPrometheusCompression string
 
 const (
+	// OutputPrometheusCompressionNone None
 	OutputPrometheusCompressionNone OutputPrometheusCompression = "none"
+	// OutputPrometheusCompressionGzip Gzip
 	OutputPrometheusCompressionGzip OutputPrometheusCompression = "gzip"
 )
 
@@ -218,24 +242,13 @@ func (e OutputPrometheusCompression) ToPointer() *OutputPrometheusCompression {
 type OutputPrometheusQueueFullBehavior string
 
 const (
+	// OutputPrometheusQueueFullBehaviorBlock Block
 	OutputPrometheusQueueFullBehaviorBlock OutputPrometheusQueueFullBehavior = "block"
-	OutputPrometheusQueueFullBehaviorDrop  OutputPrometheusQueueFullBehavior = "drop"
+	// OutputPrometheusQueueFullBehaviorDrop Drop new data
+	OutputPrometheusQueueFullBehaviorDrop OutputPrometheusQueueFullBehavior = "drop"
 )
 
 func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFullBehavior {
-	return &e
-}
-
-// OutputPrometheusMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputPrometheusMode string
-
-const (
-	OutputPrometheusModeError        OutputPrometheusMode = "error"
-	OutputPrometheusModeBackpressure OutputPrometheusMode = "backpressure"
-	OutputPrometheusModeAlways       OutputPrometheusMode = "always"
-)
-
-func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {
 	return &e
 }
 
@@ -369,6 +382,16 @@ type OutputPrometheus struct {
 	Description *string                             `json:"description,omitempty"`
 	// How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
 	MetricsFlushPeriodSec *float64 `default:"60" json:"metricsFlushPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputPrometheusMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -379,11 +402,9 @@ type OutputPrometheus struct {
 	PqCompress *OutputPrometheusCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputPrometheusQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputPrometheusMode       `default:"error" json:"pqMode"`
-	PqControls *OutputPrometheusPqControls `json:"pqControls,omitempty"`
-	Username   *string                     `json:"username,omitempty"`
-	Password   *string                     `json:"password,omitempty"`
+	PqControls       *OutputPrometheusPqControls        `json:"pqControls,omitempty"`
+	Username         *string                            `json:"username,omitempty"`
+	Password         *string                            `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -601,6 +622,41 @@ func (o *OutputPrometheus) GetMetricsFlushPeriodSec() *float64 {
 	return o.MetricsFlushPeriodSec
 }
 
+func (o *OutputPrometheus) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputPrometheus) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputPrometheus) GetPqMode() *OutputPrometheusMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputPrometheus) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputPrometheus) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputPrometheus) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -634,13 +690,6 @@ func (o *OutputPrometheus) GetPqOnBackpressure() *OutputPrometheusQueueFullBehav
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputPrometheus) GetPqMode() *OutputPrometheusMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputPrometheus) GetPqControls() *OutputPrometheusPqControls {

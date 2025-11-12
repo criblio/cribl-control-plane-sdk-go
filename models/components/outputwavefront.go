@@ -77,9 +77,12 @@ func (o *OutputWavefrontExtraHTTPHeader) GetValue() string {
 type OutputWavefrontFailedRequestLoggingMode string
 
 const (
-	OutputWavefrontFailedRequestLoggingModePayload           OutputWavefrontFailedRequestLoggingMode = "payload"
+	// OutputWavefrontFailedRequestLoggingModePayload Payload
+	OutputWavefrontFailedRequestLoggingModePayload OutputWavefrontFailedRequestLoggingMode = "payload"
+	// OutputWavefrontFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputWavefrontFailedRequestLoggingModePayloadAndHeaders OutputWavefrontFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputWavefrontFailedRequestLoggingModeNone              OutputWavefrontFailedRequestLoggingMode = "none"
+	// OutputWavefrontFailedRequestLoggingModeNone None
+	OutputWavefrontFailedRequestLoggingModeNone OutputWavefrontFailedRequestLoggingMode = "none"
 )
 
 func (e OutputWavefrontFailedRequestLoggingMode) ToPointer() *OutputWavefrontFailedRequestLoggingMode {
@@ -189,8 +192,11 @@ func (o *OutputWavefrontTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputWavefrontBackpressureBehavior string
 
 const (
+	// OutputWavefrontBackpressureBehaviorBlock Block
 	OutputWavefrontBackpressureBehaviorBlock OutputWavefrontBackpressureBehavior = "block"
-	OutputWavefrontBackpressureBehaviorDrop  OutputWavefrontBackpressureBehavior = "drop"
+	// OutputWavefrontBackpressureBehaviorDrop Drop
+	OutputWavefrontBackpressureBehaviorDrop OutputWavefrontBackpressureBehavior = "drop"
+	// OutputWavefrontBackpressureBehaviorQueue Persistent Queue
 	OutputWavefrontBackpressureBehaviorQueue OutputWavefrontBackpressureBehavior = "queue"
 )
 
@@ -198,11 +204,29 @@ func (e OutputWavefrontBackpressureBehavior) ToPointer() *OutputWavefrontBackpre
 	return &e
 }
 
+// OutputWavefrontMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputWavefrontMode string
+
+const (
+	// OutputWavefrontModeError Error
+	OutputWavefrontModeError OutputWavefrontMode = "error"
+	// OutputWavefrontModeAlways Backpressure
+	OutputWavefrontModeAlways OutputWavefrontMode = "always"
+	// OutputWavefrontModeBackpressure Always On
+	OutputWavefrontModeBackpressure OutputWavefrontMode = "backpressure"
+)
+
+func (e OutputWavefrontMode) ToPointer() *OutputWavefrontMode {
+	return &e
+}
+
 // OutputWavefrontCompression - Codec to use to compress the persisted data
 type OutputWavefrontCompression string
 
 const (
+	// OutputWavefrontCompressionNone None
 	OutputWavefrontCompressionNone OutputWavefrontCompression = "none"
+	// OutputWavefrontCompressionGzip Gzip
 	OutputWavefrontCompressionGzip OutputWavefrontCompression = "gzip"
 )
 
@@ -214,24 +238,13 @@ func (e OutputWavefrontCompression) ToPointer() *OutputWavefrontCompression {
 type OutputWavefrontQueueFullBehavior string
 
 const (
+	// OutputWavefrontQueueFullBehaviorBlock Block
 	OutputWavefrontQueueFullBehaviorBlock OutputWavefrontQueueFullBehavior = "block"
-	OutputWavefrontQueueFullBehaviorDrop  OutputWavefrontQueueFullBehavior = "drop"
+	// OutputWavefrontQueueFullBehaviorDrop Drop new data
+	OutputWavefrontQueueFullBehaviorDrop OutputWavefrontQueueFullBehavior = "drop"
 )
 
 func (e OutputWavefrontQueueFullBehavior) ToPointer() *OutputWavefrontQueueFullBehavior {
-	return &e
-}
-
-// OutputWavefrontMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputWavefrontMode string
-
-const (
-	OutputWavefrontModeError        OutputWavefrontMode = "error"
-	OutputWavefrontModeBackpressure OutputWavefrontMode = "backpressure"
-	OutputWavefrontModeAlways       OutputWavefrontMode = "always"
-)
-
-func (e OutputWavefrontMode) ToPointer() *OutputWavefrontMode {
 	return &e
 }
 
@@ -301,6 +314,16 @@ type OutputWavefront struct {
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputWavefrontMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -311,9 +334,7 @@ type OutputWavefront struct {
 	PqCompress *OutputWavefrontCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputWavefrontQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputWavefrontMode       `default:"error" json:"pqMode"`
-	PqControls *OutputWavefrontPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputWavefrontPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputWavefront) MarshalJSON() ([]byte, error) {
@@ -509,6 +530,41 @@ func (o *OutputWavefront) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputWavefront) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputWavefront) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputWavefront) GetPqMode() *OutputWavefrontMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputWavefront) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputWavefront) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputWavefront) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -542,13 +598,6 @@ func (o *OutputWavefront) GetPqOnBackpressure() *OutputWavefrontQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputWavefront) GetPqMode() *OutputWavefrontMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputWavefront) GetPqControls() *OutputWavefrontPqControls {

@@ -65,9 +65,12 @@ func (o *OutputElasticExtraHTTPHeader) GetValue() string {
 type OutputElasticFailedRequestLoggingMode string
 
 const (
-	OutputElasticFailedRequestLoggingModePayload           OutputElasticFailedRequestLoggingMode = "payload"
+	// OutputElasticFailedRequestLoggingModePayload Payload
+	OutputElasticFailedRequestLoggingModePayload OutputElasticFailedRequestLoggingMode = "payload"
+	// OutputElasticFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputElasticFailedRequestLoggingModePayloadAndHeaders OutputElasticFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputElasticFailedRequestLoggingModeNone              OutputElasticFailedRequestLoggingMode = "none"
+	// OutputElasticFailedRequestLoggingModeNone None
+	OutputElasticFailedRequestLoggingModeNone OutputElasticFailedRequestLoggingMode = "none"
 )
 
 func (e OutputElasticFailedRequestLoggingMode) ToPointer() *OutputElasticFailedRequestLoggingMode {
@@ -218,9 +221,17 @@ func (e OutputElasticAuthenticationMethod) ToPointer() *OutputElasticAuthenticat
 }
 
 type OutputElasticAuth struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled *bool   `default:"true" json:"disabled"`
+	Username *string `json:"username,omitempty"`
+	Password *string `json:"password,omitempty"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *OutputElasticAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Enter API key directly
+	ManualAPIKey *string `json:"manualAPIKey,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
 }
 
 func (o OutputElasticAuth) MarshalJSON() ([]byte, error) {
@@ -241,6 +252,20 @@ func (o *OutputElasticAuth) GetDisabled() *bool {
 	return o.Disabled
 }
 
+func (o *OutputElasticAuth) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputElasticAuth) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
 func (o *OutputElasticAuth) GetAuthType() *OutputElasticAuthenticationMethod {
 	if o == nil {
 		return nil
@@ -248,12 +273,36 @@ func (o *OutputElasticAuth) GetAuthType() *OutputElasticAuthenticationMethod {
 	return o.AuthType
 }
 
+func (o *OutputElasticAuth) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputElasticAuth) GetManualAPIKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ManualAPIKey
+}
+
+func (o *OutputElasticAuth) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
+}
+
 // ElasticVersion - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 type ElasticVersion string
 
 const (
-	ElasticVersionAuto  ElasticVersion = "auto"
-	ElasticVersionSix   ElasticVersion = "6"
+	// ElasticVersionAuto Auto
+	ElasticVersionAuto ElasticVersion = "auto"
+	// ElasticVersionSix 6.x
+	ElasticVersionSix ElasticVersion = "6"
+	// ElasticVersionSeven 7.x
 	ElasticVersionSeven ElasticVersion = "7"
 )
 
@@ -265,7 +314,9 @@ func (e ElasticVersion) ToPointer() *ElasticVersion {
 type WriteAction string
 
 const (
-	WriteActionIndex  WriteAction = "index"
+	// WriteActionIndex Index
+	WriteActionIndex WriteAction = "index"
+	// WriteActionCreate Create
 	WriteActionCreate WriteAction = "create"
 )
 
@@ -277,8 +328,11 @@ func (e WriteAction) ToPointer() *WriteAction {
 type OutputElasticBackpressureBehavior string
 
 const (
+	// OutputElasticBackpressureBehaviorBlock Block
 	OutputElasticBackpressureBehaviorBlock OutputElasticBackpressureBehavior = "block"
-	OutputElasticBackpressureBehaviorDrop  OutputElasticBackpressureBehavior = "drop"
+	// OutputElasticBackpressureBehaviorDrop Drop
+	OutputElasticBackpressureBehaviorDrop OutputElasticBackpressureBehavior = "drop"
+	// OutputElasticBackpressureBehaviorQueue Persistent Queue
 	OutputElasticBackpressureBehaviorQueue OutputElasticBackpressureBehavior = "queue"
 )
 
@@ -318,11 +372,29 @@ func (o *OutputElasticURL) GetWeight() *float64 {
 	return o.Weight
 }
 
+// OutputElasticMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputElasticMode string
+
+const (
+	// OutputElasticModeError Error
+	OutputElasticModeError OutputElasticMode = "error"
+	// OutputElasticModeAlways Backpressure
+	OutputElasticModeAlways OutputElasticMode = "always"
+	// OutputElasticModeBackpressure Always On
+	OutputElasticModeBackpressure OutputElasticMode = "backpressure"
+)
+
+func (e OutputElasticMode) ToPointer() *OutputElasticMode {
+	return &e
+}
+
 // OutputElasticCompression - Codec to use to compress the persisted data
 type OutputElasticCompression string
 
 const (
+	// OutputElasticCompressionNone None
 	OutputElasticCompressionNone OutputElasticCompression = "none"
+	// OutputElasticCompressionGzip Gzip
 	OutputElasticCompressionGzip OutputElasticCompression = "gzip"
 )
 
@@ -334,24 +406,13 @@ func (e OutputElasticCompression) ToPointer() *OutputElasticCompression {
 type OutputElasticQueueFullBehavior string
 
 const (
+	// OutputElasticQueueFullBehaviorBlock Block
 	OutputElasticQueueFullBehaviorBlock OutputElasticQueueFullBehavior = "block"
-	OutputElasticQueueFullBehaviorDrop  OutputElasticQueueFullBehavior = "drop"
+	// OutputElasticQueueFullBehaviorDrop Drop new data
+	OutputElasticQueueFullBehaviorDrop OutputElasticQueueFullBehavior = "drop"
 )
 
 func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehavior {
-	return &e
-}
-
-// OutputElasticMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputElasticMode string
-
-const (
-	OutputElasticModeError        OutputElasticMode = "error"
-	OutputElasticModeBackpressure OutputElasticMode = "backpressure"
-	OutputElasticModeAlways       OutputElasticMode = "always"
-)
-
-func (e OutputElasticMode) ToPointer() *OutputElasticMode {
 	return &e
 }
 
@@ -440,6 +501,16 @@ type OutputElastic struct {
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `default:"300" json:"loadBalanceStatsPeriodSec"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputElasticMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -450,9 +521,7 @@ type OutputElastic struct {
 	PqCompress *OutputElasticCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputElasticQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputElasticMode       `default:"error" json:"pqMode"`
-	PqControls *OutputElasticPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputElasticPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputElastic) MarshalJSON() ([]byte, error) {
@@ -725,6 +794,41 @@ func (o *OutputElastic) GetLoadBalanceStatsPeriodSec() *float64 {
 	return o.LoadBalanceStatsPeriodSec
 }
 
+func (o *OutputElastic) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputElastic) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputElastic) GetPqMode() *OutputElasticMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputElastic) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputElastic) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputElastic) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -758,13 +862,6 @@ func (o *OutputElastic) GetPqOnBackpressure() *OutputElasticQueueFullBehavior {
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputElastic) GetPqMode() *OutputElasticMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputElastic) GetPqControls() *OutputElasticPqControls {
