@@ -357,3 +357,9 @@ input := components.CreateInputSecurityLake(components.InputSecurityLake{/* valu
 input := components.CreateInputZscalerHec(components.InputZscalerHec{/* values here */})
 ```
 
+### InputCloudflareHec
+
+```go
+input := components.CreateInputCloudflareHec(components.InputCloudflareHec{/* values here */})
+```
+

@@ -71,6 +71,7 @@ const (
 	InputUnionTypeNetflow              InputUnionType = "netflow"
 	InputUnionTypeSecurityLake         InputUnionType = "security_lake"
 	InputUnionTypeZscalerHec           InputUnionType = "zscaler_hec"
+	InputUnionTypeCloudflareHec        InputUnionType = "cloudflare_hec"
 )
 
 type Input struct {
@@ -133,6 +134,7 @@ type Input struct {
 	InputNetflow              *InputNetflow              `queryParam:"inline,name=Input"`
 	InputSecurityLake         *InputSecurityLake         `queryParam:"inline,name=Input"`
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline,name=Input"`
+	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline,name=Input"`
 
 	Type InputUnionType
 }
@@ -839,6 +841,18 @@ func CreateInputZscalerHec(zscalerHec InputZscalerHec) Input {
 	}
 }
 
+func CreateInputCloudflareHec(cloudflareHec InputCloudflareHec) Input {
+	typ := InputUnionTypeCloudflareHec
+
+	typStr := InputCloudflareHecType(typ)
+	cloudflareHec.Type = typStr
+
+	return Input{
+		InputCloudflareHec: &cloudflareHec,
+		Type:               typ,
+	}
+}
+
 func (u *Input) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1382,6 +1396,15 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		u.InputZscalerHec = inputZscalerHec
 		u.Type = InputUnionTypeZscalerHec
 		return nil
+	case "cloudflare_hec":
+		inputCloudflareHec := new(InputCloudflareHec)
+		if err := utils.UnmarshalJSON(data, &inputCloudflareHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudflare_hec) type InputCloudflareHec within Input: %w", string(data), err)
+		}
+
+		u.InputCloudflareHec = inputCloudflareHec
+		u.Type = InputUnionTypeCloudflareHec
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Input", string(data))
@@ -1622,6 +1645,10 @@ func (u Input) MarshalJSON() ([]byte, error) {
 
 	if u.InputZscalerHec != nil {
 		return utils.MarshalJSON(u.InputZscalerHec, "", true)
+	}
+
+	if u.InputCloudflareHec != nil {
+		return utils.MarshalJSON(u.InputCloudflareHec, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Input: all fields are null")

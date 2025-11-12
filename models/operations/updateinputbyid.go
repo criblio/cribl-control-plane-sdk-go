@@ -263,6 +263,10 @@ func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHe
 	return u.GetInput().InputZscalerHec
 }
 
+func (u *UpdateInputByIDRequest) GetInputCloudflareHec() *components.InputCloudflareHec {
+	return u.GetInput().InputCloudflareHec
+}
+
 // UpdateInputByIDResponseBody - a list of Source objects
 type UpdateInputByIDResponseBody struct {
 	// number of items present in the items array

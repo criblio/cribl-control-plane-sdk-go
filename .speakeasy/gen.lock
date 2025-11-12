@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2f5b0a1265542f011b402843a2915f05
-  docVersion: 4.15.0-alpha.1762815739257-9cd5f1d2
+  docChecksum: 3e0c32da3b87b8e8cf1a62964deadd89
+  docVersion: 4.15.0-alpha.1762902161749-ab8de3f0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-alpha.3
-  configChecksum: 15bc0092f18c784eb04eca8b8799ce07
+  releaseVersion: 0.3.0-alpha.4
+  configChecksum: fcd1845335f4f9f69a92ac8fda5b91df
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -82,6 +82,7 @@ generatedFiles:
   - /models/components/input.go
   - /models/components/inputappscope.go
   - /models/components/inputazureblob.go
+  - /models/components/inputcloudflarehec.go
   - /models/components/inputcollection.go
   - /models/components/inputconfluentcloud.go
   - /models/components/inputcribl.go
@@ -457,6 +458,20 @@ generatedFiles:
   - docs/models/components/inputazureblobpq.md
   - docs/models/components/inputazureblobpqcontrols.md
   - docs/models/components/inputazureblobtype.md
+  - docs/models/components/inputcloudflarehec.md
+  - docs/models/components/inputcloudflarehecauthenticationmethod.md
+  - docs/models/components/inputcloudflarehecauthtoken.md
+  - docs/models/components/inputcloudflarehecauthtokenmetadatum.md
+  - docs/models/components/inputcloudflareheccompression.md
+  - docs/models/components/inputcloudflarehecconnection.md
+  - docs/models/components/inputcloudflarehecmaximumtlsversion.md
+  - docs/models/components/inputcloudflarehecmetadatum.md
+  - docs/models/components/inputcloudflarehecminimumtlsversion.md
+  - docs/models/components/inputcloudflarehecmode.md
+  - docs/models/components/inputcloudflarehecpq.md
+  - docs/models/components/inputcloudflarehecpqcontrols.md
+  - docs/models/components/inputcloudflarehectlssettingsserverside.md
+  - docs/models/components/inputcloudflarehectype.md
   - docs/models/components/inputcollection.md
   - docs/models/components/inputcollectioncompression.md
   - docs/models/components/inputcollectionconnection.md
@@ -3515,4 +3530,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[chronicle].CustomLabels.[].RbacEnabled` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[chronicle].CustomLabels.[].RbacEnabled` **Added**\n  *  `response.Items.[].[chronicle].CustomLabels.[].RbacEnabled` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[chronicle].CustomLabels.[].RbacEnabled` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[chronicle].CustomLabels.[].RbacEnabled` **Added**\n  *  `response.Items.[].[chronicle].CustomLabels.[].RbacEnabled` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[chronicle].CustomLabels.[].RbacEnabled` **Added**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[cloudflareHec]` **Added**\n  *  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[cloudflareHec]` **Added**\n  *  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[cloudflareHec]` **Added**\n"
