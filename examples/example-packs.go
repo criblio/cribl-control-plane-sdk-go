@@ -67,8 +67,8 @@ func main() {
 
 	// Check if Worker Group exists first
 	getResponse, err := client.Groups.Get(ctx, components.ProductsCoreStream, WORKER_GROUP_ID, nil)
-	if err != nil || getResponse == nil || getResponse.Object == nil ||
-		getResponse.Object.Items == nil || len(getResponse.Object.Items) == 0 {
+	if err != nil || getResponse == nil || getResponse.CountedConfigGroup == nil ||
+		getResponse.CountedConfigGroup.Items == nil || len(getResponse.CountedConfigGroup.Items) == 0 {
 		log.Printf("⚠️ Worker group '%s' does not exist. Please create this worker group first and then run this example.", WORKER_GROUP_ID)
 		log.Printf("💡 You can create a Worker Group using the examples from this repository.")
 		return
@@ -197,9 +197,9 @@ func main() {
 	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error listing routes in pack: %v", err)
-	} else if routesListResponse.Object != nil && routesListResponse.Object.Items != nil && len(routesListResponse.Object.Items) > 0 {
+	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
 		// Get the first Routes configuration
-		existingRoutes := routesListResponse.Object.Items[0]
+		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
 		newRoute := components.RoutesRoute{

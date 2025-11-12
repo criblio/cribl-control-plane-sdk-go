@@ -65,7 +65,9 @@ func (i *InputKafkaConnection) GetOutput() string {
 type InputKafkaMode string
 
 const (
-	InputKafkaModeSmart  InputKafkaMode = "smart"
+	// InputKafkaModeSmart Smart
+	InputKafkaModeSmart InputKafkaMode = "smart"
+	// InputKafkaModeAlways Always On
 	InputKafkaModeAlways InputKafkaMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputKafkaMode) ToPointer() *InputKafkaMode {
 type InputKafkaCompression string
 
 const (
+	// InputKafkaCompressionNone None
 	InputKafkaCompressionNone InputKafkaCompression = "none"
+	// InputKafkaCompressionGzip Gzip
 	InputKafkaCompressionGzip InputKafkaCompression = "gzip"
 )
 
@@ -182,18 +186,6 @@ func (i *InputKafkaPq) GetPqControls() *InputKafkaPqControls {
 		return nil
 	}
 	return i.PqControls
-}
-
-// InputKafkaSchemaType - The schema format used to encode and decode event data
-type InputKafkaSchemaType string
-
-const (
-	InputKafkaSchemaTypeAvro InputKafkaSchemaType = "avro"
-	InputKafkaSchemaTypeJSON InputKafkaSchemaType = "json"
-)
-
-func (e InputKafkaSchemaType) ToPointer() *InputKafkaSchemaType {
-	return &e
 }
 
 // InputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -360,8 +352,6 @@ type InputKafkaKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputKafkaSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -396,13 +386,6 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *st
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetSchemaType() *InputKafkaSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -440,25 +423,124 @@ func (i *InputKafkaKafkaSchemaRegistryAuthentication) GetTLS() *InputKafkaKafkaS
 	return i.TLS
 }
 
+// InputKafkaAuthenticationMethod - Enter credentials directly, or select a stored secret
+type InputKafkaAuthenticationMethod string
+
+const (
+	InputKafkaAuthenticationMethodManual InputKafkaAuthenticationMethod = "manual"
+	InputKafkaAuthenticationMethodSecret InputKafkaAuthenticationMethod = "secret"
+)
+
+func (e InputKafkaAuthenticationMethod) ToPointer() *InputKafkaAuthenticationMethod {
+	return &e
+}
+
 type InputKafkaSASLMechanism string
 
 const (
-	InputKafkaSASLMechanismPlain       InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismPlain PLAIN
+	InputKafkaSASLMechanismPlain InputKafkaSASLMechanism = "plain"
+	// InputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
 	InputKafkaSASLMechanismScramSha256 InputKafkaSASLMechanism = "scram-sha-256"
+	// InputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
 	InputKafkaSASLMechanismScramSha512 InputKafkaSASLMechanism = "scram-sha-512"
-	InputKafkaSASLMechanismKerberos    InputKafkaSASLMechanism = "kerberos"
+	// InputKafkaSASLMechanismKerberos GSSAPI/Kerberos
+	InputKafkaSASLMechanismKerberos InputKafkaSASLMechanism = "kerberos"
 )
 
 func (e InputKafkaSASLMechanism) ToPointer() *InputKafkaSASLMechanism {
 	return &e
 }
 
+type InputKafkaOauthParam struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (i InputKafkaOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKafkaOauthParam) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputKafkaOauthParam) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputKafkaSaslExtension struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (i InputKafkaSaslExtension) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaSaslExtension) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKafkaSaslExtension) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputKafkaSaslExtension) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 // InputKafkaAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type InputKafkaAuthentication struct {
-	Disabled  *bool                    `default:"true" json:"disabled"`
-	Mechanism *InputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	Disabled *bool   `default:"true" json:"disabled"`
+	Username *string `json:"username,omitempty"`
+	Password *string `json:"password,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *InputKafkaAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string                  `json:"credentialsSecret,omitempty"`
+	Mechanism         *InputKafkaSASLMechanism `default:"plain" json:"mechanism"`
+	// Location of keytab file for authentication principal
+	KeytabLocation *string `json:"keytabLocation,omitempty"`
+	// Authentication principal, such as `kafka_user@example.com`
+	Principal *string `json:"principal,omitempty"`
+	// Kerberos service class for Kafka brokers, such as `kafka`
+	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
 	// Enable OAuth authentication
 	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
+	// URL of the token endpoint to use for OAuth authentication
+	TokenURL *string `json:"tokenUrl,omitempty"`
+	// Client ID to use for OAuth authentication
+	ClientID        *string `json:"clientId,omitempty"`
+	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// Additional fields to send to the token endpoint, such as scope or audience
+	OauthParams []InputKafkaOauthParam `json:"oauthParams,omitempty"`
+	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+	SaslExtensions []InputKafkaSaslExtension `json:"saslExtensions,omitempty"`
 }
 
 func (i InputKafkaAuthentication) MarshalJSON() ([]byte, error) {
@@ -479,6 +561,34 @@ func (i *InputKafkaAuthentication) GetDisabled() *bool {
 	return i.Disabled
 }
 
+func (i *InputKafkaAuthentication) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputKafkaAuthentication) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputKafkaAuthentication) GetAuthType() *InputKafkaAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputKafkaAuthentication) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
 func (i *InputKafkaAuthentication) GetMechanism() *InputKafkaSASLMechanism {
 	if i == nil {
 		return nil
@@ -486,11 +596,74 @@ func (i *InputKafkaAuthentication) GetMechanism() *InputKafkaSASLMechanism {
 	return i.Mechanism
 }
 
+func (i *InputKafkaAuthentication) GetKeytabLocation() *string {
+	if i == nil {
+		return nil
+	}
+	return i.KeytabLocation
+}
+
+func (i *InputKafkaAuthentication) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputKafkaAuthentication) GetBrokerServiceClass() *string {
+	if i == nil {
+		return nil
+	}
+	return i.BrokerServiceClass
+}
+
 func (i *InputKafkaAuthentication) GetOauthEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.OauthEnabled
+}
+
+func (i *InputKafkaAuthentication) GetTokenURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenURL
+}
+
+func (i *InputKafkaAuthentication) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputKafkaAuthentication) GetOauthSecretType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.OauthSecretType
+}
+
+func (i *InputKafkaAuthentication) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputKafkaAuthentication) GetOauthParams() []InputKafkaOauthParam {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputKafkaAuthentication) GetSaslExtensions() []InputKafkaSaslExtension {
+	if i == nil {
+		return nil
+	}
+	return i.SaslExtensions
 }
 
 type InputKafkaMinimumTLSVersion string

@@ -8,5 +8,5 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 | Name                             | Value                            |
 | -------------------------------- | -------------------------------- |
 | `OutputHumioHecModeError`        | error                            |
-| `OutputHumioHecModeBackpressure` | backpressure                     |
 | `OutputHumioHecModeAlways`       | always                           |
+| `OutputHumioHecModeBackpressure` | backpressure                     |

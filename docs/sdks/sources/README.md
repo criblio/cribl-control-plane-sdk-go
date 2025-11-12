@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -97,7 +97,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, components.CreateInputInputTCP(
+    res, err := s.Sources.Create(ctx, components.CreateInputTCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.InputTCPTypeTCP,
@@ -119,13 +119,13 @@ func main() {
             },
             Port: 301.76,
             TLS: &components.InputTCPTLSSettingsServerSide{
+                RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+                CommonNameRegex: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                RejectUnauthorized: "<value>",
-                CommonNameRegex: "<value>",
                 MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
                 MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
             },
@@ -147,12 +147,13 @@ func main() {
                 },
             },
             Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
+            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -209,7 +210,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -262,7 +263,7 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputInputKubeEvents(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
         components.InputKubeEvents{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Type: components.InputKubeEventsTypeKubeEvents,
@@ -299,7 +300,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }
@@ -357,7 +358,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInput != nil {
         // handle response
     }
 }

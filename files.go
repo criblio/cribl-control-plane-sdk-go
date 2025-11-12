@@ -209,12 +209,12 @@ func (s *Files) Count(ctx context.Context, groupID *string, id *string, opts ...
 				return nil, err
 			}
 
-			var out operations.GetVersionCountResponseBody
+			var out components.CountedGitCountResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitCountResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -451,12 +451,12 @@ func (s *Files) List(ctx context.Context, groupID *string, id *string, opts ...o
 				return nil, err
 			}
 
-			var out operations.GetVersionFilesResponseBody
+			var out components.CountedGitFilesResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitFilesResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

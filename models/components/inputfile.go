@@ -65,7 +65,9 @@ func (i *InputFileConnection) GetOutput() string {
 type InputFilePqMode string
 
 const (
-	InputFilePqModeSmart  InputFilePqMode = "smart"
+	// InputFilePqModeSmart Smart
+	InputFilePqModeSmart InputFilePqMode = "smart"
+	// InputFilePqModeAlways Always On
 	InputFilePqModeAlways InputFilePqMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputFilePqMode) ToPointer() *InputFilePqMode {
 type InputFileCompression string
 
 const (
+	// InputFileCompressionNone None
 	InputFileCompressionNone InputFileCompression = "none"
+	// InputFileCompressionGzip Gzip
 	InputFileCompressionGzip InputFileCompression = "gzip"
 )
 
@@ -188,8 +192,10 @@ func (i *InputFilePq) GetPqControls() *InputFilePqControls {
 type InputFileMode string
 
 const (
-	InputFileModeAuto   InputFileMode = "auto"
+	// InputFileModeManual Manual
 	InputFileModeManual InputFileMode = "manual"
+	// InputFileModeAuto Auto
+	InputFileModeAuto InputFileMode = "auto"
 )
 
 func (e InputFileMode) ToPointer() *InputFileMode {
@@ -246,16 +252,20 @@ type InputFile struct {
 	Connections []InputFileConnection `json:"connections,omitempty"`
 	Pq          *InputFilePq          `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *InputFileMode `default:"auto" json:"mode"`
+	Mode *InputFileMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"false" json:"tailOnly"`
+	TailOnly *bool `default:"true" json:"tailOnly"`
 	// Time, in seconds, before an idle file is closed
 	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
-	// The maximum age of files to monitor. Format examples: 60s, 4h, 3d, 1w. Age is relative to file modification time. Leave empty to apply no age filters.
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
 	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
@@ -383,6 +393,13 @@ func (i *InputFile) GetFilenames() []string {
 	return i.Filenames
 }
 
+func (i *InputFile) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
+}
+
 func (i *InputFile) GetTailOnly() *bool {
 	if i == nil {
 		return nil
@@ -395,6 +412,13 @@ func (i *InputFile) GetIdleTimeout() *float64 {
 		return nil
 	}
 	return i.IdleTimeout
+}
+
+func (i *InputFile) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
 }
 
 func (i *InputFile) GetMaxAgeDur() *string {

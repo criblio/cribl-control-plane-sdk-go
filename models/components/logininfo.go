@@ -3,15 +3,8 @@
 package components
 
 type LoginInfo struct {
-	Username string `json:"username"`
 	Password string `json:"password"`
-}
-
-func (l *LoginInfo) GetUsername() string {
-	if l == nil {
-		return ""
-	}
-	return l.Username
+	Username string `json:"username"`
 }
 
 func (l *LoginInfo) GetPassword() string {
@@ -19,4 +12,11 @@ func (l *LoginInfo) GetPassword() string {
 		return ""
 	}
 	return l.Password
+}
+
+func (l *LoginInfo) GetUsername() string {
+	if l == nil {
+		return ""
+	}
+	return l.Username
 }

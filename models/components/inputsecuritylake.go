@@ -65,7 +65,9 @@ func (i *InputSecurityLakeConnection) GetOutput() string {
 type InputSecurityLakeMode string
 
 const (
-	InputSecurityLakeModeSmart  InputSecurityLakeMode = "smart"
+	// InputSecurityLakeModeSmart Smart
+	InputSecurityLakeModeSmart InputSecurityLakeMode = "smart"
+	// InputSecurityLakeModeAlways Always On
 	InputSecurityLakeModeAlways InputSecurityLakeMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSecurityLakeMode) ToPointer() *InputSecurityLakeMode {
 type InputSecurityLakeCompression string
 
 const (
+	// InputSecurityLakeCompressionNone None
 	InputSecurityLakeCompressionNone InputSecurityLakeCompression = "none"
+	// InputSecurityLakeCompressionGzip Gzip
 	InputSecurityLakeCompressionGzip InputSecurityLakeCompression = "gzip"
 )
 
@@ -188,8 +192,11 @@ func (i *InputSecurityLakePq) GetPqControls() *InputSecurityLakePqControls {
 type InputSecurityLakeAuthenticationMethod string
 
 const (
-	InputSecurityLakeAuthenticationMethodAuto   InputSecurityLakeAuthenticationMethod = "auto"
+	// InputSecurityLakeAuthenticationMethodAuto Auto
+	InputSecurityLakeAuthenticationMethodAuto InputSecurityLakeAuthenticationMethod = "auto"
+	// InputSecurityLakeAuthenticationMethodManual Manual
 	InputSecurityLakeAuthenticationMethodManual InputSecurityLakeAuthenticationMethod = "manual"
+	// InputSecurityLakeAuthenticationMethodSecret Secret Key pair
 	InputSecurityLakeAuthenticationMethodSecret InputSecurityLakeAuthenticationMethod = "secret"
 )
 

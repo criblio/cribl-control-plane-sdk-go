@@ -203,12 +203,12 @@ func (s *Samples) Get(ctx context.Context, id string, opts ...operations.Option)
 				return nil, err
 			}
 
-			var out operations.GetOutputSamplesByIDResponseBody
+			var out components.CountedOutputSamplesResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutputSamplesResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -448,12 +448,12 @@ func (s *Samples) Create(ctx context.Context, id string, outputTestRequest compo
 				return nil, err
 			}
 
-			var out operations.CreateOutputTestByIDResponseBody
+			var out components.CountedOutputTestResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutputTestResponse = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
