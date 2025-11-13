@@ -274,6 +274,8 @@ type OutputSecurityLake struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputSecurityLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -563,6 +565,13 @@ func (o *OutputSecurityLake) GetOnDiskFullBackpressure() *OutputSecurityLakeDisk
 		return nil
 	}
 	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputSecurityLake) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
 }
 
 func (o *OutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {

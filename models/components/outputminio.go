@@ -97,15 +97,15 @@ func (e OutputMinioStorageClass) ToPointer() *OutputMinioStorageClass {
 	return &e
 }
 
-// ServerSideEncryption - Server-side encryption for uploaded objects
-type ServerSideEncryption string
+// OutputMinioServerSideEncryption - Server-side encryption for uploaded objects
+type OutputMinioServerSideEncryption string
 
 const (
-	// ServerSideEncryptionAes256 Amazon S3 Managed Key
-	ServerSideEncryptionAes256 ServerSideEncryption = "AES256"
+	// OutputMinioServerSideEncryptionAes256 Amazon S3 Managed Key
+	OutputMinioServerSideEncryptionAes256 OutputMinioServerSideEncryption = "AES256"
 )
 
-func (e ServerSideEncryption) ToPointer() *ServerSideEncryption {
+func (e OutputMinioServerSideEncryption) ToPointer() *OutputMinioServerSideEncryption {
 	return &e
 }
 
@@ -276,7 +276,7 @@ type OutputMinio struct {
 	// Storage class to select for uploaded objects
 	StorageClass *OutputMinioStorageClass `json:"storageClass,omitempty"`
 	// Server-side encryption for uploaded objects
-	ServerSideEncryption *ServerSideEncryption `json:"serverSideEncryption,omitempty"`
+	ServerSideEncryption *OutputMinioServerSideEncryption `json:"serverSideEncryption,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
@@ -307,6 +307,8 @@ type OutputMinio struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputMinioDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -482,7 +484,7 @@ func (o *OutputMinio) GetStorageClass() *OutputMinioStorageClass {
 	return o.StorageClass
 }
 
-func (o *OutputMinio) GetServerSideEncryption() *ServerSideEncryption {
+func (o *OutputMinio) GetServerSideEncryption() *OutputMinioServerSideEncryption {
 	if o == nil {
 		return nil
 	}
@@ -592,6 +594,13 @@ func (o *OutputMinio) GetOnDiskFullBackpressure() *OutputMinioDiskSpaceProtectio
 		return nil
 	}
 	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputMinio) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
 }
 
 func (o *OutputMinio) GetMaxFileOpenTimeSec() *float64 {

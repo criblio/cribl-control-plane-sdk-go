@@ -405,3 +405,9 @@ output := components.CreateOutputDatabricks(components.OutputDatabricks{/* value
 output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabric{/* values here */})
 ```
 
+### OutputCloudflareR2
+
+```go
+output := components.CreateOutputCloudflareR2(components.OutputCloudflareR2{/* values here */})
+```
+
