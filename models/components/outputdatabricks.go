@@ -209,6 +209,8 @@ type OutputDatabricks struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputDatabricksDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Databricks workspace ID
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
@@ -222,8 +224,10 @@ type OutputDatabricks struct {
 	// Name of the events volume in Databricks
 	EventsVolumeName *string `default:"events" json:"eventsVolumeName"`
 	// OAuth client secret for Unity Catalog authentication
-	ClientTextSecret string  `json:"clientTextSecret"`
-	Description      *string `json:"description,omitempty"`
+	ClientTextSecret string `json:"clientTextSecret"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec  *float64 `default:"60" json:"timeoutSec"`
+	Description *string  `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputDatabricksCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
@@ -430,6 +434,13 @@ func (o *OutputDatabricks) GetOnDiskFullBackpressure() *OutputDatabricksDiskSpac
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputDatabricks) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputDatabricks) GetWorkspaceID() string {
 	if o == nil {
 		return ""
@@ -477,6 +488,13 @@ func (o *OutputDatabricks) GetClientTextSecret() string {
 		return ""
 	}
 	return o.ClientTextSecret
+}
+
+func (o *OutputDatabricks) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
 }
 
 func (o *OutputDatabricks) GetDescription() *string {

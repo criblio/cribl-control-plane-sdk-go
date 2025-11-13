@@ -104,7 +104,7 @@ type OutputMicrosoftFabricAuthentication struct {
 	Mechanism *OutputMicrosoftFabricSASLMechanism `default:"plain" json:"mechanism"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `default:"$ConnectionString" json:"username"`
-	// Select or create a stored text secret
+	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
 	TextSecret           *string                                    `json:"textSecret,omitempty"`
 	ClientSecretAuthType *OutputMicrosoftFabricAuthenticationMethod `default:"secret" json:"clientSecretAuthType"`
 	// Select or create a stored text secret

@@ -295,6 +295,10 @@ func (u *UpdateOutputByIDRequest) GetOutputMicrosoftFabric() *components.OutputM
 	return u.GetOutput().OutputMicrosoftFabric
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputCloudflareR2 {
+	return u.GetOutput().OutputCloudflareR2
+}
+
 // UpdateOutputByIDResponseBody - a list of Destination objects
 type UpdateOutputByIDResponseBody struct {
 	// number of items present in the items array
