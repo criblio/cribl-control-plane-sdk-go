@@ -269,10 +269,12 @@ type OutputAzureBlob struct {
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputAzureBlobDiskSpaceProtection  `default:"block" json:"onDiskFullBackpressure"`
-	AuthType               *OutputAzureBlobAuthenticationMethod `default:"manual" json:"authType"`
-	StorageClass           *BlobAccessTier                      `default:"Inferred" json:"storageClass"`
-	Description            *string                              `json:"description,omitempty"`
+	OnDiskFullBackpressure *OutputAzureBlobDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool                                `default:"false" json:"forceCloseOnShutdown"`
+	AuthType             *OutputAzureBlobAuthenticationMethod `default:"manual" json:"authType"`
+	StorageClass         *BlobAccessTier                      `default:"Inferred" json:"storageClass"`
+	Description          *string                              `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputAzureBlobCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
@@ -515,6 +517,13 @@ func (o *OutputAzureBlob) GetOnDiskFullBackpressure() *OutputAzureBlobDiskSpaceP
 		return nil
 	}
 	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputAzureBlob) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
 }
 
 func (o *OutputAzureBlob) GetAuthType() *OutputAzureBlobAuthenticationMethod {
