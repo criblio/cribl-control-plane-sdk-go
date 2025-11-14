@@ -295,6 +295,10 @@ func (u *UpdateOutputByIDRequest) GetOutputMicrosoftFabric() *components.OutputM
 	return u.GetOutput().OutputMicrosoftFabric
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputCloudflareR2 {
+	return u.GetOutput().OutputCloudflareR2
+}
+
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects

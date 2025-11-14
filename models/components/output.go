@@ -79,6 +79,7 @@ const (
 	OutputTypeChronicle              OutputType = "chronicle"
 	OutputTypeDatabricks             OutputType = "databricks"
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
+	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
 )
 
 type Output struct {
@@ -149,6 +150,7 @@ type Output struct {
 	OutputChronicle              *OutputChronicle              `queryParam:"inline,name=Output"`
 	OutputDatabricks             *OutputDatabricks             `queryParam:"inline,name=Output"`
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline,name=Output"`
+	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline,name=Output"`
 
 	Type OutputType
 }
@@ -954,6 +956,18 @@ func CreateOutputMicrosoftFabric(microsoftFabric OutputMicrosoftFabric) Output {
 	}
 }
 
+func CreateOutputCloudflareR2(cloudflareR2 OutputCloudflareR2) Output {
+	typ := OutputTypeCloudflareR2
+
+	typStr := OutputCloudflareR2Type(typ)
+	cloudflareR2.Type = typStr
+
+	return Output{
+		OutputCloudflareR2: &cloudflareR2,
+		Type:               typ,
+	}
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1569,6 +1583,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputMicrosoftFabric = outputMicrosoftFabric
 		u.Type = OutputTypeMicrosoftFabric
 		return nil
+	case "cloudflare_r2":
+		outputCloudflareR2 := new(OutputCloudflareR2)
+		if err := utils.UnmarshalJSON(data, &outputCloudflareR2, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudflare_r2) type OutputCloudflareR2 within Output: %w", string(data), err)
+		}
+
+		u.OutputCloudflareR2 = outputCloudflareR2
+		u.Type = OutputTypeCloudflareR2
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
@@ -1841,6 +1864,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputMicrosoftFabric != nil {
 		return utils.MarshalJSON(u.OutputMicrosoftFabric, "", true)
+	}
+
+	if u.OutputCloudflareR2 != nil {
+		return utils.MarshalJSON(u.OutputCloudflareR2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

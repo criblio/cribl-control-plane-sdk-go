@@ -263,6 +263,10 @@ func (u *UpdateInputByIDRequest) GetInputZscalerHec() *components.InputZscalerHe
 	return u.GetInput().InputZscalerHec
 }
 
+func (u *UpdateInputByIDRequest) GetInputCloudflareHec() *components.InputCloudflareHec {
+	return u.GetInput().InputCloudflareHec
+}
+
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects

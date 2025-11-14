@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 6655aa6d2083f1d5f69497aa522b72c0
-  docVersion: 4.16.0-alpha.1762729323295-56963ed5
+  docChecksum: 0a161f41860d48f904d4bc4f26173bb3
+  docVersion: 4.16.0-alpha.1763072414864-e4e827ee
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-beta.15
-  configChecksum: 0ce438f1d27ddaafd71fbdc5f0a9578c
+  releaseVersion: 0.3.0-beta.16
+  configChecksum: 192feb5e0863b5ab5d9ee3ab4e286f57
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -111,6 +111,7 @@ generatedFiles:
   - /models/components/input.go
   - /models/components/inputappscope.go
   - /models/components/inputazureblob.go
+  - /models/components/inputcloudflarehec.go
   - /models/components/inputcollection.go
   - /models/components/inputconfluentcloud.go
   - /models/components/inputcribl.go
@@ -174,7 +175,6 @@ generatedFiles:
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
-  - /models/components/lookupversions.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -190,6 +190,7 @@ generatedFiles:
   - /models/components/outputazurelogs.go
   - /models/components/outputchronicle.go
   - /models/components/outputclickhouse.go
+  - /models/components/outputcloudflarer2.go
   - /models/components/outputcloudwatch.go
   - /models/components/outputconfluentcloud.go
   - /models/components/outputcriblhttp.go
@@ -480,7 +481,6 @@ generatedFiles:
   - docs/models/components/heartbeatmetadatakube.md
   - docs/models/components/heartbeatmetadataos.md
   - docs/models/components/heartbeatmetadataowner.md
-  - docs/models/components/heartbeatmetadatatags.md
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
@@ -515,6 +515,20 @@ generatedFiles:
   - docs/models/components/inputazureblobpq.md
   - docs/models/components/inputazureblobpqcontrols.md
   - docs/models/components/inputazureblobtype.md
+  - docs/models/components/inputcloudflarehec.md
+  - docs/models/components/inputcloudflarehecauthenticationmethod.md
+  - docs/models/components/inputcloudflarehecauthtoken.md
+  - docs/models/components/inputcloudflarehecauthtokenmetadatum.md
+  - docs/models/components/inputcloudflareheccompression.md
+  - docs/models/components/inputcloudflarehecconnection.md
+  - docs/models/components/inputcloudflarehecmaximumtlsversion.md
+  - docs/models/components/inputcloudflarehecmetadatum.md
+  - docs/models/components/inputcloudflarehecminimumtlsversion.md
+  - docs/models/components/inputcloudflarehecmode.md
+  - docs/models/components/inputcloudflarehecpq.md
+  - docs/models/components/inputcloudflarehecpqcontrols.md
+  - docs/models/components/inputcloudflarehectlssettingsserverside.md
+  - docs/models/components/inputcloudflarehectype.md
   - docs/models/components/inputcollection.md
   - docs/models/components/inputcollectioncompression.md
   - docs/models/components/inputcollectionconnection.md
@@ -1274,7 +1288,6 @@ generatedFiles:
   - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
-  - docs/models/components/lastmetrics.md
   - docs/models/components/line1.md
   - docs/models/components/line2.md
   - docs/models/components/line3.md
@@ -1288,7 +1301,6 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
-  - docs/models/components/lookupversions.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -1304,7 +1316,6 @@ generatedFiles:
   - docs/models/components/nodeprovidedinfoos1.md
   - docs/models/components/nodeprovidedinfoos2.md
   - docs/models/components/nodeprovidedinfoowner.md
-  - docs/models/components/nodeprovidedinfotags.md
   - docs/models/components/nodeskippedupgradestatus.md
   - docs/models/components/nodeupgradestate.md
   - docs/models/components/nodeupgradestatus.md
@@ -1401,6 +1412,20 @@ generatedFiles:
   - docs/models/components/outputclickhousetimeoutretrysettings.md
   - docs/models/components/outputclickhousetlssettingsclientside.md
   - docs/models/components/outputclickhousetype.md
+  - docs/models/components/outputcloudflarer2.md
+  - docs/models/components/outputcloudflarer2authenticationmethod.md
+  - docs/models/components/outputcloudflarer2backpressurebehavior.md
+  - docs/models/components/outputcloudflarer2compression.md
+  - docs/models/components/outputcloudflarer2compressionlevel.md
+  - docs/models/components/outputcloudflarer2dataformat.md
+  - docs/models/components/outputcloudflarer2datapageversion.md
+  - docs/models/components/outputcloudflarer2diskspaceprotection.md
+  - docs/models/components/outputcloudflarer2keyvaluemetadatum.md
+  - docs/models/components/outputcloudflarer2parquetversion.md
+  - docs/models/components/outputcloudflarer2serversideencryption.md
+  - docs/models/components/outputcloudflarer2signatureversion.md
+  - docs/models/components/outputcloudflarer2storageclass.md
+  - docs/models/components/outputcloudflarer2type.md
   - docs/models/components/outputcloudwatch.md
   - docs/models/components/outputcloudwatchauthenticationmethod.md
   - docs/models/components/outputcloudwatchbackpressurebehavior.md
@@ -1817,6 +1842,7 @@ generatedFiles:
   - docs/models/components/outputminiokeyvaluemetadatum.md
   - docs/models/components/outputminioobjectacl.md
   - docs/models/components/outputminioparquetversion.md
+  - docs/models/components/outputminioserversideencryption.md
   - docs/models/components/outputminiosignatureversion.md
   - docs/models/components/outputminiostorageclass.md
   - docs/models/components/outputminiotype.md
@@ -2247,7 +2273,6 @@ generatedFiles:
   - docs/models/components/security.md
   - docs/models/components/sendeventsas.md
   - docs/models/components/sendlogsas.md
-  - docs/models/components/serversideencryption.md
   - docs/models/components/services.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
@@ -2559,7 +2584,7 @@ examples:
         application/json: {"id": "<id>", "type": "elastic_cloud", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "extraParams": [{"name": "<value>", "value": "<value>"}], "auth": {"disabled": false, "username": "Imogene1", "password": "tA9DUjJtHSnXqh9", "authType": "manual", "credentialsSecret": "<value>", "manualAPIKey": "<value>", "textSecret": "<value>"}, "elasticPipeline": "<value>", "includeDocId": true, "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "hourly about into", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputById:
@@ -2569,7 +2594,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateOutputById:
@@ -2591,7 +2616,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputPqById:
@@ -3514,4 +3539,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[syslog].EnableIpSpoofing` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[syslog].EnableIpSpoofing` **Added**\n  *  `response.Items.[].[syslog].EnableIpSpoofing` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[syslog].EnableIpSpoofing` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[syslog].EnableIpSpoofing` **Added**\n  *  `response.Items.[].[syslog].EnableIpSpoofing` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[syslog].EnableIpSpoofing` **Added**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[cloudflareHec]` **Added**\n  *  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[cloudflareHec]` **Added**\n  *  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[cloudflareHec]` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
