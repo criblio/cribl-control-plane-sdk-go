@@ -75,15 +75,14 @@ func main() {
 		fmt.Printf("⚠️ Fleet already exists: %s. Using existing fleet.\n", FLEET_ID)
 	} else {
 		// Create Fleet
-		myFleet := components.ConfigGroup{
+		myFleetCreateRequest := components.GroupCreateRequest{
 			ID:                 FLEET_ID,
 			OnPrem:             criblcontrolplanesdkgo.Bool(true),
 			WorkerRemoteAccess: criblcontrolplanesdkgo.Bool(true),
 			IsFleet:            criblcontrolplanesdkgo.Bool(true),
 			IsSearch:           criblcontrolplanesdkgo.Bool(false),
 		}
-
-		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreEdge, myFleet)
+		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreEdge, myFleetCreateRequest)
 		if err != nil {
 			log.Printf("Error creating fleet: %v", err)
 		} else if createResponse != nil && createResponse.Object != nil {
